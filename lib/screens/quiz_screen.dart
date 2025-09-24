@@ -60,6 +60,106 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
+  Widget _buildChoice(int i) {
+    final isAnswer = i == card.answerIndex;
+    final isSelected = i == selected;
+
+    // 色の決定
+    Color bg = Colors.white;
+    if (revealed) {
+      if (isAnswer) {
+        bg = const Color(0xFF2e7d32); // 正解: 緑
+      } else if (isSelected && !isAnswer) {
+        bg = const Color(0xFFc62828); // 不正解を選択: 赤
+      }
+    } else if (isSelected) {
+      bg = Theme.of(context).colorScheme.primary;
+    }
+
+    // テキスト色
+    final bool lightText = revealed && (isAnswer || isSelected);
+    final Color fg = lightText ? Colors.white : Colors.black87;
+
+    // 右端アイコン
+    IconData? trail;
+    if (revealed) {
+      if (isAnswer) trail = Icons.check_rounded;
+      if (isSelected && !isAnswer) trail = Icons.close_rounded;
+    } else {
+      trail = isSelected ? Icons.radio_button_checked : Icons.radio_button_unchecked;
+    }
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 180),
+      curve: Curves.easeOut,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 6,
+            spreadRadius: 0,
+            offset: const Offset(0, 2),
+            color: Colors.black.withOpacity(0.06),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(14),
+          onTap: revealed ? null : () => _select(i),
+          child: Container(
+            // ← 縦を“約1.3倍”にするポイント
+            constraints: const BoxConstraints(minHeight: 76),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 14),
+            child: Row(
+              children: [
+                // A/B/C/D バッジ
+                Container(
+                  width: 28,
+                  height: 28,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: (revealed && isAnswer) ? Colors.white24 : Colors.black12,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    String.fromCharCode('A'.codeUnitAt(0) + i),
+                    style: TextStyle(
+                      color: fg,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                // 選択肢テキスト
+                Expanded(
+                  child: Text(
+                    card.choices[i],
+                    textAlign: TextAlign.left,
+                    softWrap: true,
+                    style: TextStyle(
+                      color: fg,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+                if (trail != null) ...[
+                  const SizedBox(width: 10),
+                  Icon(trail, color: Colors.white, size: 22),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isCorrect = revealed && selected == card.answerIndex;
@@ -86,50 +186,8 @@ class _QuizScreenState extends State<QuizScreen> {
             const SizedBox(height: 16),
 
             // 選択肢リスト
-            ...List.generate(card.choices.length, (i) {
-              final isAnswer = i == card.answerIndex;
-              final isSelected = i == selected;
-
-              Color? bg;
-              if (revealed) {
-                if (isAnswer) {
-                  bg = Colors.green.withOpacity(0.15);
-                } else if (isSelected && !isAnswer) {
-                  bg = Colors.red.withOpacity(0.15);
-                }
-              } else if (isSelected) {
-                bg = Theme.of(context).colorScheme.primary.withOpacity(0.08);
-              }
-
-              return Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                child: ListTile(
-                  tileColor: bg,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(
-                      color: revealed
-                          ? (isAnswer
-                              ? Colors.green
-                              : (isSelected ? Colors.red : Colors.grey.shade300))
-                          : (isSelected
-                              ? Theme.of(context).colorScheme.primary
-                              : Colors.grey.shade300),
-                    ),
-                  ),
-                  title: Text(card.choices[i]),
-                  trailing: revealed
-                      ? (isAnswer
-                          ? const Icon(Icons.check_circle, color: Colors.green)
-                          : (isSelected ? const Icon(Icons.cancel, color: Colors.red) : null))
-                      : (isSelected
-                          ? const Icon(Icons.radio_button_checked)
-                          : const Icon(Icons.radio_button_unchecked)),
-                  onTap: () => _select(i),
-                ),
-              );
-            }),
-
+            ...List.generate(card.choices.length, (i) => _buildChoice(i)),
+            
             const Spacer(),
 
             if (revealed && card.explanation != null) ...[
