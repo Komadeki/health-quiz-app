@@ -103,12 +103,53 @@ class _QuizScreenState extends State<QuizScreen> {
               // 選択肢
               ...List.generate(card.choices.length, (i) => _buildChoice(i)),
 
-              const Spacer(),
-
-              if (revealed && card.explanation != null) ...[
-                Text('解説: ${card.explanation!}'),
+              // 解説カード（公開後のみ表示：選択肢の直下）
+              if (revealed && (card.explanation ?? '').trim().isNotEmpty) ...[
                 const SizedBox(height: 12),
+                Card(
+                  elevation: 1.5,
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // 見出し + ℹ️
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceVariant
+                            .withOpacity(0.4),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.info_outline, size: 20),
+                            const SizedBox(width: 8),
+                            Text(
+                              '解説',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // 本文
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+                        child: Text(
+                          (card.explanation ?? '').trim(),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontSize: 18,   // ★ここでサイズ調整（例: 18）
+                                height: 1.5,    // 行間も少し広げると読みやすい
+                              ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
+
+              const Spacer(),
 
               SizedBox(
                 width: double.infinity,
@@ -186,7 +227,15 @@ class _QuizScreenState extends State<QuizScreen> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
-          onTap: () => _select(i),
+          onTap: () {
+            if (revealed) {
+              // 公開済みなら → どの選択肢を押しても次へ
+              _next();
+            } else {
+              // 未公開なら → 選択処理
+              _select(i);
+            }
+          },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             child: Row(
