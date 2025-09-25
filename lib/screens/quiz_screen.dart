@@ -103,53 +103,68 @@ class _QuizScreenState extends State<QuizScreen> {
               // 選択肢
               ...List.generate(card.choices.length, (i) => _buildChoice(i)),
 
-              // 解説カード（公開後のみ表示：選択肢の直下）
-              if (revealed && (card.explanation ?? '').trim().isNotEmpty) ...[
-                const SizedBox(height: 12),
-                Card(
-                  elevation: 1.5,
-                  clipBehavior: Clip.antiAlias,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // 見出し + ℹ️
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        color: Theme.of(context)
-                            .colorScheme
-                            .surfaceVariant
-                            .withOpacity(0.4),
-                        child: Row(
+              // 解説カード（選択肢の直下）
+              const SizedBox(height: 12),
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 350),        // 入る時
+                reverseDuration: const Duration(milliseconds: 180), // 消える時（短めでサッと）
+                switchInCurve: Curves.easeOutCubic,
+                switchOutCurve: Curves.easeInCubic,
+                transitionBuilder: (child, animation) {
+                  final slide = Tween<Offset>(
+                    begin: const Offset(0, 0.06), // 下から少し
+                    end: Offset.zero,
+                  ).animate(animation);
+                  return FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(position: slide, child: child),
+                  );
+                },
+                child: (revealed && (card.explanation ?? '').trim().isNotEmpty)
+                    ? Card(
+                        key: ValueKey('exp-$index'), // ← 質問が変わった時も綺麗に切替
+                        elevation: 1.5,
+                        clipBehavior: Clip.antiAlias,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            const Icon(Icons.info_outline, size: 20),
-                            const SizedBox(width: 8),
-                            Text(
-                              '解説',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(fontWeight: FontWeight.w600),
+                            // 見出し + ℹ️
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                              color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.4),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.info_outline, size: 20),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    '解説',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // 本文
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+                              child: Text(
+                                (card.explanation ?? '').trim(),
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      fontSize: 18,
+                                      height: 1.5,
+                                    ),
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      // 本文
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-                        child: Text(
-                          (card.explanation ?? '').trim(),
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontSize: 18,   // ★ここでサイズ調整（例: 18）
-                                height: 1.5,    // 行間も少し広げると読みやすい
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                      )
+                    : const SizedBox.shrink(key: ValueKey('exp-empty')),
+              ),
 
               const Spacer(),
+
 
               SizedBox(
                 width: double.infinity,
