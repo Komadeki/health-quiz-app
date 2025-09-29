@@ -6,16 +6,31 @@ class QuizCard {
   final List<String> choices;   // 選択肢（4択想定）
   final int answerIndex;        // 正解のindex（0-based）
   final String? explanation;    // 解説（任意）
+  final bool isPremium;         // 有料かどうか
+  final List<String> unitTags;  // 分野タグ（複数可）
 
   const QuizCard({
     required this.question,
     required this.choices,
     required this.answerIndex,
     this.explanation,
+    this.isPremium = false,
+    this.unitTags = const [],
   });
 
-  /// ヘッダー付きCSV: question, choice1..4, answer_index, explanation を読む
-  /// answer_index は 1〜4 で来る想定 → 0-based に直す
+  /// JSON読み込み用
+  factory QuizCard.fromJson(Map<String, dynamic> json) {
+    return QuizCard(
+      question: json['question'] as String,
+      choices: List<String>.from(json['choices']),
+      answerIndex: json['answerIndex'] as int,
+      explanation: json['explanation'] as String?,
+      isPremium: json['isPremium'] as bool? ?? false,
+      unitTags: (json['unitTags'] as List?)?.map((e) => e.toString()).toList() ?? const [],
+    );
+  }
+
+  /// CSV読み込み用
   factory QuizCard.fromRowWithHeader(Map<String, int> idx, List<dynamic> row) {
     String _s(String key) {
       final i = idx[key];
@@ -57,6 +72,8 @@ extension QuizCardShuffle on QuizCard {
       choices: newChoices,
       answerIndex: newAnswerIndex,
       explanation: explanation,
+      isPremium: isPremium,
+      unitTags: unitTags,
     );
   }
 }

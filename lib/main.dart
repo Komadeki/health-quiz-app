@@ -1,8 +1,10 @@
+// lib/main.dart
 import 'package:flutter/material.dart';
-import 'data/csv_loader.dart';
 import 'screens/quiz_screen.dart';
+import 'services/deck_loader.dart';
+import 'models/deck.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
@@ -39,10 +41,24 @@ class _HomeScreenState extends State<HomeScreen> {
       loading = true;
       error = null;
     });
+
     try {
-      final deck = await loadDeckFromCsv('assets/questions/deck1.csv', 'デッキ1');
+      // JSON からデッキを読み込み（DeckLoader のファイル一覧に基づく）
+      final loader = DeckLoader();
+      final List<Deck> decks = await loader.loadAll();
+
+      if (decks.isEmpty) {
+        throw Exception('デッキが見つかりませんでした（assets/decks/ を確認してください）');
+      }
+
+      // ひとまず先頭のデッキで開始（複数化したら一覧画面に発展させればOK）
+      final deck = decks.first;
+
       if (!mounted) return;
-      Navigator.push(context, MaterialPageRoute(builder: (_) => QuizScreen(deck: deck)));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => QuizScreen(deck: deck)),
+      );
     } catch (e) {
       setState(() => error = e.toString());
     } finally {
@@ -61,12 +77,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (error != null) ...[
-                    Text('読み込みエラー: $error', style: const TextStyle(color: Colors.red)),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        '読み込みエラー: $error',
+                        style: const TextStyle(color: Colors.red),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                     const SizedBox(height: 16),
                   ],
                   FilledButton(
                     onPressed: _start,
-                    child: const Text('クイズを始める'),
+                    child: const Text('クイズを始める（JSON）'),
                   ),
                 ],
               ),
