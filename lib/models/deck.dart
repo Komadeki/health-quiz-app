@@ -1,23 +1,40 @@
+import 'unit.dart';
 import 'card.dart';
 
 class Deck {
   final String id;
   final String title;
-  final List<QuizCard> cards;
+  final bool isPurchased;   // 単元ごとの購入フラグ
+  final List<Unit> units;   // 章（Unit）を保持
 
   Deck({
     required this.id,
     required this.title,
-    required this.cards,
+    required this.isPurchased,
+    required this.units,
   });
 
   factory Deck.fromJson(Map<String, dynamic> json) {
     return Deck(
       id: json['id'] as String,
       title: json['title'] as String,
-      cards: (json['cards'] as List)
-          .map((c) => QuizCard.fromJson(c as Map<String, dynamic>))
+      isPurchased: (json['isPurchased'] as bool?) ?? false,
+      units: (json['units'] as List)
+          .map((u) => Unit.fromJson(u as Map<String, dynamic>))
           .toList(),
     );
+  }
+
+  /// 既存画面の互換用：全Unitのカードをまとめて返す
+  List<QuizCard> get cards =>
+      units.expand((u) => u.cards).toList(growable: false);
+
+  /// 将来：選択されたUnitだけを対象にカードをまとめる
+  List<QuizCard> cardsFromUnits(Iterable<String> selectedUnitIds) {
+    final set = selectedUnitIds.toSet();
+    return units
+        .where((u) => set.contains(u.id))
+        .expand((u) => u.cards)
+        .toList(growable: false);
   }
 }

@@ -4,7 +4,10 @@ import '../models/deck.dart';
 
 class DeckLoader {
   static const deckFiles = [
-    'assets/decks/unit_smoking.json',
+    'assets/decks/deck_life.json',
+    'assets/decks/deck_disease.json',
+    'assets/decks/deck_nutrition.json',
+    // ここに増やしていく: 'assets/decks/deck_disease.json', ...
   ];
 
   Future<List<Deck>> loadAll() async {
