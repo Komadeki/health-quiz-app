@@ -5,7 +5,13 @@ import 'result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
   final Deck deck;
-  const QuizScreen({super.key, required this.deck});
+  final List<QuizCard>? overrideCards; // ← 追加
+
+  const QuizScreen({
+    super.key,
+    required this.deck,
+    this.overrideCards, // ← 追加
+  });
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -23,7 +29,9 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
-    sequence = widget.deck.cards.map((c) => c.shuffled()).toList();
+    // UnitSelectScreen から渡されてきたカード束があればそちらを使用
+    final base = widget.overrideCards ?? widget.deck.cards;
+    sequence = base.map((c) => c.shuffled()).toList();
   }
 
   /// 選択肢をタップしたときの挙動
