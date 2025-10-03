@@ -18,17 +18,28 @@ class QuizCard {
     this.unitTags = const [],
   });
 
+  List<String> get tags => unitTags;
+  
   /// JSON読み込み用
   factory QuizCard.fromJson(Map<String, dynamic> json) {
+    List<String> _readTags(Map<String, dynamic> j) {
+      final raw = j['unitTags'] ?? j['tags'] ?? j['tag'] ?? j['tag_list'];
+      if (raw is List) {
+        return raw.map((e) => e.toString().trim()).where((e) => e.isNotEmpty).toList();
+      }
+      if (raw is String) {
+        return raw.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
+      }
+      return const <String>[];
+    }
+
     return QuizCard(
       question: json['question'] as String,
       choices: List<String>.from(json['choices']),
       answerIndex: json['answerIndex'] as int,
       explanation: json['explanation'] as String?,
       isPremium: json['isPremium'] as bool? ?? false,
-      unitTags:
-          (json['unitTags'] as List?)?.map((e) => e.toString()).toList() ??
-          const [],
+      unitTags: _readTags(json), // ← ここがポイント
     );
   }
 

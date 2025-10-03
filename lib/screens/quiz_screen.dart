@@ -31,6 +31,20 @@ class _QuizScreenState extends State<QuizScreen> {
 
   final Stopwatch _sw = Stopwatch()..start();
   bool _savedOnce = false; // 重複保存防止
+
+  // 追加：タグ別集計
+  final Map<String, int> _tagCorrect = {};
+  final Map<String, int> _tagWrong   = {};
+
+  void _bumpTags(Iterable<String> tags, bool isCorrect) {
+    for (final t in tags) {
+      if (isCorrect) {
+        _tagCorrect[t] = (_tagCorrect[t] ?? 0) + 1;
+      } else {
+        _tagWrong[t] = (_tagWrong[t] ?? 0) + 1;
+      }
+    }
+  }
   
   QuizCard get card => sequence[index];
 
@@ -61,6 +75,12 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void _next() async {
     if (selected == card.answerIndex) correctCount++;
+
+    // ★ 追加：この問題のタグを集計
+    final isCorrect = (selected == card.answerIndex);
+    final tagsThisQuestion = card.tags; // List<String>
+    _bumpTags(tagsThisQuestion, isCorrect);
+
     if (index >= sequence.length - 1) {
       if (_savedOnce) return; // すでに保存していたら何もしない
       _savedOnce = true;
@@ -84,6 +104,16 @@ class _QuizScreenState extends State<QuizScreen> {
 
       final durationSec = _sw.elapsed.inSeconds;
 
+      // ★ 追加：TagStat マップを構築
+      final Map<String, TagStat> tagStats = {};
+      final allKeys = <String>{..._tagCorrect.keys, ..._tagWrong.keys};
+      for (final k in allKeys) {
+        tagStats[k] = TagStat(
+          correct: _tagCorrect[k] ?? 0,
+          wrong:   _tagWrong[k] ?? 0,
+        );
+      }
+
       await ScoreStore.instance.add(
         ScoreRecord(
           id: const Uuid().v4(),
@@ -93,7 +123,7 @@ class _QuizScreenState extends State<QuizScreen> {
           total: result.total,
           durationSec: durationSec,
           timestamp: result.timestamp.millisecondsSinceEpoch,
-          tags: null,                   // まずはタグなし（後で集計実装）
+          tags: tagStats.isEmpty ? null : tagStats,
           selectedUnitIds: null,
         ),
       );
