@@ -303,11 +303,11 @@ class _DeckTile extends StatelessWidget {
               blurRadius: 8,
               spreadRadius: 1,
               offset: const Offset(0, 2),
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withValues(alpha: 0.06),
             ),
           ],
           border: Border.all(
-            color: theme.colorScheme.outlineVariant.withOpacity(0.6),
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.6),
           ),
         ),
         child: Padding(
@@ -413,11 +413,11 @@ class _DeckLikeButton extends StatelessWidget {
             BoxShadow(
               blurRadius: 8,
               offset: const Offset(0, 2),
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withValues(alpha: 0.06),
             ),
           ],
           border: Border.all(
-            color: theme.colorScheme.outline.withOpacity(0.12),
+            color: theme.colorScheme.outline.withValues(alpha: 0.12),
           ),
         ),
         child: Padding(

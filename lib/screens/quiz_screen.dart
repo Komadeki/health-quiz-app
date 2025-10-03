@@ -186,7 +186,7 @@ class _QuizScreenState extends State<QuizScreen> {
                             // 見出し + ℹ️
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                              color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.4),
+                              color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
                               child: Row(
                                 children: [
                                   const Icon(Icons.info_outline, size: 20),
@@ -262,7 +262,7 @@ class _QuizScreenState extends State<QuizScreen> {
         bg = Colors.grey.shade300;
       }
     } else if (isSelected) {
-      bg = Theme.of(context).colorScheme.primary.withOpacity(0.9);
+      bg = Theme.of(context).colorScheme.primary.withValues(alpha: 0.9);
     }
 
     final fg = (revealed && (isAnswer || isSelected)) ? Colors.white : Colors.black87;
@@ -289,7 +289,7 @@ class _QuizScreenState extends State<QuizScreen> {
           BoxShadow(
             blurRadius: 6,
             offset: const Offset(0, 2),
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
           ),
         ],
       ),
