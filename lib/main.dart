@@ -1,5 +1,6 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart'; // kDebugMode 用
 import 'models/deck.dart';
 import 'services/deck_loader.dart';
 import 'screens/multi_select_screen.dart';
@@ -51,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         decks = all;
         loading = false;
+        error = null;
       });
     } catch (e) {
       setState(() {
@@ -59,6 +61,35 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }
   }
+
+  // ========== デバッグ用 購入フラグ切替 ==========
+  void _setAllPurchased(bool value) {
+    setState(() {
+      decks = decks
+          .map((d) => d.copyWith(isPurchased: value))
+          .toList();
+    });
+  }
+
+  void _setFirstOnlyPurchased() {
+    if (decks.isEmpty) return;
+    setState(() {
+      decks = [
+        decks.first.copyWith(isPurchased: true),
+        ...decks.skip(1).map((d) => d.copyWith(isPurchased: false)),
+      ];
+    });
+  }
+
+  void _setAlternatePurchased() {
+    setState(() {
+      decks = [
+        for (int i = 0; i < decks.length; i++)
+          decks[i].copyWith(isPurchased: i.isEven),
+      ];
+    });
+  }
+  // ==========================================
 
   void _openMultiSelect() {
     Navigator.push(
@@ -87,15 +118,60 @@ class _HomeScreenState extends State<HomeScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('高校保健一問一答')),
+      appBar: AppBar(
+        title: const Text('高校保健一問一答'),
+        actions: [
+          if (kDebugMode)
+            PopupMenuButton<String>(
+              tooltip: '購入状態を切り替え',
+              icon: const Icon(Icons.lock_outline),
+              onSelected: (v) {
+                switch (v) {
+                  case 'all_on':
+                    _setAllPurchased(true);
+                    break;
+                  case 'all_off':
+                    _setAllPurchased(false);
+                    break;
+                  case 'first_on':
+                    _setFirstOnlyPurchased();
+                    break;
+                  case 'alt':
+                    _setAlternatePurchased();
+                    break;
+                }
+              },
+              itemBuilder: (context) => const [
+                PopupMenuItem(
+                  value: 'all_on',
+                  child: Text('すべて購入にする'),
+                ),
+                PopupMenuItem(
+                  value: 'all_off',
+                  child: Text('すべて未購入にする'),
+                ),
+                PopupMenuItem(
+                  value: 'first_on',
+                  child: Text('先頭だけ購入にする（混在）'),
+                ),
+                PopupMenuItem(
+                  value: 'alt',
+                  child: Text('交互に購入にする（混在）'),
+                ),
+              ],
+            ),
+        ],
+      ),
       body: loading
           ? const Center(child: CircularProgressIndicator())
           : error != null
               ? Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
-                    child: Text('読み込みエラー: $error',
-                        style: const TextStyle(color: Colors.red)),
+                    child: Text(
+                      '読み込みエラー: $error',
+                      style: const TextStyle(color: Colors.red),
+                    ),
                   ),
                 )
               : RefreshIndicator(
@@ -103,64 +179,67 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ListView(
                     padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
                     children: [
-                      // ① 単元を選ぶ（デッキ一覧）
                       Row(
                         children: [
                           Icon(Icons.menu_book_outlined,
                               color: theme.colorScheme.primary),
                           const SizedBox(width: 8),
-                          Text('単元を選ぶ',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.w700,
-                              )),
+                          Text(
+                            '単元を選ぶ',
+                            style: theme.textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 12),
-
-                      // 2枚スナップのデッキカルーセル
                       SizedBox(
-                        height: 140, // カードの高さに合わせて 120〜150 で調整可
+                        height: 140,
                         child: decks.isEmpty
                             ? Card(
                                 child: Padding(
                                   padding: const EdgeInsets.all(16),
                                   child: Text(
                                     'デッキが見つかりません（assets/decks を確認）',
-                                    style: Theme.of(context).textTheme.bodyMedium,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ),
                               )
                             : PageView.builder(
-                                controller: PageController(viewportFraction: 1.0), // 1ページ＝画面幅
+                                controller:
+                                    PageController(viewportFraction: 1.0),
                                 padEnds: false,
-                                itemCount: (decks.length + 1) ~/ 2, // 2枚/ページ（端数切上げ）
+                                itemCount: (decks.length + 1) ~/ 2,
                                 itemBuilder: (context, pageIndex) {
                                   const spacing = 12.0;
                                   final left = pageIndex * 2;
                                   final right = left + 1;
 
                                   final leftDeck = decks[left];
-                                  final rightDeck = (right < decks.length) ? decks[right] : null;
+                                  final rightDeck =
+                                      (right < decks.length) ? decks[right] : null;
 
                                   return Row(
                                     children: [
-                                      // 左カード
                                       Expanded(
                                         child: _DeckTile(
                                           title: leftDeck.title,
                                           isPurchased: leftDeck.isPurchased,
-                                          onTap: () => _openUnitSelect(leftDeck),
+                                          onTap: () =>
+                                              _openUnitSelect(leftDeck),
                                         ),
                                       ),
                                       const SizedBox(width: spacing),
-                                      // 右カード（なければ空でバランス維持）
                                       Expanded(
                                         child: rightDeck == null
                                             ? const SizedBox.shrink()
                                             : _DeckTile(
                                                 title: rightDeck.title,
-                                                isPurchased: rightDeck.isPurchased,
-                                                onTap: () => _openUnitSelect(rightDeck),
+                                                isPurchased:
+                                                    rightDeck.isPurchased,
+                                                onTap: () =>
+                                                    _openUnitSelect(rightDeck),
                                               ),
                                       ),
                                     ],
@@ -168,7 +247,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               ),
                       ),
-
                       const SizedBox(height: 24),
                       _DeckLikeButton(
                         leadingIcon: Icons.shuffle_outlined,
@@ -178,8 +256,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const SizedBox(height: 16),
                       const Divider(height: 32),
-
-                      // ②〜④ メインボタン
                       _MenuTile(
                         icon: Icons.query_stats_outlined,
                         label: '成績を見る',
@@ -201,6 +277,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+// ========== UIコンポーネントは既存のまま ==========
 
 class _DeckTile extends StatelessWidget {
   final String title;
@@ -373,7 +451,6 @@ class _DeckLikeButton extends StatelessWidget {
   }
 }
 
-
 class _MenuTile extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -392,10 +469,12 @@ class _MenuTile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
         leading: Icon(icon, color: theme.colorScheme.primary),
-        title: Text(label,
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-            )),
+        title: Text(
+          label,
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         trailing: const Icon(Icons.chevron_right_rounded),
         onTap: onTap,
       ),

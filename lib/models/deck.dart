@@ -37,4 +37,19 @@ class Deck {
         .expand((u) => u.cards)
         .toList(growable: false);
   }
+
+  // 👇 ここを追加
+  Deck copyWith({
+    String? id,
+    String? title,
+    bool? isPurchased,
+    List<Unit>? units,
+  }) {
+    return Deck(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      isPurchased: isPurchased ?? this.isPurchased,
+      units: units ?? this.units,
+    );
+  }
 }
