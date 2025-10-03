@@ -1,37 +1,71 @@
 import 'package:flutter/material.dart';
 import '../models/deck.dart';
 import '../models/card.dart';
+import '../models/score_record.dart';
 import 'result_screen.dart';
+import 'package:uuid/uuid.dart';
+import '../services/score_store.dart';
+import '../services/scores_store.dart';
+import '../services/deck_loader.dart';
 
 class QuizScreen extends StatefulWidget {
   final Deck deck;
-  const QuizScreen({super.key, required this.deck});
+  final List<QuizCard>? overrideCards; // ← 追加
+
+  const QuizScreen({
+    super.key,
+    required this.deck,
+    this.overrideCards, // ← 追加
+  });
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  late final List<QuizCard> sequence; // 出題順
-  int index = 0;                      // 今の問題番号
-  int? selected;                      // 選んだ選択肢
-  bool revealed = false;              // 答え公開したか
-  int correctCount = 0;               // 正答数
+  late final List<QuizCard> sequence;
+  int index = 0;
+  int? selected;
+  bool revealed = false;
+  int correctCount = 0;
 
+  final Stopwatch _sw = Stopwatch()..start();
+  bool _savedOnce = false; // 重複保存防止
+
+  // 追加：タグ別集計
+  final Map<String, int> _tagCorrect = {};
+  final Map<String, int> _tagWrong   = {};
+
+  void _bumpTags(Iterable<String> tags, bool isCorrect) {
+    for (final t in tags) {
+      if (isCorrect) {
+        _tagCorrect[t] = (_tagCorrect[t] ?? 0) + 1;
+      } else {
+        _tagWrong[t] = (_tagWrong[t] ?? 0) + 1;
+      }
+    }
+  }
+  
   QuizCard get card => sequence[index];
 
   @override
   void initState() {
     super.initState();
-    // 各問題の選択肢をシャッフルした配列を最初に作る
-    sequence = widget.deck.cards.map((c) => c.shuffled()).toList();
-    // 問題の順番もランダムにしたい場合は次を有効化：
-    // sequence.shuffle();
+    // UnitSelectScreen から渡されてきたカード束があればそちらを使用
+    final base = widget.overrideCards ?? widget.deck.cards;
+    sequence = base.map((c) => c.shuffled()).toList();
   }
 
+  /// 選択肢をタップしたときの挙動
   void _select(int i) {
     if (revealed) return;
-    setState(() => selected = i);
+
+    // すでに同じ選択肢を選んでいる → 2回目のタップで公開
+    if (selected == i) {
+      _reveal();
+    } else {
+      setState(() => selected = i);
+    }
   }
 
   void _reveal() {
@@ -39,11 +73,63 @@ class _QuizScreenState extends State<QuizScreen> {
     setState(() => revealed = true);
   }
 
-  void _next() {
+  void _next() async {
     if (selected == card.answerIndex) correctCount++;
 
+    // ★ 追加：この問題のタグを集計
+    final isCorrect = (selected == card.answerIndex);
+    final tagsThisQuestion = card.tags; // List<String>
+    _bumpTags(tagsThisQuestion, isCorrect);
+
     if (index >= sequence.length - 1) {
-      // 最終問題 → 結果画面へ
+      if (_savedOnce) return; // すでに保存していたら何もしない
+      _savedOnce = true;
+      // ★ 成績を保存
+      final result = QuizResult(
+        deckId: widget.deck.id,                         // 'mixed' もここに入る
+        total: sequence.length,
+        correct: correctCount,
+        timestamp: DateTime.now(),
+        mode: widget.deck.id == 'mixed' ? 'mixed' : 'single',
+      );
+
+      // ★ QuizResult作成直後に deckTitle を解決する
+      final decks = await DeckLoader().loadAll();
+      final titleMap = { for (final d in decks) d.id: d.title };
+      final deckTitle = (result.deckId == 'mixed')
+          ? 'ミックス練習'
+          : (titleMap[result.deckId] ?? result.deckId);
+
+      await ScoresStore().add(result);
+
+      final durationSec = _sw.elapsed.inSeconds;
+
+      // ★ 追加：TagStat マップを構築
+      final Map<String, TagStat> tagStats = {};
+      final allKeys = <String>{..._tagCorrect.keys, ..._tagWrong.keys};
+      for (final k in allKeys) {
+        tagStats[k] = TagStat(
+          correct: _tagCorrect[k] ?? 0,
+          wrong:   _tagWrong[k] ?? 0,
+        );
+      }
+
+      await ScoreStore.instance.add(
+        ScoreRecord(
+          id: const Uuid().v4(),
+          deckId: result.deckId,
+          deckTitle: deckTitle,
+          score: result.correct,
+          total: result.total,
+          durationSec: durationSec,
+          timestamp: result.timestamp.millisecondsSinceEpoch,
+          tags: tagStats.isEmpty ? null : tagStats,
+          selectedUnitIds: null,
+        ),
+      );
+
+
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -58,6 +144,14 @@ class _QuizScreenState extends State<QuizScreen> {
       selected = null;
       revealed = false;
     });
+  }
+
+  void _primaryAction() {
+    if (revealed) {
+      _next();
+    } else {
+      _reveal();
+    }
   }
 
   @override
@@ -75,99 +169,210 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Text(
-              card.question,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
+      // 公開済みなら画面どこをタップしても次へ
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          if (revealed) _next();
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Text(
+                card.question,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
 
-            // 選択肢リスト
-            ...List.generate(card.choices.length, (i) {
-              final isAnswer = i == card.answerIndex;
-              final isSelected = i == selected;
+              // 選択肢
+              ...List.generate(card.choices.length, (i) => _buildChoice(i)),
 
-              Color? bg;
-              if (revealed) {
-                if (isAnswer) {
-                  bg = Colors.green.withOpacity(0.15);
-                } else if (isSelected && !isAnswer) {
-                  bg = Colors.red.withOpacity(0.15);
-                }
-              } else if (isSelected) {
-                bg = Theme.of(context).colorScheme.primary.withOpacity(0.08);
-              }
-
-              return Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                child: ListTile(
-                  tileColor: bg,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(
-                      color: revealed
-                          ? (isAnswer
-                              ? Colors.green
-                              : (isSelected ? Colors.red : Colors.grey.shade300))
-                          : (isSelected
-                              ? Theme.of(context).colorScheme.primary
-                              : Colors.grey.shade300),
-                    ),
-                  ),
-                  title: Text(card.choices[i]),
-                  trailing: revealed
-                      ? (isAnswer
-                          ? const Icon(Icons.check_circle, color: Colors.green)
-                          : (isSelected ? const Icon(Icons.cancel, color: Colors.red) : null))
-                      : (isSelected
-                          ? const Icon(Icons.radio_button_checked)
-                          : const Icon(Icons.radio_button_unchecked)),
-                  onTap: () => _select(i),
-                ),
-              );
-            }),
-
-            const Spacer(),
-
-            if (revealed && card.explanation != null) ...[
-              Text('解説: ${card.explanation!}'),
+              // 解説カード（選択肢の直下）
               const SizedBox(height: 12),
-            ],
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 350),        // 入る時
+                reverseDuration: const Duration(milliseconds: 180), // 消える時（短めでサッと）
+                switchInCurve: Curves.easeOutCubic,
+                switchOutCurve: Curves.easeInCubic,
+                transitionBuilder: (child, animation) {
+                  final slide = Tween<Offset>(
+                    begin: const Offset(0, 0.06), // 下から少し
+                    end: Offset.zero,
+                  ).animate(animation);
+                  return FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(position: slide, child: child),
+                  );
+                },
+                child: (revealed && (card.explanation ?? '').trim().isNotEmpty)
+                    ? Card(
+                        key: ValueKey('exp-$index'), // ← 質問が変わった時も綺麗に切替
+                        elevation: 1.5,
+                        clipBehavior: Clip.antiAlias,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            // 見出し + ℹ️
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                              color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.info_outline, size: 20),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    '解説',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // 本文
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+                              child: Text(
+                                (card.explanation ?? '').trim(),
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      fontSize: 18,
+                                      height: 1.5,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox.shrink(key: ValueKey('exp-empty')),
+              ),
 
-            Row(
+              const Spacer(),
+
+
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: (selected == null && !revealed) ? null : _primaryAction,
+                  child: Text(
+                    revealed
+                        ? (index == sequence.length - 1 ? '結果へ' : '次へ')
+                        : '答えを見る',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              if (revealed)
+                Text(
+                  isCorrect ? '正解！' : '不正解…',
+                  style: TextStyle(
+                    color: isCorrect ? Colors.green : Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildChoice(int i) {
+    final isAnswer = i == card.answerIndex;
+    final isSelected = i == selected;
+
+    Color bg = Colors.white;
+    if (revealed) {
+      if (isAnswer) {
+        bg = Colors.green;
+      } else if (isSelected) {
+        bg = Colors.red;
+      } else {
+        bg = Colors.grey.shade300;
+      }
+    } else if (isSelected) {
+      bg = Theme.of(context).colorScheme.primary.withValues(alpha: 0.9);
+    }
+
+    final fg = (revealed && (isAnswer || isSelected)) ? Colors.white : Colors.black87;
+
+    IconData? trail;
+    if (revealed) {
+      if (isAnswer) {
+        trail = Icons.check_rounded;
+      } else if (isSelected) {
+        trail = Icons.close_rounded;
+      }
+    } else {
+      trail = isSelected ? Icons.radio_button_checked : Icons.radio_button_unchecked;
+    }
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 180),
+      curve: Curves.easeOut,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+            color: Colors.black.withValues(alpha: 0.06),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(14),
+          onTap: () {
+            if (revealed) {
+              // 公開済みなら → どの選択肢を押しても次へ
+              _next();
+            } else {
+              // 未公開なら → 選択処理
+              _select(i);
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            child: Row(
               children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: (selected == null || revealed) ? null : _reveal,
-                    child: const Text('答え合わせ'),
+                Container(
+                  width: 28,
+                  height: 28,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: (revealed && isAnswer) ? Colors.white24 : Colors.black12,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    String.fromCharCode('A'.codeUnitAt(0) + i),
+                    style: TextStyle(color: fg, fontWeight: FontWeight.w700),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: FilledButton(
-                    onPressed: (selected == null)
-                        ? null
-                        : (revealed ? _next : _reveal),
-                    child: Text(revealed
-                        ? (index == sequence.length - 1 ? '結果へ' : '次へ')
-                        : '答えを見る'),
+                  child: Text(
+                    card.choices[i],
+                    softWrap: true,
+                    style: TextStyle(
+                      color: fg,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      height: 1.35,
+                    ),
                   ),
                 ),
+                if (trail != null) ...[
+                  const SizedBox(width: 10),
+                  Icon(trail, color: fg, size: 22),
+                ],
               ],
             ),
-            const SizedBox(height: 8),
-            if (revealed)
-              Text(
-                isCorrect ? '正解！' : '不正解…',
-                style: TextStyle(
-                  color: isCorrect ? Colors.green : Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-          ],
+          ),
         ),
       ),
     );
