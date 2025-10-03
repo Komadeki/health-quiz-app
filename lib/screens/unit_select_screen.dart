@@ -38,9 +38,9 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
     setState(() {
       _selectedUnitIds
         ..clear()
-        ..addAll(savedUnits.where(
-          (id) => widget.deck.units.any((u) => u.id == id),
-        ));
+        ..addAll(
+          savedUnits.where((id) => widget.deck.units.any((u) => u.id == id)),
+        );
       _limit = savedLimit; // null なら制限なし
     });
   }
@@ -63,8 +63,9 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
 
   // 選択ユニットのカード（購入状況でフィルタ）を収集
   List<QuizCard> _collectSelectedCards() {
-    final selectedUnits =
-        widget.deck.units.where((u) => _selectedUnitIds.contains(u.id));
+    final selectedUnits = widget.deck.units.where(
+      (u) => _selectedUnitIds.contains(u.id),
+    );
     final all = selectedUnits.expand((u) => u.cards).toList();
     if (widget.deck.isPurchased) return all;
     return all.where((c) => !c.isPremium).toList();
@@ -72,8 +73,9 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
 
   // 素の内訳（無料/有料）を数える
   ({int free, int premium}) _rawBreakdown() {
-    final selectedUnits =
-        widget.deck.units.where((u) => _selectedUnitIds.contains(u.id));
+    final selectedUnits = widget.deck.units.where(
+      (u) => _selectedUnitIds.contains(u.id),
+    );
     final all = selectedUnits.expand((u) => u.cards);
     final free = all.where((c) => !c.isPremium).length;
     final premium = all.where((c) => c.isPremium).length;
@@ -125,22 +127,21 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
   void _startQuiz() {
     final available = _collectSelectedCards();
     if (available.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('選択範囲に出題可能な問題がありません')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('選択範囲に出題可能な問題がありません')));
       return;
     }
     available.shuffle();
-    final startCards =
-        (_limit == null) ? available : available.take(_limit!).toList();
+    final startCards = (_limit == null)
+        ? available
+        : available.take(_limit!).toList();
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => QuizScreen(
-          deck: widget.deck,
-          overrideCards: startCards,
-        ),
+        builder: (_) =>
+            QuizScreen(deck: widget.deck, overrideCards: startCards),
       ),
     );
   }
@@ -203,8 +204,11 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
             child: Row(
               children: [
                 if (_selectedUnitIds.isEmpty) ...[
-                  Icon(Icons.info_outline,
-                      size: 18, color: theme.colorScheme.outline),
+                  Icon(
+                    Icons.info_outline,
+                    size: 18,
+                    color: theme.colorScheme.outline,
+                  ),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -216,8 +220,11 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                     ),
                   ),
                 ] else ...[
-                  Icon(Icons.quiz_outlined,
-                      size: 18, color: theme.colorScheme.primary),
+                  Icon(
+                    Icons.quiz_outlined,
+                    size: 18,
+                    color: theme.colorScheme.primary,
+                  ),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -260,9 +267,11 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                     ? () {
                         // デバッグ出力（任意）
                         // ignore: avoid_print
-                        print('start quiz: selectedUnitIds=$_selectedUnitIds, '
-                            'available=${_collectSelectedCards().length}, '
-                            'limit=$_limit');
+                        print(
+                          'start quiz: selectedUnitIds=$_selectedUnitIds, '
+                          'available=${_collectSelectedCards().length}, '
+                          'limit=$_limit',
+                        );
                         _startQuiz();
                       }
                     : null,

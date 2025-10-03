@@ -2,12 +2,12 @@
 import 'dart:math';
 
 class QuizCard {
-  final String question;        // 問題文
-  final List<String> choices;   // 選択肢（4択想定）
-  final int answerIndex;        // 正解のindex（0-based）
-  final String? explanation;    // 解説（任意）
-  final bool isPremium;         // 有料かどうか
-  final List<String> unitTags;  // 分野タグ（複数可）
+  final String question; // 問題文
+  final List<String> choices; // 選択肢（4択想定）
+  final int answerIndex; // 正解のindex（0-based）
+  final String? explanation; // 解説（任意）
+  final bool isPremium; // 有料かどうか
+  final List<String> unitTags; // 分野タグ（複数可）
 
   const QuizCard({
     required this.question,
@@ -26,7 +26,9 @@ class QuizCard {
       answerIndex: json['answerIndex'] as int,
       explanation: json['explanation'] as String?,
       isPremium: json['isPremium'] as bool? ?? false,
-      unitTags: (json['unitTags'] as List?)?.map((e) => e.toString()).toList() ?? const [],
+      unitTags:
+          (json['unitTags'] as List?)?.map((e) => e.toString()).toList() ??
+          const [],
     );
   }
 

@@ -51,8 +51,9 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
         final unitIds = List<String>.from(entry.value as List);
         final deck = widget.decks.where((d) => d.id == deckId);
         if (deck.isEmpty) continue;
-        final valid =
-            unitIds.where((u) => deck.first.units.any((x) => x.id == u));
+        final valid = unitIds.where(
+          (u) => deck.first.units.any((x) => x.id == u),
+        );
         selected[deckId] = {...valid};
       }
     }
@@ -108,7 +109,8 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
     int premiumUnpurchased,
     bool hasPurchased,
     bool hasUnpurchased,
-  }) _countAllMixed() {
+  })
+  _countAllMixed() {
     int purchasedTotal = 0;
     int freeUnpurchased = 0;
     int premiumUnpurchased = 0;
@@ -119,8 +121,9 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
       final unitIds = selected[deck.id];
       if (unitIds == null || unitIds.isEmpty) continue;
 
-      final cards =
-          deck.units.where((u) => unitIds.contains(u.id)).expand((u) => u.cards);
+      final cards = deck.units
+          .where((u) => unitIds.contains(u.id))
+          .expand((u) => u.cards);
 
       if (deck.isPurchased) {
         hasPurchased = true;
@@ -232,9 +235,9 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
   void _startQuiz() {
     final all = _buildCards();
     if (all.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('選択範囲に出題可能な問題がありません')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('選択範囲に出題可能な問題がありません')));
       return;
     }
 
@@ -307,8 +310,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: SwitchListTile(
                     contentPadding: const EdgeInsets.only(left: 8, right: 4),
-                    title:
-                        Text('この単元をすべて選択（${deck.units.length}ユニット）'),
+                    title: Text('この単元をすべて選択（${deck.units.length}ユニット）'),
                     value: allSelected,
                     onChanged: (v) => _toggleDeckAll(deck, v),
                   ),
@@ -362,8 +364,9 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
                       color: hasSelection
                           ? theme.colorScheme.primary
                           : theme.colorScheme.outline,
-                      fontWeight:
-                          hasSelection ? FontWeight.w600 : FontWeight.w500,
+                      fontWeight: hasSelection
+                          ? FontWeight.w600
+                          : FontWeight.w500,
                     ),
                   ),
                 ),
@@ -394,9 +397,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
               child: FilledButton(
                 onPressed: canStart ? _startQuiz : null,
                 child: Text(
-                  hasSelection
-                      ? 'この選択で開始（$_startCount問）'
-                      : 'ユニットを選択してください',
+                  hasSelection ? 'この選択で開始（$_startCount問）' : 'ユニットを選択してください',
                 ),
               ),
             ),

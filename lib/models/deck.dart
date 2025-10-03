@@ -4,8 +4,8 @@ import 'card.dart';
 class Deck {
   final String id;
   final String title;
-  final bool isPurchased;   // 単元ごとの購入フラグ
-  final List<Unit> units;   // 章（Unit）を保持
+  final bool isPurchased; // 単元ごとの購入フラグ
+  final List<Unit> units; // 章（Unit）を保持
 
   Deck({
     required this.id,

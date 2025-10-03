@@ -5,11 +5,7 @@ class Unit {
   final String title;
   final List<QuizCard> cards;
 
-  Unit({
-    required this.id,
-    required this.title,
-    required this.cards,
-  });
+  Unit({required this.id, required this.title, required this.cards});
 
   factory Unit.fromJson(Map<String, dynamic> json) {
     return Unit(

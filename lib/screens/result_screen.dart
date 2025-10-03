@@ -14,8 +14,10 @@ class ResultScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('スコア: $correct / $total',
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(
+              'スコア: $correct / $total',
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Text('正答率: $rate %'),
             const SizedBox(height: 24),

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/deck.dart';
 import '../models/card.dart';
+import '../models/score_record.dart';
 import 'result_screen.dart';
+import 'package:uuid/uuid.dart';
+import '../services/score_store.dart';
+import '../services/scores_store.dart';
+import '../services/deck_loader.dart';
 
 class QuizScreen extends StatefulWidget {
   final Deck deck;
@@ -24,6 +29,9 @@ class _QuizScreenState extends State<QuizScreen> {
   bool revealed = false;
   int correctCount = 0;
 
+  final Stopwatch _sw = Stopwatch()..start();
+  bool _savedOnce = false; // 重複保存防止
+  
   QuizCard get card => sequence[index];
 
   @override
@@ -51,9 +59,47 @@ class _QuizScreenState extends State<QuizScreen> {
     setState(() => revealed = true);
   }
 
-  void _next() {
+  void _next() async {
     if (selected == card.answerIndex) correctCount++;
     if (index >= sequence.length - 1) {
+      if (_savedOnce) return; // すでに保存していたら何もしない
+      _savedOnce = true;
+      // ★ 成績を保存
+      final result = QuizResult(
+        deckId: widget.deck.id,                         // 'mixed' もここに入る
+        total: sequence.length,
+        correct: correctCount,
+        timestamp: DateTime.now(),
+        mode: widget.deck.id == 'mixed' ? 'mixed' : 'single',
+      );
+
+      // ★ QuizResult作成直後に deckTitle を解決する
+      final decks = await DeckLoader().loadAll();
+      final titleMap = { for (final d in decks) d.id: d.title };
+      final deckTitle = (result.deckId == 'mixed')
+          ? 'ミックス練習'
+          : (titleMap[result.deckId] ?? result.deckId);
+
+      await ScoresStore().add(result);
+
+      final durationSec = _sw.elapsed.inSeconds;
+
+      await ScoreStore.instance.add(
+        ScoreRecord(
+          id: const Uuid().v4(),
+          deckId: result.deckId,
+          deckTitle: deckTitle,
+          score: result.correct,
+          total: result.total,
+          durationSec: durationSec,
+          timestamp: result.timestamp.millisecondsSinceEpoch,
+          tags: null,                   // まずはタグなし（後で集計実装）
+          selectedUnitIds: null,
+        ),
+      );
+
+
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -62,6 +108,7 @@ class _QuizScreenState extends State<QuizScreen> {
       );
       return;
     }
+
     setState(() {
       index++;
       selected = null;
