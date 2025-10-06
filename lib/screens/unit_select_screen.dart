@@ -1,6 +1,8 @@
 // lib/screens/unit_select_screen.dart
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';               // ← 追加
+import '../services/app_settings.dart';               // ← 追加
 import '../models/deck.dart';
 import '../models/unit.dart';
 import '../models/card.dart';
@@ -23,15 +25,49 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
   final Set<String> _selectedUnitIds = {}; // 選択中 unit.id
   int? _limit; // null=制限なし／数値=出題上限
 
+  // 直近の設定値を記録（ON→OFF切替時の検知用）
+  bool _lastSaveUnitsOn = true;
+
   @override
   void initState() {
     super.initState();
     _restorePrefs();
   }
 
+  // 設定が変わったら即時反映（特に ON→OFF でリセット）
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final saveOn = context.watch<AppSettings>().saveUnitSelection;
+    if (_lastSaveUnitsOn && !saveOn) {
+      // ON→OFFに切り替わった瞬間：その場で選択をクリア＆上限を無効化
+      setState(() {
+        _selectedUnitIds.clear();
+        _limit = null;
+      });
+      // ignore: avoid_print
+      print('🛑 UnitSelect: saveUnitSelection OFF → reset local selections');
+    }
+    _lastSaveUnitsOn = saveOn;
+  }
+
   // ────── 永続化まわり ──────
   Future<void> _restorePrefs() async {
     final sp = await SharedPreferences.getInstance();
+    final saveOn = Provider.of<AppSettings>(context, listen: false).saveUnitSelection;
+
+    if (!saveOn) {
+      // 保存OFF：常に未選択＋上限なし（null）から開始。読み込みもしない
+      setState(() {
+        _selectedUnitIds
+          ..clear();
+        _limit = null;
+      });
+      // ignore: avoid_print
+      print('⏭️ UnitSelect: load skipped (OFF) → cleared selections & limit=null');
+      return;
+    }
+
     final savedUnits = sp.getStringList(_prefsKeySelectedUnits) ?? [];
     final savedLimit = sp.getInt(_prefsKeyQuestionLimit); // なければ null
 
@@ -43,20 +79,39 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
         );
       _limit = savedLimit; // null なら制限なし
     });
+
+    // ignore: avoid_print
+    print('📥 UnitSelect: load units=$_selectedUnitIds, limit=$_limit (deck=${widget.deck.id})');
   }
 
   Future<void> _saveSelectedUnits() async {
+    final saveOn = Provider.of<AppSettings>(context, listen: false).saveUnitSelection;
+    if (!saveOn) {
+      // ignore: avoid_print
+      print('⏭️ UnitSelect: save skipped (OFF)');
+      return;
+    }
     final sp = await SharedPreferences.getInstance();
     await sp.setStringList(_prefsKeySelectedUnits, _selectedUnitIds.toList());
+    // ignore: avoid_print
+    print('📤 UnitSelect: saved units=$_selectedUnitIds (deck=${widget.deck.id})');
   }
 
   Future<void> _saveQuestionLimit() async {
+    final saveOn = Provider.of<AppSettings>(context, listen: false).saveUnitSelection;
+    if (!saveOn) {
+      // ignore: avoid_print
+      print('⏭️ UnitSelect: limit save skipped (OFF)');
+      return;
+    }
     final sp = await SharedPreferences.getInstance();
     if (_limit == null) {
       await sp.remove(_prefsKeyQuestionLimit);
     } else {
       await sp.setInt(_prefsKeyQuestionLimit, _limit!);
     }
+    // ignore: avoid_print
+    print('📤 UnitSelect: saved limit=$_limit (deck=${widget.deck.id})');
   }
 
   // ────── 集計/表示ヘルパー ──────

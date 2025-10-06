@@ -2,6 +2,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';             // ← 追加
+import '../services/app_settings.dart';              // ← 追加
 import '../models/deck.dart';
 import '../models/unit.dart';
 import '../models/card.dart';
@@ -29,20 +31,52 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
 
   bool get hasSelection => selected.values.any((set) => set.isNotEmpty);
 
+  // 設定の直近値（ON→OFFを検知して即リセットするため）
+  bool _lastSaveUnitsOn = true;
+
   @override
   void initState() {
     super.initState();
     _restorePrefs();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final saveOn = context.watch<AppSettings>().saveUnitSelection;
+    if (_lastSaveUnitsOn && !saveOn) {
+      // ON→OFF に切替 → その場で選択と上限をリセット
+      setState(() {
+        selected.clear();
+        _limit = null;
+      });
+      // ignore: avoid_print
+      print('🛑 MultiSelect: saveUnitSelection OFF → reset local selections & limit');
+    }
+    _lastSaveUnitsOn = saveOn;
+  }
+
   // ================= 永続化 =================
 
   Future<void> _restorePrefs() async {
     final sp = await SharedPreferences.getInstance();
+    final saveOn = Provider.of<AppSettings>(context, listen: false).saveUnitSelection;
+
+    selected.clear();
+
+    if (!saveOn) {
+      // 保存OFF：常に未選択＋上限なしで開始。保存もロードもしない
+      setState(() {
+        _limit = null;
+      });
+      // ignore: avoid_print
+      print('⏭️ MultiSelect: load skipped (OFF) → selections cleared, limit=null');
+      return;
+    }
+
     final jsonStr = sp.getString(_prefsKeyMultiSelected);
     final savedLimit = sp.getInt(_prefsKeyMultiLimit);
 
-    selected.clear();
     if (jsonStr != null && jsonStr.isNotEmpty) {
       final map = jsonDecode(jsonStr) as Map<String, dynamic>;
       // 既存デッキ/ユニットに対してのみ復元
@@ -60,9 +94,17 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
 
     _limit = savedLimit;
     if (mounted) setState(() {});
+    // ignore: avoid_print
+    print('📥 MultiSelect: load selected=${selected.map((k,v)=>MapEntry(k, v.length))}, limit=$_limit');
   }
 
   Future<void> _savePrefs() async {
+    final saveOn = Provider.of<AppSettings>(context, listen: false).saveUnitSelection;
+    if (!saveOn) {
+      // ignore: avoid_print
+      print('⏭️ MultiSelect: save skipped (OFF)');
+      return;
+    }
     final sp = await SharedPreferences.getInstance();
     final map = selected.map((k, v) => MapEntry(k, v.toList()));
     await sp.setString(_prefsKeyMultiSelected, jsonEncode(map));
@@ -71,6 +113,8 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
     } else {
       await sp.setInt(_prefsKeyMultiLimit, _limit!);
     }
+    // ignore: avoid_print
+    print('📤 MultiSelect: saved selected=${selected.map((k,v)=>MapEntry(k, v.length))}, limit=$_limit');
   }
 
   // ================= 集計/ビルド =================

@@ -32,7 +32,7 @@ class _QuizScreenState extends State<QuizScreen> {
   int correctCount = 0;
 
   final Stopwatch _sw = Stopwatch()..start();
-  bool _savedOnce = false; // 重複保存防止
+  bool _savedOnce = false;            // 結果保存の多重防止
 
   // 追加：タグ別集計
   final Map<String, int> _tagCorrect = {};
@@ -62,7 +62,8 @@ class _QuizScreenState extends State<QuizScreen> {
   void _select(int i) {
     if (revealed) return;
 
-    final tapMode = context.read<AppSettings>().tapMode;
+    final app     = Provider.of<AppSettings>(context, listen: false);
+    final tapMode = app.tapMode;
 
     if (tapMode == TapAdvanceMode.oneTap) {
       // 1タップモード：即確定
@@ -86,7 +87,7 @@ class _QuizScreenState extends State<QuizScreen> {
   void _next() async {
     if (selected == card.answerIndex) correctCount++;
 
-    // ★ 追加：この問題のタグを集計
+    // この問題のタグを集計
     final isCorrect = (selected == card.answerIndex);
     final tagsThisQuestion = card.tags; // List<String>
     _bumpTags(tagsThisQuestion, isCorrect);
@@ -94,7 +95,7 @@ class _QuizScreenState extends State<QuizScreen> {
     if (index >= sequence.length - 1) {
       if (_savedOnce) return; // すでに保存していたら何もしない
       _savedOnce = true;
-      // ★ 成績を保存
+      // 成績を保存
       final result = QuizResult(
         deckId: widget.deck.id,                         // 'mixed' もここに入る
         total: sequence.length,
@@ -103,7 +104,7 @@ class _QuizScreenState extends State<QuizScreen> {
         mode: widget.deck.id == 'mixed' ? 'mixed' : 'single',
       );
 
-      // ★ QuizResult作成直後に deckTitle を解決する
+      // QuizResult作成直後に deckTitle を解決
       final decks = await DeckLoader().loadAll();
       final titleMap = { for (final d in decks) d.id: d.title };
       final deckTitle = (result.deckId == 'mixed')
@@ -114,7 +115,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
       final durationSec = _sw.elapsed.inSeconds;
 
-      // ★ 追加：TagStat マップを構築
+      // 追加：TagStat マップを構築
       final Map<String, TagStat> tagStats = {};
       final allKeys = <String>{..._tagCorrect.keys, ..._tagWrong.keys};
       for (final k in allKeys) {
@@ -137,7 +138,6 @@ class _QuizScreenState extends State<QuizScreen> {
           selectedUnitIds: null,
         ),
       );
-
 
       if (!mounted) return;
       Navigator.pushReplacement(
@@ -201,13 +201,13 @@ class _QuizScreenState extends State<QuizScreen> {
               // 解説カード（選択肢の直下）
               const SizedBox(height: 12),
               AnimatedSwitcher(
-                duration: const Duration(milliseconds: 350),        // 入る時
-                reverseDuration: const Duration(milliseconds: 180), // 消える時（短めでサッと）
+                duration: const Duration(milliseconds: 350),
+                reverseDuration: const Duration(milliseconds: 180),
                 switchInCurve: Curves.easeOutCubic,
                 switchOutCurve: Curves.easeInCubic,
                 transitionBuilder: (child, animation) {
                   final slide = Tween<Offset>(
-                    begin: const Offset(0, 0.06), // 下から少し
+                    begin: const Offset(0, 0.06),
                     end: Offset.zero,
                   ).animate(animation);
                   return FadeTransition(
@@ -217,13 +217,12 @@ class _QuizScreenState extends State<QuizScreen> {
                 },
                 child: (revealed && (card.explanation ?? '').trim().isNotEmpty)
                     ? Card(
-                        key: ValueKey('exp-$index'), // ← 質問が変わった時も綺麗に切替
+                        key: ValueKey('exp-$index'),
                         elevation: 1.5,
                         clipBehavior: Clip.antiAlias,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            // 見出し + ℹ️
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                               color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
@@ -241,7 +240,6 @@ class _QuizScreenState extends State<QuizScreen> {
                                 ],
                               ),
                             ),
-                            // 本文
                             Padding(
                               padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
                               child: Text(
@@ -259,7 +257,6 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
 
               const Spacer(),
-
 
               SizedBox(
                 width: double.infinity,
@@ -339,10 +336,8 @@ class _QuizScreenState extends State<QuizScreen> {
           borderRadius: BorderRadius.circular(14),
           onTap: () {
             if (revealed) {
-              // 公開済みなら → どの選択肢を押しても次へ
               _next();
             } else {
-              // 未公開なら → 選択処理
               _select(i);
             }
           },
