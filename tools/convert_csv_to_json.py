@@ -60,7 +60,8 @@ def card_from_row(row: Dict[str, str]) -> Dict[str, Any]:
     """
     1行（1問）を JSON カードへ変換
     期待カラム：
-      id, deck_id(=unit_idでも可), question, choice1..4, answer_index(1-4), explanation, tags, difficulty(1/2/3)
+      id, deck_id, unit_id, question, choice1..4, answer_index(1-4), explanation, tags, importance(1/2/3)
+      ※ 互換対応: importance が無い場合は difficulty(1/2/3) を読み取る
     """
     q = row.get("question", "")
     if not q:
@@ -70,19 +71,20 @@ def card_from_row(row: Dict[str, str]) -> Dict[str, Any]:
     choices = [row.get("choice1", ""), row.get("choice2", ""), row.get("choice3", ""), row.get("choice4", "")]
     choices = [c for c in choices if c]
     if len(choices) < 2:
-        # 2択未満はスキップ
         return {}
 
     # answer_index: CSVは 1〜4 → 0-based & 範囲クランプ
     ans1 = parse_int(row.get("answer_index", ""), 1)
     ans0 = max(0, min(len(choices) - 1, ans1 - 1))
 
-    # explanation/tags/difficulty
+    # explanation / tags
     exp = row.get("explanation", "") or ""
     tags = split_tags(row.get("tags", ""))
-    difficulty = parse_int(row.get("difficulty", ""), 2)
-    if difficulty not in (1, 2, 3):
-        difficulty = 2
+
+    # ★ importance を採用（無ければ difficulty をフォールバック）
+    importance = parse_int(row.get("importance", row.get("difficulty", "")), 2)
+    if importance not in (1, 2, 3):
+        importance = 2
 
     return {
         "question": q,
@@ -90,10 +92,10 @@ def card_from_row(row: Dict[str, str]) -> Dict[str, Any]:
         "answerIndex": ans0,
         "explanation": exp,
         "tags": tags,
-        "difficulty": difficulty,
-        # isPremium は後段で付与
+        # ★ JSONでも "importance" キーで出力
+        "importance": importance,
+        # isPremium は build_unit で付与
     }
-
 
 def build_unit(unit_id: str, unit_title: str, csv_path: str, free_ratio: float) -> Dict[str, Any]:
     rows = read_csv_rows(csv_path)
