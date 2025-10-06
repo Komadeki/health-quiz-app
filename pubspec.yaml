@@ -10,6 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter   # ← これを追加
+  intl: ^0.20.2    # （任意。日付/数値の整形に便利）
   provider: ^6.1.2
   sqflite: ^2.3.0
   path_provider: ^2.1.2
@@ -27,3 +30,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/decks/
+  fonts:
+    - family: NotoSansJP
+      fonts:
+        - asset: assets/fonts/NotoSansJP-Regular.ttf
+        - asset: assets/fonts/NotoSansJP-Bold.ttf
+          weight: 700

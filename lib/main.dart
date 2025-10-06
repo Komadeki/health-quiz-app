@@ -1,5 +1,6 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/foundation.dart'; // kDebugMode 用
 import 'models/deck.dart';
 import 'services/deck_loader.dart';
@@ -23,10 +24,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Health Quiz',
+      title: '保健一問一答',
+      locale: const Locale('ja', 'JP'),
+      supportedLocales: const [
+        Locale('ja', 'JP'),
+        Locale('en'),
+      ],
+      // ★ const を外す
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green, // ← これがテーマの基準色！
+          brightness: Brightness.light, // 明るいテーマ
+        ),
+        fontFamily: 'NotoSansJP',
       ),
       home: const HomeScreen(),
     );
