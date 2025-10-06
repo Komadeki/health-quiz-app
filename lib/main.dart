@@ -2,11 +2,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/foundation.dart'; // kDebugMode 用
+import 'package:provider/provider.dart';
 import 'models/deck.dart';
+
 import 'services/deck_loader.dart';
+import 'services/app_settings.dart';
+
 import 'screens/multi_select_screen.dart';
 import 'screens/unit_select_screen.dart';
 import 'screens/stats_home_screen.dart';
+import 'screens/settings_screen.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart'; // ← 追加！
+
+import 'services/app_settings.dart'; // ← 追加！
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +26,12 @@ void main() async {
   // await debugSmokeTestScoreStore();
   // ===============================================================
 
-  runApp(const MyApp());
+  // ✅ AppSettingsの初期化を追加
+  final settings = AppSettings();
+  await settings.load();
+
+  // ✅ Providerで包んで起動
+  runApp(ChangeNotifierProvider(create: (_) => settings, child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,19 +39,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ✅ AppSettingsを取得
+    final s = context.watch<AppSettings>();
+
     return MaterialApp(
-      title: '保健一問一答',
+      title: '高校保健一問一答',
       locale: const Locale('ja', 'JP'),
-      supportedLocales: const [
-        Locale('ja', 'JP'),
-        Locale('en'),
-      ],
-      // ★ const を外す
+      supportedLocales: const [Locale('ja', 'JP'), Locale('en')],
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+
+      // ✅ テーマ関連を差し替え
+      themeMode: s.themeMode, // ← ライト／ダーク切替に対応
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+          textScaleFactor: s.textScaleFactor, // ← 文字サイズ反映
+        ),
+        child: child!,
+      ),
+
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
@@ -44,9 +69,18 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'NotoSansJP',
       ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green,
+          brightness: Brightness.dark,
+        ),
+        fontFamily: 'NotoSansJP',
+      ),
+
       routes: {
         '/': (_) => const HomeScreen(),
-        // 必要なら他のルートもここに
+        '/settings': (_) => const SettingsScreen(),
       },
       initialRoute: '/',
     );
@@ -130,6 +164,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _notImplemented(String title) {
+    if (title == '設定') {
+      Navigator.pushNamed(context, '/settings');
+      return;
+    }
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text('$title は今後実装予定です')));

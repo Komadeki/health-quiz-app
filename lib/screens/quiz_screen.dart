@@ -4,6 +4,8 @@ import '../models/card.dart';
 import '../models/score_record.dart';
 import 'result_screen.dart';
 import 'package:uuid/uuid.dart';
+import 'package:provider/provider.dart';
+import '../services/app_settings.dart';
 import '../services/score_store.dart';
 import '../services/scores_store.dart';
 import '../services/deck_loader.dart';
@@ -60,11 +62,19 @@ class _QuizScreenState extends State<QuizScreen> {
   void _select(int i) {
     if (revealed) return;
 
-    // すでに同じ選択肢を選んでいる → 2回目のタップで公開
-    if (selected == i) {
+    final tapMode = context.read<AppSettings>().tapMode;
+
+    if (tapMode == TapAdvanceMode.oneTap) {
+      // 1タップモード：即確定
+      setState(() => selected = i);
       _reveal();
     } else {
-      setState(() => selected = i);
+      // 2タップモード：同じ選択肢を2回で確定
+      if (selected == i) {
+        _reveal();
+      } else {
+        setState(() => selected = i);
+      }
     }
   }
 
