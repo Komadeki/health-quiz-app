@@ -1,82 +1,263 @@
 #!/usr/bin/env python3
-# tools/convert_csv_to_json.py
-import argparse, csv, json, math, os, sys
+# -*- coding: utf-8 -*-
+"""
+CSV → JSON 変換（deck → units → cards 対応）
 
-def read_csv(path):
+▼ 使い方（ユニットを直接指定するモード）
+python3 tools/convert_csv_to_json.py \
+  --deck_id deck_health01 \
+  --deck_title "現代社会と健康（前半）" \
+  --units "unit_health_concepts:健康の考え方と成り立ち:assets_src/csv/unit_health_concepts.csv,unit_health_status:私たちの健康の考え方:assets_src/csv/unit_health_status.csv" \
+  --outdir assets/decks \
+  --free_ratio 0.2
+
+▼ 使い方（マスターCSVから自動収集するモード）
+python3 tools/convert_csv_to_json.py \
+  --master /path/to/deck_unit_master.csv \
+  --deck_id deck_health01 \
+  --outdir assets/decks \
+  --free_ratio 0.2
+
+※ マスターCSVは列構成：
+deck_id, deck_title, unit_no, unit_id, unit_title, assets_deck_path, assets_src_csv, status
+"""
+
+import argparse
+import csv
+import json
+import os
+import sys
+from typing import List, Dict, Any
+
+
+# ---------- CSV 読み込みユーティリティ ----------
+
+def read_csv_rows(path: str) -> List[Dict[str, str]]:
     with open(path, newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
         rows = []
         for r in reader:
-            # すべて文字列化＆trim
-            rows.append({k: ("" if v is None else str(v).strip()) for k, v in r.items()})
+            rows.append({k.strip(): ("" if v is None else str(v).strip()) for k, v in r.items()})
         return rows
 
-def row_to_card(row):
-    q = row.get("question", "").strip()
-    choices = [row.get("choice1","").strip(), row.get("choice2","").strip(),
-               row.get("choice3","").strip(), row.get("choice4","").strip()]
-    choices = [c for c in choices if c]  # 空は除外
-    # answer_index: CSVは1〜4想定 → 0-basedへ
+
+def parse_int(value: str, default: int) -> int:
     try:
-        ans1 = int(row.get("answer_index","").strip() or "1")
-    except ValueError:
-        ans1 = 1
-    # クランプして0-based化
-    ans0 = max(0, min(len(choices)-1, ans1-1))
-    exp = row.get("explanation", "").strip()
-    exp = exp if exp else ""  # JSONでは空文字で持つ
+        return int((value or "").strip())
+    except Exception:
+        return default
+
+
+def split_tags(value: str) -> List[str]:
+    if not value:
+        return []
+    return [t.strip() for t in value.split(",") if t.strip()]
+
+
+# ---------- unit CSV（1単元分） → cards 変換 ----------
+
+def card_from_row(row: Dict[str, str]) -> Dict[str, Any]:
+    """
+    1行（1問）を JSON カードへ変換
+    期待カラム：
+      id, deck_id(=unit_idでも可), question, choice1..4, answer_index(1-4), explanation, tags, difficulty(1/2/3)
+    """
+    q = row.get("question", "")
+    if not q:
+        return {}
+
+    # 選択肢（空は除外：3択でもOK）
+    choices = [row.get("choice1", ""), row.get("choice2", ""), row.get("choice3", ""), row.get("choice4", "")]
+    choices = [c for c in choices if c]
+    if len(choices) < 2:
+        # 2択未満はスキップ
+        return {}
+
+    # answer_index: CSVは 1〜4 → 0-based & 範囲クランプ
+    ans1 = parse_int(row.get("answer_index", ""), 1)
+    ans0 = max(0, min(len(choices) - 1, ans1 - 1))
+
+    # explanation/tags/difficulty
+    exp = row.get("explanation", "") or ""
+    tags = split_tags(row.get("tags", ""))
+    difficulty = parse_int(row.get("difficulty", ""), 2)
+    if difficulty not in (1, 2, 3):
+        difficulty = 2
 
     return {
         "question": q,
         "choices": choices,
         "answerIndex": ans0,
         "explanation": exp,
-        # isPremium, unitTags は後で付与
+        "tags": tags,
+        "difficulty": difficulty,
+        # isPremium は後段で付与
     }
 
-def convert(csv_path, outdir, deck_id, title, free_ratio=0.2):
-    rows = read_csv(csv_path)
-    cards = [row_to_card(r) for r in rows if (r.get("question","").strip())]
+
+def build_unit(unit_id: str, unit_title: str, csv_path: str, free_ratio: float) -> Dict[str, Any]:
+    rows = read_csv_rows(csv_path)
+    cards: List[Dict[str, Any]] = []
+    for r in rows:
+        c = card_from_row(r)
+        if c:
+            cards.append(c)
 
     if not cards:
-        raise ValueError("有効な問題がありません（question が空か、CSV未読）")
+        raise ValueError(f"[{unit_id}] {csv_path} に有効な問題がありません。")
 
-    # 無料/有料の割当
+    # 無料/有料フラグ付与（先頭から free_ratio を無料に）
     n = len(cards)
-    free_count = max(1, int(round(n * float(free_ratio))))
+    free_count = max(1, int(round(n * float(free_ratio)))) if free_ratio > 0 else 0
     for i, c in enumerate(cards):
         c["isPremium"] = False if i < free_count else True
-        c["unitTags"] = []
 
-    deck = {
-        "id": deck_id,
-        "title": title,
+    return {
+        "id": unit_id,
+        "title": unit_title,
         "cards": cards,
     }
 
-    os.makedirs(outdir, exist_ok=True)
-    out_path = os.path.join(outdir, f"{deck_id}.json")
+
+# ---------- 変換パイプライン ----------
+
+def convert_with_units_list(deck_id: str, deck_title: str, raw_units: List[str],
+                            outdir: str, out_path: str, free_ratio: float) -> str:
+    """
+    --units で与えられた unit_id:title:csv_path の配列を処理して deck JSON を出力
+    """
+    units_json = []
+    for spec in raw_units:
+        if not spec.strip():
+            continue
+        try:
+            unit_id, title, path = spec.split(":", 2)
+        except ValueError:
+            raise ValueError(f"--units の指定が不正です: {spec}")
+        units_json.append(build_unit(unit_id.strip(), title.strip(), path.strip(), free_ratio))
+
+    if not units_json:
+        raise ValueError("units が空です。")
+
+    deck_json = {
+        "id": deck_id,
+        "title": deck_title,
+        "isPurchased": False,  # UI 側のロック表示互換
+        "units": units_json,
+    }
+
+    if not out_path:
+        os.makedirs(outdir, exist_ok=True)
+        out_path = os.path.join(outdir, f"{deck_id}.json")
+
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(deck, f, ensure_ascii=False, indent=2)
-    return out_path, len(cards), free_count
+        json.dump(deck_json, f, ensure_ascii=False, indent=2)
+
+    total_cards = sum(len(u["cards"]) for u in units_json)
+    print(f"OK: {out_path} を出力しました。units={len(units_json)} / cards={total_cards}")
+    return out_path
+
+
+def convert_with_master(master_csv: str, deck_id: str,
+                        outdir: str, out_path: str, free_ratio: float) -> str:
+    """
+    マスターCSV（deck_unit_master.csv）から deck_id の行を収集して deck JSON を出力
+    期待カラム：
+      deck_id, deck_title, unit_no, unit_id, unit_title, assets_deck_path, assets_src_csv, status
+    """
+    rows = read_csv_rows(master_csv)
+    targets = [r for r in rows if r.get("deck_id") == deck_id]
+    if not targets:
+        raise ValueError(f"master に deck_id={deck_id} の行が見つかりません。")
+
+    # 並び順：unit_no（数値）→ unit_id
+    def _sort_key(r):
+        try:
+            no = int((r.get("unit_no") or "").strip())
+        except Exception:
+            no = 9999
+        return (no, r.get("unit_id", ""))
+
+    targets.sort(key=_sort_key)
+
+    deck_title = targets[0].get("deck_title", deck_id)
+    units_json = []
+    chosen_out_path = out_path
+
+    for r in targets:
+        unit_id = r.get("unit_id", "").strip()
+        unit_title = r.get("unit_title", "").strip()
+        csv_path = r.get("assets_src_csv", "").strip()
+        if not (unit_id and unit_title and csv_path):
+            raise ValueError(f"master の行が不完全です: {r}")
+
+        units_json.append(build_unit(unit_id, unit_title, csv_path, free_ratio))
+
+        # 1行目に assets_deck_path があればそれを優先（なければ後で outdir/deck_id.json）
+        if not chosen_out_path:
+            p = r.get("assets_deck_path", "").strip()
+            if p:
+                chosen_out_path = p
+
+    deck_json = {
+        "id": deck_id,
+        "title": deck_title,
+        "isPurchased": False,
+        "units": units_json,
+    }
+
+    if not chosen_out_path:
+        os.makedirs(outdir, exist_ok=True)
+        chosen_out_path = os.path.join(outdir, f"{deck_id}.json")
+
+    os.makedirs(os.path.dirname(chosen_out_path), exist_ok=True)
+    with open(chosen_out_path, "w", encoding="utf-8") as f:
+        json.dump(deck_json, f, ensure_ascii=False, indent=2)
+
+    total_cards = sum(len(u["cards"]) for u in units_json)
+    print(f"OK: {chosen_out_path} を出力しました。units={len(units_json)} / cards={total_cards}")
+    return chosen_out_path
+
+
+# ---------- CLI ----------
 
 def main():
-    ap = argparse.ArgumentParser(description="CSV → JSON(Deck) 変換")
-    ap.add_argument("--input", required=True, help="入力CSV（単元ごと）")
-    ap.add_argument("--outdir", required=True, help="出力JSONディレクトリ（assets/decks など）")
-    ap.add_argument("--id", required=True, help="デッキID（例: unit_smoking）")
-    ap.add_argument("--title", required=True, help="デッキタイトル（例: 喫煙と健康）")
-    ap.add_argument("--free_ratio", type=float, default=0.2, help="無料割合（0.2=20%%）")
+    ap = argparse.ArgumentParser(description="CSV → JSON(Deck) 変換（deck → units → cards）")
+    # モードA：--units で直接指定
+    ap.add_argument("--units",
+                    help="カンマ区切りで unit を列挙（unit_id:unit_title:csv_path,...）",
+                    default="")
+    # モードB：マスターCSVから収集
+    ap.add_argument("--master",
+                    help="deck_unit_master.csv のパス。--deck_id と併用し、この deck に属する unit を自動収集します。",
+                    default="")
+
+    # 共通
+    ap.add_argument("--deck_id", required=True, help="deck の ID（例: deck_health01）")
+    ap.add_argument("--deck_title", help="deck のタイトル（--units モードで必須、--master モードでは master 側を優先）")
+    ap.add_argument("--outdir", default="assets/decks", help="出力先ディレクトリ（--out が無指定のとき使用）")
+    ap.add_argument("--out", dest="out_path", default="", help="出力 JSON のフルパス（指定時は outdir を無視）")
+    ap.add_argument("--free_ratio", type=float, default=0.2, help="無料割合（0.2=20%）")
     args = ap.parse_args()
 
     try:
-        out_path, total, free_count = convert(
-            args.input, args.outdir, args.id, args.title, args.free_ratio
-        )
-        print(f"OK: {out_path} を出力しました。全{total}問中、無料{free_count}問・有料{total-free_count}問")
+        if args.master:
+            # マスターCSVモード
+            convert_with_master(args.master, args.deck_id, args.outdir, args.out_path, args.free_ratio)
+        else:
+            # 直接指定モード
+            if not args.deck_title:
+                raise ValueError("--units モードでは --deck_title を指定してください。")
+            raw_units = [s.strip() for s in args.units.split(",")] if args.units else []
+            if not raw_units:
+                raise ValueError("--units が空です。unit_id:unit_title:csv_path をカンマ区切りで指定してください。")
+            convert_with_units_list(args.deck_id, args.deck_title, raw_units, args.outdir, args.out_path, args.free_ratio)
+
     except Exception as e:
         print(f"ERROR: {e}", file=sys.stderr)
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,493 @@
+{
+  "id": "deck_health01",
+  "title": "現代社会と健康（前半）",
+  "isPurchased": false,
+  "units": [
+    {
+      "id": "unit_health_concepts",
+      "title": "健康の考え方と成り立ち",
+      "cards": [
+        {
+          "question": "WHO憲章で定義されている健康の意味は？",
+          "choices": [
+            "病気でない状態",
+            "心身ともに良好な状態",
+            "体だけが丈夫な状態",
+            "社会的に孤立していない状態"
+          ],
+          "answerIndex": 1,
+          "explanation": "WHOは健康を「病気でない」ではなく、心身・社会的に良好な状態と定義している。",
+          "tags": [
+            "WHO"
+          ],
+          "difficulty": 1,
+          "isPremium": false
+        },
+        {
+          "question": "QOLとは何の略か？",
+          "choices": [
+            "Quantity of Life",
+            "Quality of Life",
+            "Quest of Life",
+            "Queue of Life"
+          ],
+          "answerIndex": 1,
+          "explanation": "QOLはQuality of Life（生活の質）のこと。",
+          "tags": [
+            "基礎"
+          ],
+          "difficulty": 2,
+          "isPremium": false
+        },
+        {
+          "question": "健康の三要素に含まれるものはどれか",
+          "choices": [
+            "体力",
+            "心の健康",
+            "社会的健康",
+            "以上すべて"
+          ],
+          "answerIndex": 3,
+          "explanation": "身体・精神・社会的健康の3つが健康の要素。",
+          "tags": [
+            "健康"
+          ],
+          "difficulty": 1,
+          "isPremium": false
+        },
+        {
+          "question": "生活習慣病に当てはまるものはどれか",
+          "choices": [
+            "がん",
+            "風邪",
+            "骨折",
+            "インフルエンザ"
+          ],
+          "answerIndex": 0,
+          "explanation": "生活習慣に関連して発症するのが生活習慣病。",
+          "tags": [
+            "生活習慣病"
+          ],
+          "difficulty": 2,
+          "isPremium": false
+        },
+        {
+          "question": "一次予防にあたるのはどれか",
+          "choices": [
+            "病気の早期発見",
+            "予防接種",
+            "手術",
+            "リハビリ"
+          ],
+          "answerIndex": 1,
+          "explanation": "一次予防は病気の発症を未然に防ぐ段階。",
+          "tags": [
+            "予防"
+          ],
+          "difficulty": 2,
+          "isPremium": false
+        },
+        {
+          "question": "二次予防の例はどれか",
+          "choices": [
+            "健康診断",
+            "禁煙",
+            "食生活改善",
+            "ワクチン接種"
+          ],
+          "answerIndex": 0,
+          "explanation": "二次予防は早期発見・早期治療。",
+          "tags": [
+            "予防"
+          ],
+          "difficulty": 2,
+          "isPremium": false
+        },
+        {
+          "question": "三次予防の目的は何か",
+          "choices": [
+            "生活習慣の改善",
+            "後遺症の悪化防止",
+            "病気を未然に防ぐ",
+            "再発を完全に防ぐ"
+          ],
+          "answerIndex": 1,
+          "explanation": "三次予防はリハビリなどで重症化を防ぐこと。",
+          "tags": [
+            "予防"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "ヘルスプロモーションの考え方を提唱した会議はどれか",
+          "choices": [
+            "ジュネーブ会議",
+            "オタワ会議",
+            "パリ協定",
+            "京都会議"
+          ],
+          "answerIndex": 1,
+          "explanation": "1986年のオタワ憲章でヘルスプロモーションが提唱。",
+          "tags": [
+            "WHO"
+          ],
+          "difficulty": 1,
+          "isPremium": true
+        },
+        {
+          "question": "ヘルスプロモーションで重視される要素はどれか",
+          "choices": [
+            "個人の責任だけ",
+            "社会環境の整備",
+            "医師の治療",
+            "薬の開発"
+          ],
+          "answerIndex": 1,
+          "explanation": "健康は個人の努力だけでなく環境整備も重要。",
+          "tags": [
+            "WHO"
+          ],
+          "difficulty": 1,
+          "isPremium": true
+        },
+        {
+          "question": "健康に影響を与える要因で最も大きいのはどれか",
+          "choices": [
+            "遺伝",
+            "生活習慣",
+            "環境",
+            "医療"
+          ],
+          "answerIndex": 1,
+          "explanation": "生活習慣が最も影響度が大きいとされる。",
+          "tags": [
+            "生活習慣"
+          ],
+          "difficulty": 1,
+          "isPremium": true
+        },
+        {
+          "question": "感染症の代表例はどれか",
+          "choices": [
+            "がん",
+            "心筋梗塞",
+            "インフルエンザ",
+            "糖尿病"
+          ],
+          "answerIndex": 2,
+          "explanation": "インフルエンザは感染症。",
+          "tags": [
+            "感染症"
+          ],
+          "difficulty": 3,
+          "isPremium": true
+        },
+        {
+          "question": "非感染症の代表例はどれか",
+          "choices": [
+            "がん",
+            "風邪",
+            "インフルエンザ",
+            "コレラ"
+          ],
+          "answerIndex": 0,
+          "explanation": "がんは生活習慣病などに分類される非感染症。",
+          "tags": [
+            "生活習慣病"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "健康の保持増進に必要なのはどれか",
+          "choices": [
+            "運動",
+            "休養",
+            "栄養",
+            "以上すべて"
+          ],
+          "answerIndex": 3,
+          "explanation": "三大要素のバランスが健康維持に必要。",
+          "tags": [
+            "基礎"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "健康指標として用いられるのはどれか",
+          "choices": [
+            "死亡率",
+            "平均寿命",
+            "乳児死亡率",
+            "以上すべて"
+          ],
+          "answerIndex": 3,
+          "explanation": "健康指標は平均寿命や死亡率など。",
+          "tags": [
+            "健康指標"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "平均寿命とは何か",
+          "choices": [
+            "生まれてからの生存年数",
+            "ある年に生まれた人が平均して生きる年数",
+            "高齢者が生きる年数",
+            "死因の平均年齢"
+          ],
+          "answerIndex": 1,
+          "explanation": "平均寿命は出生時に期待される寿命。",
+          "tags": [
+            "健康指標"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "健康寿命とは何か",
+          "choices": [
+            "病気の期間を含めた寿命",
+            "介護を受けずに生活できる期間",
+            "寿命全体",
+            "平均寿命の短縮分"
+          ],
+          "answerIndex": 1,
+          "explanation": "健康寿命は介護を受けず自立して生活できる期間。",
+          "tags": [
+            "健康指標"
+          ],
+          "difficulty": 1,
+          "isPremium": true
+        },
+        {
+          "question": "死因の第一位は現在何か",
+          "choices": [
+            "心疾患",
+            "脳血管疾患",
+            "がん",
+            "自殺"
+          ],
+          "answerIndex": 2,
+          "explanation": "日本ではがんが死因の第1位。",
+          "tags": [
+            "生活習慣病"
+          ],
+          "difficulty": 1,
+          "isPremium": true
+        },
+        {
+          "question": "健康づくりのために必要な休養は？",
+          "choices": [
+            "睡眠",
+            "昼寝",
+            "遊び",
+            "運動"
+          ],
+          "answerIndex": 0,
+          "explanation": "十分な睡眠が健康づくりに最も重要。",
+          "tags": [
+            "休養"
+          ],
+          "difficulty": 3,
+          "isPremium": true
+        },
+        {
+          "question": "ストレスの原因となるものは？",
+          "choices": [
+            "ストレッサー",
+            "ストレスホルモン",
+            "ストレス障害",
+            "ストレス要因"
+          ],
+          "answerIndex": 0,
+          "explanation": "ストレッサーが心身の負担の原因となる。",
+          "tags": [
+            "ストレス"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "ストレスが強いときに働く神経は？",
+          "choices": [
+            "交感神経",
+            "副交感神経",
+            "体性神経",
+            "感覚神経"
+          ],
+          "answerIndex": 0,
+          "explanation": "ストレス時は交感神経が優位になる。",
+          "tags": [
+            "ストレス"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "健康の保持増進に必要なバランスは？",
+          "choices": [
+            "栄養・運動・休養",
+            "栄養・お金・友人",
+            "運動・遊び・勉強",
+            "栄養・睡眠・遺伝"
+          ],
+          "answerIndex": 0,
+          "explanation": "栄養・運動・休養の3つが基本。",
+          "tags": [
+            "基礎"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "生活習慣病予防で重要なのは？",
+          "choices": [
+            "適度な運動",
+            "食生活の改善",
+            "禁煙",
+            "以上すべて"
+          ],
+          "answerIndex": 3,
+          "explanation": "生活習慣病予防には総合的な生活改善が必要。",
+          "tags": [
+            "生活習慣病"
+          ],
+          "difficulty": 1,
+          "isPremium": true
+        },
+        {
+          "question": "喫煙の主な健康被害は？",
+          "choices": [
+            "骨折",
+            "肺がん",
+            "インフルエンザ",
+            "花粉症"
+          ],
+          "answerIndex": 1,
+          "explanation": "喫煙は肺がんリスクを高める。",
+          "tags": [
+            "喫煙"
+          ],
+          "difficulty": 1,
+          "isPremium": true
+        },
+        {
+          "question": "飲酒で注意すべきことは？",
+          "choices": [
+            "急性アルコール中毒",
+            "骨粗鬆症",
+            "花粉症",
+            "骨折"
+          ],
+          "answerIndex": 0,
+          "explanation": "過度の飲酒は急性アルコール中毒を引き起こす。",
+          "tags": [
+            "飲酒"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "健康日本21とは何か",
+          "choices": [
+            "感染症対策",
+            "健康増進計画",
+            "病院整備計画",
+            "医療費削減計画"
+          ],
+          "answerIndex": 1,
+          "explanation": "国が策定した健康増進のための計画。",
+          "tags": [
+            "政策"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "メタボリックシンドロームに関連するのは？",
+          "choices": [
+            "肥満",
+            "高血圧",
+            "高血糖",
+            "以上すべて"
+          ],
+          "answerIndex": 3,
+          "explanation": "内臓脂肪型肥満に生活習慣病リスクが重なる状態。",
+          "tags": [
+            "生活習慣病"
+          ],
+          "difficulty": 1,
+          "isPremium": true
+        },
+        {
+          "question": "がんの予防に役立つのは？",
+          "choices": [
+            "禁煙",
+            "適度な運動",
+            "バランスの取れた食事",
+            "以上すべて"
+          ],
+          "answerIndex": 3,
+          "explanation": "がん予防は生活習慣の改善が基本。",
+          "tags": [
+            "生活習慣病"
+          ],
+          "difficulty": 1,
+          "isPremium": true
+        },
+        {
+          "question": "保健所の役割は？",
+          "choices": [
+            "医療提供",
+            "地域の健康づくり",
+            "薬の開発",
+            "看護師の養成"
+          ],
+          "answerIndex": 1,
+          "explanation": "地域の健康を支える行政機関が保健所。",
+          "tags": [
+            "制度"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "健康保険制度の目的は？",
+          "choices": [
+            "医療費の自己負担軽減",
+            "薬代無料",
+            "健康診断の無料化",
+            "医師の給与確保"
+          ],
+          "answerIndex": 0,
+          "explanation": "医療費の負担を分かち合う制度。",
+          "tags": [
+            "制度"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        },
+        {
+          "question": "セルフメディケーションとは何か",
+          "choices": [
+            "医師に頼らず市販薬などで自分の健康管理を行うこと",
+            "病院での定期健診",
+            "医療保険の利用",
+            "インターネット診療"
+          ],
+          "answerIndex": 0,
+          "explanation": "セルフメディケーションは自分で健康管理を行うこと。",
+          "tags": [
+            "自己管理"
+          ],
+          "difficulty": 2,
+          "isPremium": true
+        }
+      ]
+    }
+  ]
+}
