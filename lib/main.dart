@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green, // ← これがテーマの基準色！
-          brightness: Brightness.light, // 明るいテーマ
+          seedColor: Colors.green,
+          brightness: Brightness.light,
         ),
         fontFamily: 'NotoSansJP',
       ),
