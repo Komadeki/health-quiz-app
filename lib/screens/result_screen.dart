@@ -22,7 +22,9 @@ class ResultScreen extends StatelessWidget {
             Text('正答率: $rate %'),
             const SizedBox(height: 24),
             FilledButton.icon(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+              },
               icon: const Icon(Icons.home),
               label: const Text('ホームへ'),
             ),

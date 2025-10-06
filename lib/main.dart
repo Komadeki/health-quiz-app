@@ -44,7 +44,11 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'NotoSansJP',
       ),
-      home: const HomeScreen(),
+      routes: {
+        '/': (_) => const HomeScreen(),
+        // 必要なら他のルートもここに
+      },
+      initialRoute: '/',
     );
   }
 }
