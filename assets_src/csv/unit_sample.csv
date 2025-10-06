@@ -1,6 +1,0 @@
-id,deck_id,question,choice1,choice2,choice3,choice4,answer_index,explanation,tags,difficulty
-1,deck1,WHO憲章が採択された年齢範囲は？,6-12歳,12-18歳,18-29歳,30-44歳,3,WHO憲章は18-29歳を対象にしている。,基礎,1
-2,deck1,誤った健康観はどれか？,「病気でなければ健康」,「健康は体だけの状態」,「健康は心身ともに良好」,「健康は社会的にも良好」,1,健康＝病気でないとするのは誤り。,基礎,1
-3,deck1,QOLの正しい意味は？,Quantity of Life,Quality of Life,Quest of Life,Queue of Life,2,QOLはQuality of Lifeの略。,基礎,1
-4,deck1,生活習慣病に当てはまるものは？,がん,風邪,骨折,インフルエンザ,1,がんは生活習慣病の代表例。,生活習慣病,2
-5,deck1,喫煙による健康影響は？,肺がんリスク増加,骨粗鬆症改善,視力回復,虫歯予防,1,喫煙は肺がんの大きなリスク要因。,喫煙,1
