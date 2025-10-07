@@ -12,11 +12,12 @@ class DeckLoader {
     final Map<String, dynamic> manifest = jsonDecode(manifestJson);
 
     // 2) assets/decks/deck_*.json だけを拾う
-    final deckFiles = manifest.keys
-        .where((p) => p.startsWith('assets/decks/') && p.endsWith('.json'))
-        .where((p) => RegExp(r'assets/decks/deck_.*\.json$').hasMatch(p))
-        .toList()
-      ..sort();
+    final deckFiles =
+        manifest.keys
+            .where((p) => p.startsWith('assets/decks/') && p.endsWith('.json'))
+            .where((p) => RegExp(r'assets/decks/deck_.*\.json$').hasMatch(p))
+            .toList()
+          ..sort();
 
     // 3) 各ファイルを Deck に変換
     final decks = <Deck>[];

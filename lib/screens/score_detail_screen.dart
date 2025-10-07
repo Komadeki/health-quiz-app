@@ -13,9 +13,9 @@ String formatSec(int s) {
 Color accuracyColor(BuildContext context, double acc) {
   // acc は 0.0〜1.0
   final cs = Theme.of(context).colorScheme;
-  if (acc >= 0.80) return Colors.green;   // 良い
-  if (acc >= 0.50) return Colors.orange;  // まあまあ
-  return cs.error;                        // 要改善（赤）
+  if (acc >= 0.80) return Colors.green; // 良い
+  if (acc >= 0.50) return Colors.orange; // まあまあ
+  return cs.error; // 要改善（赤）
 }
 
 // 正答率に応じたアイコン
@@ -44,7 +44,9 @@ class ScoreDetailScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            Text('スコア: ${record.score}/${record.total}（${(record.accuracy * 100).toStringAsFixed(0)}%）'),
+            Text(
+              'スコア: ${record.score}/${record.total}（${(record.accuracy * 100).toStringAsFixed(0)}%）',
+            ),
             if (record.durationSec != null)
               Text('所要時間: ${formatSec(record.durationSec!)}'),
             const SizedBox(height: 16),

@@ -19,16 +19,23 @@ class QuizCard {
   });
 
   List<String> get tags => unitTags;
-  
+
   /// JSON読み込み用
   factory QuizCard.fromJson(Map<String, dynamic> json) {
     List<String> _readTags(Map<String, dynamic> j) {
       final raw = j['unitTags'] ?? j['tags'] ?? j['tag'] ?? j['tag_list'];
       if (raw is List) {
-        return raw.map((e) => e.toString().trim()).where((e) => e.isNotEmpty).toList();
+        return raw
+            .map((e) => e.toString().trim())
+            .where((e) => e.isNotEmpty)
+            .toList();
       }
       if (raw is String) {
-        return raw.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
+        return raw
+            .split(',')
+            .map((e) => e.trim())
+            .where((e) => e.isNotEmpty)
+            .toList();
       }
       return const <String>[];
     }

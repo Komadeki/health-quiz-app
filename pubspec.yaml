@@ -20,19 +20,36 @@ dependencies:
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.5.3
   uuid: ^4.4.0
+  package_info_plus: ^8.0.0
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  flutter_native_splash: ^2.4.1
 
 flutter:
   uses-material-design: true
   assets:
     - assets/decks/
+    - assets/images/ 
   fonts:
     - family: NotoSansJP
       fonts:
         - asset: assets/fonts/NotoSansJP-Regular.ttf
         - asset: assets/fonts/NotoSansJP-Bold.ttf
           weight: 700
+
+flutter_native_splash:
+  color: "#F7FAF4"             # 背景色（今の淡いアイボリー等に合わせて）
+  color_dark: "#0b0f0c"        # ダーク時（任意）
+  image: assets/images/splash_logo.png
+  image_dark: assets/images/splash_logo.png
+  android_12:
+    color: "#F7FAF4"
+    icon_background_color: "#F7FAF4"
+    image: assets/images/splash_logo.png
+  android: true
+  ios: true
+  web: false

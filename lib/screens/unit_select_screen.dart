@@ -1,10 +1,13 @@
 // lib/screens/unit_select_screen.dart
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart'; // ← 追加
+import '../services/app_settings.dart'; // ← 追加
 import '../models/deck.dart';
 import '../models/unit.dart';
 import '../models/card.dart';
 import 'quiz_screen.dart';
+import 'package:health_quiz_app/utils/logger.dart'; // ← 追加（AppLog）
 
 class UnitSelectScreen extends StatefulWidget {
   final Deck deck;
@@ -23,15 +26,49 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
   final Set<String> _selectedUnitIds = {}; // 選択中 unit.id
   int? _limit; // null=制限なし／数値=出題上限
 
+  // 直近の設定値を記録（ON→OFF切替時の検知用）
+  bool _lastSaveUnitsOn = true;
+
   @override
   void initState() {
     super.initState();
     _restorePrefs();
   }
 
+  // 設定が変わったら即時反映（特に ON→OFF でリセット）
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final saveOn = context.watch<AppSettings>().saveUnitSelection;
+    if (_lastSaveUnitsOn && !saveOn) {
+      // ON→OFFに切り替わった瞬間：その場で選択をクリア＆上限を無効化
+      setState(() {
+        _selectedUnitIds.clear();
+        _limit = null;
+      });
+      AppLog.d('🛑 UnitSelect: saveUnitSelection OFF → reset local selections');
+    }
+    _lastSaveUnitsOn = saveOn;
+  }
+
   // ────── 永続化まわり ──────
   Future<void> _restorePrefs() async {
+    final saveOn = context.read<AppSettings>().saveUnitSelection; // await前に読む
     final sp = await SharedPreferences.getInstance();
+    if (!mounted) return;
+
+    if (!saveOn) {
+      // 保存OFF：常に未選択＋上限なし（null）から開始。読み込みもしない
+      setState(() {
+        _selectedUnitIds..clear();
+        _limit = null;
+      });
+      AppLog.d(
+        '⏭️ UnitSelect: load skipped (OFF) → cleared selections & limit=null',
+      );
+      return;
+    }
+
     final savedUnits = sp.getStringList(_prefsKeySelectedUnits) ?? [];
     final savedLimit = sp.getInt(_prefsKeyQuestionLimit); // なければ null
 
@@ -43,20 +80,44 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
         );
       _limit = savedLimit; // null なら制限なし
     });
+
+    AppLog.d(
+      '📥 UnitSelect: load units=$_selectedUnitIds, limit=$_limit (deck=${widget.deck.id})',
+    );
   }
 
   Future<void> _saveSelectedUnits() async {
+    final saveOn = Provider.of<AppSettings>(
+      context,
+      listen: false,
+    ).saveUnitSelection;
+    if (!saveOn) {
+      AppLog.d('⏭️ UnitSelect: save skipped (OFF)');
+      return;
+    }
     final sp = await SharedPreferences.getInstance();
     await sp.setStringList(_prefsKeySelectedUnits, _selectedUnitIds.toList());
+    AppLog.d(
+      '📤 UnitSelect: saved units=$_selectedUnitIds (deck=${widget.deck.id})',
+    );
   }
 
   Future<void> _saveQuestionLimit() async {
+    final saveOn = Provider.of<AppSettings>(
+      context,
+      listen: false,
+    ).saveUnitSelection;
+    if (!saveOn) {
+      AppLog.d('⏭️ UnitSelect: limit save skipped (OFF)');
+      return;
+    }
     final sp = await SharedPreferences.getInstance();
     if (_limit == null) {
       await sp.remove(_prefsKeyQuestionLimit);
     } else {
       await sp.setInt(_prefsKeyQuestionLimit, _limit!);
     }
+    AppLog.d('📤 UnitSelect: saved limit=$_limit (deck=${widget.deck.id})');
   }
 
   // ────── 集計/表示ヘルパー ──────
@@ -132,7 +193,9 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
       ).showSnackBar(const SnackBar(content: Text('選択範囲に出題可能な問題がありません')));
       return;
     }
-    available.shuffle();
+    // 出題順は QuizScreen 側で一本化（settings.randomize）して決定する。
+    // ここではシャッフルしない。
+    // available.shuffle();
     final startCards = (_limit == null)
         ? available
         : available.take(_limit!).toList();
@@ -266,8 +329,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                 onPressed: _canStart
                     ? () {
                         // デバッグ出力（任意）
-                        // ignore: avoid_print
-                        print(
+                        AppLog.d(
                           'start quiz: selectedUnitIds=$_selectedUnitIds, '
                           'available=${_collectSelectedCards().length}, '
                           'limit=$_limit',

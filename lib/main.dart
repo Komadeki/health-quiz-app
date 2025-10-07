@@ -2,49 +2,90 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/foundation.dart'; // kDebugMode 用
+import 'package:provider/provider.dart';
 import 'models/deck.dart';
 import 'services/deck_loader.dart';
+import 'services/app_settings.dart';
 import 'screens/multi_select_screen.dart';
 import 'screens/unit_select_screen.dart';
-import 'screens/stats_home_screen.dart';
+import 'screens/scores_screen.dart'; 
+import 'screens/settings_screen.dart';
+import 'utils/logger.dart'; // AppLog を使うため
+import 'services/attempt_store.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ===== デバッグ検証（終わったら必ず削除 or コメントアウト）=====
+  // ===== デバッグ検証 =====
+  AppLog.enabled = true; // ← 一時ON（確認後は false やコメントアウトでOK）
+  // await AttemptStore().clearAll(); // ← 使い終わったら必ずコメントアウト
+  // AppLog.d('[DEBUG] AttemptStore cleared.');
   // await debugSmokeTestScoreStore();
-  // ===============================================================
+  // =======================
 
-  runApp(const MyApp());
+  // ✅ AppSettingsの初期化を追加
+  final settings = AppSettings();
+  await settings.load();
+
+  // ✅ Providerで包んで起動
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => settings,
+      child: const MyApp(),
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // ✅ AppSettingsを取得
+    final s = context.watch<AppSettings>();
+
     return MaterialApp(
-      title: '保健一問一答',
+      title: '高校保健一問一答',
       locale: const Locale('ja', 'JP'),
-      supportedLocales: const [
-        Locale('ja', 'JP'),
-        Locale('en'),
-      ],
-      // ★ const を外す
+      supportedLocales: const [Locale('ja', 'JP'), Locale('en')],
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+
+      // ✅ テーマ関連を差し替え
+      themeMode: s.themeMode, // ← ライト／ダーク切替に対応
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+          textScaler: const TextScaler.linear(1.0),
+        ),
+        child: child!,
+      ),
+
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green, // ← これがテーマの基準色！
-          brightness: Brightness.light, // 明るいテーマ
+          seedColor: Colors.green,
+          brightness: Brightness.light,
         ),
         fontFamily: 'NotoSansJP',
       ),
-      home: const HomeScreen(),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green,
+          brightness: Brightness.dark,
+        ),
+        fontFamily: 'NotoSansJP',
+      ),
+
+      routes: {
+        '/': (_) => const HomeScreen(),
+        '/settings': (_) => const SettingsScreen(),
+      },
+      initialRoute: '/',
     );
   }
 }
@@ -126,6 +167,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _notImplemented(String title) {
+    if (title == '設定') {
+      Navigator.pushNamed(context, '/settings');
+      return;
+    }
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text('$title は今後実装予定です')));
@@ -269,7 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const StatsHomeScreen(),
+                          builder: (_) => const ScoresScreen(), // ★ 新画面へ
                         ),
                       );
                     },

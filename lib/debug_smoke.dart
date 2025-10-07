@@ -1,6 +1,7 @@
 import 'package:uuid/uuid.dart';
 import 'models/score_record.dart';
 import 'services/score_store.dart';
+import 'utils/logger.dart';
 
 Future<void> debugSmokeTestScoreStore() async {
   final rec = ScoreRecord(
@@ -17,5 +18,5 @@ Future<void> debugSmokeTestScoreStore() async {
   await ScoreStore.instance.add(rec);
   final all = await ScoreStore.instance.listAll();
   // ignore: avoid_print
-  print('v2 count = ${all.length}, first = ${all.first.deckTitle}');
+  AppLog.d('v2 count = ${all.length}, first = ${all.first.deckTitle}');
 }
