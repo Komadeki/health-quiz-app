@@ -228,7 +228,9 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
         );
       }
     }
-    out.shuffle();
+    // 出題順は QuizScreen 側で一本化（settings.randomize）して決定する。
+    // ここではシャッフルしない。
+    // out.shuffle();
     return (_limit == null) ? out : out.take(_limit!).toList();
   }
 

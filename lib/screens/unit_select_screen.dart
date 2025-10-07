@@ -187,7 +187,9 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
       ).showSnackBar(const SnackBar(content: Text('選択範囲に出題可能な問題がありません')));
       return;
     }
-    available.shuffle();
+    // 出題順は QuizScreen 側で一本化（settings.randomize）して決定する。
+    // ここではシャッフルしない。
+    // available.shuffle();
     final startCards = (_limit == null)
         ? available
         : available.take(_limit!).toList();

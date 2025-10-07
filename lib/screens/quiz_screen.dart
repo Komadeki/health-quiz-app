@@ -54,8 +54,16 @@ class _QuizScreenState extends State<QuizScreen> {
   void initState() {
     super.initState();
     // UnitSelectScreen から渡されてきたカード束があればそちらを使用
-    final base = widget.overrideCards ?? widget.deck.cards;
+    // （toListで可変化しておく）
+    final base = (widget.overrideCards ?? widget.deck.cards).toList();
+    // 各カードの選択肢シャッフルは従来通り
     sequence = base.map((c) => c.shuffled()).toList();
+
+    // 出題順ランダム化の一本化：設定がONならここだけで shuffle
+    final settings = Provider.of<AppSettings>(context, listen: false);
+    if (settings.randomize) {
+      sequence.shuffle();
+    }
   }
 
   /// 選択肢をタップしたときの挙動
