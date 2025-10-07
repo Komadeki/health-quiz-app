@@ -1,4 +1,5 @@
 // lib/screens/unit_select_screen.dart
+import 'dart:math'; // ← 追加：均等配分やshuffleに利用
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart'; // ← 追加
@@ -163,6 +164,88 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
 
   bool get _canStart => _selectedUnitIds.isNotEmpty && _startCount > 0;
 
+  // ────── 出題カード構築（均等配分＋無料制限＋不足補完＋全体シャッフル）──────
+  List<QuizCard> _buildCards() {
+    final selectedUnits = widget.deck.units
+        .where((u) => _selectedUnitIds.contains(u.id))
+        .toList();
+    if (selectedUnits.isEmpty) return [];
+
+    // 各ユニットのカードを取得（購入状況で制限）
+    final pools = <List<QuizCard>>[];
+    final poolNames = <String>[];
+    for (final u in selectedUnits) {
+      final pool = widget.deck.isPurchased
+          ? u.cards.toList()
+          : u.cards.where((c) => !c.isPremium).toList();
+      pool.shuffle();
+      pools.add(pool);
+      poolNames.add(u.title);
+    }
+
+    // 制限なしなら全問シャッフル
+    if (_limit == null) {
+      final all = pools.expand((x) => x).toList()..shuffle();
+      AppLog.d('🎲 UnitSelect (no-limit) summary:');
+      for (int i = 0; i < pools.length; i++) {
+        AppLog.d('  ${poolNames[i]}: ${pools[i].length}問');
+      }
+      AppLog.d('  → total=${all.length} (limit=∞)');
+      return all;
+    }
+
+    final limit = _limit!;
+    final unitCount = pools.length;
+    final base = (limit / unitCount).floor();
+    int remainder = limit % unitCount;
+    final rand = Random();
+    final order = List<int>.generate(unitCount, (i) => i)..shuffle(rand);
+
+    final picked = <QuizCard>[];
+    final perUnitPicked = <int>[...List.filled(unitCount, 0)];
+    final remainderAssigned = <bool>[...List.filled(unitCount, false)];
+
+    for (final i in order) {
+      final pool = pools[i];
+      if (pool.isEmpty) continue;
+
+      final extra = (remainder > 0) ? 1 : 0;
+      if (remainder > 0) {
+        remainder--;
+        remainderAssigned[i] = true;
+      }
+      final takeCount = min(base + extra, pool.length);
+      picked.addAll(pool.take(takeCount));
+      perUnitPicked[i] = takeCount;
+    }
+
+    // 不足補完
+    if (picked.length < limit) {
+      final backfill = <QuizCard>[];
+      for (int i = 0; i < pools.length; i++) {
+        final used = perUnitPicked[i];
+        if (used < pools[i].length) {
+          backfill.addAll(pools[i].skip(used));
+        }
+      }
+      backfill.shuffle(rand);
+      final need = limit - picked.length;
+      picked.addAll(backfill.take(need));
+    }
+
+    picked.shuffle(rand);
+
+    // ログ出力
+    AppLog.d('🎲 UnitSelect build summary (limit=$limit):');
+    for (int i = 0; i < pools.length; i++) {
+      final extraFlag = remainderAssigned[i] ? ' (+1配分)' : '';
+      AppLog.d('  ${poolNames[i]}: ${perUnitPicked[i]}問$extraFlag (pool=${pools[i].length})');
+    }
+    AppLog.d('  → total=${picked.length}');
+
+    return picked;
+  }
+
   // ────── UIイベント ──────
   void _toggleUnit(Unit u) {
     setState(() {
@@ -186,25 +269,19 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
   }
 
   void _startQuiz() {
-    final available = _collectSelectedCards();
-    if (available.isEmpty) {
+    final cards = _buildCards();
+    if (cards.isEmpty) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('選択範囲に出題可能な問題がありません')));
       return;
     }
-    // 出題順は QuizScreen 側で一本化（settings.randomize）して決定する。
-    // ここではシャッフルしない。
-    // available.shuffle();
-    final startCards = (_limit == null)
-        ? available
-        : available.take(_limit!).toList();
 
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) =>
-            QuizScreen(deck: widget.deck, overrideCards: startCards),
+            QuizScreen(deck: widget.deck, overrideCards: cards),
       ),
     );
   }
@@ -314,6 +391,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                     DropdownMenuItem(value: 10, child: Text('10問')),
                     DropdownMenuItem(value: 20, child: Text('20問')),
                     DropdownMenuItem(value: 50, child: Text('50問')),
+                    DropdownMenuItem(value: 100, child: Text('100問')),
                   ],
                 ),
               ],
@@ -328,10 +406,8 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
               child: FilledButton(
                 onPressed: _canStart
                     ? () {
-                        // デバッグ出力（任意）
                         AppLog.d(
                           'start quiz: selectedUnitIds=$_selectedUnitIds, '
-                          'available=${_collectSelectedCards().length}, '
                           'limit=$_limit',
                         );
                         _startQuiz();

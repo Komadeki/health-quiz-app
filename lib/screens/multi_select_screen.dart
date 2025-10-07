@@ -1,5 +1,6 @@
 // lib/screens/multi_select_screen.dart
 import 'dart:convert';
+import 'dart:math'; // ← 追加：均等配分の端数配分ランダム化・shuffle用
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart'; // ← 追加
@@ -221,24 +222,107 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
     }
   }
 
-  /// 出題カードを作成（購入未購入考慮・上限適用）
+  /// 出題カードを作成（購入未購入考慮・上限適用・均等配分・不足補完・全体シャッフル）
   List<QuizCard> _buildCards() {
-    final List<QuizCard> out = [];
+    // 1) 選択されたユニットを列挙
+    final selectedUnits = <({Deck deck, Unit unit})>[];
     for (final deck in widget.decks) {
       final unitIds = selected[deck.id] ?? {};
       if (unitIds.isEmpty) continue;
-
-      final units = deck.units.where((u) => unitIds.contains(u.id));
-      for (final u in units) {
-        out.addAll(
-          deck.isPurchased ? u.cards : u.cards.where((c) => !c.isPremium),
-        );
+      for (final u in deck.units.where((u) => unitIds.contains(u.id))) {
+        selectedUnits.add((deck: deck, unit: u));
       }
     }
-    // 出題順は QuizScreen 側で一本化（settings.randomize）して決定する。
-    // ここではシャッフルしない。
-    // out.shuffle();
-    return (_limit == null) ? out : out.take(_limit!).toList();
+
+    if (selectedUnits.isEmpty) return <QuizCard>[];
+
+    // 2) 各ユニットごとに「出題候補プール」を作成（未購入は無料カードのみ）
+    final List<List<QuizCard>> pools = [];
+    final List<String> poolNames = []; // ログ用：Deck/Unit名
+    for (final entry in selectedUnits) {
+      final deck = entry.deck;
+      final unit = entry.unit;
+      final pool = deck.isPurchased
+          ? unit.cards.toList()
+          : unit.cards.where((c) => !c.isPremium).toList();
+      // 念のため安定化
+      pool.shuffle();
+      pools.add(pool);
+      poolNames.add('${deck.title}/${unit.title}');
+    }
+
+    // 3) 上限が null の場合は、全カード連結→シャッフルして返す
+    if (_limit == null) {
+      final all = <QuizCard>[];
+      for (final p in pools) {
+        all.addAll(p);
+      }
+      all.shuffle();
+      // デバッグログ
+      AppLog.d('🎲 Mix (no-limit) summary:');
+      for (int i = 0; i < pools.length; i++) {
+        AppLog.d('  ${poolNames[i]}: ${pools[i].length}問');
+      }
+      AppLog.d('  → total=${all.length} (limit=∞)');
+      return all;
+    }
+
+    // 4) 均等配分（端数はランダムなユニットに+1ずつ）
+    final totalLimit = _limit!;
+    final unitCount = pools.length;
+    final base = (totalLimit / unitCount).floor();
+    int remainder = totalLimit % unitCount;
+
+    final random = Random();
+    final order = List<int>.generate(unitCount, (i) => i)..shuffle(random);
+
+    final picked = <QuizCard>[];
+    final perUnitPicked = <int>[...List.filled(unitCount, 0)];
+    final remainderAssigned = <bool>[...List.filled(unitCount, false)];
+
+    for (final i in order) {
+      final pool = pools[i];
+      if (pool.isEmpty) continue;
+
+      final extra = (remainder > 0) ? 1 : 0;
+      if (remainder > 0) {
+        remainder--;
+        remainderAssigned[i] = true;
+      }
+      final takeCount = min(base + extra, pool.length);
+      picked.addAll(pool.take(takeCount));
+      perUnitPicked[i] = takeCount;
+    }
+
+    // 5) 不足補完（例：無料ユニットでプールが小さい場合など）
+    if (picked.length < totalLimit) {
+      // 余りプール＝各ユニットの未使用カードを集約
+      final backfill = <QuizCard>[];
+      for (int i = 0; i < pools.length; i++) {
+        final used = perUnitPicked[i];
+        if (used < pools[i].length) {
+          backfill.addAll(pools[i].skip(used));
+        }
+      }
+      backfill.shuffle(random);
+      final need = totalLimit - picked.length;
+      picked.addAll(backfill.take(need));
+    }
+
+    // 6) 最後に全体をシャッフル
+    picked.shuffle(random);
+
+    // 7) デバッグログ出力
+    AppLog.d('🎲 Mix build summary (limit=$totalLimit):');
+    for (int i = 0; i < pools.length; i++) {
+      final assigned = perUnitPicked[i] + (picked.length > totalLimit ? 0 : 0);
+      final extraFlag = remainderAssigned[i] ? ' (+1配分)' : '';
+      AppLog.d('  ${poolNames[i]}: ${perUnitPicked[i]}問$extraFlag '
+          '(pool=${pools[i].length})');
+    }
+    AppLog.d('  → total=${picked.length}');
+
+    return picked;
   }
 
   // ================= トグル操作 =================
@@ -438,6 +522,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
                     DropdownMenuItem(value: 10, child: Text('10問')),
                     DropdownMenuItem(value: 20, child: Text('20問')),
                     DropdownMenuItem(value: 50, child: Text('50問')),
+                    DropdownMenuItem(value: 100, child: Text('100問')),
                   ],
                 ),
               ],
