@@ -9,6 +9,8 @@ import '../services/app_settings.dart';
 import '../services/score_store.dart';
 import '../services/scores_store.dart';
 import '../services/deck_loader.dart';
+import '../services/attempt_store.dart';
+import '../models/attempt_entry.dart';
 
 class QuizScreen extends StatefulWidget {
   final Deck deck;
@@ -32,11 +34,14 @@ class _QuizScreenState extends State<QuizScreen> {
   int correctCount = 0;
 
   final Stopwatch _sw = Stopwatch()..start();
-  bool _savedOnce = false;            // 結果保存の多重防止
+  bool _savedOnce = false; // 結果保存の多重防止
+  final _uuid = const Uuid();
+  late final String _sessionId;
+  DateTime? _qStart; // この問題の開始時刻（表示タイミング）
 
   // 追加：タグ別集計
   final Map<String, int> _tagCorrect = {};
-  final Map<String, int> _tagWrong   = {};
+  final Map<String, int> _tagWrong = {};
 
   void _bumpTags(Iterable<String> tags, bool isCorrect) {
     for (final t in tags) {
@@ -47,7 +52,7 @@ class _QuizScreenState extends State<QuizScreen> {
       }
     }
   }
-  
+
   QuizCard get card => sequence[index];
 
   @override
@@ -64,13 +69,17 @@ class _QuizScreenState extends State<QuizScreen> {
     if (settings.randomize) {
       sequence.shuffle();
     }
+
+    // セッションID生成＆最初の問題の開始時刻を記録
+    _sessionId = _uuid.v4();
+    _qStart = DateTime.now();
   }
 
   /// 選択肢をタップしたときの挙動
   void _select(int i) {
     if (revealed) return;
 
-    final app     = Provider.of<AppSettings>(context, listen: false);
+    final app = Provider.of<AppSettings>(context, listen: false);
     final tapMode = app.tapMode;
 
     if (tapMode == TapAdvanceMode.oneTap) {
@@ -100,12 +109,41 @@ class _QuizScreenState extends State<QuizScreen> {
     final tagsThisQuestion = card.tags; // List<String>
     _bumpTags(tagsThisQuestion, isCorrect);
 
+    // --- AttemptEntry 保存（この問題の確定時点） ---
+    try {
+      final ended = DateTime.now();
+      final started = _qStart ?? ended;
+      final durationMs = ended.difference(started).inMilliseconds;
+      final attempt = AttemptEntry(
+        attemptId: _uuid.v4(),
+        sessionId: _sessionId,
+        startedAt: started,
+        endedAt: ended,
+        deckId: widget.deck.id,
+        unitId: widget.deck.id,
+        cardId: index.toString(),
+        question: card.question,
+        choices: card.choices,
+        correctIndex: card.answerIndex,
+        selectedIndex: selected!, // reveal済みなので非null
+        isCorrect: isCorrect,
+        durationMs: durationMs,
+        tags: card.tags,
+        questionNumber: index + 1,
+        note: null,
+        schema: 1,
+      );
+      await AttemptStore().add(attempt);
+    } catch (_) {
+      // 失敗しても致命傷ではないので黙って続行
+    }
+
     if (index >= sequence.length - 1) {
       if (_savedOnce) return; // すでに保存していたら何もしない
       _savedOnce = true;
       // 成績を保存
       final result = QuizResult(
-        deckId: widget.deck.id,                         // 'mixed' もここに入る
+        deckId: widget.deck.id, // 'mixed' もここに入る
         total: sequence.length,
         correct: correctCount,
         timestamp: DateTime.now(),
@@ -114,7 +152,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
       // QuizResult作成直後に deckTitle を解決
       final decks = await DeckLoader().loadAll();
-      final titleMap = { for (final d in decks) d.id: d.title };
+      final titleMap = {for (final d in decks) d.id: d.title};
       final deckTitle = (result.deckId == 'mixed')
           ? 'ミックス練習'
           : (titleMap[result.deckId] ?? result.deckId);
@@ -129,7 +167,7 @@ class _QuizScreenState extends State<QuizScreen> {
       for (final k in allKeys) {
         tagStats[k] = TagStat(
           correct: _tagCorrect[k] ?? 0,
-          wrong:   _tagWrong[k] ?? 0,
+          wrong: _tagWrong[k] ?? 0,
         );
       }
 
@@ -151,7 +189,8 @@ class _QuizScreenState extends State<QuizScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) => ResultScreen(total: sequence.length, correct: correctCount),
+          builder: (_) =>
+              ResultScreen(total: sequence.length, correct: correctCount),
         ),
       );
       return;
@@ -161,6 +200,7 @@ class _QuizScreenState extends State<QuizScreen> {
       index++;
       selected = null;
       revealed = false;
+      _qStart = DateTime.now(); // 次の問題の開始時刻
     });
   }
 
@@ -199,7 +239,10 @@ class _QuizScreenState extends State<QuizScreen> {
             children: [
               Text(
                 card.question,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 16),
 
@@ -232,8 +275,14 @@ class _QuizScreenState extends State<QuizScreen> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                              color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 12,
+                              ),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainerHighest
+                                  .withValues(alpha: 0.4),
                               child: Row(
                                 children: [
                                   const Icon(Icons.info_outline, size: 20),
@@ -249,13 +298,16 @@ class _QuizScreenState extends State<QuizScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+                              padding: const EdgeInsets.fromLTRB(
+                                16,
+                                14,
+                                16,
+                                16,
+                              ),
                               child: Text(
                                 (card.explanation ?? '').trim(),
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      fontSize: 18,
-                                      height: 1.5,
-                                    ),
+                                style: Theme.of(context).textTheme.bodyMedium
+                                    ?.copyWith(fontSize: 18, height: 1.5),
                               ),
                             ),
                           ],
@@ -269,7 +321,9 @@ class _QuizScreenState extends State<QuizScreen> {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: (selected == null && !revealed) ? null : _primaryAction,
+                  onPressed: (selected == null && !revealed)
+                      ? null
+                      : _primaryAction,
                   child: Text(
                     revealed
                         ? (index == sequence.length - 1 ? '結果へ' : '次へ')
@@ -310,7 +364,9 @@ class _QuizScreenState extends State<QuizScreen> {
       bg = Theme.of(context).colorScheme.primary.withValues(alpha: 0.9);
     }
 
-    final fg = (revealed && (isAnswer || isSelected)) ? Colors.white : Colors.black87;
+    final fg = (revealed && (isAnswer || isSelected))
+        ? Colors.white
+        : Colors.black87;
 
     IconData? trail;
     if (revealed) {
@@ -320,7 +376,9 @@ class _QuizScreenState extends State<QuizScreen> {
         trail = Icons.close_rounded;
       }
     } else {
-      trail = isSelected ? Icons.radio_button_checked : Icons.radio_button_unchecked;
+      trail = isSelected
+          ? Icons.radio_button_checked
+          : Icons.radio_button_unchecked;
     }
 
     return AnimatedContainer(
@@ -358,7 +416,9 @@ class _QuizScreenState extends State<QuizScreen> {
                   height: 28,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: (revealed && isAnswer) ? Colors.white24 : Colors.black12,
+                    color: (revealed && isAnswer)
+                        ? Colors.white24
+                        : Colors.black12,
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(

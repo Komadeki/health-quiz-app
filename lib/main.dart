@@ -4,20 +4,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/foundation.dart'; // kDebugMode 用
 import 'package:provider/provider.dart';
 import 'models/deck.dart';
-
 import 'services/deck_loader.dart';
 import 'services/app_settings.dart';
-
 import 'screens/multi_select_screen.dart';
 import 'screens/unit_select_screen.dart';
 import 'screens/stats_home_screen.dart';
 import 'screens/settings_screen.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart'; // ← 追加！
-
-import 'services/app_settings.dart'; // ← 追加！
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +48,7 @@ class MyApp extends StatelessWidget {
       themeMode: s.themeMode, // ← ライト／ダーク切替に対応
       builder: (context, child) => MediaQuery(
         data: MediaQuery.of(context).copyWith(
-          textScaleFactor: s.textScaleFactor, // ← 文字サイズ反映
+          textScaler: const TextScaler.linear(1.0),
         ),
         child: child!,
       ),

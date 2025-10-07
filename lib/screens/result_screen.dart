@@ -23,7 +23,9 @@ class ResultScreen extends StatelessWidget {
             const SizedBox(height: 24),
             FilledButton.icon(
               onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+                Navigator.of(
+                  context,
+                ).pushNamedAndRemoveUntil('/', (route) => false);
               },
               icon: const Icon(Icons.home),
               label: const Text('ホームへ'),

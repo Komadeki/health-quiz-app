@@ -12,17 +12,23 @@ class SettingsScreen extends StatelessWidget {
         title: const Text('デフォルトへリセット'),
         content: const Text('すべての設定を初期値に戻します。よろしいですか？'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('キャンセル')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('リセット')),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('キャンセル'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('リセット'),
+          ),
         ],
       ),
     );
     if (ok == true) {
       await context.read<AppSettings>().resetToDefaults();
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('設定をデフォルトに戻しました')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('設定をデフォルトに戻しました')));
       }
     }
   }
@@ -30,7 +36,6 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.watch<AppSettings>();
-    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(title: const Text('設定')),
@@ -75,8 +80,14 @@ class SettingsScreen extends StatelessWidget {
               value: s.tapMode,
               onChanged: (v) => s.setTapMode(v!),
               items: const [
-                DropdownMenuItem(value: TapAdvanceMode.oneTap, child: Text('1タップ')),
-                DropdownMenuItem(value: TapAdvanceMode.twoTap, child: Text('2タップ')),
+                DropdownMenuItem(
+                  value: TapAdvanceMode.oneTap,
+                  child: Text('1タップ'),
+                ),
+                DropdownMenuItem(
+                  value: TapAdvanceMode.twoTap,
+                  child: Text('2タップ'),
+                ),
               ],
             ),
           ),

@@ -2,12 +2,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:provider/provider.dart';             // ← 追加
-import '../services/app_settings.dart';              // ← 追加
+import 'package:provider/provider.dart'; // ← 追加
+import '../services/app_settings.dart'; // ← 追加
 import '../models/deck.dart';
 import '../models/unit.dart';
 import '../models/card.dart';
 import 'quiz_screen.dart';
+import 'package:health_quiz_app/utils/logger.dart'; // ← 追加（AppLog）
 
 /// 複数デッキ・複数ユニットを横断選択してミックス出題
 class MultiSelectScreen extends StatefulWidget {
@@ -50,17 +51,18 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
         selected.clear();
         _limit = null;
       });
-      // ignore: avoid_print
-      print('🛑 MultiSelect: saveUnitSelection OFF → reset local selections & limit');
+      AppLog.d(
+        '🛑 MultiSelect: saveUnitSelection OFF → reset local selections & limit',
+      );
     }
     _lastSaveUnitsOn = saveOn;
   }
 
   // ================= 永続化 =================
-
   Future<void> _restorePrefs() async {
+    final saveOn = context.read<AppSettings>().saveUnitSelection;
     final sp = await SharedPreferences.getInstance();
-    final saveOn = Provider.of<AppSettings>(context, listen: false).saveUnitSelection;
+    if (!mounted) return; // 任意の安全策
 
     selected.clear();
 
@@ -69,8 +71,9 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
       setState(() {
         _limit = null;
       });
-      // ignore: avoid_print
-      print('⏭️ MultiSelect: load skipped (OFF) → selections cleared, limit=null');
+      AppLog.d(
+        '⏭️ MultiSelect: load skipped (OFF) → selections cleared, limit=null',
+      );
       return;
     }
 
@@ -94,15 +97,18 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
 
     _limit = savedLimit;
     if (mounted) setState(() {});
-    // ignore: avoid_print
-    print('📥 MultiSelect: load selected=${selected.map((k,v)=>MapEntry(k, v.length))}, limit=$_limit');
+    AppLog.d(
+      '📥 MultiSelect: load selected=${selected.map((k, v) => MapEntry(k, v.length))}, limit=$_limit',
+    );
   }
 
   Future<void> _savePrefs() async {
-    final saveOn = Provider.of<AppSettings>(context, listen: false).saveUnitSelection;
+    final saveOn = Provider.of<AppSettings>(
+      context,
+      listen: false,
+    ).saveUnitSelection;
     if (!saveOn) {
-      // ignore: avoid_print
-      print('⏭️ MultiSelect: save skipped (OFF)');
+      AppLog.d('⏭️ MultiSelect: save skipped (OFF)');
       return;
     }
     final sp = await SharedPreferences.getInstance();
@@ -113,8 +119,9 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
     } else {
       await sp.setInt(_prefsKeyMultiLimit, _limit!);
     }
-    // ignore: avoid_print
-    print('📤 MultiSelect: saved selected=${selected.map((k,v)=>MapEntry(k, v.length))}, limit=$_limit');
+    AppLog.d(
+      '📤 MultiSelect: saved selected=${selected.map((k, v) => MapEntry(k, v.length))}, limit=$_limit',
+    );
   }
 
   // ================= 集計/ビルド =================
