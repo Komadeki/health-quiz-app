@@ -1,86 +1,92 @@
 import 'dart:convert';
 
 class AttemptEntry {
-  final String attemptId;
-  final String sessionId;
-  final DateTime startedAt;
-  final DateTime endedAt;
+  final String? attemptId;      // ★重複判定・インポート用（任意）
+  final String sessionId;       // 1回のクイズ実施単位のID
+  final int questionNumber;     // そのセッション内での通し番号 (1-based)
+  final String unitId;          // 出題ユニットID
+  final String cardId;          // カードID
+  final String question;        // 問題文（保存時点）
+  final int selectedIndex;      // ユーザーの選択（1〜4）
+  final int correctIndex;       // 正答（1〜4）
+  final bool isCorrect;         // 正誤
+  final int durationMs;         // その問題に要した時間
+  final DateTime timestamp;     // 保存時刻
 
-  final String deckId;
-  final String unitId;
-  final String cardId;
-  final String question;
-  final List<String> choices;
-  final int correctIndex; // 1..4
-  final int selectedIndex; // 1..4
-  final bool isCorrect;
-  final int durationMs;
-  final List<String> tags;
-  final int questionNumber; // 1-based
-  final String? note;
-  final int schema;
-
-  AttemptEntry({
-    required this.attemptId,
+  const AttemptEntry({
+    this.attemptId,             // ★任意
     required this.sessionId,
-    required this.startedAt,
-    required this.endedAt,
-    required this.deckId,
+    required this.questionNumber,
     required this.unitId,
     required this.cardId,
     required this.question,
-    required this.choices,
-    required this.correctIndex,
     required this.selectedIndex,
+    required this.correctIndex,
     required this.isCorrect,
     required this.durationMs,
-    required this.tags,
-    required this.questionNumber,
-    this.note,
-    this.schema = 1,
+    required this.timestamp,
   });
 
-  factory AttemptEntry.fromMap(Map<String, dynamic> map) => AttemptEntry(
-    attemptId: map['attemptId'] as String,
-    sessionId: map['sessionId'] as String,
-    startedAt: DateTime.parse(map['startedAt'] as String),
-    endedAt: DateTime.parse(map['endedAt'] as String),
-    deckId: map['deckId'] as String,
-    unitId: map['unitId'] as String,
-    cardId: map['cardId'] as String,
-    question: map['question'] as String,
-    choices: (map['choices'] as List).map((e) => e as String).toList(),
-    correctIndex: map['correctIndex'] as int,
-    selectedIndex: map['selectedIndex'] as int,
-    isCorrect: map['isCorrect'] as bool,
-    durationMs: map['durationMs'] as int,
-    tags: (map['tags'] as List).map((e) => e as String).toList(),
-    questionNumber: map['questionNumber'] as int,
-    note: map['note'] as String?,
-    schema: (map['schema'] ?? 1) as int,
-  );
+  AttemptEntry copyWith({
+    String? attemptId,
+    String? sessionId,
+    int? questionNumber,
+    String? unitId,
+    String? cardId,
+    String? question,
+    int? selectedIndex,
+    int? correctIndex,
+    bool? isCorrect,
+    int? durationMs,
+    DateTime? timestamp,
+  }) {
+    return AttemptEntry(
+      attemptId: attemptId ?? this.attemptId,
+      sessionId: sessionId ?? this.sessionId,
+      questionNumber: questionNumber ?? this.questionNumber,
+      unitId: unitId ?? this.unitId,
+      cardId: cardId ?? this.cardId,
+      question: question ?? this.question,
+      selectedIndex: selectedIndex ?? this.selectedIndex,
+      correctIndex: correctIndex ?? this.correctIndex,
+      isCorrect: isCorrect ?? this.isCorrect,
+      durationMs: durationMs ?? this.durationMs,
+      timestamp: timestamp ?? this.timestamp,
+    );
+  }
 
   Map<String, dynamic> toMap() => {
-    'attemptId': attemptId,
-    'sessionId': sessionId,
-    'startedAt': startedAt.toIso8601String(),
-    'endedAt': endedAt.toIso8601String(),
-    'deckId': deckId,
-    'unitId': unitId,
-    'cardId': cardId,
-    'question': question,
-    'choices': choices,
-    'correctIndex': correctIndex,
-    'selectedIndex': selectedIndex,
-    'isCorrect': isCorrect,
-    'durationMs': durationMs,
-    'tags': tags,
-    'questionNumber': questionNumber,
-    'note': note,
-    'schema': schema,
-  };
+        'attemptId': attemptId, // ★null 可
+        'sessionId': sessionId,
+        'questionNumber': questionNumber,
+        'unitId': unitId,
+        'cardId': cardId,
+        'question': question,
+        'selectedIndex': selectedIndex,
+        'correctIndex': correctIndex,
+        'isCorrect': isCorrect,
+        'durationMs': durationMs,
+        'timestamp': timestamp.toIso8601String(),
+      };
+
+  factory AttemptEntry.fromMap(Map<String, dynamic> map) {
+    return AttemptEntry(
+      attemptId: map['attemptId'] as String?, // ★無ければnull
+      sessionId: map['sessionId'] as String,
+      questionNumber: (map['questionNumber'] as num).toInt(),
+      unitId: map['unitId'] as String,
+      cardId: map['cardId'] as String,
+      question: map['question'] as String,
+      selectedIndex: (map['selectedIndex'] as num).toInt(),
+      correctIndex: (map['correctIndex'] as num).toInt(),
+      isCorrect: map['isCorrect'] as bool,
+      durationMs: (map['durationMs'] as num).toInt(),
+      timestamp: DateTime.parse(map['timestamp'] as String),
+    );
+  }
 
   String toJson() => jsonEncode(toMap());
-  factory AttemptEntry.fromJson(String s) =>
-      AttemptEntry.fromMap(jsonDecode(s) as Map<String, dynamic>);
+
+  factory AttemptEntry.fromJson(String source) =>
+      AttemptEntry.fromMap(jsonDecode(source) as Map<String, dynamic>);
 }

@@ -1,7 +1,8 @@
-// lib/screens/scores_screen.dart
+// lib/screens/scores_screen.dart  ← 完全版（ScoreStore/ScoreRecord を使用）
 import 'package:flutter/material.dart';
-import '../services/scores_store.dart';
-import '../services/deck_loader.dart';
+import '../services/score_store.dart';
+import '../models/score_record.dart';
+import 'attempt_history_screen.dart';
 
 class ScoresScreen extends StatefulWidget {
   const ScoresScreen({super.key});
@@ -12,27 +13,21 @@ class ScoresScreen extends StatefulWidget {
 
 class _ScoresScreenState extends State<ScoresScreen> {
   bool _loading = true;
-  List<QuizResult> _results = [];
-  Map<String, String> _deckTitleById = {}; // deckId -> title
+  List<ScoreRecord> _records = const [];
 
   @override
   void initState() {
     super.initState();
     _load();
+    debugPrint('📊 ScoresScreen(ScoreStore版) mounted'); // 目印
   }
 
   Future<void> _load() async {
-    final store = ScoresStore();
-    final results = await store.loadAll();
-
-    // タイトル解決用にデッキ一覧も読む
-    final decks = await DeckLoader().loadAll();
-    final map = <String, String>{for (final d in decks) d.id: d.title};
-    map['mixed'] = 'ミックス練習';
-
+    final records = await ScoreStore.instance.loadAll();
+    records.sort((a, b) => b.timestamp.compareTo(a.timestamp)); // 新→古
+    if (!mounted) return;
     setState(() {
-      _results = results;
-      _deckTitleById = map;
+      _records = records;
       _loading = false;
     });
   }
@@ -56,12 +51,11 @@ class _ScoresScreenState extends State<ScoresScreen> {
       ),
     );
     if (ok == true) {
-      await ScoresStore().clearAll();
+      await ScoreStore.instance.clearAll();
       await _load();
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('成績を削除しました')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('成績を削除しました')));
     }
   }
 
@@ -71,66 +65,88 @@ class _ScoresScreenState extends State<ScoresScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('成績'),
+        title: const Text('成績（新）'), // 目印：新画面が出ているか判別しやすい
         actions: [
           IconButton(
             tooltip: '全削除',
             icon: const Icon(Icons.delete_outline),
-            onPressed: _results.isEmpty ? null : _confirmClear,
+            onPressed: _records.isEmpty ? null : _confirmClear,
           ),
         ],
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : _results.isEmpty
-          ? const Center(child: Text('まだ成績がありません'))
-          : ListView.separated(
-              padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
-              separatorBuilder: (_, __) => const SizedBox(height: 8),
-              itemCount: _results.length,
-              itemBuilder: (_, i) {
-                final r = _results[i];
-                final title = _deckTitleById[r.deckId] ?? r.deckId;
-                final rate = (r.total == 0)
-                    ? 0
-                    : ((r.correct * 100) / r.total).round();
-                final ts = r.timestamp; // ローカル表示
-                final when =
-                    '${ts.year}/${ts.month.toString().padLeft(2, "0")}/${ts.day.toString().padLeft(2, "0")} '
-                    '${ts.hour.toString().padLeft(2, "0")}:${ts.minute.toString().padLeft(2, "0")}';
+          : _records.isEmpty
+              ? const Center(child: Text('まだ成績がありません'))
+              : ListView.separated(
+                  padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
+                  separatorBuilder: (_, __) => const SizedBox(height: 8),
+                  itemCount: _records.length,
+                  itemBuilder: (_, i) {
+                    final r = _records[i];
+                    final rate =
+                        (r.total == 0) ? 0 : ((r.score * 100) / r.total).round();
 
-                return Card(
-                  child: ListTile(
-                    title: Text(
-                      title,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
+                    final dt = DateTime.fromMillisecondsSinceEpoch(r.timestamp);
+                    final when =
+                        '${dt.year}/${dt.month.toString().padLeft(2, "0")}/${dt.day.toString().padLeft(2, "0")} '
+                        '${dt.hour.toString().padLeft(2, "0")}:${dt.minute.toString().padLeft(2, "0")}';
+
+                    return Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
                       ),
-                    ),
-                    subtitle: Text(
-                      '$when・${r.mode == "mixed" ? "ミックス" : "単元"}',
-                    ),
-                    trailing: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          '$rate%',
+                      elevation: 1,
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.assessment_outlined,
+                          color: theme.colorScheme.primary,
+                        ),
+                        title: Text(
+                          (r.deckTitle.isNotEmpty ? r.deckTitle : r.deckId),
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        const SizedBox(height: 2),
-                        Text(
-                          '${r.correct} / ${r.total}',
-                          style: theme.textTheme.bodySmall,
+                        subtitle: Text(
+                          '$when・${(r.selectedUnitIds == null) ? "単元" : "ミックス"}',
                         ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+                        trailing: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              '$rate%',
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              '${r.score} / ${r.total}',
+                              style: theme.textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                        onTap: () => _onTapRecord(context, r),
+                      ),
+                    );
+                  },
+                ),
     );
+  }
+
+  void _onTapRecord(BuildContext context, ScoreRecord record) {
+    if (record.sessionId != null && record.sessionId!.isNotEmpty) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => AttemptHistoryScreen(sessionId: record.sessionId!),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('この成績には履歴がありません（旧バージョン）')),
+      );
+    }
   }
 }

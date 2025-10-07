@@ -11,6 +11,7 @@ import '../services/scores_store.dart';
 import '../services/deck_loader.dart';
 import '../services/attempt_store.dart';
 import '../models/attempt_entry.dart';
+import '../utils/logger.dart';
 
 class QuizScreen extends StatefulWidget {
   final Deck deck;
@@ -114,26 +115,23 @@ class _QuizScreenState extends State<QuizScreen> {
       final ended = DateTime.now();
       final started = _qStart ?? ended;
       final durationMs = ended.difference(started).inMilliseconds;
+      // ★ 保存する selectedIndex / correctIndex は 1–4 に統一
       final attempt = AttemptEntry(
-        attemptId: _uuid.v4(),
+        attemptId: _uuid.v4(),          // AttemptStore 側で未設定時も採番されるが、ここで付与
         sessionId: _sessionId,
-        startedAt: started,
-        endedAt: ended,
-        deckId: widget.deck.id,
-        unitId: widget.deck.id,
-        cardId: index.toString(),
+        questionNumber: index + 1,      // 1-based
+        unitId: widget.deck.id,         // ユニットID（現状は deckId と同一運用）
+        cardId: index.toString(),       // QuizCard に id があるなら置き換え可
         question: card.question,
-        choices: card.choices,
-        correctIndex: card.answerIndex,
-        selectedIndex: selected!, // reveal済みなので非null
-        isCorrect: isCorrect,
+        selectedIndex: (selected ?? 0) + 1, // ← 1-based で保存
+        correctIndex: (card.answerIndex) + 1, // ← 1-based で保存
+        isCorrect: isCorrect,           // 判定は 0-based 比較でOK
         durationMs: durationMs,
-        tags: card.tags,
-        questionNumber: index + 1,
-        note: null,
-        schema: 1,
+        timestamp: ended,
       );
       await AttemptStore().add(attempt);
+      AppLog.d('[ATTEMPT] ${attempt.sessionId} Q${attempt.questionNumber} '
+          '${attempt.isCorrect ? "○" : "×"} ${attempt.durationMs}ms');
     } catch (_) {
       // 失敗しても致命傷ではないので黙って続行
     }
@@ -182,15 +180,20 @@ class _QuizScreenState extends State<QuizScreen> {
           timestamp: result.timestamp.millisecondsSinceEpoch,
           tags: tagStats.isEmpty ? null : tagStats,
           selectedUnitIds: null,
+          sessionId: _sessionId, // ★追加：この成績→今回の履歴へジャンプ可能に
         ),
       );
 
       if (!mounted) return;
+      await _onQuizEndDebugLog(); // 直近5件の確認ログ
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) =>
-              ResultScreen(total: sequence.length, correct: correctCount),
+          builder: (_) => ResultScreen(
+            total: sequence.length,
+            correct: correctCount,
+            sessionId: _sessionId, // ★渡す
+          ),
         ),
       );
       return;
@@ -449,5 +452,17 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
       ),
     );
+  }
+  /// クイズ終了時に直近の Attempt を確認ログ出力
+  Future<void> _onQuizEndDebugLog() async {
+    try {
+      final list = await AttemptStore().recent(limit: 5);
+      for (final a in list) {
+        AppLog.d('[ATTEMPT] ${a.sessionId} Q${a.questionNumber} '
+            '${a.isCorrect ? "○" : "×"} ${a.durationMs}ms');
+      }
+    } catch (_) {
+      // ログ用途なので握りつぶしでOK
+    }
   }
 }

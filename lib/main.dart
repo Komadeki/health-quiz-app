@@ -8,23 +8,34 @@ import 'services/deck_loader.dart';
 import 'services/app_settings.dart';
 import 'screens/multi_select_screen.dart';
 import 'screens/unit_select_screen.dart';
-import 'screens/stats_home_screen.dart';
+import 'screens/scores_screen.dart'; 
 import 'screens/settings_screen.dart';
+import 'utils/logger.dart'; // AppLog を使うため
+import 'services/attempt_store.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ===== デバッグ検証（終わったら必ず削除 or コメントアウト）=====
+  // ===== デバッグ検証 =====
+  AppLog.enabled = true; // ← 一時ON（確認後は false やコメントアウトでOK）
+  // await AttemptStore().clearAll(); // ← 使い終わったら必ずコメントアウト
+  // AppLog.d('[DEBUG] AttemptStore cleared.');
   // await debugSmokeTestScoreStore();
-  // ===============================================================
+  // =======================
 
   // ✅ AppSettingsの初期化を追加
   final settings = AppSettings();
   await settings.load();
 
   // ✅ Providerで包んで起動
-  runApp(ChangeNotifierProvider(create: (_) => settings, child: const MyApp()));
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => settings,
+      child: const MyApp(),
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -303,7 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const StatsHomeScreen(),
+                          builder: (_) => const ScoresScreen(), // ★ 新画面へ
                         ),
                       );
                     },
