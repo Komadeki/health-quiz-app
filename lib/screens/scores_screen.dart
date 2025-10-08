@@ -1,5 +1,6 @@
-// lib/screens/scores_screen.dart  ← 完全版（ScoreStore/ScoreRecord を使用）
+// lib/screens/scores_screen.dart
 import 'package:flutter/material.dart';
+import 'package:health_quiz_app/widgets/quiz_analytics.dart';
 import '../services/score_store.dart';
 import '../services/deck_loader.dart';
 import '../models/score_record.dart';
@@ -15,20 +16,36 @@ class ScoresScreen extends StatefulWidget {
 class _ScoresScreenState extends State<ScoresScreen> {
   bool _loading = true;
   List<ScoreRecord> _records = const [];
+  Map<String, String> _unitTitleMap = const {}; // ★ 追加：ユニットID→日本語タイトル
 
   @override
   void initState() {
     super.initState();
     _load();
-    debugPrint('📊 ScoresScreen(ScoreStore版) mounted'); // 目印
+    debugPrint('📊 ScoresScreen(ScoreStore版) mounted');
   }
 
   Future<void> _load() async {
+    // 成績の読み込み
     final records = await ScoreStore.instance.loadAll();
-    records.sort((a, b) => b.timestamp.compareTo(a.timestamp)); // 新→古
+    records.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+
+    // デッキからユニットタイトルマップを構築
+    final decks = await DeckLoader().loadAll();
+    final unitTitleMap = <String, String>{};
+    for (final d in decks) {
+      final units = d.units ?? const [];
+      for (final u in units) {
+        if (u.id.isNotEmpty) {
+          unitTitleMap[u.id] = u.title;
+        }
+      }
+    }
+
     if (!mounted) return;
     setState(() {
       _records = records;
+      _unitTitleMap = unitTitleMap;
       _loading = false;
     });
   }
@@ -93,43 +110,68 @@ class _ScoresScreenState extends State<ScoresScreen> {
                         '${dt.year}/${dt.month.toString().padLeft(2, "0")}/${dt.day.toString().padLeft(2, "0")} '
                         '${dt.hour.toString().padLeft(2, "0")}:${dt.minute.toString().padLeft(2, "0")}';
 
+                    // unitBreakdown を UnitStat 化（誤答数はここでは 0 固定）
+                    final Map<String, UnitStat> ubStat =
+                        (r.unitBreakdown ?? const <String, int>{})
+                            .map((k, v) => MapEntry(
+                                  k,
+                                  UnitStat(asked: v, wrong: 0),
+                                ));
+
                     return Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
                       elevation: 1,
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.assessment_outlined,
-                          color: theme.colorScheme.primary,
-                        ),
-                        title: Text(
-                          (r.deckTitle.isNotEmpty ? r.deckTitle : r.deckId),
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        subtitle: Text(
-                          '$when・${(r.selectedUnitIds == null) ? "単元" : "ミックス"}',
-                        ),
-                        trailing: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              '$rate%',
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
+                            ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: Icon(
+                                Icons.assessment_outlined,
+                                color: theme.colorScheme.primary,
                               ),
+                              title: Text(
+                                (r.deckTitle.isNotEmpty ? r.deckTitle : r.deckId),
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              subtitle: Text(
+                                '$when・${(r.selectedUnitIds == null) ? "単元" : "ミックス"}',
+                              ),
+                              trailing: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    '$rate%',
+                                    style: theme.textTheme.titleMedium?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    '${r.score} / ${r.total}',
+                                    style: theme.textTheme.bodySmall,
+                                  ),
+                                ],
+                              ),
+                              onTap: () => _onTapRecord(context, r),
                             ),
-                            const SizedBox(height: 2),
-                            Text(
-                              '${r.score} / ${r.total}',
-                              style: theme.textTheme.bodySmall,
-                            ),
+
+                            // === 追加: 主要ユニットチップ ===
+                            if (ubStat.isNotEmpty)
+                              UnitRatioChips(
+                                unitBreakdown: ubStat,
+                                unitTitleMap: _unitTitleMap, // ★ ここで全体のマップを渡す
+                                topK: 2,
+                              ),
                           ],
                         ),
-                        onTap: () => _onTapRecord(context, r),
                       ),
                     );
                   },
@@ -139,21 +181,11 @@ class _ScoresScreenState extends State<ScoresScreen> {
 
   Future<void> _onTapRecord(BuildContext context, ScoreRecord record) async {
     if (record.sessionId != null && record.sessionId!.isNotEmpty) {
-      // ★ユニットID→ユニット名を構築
-      final decks = await DeckLoader().loadAll();
-      final unitTitleMap = <String, String>{};
-      for (final d in decks) {
-        final units = d.units ?? const [];
-        for (final u in units) {
-          if (u.id.isNotEmpty) unitTitleMap[u.id] = u.title;
-        }
-      }
-
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => AttemptHistoryScreen(
             sessionId: record.sessionId!,
-            unitTitleMap: unitTitleMap, // ← 日本語タイトルを渡す
+            unitTitleMap: _unitTitleMap, // ★ ここでも再利用
           ),
         ),
       );

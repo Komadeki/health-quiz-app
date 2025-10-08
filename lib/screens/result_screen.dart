@@ -1,7 +1,9 @@
+// lib/screens/result_screen.dart
 import 'package:flutter/material.dart';
+import 'package:health_quiz_app/widgets/quiz_analytics.dart'; // SummaryStackedBar, computeTopUnits, UnitStat, segmentColor
 import '../models/score_record.dart';
 import '../services/attempt_store.dart';
-import 'attempt_history_screen.dart'; // 履歴画面への遷移用
+import 'attempt_history_screen.dart';
 
 class ResultScreen extends StatefulWidget {
   final int total;
@@ -19,7 +21,7 @@ class ResultScreen extends StatefulWidget {
   final bool saveHistory;
 
   // 表示関連
-  final Map<String, String>? unitTitleMap; // ★ 日本語タイトル表示用
+  final Map<String, String>? unitTitleMap; // 日本語タイトル表示用
 
   const ResultScreen({
     super.key,
@@ -53,7 +55,6 @@ class _ResultScreenState extends State<ResultScreen> {
   Future<void> _maybeSaveRecordOnce() async {
     if (_saved) return;
     if (!widget.saveHistory) return;
-
     if (widget.deckId == null || widget.deckTitle == null) return;
 
     final record = ScoreRecord(
@@ -72,27 +73,31 @@ class _ResultScreenState extends State<ResultScreen> {
 
     try {
       await AttemptStore().addScore(record);
-      if (mounted) {
-        setState(() => _saved = true);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('結果を保存しました')),
-        );
-      }
-    } catch (e) {
-      // 失敗しても致命傷ではないので軽くログ程度に
+      if (!mounted) return;
+      setState(() => _saved = true);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('結果を保存しました')),
+      );
+    } catch (_) {
+      // 失敗は致命的でないので握りつぶす
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final rate =
-        widget.total == 0 ? '0.0' : (widget.correct / widget.total * 100).toStringAsFixed(1);
-    final ub = widget.unitBreakdown ?? const {};
+    final total = widget.total;
+    final correct = widget.correct;
+    final wrong = (total - correct).clamp(0, total);
+    final rate = total == 0 ? '0.0' : (correct / total * 100).toStringAsFixed(1);
 
-    print('UB keys: ${(widget.unitBreakdown ?? {}).keys.toList()}');
-    print('unitTitleMap keys: ${widget.unitTitleMap?.keys.take(5).toList()}');
-    final k = (widget.unitBreakdown ?? {}).keys.first;
-    print('lookup sample: ${widget.unitTitleMap?[k]}');
+    // サマリバー用に Map<String,int> -> Map<String,UnitStat>(wrong=0) へ変換
+    final ub = widget.unitBreakdown ?? const <String, int>{};
+    final breakdownForBar = ub.map((k, v) => MapEntry(k, UnitStat(asked: v, wrong: 0)));
+    final top = computeTopUnits(
+      unitBreakdown: breakdownForBar,
+      unitTitleMap: widget.unitTitleMap,
+      topN: 4,
+    );
 
     return Scaffold(
       appBar: AppBar(title: const Text('結果')),
@@ -100,32 +105,37 @@ class _ResultScreenState extends State<ResultScreen> {
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
-            Text(
-              'スコア: ${widget.correct} / ${widget.total}',
-              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text('正答率: $rate %', style: const TextStyle(fontSize: 18)),
-            if (widget.durationSec != null) ...[
-              const SizedBox(height: 4),
-              Text('解答時間: ${_fmtDuration(widget.durationSec!)}',
-                  style: const TextStyle(fontSize: 16, color: Colors.black54)),
-            ],
-            if (widget.deckTitle != null) ...[
-              const SizedBox(height: 4),
-              Text('デッキ: ${widget.deckTitle!}',
-                  style: const TextStyle(fontSize: 16, color: Colors.black54)),
-            ],
+            // スコアヘッダ
+            _scoreHeader(context, total: total, correct: correct, wrong: wrong),
+            const SizedBox(height: 16),
 
-            if (ub.isNotEmpty) ...[
-              const SizedBox(height: 24),
+            // 出題サマリ（総計100% 横積みバー）
+            Text('出題サマリー', style: Theme.of(context).textTheme.titleMedium),
+            SummaryStackedBar(data: top),
+            const SizedBox(height: 12),
+
+            // 出題内訳カード（既存置換OK）
+            if (ub.isNotEmpty)
               _UnitBreakdownCard(
                 unitBreakdown: ub,
-                totalQuestions: widget.total,
-                unitTitleMap: widget.unitTitleMap, // ★ここで渡す
+                totalQuestions: total,
+                unitTitleMap: widget.unitTitleMap,
+              ),
+
+            const SizedBox(height: 24),
+
+            if (widget.durationSec != null)
+              Text(
+                '解答時間: ${_fmtDuration(widget.durationSec!)}',
+                style: const TextStyle(fontSize: 16, color: Colors.black54),
+              ),
+            if (widget.deckTitle != null) ...[
+              const SizedBox(height: 4),
+              Text(
+                'デッキ: ${widget.deckTitle!}',
+                style: const TextStyle(fontSize: 16, color: Colors.black54),
               ),
             ],
-
             const SizedBox(height: 24),
 
             if (widget.sessionId != null && widget.sessionId!.isNotEmpty) ...[
@@ -141,7 +151,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     MaterialPageRoute(
                       builder: (_) => AttemptHistoryScreen(
                         sessionId: widget.sessionId!,
-                        unitTitleMap: widget.unitTitleMap, // ★日本語タイトルを引き継ぎ
+                        unitTitleMap: widget.unitTitleMap,
                       ),
                     ),
                   );
@@ -152,8 +162,7 @@ class _ResultScreenState extends State<ResultScreen> {
 
             FilledButton.icon(
               onPressed: () {
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/', (route) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
               },
               icon: const Icon(Icons.home),
               label: const Text('ホームへ'),
@@ -162,6 +171,31 @@ class _ResultScreenState extends State<ResultScreen> {
                 textStyle: const TextStyle(fontSize: 18),
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _scoreHeader(BuildContext context,
+      {required int total, required int correct, required int wrong}) {
+    final rate = total > 0 ? (correct / total) : 0.0;
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                '正解 $correct / $total（${(rate * 100).toStringAsFixed(1)}%）',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            if (wrong > 0)
+              Chip(
+                label: Text('誤答 $wrong'),
+                visualDensity: VisualDensity.compact,
+              ),
           ],
         ),
       ),
@@ -210,8 +244,8 @@ class _UnitBreakdownCard extends StatelessWidget {
             ...entries.map((e) {
               final count = e.value;
               final ratio = totalQuestions == 0 ? 0.0 : count / totalQuestions;
-              final pct = (ratio * 100).toStringAsFixed(0);
-              final title = unitTitleMap?[e.key] ?? e.key; // ★ここで日本語タイトルを適用
+              final pctStr = (ratio * 100).toStringAsFixed(0);
+              final title = unitTitleMap?[e.key] ?? e.key;
 
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
@@ -220,6 +254,16 @@ class _UnitBreakdownCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
+                        // カラーインジケータ（ResultScreenのサマリバーに合わせて index 色）
+                        Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            color: segmentColor(entries.indexOf(e)),
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
                         Expanded(
                           child: Text(
                             title,
@@ -231,8 +275,7 @@ class _UnitBreakdownCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Text('$count問（$pct%）',
-                            style: const TextStyle(fontSize: 13)),
+                        Text('$count問（$pctStr%）', style: const TextStyle(fontSize: 13)),
                       ],
                     ),
                     const SizedBox(height: 6),

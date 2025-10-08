@@ -5,6 +5,7 @@ import '../services/deck_loader.dart';
 import '../models/deck.dart';
 import '../models/card.dart';
 import 'quiz_screen.dart';
+import 'package:health_quiz_app/widgets/quiz_analytics.dart'; // ErrorRateTag
 
 class AttemptHistoryScreen extends StatelessWidget {
   final String sessionId;
@@ -55,6 +56,15 @@ class AttemptHistoryScreen extends StatelessWidget {
           }
           final unitTotal = unitCounts.values.fold<int>(0, (a, b) => a + b);
 
+          // ★ 追加：ユニット別「誤答数」を集計
+          final Map<String, int> unitWrongs = {};
+          for (final e in items) {
+            final id = e.unitId ?? 'unknown';
+            if (!e.isCorrect) {
+              unitWrongs.update(id, (v) => v + 1, ifAbsent: () => 1);
+            }
+          }
+
           // 画面内だけで状態を持つ（誤答のみ表示トグル）
           bool showOnlyWrong = false;
 
@@ -78,6 +88,7 @@ class AttemptHistoryScreen extends StatelessWidget {
                           unitCounts: unitCounts,
                           totalQuestions: unitTotal,
                           unitTitleMap: unitTitleMap,
+                          unitWrongs: unitWrongs, // ★ 追加
                         ),
                         const SizedBox(height: 8),
                         Align(
@@ -271,46 +282,71 @@ class AttemptHistoryScreen extends StatelessWidget {
 }
 
 /// ===== ユニット別内訳カード（今回） =====
-class _UnitBreakdownCard extends StatelessWidget {
+class _UnitBreakdownCard extends StatefulWidget {
   final Map<String, int> unitCounts;
+  final Map<String, int> unitWrongs;
   final int totalQuestions;
   final Map<String, String>? unitTitleMap;
+  final int maxCollapsedCount; // 折りたたみ時の表示件数（既定=5）
 
   const _UnitBreakdownCard({
     required this.unitCounts,
     required this.totalQuestions,
+    required this.unitWrongs,
     this.unitTitleMap,
+    this.maxCollapsedCount = 5,
   });
 
   @override
-  Widget build(BuildContext context) {
-    if (unitCounts.isEmpty) {
-      return const SizedBox.shrink();
-    }
+  State<_UnitBreakdownCard> createState() => _UnitBreakdownCardState();
+}
 
-    final entries = unitCounts.entries.toList()
+class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.unitCounts.isEmpty) return const SizedBox.shrink();
+
+    // 並び順（直前に導入した「誤答率の高い順」）
+    final entries = widget.unitCounts.entries.toList()
       ..sort((a, b) {
+        final wrongA = widget.unitWrongs[a.key] ?? 0;
+        final wrongB = widget.unitWrongs[b.key] ?? 0;
+        final rateA = a.value == 0 ? 0 : wrongA / a.value;
+        final rateB = b.value == 0 ? 0 : wrongB / b.value;
+        final cmp = rateB.compareTo(rateA); // 誤答率降順
+        if (cmp != 0) return cmp;
         final c = b.value.compareTo(a.value); // 件数降順
-        return c != 0 ? c : a.key.compareTo(b.key); // 同数ならキー昇順
+        return c != 0 ? c : a.key.compareTo(b.key);
       });
+
+    final showToggle = entries.length > widget.maxCollapsedCount;
+    final visibleEntries = _expanded
+        ? entries
+        : entries.take(widget.maxCollapsedCount).toList();
 
     return Card(
       elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
+        padding: const EdgeInsets.fromLTRB(16, 14, 16, 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('ユニット別出題割合（今回）',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const Text(
+              'ユニット別出題割合（今回）',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
-            ...entries.map((e) {
-              final count = e.value;
-              final ratio =
-                  totalQuestions == 0 ? 0.0 : count / totalQuestions;
+
+            // 本体リスト
+            ...visibleEntries.map((e) {
+              final asked = e.value;
+              final wrong = widget.unitWrongs[e.key] ?? 0;
+              final ratio = widget.totalQuestions == 0 ? 0.0 : asked / widget.totalQuestions;
               final pct = (ratio * 100).toStringAsFixed(0);
-              final title = unitTitleMap?[e.key] ?? e.key;
+              final title = widget.unitTitleMap?[e.key] ?? e.key;
 
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
@@ -319,19 +355,32 @@ class _UnitBreakdownCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
+                        // 左：タイトル＋誤答率
                         Expanded(
-                          child: Text(
-                            title,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            overflow: TextOverflow.ellipsis,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  title,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              // 赤いChip（compact=false）
+                              ErrorRateTag(
+                                asked: asked,
+                                wrong: wrong,
+                                compact: false,
+                              ),
+                            ],
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Text('$count問（$pct%）',
-                            style: const TextStyle(fontSize: 13)),
+                        Text('$asked問（$pct%）', style: const TextStyle(fontSize: 13)),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -346,12 +395,26 @@ class _UnitBreakdownCard extends StatelessWidget {
                 ),
               );
             }),
+
+            // トグルボタン（6件以上のときだけ）
+            if (showToggle) ...[
+              const SizedBox(height: 4),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton.icon(
+                  onPressed: () => setState(() => _expanded = !_expanded),
+                  icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
+                  label: Text(_expanded ? '閉じる' : 'もっと見る'),
+                ),
+              ),
+            ],
           ],
         ),
       ),
     );
   }
 }
+
 
 /// ==== 個別タイル ====
 class _AttemptTile extends StatelessWidget {
