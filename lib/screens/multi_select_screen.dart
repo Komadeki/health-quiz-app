@@ -315,7 +315,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
     // 7) デバッグログ出力
     AppLog.d('🎲 Mix build summary (limit=$totalLimit):');
     for (int i = 0; i < pools.length; i++) {
-      final assigned = perUnitPicked[i] + (picked.length > totalLimit ? 0 : 0);
+      final _assigned = perUnitPicked[i] + (picked.length > totalLimit ? 0 : 0);
       final extraFlag = remainderAssigned[i] ? ' (+1配分)' : '';
       AppLog.d('  ${poolNames[i]}: ${perUnitPicked[i]}問$extraFlag '
           '(pool=${pools[i].length})');

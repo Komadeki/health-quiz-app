@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../services/attempt_store.dart';
 import '../models/attempt_entry.dart';
 import '../services/deck_loader.dart';
-import '../models/deck.dart';
 import '../models/card.dart';
 import 'quiz_screen.dart';
 import 'package:health_quiz_app/widgets/quiz_analytics.dart'; // ErrorRateTag
@@ -48,22 +47,21 @@ class AttemptHistoryScreen extends StatelessWidget {
               : (items.fold<int>(0, (sum, e) => sum + e.durationMs) / total)
                   .round();
 
-          // ユニット別件数を集計
+          // ユニット別の件数・誤答数を同時に集計
           final Map<String, int> unitCounts = {};
-          for (final e in items) {
-            final id = e.unitId ?? 'unknown';
-            unitCounts.update(id, (v) => v + 1, ifAbsent: () => 1);
-          }
-          final unitTotal = unitCounts.values.fold<int>(0, (a, b) => a + b);
-
-          // ★ 追加：ユニット別「誤答数」を集計
           final Map<String, int> unitWrongs = {};
+
           for (final e in items) {
-            final id = e.unitId ?? 'unknown';
+            final id = e.unitId.isNotEmpty ? e.unitId : 'unknown';
+
+            unitCounts.update(id, (v) => v + 1, ifAbsent: () => 1);
             if (!e.isCorrect) {
               unitWrongs.update(id, (v) => v + 1, ifAbsent: () => 1);
             }
           }
+
+          // 合計問題数（単純にunitCountsの合計）
+          final unitTotal = unitCounts.values.fold<int>(0, (a, b) => a + b);
 
           // 画面内だけで状態を持つ（誤答のみ表示トグル）
           bool showOnlyWrong = false;
@@ -168,7 +166,7 @@ class AttemptHistoryScreen extends StatelessWidget {
   // 秒数は切り捨て＋最小1秒＋単位「秒」
   String _formatSec(int ms) {
     final sec = (ms / 1000).floor().clamp(1, 9999);
-    return '${sec}秒';
+    return '$sec秒';
   }
 
   String _formatTs(DateTime ts) {
@@ -212,31 +210,34 @@ class AttemptHistoryScreen extends StatelessWidget {
 
   // 単問リプレイ
   Future<void> _replaySingle(BuildContext context, AttemptEntry a) async {
+    // awaitの前にNavigatorを確保
+    final nav = Navigator.of(context);
+
     final loader = DeckLoader();
     final decks = await loader.loadAll();
 
-    // AttemptEntry.unitId にはカードの unitId が入っている想定
-    // 既存の Deck.id が unitId と一致する構成ならこれでOK
-    final Deck deck = decks.firstWhere(
+    // AttemptEntry.unitId に紐づくデッキを取得
+    final deck = decks.firstWhere(
       (d) => d.id == a.unitId,
       orElse: () => decks.first,
     );
 
-    final QuizCard? found = deck.cards.firstWhere(
+    final found = deck.cards.firstWhere(
       (c) => c.question.trim() == a.question.trim(),
       orElse: () => deck.cards.first,
     );
 
-    await Navigator.of(context).push(
+    if (!context.mounted) return;
+
+    await nav.push(
       MaterialPageRoute(
-        builder: (_) => QuizScreen(deck: deck, overrideCards: [found!]),
+        builder: (_) => QuizScreen(deck: deck, overrideCards: [found]),
       ),
     );
   }
 
   // 誤答だけ再挑戦
-  Future<void> _replayWrong(
-      BuildContext context, List<AttemptEntry> items) async {
+  Future<void> _replayWrong(BuildContext context, List<AttemptEntry> items) async {
     final wrong = items.where((e) => !e.isCorrect).toList();
     if (wrong.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -245,35 +246,44 @@ class AttemptHistoryScreen extends StatelessWidget {
       return;
     }
 
+    // awaitの前にNavigatorを確保
+    final nav = Navigator.of(context);
+
     final loader = DeckLoader();
     final decks = await loader.loadAll();
 
-    // まず最初の誤答の unitId を採用（今回と同じ前提。異なる場合は分岐実装へ拡張可能）
+    // まず最初の誤答の unitId を採用（同一デッキ前提）
     final unitId = wrong.first.unitId;
-    final deck =
-        decks.firstWhere((d) => d.id == unitId, orElse: () => decks.first);
+    final deck = decks.firstWhere(
+      (d) => d.id == unitId,
+      orElse: () => decks.first,
+    );
 
+    // 重複質問を除外してカードを収集
     final set = <String>{};
     final list = <QuizCard>[];
     for (final a in wrong) {
       final q = a.question.trim();
-      if (set.contains(q)) continue;
+      if (!set.add(q)) continue; // 既出はスキップ
       final match = deck.cards.firstWhere(
         (c) => c.question.trim() == q,
         orElse: () => deck.cards.first,
       );
-      set.add(q);
       list.add(match);
     }
 
     if (list.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('カードの特定に失敗しました')),
-      );
-      return;
+     if (!context.mounted) return;
+     final messenger = ScaffoldMessenger.of(context);
+     messenger.showSnackBar(
+       const SnackBar(content: Text('カードの特定に失敗しました')),
+     );
+     return;
     }
 
-    await Navigator.of(context).push(
+    if (!context.mounted) return;
+
+    await nav.push(
       MaterialPageRoute(
         builder: (_) => QuizScreen(deck: deck, overrideCards: list),
       ),
@@ -287,6 +297,7 @@ class _UnitBreakdownCard extends StatefulWidget {
   final Map<String, int> unitWrongs;
   final int totalQuestions;
   final Map<String, String>? unitTitleMap;
+  // ignore: unused_element_parameter
   final int maxCollapsedCount; // 折りたたみ時の表示件数（既定=5）
 
   const _UnitBreakdownCard({
@@ -455,7 +466,7 @@ class _AttemptTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bg =
-        isCorrect ? Colors.green.withOpacity(0.05) : Colors.red.withOpacity(0.06);
+        isCorrect ? Colors.green.withValues(alpha: 0.05) : Colors.red.withValues(alpha: 0.06);
     final bar = isCorrect ? Colors.green : Colors.red;
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
@@ -466,7 +477,7 @@ class _AttemptTile extends StatelessWidget {
           BoxShadow(
             blurRadius: 6,
             offset: const Offset(0, 2),
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
           ),
         ],
       ),

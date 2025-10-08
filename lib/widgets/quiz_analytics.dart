@@ -195,8 +195,8 @@ class UnitRatioChips extends StatelessWidget {
                 horizontal: 8,
                 vertical: 2, // ← 内部上下の余白をギュッと詰める
               ),
-              side: BorderSide(color: segmentColor(i).withOpacity(0.3)),
-              backgroundColor: segmentColor(i).withOpacity(0.08),
+              side: BorderSide(color: segmentColor(i).withValues(alpha: 0.3)),
+              backgroundColor: segmentColor(i).withValues(alpha: 0.08),
               labelStyle: Theme.of(context).textTheme.bodySmall,
             ),
         ],
@@ -241,8 +241,8 @@ class ErrorRateTag extends StatelessWidget {
       child: Chip(
         label: Text(text),
         visualDensity: VisualDensity.compact,
-        backgroundColor: Colors.red.withOpacity(0.06),
-        side: BorderSide(color: Colors.red.withOpacity(0.2)),
+        backgroundColor: Colors.red.withValues(alpha: 0.06),
+        side: BorderSide(color: Colors.red.withValues(alpha: 0.2)),
         labelStyle: Theme.of(context).textTheme.bodySmall,
       ),
     );
