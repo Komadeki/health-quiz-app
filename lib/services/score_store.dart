@@ -17,9 +17,9 @@ class ScoreStore {
   static final ScoreStore instance = ScoreStore._();
 
   /// 新しい順の一覧（AttemptStore + 旧キーをマージ）
-  Future<List<ScoreRecord>> loadAll() => listAll();
+  Future<List<sr.ScoreRecord>> loadAll() => listAll();
 
-  Future<List<ScoreRecord>> listAll() async {
+  Future<List<sr.ScoreRecord>> listAll() async {
     // 1) AttemptStore（現行実体）
     final attemptScores = await AttemptStore().loadScores();
 
@@ -73,7 +73,7 @@ class ScoreStore {
   }
 
   /// 1件追加（AttemptStore へ委譲）
-  Future<void> add(ScoreRecord rec) async {
+  Future<void> add(sr.ScoreRecord rec) async {
     await AttemptStore().addScore(rec);
   }
 
@@ -119,7 +119,7 @@ class ScoreStore {
 
   // ========= ここから下は v1→v2 互換用の補助 =========
 
-  /// v1（QuizResult っぽい構造）から ScoreRecord を可能な範囲で復元
+  /// v1（QuizResult っぽい構造）から sr.ScoreRecord を可能な範囲で復元
   ScoreRecord? _fromV1(Map<String, dynamic> m) {
     try {
       final id = (m['id']?.toString().isNotEmpty == true)

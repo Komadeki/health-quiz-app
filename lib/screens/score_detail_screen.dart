@@ -26,7 +26,7 @@ IconData accuracyIcon(double acc) {
 }
 
 class ScoreDetailScreen extends StatelessWidget {
-  final ScoreRecord record;
+  final sr.ScoreRecord record;
   const ScoreDetailScreen({super.key, required this.record});
 
   @override

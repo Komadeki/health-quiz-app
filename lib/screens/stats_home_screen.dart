@@ -11,7 +11,7 @@ class StatsHomeScreen extends StatefulWidget {
 }
 
 class _StatsHomeScreenState extends State<StatsHomeScreen> {
-  late Future<List<ScoreRecord>> _future;
+  late Future<List<sr.ScoreRecord>> _future;
 
   @override
   void initState() {
@@ -60,7 +60,7 @@ class _StatsHomeScreenState extends State<StatsHomeScreen> {
           ),
         ],
       ),
-      body: FutureBuilder<List<ScoreRecord>>(
+      body: FutureBuilder<List<sr.ScoreRecord>>(
         future: _future,
         builder: (context, snap) {
           if (!snap.hasData) {
