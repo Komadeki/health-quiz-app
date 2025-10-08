@@ -167,7 +167,7 @@ class UnitRatioChips extends StatelessWidget {
     required this.unitBreakdown,
     this.unitTitleMap,
     this.topK = 2,
-    this.padding = const EdgeInsets.only(top: 6),
+    this.padding = const EdgeInsets.only(top: 4),
   });
 
   @override
@@ -184,12 +184,17 @@ class UnitRatioChips extends StatelessWidget {
       padding: padding,
       child: Wrap(
         spacing: 6,
-        runSpacing: 6,
+        runSpacing: 4, // ← チップ間の行間
         children: [
           for (var i = 0; i < segs.length; i++)
             Chip(
               label: Text('${segs[i].displayTitle} ${pct(segs[i].ratio)}'),
               visualDensity: VisualDensity.compact,
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap, // ← 高さを詰める
+              labelPadding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 2, // ← 内部上下の余白をギュッと詰める
+              ),
               side: BorderSide(color: segmentColor(i).withOpacity(0.3)),
               backgroundColor: segmentColor(i).withOpacity(0.08),
               labelStyle: Theme.of(context).textTheme.bodySmall,
@@ -199,6 +204,7 @@ class UnitRatioChips extends StatelessWidget {
     );
   }
 }
+
 
 // ──────────────── 2) 誤答率タグ（AttemptHistory 用） ────────────────
 class ErrorRateTag extends StatelessWidget {
