@@ -1,3 +1,4 @@
+// lib/screens/quiz_screen.dart
 import 'package:flutter/material.dart';
 import '../models/deck.dart';
 import '../models/card.dart';
@@ -44,6 +45,9 @@ class _QuizScreenState extends State<QuizScreen> {
   final Map<String, int> _tagCorrect = {};
   final Map<String, int> _tagWrong = {};
 
+  // 追加：ユニット別集計（出題内訳）
+  final Map<String, int> _unitCount = {};
+
   void _bumpTags(Iterable<String> tags, bool isCorrect) {
     for (final t in tags) {
       if (isCorrect) {
@@ -52,6 +56,19 @@ class _QuizScreenState extends State<QuizScreen> {
         _tagWrong[t] = (_tagWrong[t] ?? 0) + 1;
       }
     }
+  }
+
+  // QuizCardにunitIdが未実装でもビルドが通る安全な取得ヘルパー
+  String _unitIdOf(QuizCard c) {
+    try {
+      final dyn = c as dynamic;
+      final v = dyn.unitId;
+      if (v is String && v.isNotEmpty) return v;
+    } catch (_) {
+      // 未実装/型不一致は握りつぶし
+    }
+    // フォールバック：deck.id（単一ユニット出題時も成立）
+    return widget.deck.id;
   }
 
   QuizCard get card => sequence[index];
@@ -74,6 +91,13 @@ class _QuizScreenState extends State<QuizScreen> {
     // セッションID生成＆最初の問題の開始時刻を記録
     _sessionId = _uuid.v4();
     _qStart = DateTime.now();
+
+    // ★ユニット別件数の事前集計（出題が確定したタイミングで一括）
+    _unitCount.clear();
+    for (final qc in sequence) {
+      final uid = _unitIdOf(qc);
+      _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
+    }
   }
 
   /// 選択肢をタップしたときの挙動
@@ -193,6 +217,7 @@ class _QuizScreenState extends State<QuizScreen> {
             total: sequence.length,
             correct: correctCount,
             sessionId: _sessionId, // ★渡す
+            unitBreakdown: Map<String, int>.from(_unitCount), // ★出題内訳を渡す
           ),
         ),
       );
@@ -223,11 +248,8 @@ class _QuizScreenState extends State<QuizScreen> {
       appBar: AppBar(
         title: Text('問題 ${index + 1}/${sequence.length}'),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(6),
-          child: LinearProgressIndicator(
-            value: (index + 1) / sequence.length,
-            minHeight: 6,
-          ),
+          preferredSize: Size.fromHeight(6),
+          child: _ProgressBar(),
         ),
       ),
       // 公開済みなら画面どこをタップしても次へ
@@ -453,6 +475,7 @@ class _QuizScreenState extends State<QuizScreen> {
       ),
     );
   }
+
   /// クイズ終了時に直近の Attempt を確認ログ出力
   Future<void> _onQuizEndDebugLog() async {
     try {
@@ -464,5 +487,25 @@ class _QuizScreenState extends State<QuizScreen> {
     } catch (_) {
       // ログ用途なので握りつぶしでOK
     }
+  }
+}
+
+// 進捗バーを切り出してリビルド負荷軽減（任意）
+class _ProgressBar extends StatelessWidget implements PreferredSizeWidget {
+  const _ProgressBar();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(6);
+
+  @override
+  Widget build(BuildContext context) {
+    final state = context.findAncestorStateOfType<_QuizScreenState>();
+    final value = (state == null || state.sequence.isEmpty)
+        ? 0.0
+        : (state.index + 1) / state.sequence.length;
+    return LinearProgressIndicator(
+      value: value,
+      minHeight: 6,
+    );
   }
 }

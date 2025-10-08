@@ -2,12 +2,13 @@
 import 'dart:math';
 
 class QuizCard {
-  final String question; // 問題文
-  final List<String> choices; // 選択肢（4択想定）
-  final int answerIndex; // 正解のindex（0-based）
-  final String? explanation; // 解説（任意）
-  final bool isPremium; // 有料かどうか
-  final List<String> unitTags; // 分野タグ（複数可）
+  final String question;        // 問題文
+  final List<String> choices;   // 選択肢（4択想定）
+  final int answerIndex;        // 正解のindex（0-based）
+  final String? explanation;    // 解説（任意）
+  final bool isPremium;         // 有料かどうか
+  final List<String> unitTags;  // 分野タグ（複数可）
+  final String? unitId;         // ★追加：所属ユニットID（任意・後方互換）
 
   const QuizCard({
     required this.question,
@@ -16,6 +17,7 @@ class QuizCard {
     this.explanation,
     this.isPremium = false,
     this.unitTags = const [],
+    this.unitId, // ★追加
   });
 
   List<String> get tags => unitTags;
@@ -40,13 +42,22 @@ class QuizCard {
       return const <String>[];
     }
 
+    // ❗ final を外して通常のローカル関数に
+    String? _readUnitId(Map<String, dynamic> j) {
+      final u = j['unitId'] ?? j['unit_id'];
+      if (u == null) return null;
+      final s = u.toString().trim();
+      return s.isEmpty ? null : s;
+    }
+
     return QuizCard(
       question: json['question'] as String,
       choices: List<String>.from(json['choices']),
       answerIndex: json['answerIndex'] as int,
       explanation: json['explanation'] as String?,
       isPremium: json['isPremium'] as bool? ?? false,
-      unitTags: _readTags(json), // ← ここがポイント
+      unitTags: _readTags(json),
+      unitId: _readUnitId(json), // ← ここはそのままでOK
     );
   }
 
@@ -71,11 +82,15 @@ class QuizCard {
     var ans = int.tryParse(ansRaw) ?? 1;
     ans = (ans - 1).clamp(0, list.length - 1); // 1→0, 4→3 など
 
+    // ★ テンプレ列に合わせて unit_id を拾う（無ければ null）
+    final uid = idx.containsKey('unit_id') ? _s('unit_id') : null;
+
     return QuizCard(
       question: _s('question'),
       choices: list,
       answerIndex: ans,
       explanation: (exp != null && exp.isEmpty) ? null : exp,
+      unitId: (uid != null && uid.isEmpty) ? null : uid, // ★追加
     );
   }
 }
@@ -94,6 +109,7 @@ extension QuizCardShuffle on QuizCard {
       explanation: explanation,
       isPremium: isPremium,
       unitTags: unitTags,
+      unitId: unitId, // ★維持
     );
   }
 }
