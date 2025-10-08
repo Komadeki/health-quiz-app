@@ -8,7 +8,15 @@ import 'quiz_screen.dart';
 
 class AttemptHistoryScreen extends StatelessWidget {
   final String sessionId;
-  const AttemptHistoryScreen({super.key, required this.sessionId});
+
+  /// ★任意：ユニットID→日本語タイトル
+  final Map<String, String>? unitTitleMap;
+
+  const AttemptHistoryScreen({
+    super.key,
+    required this.sessionId,
+    this.unitTitleMap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +29,7 @@ class AttemptHistoryScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           final raw = snap.data ?? const <AttemptEntry>[];
+
           // ★ 新しい順にソート（逆順で来ても安全）
           final items = raw.toList()
             ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
@@ -29,7 +38,7 @@ class AttemptHistoryScreen extends StatelessWidget {
             return const Center(child: Text('履歴が見つかりません'));
           }
 
-          // ★ 集計
+          // ===== 集計（今回のセッション） =====
           final total = items.length;
           final correctCount = items.where((e) => e.isCorrect).length;
           final wrongCount = total - correctCount;
@@ -38,24 +47,38 @@ class AttemptHistoryScreen extends StatelessWidget {
               : (items.fold<int>(0, (sum, e) => sum + e.durationMs) / total)
                   .round();
 
-          // ★ 画面内だけで状態を持つ（誤答のみ表示トグル）
+          // ユニット別件数を集計
+          final Map<String, int> unitCounts = {};
+          for (final e in items) {
+            final id = e.unitId ?? 'unknown';
+            unitCounts.update(id, (v) => v + 1, ifAbsent: () => 1);
+          }
+          final unitTotal = unitCounts.values.fold<int>(0, (a, b) => a + b);
+
+          // 画面内だけで状態を持つ（誤答のみ表示トグル）
           bool showOnlyWrong = false;
 
           return StatefulBuilder(
             builder: (context, setState) {
-              final visible = showOnlyWrong
-                  ? items.where((e) => !e.isCorrect).toList()
-                  : items;
+              final visible =
+                  showOnlyWrong ? items.where((e) => !e.isCorrect).toList() : items;
 
               return ListView.builder(
                 padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
-                itemCount: visible.length + 1, // サマリー＋履歴行
+                itemCount: visible.length + 2, // サマリー + ユニット内訳 + 履歴行
                 itemBuilder: (context, i) {
+                  // 0: 集計サマリー ＋ トグル/誤答再挑戦
                   if (i == 0) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         _buildSummary(correctCount, wrongCount, avgMs),
+                        const SizedBox(height: 8),
+                        _UnitBreakdownCard(
+                          unitCounts: unitCounts,
+                          totalQuestions: unitTotal,
+                          unitTitleMap: unitTitleMap,
+                        ),
                         const SizedBox(height: 8),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -82,10 +105,24 @@ class AttemptHistoryScreen extends StatelessWidget {
                     );
                   }
 
-                  final a = visible[i - 1];
+                  // 1: セクション見出し（履歴一覧）
+                  if (i == 1) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
+                      child: Text(
+                        '履歴一覧（今回）',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    );
+                  }
+
+                  // 2..: 履歴行
+                  final a = visible[i - 2];
                   final correct = a.isCorrect;
 
-                  // ★ 表示用に 1-based 保証（旧データ救済）
+                  // 表示用に 1-based 保証（旧データ救済）
                   final looksZeroBased =
                       (a.selectedIndex == 0) || (a.correctIndex == 0);
                   final sel =
@@ -117,7 +154,7 @@ class AttemptHistoryScreen extends StatelessWidget {
   String _trim(String s, int max) =>
       (s.length <= max) ? s : '${s.substring(0, max)}…';
 
-  // ★ 秒数は切り捨て＋最小1秒＋単位「秒」
+  // 秒数は切り捨て＋最小1秒＋単位「秒」
   String _formatSec(int ms) {
     final sec = (ms / 1000).floor().clamp(1, 9999);
     return '${sec}秒';
@@ -133,7 +170,7 @@ class AttemptHistoryScreen extends StatelessWidget {
 
   // ==== UIビルダー ====
 
-  // ★ 集計カード
+  // 集計カード（正解/不正解/平均/正答率）
   Widget _buildSummary(int correct, int wrong, int avgMs) {
     final rate = (correct + wrong) == 0
         ? 0
@@ -162,18 +199,23 @@ class AttemptHistoryScreen extends StatelessWidget {
 
   // ==== 機能 ====
 
-  // ★ 単問リプレイ
+  // 単問リプレイ
   Future<void> _replaySingle(BuildContext context, AttemptEntry a) async {
     final loader = DeckLoader();
     final decks = await loader.loadAll();
-    final deck = decks.firstWhere(
+
+    // AttemptEntry.unitId にはカードの unitId が入っている想定
+    // 既存の Deck.id が unitId と一致する構成ならこれでOK
+    final Deck deck = decks.firstWhere(
       (d) => d.id == a.unitId,
       orElse: () => decks.first,
     );
+
     final QuizCard? found = deck.cards.firstWhere(
       (c) => c.question.trim() == a.question.trim(),
       orElse: () => deck.cards.first,
     );
+
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => QuizScreen(deck: deck, overrideCards: [found!]),
@@ -181,7 +223,7 @@ class AttemptHistoryScreen extends StatelessWidget {
     );
   }
 
-  // ★ 誤答だけ再挑戦
+  // 誤答だけ再挑戦
   Future<void> _replayWrong(
       BuildContext context, List<AttemptEntry> items) async {
     final wrong = items.where((e) => !e.isCorrect).toList();
@@ -194,6 +236,8 @@ class AttemptHistoryScreen extends StatelessWidget {
 
     final loader = DeckLoader();
     final decks = await loader.loadAll();
+
+    // まず最初の誤答の unitId を採用（今回と同じ前提。異なる場合は分岐実装へ拡張可能）
     final unitId = wrong.first.unitId;
     final deck =
         decks.firstWhere((d) => d.id == unitId, orElse: () => decks.first);
@@ -221,6 +265,89 @@ class AttemptHistoryScreen extends StatelessWidget {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => QuizScreen(deck: deck, overrideCards: list),
+      ),
+    );
+  }
+}
+
+/// ===== ユニット別内訳カード（今回） =====
+class _UnitBreakdownCard extends StatelessWidget {
+  final Map<String, int> unitCounts;
+  final int totalQuestions;
+  final Map<String, String>? unitTitleMap;
+
+  const _UnitBreakdownCard({
+    required this.unitCounts,
+    required this.totalQuestions,
+    this.unitTitleMap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (unitCounts.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final entries = unitCounts.entries.toList()
+      ..sort((a, b) {
+        final c = b.value.compareTo(a.value); // 件数降順
+        return c != 0 ? c : a.key.compareTo(b.key); // 同数ならキー昇順
+      });
+
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('ユニット別出題割合（今回）',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            ...entries.map((e) {
+              final count = e.value;
+              final ratio =
+                  totalQuestions == 0 ? 0.0 : count / totalQuestions;
+              final pct = (ratio * 100).toStringAsFixed(0);
+              final title = unitTitleMap?[e.key] ?? e.key;
+
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text('$count問（$pct%）',
+                            style: const TextStyle(fontSize: 13)),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: LinearProgressIndicator(
+                        value: ratio.clamp(0, 1),
+                        minHeight: 8,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ],
+        ),
       ),
     );
   }

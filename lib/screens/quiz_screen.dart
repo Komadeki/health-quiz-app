@@ -7,8 +7,6 @@ import 'result_screen.dart';
 import 'package:uuid/uuid.dart';
 import 'package:provider/provider.dart';
 import '../services/app_settings.dart';
-import '../services/score_store.dart';
-import '../services/scores_store.dart';
 import '../services/deck_loader.dart';
 import '../services/attempt_store.dart';
 import '../models/attempt_entry.dart';
@@ -144,7 +142,7 @@ class _QuizScreenState extends State<QuizScreen> {
         attemptId: _uuid.v4(),          // AttemptStore 側で未設定時も採番されるが、ここで付与
         sessionId: _sessionId,
         questionNumber: index + 1,      // 1-based
-        unitId: widget.deck.id,         // ユニットID（現状は deckId と同一運用）
+        unitId: _unitIdOf(card),        // ← カードから安全に取得（フォールバックは deck.id）
         cardId: index.toString(),       // QuizCard に id があるなら置き換え可
         question: card.question,
         selectedIndex: (selected ?? 0) + 1, // ← 1-based で保存
@@ -163,27 +161,35 @@ class _QuizScreenState extends State<QuizScreen> {
     if (index >= sequence.length - 1) {
       if (_savedOnce) return; // すでに保存していたら何もしない
       _savedOnce = true;
-      // 成績を保存
-      final result = QuizResult(
-        deckId: widget.deck.id, // 'mixed' もここに入る
-        total: sequence.length,
-        correct: correctCount,
-        timestamp: DateTime.now(),
-        mode: widget.deck.id == 'mixed' ? 'mixed' : 'single',
-      );
 
-      // QuizResult作成直後に deckTitle を解決
-      final decks = await DeckLoader().loadAll();
-      final titleMap = {for (final d in decks) d.id: d.title};
-      final deckTitle = (result.deckId == 'mixed')
-          ? 'ミックス練習'
-          : (titleMap[result.deckId] ?? result.deckId);
-
-      await ScoresStore().add(result);
-
+      // --- 成績サマリ情報をローカル変数で保持（QuizResultは使わない） ---
+      final deckId = widget.deck.id;            // 'mixed' もここに入る
+      final total = sequence.length;
+      final correct = correctCount;
+      final timestamp = DateTime.now();
       final durationSec = _sw.elapsed.inSeconds;
 
-      // 追加：TagStat マップを構築
+      // デッキタイトル解決
+      final decks = await DeckLoader().loadAll();
+
+      // デッキID→デッキ名
+      final Map<String, String> deckTitleMap = {
+        for (final d in decks) d.id: d.title,
+      };
+      final String deckTitle = (deckId == 'mixed')
+          ? 'ミックス練習'
+          : (deckTitleMap[deckId] ?? widget.deck.title ?? deckId);
+
+      // ★ユニットID→ユニット名マップを生成（ResultScreenに渡す用）
+      final Map<String, String> unitTitleMap = {};
+      for (final d in decks) {
+        final units = d.units ?? const [];
+        for (final u in units) {
+          if (u.id.isNotEmpty) unitTitleMap[u.id] = u.title;
+        }
+      }
+
+      // TagStat マップを構築（現状ロジックはそのまま）
       final Map<String, TagStat> tagStats = {};
       final allKeys = <String>{..._tagCorrect.keys, ..._tagWrong.keys};
       for (final k in allKeys) {
@@ -193,36 +199,49 @@ class _QuizScreenState extends State<QuizScreen> {
         );
       }
 
-      await ScoreStore.instance.add(
-        ScoreRecord(
-          id: const Uuid().v4(),
-          deckId: result.deckId,
-          deckTitle: deckTitle,
-          score: result.correct,
-          total: result.total,
-          durationSec: durationSec,
-          timestamp: result.timestamp.millisecondsSinceEpoch,
-          tags: tagStats.isEmpty ? null : tagStats,
-          selectedUnitIds: null,
-          sessionId: _sessionId, // ★追加：この成績→今回の履歴へジャンプ可能に
-        ),
-      );
+      // ★ AttemptStore に ScoreRecord を保存（unitBreakdown を含める）
+      try {
+        await AttemptStore().addScore(
+          ScoreRecord(
+            id: const Uuid().v4(),
+            deckId: deckId,
+            deckTitle: deckTitle,
+            score: correct,
+            total: total,
+            durationSec: durationSec,
+            timestamp: timestamp.millisecondsSinceEpoch,
+            tags: tagStats.isEmpty ? null : tagStats,
+            selectedUnitIds: null,
+            sessionId: _sessionId,
+            unitBreakdown: Map<String, int>.from(_unitCount),
+          ),
+        );
+      } catch (_) {
+        // 保存失敗は致命ではないので握りつぶし
+      }
 
       if (!mounted) return;
       await _onQuizEndDebugLog(); // 直近5件の確認ログ
+
+      // 結果画面へ（deckId/deckTitle/durationSec を渡す）
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (_) => ResultScreen(
-            total: sequence.length,
-            correct: correctCount,
-            sessionId: _sessionId, // ★渡す
-            unitBreakdown: Map<String, int>.from(_unitCount), // ★出題内訳を渡す
+            total: total,
+            correct: correct,
+            sessionId: _sessionId,
+            unitBreakdown: Map<String, int>.from(_unitCount),
+            deckId: deckId,
+            deckTitle: deckTitle,
+            durationSec: durationSec,
+            unitTitleMap: unitTitleMap,
           ),
         ),
       );
       return;
     }
+
 
     setState(() {
       index++;

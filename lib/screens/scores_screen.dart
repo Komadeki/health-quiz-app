@@ -1,6 +1,7 @@
 // lib/screens/scores_screen.dart  ← 完全版（ScoreStore/ScoreRecord を使用）
 import 'package:flutter/material.dart';
 import '../services/score_store.dart';
+import '../services/deck_loader.dart';
 import '../models/score_record.dart';
 import 'attempt_history_screen.dart';
 
@@ -65,7 +66,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('成績（新）'), // 目印：新画面が出ているか判別しやすい
+        title: const Text('成績'),
         actions: [
           IconButton(
             tooltip: '全削除',
@@ -136,11 +137,24 @@ class _ScoresScreenState extends State<ScoresScreen> {
     );
   }
 
-  void _onTapRecord(BuildContext context, ScoreRecord record) {
+  Future<void> _onTapRecord(BuildContext context, ScoreRecord record) async {
     if (record.sessionId != null && record.sessionId!.isNotEmpty) {
+      // ★ユニットID→ユニット名を構築
+      final decks = await DeckLoader().loadAll();
+      final unitTitleMap = <String, String>{};
+      for (final d in decks) {
+        final units = d.units ?? const [];
+        for (final u in units) {
+          if (u.id.isNotEmpty) unitTitleMap[u.id] = u.title;
+        }
+      }
+
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => AttemptHistoryScreen(sessionId: record.sessionId!),
+          builder: (_) => AttemptHistoryScreen(
+            sessionId: record.sessionId!,
+            unitTitleMap: unitTitleMap, // ← 日本語タイトルを渡す
+          ),
         ),
       );
     } else {
