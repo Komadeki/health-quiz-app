@@ -209,30 +209,49 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 }
 
-// ===== 出題内訳カード（日本語タイトル対応） =====
-class _UnitBreakdownCard extends StatelessWidget {
+// ===== 出題内訳カード（日本語タイトル対応・5件まで表示＆開閉） =====
+class _UnitBreakdownCard extends StatefulWidget {
   final Map<String, int> unitBreakdown;
   final int totalQuestions;
   final Map<String, String>? unitTitleMap;
 
+  /// 初期表示件数（デフォルト 5）
+  final int initialMax;
+
   const _UnitBreakdownCard({
+    super.key,
     required this.unitBreakdown,
     required this.totalQuestions,
     this.unitTitleMap,
+    this.initialMax = 5,
   });
 
   @override
+  State<_UnitBreakdownCard> createState() => _UnitBreakdownCardState();
+}
+
+class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
+  bool _expanded = false;
+
+  @override
   Widget build(BuildContext context) {
-    final entries = unitBreakdown.entries.toList()
+    if (widget.unitBreakdown.isEmpty) return const SizedBox.shrink();
+
+    final entries = widget.unitBreakdown.entries.toList()
       ..sort((a, b) {
-        final c = b.value.compareTo(a.value);
-        return c != 0 ? c : a.key.compareTo(b.key);
+        final c = b.value.compareTo(a.value); // 件数降順
+        return c != 0 ? c : a.key.compareTo(b.key); // 同数ならキー昇順
       });
+
+    final total = widget.totalQuestions;
+    final showToggle = entries.length > widget.initialMax;
+    final visibleCount =
+        _expanded ? entries.length : entries.length.clamp(0, widget.initialMax);
 
     return Card(
       elevation: 1,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 4),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -241,57 +260,91 @@ class _UnitBreakdownCard extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-            ...entries.map((e) {
-              final count = e.value;
-              final ratio = totalQuestions == 0 ? 0.0 : count / totalQuestions;
-              final pctStr = (ratio * 100).toStringAsFixed(0);
-              final title = unitTitleMap?[e.key] ?? e.key;
 
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        // カラーインジケータ（ResultScreenのサマリバーに合わせて index 色）
-                        Container(
-                          width: 10,
-                          height: 10,
-                          decoration: BoxDecoration(
-                            color: segmentColor(entries.indexOf(e)),
-                            borderRadius: BorderRadius.circular(2),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            title,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Text('$count問（$pctStr%）', style: const TextStyle(fontSize: 13)),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: LinearProgressIndicator(
-                        value: ratio.clamp(0, 1),
-                        minHeight: 8,
-                      ),
-                    ),
-                  ],
+            // 可視分のみ描画
+            for (var i = 0; i < visibleCount; i++)
+              _row(
+                context: context,
+                index: i,
+                title: (widget.unitTitleMap?[entries[i].key] ?? entries[i].key),
+                asked: entries[i].value,
+                total: total == 0
+                    ? widget.unitBreakdown.values
+                        .fold<int>(0, (a, b) => a + b) // 念のための保険
+                    : total,
+              ),
+
+            if (showToggle) ...[
+              const SizedBox(height: 4),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: TextButton.icon(
+                  onPressed: () => setState(() => _expanded = !_expanded),
+                  icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
+                  label: Text(
+                    _expanded
+                        ? '閉じる'
+                        : 'もっと見る（全${entries.length}件）',
+                  ),
                 ),
-              );
-            }),
+              ),
+            ],
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _row({
+    required BuildContext context,
+    required int index,
+    required String title,
+    required int asked,
+    required int total,
+  }) {
+    final ratio = total > 0 ? asked / total : 0.0;
+    final pctStr = (ratio * 100).toStringAsFixed(0);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              // カラーインジケータ（ResultScreenのサマリバーに合わせて index 色）
+              Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                  color: segmentColor(index),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text('$asked問（$pctStr%）', style: const TextStyle(fontSize: 13)),
+            ],
+          ),
+          const SizedBox(height: 6),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: LinearProgressIndicator(
+              value: ratio.clamp(0, 1),
+              minHeight: 8,
+            ),
+          ),
+        ],
       ),
     );
   }

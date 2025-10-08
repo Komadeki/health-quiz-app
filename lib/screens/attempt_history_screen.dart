@@ -399,15 +399,35 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
             // トグルボタン（6件以上のときだけ）
             if (showToggle) ...[
               const SizedBox(height: 4),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton.icon(
-                  onPressed: () => setState(() => _expanded = !_expanded),
-                  icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
-                  label: Text(_expanded ? '閉じる' : 'もっと見る'),
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    icon: Icon(
+                      _expanded ? Icons.expand_less : Icons.expand_more,
+                      size: 18,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    onPressed: () => setState(() => _expanded = !_expanded),
+                  ),
+                  GestureDetector(
+                    onTap: () => setState(() => _expanded = !_expanded),
+                    child: Text(
+                      _expanded
+                          ? '閉じる'
+                          : 'もっと見る（全${entries.length}件）',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ]
           ],
         ),
       ),

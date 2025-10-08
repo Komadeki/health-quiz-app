@@ -1,6 +1,7 @@
 // lib/widgets/quiz_analytics.dart
 import 'package:flutter/material.dart';
 
+
 /// 出題・誤答の簡易モデル（既に同名クラスがある場合は、こちらを削除して既存を import してください）
 class UnitStat {
   final int asked;

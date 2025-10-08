@@ -166,4 +166,21 @@ class ScoreStore {
       return null;
     }
   }
+  /// 1件削除（id指定）
+  Future<void> delete(String id) async {
+    final all = await loadAll();
+    final before = all.length;
+    all.removeWhere((e) => e.id == id);
+    if (all.length != before) {
+      // AttemptStore に反映（AttemptStore でも削除）
+      await AttemptStore().clearScores();
+      for (final r in all) {
+        await AttemptStore().addScore(r);
+      }
+
+      // SharedPreferences 旧キーも再保存（互換性のため）
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_kKeyV2, ScoreRecord.encodeList(all));
+    }
+  }
 }
