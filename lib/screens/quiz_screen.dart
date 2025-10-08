@@ -172,22 +172,37 @@ class _QuizScreenState extends State<QuizScreen> {
       // デッキタイトル解決
       final decks = await DeckLoader().loadAll();
 
-      // デッキID→デッキ名
-      final Map<String, String> deckTitleMap = {
-        for (final d in decks) d.id: d.title,
-      };
-      final String deckTitle = (deckId == 'mixed')
-          ? 'ミックス練習'
-          : (deckTitleMap[deckId] ?? widget.deck.title ?? deckId);
-
-      // ★ユニットID→ユニット名マップを生成（ResultScreenに渡す用）
+      // 1パスで Deck → Title と Unit → Title を同時に構築
+      final Map<String, String> deckTitleMap = {};
       final Map<String, String> unitTitleMap = {};
+
       for (final d in decks) {
-        final units = d.units ?? const [];
-        for (final u in units) {
-          if (u.id.isNotEmpty) unitTitleMap[u.id] = u.title;
+        // デッキ
+        final did = d.id.trim();
+        final dtitle = d.title.trim();
+        if (did.isNotEmpty) {
+          deckTitleMap[did] = dtitle.isNotEmpty ? dtitle : did; // タイトル未設定ならIDをフォールバック
+        }
+
+        // ユニット
+        for (final u in (d.units ?? const [])) {
+          final uid = u.id.trim();
+          final utitle = u.title.trim();
+          if (uid.isNotEmpty) {
+            // タイトルが空なら uid をフォールバック
+            unitTitleMap[uid] = utitle.isNotEmpty ? utitle : uid;
+          }
         }
       }
+
+      // デッキ表示名（'mixed' は特別扱い）
+      final String fallbackDeckTitle =
+          (widget.deck.title.isNotEmpty) ? widget.deck.title : deckId;
+      final String deckTitle = (deckId == 'mixed')
+          ? 'ミックス練習'
+          : (deckTitleMap[deckId] ?? fallbackDeckTitle);
+
+      // 以降：unitTitleMap は ResultScreen などにそのまま渡せます
 
       // TagStat マップを構築（現状ロジックはそのまま）
       final Map<String, TagStat> tagStats = {};
@@ -222,10 +237,13 @@ class _QuizScreenState extends State<QuizScreen> {
 
       if (!mounted) return;
       await _onQuizEndDebugLog(); // 直近5件の確認ログ
+      if (!mounted) return; // await後も安全チェック
+
+      // Navigatorを事前に確保して安全に使う
+      final nav = Navigator.of(context);
 
       // 結果画面へ（deckId/deckTitle/durationSec を渡す）
-      Navigator.pushReplacement(
-        context,
+      nav.pushReplacement(
         MaterialPageRoute(
           builder: (_) => ResultScreen(
             total: total,
@@ -241,7 +259,6 @@ class _QuizScreenState extends State<QuizScreen> {
       );
       return;
     }
-
 
     setState(() {
       index++;

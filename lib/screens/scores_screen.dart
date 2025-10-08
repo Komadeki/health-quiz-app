@@ -41,11 +41,25 @@ class _ScoresScreenState extends State<ScoresScreen> {
       records.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
       final decks = await DeckLoader().loadAll();
-      final unitTitleMap = <String, String>{};
+
+      // デッキ名・ユニット名マップを同時構築
+      final Map<String, String> deckTitleMap = {};
+      final Map<String, String> unitTitleMap = {};
+
       for (final d in decks) {
-        final units = d.units ?? const [];
-        for (final u in units) {
-          if (u.id.isNotEmpty) unitTitleMap[u.id] = u.title;
+        final deckId = d.id.trim();
+        final deckTitle = d.title.trim();
+
+        if (deckId.isNotEmpty) {
+          deckTitleMap[deckId] = deckTitle.isNotEmpty ? deckTitle : deckId;
+        }
+
+        for (final u in (d.units ?? const [])) {
+          final unitId = u.id.trim();
+          final unitTitle = u.title.trim();
+          if (unitId.isNotEmpty) {
+            unitTitleMap[unitId] = unitTitle.isNotEmpty ? unitTitle : unitId;
+          }
         }
       }
 
@@ -448,14 +462,15 @@ class _ScoresScreenState extends State<ScoresScreen> {
     );
     if (ok != true) return;
 
+    final messenger = ScaffoldMessenger.of(context);
     try {
-      await ScoreStore.instance.delete(r.id); // delete(id) 実装が必要
+      await ScoreStore.instance.delete(r.id);
       await _load();
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('成績を削除しました')));
+      if (!context.mounted) return;
+      messenger.showSnackBar(const SnackBar(content: Text('成績を削除しました')));
     } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('削除に失敗しました: $e')));
+      if (!context.mounted) return;
+      messenger.showSnackBar(SnackBar(content: Text('削除に失敗しました: $e')));
     }
   }
 }

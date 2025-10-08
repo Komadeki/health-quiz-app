@@ -88,7 +88,6 @@ class _ResultScreenState extends State<ResultScreen> {
     final total = widget.total;
     final correct = widget.correct;
     final wrong = (total - correct).clamp(0, total);
-    final rate = total == 0 ? '0.0' : (correct / total * 100).toStringAsFixed(1);
 
     // サマリバー用に Map<String,int> -> Map<String,UnitStat>(wrong=0) へ変換
     final ub = widget.unitBreakdown ?? const <String, int>{};
@@ -205,7 +204,7 @@ class _ResultScreenState extends State<ResultScreen> {
   String _fmtDuration(int secs) {
     final m = secs ~/ 60;
     final s = secs % 60;
-    return '${m}分${s}秒';
+    return '$m分$s秒';
   }
 }
 
@@ -294,7 +293,7 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
       ),
     );
   }
-
+  // ignore: unused_element_parameter
   Widget _row({
     required BuildContext context,
     required int index,

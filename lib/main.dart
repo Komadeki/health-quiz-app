@@ -11,7 +11,6 @@ import 'screens/unit_select_screen.dart';
 import 'screens/scores_screen.dart'; 
 import 'screens/settings_screen.dart';
 import 'utils/logger.dart'; // AppLog を使うため
-import 'services/attempt_store.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
