@@ -17,7 +17,7 @@ class ResultScreen extends StatefulWidget {
   final int? durationSec;
   final int? timestamp;
   final List<String>? selectedUnitIds;
-  final Map<String, ts.TagStat>? tags;
+  final Map<String, TagStat>? tags;
   final bool saveHistory;
 
   // 表示関連

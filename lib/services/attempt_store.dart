@@ -168,7 +168,7 @@ class AttemptStore {
   // ScoreRecord（★新機能） — 1回の結果サマリ（unitBreakdown 含む）
   // ===========================================================================
 
-  Future<List<sr.ScoreRecord>> loadScores() async {
+  Future<List<ScoreRecord>> loadScores() async {
     final prefs = await SharedPreferences.getInstance();
     final raw = prefs.getString(kScores);
     if (raw == null || raw.isEmpty) return [];
@@ -180,7 +180,7 @@ class AttemptStore {
     }
   }
 
-  Future<void> _saveScores(List<sr.ScoreRecord> items) async {
+  Future<void> _saveScores(List<ScoreRecord> items) async {
     final prefs = await SharedPreferences.getInstance();
     try {
       final ok = await prefs.setString(kScores, ScoreRecord.encodeList(items));
@@ -191,7 +191,7 @@ class AttemptStore {
   }
 
   /// 成績サマリを追加（ResultScreen から呼ぶ想定）
-  Future<void> addScore(sr.ScoreRecord record, {int? retention}) async {
+  Future<void> addScore(ScoreRecord record, {int? retention}) async {
     final all = await loadScores();
     all.add(record);
 
@@ -205,35 +205,35 @@ class AttemptStore {
   }
 
   /// 新しいものから最大 limit 件
-  Future<List<sr.ScoreRecord>> recentScores({int limit = 100}) async {
+  Future<List<ScoreRecord>> recentScores({int limit = 100}) async {
     final all = await loadScores();
     return all.reversed.take(limit).toList();
   }
 
   /// デッキ別に取得
-  Future<List<sr.ScoreRecord>> scoresByDeck(String deckId) async {
+  Future<List<ScoreRecord>> scoresByDeck(String deckId) async {
     final all = await loadScores();
     return all.where((e) => e.deckId == deckId).toList().reversed.toList();
   }
 
-  /// sr.ScoreRecord 全削除
+  /// ScoreRecord 全削除
   Future<void> clearScores() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(kScores);
   }
 
-  /// sr.ScoreRecord のバックアップ
+  /// ScoreRecord のバックアップ
   Future<String> exportScoresJson() async {
     final all = await loadScores();
     return jsonEncode({
-      'version': 2, // sr.ScoreRecord v2+（sessionId / unitBreakdown など）
+      'version': 2, // ScoreRecord v2+（sessionId / unitBreakdown など）
       'items': all.map((e) => e.toJson()).toList(),
       'count': all.length,
       'exportedAt': DateTime.now().toIso8601String(),
     });
   }
 
-  /// sr.ScoreRecord のインポート（attempts_v1 とは別系統）
+  /// ScoreRecord のインポート（attempts_v1 とは別系統）
   Future<int> importScoresJson(String json) async {
     try {
       final data = jsonDecode(json) as Map<String, dynamic>;

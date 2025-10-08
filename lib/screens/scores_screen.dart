@@ -2,13 +2,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../models/score_record.dart';
 import '../services/score_store.dart';
 import '../services/deck_loader.dart';
 import '../widgets/quiz_analytics.dart';
-import '../widgets/tag_mistake_chips.dart';
 import 'attempt_history_screen.dart';
-import '../models/score_record.dart' as sr;
-import '../models/tag_stat.dart' as ts;
 
 enum RecordKindFilter { all, unit, mix }
 enum SortMode { newest, oldest, accuracy }
@@ -22,7 +20,7 @@ class ScoresScreen extends StatefulWidget {
 
 class _ScoresScreenState extends State<ScoresScreen> {
   bool _loading = true;
-  List<sr.ScoreRecord> _records = [];
+  List<ScoreRecord> _records = [];
   Map<String, String> _unitTitleMap = {};
 
   // フィルタ & 並び替え
@@ -67,8 +65,8 @@ class _ScoresScreenState extends State<ScoresScreen> {
   }
 
   // ===== フィルタ適用 & 並び替え =====
-  List<sr.ScoreRecord> get _filteredSorted {
-    Iterable<sr.ScoreRecord> it = _records;
+  List<ScoreRecord> get _filteredSorted {
+    Iterable<ScoreRecord> it = _records;
 
     // 種別
     if (_kind == RecordKindFilter.unit) {
@@ -95,7 +93,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
         list.sort((a, b) => a.timestamp.compareTo(b.timestamp));
         break;
       case SortMode.accuracy:
-        double acc(sr.ScoreRecord r) => (r.total == 0) ? -1.0 : (r.score / r.total);
+        double acc(ScoreRecord r) => (r.total == 0) ? -1.0 : (r.score / r.total);
         list.sort((a, b) => acc(b).compareTo(acc(a)));
         break;
     }
@@ -139,30 +137,10 @@ class _ScoresScreenState extends State<ScoresScreen> {
     }
   }
 
-  // ===== 追加：フィルタ後レコードから TagStat を構築 =====
-  Map<String, ts.TagStat> _buildTagStatsFromRecords(Iterable<sr.ScoreRecord> recs) {
-    final map = <String, ts.TagStat>{};
-    for (final r in recs) {
-      final tags = r.tags; // Map<String, TagAgg>? （TagAgg: correct, wrong を持つ想定）
-      if (tags == null) continue;
-      tags.forEach((tag, agg) {
-        final now = map[tag] ?? const ts.TagStat(correct: 0, total: 0);
-        final correct = (agg.correct);
-        final wrong = (agg.wrong);
-        map[tag] = ts.TagStat(
-          correct: now.correct + correct,
-          total: now.total + correct + wrong,
-        );
-      });
-    }
-    return map;
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final filtered = _filteredSorted;
-    final tagStats = _buildTagStatsFromRecords(filtered); // ★ ここで集計
 
     return Scaffold(
       appBar: AppBar(
@@ -239,32 +217,6 @@ class _ScoresScreenState extends State<ScoresScreen> {
                     ),
                     const Divider(height: 1),
 
-                    // ===== 追加：タグ別「よく間違えるテーマ」 =====
-                    if (tagStats.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(12, 10, 12, 4),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'よく間違えるテーマ',
-                              style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 8),
-                            TagMistakeChips(
-                              tagStats: tagStats,
-                              maxTags: 5,
-                              minTotalThreshold: 3,
-                              onTapTag: (tag) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('「$tag」の復習機能は後で有効化します')),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-
                     // ===== リスト（フィルタ適用後） =====
                     Expanded(
                       child: ListView.separated(
@@ -339,11 +291,12 @@ class _ScoresScreenState extends State<ScoresScreen> {
                                                 padding: const EdgeInsets.only(top: 4),
                                                 child: Tooltip(
                                                   message: '履歴を開く',
-                                                  child: InkResponse(
-                                                    radius: 18,
-                                                    onTap: () => _onTapRecord(context, r),
-                                                    child: const Icon(Icons.history, size: 18),
-                                                  ),
+                                                  child:
+                                                      InkResponse(
+                                                        radius: 18,
+                                                        onTap: () => _onTapRecord(context, r),
+                                                        child: const Icon(Icons.history, size: 18),
+                                                      ),
                                                 ),
                                               ),
                                           ],
@@ -354,25 +307,25 @@ class _ScoresScreenState extends State<ScoresScreen> {
 
                                   // 主要ユニットチップ — コンパクト化（ChipThemeで絞る）
                                   if (ubStat.isNotEmpty) ...[
-                                    const SizedBox(height: 6),
+                                    const SizedBox(height: 6), // 8→6 に縮小
                                     Theme(
                                       data: theme.copyWith(
                                         chipTheme: theme.chipTheme.copyWith(
                                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                           labelPadding: const EdgeInsets.symmetric(horizontal: 6),
-                                          side: BorderSide(
-                                            color: theme.colorScheme.outline.withOpacity(0.25),
-                                          ),
+                                          side: BorderSide(color: theme.colorScheme.outline.withOpacity(0.25)),
                                         ),
                                         textTheme: theme.textTheme.copyWith(
-                                          bodySmall: theme.textTheme.bodySmall?.copyWith(height: 1.0),
+                                          bodySmall: theme.textTheme.bodySmall?.copyWith(
+                                            height: 1.0, // 行間を詰める
+                                          ),
                                         ),
                                       ),
                                       child: UnitRatioChips(
                                         unitBreakdown: ubStat,
                                         unitTitleMap: _unitTitleMap,
                                         topK: 3,
-                                        padding: const EdgeInsets.only(top: 0),
+                                        padding: const EdgeInsets.only(top: 0), // 呼び出し側の余白も最小化
                                       ),
                                     ),
                                   ],
@@ -388,7 +341,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
     );
   }
 
-  Future<void> _onTapRecord(BuildContext context, sr.ScoreRecord record) async {
+  Future<void> _onTapRecord(BuildContext context, ScoreRecord record) async {
     if (record.sessionId != null && record.sessionId!.isNotEmpty) {
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -405,7 +358,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
     }
   }
 
-  Future<void> _showRecordActions(BuildContext context, sr.ScoreRecord r) async {
+  Future<void> _showRecordActions(BuildContext context, ScoreRecord r) async {
     final canOpenHistory = r.sessionId != null && r.sessionId!.isNotEmpty;
     await showModalBottomSheet<void>(
       context: context,
@@ -451,7 +404,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
     );
   }
 
-  Future<void> _shareRecord(sr.ScoreRecord r) async {
+  Future<void> _shareRecord(ScoreRecord r) async {
     final payload = {
       'id': r.id,
       'timestamp': r.timestamp,
@@ -478,7 +431,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
     );
   }
 
-  Future<void> _deleteRecord(BuildContext context, sr.ScoreRecord r) async {
+  Future<void> _deleteRecord(BuildContext context, ScoreRecord r) async {
     final ok = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
@@ -496,7 +449,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
     if (ok != true) return;
 
     try {
-      await ScoreStore.instance.delete(r.id);
+      await ScoreStore.instance.delete(r.id); // delete(id) 実装が必要
       await _load();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('成績を削除しました')));

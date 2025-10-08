@@ -12,7 +12,7 @@ Future<void> debugSmokeTestScoreStore() async {
     total: 10,
     durationSec: 111,
     timestamp: DateTime.now().millisecondsSinceEpoch,
-    tags: {'喫煙': const ts.TagStat(correct: 2, wrong: 1)},
+    tags: {'喫煙': const TagStat(correct: 2, wrong: 1)},
     selectedUnitIds: const ['u1', 'u2'],
   );
   await ScoreStore.instance.add(rec);

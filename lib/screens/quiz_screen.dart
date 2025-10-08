@@ -190,16 +190,16 @@ class _QuizScreenState extends State<QuizScreen> {
       }
 
       // TagStat マップを構築（現状ロジックはそのまま）
-      final Map<String, ts.TagStat> tagStats = {};
+      final Map<String, TagStat> tagStats = {};
       final allKeys = <String>{..._tagCorrect.keys, ..._tagWrong.keys};
       for (final k in allKeys) {
-        tagStats[k] = ts.TagStat(
+        tagStats[k] = TagStat(
           correct: _tagCorrect[k] ?? 0,
           wrong: _tagWrong[k] ?? 0,
         );
       }
 
-      // ★ AttemptStore に sr.ScoreRecord を保存（unitBreakdown を含める）
+      // ★ AttemptStore に ScoreRecord を保存（unitBreakdown を含める）
       try {
         await AttemptStore().addScore(
           ScoreRecord(

@@ -5,9 +5,9 @@ class TagStat {
   final int correct;
   final int wrong;
 
-  const ts.TagStat({required this.correct, required this.wrong});
+  const TagStat({required this.correct, required this.wrong});
 
-  factory TagStat.fromJson(Map<String, dynamic> json) => ts.TagStat(
+  factory TagStat.fromJson(Map<String, dynamic> json) => TagStat(
         correct: (json['correct'] ?? 0) as int,
         wrong: (json['wrong'] ?? 0) as int,
       );
@@ -22,7 +22,7 @@ class TagStat {
 /// - v1 互換: tags / selectedUnitIds / durationSec は存在しない可能性あり
 /// - v2 拡張: sessionId を追加
 /// - v3 拡張: unitBreakdown を追加（出題内訳 {unitId: count}）
-class sr.ScoreRecord {
+class ScoreRecord {
   final String id;
   final String deckId;
   final String deckTitle;
@@ -30,7 +30,7 @@ class sr.ScoreRecord {
   final int total;
   final int? durationSec; // 秒（null: 旧データ互換）
   final int timestamp; // epoch ms
-  final Map<String, ts.TagStat>? tags; // null: タグ集計なし
+  final Map<String, TagStat>? tags; // null: タグ集計なし
   final List<String>? selectedUnitIds;
   final String? sessionId; // この成績のセッションID（AttemptHistoryへジャンプ）
   final Map<String, int>? unitBreakdown; // ★追加：出題内訳 {unitId: count}
@@ -53,7 +53,7 @@ class sr.ScoreRecord {
   factory ScoreRecord.fromJson(Map<String, dynamic> json) {
     // tags
     final tagsJson = json['tags'];
-    Map<String, ts.TagStat>? parsedTags;
+    Map<String, TagStat>? parsedTags;
     if (tagsJson is Map<String, dynamic>) {
       parsedTags = tagsJson.map(
         (k, v) => MapEntry(k, TagStat.fromJson(Map<String, dynamic>.from(v))),
@@ -112,19 +112,19 @@ class sr.ScoreRecord {
       unitBreakdown?.values.fold<int>(0, (a, b) => a + b) ?? 0;
 
   /// 一覧のエンコード/デコード
-  static List<sr.ScoreRecord> decodeList(String raw) {
+  static List<ScoreRecord> decodeList(String raw) {
     final list = jsonDecode(raw) as List<dynamic>;
     return list
         .map((e) => ScoreRecord.fromJson(Map<String, dynamic>.from(e)))
         .toList();
   }
 
-  static String encodeList(List<sr.ScoreRecord> items) {
+  static String encodeList(List<ScoreRecord> items) {
     return jsonEncode(items.map((e) => e.toJson()).toList());
   }
 
   /// 必要に応じて値を差し替えるコピー
-  sr.ScoreRecord copyWith({
+  ScoreRecord copyWith({
     String? id,
     String? deckId,
     String? deckTitle,
@@ -132,7 +132,7 @@ class sr.ScoreRecord {
     int? total,
     int? durationSec,
     int? timestamp,
-    Map<String, ts.TagStat>? tags,
+    Map<String, TagStat>? tags,
     List<String>? selectedUnitIds,
     String? sessionId,
     Map<String, int>? unitBreakdown,
