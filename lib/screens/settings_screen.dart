@@ -11,6 +11,7 @@ class SettingsScreen extends StatelessWidget {
   // 設定をデフォルトへリセット
   // ──────────────────────────────
   Future<void> _confirmReset(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context); // ← 追加
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -30,11 +31,10 @@ class SettingsScreen extends StatelessWidget {
     );
     if (ok == true) {
       await context.read<AppSettings>().resetToDefaults();
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('設定をデフォルトに戻しました')),
-        );
-      }
+      if (!context.mounted) return;
+      messenger.showSnackBar(
+        const SnackBar(content: Text('設定をデフォルトに戻しました')),
+      );
     }
   }
 
@@ -42,6 +42,7 @@ class SettingsScreen extends StatelessWidget {
   // 試行履歴クリア（AttemptStore）
   // ──────────────────────────────
   Future<void> _confirmClearAttempts(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context); // ← 追加
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -65,31 +66,29 @@ class SettingsScreen extends StatelessWidget {
     );
     if (ok != true) return;
     await AttemptStore().clearAll();
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('試行履歴を削除しました')),
-      );
-    }
+    if (!context.mounted) return;
+    messenger.showSnackBar(
+      const SnackBar(content: Text('試行履歴を削除しました')),
+    );
   }
 
   // ──────────────────────────────
   // エクスポート（クリップボードへコピー）
   // ──────────────────────────────
   Future<void> _exportAttempts(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context); // ← 追加
     try {
       final json = await AttemptStore().exportJson();
       await Clipboard.setData(ClipboardData(text: json));
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('試行履歴をクリップボードへコピーしました')),
-        );
-      }
+      if (!context.mounted) return;
+      messenger.showSnackBar(
+        const SnackBar(content: Text('試行履歴をクリップボードへコピーしました')),
+      );
     } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('エクスポートに失敗しました：$e')),
-        );
-      }
+      if (!context.mounted) return;
+      messenger.showSnackBar(
+        SnackBar(content: Text('エクスポートに失敗しました：$e')),
+      );
     }
   }
 
@@ -97,6 +96,7 @@ class SettingsScreen extends StatelessWidget {
   // インポート（貼り付け→検証→マージ）
   // ──────────────────────────────
   Future<void> _importAttempts(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context); // ← 追加
     final controller = TextEditingController();
     final ok = await showDialog<bool>(
       context: context,
@@ -135,27 +135,24 @@ class SettingsScreen extends StatelessWidget {
 
     final text = controller.text.trim();
     if (text.isEmpty) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('JSONが空です')),
-        );
-      }
+      if (!context.mounted) return;
+      messenger.showSnackBar(
+        const SnackBar(content: Text('JSONが空です')),
+      );
       return;
     }
 
     try {
       final added = await AttemptStore().importJson(text);
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('インポート完了：$added 件を追加しました')),
-        );
-      }
+      if (!context.mounted) return;
+      messenger.showSnackBar(
+        SnackBar(content: Text('インポート完了：$added 件を追加しました')),
+      );
     } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('インポートに失敗しました：$e')),
-        );
-      }
+      if (!context.mounted) return;
+      messenger.showSnackBar(
+        SnackBar(content: Text('インポートに失敗しました：$e')),
+      );
     }
   }
 

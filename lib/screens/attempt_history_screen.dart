@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import '../services/attempt_store.dart';
 import '../models/attempt_entry.dart';
 import '../services/deck_loader.dart';
-import '../models/deck.dart';
 import '../models/card.dart';
 import 'quiz_screen.dart';
+import 'package:health_quiz_app/widgets/quiz_analytics.dart'; // ErrorRateTag
 
 class AttemptHistoryScreen extends StatelessWidget {
   final String sessionId;
-  const AttemptHistoryScreen({super.key, required this.sessionId});
+
+  /// ★任意：ユニットID→日本語タイトル
+  final Map<String, String>? unitTitleMap;
+
+  const AttemptHistoryScreen({
+    super.key,
+    required this.sessionId,
+    this.unitTitleMap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +29,7 @@ class AttemptHistoryScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           final raw = snap.data ?? const <AttemptEntry>[];
+
           // ★ 新しい順にソート（逆順で来ても安全）
           final items = raw.toList()
             ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
@@ -29,7 +38,7 @@ class AttemptHistoryScreen extends StatelessWidget {
             return const Center(child: Text('履歴が見つかりません'));
           }
 
-          // ★ 集計
+          // ===== 集計（今回のセッション） =====
           final total = items.length;
           final correctCount = items.where((e) => e.isCorrect).length;
           final wrongCount = total - correctCount;
@@ -38,24 +47,47 @@ class AttemptHistoryScreen extends StatelessWidget {
               : (items.fold<int>(0, (sum, e) => sum + e.durationMs) / total)
                   .round();
 
-          // ★ 画面内だけで状態を持つ（誤答のみ表示トグル）
+          // ユニット別の件数・誤答数を同時に集計
+          final Map<String, int> unitCounts = {};
+          final Map<String, int> unitWrongs = {};
+
+          for (final e in items) {
+            final id = e.unitId.isNotEmpty ? e.unitId : 'unknown';
+
+            unitCounts.update(id, (v) => v + 1, ifAbsent: () => 1);
+            if (!e.isCorrect) {
+              unitWrongs.update(id, (v) => v + 1, ifAbsent: () => 1);
+            }
+          }
+
+          // 合計問題数（単純にunitCountsの合計）
+          final unitTotal = unitCounts.values.fold<int>(0, (a, b) => a + b);
+
+          // 画面内だけで状態を持つ（誤答のみ表示トグル）
           bool showOnlyWrong = false;
 
           return StatefulBuilder(
             builder: (context, setState) {
-              final visible = showOnlyWrong
-                  ? items.where((e) => !e.isCorrect).toList()
-                  : items;
+              final visible =
+                  showOnlyWrong ? items.where((e) => !e.isCorrect).toList() : items;
 
               return ListView.builder(
                 padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
-                itemCount: visible.length + 1, // サマリー＋履歴行
+                itemCount: visible.length + 2, // サマリー + ユニット内訳 + 履歴行
                 itemBuilder: (context, i) {
+                  // 0: 集計サマリー ＋ トグル/誤答再挑戦
                   if (i == 0) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         _buildSummary(correctCount, wrongCount, avgMs),
+                        const SizedBox(height: 8),
+                        _UnitBreakdownCard(
+                          unitCounts: unitCounts,
+                          totalQuestions: unitTotal,
+                          unitTitleMap: unitTitleMap,
+                          unitWrongs: unitWrongs, // ★ 追加
+                        ),
                         const SizedBox(height: 8),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -82,10 +114,24 @@ class AttemptHistoryScreen extends StatelessWidget {
                     );
                   }
 
-                  final a = visible[i - 1];
+                  // 1: セクション見出し（履歴一覧）
+                  if (i == 1) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
+                      child: Text(
+                        '履歴一覧（今回）',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    );
+                  }
+
+                  // 2..: 履歴行
+                  final a = visible[i - 2];
                   final correct = a.isCorrect;
 
-                  // ★ 表示用に 1-based 保証（旧データ救済）
+                  // 表示用に 1-based 保証（旧データ救済）
                   final looksZeroBased =
                       (a.selectedIndex == 0) || (a.correctIndex == 0);
                   final sel =
@@ -117,10 +163,10 @@ class AttemptHistoryScreen extends StatelessWidget {
   String _trim(String s, int max) =>
       (s.length <= max) ? s : '${s.substring(0, max)}…';
 
-  // ★ 秒数は切り捨て＋最小1秒＋単位「秒」
+  // 秒数は切り捨て＋最小1秒＋単位「秒」
   String _formatSec(int ms) {
     final sec = (ms / 1000).floor().clamp(1, 9999);
-    return '${sec}秒';
+    return '$sec秒';
   }
 
   String _formatTs(DateTime ts) {
@@ -133,7 +179,7 @@ class AttemptHistoryScreen extends StatelessWidget {
 
   // ==== UIビルダー ====
 
-  // ★ 集計カード
+  // 集計カード（正解/不正解/平均/正答率）
   Widget _buildSummary(int correct, int wrong, int avgMs) {
     final rate = (correct + wrong) == 0
         ? 0
@@ -162,28 +208,36 @@ class AttemptHistoryScreen extends StatelessWidget {
 
   // ==== 機能 ====
 
-  // ★ 単問リプレイ
+  // 単問リプレイ
   Future<void> _replaySingle(BuildContext context, AttemptEntry a) async {
+    // awaitの前にNavigatorを確保
+    final nav = Navigator.of(context);
+
     final loader = DeckLoader();
     final decks = await loader.loadAll();
+
+    // AttemptEntry.unitId に紐づくデッキを取得
     final deck = decks.firstWhere(
       (d) => d.id == a.unitId,
       orElse: () => decks.first,
     );
-    final QuizCard? found = deck.cards.firstWhere(
+
+    final found = deck.cards.firstWhere(
       (c) => c.question.trim() == a.question.trim(),
       orElse: () => deck.cards.first,
     );
-    await Navigator.of(context).push(
+
+    if (!context.mounted) return;
+
+    await nav.push(
       MaterialPageRoute(
-        builder: (_) => QuizScreen(deck: deck, overrideCards: [found!]),
+        builder: (_) => QuizScreen(deck: deck, overrideCards: [found]),
       ),
     );
   }
 
-  // ★ 誤答だけ再挑戦
-  Future<void> _replayWrong(
-      BuildContext context, List<AttemptEntry> items) async {
+  // 誤答だけ再挑戦
+  Future<void> _replayWrong(BuildContext context, List<AttemptEntry> items) async {
     final wrong = items.where((e) => !e.isCorrect).toList();
     if (wrong.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -192,39 +246,206 @@ class AttemptHistoryScreen extends StatelessWidget {
       return;
     }
 
+    // awaitの前にNavigatorを確保
+    final nav = Navigator.of(context);
+
     final loader = DeckLoader();
     final decks = await loader.loadAll();
-    final unitId = wrong.first.unitId;
-    final deck =
-        decks.firstWhere((d) => d.id == unitId, orElse: () => decks.first);
 
+    // まず最初の誤答の unitId を採用（同一デッキ前提）
+    final unitId = wrong.first.unitId;
+    final deck = decks.firstWhere(
+      (d) => d.id == unitId,
+      orElse: () => decks.first,
+    );
+
+    // 重複質問を除外してカードを収集
     final set = <String>{};
     final list = <QuizCard>[];
     for (final a in wrong) {
       final q = a.question.trim();
-      if (set.contains(q)) continue;
+      if (!set.add(q)) continue; // 既出はスキップ
       final match = deck.cards.firstWhere(
         (c) => c.question.trim() == q,
         orElse: () => deck.cards.first,
       );
-      set.add(q);
       list.add(match);
     }
 
     if (list.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('カードの特定に失敗しました')),
-      );
-      return;
+     if (!context.mounted) return;
+     final messenger = ScaffoldMessenger.of(context);
+     messenger.showSnackBar(
+       const SnackBar(content: Text('カードの特定に失敗しました')),
+     );
+     return;
     }
 
-    await Navigator.of(context).push(
+    if (!context.mounted) return;
+
+    await nav.push(
       MaterialPageRoute(
         builder: (_) => QuizScreen(deck: deck, overrideCards: list),
       ),
     );
   }
 }
+
+/// ===== ユニット別内訳カード（今回） =====
+class _UnitBreakdownCard extends StatefulWidget {
+  final Map<String, int> unitCounts;
+  final Map<String, int> unitWrongs;
+  final int totalQuestions;
+  final Map<String, String>? unitTitleMap;
+  // ignore: unused_element_parameter
+  final int maxCollapsedCount; // 折りたたみ時の表示件数（既定=5）
+
+  const _UnitBreakdownCard({
+    required this.unitCounts,
+    required this.totalQuestions,
+    required this.unitWrongs,
+    this.unitTitleMap,
+    this.maxCollapsedCount = 5,
+  });
+
+  @override
+  State<_UnitBreakdownCard> createState() => _UnitBreakdownCardState();
+}
+
+class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.unitCounts.isEmpty) return const SizedBox.shrink();
+
+    // 並び順（直前に導入した「誤答率の高い順」）
+    final entries = widget.unitCounts.entries.toList()
+      ..sort((a, b) {
+        final wrongA = widget.unitWrongs[a.key] ?? 0;
+        final wrongB = widget.unitWrongs[b.key] ?? 0;
+        final rateA = a.value == 0 ? 0 : wrongA / a.value;
+        final rateB = b.value == 0 ? 0 : wrongB / b.value;
+        final cmp = rateB.compareTo(rateA); // 誤答率降順
+        if (cmp != 0) return cmp;
+        final c = b.value.compareTo(a.value); // 件数降順
+        return c != 0 ? c : a.key.compareTo(b.key);
+      });
+
+    final showToggle = entries.length > widget.maxCollapsedCount;
+    final visibleEntries = _expanded
+        ? entries
+        : entries.take(widget.maxCollapsedCount).toList();
+
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 14, 16, 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'ユニット別出題割合（今回）',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+
+            // 本体リスト
+            ...visibleEntries.map((e) {
+              final asked = e.value;
+              final wrong = widget.unitWrongs[e.key] ?? 0;
+              final ratio = widget.totalQuestions == 0 ? 0.0 : asked / widget.totalQuestions;
+              final pct = (ratio * 100).toStringAsFixed(0);
+              final title = widget.unitTitleMap?[e.key] ?? e.key;
+
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        // 左：タイトル＋誤答率
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  title,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              // 赤いChip（compact=false）
+                              ErrorRateTag(
+                                asked: asked,
+                                wrong: wrong,
+                                compact: false,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text('$asked問（$pct%）', style: const TextStyle(fontSize: 13)),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: LinearProgressIndicator(
+                        value: ratio.clamp(0, 1),
+                        minHeight: 8,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+
+            // トグルボタン（6件以上のときだけ）
+            if (showToggle) ...[
+              const SizedBox(height: 4),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    icon: Icon(
+                      _expanded ? Icons.expand_less : Icons.expand_more,
+                      size: 18,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    onPressed: () => setState(() => _expanded = !_expanded),
+                  ),
+                  GestureDetector(
+                    onTap: () => setState(() => _expanded = !_expanded),
+                    child: Text(
+                      _expanded
+                          ? '閉じる'
+                          : 'もっと見る（全${entries.length}件）',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ]
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 /// ==== 個別タイル ====
 class _AttemptTile extends StatelessWidget {
@@ -245,7 +466,7 @@ class _AttemptTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bg =
-        isCorrect ? Colors.green.withOpacity(0.05) : Colors.red.withOpacity(0.06);
+        isCorrect ? Colors.green.withValues(alpha: 0.05) : Colors.red.withValues(alpha: 0.06);
     final bar = isCorrect ? Colors.green : Colors.red;
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
@@ -256,7 +477,7 @@ class _AttemptTile extends StatelessWidget {
           BoxShadow(
             blurRadius: 6,
             offset: const Offset(0, 2),
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
           ),
         ],
       ),

@@ -19,8 +19,9 @@ class TagStat {
 }
 
 /// 成績レコード（一覧で使う1件のスコア）
-/// - v1 互換: tags/selectedUnitIds/ durationSec は存在しない可能性あり
-/// - v2 拡張: sessionId を追加（AttemptHistory にジャンプ可能）
+/// - v1 互換: tags / selectedUnitIds / durationSec は存在しない可能性あり
+/// - v2 拡張: sessionId を追加
+/// - v3 拡張: unitBreakdown を追加（出題内訳 {unitId: count}）
 class ScoreRecord {
   final String id;
   final String deckId;
@@ -31,7 +32,8 @@ class ScoreRecord {
   final int timestamp; // epoch ms
   final Map<String, TagStat>? tags; // null: タグ集計なし
   final List<String>? selectedUnitIds;
-  final String? sessionId; // ★追加：この成績のセッションID（AttemptHistoryへジャンプ）
+  final String? sessionId; // この成績のセッションID（AttemptHistoryへジャンプ）
+  final Map<String, int>? unitBreakdown; // ★追加：出題内訳 {unitId: count}
 
   const ScoreRecord({
     required this.id,
@@ -44,15 +46,29 @@ class ScoreRecord {
     this.tags,
     this.selectedUnitIds,
     this.sessionId,
+    this.unitBreakdown,
   });
 
   /// JSONから生成（旧データ互換）
   factory ScoreRecord.fromJson(Map<String, dynamic> json) {
+    // tags
     final tagsJson = json['tags'];
     Map<String, TagStat>? parsedTags;
     if (tagsJson is Map<String, dynamic>) {
-      parsedTags = tagsJson.map((k, v) =>
-          MapEntry(k, TagStat.fromJson(Map<String, dynamic>.from(v))));
+      parsedTags = tagsJson.map(
+        (k, v) => MapEntry(k, TagStat.fromJson(Map<String, dynamic>.from(v))),
+      );
+    }
+
+    // unitBreakdown（v3以降）
+    final ubJson = json['unitBreakdown'];
+    Map<String, int>? parsedUnitBreakdown;
+    if (ubJson is Map) {
+      parsedUnitBreakdown = ubJson.map<String, int>((k, v) {
+        final key = k.toString();
+        final val = (v is num) ? v.toInt() : int.tryParse(v.toString()) ?? 0;
+        return MapEntry(key, val);
+      });
     }
 
     return ScoreRecord(
@@ -68,7 +84,8 @@ class ScoreRecord {
       selectedUnitIds: (json['selectedUnitIds'] as List?)
           ?.map((e) => e.toString())
           .toList(),
-      sessionId: json['sessionId'] as String?, // ★旧データは null でOK
+      sessionId: json['sessionId'] as String?, // 旧データは null でOK
+      unitBreakdown: parsedUnitBreakdown, // 旧データは null でOK
     );
   }
 
@@ -84,10 +101,15 @@ class ScoreRecord {
         if (tags != null) 'tags': tags!.map((k, v) => MapEntry(k, v.toJson())),
         if (selectedUnitIds != null) 'selectedUnitIds': selectedUnitIds,
         if (sessionId != null && sessionId!.isNotEmpty) 'sessionId': sessionId,
+        if (unitBreakdown != null) 'unitBreakdown': unitBreakdown,
       };
 
   /// 便利: 精度（0.0〜1.0）
   double get accuracy => total == 0 ? 0 : score / total;
+
+  /// 出題内訳の合計件数（nullなら0）
+  int get unitCountTotal =>
+      unitBreakdown?.values.fold<int>(0, (a, b) => a + b) ?? 0;
 
   /// 一覧のエンコード/デコード
   static List<ScoreRecord> decodeList(String raw) {
@@ -95,7 +117,7 @@ class ScoreRecord {
     return list
         .map((e) => ScoreRecord.fromJson(Map<String, dynamic>.from(e)))
         .toList();
-    }
+  }
 
   static String encodeList(List<ScoreRecord> items) {
     return jsonEncode(items.map((e) => e.toJson()).toList());
@@ -113,6 +135,7 @@ class ScoreRecord {
     Map<String, TagStat>? tags,
     List<String>? selectedUnitIds,
     String? sessionId,
+    Map<String, int>? unitBreakdown,
   }) {
     return ScoreRecord(
       id: id ?? this.id,
@@ -125,6 +148,7 @@ class ScoreRecord {
       tags: tags ?? this.tags,
       selectedUnitIds: selectedUnitIds ?? this.selectedUnitIds,
       sessionId: sessionId ?? this.sessionId,
+      unitBreakdown: unitBreakdown ?? this.unitBreakdown,
     );
   }
 }

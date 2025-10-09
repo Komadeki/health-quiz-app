@@ -24,7 +24,7 @@ class QuizCard {
 
   /// JSON読み込み用
   factory QuizCard.fromJson(Map<String, dynamic> json) {
-    List<String> _readTags(Map<String, dynamic> j) {
+    List<String> readTags(Map<String, dynamic> j) {
       final raw = j['unitTags'] ?? j['tags'] ?? j['tag'] ?? j['tag_list'];
       if (raw is List) {
         return raw
@@ -43,7 +43,7 @@ class QuizCard {
     }
 
     // ❗ final を外して通常のローカル関数に
-    String? _readUnitId(Map<String, dynamic> j) {
+    String? readUnitId(Map<String, dynamic> j) {
       final u = j['unitId'] ?? j['unit_id'];
       if (u == null) return null;
       final s = u.toString().trim();
@@ -56,26 +56,26 @@ class QuizCard {
       answerIndex: json['answerIndex'] as int,
       explanation: json['explanation'] as String?,
       isPremium: json['isPremium'] as bool? ?? false,
-      unitTags: _readTags(json),
-      unitId: _readUnitId(json), // ← ここはそのままでOK
+      unitTags: readTags(json),
+      unitId: readUnitId(json), // ← ここはそのままでOK
     );
   }
 
   /// CSV読み込み用
   factory QuizCard.fromRowWithHeader(Map<String, int> idx, List<dynamic> row) {
-    String _s(String key) {
+    String s(String key) {
       final i = idx[key];
       if (i == null) return '';
       final v = row[i];
       return (v == null) ? '' : v.toString().trim();
     }
 
-    final c1 = _s('choice1');
-    final c2 = _s('choice2');
-    final c3 = _s('choice3');
-    final c4 = _s('choice4');
-    final ansRaw = _s('answer_index');
-    final exp = idx.containsKey('explanation') ? _s('explanation') : null;
+    final c1 = s('choice1');
+    final c2 = s('choice2');
+    final c3 = s('choice3');
+    final c4 = s('choice4');
+    final ansRaw = s('answer_index');
+    final exp = idx.containsKey('explanation') ? s('explanation') : null;
 
     final list = [c1, c2, c3, c4].where((e) => e.isNotEmpty).toList();
 
@@ -83,10 +83,10 @@ class QuizCard {
     ans = (ans - 1).clamp(0, list.length - 1); // 1→0, 4→3 など
 
     // ★ テンプレ列に合わせて unit_id を拾う（無ければ null）
-    final uid = idx.containsKey('unit_id') ? _s('unit_id') : null;
+    final uid = idx.containsKey('unit_id') ? s('unit_id') : null;
 
     return QuizCard(
-      question: _s('question'),
+      question: s('question'),
       choices: list,
       answerIndex: ans,
       explanation: (exp != null && exp.isEmpty) ? null : exp,
