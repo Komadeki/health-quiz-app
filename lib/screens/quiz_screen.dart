@@ -12,14 +12,23 @@ import '../services/attempt_store.dart';
 import '../models/attempt_entry.dart';
 import '../utils/logger.dart';
 
+// ★ セッション保存/再開
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:crypto/crypto.dart' as crypto;
+import 'dart:convert';
+import '../models/quiz_session.dart';
+import '../data/quiz_session_local_repository.dart';
+
 class QuizScreen extends StatefulWidget {
   final Deck deck;
-  final List<QuizCard>? overrideCards; // ← 追加
+  final List<QuizCard>? overrideCards; // UnitSelect などからの限定セット
+  final QuizSession? resumeSession;    // 再開用
 
   const QuizScreen({
     super.key,
     required this.deck,
-    this.overrideCards, // ← 追加
+    this.overrideCards,
+    this.resumeSession,
   });
 
   @override
@@ -27,24 +36,48 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  late final List<QuizCard> sequence;
+  // ===== ランタイム状態 =====
+  late List<QuizCard> sequence; // 出題順に並んだカード（選択肢は各カード内でシャッフル済み）
+  late List<String> _stableOrder; // ★ 出題順に対応する「安定ID」列（保存・復元の唯一の根拠）
+  late String _sessionId;
+
   int index = 0;
   int? selected;
   bool revealed = false;
   int correctCount = 0;
 
   final Stopwatch _sw = Stopwatch()..start();
-  bool _savedOnce = false; // 結果保存の多重防止
-  final _uuid = const Uuid();
-  late final String _sessionId;
-  DateTime? _qStart; // この問題の開始時刻（表示タイミング）
+  bool _savedOnce = false;
+  DateTime? _qStart;
 
-  // 追加：タグ別集計
+  // 解析用
   final Map<String, int> _tagCorrect = {};
   final Map<String, int> _tagWrong = {};
-
-  // 追加：ユニット別集計（出題内訳）
   final Map<String, int> _unitCount = {};
+
+  // 復元用：安定ID → 元カード
+  late Map<String, QuizCard> _id2card;
+
+  // 画面安全化
+  bool _initReady = false;   // 初期化が完了したときだけ build する
+  bool _abortAndPop = false; // 復元不能時の安全フラグ
+
+  // ===== ユーティリティ =====
+  // 安定ID（問題文＋元の選択肢順から計算）※シャッフル後には使わない
+  String _stableIdForOriginal(QuizCard c) {
+    final raw = '${c.question}\n${c.choices.join('|')}';
+    return crypto.md5.convert(utf8.encode(raw)).toString();
+  }
+
+  // QuizCardにunitIdが未実装でも安全に取得
+  String _unitIdOf(QuizCard c) {
+    try {
+      final dyn = c as dynamic;
+      final v = dyn.unitId;
+      if (v is String && v.isNotEmpty) return v;
+    } catch (_) {}
+    return widget.deck.id;
+  }
 
   void _bumpTags(Iterable<String> tags, bool isCorrect) {
     for (final t in tags) {
@@ -56,61 +89,139 @@ class _QuizScreenState extends State<QuizScreen> {
     }
   }
 
-  // QuizCardにunitIdが未実装でもビルドが通る安全な取得ヘルパー
-  String _unitIdOf(QuizCard c) {
-    try {
-      final dyn = c as dynamic;
-      final v = dyn.unitId;
-      if (v is String && v.isNotEmpty) return v;
-    } catch (_) {
-      // 未実装/型不一致は握りつぶし
-    }
-    // フォールバック：deck.id（単一ユニット出題時も成立）
-    return widget.deck.id;
-  }
-
   QuizCard get card => sequence[index];
 
+  // ===== ライフサイクル =====
   @override
   void initState() {
     super.initState();
-    // UnitSelectScreen から渡されてきたカード束があればそちらを使用
-    // （toListで可変化しておく）
+
+    // 1) ベース問題集合（UnitSelect 等から来ていれば限定セット）
     final base = (widget.overrideCards ?? widget.deck.cards).toList();
-    // 各カードの選択肢シャッフルは従来通り
-    sequence = base.map((c) => c.shuffled()).toList();
 
-    // 出題順ランダム化の一本化：設定がONならここだけで shuffle
+    // 2) 安定IDの逆引き（必ず「元の並び・元の選択肢」で計算する）
+    _id2card = {for (final c in base) _stableIdForOriginal(c): c};
+
     final settings = Provider.of<AppSettings>(context, listen: false);
-    if (settings.randomize) {
-      sequence.shuffle();
-    }
 
-    // セッションID生成＆最初の問題の開始時刻を記録
-    _sessionId = _uuid.v4();
-    _qStart = DateTime.now();
+    if (widget.resumeSession == null) {
+      // ───────── 新規セッション ─────────
+      // a) 出題順をまず決める（安定IDと対で保持）
+      final items = [
+        for (final c in base) (_stableIdForOriginal(c), c),
+      ];
+      if (settings.randomize) {
+        items.shuffle(); // ★ 出題順のシャッフルはここだけ
+      }
 
-    // ★ユニット別件数の事前集計（出題が確定したタイミングで一括）
-    _unitCount.clear();
-    for (final qc in sequence) {
-      final uid = _unitIdOf(qc);
-      _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
+      // b) 画面で使うカード配列を作成（選択肢シャッフルはカード内部で実施）
+      sequence = [
+        for (final it in items) it.$2.shuffled(),
+      ];
+
+      // c) 「実際の出題順」に対応する安定ID列を保存
+      _stableOrder = [for (final it in items) it.$1];
+
+      // d) セッションID・開始時刻
+      _sessionId = const Uuid().v4();
+      _qStart = DateTime.now();
+
+      // e) ユニット内訳
+      _unitCount.clear();
+      for (final qc in sequence) {
+        final uid = _unitIdOf(qc);
+        _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
+      }
+
+      // f) 初期セーブ（⚠️ _stableOrder は「出題順」です）
+      _saveSession(
+        QuizSession(
+          sessionId: _sessionId,
+          deckId: widget.deck.id,
+          unitId: null,
+          itemIds: _stableOrder,
+          currentIndex: 0,
+          answers: const {},
+          updatedAt: DateTime.now(),
+          isFinished: false,
+        ),
+      );
+
+      _initReady = true;
+    } else {
+      // ───────── 再開セッション ─────────
+      final s = widget.resumeSession!;
+      _sessionId = s.sessionId;
+
+      // a) 失われた問題チェック（データ差し替え等）
+      final missing = s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
+      if (missing.isNotEmpty) {
+        AppLog.d('[RESUME][MISSING] deck=${s.deckId} '
+            'missing=${missing.length} ids=${missing.take(5).toList()}...');
+        _abortAndPop = true;
+        _initReady = false;
+
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('前回の出題を復元できませんでした（問題セットが更新された可能性）'),
+            ),
+          );
+          Navigator.pop(context);
+        });
+        return;
+      }
+
+      // b) 「保存されていた出題順」＝これを唯一の根拠として復元
+      _stableOrder = List<String>.from(s.itemIds);
+
+      // c) 復元（選択肢は現状仕様どおり再ランダム）
+      sequence = [
+        for (final id in _stableOrder) _id2card[id]!.shuffled(),
+      ];
+
+      // d) インデックス補正
+      index = s.currentIndex.clamp(0, sequence.length - 1);
+      correctCount = 0;
+      _qStart = DateTime.now();
+
+      // e) ユニット内訳
+      _unitCount.clear();
+      for (final qc in sequence) {
+        final uid = _unitIdOf(qc);
+        _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
+      }
+
+      _initReady = true;
     }
   }
 
-  /// 選択肢をタップしたときの挙動
+  // ===== セッション保存ユーティリティ =====
+  Future<void> _saveSession(QuizSession s) async {
+    final prefs = await SharedPreferences.getInstance();
+    await QuizSessionLocalRepository(prefs).save(s);
+    AppLog.d('[RESUME] saved: deck=${s.deckId} index=${s.currentIndex} '
+        'len=${s.itemIds.length} finished=${s.isFinished}');
+  }
+
+  Future<void> _markFinishedAndClear(QuizSession s) async {
+    final prefs = await SharedPreferences.getInstance();
+    final repo = QuizSessionLocalRepository(prefs);
+    await repo.save(s.copyWith(isFinished: true));
+    await repo.clear();
+  }
+
+  // ===== 選択・遷移 =====
   void _select(int i) {
     if (revealed) return;
-
     final app = Provider.of<AppSettings>(context, listen: false);
     final tapMode = app.tapMode;
 
     if (tapMode == TapAdvanceMode.oneTap) {
-      // 1タップモード：即確定
       setState(() => selected = i);
       _reveal();
     } else {
-      // 2タップモード：同じ選択肢を2回で確定
       if (selected == i) {
         _reveal();
       } else {
@@ -126,85 +237,75 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void _next() async {
     if (selected == card.answerIndex) correctCount++;
+    final isCorrect = selected == card.answerIndex;
+    _bumpTags(card.tags, isCorrect);
 
-    // この問題のタグを集計
-    final isCorrect = (selected == card.answerIndex);
-    final tagsThisQuestion = card.tags; // List<String>
-    _bumpTags(tagsThisQuestion, isCorrect);
-
-    // --- AttemptEntry 保存（この問題の確定時点） ---
+    // 1) 問題単位の Attempt 保存
     try {
       final ended = DateTime.now();
       final started = _qStart ?? ended;
       final durationMs = ended.difference(started).inMilliseconds;
-      // ★ 保存する selectedIndex / correctIndex は 1–4 に統一
       final attempt = AttemptEntry(
-        attemptId: _uuid.v4(),          // AttemptStore 側で未設定時も採番されるが、ここで付与
+        attemptId: const Uuid().v4(),
         sessionId: _sessionId,
-        questionNumber: index + 1,      // 1-based
-        unitId: _unitIdOf(card),        // ← カードから安全に取得（フォールバックは deck.id）
-        cardId: index.toString(),       // QuizCard に id があるなら置き換え可
+        questionNumber: index + 1,            // 1-based
+        unitId: _unitIdOf(card),
+        cardId: index.toString(),             // QuizCard に id があるなら差し替え可
         question: card.question,
-        selectedIndex: (selected ?? 0) + 1, // ← 1-based で保存
-        correctIndex: (card.answerIndex) + 1, // ← 1-based で保存
-        isCorrect: isCorrect,           // 判定は 0-based 比較でOK
+        selectedIndex: (selected ?? 0) + 1,   // 1-based
+        correctIndex: (card.answerIndex) + 1, // 1-based
+        isCorrect: isCorrect,
         durationMs: durationMs,
         timestamp: ended,
       );
       await AttemptStore().add(attempt);
       AppLog.d('[ATTEMPT] ${attempt.sessionId} Q${attempt.questionNumber} '
           '${attempt.isCorrect ? "○" : "×"} ${attempt.durationMs}ms');
-    } catch (_) {
-      // 失敗しても致命傷ではないので黙って続行
-    }
+    } catch (_) {}
 
+    // 2) オートセーブ（⚠️ 必ず _stableOrder を使う）
+    try {
+      await _saveSession(
+        QuizSession(
+          sessionId: _sessionId,
+          deckId: widget.deck.id,
+          unitId: null,
+          itemIds: _stableOrder,        // ← ここが重要：常に出題順の安定ID列
+          currentIndex: index + 1,      // 次に解く位置
+          answers: const {},
+          updatedAt: DateTime.now(),
+          isFinished: false,
+        ),
+      );
+    } catch (_) {}
+
+    // 3) 最終問題ならスコア保存→クリア→結果へ
     if (index >= sequence.length - 1) {
-      if (_savedOnce) return; // すでに保存していたら何もしない
+      if (_savedOnce) return;
       _savedOnce = true;
 
-      // --- 成績サマリ情報をローカル変数で保持（QuizResultは使わない） ---
-      final deckId = widget.deck.id;            // 'mixed' もここに入る
+      final deckId = widget.deck.id;
       final total = sequence.length;
       final correct = correctCount;
       final timestamp = DateTime.now();
       final durationSec = _sw.elapsed.inSeconds;
 
-      // デッキタイトル解決
+      // デッキ/ユニットタイトル解決
       final decks = await DeckLoader().loadAll();
-
-      // 1パスで Deck → Title と Unit → Title を同時に構築
       final Map<String, String> deckTitleMap = {};
       final Map<String, String> unitTitleMap = {};
-
       for (final d in decks) {
-        // デッキ
-        final did = d.id.trim();
-        final dtitle = d.title.trim();
-        if (did.isNotEmpty) {
-          deckTitleMap[did] = dtitle.isNotEmpty ? dtitle : did; // タイトル未設定ならIDをフォールバック
-        }
-
-        // ユニット
+        deckTitleMap[d.id.trim()] =
+            d.title.trim().isNotEmpty ? d.title.trim() : d.id.trim();
         for (final u in (d.units ?? const [])) {
           final uid = u.id.trim();
-          final utitle = u.title.trim();
-          if (uid.isNotEmpty) {
-            // タイトルが空なら uid をフォールバック
-            unitTitleMap[uid] = utitle.isNotEmpty ? utitle : uid;
-          }
+          final ut = u.title.trim();
+          if (uid.isNotEmpty) unitTitleMap[uid] = ut.isNotEmpty ? ut : uid;
         }
       }
+      final deckTitle = deckTitleMap[deckId] ?? widget.deck.title;
 
-      // デッキ表示名（'mixed' は特別扱い）
-      final String fallbackDeckTitle =
-          (widget.deck.title.isNotEmpty) ? widget.deck.title : deckId;
-      final String deckTitle = (deckId == 'mixed')
-          ? 'ミックス練習'
-          : (deckTitleMap[deckId] ?? fallbackDeckTitle);
-
-      // 以降：unitTitleMap は ResultScreen などにそのまま渡せます
-
-      // TagStat マップを構築（現状ロジックはそのまま）
+      // タグ統計
       final Map<String, TagStat> tagStats = {};
       final allKeys = <String>{..._tagCorrect.keys, ..._tagWrong.keys};
       for (final k in allKeys) {
@@ -214,7 +315,7 @@ class _QuizScreenState extends State<QuizScreen> {
         );
       }
 
-      // ★ AttemptStore に ScoreRecord を保存（unitBreakdown を含める）
+      // スコア保存
       try {
         await AttemptStore().addScore(
           ScoreRecord(
@@ -231,19 +332,29 @@ class _QuizScreenState extends State<QuizScreen> {
             unitBreakdown: Map<String, int>.from(_unitCount),
           ),
         );
-      } catch (_) {
-        // 保存失敗は致命ではないので握りつぶし
-      }
+      } catch (_) {}
+
+      // セッション終了保存→クリア
+      try {
+        await _markFinishedAndClear(
+          QuizSession(
+            sessionId: _sessionId,
+            deckId: widget.deck.id,
+            unitId: null,
+            itemIds: _stableOrder,
+            currentIndex: sequence.length,
+            answers: const {},
+            updatedAt: DateTime.now(),
+            isFinished: true,
+          ),
+        );
+      } catch (_) {}
 
       if (!mounted) return;
-      await _onQuizEndDebugLog(); // 直近5件の確認ログ
-      if (!mounted) return; // await後も安全チェック
+      await _onQuizEndDebugLog();
+      if (!mounted) return;
 
-      // Navigatorを事前に確保して安全に使う
-      final nav = Navigator.of(context);
-
-      // 結果画面へ（deckId/deckTitle/durationSec を渡す）
-      nav.pushReplacement(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => ResultScreen(
             total: total,
@@ -260,35 +371,38 @@ class _QuizScreenState extends State<QuizScreen> {
       return;
     }
 
+    // 4) 次の問題へ
     setState(() {
       index++;
       selected = null;
       revealed = false;
-      _qStart = DateTime.now(); // 次の問題の開始時刻
+      _qStart = DateTime.now();
     });
   }
 
-  void _primaryAction() {
-    if (revealed) {
-      _next();
-    } else {
-      _reveal();
-    }
-  }
+  void _primaryAction() => revealed ? _next() : _reveal();
 
+  // ===== UI =====
   @override
   Widget build(BuildContext context) {
+    // 初期化前/中断時の安全ガード
+    if (!_initReady || _abortAndPop) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('読み込み中…')),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
     final isCorrect = revealed && selected == card.answerIndex;
 
     return Scaffold(
       appBar: AppBar(
         title: Text('問題 ${index + 1}/${sequence.length}'),
-        bottom: PreferredSize(
+        bottom: const PreferredSize(
           preferredSize: Size.fromHeight(6),
           child: _ProgressBar(),
         ),
       ),
-      // 公開済みなら画面どこをタップしても次へ
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
@@ -300,91 +414,26 @@ class _QuizScreenState extends State<QuizScreen> {
             children: [
               Text(
                 card.question,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
-
-              // 選択肢
               ...List.generate(card.choices.length, (i) => _buildChoice(i)),
-
-              // 解説カード（選択肢の直下）
               const SizedBox(height: 12),
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 350),
                 reverseDuration: const Duration(milliseconds: 180),
                 switchInCurve: Curves.easeOutCubic,
                 switchOutCurve: Curves.easeInCubic,
-                transitionBuilder: (child, animation) {
-                  final slide = Tween<Offset>(
-                    begin: const Offset(0, 0.06),
-                    end: Offset.zero,
-                  ).animate(animation);
-                  return FadeTransition(
-                    opacity: animation,
-                    child: SlideTransition(position: slide, child: child),
-                  );
-                },
                 child: (revealed && (card.explanation ?? '').trim().isNotEmpty)
-                    ? Card(
-                        key: ValueKey('exp-$index'),
-                        elevation: 1.5,
-                        clipBehavior: Clip.antiAlias,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
-                              ),
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainerHighest
-                                  .withValues(alpha: 0.4),
-                              child: Row(
-                                children: [
-                                  const Icon(Icons.info_outline, size: 20),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    '解説',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(fontWeight: FontWeight.w600),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                16,
-                                14,
-                                16,
-                                16,
-                              ),
-                              child: Text(
-                                (card.explanation ?? '').trim(),
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(fontSize: 18, height: 1.5),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : const SizedBox.shrink(key: ValueKey('exp-empty')),
+                    ? _ExplanationCard(index: index, text: card.explanation!)
+                    : const SizedBox.shrink(),
               ),
-
               const Spacer(),
-
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: (selected == null && !revealed)
-                      ? null
-                      : _primaryAction,
+                  onPressed:
+                      (selected == null && !revealed) ? null : _primaryAction,
                   child: Text(
                     revealed
                         ? (index == sequence.length - 1 ? '結果へ' : '次へ')
@@ -424,10 +473,8 @@ class _QuizScreenState extends State<QuizScreen> {
     } else if (isSelected) {
       bg = Theme.of(context).colorScheme.primary.withValues(alpha: 0.9);
     }
-
-    final fg = (revealed && (isAnswer || isSelected))
-        ? Colors.white
-        : Colors.black87;
+    final fg =
+        (revealed && (isAnswer || isSelected)) ? Colors.white : Colors.black87;
 
     IconData? trail;
     if (revealed) {
@@ -444,7 +491,6 @@ class _QuizScreenState extends State<QuizScreen> {
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 180),
-      curve: Curves.easeOut,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       decoration: BoxDecoration(
         color: bg,
@@ -461,13 +507,7 @@ class _QuizScreenState extends State<QuizScreen> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
-          onTap: () {
-            if (revealed) {
-              _next();
-            } else {
-              _select(i);
-            }
-          },
+          onTap: () => revealed ? _next() : _select(i),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             child: Row(
@@ -512,7 +552,7 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  /// クイズ終了時に直近の Attempt を確認ログ出力
+  // 直近Attemptのデバッグログ
   Future<void> _onQuizEndDebugLog() async {
     try {
       final list = await AttemptStore().recent(limit: 5);
@@ -520,28 +560,75 @@ class _QuizScreenState extends State<QuizScreen> {
         AppLog.d('[ATTEMPT] ${a.sessionId} Q${a.questionNumber} '
             '${a.isCorrect ? "○" : "×"} ${a.durationMs}ms');
       }
-    } catch (_) {
-      // ログ用途なので握りつぶしでOK
-    }
+    } catch (_) {}
   }
 }
 
-// 進捗バーを切り出してリビルド負荷軽減（任意）
-class _ProgressBar extends StatelessWidget implements PreferredSizeWidget {
-  const _ProgressBar();
-
-  @override
-  Size get preferredSize => const Size.fromHeight(6);
+// 解説カード
+class _ExplanationCard extends StatelessWidget {
+  final int index;
+  final String text;
+  const _ExplanationCard({required this.index, required this.text});
 
   @override
   Widget build(BuildContext context) {
+    return Card(
+      key: ValueKey('exp-$index'),
+      elevation: 1.5,
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            color: Theme.of(context)
+                .colorScheme
+                .surfaceContainerHighest
+                .withValues(alpha: 0.4),
+            child: Row(
+              children: [
+                const Icon(Icons.info_outline, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  '解説',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+            child: Text(
+              text.trim(),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontSize: 18, height: 1.5),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// 進捗バー
+class _ProgressBar extends StatelessWidget implements PreferredSizeWidget {
+  const _ProgressBar();
+  @override
+  Size get preferredSize => const Size.fromHeight(6);
+  @override
+  Widget build(BuildContext context) {
     final state = context.findAncestorStateOfType<_QuizScreenState>();
-    final value = (state == null || state.sequence.isEmpty)
+    final value = (state == null ||
+            !state._initReady ||
+            state._abortAndPop ||
+            state.sequence.isEmpty)
         ? 0.0
         : (state.index + 1) / state.sequence.length;
-    return LinearProgressIndicator(
-      value: value,
-      minHeight: 6,
-    );
+    return LinearProgressIndicator(value: value, minHeight: 6);
   }
 }
