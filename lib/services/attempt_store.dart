@@ -190,12 +190,19 @@ class AttemptStore {
     }
   }
 
-  /// 成績サマリを追加（ResultScreen から呼ぶ想定）
+  /// 成績サマリを追加/更新（sessionId で upsert）
   Future<void> addScore(ScoreRecord record, {int? retention}) async {
     final all = await loadScores();
-    all.add(record);
 
-    // retention はサマリ用は必要に応じて（指定なければ無制限）
+    // ★ 同じ sessionId があれば置き換え（なければ追加）
+    final idx = all.indexWhere((e) => e.sessionId == record.sessionId);
+    if (idx >= 0) {
+      all[idx] = record;
+    } else {
+      all.add(record);
+    }
+
+    // 任意の保持上限
     final cap = retention ?? 0;
     if (cap > 0 && all.length > cap) {
       all.removeRange(0, all.length - cap);

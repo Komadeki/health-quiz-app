@@ -20,6 +20,28 @@ class QuizCard {
     this.unitId, // ★追加
   });
 
+    QuizCard copyWith({
+    String? question,
+    List<String>? choices,
+    int? answerIndex,
+    String? explanation,
+    bool? isPremium,
+    List<String>? unitTags,
+    String? unitId,
+  }) {
+    return QuizCard(
+      question: question ?? this.question,
+      choices: choices ?? this.choices,
+      answerIndex: answerIndex ?? this.answerIndex,
+      explanation: explanation ?? this.explanation,
+      isPremium: isPremium ?? this.isPremium,
+      unitTags: unitTags ?? this.unitTags,
+      unitId: unitId ?? this.unitId,
+    );
+  }
+
+  
+
   List<String> get tags => unitTags;
 
   /// JSON読み込み用

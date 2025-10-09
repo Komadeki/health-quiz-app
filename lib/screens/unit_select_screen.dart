@@ -61,7 +61,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
     if (!saveOn) {
       // 保存OFF：常に未選択＋上限なし（null）から開始。読み込みもしない
       setState(() {
-        _selectedUnitIds..clear();
+        _selectedUnitIds.clear();
         _limit = null;
       });
       AppLog.d(

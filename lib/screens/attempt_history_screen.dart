@@ -305,7 +305,7 @@ class _UnitBreakdownCard extends StatefulWidget {
     required this.totalQuestions,
     required this.unitWrongs,
     this.unitTitleMap,
-    this.maxCollapsedCount = 5,
+    this.maxCollapsedCount = 5, // ★ デフォルトを与えて初期化（required にしてもOK）
   });
 
   @override

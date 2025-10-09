@@ -5,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'models/deck.dart';
-import 'models/quiz_session.dart';
 import 'services/deck_loader.dart';
 import 'services/app_settings.dart';
 import 'screens/multi_select_screen.dart';
@@ -28,6 +27,10 @@ void main() async {
   // AppSettings 初期化
   final settings = AppSettings();
   await settings.load();
+
+  // ★ 追加：安定ID式のバージョン移行（古いセッションを安全にクリア）
+  final prefs = await SharedPreferences.getInstance();
+  await QuizSessionLocalRepository(prefs).migrateIfNeeded();
 
   runApp(
     ChangeNotifierProvider(
@@ -75,6 +78,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (_) => const HomeScreen(),
         '/settings': (_) => const SettingsScreen(),
+
+        // ★ 追加：/quiz ルート（将来の引数受け取りに備えた登録）
+        // いまは直接 MaterialPageRoute でも可。順次こちらに寄せる想定。
+        // 例）Navigator.pushNamed(context, '/quiz', arguments: QuizScreenArgs(...));
       },
       initialRoute: '/',
     );
@@ -195,7 +202,10 @@ class _HomeScreenState extends State<HomeScreen> {
       final repo = QuizSessionLocalRepository(prefs);
       final active = await repo.loadActive();
 
-      AppLog.d('[RESUME] loaded(byButton): ${active == null ? "null" : "deck=${active.deckId} index=${active.currentIndex}"}');
+      AppLog.d('[RESUME/PROBE] deck=${active?.deckId} '
+          'idx=${active?.currentIndex} len=${active?.itemIds.length} '
+          'units=${active?.selectedUnitIds} limit=${active?.limit} '
+          'choiceOrders=${active?.choiceOrders?.length}');
 
       if (active == null) {
         if (mounted) {
@@ -207,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return;
       }
 
-      // デッキ一覧が空なら再ロード（フォールバック）
+      // デッキ一覧が空なら再ロード（見た目用に1つ渡すだけ）
       var list = decks;
       if (list.isEmpty) {
         try {
@@ -218,61 +228,50 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
 
-      // ミックス練習は未対応：案内してクリア（混乱防止）
-      if (active.deckId == 'mixed') {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('「ミックス練習」は続きから再開に未対応です。単元を選んで再開してください。'),
-            ),
-          );
-        }
-        try {
-          await repo.clear();
-          AppLog.d('[RESUME] cleared mixed session');
-        } catch (_) {}
-        if (!mounted) return;
-        setState(() {
-          _isResuming = false;
-          _canResume = false;
-        });
-        return;
-      }
-
-      // 通常デッキを検索
+      // 👇 mixed でもブロックしない
       Deck? deck;
-      try {
-        deck = list.firstWhere((d) => d.id == active.deckId);
-      } catch (_) {
-        deck = null;
-      }
-
-      if (deck == null) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('対応するデッキが見つかりません（${active.deckId}）')),
-          );
+      if (active.deckId == 'mixed') {
+        // タイトル表示用の仮デッキ（実データ復元は QuizScreen 側がやる）
+        deck = (list.isNotEmpty)
+            ? list.first
+            : Deck(id: 'mixed', title: 'ミックス練習', units: const [], isPurchased: true);
+      } else {
+        // 通常デッキは ID で検索
+        try {
+          deck = list.firstWhere((d) => d.id == active.deckId);
+        } catch (_) {
+          deck = null;
         }
-        setState(() => _isResuming = false);
-        return;
+        if (deck == null) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('対応するデッキが見つかりません（${active.deckId}）')),
+            );
+          }
+          setState(() => _isResuming = false);
+          return;
+        }
+        AppLog.d('[RESUME] navigate deck=${deck.id} len=${active.itemIds.length}');
       }
 
-      AppLog.d('[RESUME] navigate -> QuizScreen(deck=${deck.id}, index=${active.currentIndex})');
       await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => QuizScreen(deck: deck!, resumeSession: active),
+          builder: (_) => QuizScreen(
+            deck: deck!,
+            resumeSession: active, // ← ここが肝
+          ),
         ),
       );
-
       AppLog.d('[RESUME] returned from QuizScreen');
     } finally {
       if (mounted) {
         setState(() => _isResuming = false);
-        _checkResume(); // 状態更新
+        _checkResume();
       }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
