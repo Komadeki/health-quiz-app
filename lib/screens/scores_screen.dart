@@ -282,7 +282,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
                                               ),
                                               const SizedBox(height: 2),
                                               Text(
-                                                '$when・${(r.selectedUnitIds == null) ? "単元" : "ミックス"}',
+                                                '$when',
                                                 style: theme.textTheme.bodySmall,
                                               ),
                                             ],

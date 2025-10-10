@@ -76,6 +76,7 @@ class _StatsHomeScreenState extends State<StatsHomeScreen> {
             itemBuilder: (context, i) {
               final r = items[i];
               final dt = DateTime.fromMillisecondsSinceEpoch(r.timestamp);
+              // 日付 + スコアのみ。単元/ミックスの表示はしない
               final subtitle =
                   '${dt.year}/${dt.month.toString().padLeft(2, '0')}/${dt.day.toString().padLeft(2, '0')}  ${r.score}/${r.total}';
               return ListTile(
