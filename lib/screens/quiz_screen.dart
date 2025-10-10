@@ -151,6 +151,62 @@ class _QuizScreenState extends State<QuizScreen> {
     _id2card = {};
     _selectedUnitIdsForSave = null;
     _limitForSave = null;
+    // ───────── A) overrideCards 優先（ミックスはここで完結） ─────────
+    if (widget.overrideCards != null && widget.overrideCards!.isNotEmpty) {
+     _sessionId = const Uuid().v4();
+     _deckIdForSave = 'mixed';
+     _selectedUnitIdsForSave = widget.selectedUnitIds; // メタ情報として保持（再開用）
+     _limitForSave = widget.limit;
+
+     final base = List<QuizCard>.from(widget.overrideCards!);
+     // 安定ID逆引き（元のテキスト順で）
+     _id2card = {for (final c in base) _stableIdForOriginal(c): c};
+     final items = [for (final c in base) (_stableIdForOriginal(c), c)];
+
+     // 出題順は base の順をそのまま使用（均等配分を壊さない）
+     sequence = [];
+     _choiceOrders.clear();
+     for (final it in items) {
+       final id = it.$1;
+       final orig = it.$2;
+       final ord = <int>[];
+       final shuffled = _shuffledWithOrder(orig, outOrder: ord); // 選択肢だけシャッフル
+       _choiceOrders[id] = List<int>.from(ord);
+       sequence.add(shuffled);
+     }
+     _stableOrder = [for (final it in items) it.$1];
+
+     // 集計など
+     index = 0;
+     correctCount = 0;
+     _qStart = DateTime.now();
+     _unitCount.clear();
+     for (final qc in sequence) {
+       final uid = _unitIdOf(qc);
+       _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
+     }
+
+     // 初回セーブ（mixed として）
+     await _saveSession(
+       QuizSession(
+         sessionId: _sessionId,
+         deckId: 'mixed',
+         unitId: null,
+         selectedUnitIds: _selectedUnitIdsForSave,
+         limit: _limitForSave,
+         itemIds: _stableOrder,
+         currentIndex: 0,
+         answers: const {},
+         updatedAt: DateTime.now(),
+         isFinished: false,
+         choiceOrders: _choiceOrders,
+       ),
+     );
+     AppLog.d('[MIX/SAVE-INIT] deck=mixed units=$_selectedUnitIdsForSave '
+         'limit=$_limitForSave len=${_stableOrder.length} choiceOrders=${_choiceOrders.length}');
+     setState(() => _initReady = true);
+     return;
+    }
 
     final s = widget.resumeSession;
 

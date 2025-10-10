@@ -422,8 +422,9 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
             isPurchased: true, // タイトル用の仮Deck。出題は overrideCards を使用
           ),
           selectedUnitIds: _selectedUnitIds, // ← これ！
-          limit: _questionLimit,            // ← これ！
-          // overrideCards: all,
+          // limit は overrideCards に合わせておくと将来の仕様変更にも強い
+          limit: all.length,
+          overrideCards: all,               // ★ これを必ず渡す
         ),
       ),
     );
