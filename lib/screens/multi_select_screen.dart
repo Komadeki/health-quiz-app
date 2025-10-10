@@ -224,6 +224,9 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
 
   /// 出題カードを作成（購入未購入考慮・上限適用・均等配分・不足補完・全体シャッフル）
   List<QuizCard> _buildCards() {
+    // ランダム設定（ON のときだけ shuffle を有効化）
+    final rnd = context.read<AppSettings>().randomize;
+
     // 1) 選択されたユニットを列挙
     final selectedUnits = <({Deck deck, Unit unit})>[];
     for (final deck in widget.decks) {
@@ -245,19 +248,22 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
       final pool = deck.isPurchased
           ? unit.cards.toList()
           : unit.cards.where((c) => !c.isPremium).toList();
-      // 念のため安定化
-      pool.shuffle();
+      if (rnd) {
+        pool.shuffle();
+      }
       pools.add(pool);
       poolNames.add('${deck.title}/${unit.title}');
     }
 
-    // 3) 上限が null の場合は、全カード連結→シャッフルして返す
+    // 3) 上限が null の場合は、全カード連結（必要ならシャッフル）して返す
     if (_limit == null) {
       final all = <QuizCard>[];
       for (final p in pools) {
         all.addAll(p);
       }
-      all.shuffle();
+      if (rnd) {
+        all.shuffle();
+      }
       // デバッグログ
       AppLog.d('🎲 Mix (no-limit) summary:');
       for (int i = 0; i < pools.length; i++) {
@@ -268,13 +274,16 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
     }
 
     // 4) 均等配分（端数はランダムなユニットに+1ずつ）
-    final totalLimit = _limit!;
+    final totalLimit = min(_limit!, _availableCount); // ★ ここで36に丸める
     final unitCount = pools.length;
     final base = (totalLimit / unitCount).floor();
     int remainder = totalLimit % unitCount;
 
     final random = Random();
-    final order = List<int>.generate(unitCount, (i) => i)..shuffle(random);
+    final order = List<int>.generate(unitCount, (i) => i);
+    if (rnd) {
+      order.shuffle(random);
+    }
 
     final picked = <QuizCard>[];
     final perUnitPicked = <int>[...List.filled(unitCount, 0)];
@@ -304,18 +313,22 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
           backfill.addAll(pools[i].skip(used));
         }
       }
-      backfill.shuffle(random);
+      if (rnd) {
+        backfill.shuffle(random);
+      }
       final need = totalLimit - picked.length;
       picked.addAll(backfill.take(need));
     }
 
-    // 6) 最後に全体をシャッフル
-    picked.shuffle(random);
+    // 6) 最後に全体をシャッフル（ON 時のみ）
+    if (rnd) {
+      picked.shuffle(random);
+    }
 
     // 7) デバッグログ出力
     AppLog.d('🎲 Mix build summary (limit=$totalLimit):');
     for (int i = 0; i < pools.length; i++) {
-      final _assigned = perUnitPicked[i] + (picked.length > totalLimit ? 0 : 0);
+      final assigned = perUnitPicked[i] + (picked.length > totalLimit ? 0 : 0);
       final extraFlag = remainderAssigned[i] ? ' (+1配分)' : '';
       AppLog.d('  ${poolNames[i]}: ${perUnitPicked[i]}問$extraFlag '
           '(pool=${pools[i].length})');
@@ -367,6 +380,26 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
 
   int _selectedUnitCount(Deck deck) => (selected[deck.id] ?? {}).length;
 
+  // ================= 追加：QuizScreenへ渡す値 =================
+
+  // 選択されたユニットIDの平坦リスト
+  List<String> get _selectedUnitIds {
+    final ids = <String>[];
+    for (final deck in widget.decks) {
+      final set = selected[deck.id];
+      if (set == null || set.isEmpty) continue;
+      ids.addAll(set); // set はユニットID
+    }
+    return ids;
+  }
+
+  // QuizScreen に渡す limit（UI の表示と同じロジック：min(available, limit)）
+  int get _questionLimit {
+    if (_limit == null) return _availableCount;
+    return _availableCount < _limit! ? _availableCount : _limit!;
+    // あるいは: return math.min(_limit!, _availableCount);
+  }
+
   // ================= 起動 =================
 
   void _startQuiz() {
@@ -388,7 +421,10 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
             units: const [],
             isPurchased: true, // タイトル用の仮Deck。出題は overrideCards を使用
           ),
-          overrideCards: all,
+          selectedUnitIds: _selectedUnitIds, // ← これ！
+          // limit は overrideCards に合わせておくと将来の仕様変更にも強い
+          limit: all.length,
+          overrideCards: all,               // ★ これを必ず渡す
         ),
       ),
     );

@@ -61,7 +61,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
     if (!saveOn) {
       // 保存OFF：常に未選択＋上限なし（null）から開始。読み込みもしない
       setState(() {
-        _selectedUnitIds..clear();
+        _selectedUnitIds.clear();
         _limit = null;
       });
       AppLog.d(
@@ -166,6 +166,9 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
 
   // ────── 出題カード構築（均等配分＋無料制限＋不足補完＋全体シャッフル）──────
   List<QuizCard> _buildCards() {
+    // ランダム設定を一度だけ取得
+    final rnd = context.read<AppSettings>().randomize;
+
     final selectedUnits = widget.deck.units
         .where((u) => _selectedUnitIds.contains(u.id))
         .toList();
@@ -178,14 +181,19 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
       final pool = widget.deck.isPurchased
           ? u.cards.toList()
           : u.cards.where((c) => !c.isPremium).toList();
-      pool.shuffle();
+      if (rnd) {
+        pool.shuffle();
+      }
       pools.add(pool);
       poolNames.add(u.title);
     }
 
     // 制限なしなら全問シャッフル
     if (_limit == null) {
-      final all = pools.expand((x) => x).toList()..shuffle();
+      final all = pools.expand((x) => x).toList();
+      if (rnd) {
+        all.shuffle();
+      }
       AppLog.d('🎲 UnitSelect (no-limit) summary:');
       for (int i = 0; i < pools.length; i++) {
         AppLog.d('  ${poolNames[i]}: ${pools[i].length}問');
@@ -199,8 +207,10 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
     final base = (limit / unitCount).floor();
     int remainder = limit % unitCount;
     final rand = Random();
-    final order = List<int>.generate(unitCount, (i) => i)..shuffle(rand);
-
+    final order = List<int>.generate(unitCount, (i) => i);
+    if (rnd) {
+      order.shuffle(rand);
+    }
     final picked = <QuizCard>[];
     final perUnitPicked = <int>[...List.filled(unitCount, 0)];
     final remainderAssigned = <bool>[...List.filled(unitCount, false)];
@@ -228,12 +238,16 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
           backfill.addAll(pools[i].skip(used));
         }
       }
-      backfill.shuffle(rand);
+      if (rnd) {
+        backfill.shuffle(rand);
+      }
       final need = limit - picked.length;
       picked.addAll(backfill.take(need));
     }
 
-    picked.shuffle(rand);
+    if (rnd) {
+      picked.shuffle(rand);
+    }
 
     // ログ出力
     AppLog.d('🎲 UnitSelect build summary (limit=$limit):');

@@ -19,6 +19,7 @@ dependencies:
   csv: ^6.0.0
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.5.3
+  crypto: ^3.0.3   # ←★これを追加
   uuid: ^4.4.0
   package_info_plus: ^8.0.0
   url_launcher: ^6.3.0

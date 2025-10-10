@@ -20,6 +20,28 @@ class QuizCard {
     this.unitId, // ★追加
   });
 
+    QuizCard copyWith({
+    String? question,
+    List<String>? choices,
+    int? answerIndex,
+    String? explanation,
+    bool? isPremium,
+    List<String>? unitTags,
+    String? unitId,
+  }) {
+    return QuizCard(
+      question: question ?? this.question,
+      choices: choices ?? this.choices,
+      answerIndex: answerIndex ?? this.answerIndex,
+      explanation: explanation ?? this.explanation,
+      isPremium: isPremium ?? this.isPremium,
+      unitTags: unitTags ?? this.unitTags,
+      unitId: unitId ?? this.unitId,
+    );
+  }
+
+  
+
   List<String> get tags => unitTags;
 
   /// JSON読み込み用
@@ -97,9 +119,11 @@ class QuizCard {
 
 /// 選択肢をシャッフルして answerIndex を再計算した新しいカードを返す
 extension QuizCardShuffle on QuizCard {
-  QuizCard shuffled([Random? rnd]) {
+  QuizCard shuffled({Random? rnd, bool randomize = true}) {
     final pairs = List.generate(choices.length, (i) => MapEntry(i, choices[i]));
-    pairs.shuffle(rnd ?? Random());
+    if (randomize) {
+      pairs.shuffle(rnd ?? Random());
+    }
     final newChoices = pairs.map((e) => e.value).toList(growable: false);
     final newAnswerIndex = pairs.indexWhere((e) => e.key == answerIndex);
     return QuizCard(

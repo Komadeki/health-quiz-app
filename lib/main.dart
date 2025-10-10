@@ -1,32 +1,37 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart'; // kDebugMode
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter/foundation.dart'; // kDebugMode 用
 import 'package:provider/provider.dart';
+
 import 'models/deck.dart';
 import 'services/deck_loader.dart';
 import 'services/app_settings.dart';
 import 'screens/multi_select_screen.dart';
 import 'screens/unit_select_screen.dart';
-import 'screens/scores_screen.dart'; 
+import 'screens/scores_screen.dart';
 import 'screens/settings_screen.dart';
-import 'utils/logger.dart'; // AppLog を使うため
+import 'screens/quiz_screen.dart';
+import 'utils/logger.dart';
+
+// 続きから用
+import 'package:shared_preferences/shared_preferences.dart';
+import 'data/quiz_session_local_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ===== デバッグ検証 =====
-  AppLog.enabled = true; // ← 一時ON（確認後は false やコメントアウトでOK）
-  // await AttemptStore().clearAll(); // ← 使い終わったら必ずコメントアウト
-  // AppLog.d('[DEBUG] AttemptStore cleared.');
-  // await debugSmokeTestScoreStore();
-  // =======================
+  // 必要ならログをON
+  AppLog.enabled = true;
 
-  // ✅ AppSettingsの初期化を追加
+  // AppSettings 初期化
   final settings = AppSettings();
   await settings.load();
 
-  // ✅ Providerで包んで起動
+  // ★ 追加：安定ID式のバージョン移行（古いセッションを安全にクリア）
+  final prefs = await SharedPreferences.getInstance();
+  await QuizSessionLocalRepository(prefs).migrateIfNeeded();
+
   runApp(
     ChangeNotifierProvider(
       create: (_) => settings,
@@ -35,30 +40,35 @@ void main() async {
   );
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // ✅ AppSettingsを取得
     final s = context.watch<AppSettings>();
 
     return MaterialApp(
       title: '高校保健一問一答',
       locale: const Locale('ja', 'JP'),
       supportedLocales: const [Locale('ja', 'JP'), Locale('en')],
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+<<<<<<< HEAD
+      themeMode: s.themeMode,
+      builder: (context, child) {
+        final mq = MediaQuery.of(context);
+        // AppSettings（s）から倍率を反映
+=======
 
       // ✅ テーマ関連を差し替え
       themeMode: s.themeMode, // ← ライト／ダーク切替に対応
       builder: (context, child) {
         final mq = MediaQuery.of(context);
         final s = context.watch<AppSettings>(); // 設定の textScaleFactor を適用
+>>>>>>> origin/main
         return MediaQuery(
           data: mq.copyWith(
             textScaler: TextScaler.linear(s.textScaleFactor),
@@ -66,27 +76,29 @@ class MyApp extends StatelessWidget {
           child: child!,
         );
       },
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/main
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
-          brightness: Brightness.light,
-        ),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Colors.green, brightness: Brightness.light),
         fontFamily: 'NotoSansJP',
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
-          brightness: Brightness.dark,
-        ),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Colors.green, brightness: Brightness.dark),
         fontFamily: 'NotoSansJP',
       ),
-
       routes: {
         '/': (_) => const HomeScreen(),
         '/settings': (_) => const SettingsScreen(),
+
+        // ★ 追加：/quiz ルート（将来の引数受け取りに備えた登録）
+        // いまは直接 MaterialPageRoute でも可。順次こちらに寄せる想定。
+        // 例）Navigator.pushNamed(context, '/quiz', arguments: QuizScreenArgs(...));
       },
       initialRoute: '/',
     );
@@ -95,7 +107,6 @@ class MyApp extends StatelessWidget {
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -105,22 +116,28 @@ class _HomeScreenState extends State<HomeScreen> {
   String? error;
   List<Deck> decks = [];
 
+  // 続きから制御
+  bool _isResuming = false; // 多重タップ防止
+  bool _canResume = false;  // ボタン表示制御
+
   @override
   void initState() {
     super.initState();
     _loadDecks();
+    _checkResume(); // 起動時に一度チェック
   }
 
   Future<void> _loadDecks() async {
     try {
-      final loader = DeckLoader();
-      final all = await loader.loadAll();
+      final all = await DeckLoader().loadAll();
+      if (!mounted) return;
       setState(() {
         decks = all;
         loading = false;
         error = null;
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         error = e.toString();
         loading = false;
@@ -128,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // ========== デバッグ用 購入フラグ切替 ==========
+  // ===== デバッグ用：購入フラグ切り替え =====
   void _setAllPurchased(bool value) {
     setState(() {
       decks = decks.map((d) => d.copyWith(isPurchased: value)).toList();
@@ -153,20 +170,22 @@ class _HomeScreenState extends State<HomeScreen> {
       ];
     });
   }
-  // ==========================================
+  // ===================================
 
-  void _openMultiSelect() {
-    Navigator.push(
+  Future<void> _openMultiSelect() async {
+    await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => MultiSelectScreen(decks: decks)),
     );
+    if (mounted) _checkResume();
   }
 
-  void _openUnitSelect(Deck deck) {
-    Navigator.push(
+  Future<void> _openUnitSelect(Deck deck) async {
+    await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => UnitSelectScreen(deck: deck)),
     );
+    if (mounted) _checkResume();
   }
 
   void _notImplemented(String title) {
@@ -174,10 +193,102 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.pushNamed(context, '/settings');
       return;
     }
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('$title は今後実装予定です')));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('$title は今後実装予定です')));
   }
+
+  // 起動／復帰時に「続きから」可能かチェック
+  Future<void> _checkResume() async {
+    if (_isResuming) return; // 遷移中は覗かない
+    final prefs = await SharedPreferences.getInstance();
+    final repo = QuizSessionLocalRepository(prefs);
+    final active = await repo.loadActive();
+    AppLog.d('[RESUME] probe: ${active == null ? "none" : "exists"}');
+    if (!mounted) return;
+    setState(() => _canResume = active != null);
+  }
+
+  // 「続きから」押下時
+  Future<void> _resumeIfExists() async {
+    if (_isResuming) return;
+    setState(() => _isResuming = true);
+    AppLog.d('[RESUME] tapped resume button');
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final repo = QuizSessionLocalRepository(prefs);
+      final active = await repo.loadActive();
+
+      AppLog.d('[RESUME/PROBE] deck=${active?.deckId} '
+          'idx=${active?.currentIndex} len=${active?.itemIds.length} '
+          'units=${active?.selectedUnitIds} limit=${active?.limit} '
+          'choiceOrders=${active?.choiceOrders?.length}');
+
+      if (active == null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('再開できるセッションはありません')),
+          );
+        }
+        setState(() => _isResuming = false);
+        return;
+      }
+
+      // デッキ一覧が空なら再ロード（見た目用に1つ渡すだけ）
+      var list = decks;
+      if (list.isEmpty) {
+        try {
+          list = await DeckLoader().loadAll();
+          AppLog.d('[RESUME] decks reloaded for resume: ${list.length}');
+        } catch (e) {
+          AppLog.d('[RESUME] deck reload failed: $e');
+        }
+      }
+
+      // 👇 mixed でもブロックしない
+      Deck? deck;
+      if (active.deckId == 'mixed') {
+        // タイトル表示用の仮デッキ（実データ復元は QuizScreen 側がやる）
+        deck = (list.isNotEmpty)
+            ? list.first
+            : Deck(id: 'mixed', title: 'ミックス練習', units: const [], isPurchased: true);
+      } else {
+        // 通常デッキは ID で検索
+        try {
+          deck = list.firstWhere((d) => d.id == active.deckId);
+        } catch (_) {
+          deck = null;
+        }
+        if (deck == null) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('対応するデッキが見つかりません（${active.deckId}）')),
+            );
+          }
+          setState(() => _isResuming = false);
+          return;
+        }
+        AppLog.d('[RESUME] navigate deck=${deck.id} len=${active.itemIds.length}');
+      }
+
+      await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => QuizScreen(
+            deck: deck!,
+            resumeSession: active, // ← ここが肝
+          ),
+        ),
+      );
+      AppLog.d('[RESUME] returned from QuizScreen');
+    } finally {
+      if (mounted) {
+        setState(() => _isResuming = false);
+        _checkResume();
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -219,133 +330,161 @@ class _HomeScreenState extends State<HomeScreen> {
       body: loading
           ? const Center(child: CircularProgressIndicator())
           : error != null
-          ? Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  '読み込みエラー: $error',
-                  style: const TextStyle(color: Colors.red),
-                ),
-              ),
-            )
-          : RefreshIndicator(
-              onRefresh: _loadDecks,
-              child: ListView(
-                padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-                children: [
-                  Row(
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      '読み込みエラー: $error',
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                )
+              : RefreshIndicator(
+                  onRefresh: () async {
+                    await _loadDecks();
+                    await _checkResume();
+                  },
+                  child: ListView(
+                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
                     children: [
-                      Icon(
-                        Icons.menu_book_outlined,
-                        color: theme.colorScheme.primary,
+                      Row(
+                        children: [
+                          Icon(Icons.menu_book_outlined,
+                              color: theme.colorScheme.primary),
+                          const SizedBox(width: 8),
+                          Text(
+                            '単元を選ぶ',
+                            style: theme.textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '単元を選ぶ',
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
+                      const SizedBox(height: 12),
+
+                      // デッキ一覧
+                      SizedBox(
+                        height: 140,
+                        child: decks.isEmpty
+                            ? Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Text(
+                                    'デッキが見つかりません（assets/decks を確認）',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium,
+                                  ),
+                                ),
+                              )
+                            : PageView.builder(
+                                controller:
+                                    PageController(viewportFraction: 1.0),
+                                padEnds: false,
+                                itemCount: (decks.length + 1) ~/ 2,
+                                itemBuilder: (context, pageIndex) {
+                                  const spacing = 12.0;
+                                  final left = pageIndex * 2;
+                                  final right = left + 1;
+
+                                  final leftDeck = decks[left];
+                                  final rightDeck =
+                                      (right < decks.length) ? decks[right] : null;
+
+                                  return Row(
+                                    children: [
+                                      Expanded(
+                                        child: _DeckTile(
+                                          title: leftDeck.title,
+                                          isPurchased: leftDeck.isPurchased,
+                                          onTap: () => _openUnitSelect(leftDeck),
+                                        ),
+                                      ),
+                                      const SizedBox(width: spacing),
+                                      Expanded(
+                                        child: rightDeck == null
+                                            ? const SizedBox.shrink()
+                                            : _DeckTile(
+                                                title: rightDeck.title,
+                                                isPurchased:
+                                                    rightDeck.isPurchased,
+                                                onTap: () =>
+                                                    _openUnitSelect(rightDeck),
+                                              ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      // ミックス練習
+                      _DeckLikeButton(
+                        leadingIcon: Icons.shuffle_outlined,
+                        title: 'ミックス練習（複数単元・横断）',
+                        subtitle: '選んだ単元をランダム出題',
+                        onTap: _openMultiSelect,
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      // 続きからボタン（有効時のみ）
+                      
+                      if (_canResume)
+                        SizedBox(
+                          width: double.infinity,
+                          child: FilledButton.tonalIcon(
+                            icon: _isResuming
+                                ? const SizedBox(
+                                    width: 18,
+                                    height: 18,
+                                    child: CircularProgressIndicator(strokeWidth: 2),
+                                  )
+                                : const Icon(Icons.play_circle_fill),
+                            label: Text(_isResuming ? '開いています…' : '続きから再開'),
+                            onPressed: _isResuming ? null : _resumeIfExists,
+                          ),
                         ),
+
+                      const SizedBox(height: 24),
+
+                      const Divider(height: 32),
+
+                      _MenuTile(
+                        icon: Icons.query_stats_outlined,
+                        label: '成績を見る',
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ScoresScreen(),
+                          ),
+                        ),
+                      ),
+                      _MenuTile(
+                        icon: Icons.settings_outlined,
+                        label: '設定',
+                        onTap: () => _notImplemented('設定'),
+                      ),
+                      _MenuTile(
+                        icon: Icons.shopping_bag_outlined,
+                        label: '購入',
+                        onTap: () => _notImplemented('購入'),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    height: 140,
-                    child: decks.isEmpty
-                        ? Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Text(
-                                'デッキが見つかりません（assets/decks を確認）',
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ),
-                          )
-                        : PageView.builder(
-                            controller: PageController(viewportFraction: 1.0),
-                            padEnds: false,
-                            itemCount: (decks.length + 1) ~/ 2,
-                            itemBuilder: (context, pageIndex) {
-                              const spacing = 12.0;
-                              final left = pageIndex * 2;
-                              final right = left + 1;
-
-                              final leftDeck = decks[left];
-                              final rightDeck = (right < decks.length)
-                                  ? decks[right]
-                                  : null;
-
-                              return Row(
-                                children: [
-                                  Expanded(
-                                    child: _DeckTile(
-                                      title: leftDeck.title,
-                                      isPurchased: leftDeck.isPurchased,
-                                      onTap: () => _openUnitSelect(leftDeck),
-                                    ),
-                                  ),
-                                  const SizedBox(width: spacing),
-                                  Expanded(
-                                    child: rightDeck == null
-                                        ? const SizedBox.shrink()
-                                        : _DeckTile(
-                                            title: rightDeck.title,
-                                            isPurchased: rightDeck.isPurchased,
-                                            onTap: () =>
-                                                _openUnitSelect(rightDeck),
-                                          ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                  ),
-                  const SizedBox(height: 24),
-                  _DeckLikeButton(
-                    leadingIcon: Icons.shuffle_outlined,
-                    title: 'ミックス練習（複数単元・横断）',
-                    subtitle: '選んだ単元をランダム出題',
-                    onTap: _openMultiSelect,
-                  ),
-                  const SizedBox(height: 16),
-                  const Divider(height: 32),
-
-                  _MenuTile(
-                    icon: Icons.query_stats_outlined,
-                    label: '成績を見る',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const ScoresScreen(), // ★ 新画面へ
-                        ),
-                      );
-                    },
-                  ),
-                  _MenuTile(
-                    icon: Icons.settings_outlined,
-                    label: '設定',
-                    onTap: () => _notImplemented('設定'),
-                  ),
-                  _MenuTile(
-                    icon: Icons.shopping_bag_outlined,
-                    label: '購入',
-                    onTap: () => _notImplemented('購入'),
-                  ),
-                ],
-              ),
-            ),
+                ),
     );
   }
 }
 
-// ========== UIコンポーネントは既存のまま ==========
+// ======= 共通 UI パーツ =======
 
 class _DeckTile extends StatelessWidget {
   final String title;
   final bool isPurchased;
   final VoidCallback onTap;
-
   const _DeckTile({
     required this.title,
     required this.isPurchased,
@@ -381,11 +520,8 @@ class _DeckTile extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.menu_book_outlined,
-                    size: 22,
-                    color: theme.colorScheme.primary,
-                  ),
+                  Icon(Icons.menu_book_outlined,
+                      size: 22, color: theme.colorScheme.primary),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -407,11 +543,8 @@ class _DeckTile extends StatelessWidget {
                   if (isPurchased)
                     Row(
                       children: [
-                        Icon(
-                          Icons.lock_open_rounded,
-                          size: 18,
-                          color: theme.colorScheme.primary,
-                        ),
+                        Icon(Icons.lock_open_rounded,
+                            size: 18, color: theme.colorScheme.primary),
                         const SizedBox(width: 6),
                         Text(
                           '購入済み',
@@ -425,11 +558,8 @@ class _DeckTile extends StatelessWidget {
                   else
                     Row(
                       children: [
-                        Icon(
-                          Icons.lock_outline_rounded,
-                          size: 18,
-                          color: theme.colorScheme.outline,
-                        ),
+                        Icon(Icons.lock_outline_rounded,
+                            size: 18, color: theme.colorScheme.outline),
                         const SizedBox(width: 6),
                         Text(
                           '一部無料',
@@ -533,7 +663,6 @@ class _MenuTile extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onTap;
-
   const _MenuTile({
     required this.icon,
     required this.label,

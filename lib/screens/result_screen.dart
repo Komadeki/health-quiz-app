@@ -22,6 +22,8 @@ class ResultScreen extends StatefulWidget {
 
   // 表示関連
   final Map<String, String>? unitTitleMap; // 日本語タイトル表示用
+  // 追加：一覧の初期表示最大件数などに使う
+  final int initialMax;
 
   const ResultScreen({
     super.key,
@@ -37,6 +39,7 @@ class ResultScreen extends StatefulWidget {
     this.tags,
     this.saveHistory = true,
     this.unitTitleMap,
+    this.initialMax = 10, // ★ 既定値（必要なら好きな値に）
   });
 
   @override
@@ -119,6 +122,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 unitBreakdown: ub,
                 totalQuestions: total,
                 unitTitleMap: widget.unitTitleMap,
+                initialMax: widget.initialMax, // ★ 親の既定値を子へ伝搬
               ),
 
             const SizedBox(height: 24),
@@ -218,11 +222,10 @@ class _UnitBreakdownCard extends StatefulWidget {
   final int initialMax;
 
   const _UnitBreakdownCard({
-    super.key,
     required this.unitBreakdown,
     required this.totalQuestions,
     this.unitTitleMap,
-    this.initialMax = 5,
+    this.initialMax = 5, // ★ 未初期化エラーの本丸：ここで既定値を与える
   });
 
   @override

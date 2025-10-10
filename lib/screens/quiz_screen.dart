@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 import '../models/deck.dart';
 import '../models/card.dart';
+import '../models/quiz_card_ext.dart'; // ← withChoiceOrder 拡張
 import '../models/score_record.dart';
 import 'result_screen.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart' as crypto;
 import 'package:uuid/uuid.dart';
 import 'package:provider/provider.dart';
 import '../services/app_settings.dart';
@@ -12,14 +15,28 @@ import '../services/attempt_store.dart';
 import '../models/attempt_entry.dart';
 import '../utils/logger.dart';
 
+// ★ セッション保存/再開
+import 'package:shared_preferences/shared_preferences.dart';
+import '../models/quiz_session.dart';
+import '../data/quiz_session_local_repository.dart';
+
 class QuizScreen extends StatefulWidget {
   final Deck deck;
-  final List<QuizCard>? overrideCards; // ← 追加
+  final List<QuizCard>? overrideCards; // UnitSelect などからの限定セット
+  final QuizSession? resumeSession;    // 再開用
+
+  // ★ 追加（ミックス新規開始用の入力）
+  final List<String>? selectedUnitIds;
+  final int? limit;
 
   const QuizScreen({
     super.key,
     required this.deck,
-    this.overrideCards, // ← 追加
+    this.overrideCards,
+    this.resumeSession,
+    // ★ 追加
+    this.selectedUnitIds,
+    this.limit,
   });
 
   @override
@@ -27,25 +44,57 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  late final List<QuizCard> sequence;
+  // ===== ランタイム状態 =====
+  late List<QuizCard> sequence; // 出題順に並んだカード（選択肢は各カード内で並び済み）
+  late List<String> _stableOrder; // ★ 出題順に対応する「安定ID」列（保存・復元の唯一の根拠）
+  late String _sessionId;
+
   int index = 0;
   int? selected;
   bool revealed = false;
   int correctCount = 0;
   bool _nextLock = false; // 再入防止
 
-  final Stopwatch _sw = Stopwatch()..start();
-  bool _savedOnce = false; // 結果保存の多重防止
-  final _uuid = const Uuid();
-  late final String _sessionId;
-  DateTime? _qStart; // この問題の開始時刻（表示タイミング）
+  bool _nextLock = false;
 
-  // 追加：タグ別集計
+  final Stopwatch _sw = Stopwatch()..start();
+  bool _savedOnce = false;
+  DateTime? _qStart;
+
+  // 解析用
   final Map<String, int> _tagCorrect = {};
   final Map<String, int> _tagWrong = {};
-
-  // 追加：ユニット別集計（出題内訳）
   final Map<String, int> _unitCount = {};
+
+  // 復元用：安定ID → 元カード
+  late Map<String, QuizCard> _id2card;
+
+  // 選択肢順の保存：安定ID → 並び順インデックス配列
+  late Map<String, List<int>> _choiceOrders;
+
+  // 画面安全化
+  bool _initReady = false;   // 初期化が完了したときだけ build する
+  final bool _abortAndPop = false; // 復元不能時の安全フラグ
+
+  // ===== ユーティリティ =====
+  // 安定ID（問題文＋元の選択肢順から計算）※シャッフル後には使わない
+  // quiz_screen.dart 内の private 関数（唯一の実装）
+  String _stableIdForOriginal(QuizCard c) {
+    String norm(String s) => s.replaceAll(RegExp(r'\s+'), ' ').trim();
+    final q = norm(c.question);
+    final cs = c.choices.map(norm).join('|');
+    return crypto.md5.convert(utf8.encode('$q\n$cs')).toString();
+  }
+
+  // QuizCardにunitIdが未実装でも安全に取得
+  String _unitIdOf(QuizCard c) {
+    try {
+      final dyn = c as dynamic;
+      final v = dyn.unitId;
+      if (v is String && v.isNotEmpty) return v;
+    } catch (_) {}
+    return widget.deck.id;
+  }
 
   void _bumpTags(Iterable<String> tags, bool isCorrect) {
     for (final t in tags) {
@@ -57,24 +106,112 @@ class _QuizScreenState extends State<QuizScreen> {
     }
   }
 
-  // QuizCardにunitIdが未実装でもビルドが通る安全な取得ヘルパー
-  String _unitIdOf(QuizCard c) {
-    try {
-      final dyn = c as dynamic;
-      final v = dyn.unitId;
-      if (v is String && v.isNotEmpty) return v;
-    } catch (_) {
-      // 未実装/型不一致は握りつぶし
-    }
-    // フォールバック：deck.id（単一ユニット出題時も成立）
-    return widget.deck.id;
-  }
-
   QuizCard get card => sequence[index];
 
+  /// 与えられたカードを「インデックス順序のシャッフル」に従って並べ替えた新カードを返す。
+  /// outOrder に 0..n-1 のシャッフル順を返す（保存用）。
+  QuizCard _shuffledWithOrder(QuizCard c, {required List<int> outOrder}) {
+    final s = context.read<AppSettings>();
+    final idx = List<int>.generate(c.choices.length, (i) => i);
+    if (s.randomize) {
+     idx.shuffle();
+    }
+    outOrder
+      ..clear()
+      ..addAll(idx);
+    return c.withChoiceOrder(idx); // ← 拡張を使用
+  }
+
+  // 復元失敗時の共通処理
+  Future<void> _failAndClear(String message) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await QuizSessionLocalRepository(prefs).clear();
+    } catch (_) {}
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    Navigator.pop(context);
+  }
+
+  // ===== ライフサイクル =====
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
+    _init(); // 非同期初期化に分離
+  }
+
+  // mixed の保存用メタ（オートセーブ時に null で上書きされないように保持）
+  late String _deckIdForSave; // 'mixed' or 通常 deck.id
+  List<String>? _selectedUnitIdsForSave; // mixed のときに保持
+  int? _limitForSave;                    // mixed のときに保持
+
+  Future<void> _init() async {
+    final settings = Provider.of<AppSettings>(context, listen: false);
+    _choiceOrders = {};
+    sequence = [];
+    _id2card = {};
+    _selectedUnitIdsForSave = null;
+    _limitForSave = null;
+    // ───────── A) overrideCards 優先（ミックスはここで完結） ─────────
+    if (widget.overrideCards != null && widget.overrideCards!.isNotEmpty) {
+     _sessionId = const Uuid().v4();
+     _deckIdForSave = 'mixed';
+     _selectedUnitIdsForSave = widget.selectedUnitIds; // メタ情報として保持（再開用）
+     _limitForSave = widget.limit;
+
+     final base = List<QuizCard>.from(widget.overrideCards!);
+     // 安定ID逆引き（元のテキスト順で）
+     _id2card = {for (final c in base) _stableIdForOriginal(c): c};
+     final items = [for (final c in base) (_stableIdForOriginal(c), c)];
+
+     // 出題順は base の順をそのまま使用（均等配分を壊さない）
+     sequence = [];
+     _choiceOrders.clear();
+     for (final it in items) {
+       final id = it.$1;
+       final orig = it.$2;
+       final ord = <int>[];
+       final shuffled = _shuffledWithOrder(orig, outOrder: ord); // 選択肢だけシャッフル
+       _choiceOrders[id] = List<int>.from(ord);
+       sequence.add(shuffled);
+     }
+     _stableOrder = [for (final it in items) it.$1];
+
+     // 集計など
+     index = 0;
+     correctCount = 0;
+     _qStart = DateTime.now();
+     _unitCount.clear();
+     for (final qc in sequence) {
+       final uid = _unitIdOf(qc);
+       _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
+     }
+
+     // 初回セーブ（mixed として）
+     await _saveSession(
+       QuizSession(
+         sessionId: _sessionId,
+         deckId: 'mixed',
+         unitId: null,
+         selectedUnitIds: _selectedUnitIdsForSave,
+         limit: _limitForSave,
+         itemIds: _stableOrder,
+         currentIndex: 0,
+         answers: const {},
+         updatedAt: DateTime.now(),
+         isFinished: false,
+         choiceOrders: _choiceOrders,
+       ),
+     );
+     AppLog.d('[MIX/SAVE-INIT] deck=mixed units=$_selectedUnitIdsForSave '
+         'limit=$_limitForSave len=${_stableOrder.length} choiceOrders=${_choiceOrders.length}');
+     setState(() => _initReady = true);
+     return;
+    }
+
+    final s = widget.resumeSession;
+=======
     // UnitSelectScreen から渡されてきたカード束があればそちらを使用
     // （toListで可変化しておく）
     final base = (widget.overrideCards ?? widget.deck.cards).toList();
@@ -101,28 +238,300 @@ class _QuizScreenState extends State<QuizScreen> {
     // セッションID生成＆最初の問題の開始時刻を記録
     _sessionId = _uuid.v4();
     _qStart = DateTime.now();
+>>>>>>> origin/main
 
-    // ★ユニット別件数の事前集計（出題が確定したタイミングで一括）
-    _unitCount.clear();
-    for (final qc in sequence) {
-      final uid = _unitIdOf(qc);
-      _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
+    // ───────── 0) ルート判定 ─────────
+    final isMixedResume = (s != null && s.deckId == 'mixed');
+    final isMixedNew    = (s == null && (widget.selectedUnitIds?.isNotEmpty ?? false));
+
+    // ───────── 1) ミックス“再開”（deckId=='mixed'）─────────
+    if (isMixedResume) {
+      _sessionId = s.sessionId;
+      _deckIdForSave = 'mixed';
+      _selectedUnitIdsForSave = s.selectedUnitIds;
+      _limitForSave = s.limit;
+
+      // 必須フィールドチェック
+      if (s.selectedUnitIds == null || s.selectedUnitIds!.isEmpty || s.limit == null) {
+        AppLog.d('[RESUME] mixed: missing fields selectedUnitIds/limit');
+        await _failAndClear('再開に必要な情報が不足しています（mixed）。');
+        return;
+      }
+
+      // 1) 母集団を QuizScreen 側で再構築（購入フィルタなし）
+      final allDecks = await DeckLoader().loadAll();
+      final unitSet = s.selectedUnitIds!.toSet();
+      final List<QuizCard> base = [];
+      for (final d in allDecks) {
+        for (final c in d.cards) {
+          final uid = _unitIdOf(c);
+          if (unitSet.contains(uid)) base.add(c);
+        }
+      }
+
+      // 2) 安定ID逆引き
+      _id2card = {for (final c in base) _stableIdForOriginal(c): c};
+
+      // 3) 欠損チェック
+      final missing = s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
+      if (missing.isNotEmpty) {
+        AppLog.d('[RESUME][MISSING] deck=mixed missing=${missing.length} sample=${missing.take(5).toList()}');
+        await _failAndClear('前回の出題を復元できませんでした（問題セットが更新された可能性）');
+        return;
+      }
+
+      // 4) 復元（シャッフル禁止／choiceOrders を適用。なければ“互換のためだけに”ランダム）
+      _stableOrder = List<String>.from(s.itemIds);
+      for (final id in _stableOrder) {
+        final orig = _id2card[id]!;
+        final ord = s.choiceOrders?[id];
+        final restored = (ord == null) ? _shuffledWithOrder(orig, outOrder: <int>[]) : orig.withChoiceOrder(ord);
+        sequence.add(restored);
+        // _choiceOrders には現況を保持（以後のオートセーブで一貫）
+        if (ord != null) {
+          _choiceOrders[id] = List<int>.from(ord);
+        } else {
+          final tmp = <int>[];
+          _shuffledWithOrder(orig, outOrder: tmp);
+          _choiceOrders[id] = List<int>.from(tmp);
+        }
+      }
+
+      // 5) 進行位置・集計
+      index = s.currentIndex.clamp(0, sequence.length - 1);
+      correctCount = 0;
+      _qStart = DateTime.now();
+
+      _unitCount.clear();
+      for (final qc in sequence) {
+        final uid = _unitIdOf(qc);
+        _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
+      }
+
+      setState(() => _initReady = true);
+      AppLog.d('[RESUME] navigate deck=mixed len=${_stableOrder.length}');
+      return;
+    }
+
+    // ───────── 2) ミックス“新規開始”（selectedUnitIds/limit を受領）─────────
+    if (isMixedNew) {
+      _sessionId = const Uuid().v4();
+      _deckIdForSave = 'mixed';
+      _selectedUnitIdsForSave = List<String>.from(widget.selectedUnitIds!);
+      _limitForSave = widget.limit;
+
+      // a) 母集団を再構築（購入フィルタなし）
+      final allDecks = await DeckLoader().loadAll();
+      final unitSet = widget.selectedUnitIds!.toSet();
+      final base = <QuizCard>[];
+      for (final d in allDecks) {
+        for (final c in d.cards) {
+          final uid = _unitIdOf(c);
+          if (unitSet.contains(uid)) base.add(c);
+        }
+      }
+
+      // b) limit 適用（ここで母集団に上限をかける）
+      final limit = widget.limit;
+      if (limit != null && limit > 0 && base.length > limit) {
+      final s = context.read<AppSettings>();
+      if (s.randomize) {
+       base.shuffle(); // 切り詰め前に軽くシャッフル（ON時のみ）
+      }
+        base.removeRange(limit, base.length);
+      }
+
+      // c) 安定ID逆引き & 出題順（シャッフルはここだけ）
+      _id2card = {for (final c in base) _stableIdForOriginal(c): c};
+      var items = [for (final c in base) (_stableIdForOriginal(c), c)];
+      if (settings.randomize) items.shuffle();
+
+      // d) sequence を作りつつ、各カードの choiceOrder を記録
+      sequence = [];
+      _choiceOrders.clear();
+      for (final it in items) {
+        final id = it.$1;
+        final orig = it.$2;
+        final order = <int>[];
+        final shuffled = _shuffledWithOrder(orig, outOrder: order);
+        _choiceOrders[id] = List<int>.from(order);
+        sequence.add(shuffled);
+      }
+      _stableOrder = [for (final it in items) it.$1];
+
+      // e) 進行位置・集計
+      index = 0;
+      correctCount = 0;
+      _qStart = DateTime.now();
+
+      _unitCount.clear();
+      for (final qc in sequence) {
+        final uid = _unitIdOf(qc);
+        _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
+      }
+
+      // f) 初回セーブ（deckId:'mixed' / selectedUnitIds / limit / choiceOrders を保存）
+      await _saveSession(
+        QuizSession(
+          sessionId: _sessionId,
+          deckId: 'mixed',
+          unitId: null,
+          selectedUnitIds: _selectedUnitIdsForSave,
+          limit: _limitForSave,
+          itemIds: _stableOrder,
+          currentIndex: 0,
+          answers: const {},
+          updatedAt: DateTime.now(),
+          isFinished: false,
+          choiceOrders: _choiceOrders,
+        ),
+      );
+      AppLog.d('[MIX/SAVE-INIT] deck=mixed units=$_selectedUnitIdsForSave '
+          'limit=$_limitForSave len=${_stableOrder.length} '
+          'choiceOrders=${_choiceOrders.length}');
+
+      setState(() => _initReady = true);
+      if (sequence.isEmpty && mounted) {
+        // 安全策：空なら失敗扱い
+        await _failAndClear('出題を準備できませんでした。選択内容を見直してください。');
+      }
+      return;
+    }
+
+    // ───────── 3) 通常デッキ：新規 or 再開 ─────────
+    // 1) ベース問題集合（UnitSelect 等から来ていれば限定セット）
+    final baseDefault = (widget.overrideCards ?? widget.deck.cards).toList();
+
+    // 2) 安定IDの逆引き（必ず「元の並び・元の選択肢」で計算する）
+    _id2card = {for (final c in baseDefault) _stableIdForOriginal(c): c};
+
+    if (s == null) {
+      // ─ 新規セッション（通常/限定）
+      // a) 出題順（安定IDと対で保持）
+      final items = [for (final c in baseDefault) (_stableIdForOriginal(c), c)];
+      if (settings.randomize) items.shuffle(); // ★ 出題順のシャッフルはここだけ
+
+      // b) カード配列作成＋選択肢順を記録
+      sequence = [];
+      _choiceOrders.clear();
+      for (final it in items) {
+        final id = it.$1;
+        final orig = it.$2;
+        final order = <int>[];
+        final shuffledCard = _shuffledWithOrder(orig, outOrder: order);
+        _choiceOrders[id] = List<int>.from(order);
+        sequence.add(shuffledCard);
+      }
+
+      // c) 出題順の安定ID列
+      _stableOrder = [for (final it in items) it.$1];
+
+      // d) セッションID・開始時刻
+      _sessionId = const Uuid().v4();
+      _deckIdForSave = widget.deck.id; // 通常
+      _qStart = DateTime.now();
+
+      // e) ユニット内訳
+      _unitCount.clear();
+      for (final qc in sequence) {
+        final uid = _unitIdOf(qc);
+        _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
+      }
+
+      // f) 初期セーブ
+      await _saveSession(
+        QuizSession(
+          sessionId: _sessionId,
+          deckId: _deckIdForSave,
+          unitId: null,
+          selectedUnitIds: null,
+          limit: null,
+          itemIds: _stableOrder,
+          currentIndex: 0,
+          answers: const {},
+          updatedAt: DateTime.now(),
+          isFinished: false,
+          choiceOrders: _choiceOrders,
+        ),
+      );
+
+      setState(() => _initReady = true);
+    } else {
+      // ─ 再開セッション（通常デッキ）
+      _sessionId = s.sessionId;
+      _deckIdForSave = widget.deck.id;
+
+      // a) 欠損チェック
+      final missing = s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
+      if (missing.isNotEmpty) {
+        AppLog.d('[RESUME][MISSING] deck=${s.deckId} missing=${missing.length} sample=${missing.take(5).toList()}');
+        await _failAndClear('前回の出題を復元できませんでした（問題セットが更新された可能性）');
+        return;
+      }
+
+      // b) 出題順
+      _stableOrder = List<String>.from(s.itemIds);
+
+      // c) 復元：choiceOrders があれば適用、なければランダム可（従来仕様）
+      sequence = [];
+      _choiceOrders.clear();
+      for (final id in _stableOrder) {
+        final orig = _id2card[id]!;
+        final ord = s.choiceOrders?[id];
+        final restored = (ord == null)
+            ? _shuffledWithOrder(orig, outOrder: <int>[])
+            : orig.withChoiceOrder(ord);
+        sequence.add(restored);
+        if (ord != null) {
+          _choiceOrders[id] = List<int>.from(ord);
+        } else {
+          final tmp = <int>[];
+          _shuffledWithOrder(orig, outOrder: tmp);
+          _choiceOrders[id] = List<int>.from(tmp);
+        }
+      }
+
+      // d) 進行位置・集計
+      index = s.currentIndex.clamp(0, sequence.length - 1);
+      correctCount = 0;
+      _qStart = DateTime.now();
+
+      _unitCount.clear();
+      for (final qc in sequence) {
+        final uid = _unitIdOf(qc);
+        _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
+      }
+
+      setState(() => _initReady = true);
+      AppLog.d('[RESUME] navigate deck=${s.deckId} len=${_stableOrder.length}');
     }
   }
 
-  /// 選択肢をタップしたときの挙動
+  // ===== セッション保存ユーティリティ =====
+  Future<void> _saveSession(QuizSession s) async {
+    final prefs = await SharedPreferences.getInstance();
+    await QuizSessionLocalRepository(prefs).save(s);
+    AppLog.d('[RESUME] saved: deck=${s.deckId} index=${s.currentIndex} '
+        'len=${s.itemIds.length} finished=${s.isFinished}');
+  }
+
+  Future<void> _markFinishedAndClear(QuizSession s) async {
+    final prefs = await SharedPreferences.getInstance();
+    final repo = QuizSessionLocalRepository(prefs);
+    await repo.save(s.copyWith(isFinished: true));
+    await repo.clear();
+  }
+
+  // ===== 選択・遷移 =====
   void _select(int i) {
     if (revealed) return;
-
     final app = Provider.of<AppSettings>(context, listen: false);
     final tapMode = app.tapMode;
 
     if (tapMode == TapAdvanceMode.oneTap) {
-      // 1タップモード：即確定
       setState(() => selected = i);
       _reveal();
     } else {
-      // 2タップモード：同じ選択肢を2回で確定
       if (selected == i) {
         _reveal();
       } else {
@@ -140,6 +549,8 @@ class _QuizScreenState extends State<QuizScreen> {
     // ★ 再入防止ロック
     if (_nextLock) return;
     _nextLock = true;
+<<<<<<< HEAD
+=======
     try {
     if (selected == card.answerIndex) correctCount++;
 
@@ -149,108 +560,160 @@ class _QuizScreenState extends State<QuizScreen> {
     _bumpTags(tagsThisQuestion, isCorrect);
 
     // --- AttemptEntry 保存（この問題の確定時点） ---
+>>>>>>> origin/main
     try {
-      final ended = DateTime.now();
-      final started = _qStart ?? ended;
-      final durationMs = ended.difference(started).inMilliseconds;
-      // ★ 保存する selectedIndex / correctIndex は 1–4 に統一
-      final attempt = AttemptEntry(
-        attemptId: _uuid.v4(),          // AttemptStore 側で未設定時も採番されるが、ここで付与
-        sessionId: _sessionId,
-        questionNumber: index + 1,      // 1-based
-        unitId: _unitIdOf(card),        // ← カードから安全に取得（フォールバックは deck.id）
-        cardId: index.toString(),       // QuizCard に id があるなら置き換え可
-        question: card.question,
-        selectedIndex: (selected ?? 0) + 1, // ← 1-based で保存
-        correctIndex: (card.answerIndex) + 1, // ← 1-based で保存
-        isCorrect: isCorrect,           // 判定は 0-based 比較でOK
-        durationMs: durationMs,
-        timestamp: ended,
-      );
-      await AttemptStore().add(attempt);
-      AppLog.d('[ATTEMPT] ${attempt.sessionId} Q${attempt.questionNumber} '
-          '${attempt.isCorrect ? "○" : "×"} ${attempt.durationMs}ms');
-    } catch (_) {
-      // 失敗しても致命傷ではないので黙って続行
-    }
+      if (selected == card.answerIndex) correctCount++;
+      final isCorrect = selected == card.answerIndex;
+      _bumpTags(card.tags, isCorrect);
 
-    if (index >= sequence.length - 1) {
-      if (_savedOnce) return; // すでに保存していたら何もしない
-      _savedOnce = true;
-
-      // --- 成績サマリ情報をローカル変数で保持（QuizResultは使わない） ---
-      final deckId = widget.deck.id;            // 'mixed' もここに入る
-      final total = sequence.length;
-      final correct = correctCount;
-      final timestamp = DateTime.now();
-      final durationSec = _sw.elapsed.inSeconds;
-
-      // デッキタイトル解決
-      final decks = await DeckLoader().loadAll();
-
-      // 1パスで Deck → Title と Unit → Title を同時に構築
-      final Map<String, String> deckTitleMap = {};
-      final Map<String, String> unitTitleMap = {};
-
-      for (final d in decks) {
-        // デッキ
-        final did = d.id.trim();
-        final dtitle = d.title.trim();
-        if (did.isNotEmpty) {
-          deckTitleMap[did] = dtitle.isNotEmpty ? dtitle : did; // タイトル未設定ならIDをフォールバック
-        }
-
-        // ユニット
-        for (final u in (d.units ?? const [])) {
-          final uid = u.id.trim();
-          final utitle = u.title.trim();
-          if (uid.isNotEmpty) {
-            // タイトルが空なら uid をフォールバック
-            unitTitleMap[uid] = utitle.isNotEmpty ? utitle : uid;
-          }
-        }
-      }
-
-      // デッキ表示名（'mixed' は特別扱い）
-      final String fallbackDeckTitle =
-          (widget.deck.title.isNotEmpty) ? widget.deck.title : deckId;
-      final String deckTitle = (deckId == 'mixed')
-          ? 'ミックス練習'
-          : (deckTitleMap[deckId] ?? fallbackDeckTitle);
-
-      // 以降：unitTitleMap は ResultScreen などにそのまま渡せます
-
-      // TagStat マップを構築（現状ロジックはそのまま）
-      final Map<String, TagStat> tagStats = {};
-      final allKeys = <String>{..._tagCorrect.keys, ..._tagWrong.keys};
-      for (final k in allKeys) {
-        tagStats[k] = TagStat(
-          correct: _tagCorrect[k] ?? 0,
-          wrong: _tagWrong[k] ?? 0,
-        );
-      }
-
-      // ★ AttemptStore に ScoreRecord を保存（unitBreakdown を含める）
+      // 1) 問題単位の Attempt 保存
       try {
-        await AttemptStore().addScore(
-          ScoreRecord(
-            id: const Uuid().v4(),
-            deckId: deckId,
-            deckTitle: deckTitle,
-            score: correct,
-            total: total,
-            durationSec: durationSec,
-            timestamp: timestamp.millisecondsSinceEpoch,
-            tags: tagStats.isEmpty ? null : tagStats,
-            selectedUnitIds: null,
+        final ended = DateTime.now();
+        final started = _qStart ?? ended;
+        final durationMs = ended.difference(started).inMilliseconds;
+        final attempt = AttemptEntry(
+          attemptId: const Uuid().v4(),
+          sessionId: _sessionId,
+          questionNumber: index + 1,            // 1-based
+          unitId: _unitIdOf(card),
+          cardId: index.toString(),             // QuizCard に id があるなら差し替え可
+          question: card.question,
+          selectedIndex: (selected ?? 0) + 1,   // 1-based
+          correctIndex: (card.answerIndex) + 1, // 1-based
+          isCorrect: isCorrect,
+          durationMs: durationMs,
+          timestamp: ended,
+        );
+        await AttemptStore().add(attempt);
+        AppLog.d('[ATTEMPT] ${attempt.sessionId} Q${attempt.questionNumber} '
+            '${attempt.isCorrect ? "○" : "×"} ${attempt.durationMs}ms');
+      } catch (_) {}
+
+      // 2) オートセーブ（⚠️ 必ず _stableOrder を使う）
+      try {
+        await _saveSession(
+          QuizSession(
             sessionId: _sessionId,
-            unitBreakdown: Map<String, int>.from(_unitCount),
+            deckId: _deckIdForSave,             // mixed のときは 'mixed'
+            unitId: null,
+            selectedUnitIds: _selectedUnitIdsForSave,
+            limit: _limitForSave,
+            itemIds: _stableOrder,              // ← 常に出題順の安定ID列
+            currentIndex: index + 1,            // 次に解く位置
+            answers: const {},
+            updatedAt: DateTime.now(),
+            isFinished: false,
+            choiceOrders: _choiceOrders,        // 選択肢順を常に保存
           ),
         );
-      } catch (_) {
-        // 保存失敗は致命ではないので握りつぶし
+      } catch (_) {}
+
+      // 3) 最終問題ならスコア保存→クリア→結果へ
+      if (index >= sequence.length - 1) {
+        if (_savedOnce) return;
+        _savedOnce = true;
+
+        final deckIdSave = _deckIdForSave; // 表示用
+        final total = sequence.length;
+        final correct = correctCount;
+        final timestamp = DateTime.now();
+        final durationSec = _sw.elapsed.inSeconds;
+
+        // デッキ/ユニットタイトル解決
+        final decks = await DeckLoader().loadAll();
+        final Map<String, String> deckTitleMap = {};
+        final Map<String, String> unitTitleMap = {};
+        for (final d in decks) {
+          deckTitleMap[d.id.trim()] =
+              d.title.trim().isNotEmpty ? d.title.trim() : d.id.trim();
+          for (final u in (d.units ?? const [])) {
+            final uid = u.id.trim();
+            final ut = u.title.trim();
+            if (uid.isNotEmpty) unitTitleMap[uid] = ut.isNotEmpty ? ut : uid;
+          }
+        }
+        final deckTitle = deckTitleMap[widget.deck.id] ?? widget.deck.title;
+
+        // タグ統計
+        final Map<String, TagStat> tagStats = {};
+        final allKeys = <String>{..._tagCorrect.keys, ..._tagWrong.keys};
+        for (final k in allKeys) {
+          tagStats[k] = TagStat(
+            correct: _tagCorrect[k] ?? 0,
+            wrong: _tagWrong[k] ?? 0,
+          );
+        }
+
+        // スコア保存
+        try {
+          await AttemptStore().addScore(
+            ScoreRecord(
+              id: const Uuid().v4(),
+              deckId: deckIdSave,
+              deckTitle: deckTitle,
+              score: correct,
+              total: total,
+              durationSec: durationSec,
+              timestamp: timestamp.millisecondsSinceEpoch,
+              tags: tagStats.isEmpty ? null : tagStats,
+              selectedUnitIds: _selectedUnitIdsForSave, // mixed のとき残る
+              sessionId: _sessionId,
+              unitBreakdown: Map<String, int>.from(_unitCount),
+            ),
+          );
+        } catch (_) {}
+
+        // セッション終了保存→クリア
+        try {
+          await _markFinishedAndClear(
+            QuizSession(
+              sessionId: _sessionId,
+              deckId: deckIdSave,
+              unitId: null,
+              selectedUnitIds: _selectedUnitIdsForSave,
+              limit: _limitForSave,
+              itemIds: _stableOrder,
+              currentIndex: sequence.length,
+              answers: const {},
+              updatedAt: DateTime.now(),
+              isFinished: true,
+              choiceOrders: _choiceOrders,
+            ),
+          );
+        } catch (_) {}
+
+        if (!mounted) return;
+        await _onQuizEndDebugLog();
+        if (!mounted) return;
+
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => ResultScreen(
+              total: total,
+              correct: correct,
+              sessionId: _sessionId,
+              unitBreakdown: Map<String, int>.from(_unitCount),
+              deckId: deckIdSave,
+              deckTitle: deckTitle,
+              durationSec: durationSec,
+              unitTitleMap: unitTitleMap,
+            ),
+          ),
+        );
+        return;
       }
 
+<<<<<<< HEAD
+      // 4) 次の問題へ
+      setState(() {
+        index++;
+        selected = null;
+        revealed = false;
+        _qStart = DateTime.now();
+      });
+    } finally {
+      _nextLock = false; // ★ 必ず解除
+=======
       if (!mounted) return;
       await _onQuizEndDebugLog(); // 直近5件の確認ログ
       if (!mounted) return; // await後も安全チェック
@@ -292,11 +755,24 @@ class _QuizScreenState extends State<QuizScreen> {
       await _next();
     } else {
       _reveal();
+>>>>>>> origin/main
     }
   }
 
+  void _primaryAction() => revealed ? _next() : _reveal();
+
+
+  // ===== UI =====
   @override
   Widget build(BuildContext context) {
+    // 初期化前/中断時の安全ガード
+     if (!_initReady || _abortAndPop || sequence.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('読み込み中…')),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
     final isCorrect = revealed && selected == card.answerIndex;
 
     return Scaffold(
@@ -307,6 +783,49 @@ class _QuizScreenState extends State<QuizScreen> {
           child: _ProgressBar(),
         ),
       ),
+<<<<<<< HEAD
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Text(
+              card.question,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            ...List.generate(card.choices.length, (i) => _buildChoice(i)),
+            const SizedBox(height: 12),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 350),
+              reverseDuration: const Duration(milliseconds: 180),
+              switchInCurve: Curves.easeOutCubic,
+              switchOutCurve: Curves.easeInCubic,
+              child: (revealed && (card.explanation ?? '').trim().isNotEmpty)
+                  ? _ExplanationCard(index: index, text: card.explanation!)
+                  : const SizedBox.shrink(),
+            ),
+            const Spacer(),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: (selected == null && !revealed) ? null : _primaryAction,
+                child: Text(
+                  revealed
+                      ? (index == sequence.length - 1 ? '結果へ' : '次へ')
+                      : '答えを見る',
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            if (revealed)
+              Text(
+                isCorrect ? '正解！' : '不正解…',
+                style: TextStyle(
+                  color: isCorrect ? Colors.green : Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+=======
       body: SafeArea(
         child: Column(
           children: [
@@ -436,6 +955,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 ],
               ),
             ),
+>>>>>>> origin/main
           ],
         ),
       ),
@@ -458,10 +978,8 @@ class _QuizScreenState extends State<QuizScreen> {
     } else if (isSelected) {
       bg = Theme.of(context).colorScheme.primary.withValues(alpha: 0.9);
     }
-
-    final fg = (revealed && (isAnswer || isSelected))
-        ? Colors.white
-        : Colors.black87;
+    final fg =
+        (revealed && (isAnswer || isSelected)) ? Colors.white : Colors.black87;
 
     IconData? trail;
     if (revealed) {
@@ -478,7 +996,6 @@ class _QuizScreenState extends State<QuizScreen> {
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 180),
-      curve: Curves.easeOut,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       decoration: BoxDecoration(
         color: bg,
@@ -495,6 +1012,9 @@ class _QuizScreenState extends State<QuizScreen> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
+<<<<<<< HEAD
+          onTap: () => revealed ? _next() : _select(i),
+=======
           onTap: () {
            if (revealed) {
              if (!_nextLock) _next();
@@ -502,6 +1022,7 @@ class _QuizScreenState extends State<QuizScreen> {
              _select(i);
            }
           },
+>>>>>>> origin/main
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             child: Row(
@@ -546,7 +1067,7 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  /// クイズ終了時に直近の Attempt を確認ログ出力
+  // 直近Attemptのデバッグログ
   Future<void> _onQuizEndDebugLog() async {
     try {
       final list = await AttemptStore().recent(limit: 5);
@@ -554,28 +1075,84 @@ class _QuizScreenState extends State<QuizScreen> {
         AppLog.d('[ATTEMPT] ${a.sessionId} Q${a.questionNumber} '
             '${a.isCorrect ? "○" : "×"} ${a.durationMs}ms');
       }
-    } catch (_) {
-      // ログ用途なので握りつぶしでOK
-    }
+    } catch (_) {}
   }
 }
 
+<<<<<<< HEAD
+// 解説カード
+class _ExplanationCard extends StatelessWidget {
+  final int index;
+  final String text;
+  const _ExplanationCard({required this.index, required this.text});
+=======
 // 進捗バーを切り出してリビルド負荷軽減（任意）
 class _ProgressBar extends StatelessWidget implements PreferredSizeWidget {
   _ProgressBar();
 
   @override
   Size get preferredSize => const Size.fromHeight(6);
+>>>>>>> origin/main
 
   @override
   Widget build(BuildContext context) {
+    return Card(
+      key: ValueKey('exp-$index'),
+      elevation: 1.5,
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            color: Theme.of(context)
+                .colorScheme
+                .surfaceContainerHighest
+                .withValues(alpha: 0.4),
+            child: Row(
+              children: [
+                const Icon(Icons.info_outline, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  '解説',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+            child: Text(
+              text.trim(),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontSize: 18, height: 1.5),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// 進捗バー
+class _ProgressBar extends StatelessWidget implements PreferredSizeWidget {
+  const _ProgressBar();
+  @override
+  Size get preferredSize => const Size.fromHeight(6);
+  @override
+  Widget build(BuildContext context) {
     final state = context.findAncestorStateOfType<_QuizScreenState>();
-    final value = (state == null || state.sequence.isEmpty)
+    final value = (state == null ||
+            !state._initReady ||
+            state._abortAndPop ||
+            state.sequence.isEmpty)
         ? 0.0
         : (state.index + 1) / state.sequence.length;
-    return LinearProgressIndicator(
-      value: value,
-      minHeight: 6,
-    );
+    return LinearProgressIndicator(value: value, minHeight: 6);
   }
 }
