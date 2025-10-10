@@ -119,9 +119,11 @@ class QuizCard {
 
 /// 選択肢をシャッフルして answerIndex を再計算した新しいカードを返す
 extension QuizCardShuffle on QuizCard {
-  QuizCard shuffled([Random? rnd]) {
+  QuizCard shuffled({Random? rnd, bool randomize = true}) {
     final pairs = List.generate(choices.length, (i) => MapEntry(i, choices[i]));
-    pairs.shuffle(rnd ?? Random());
+    if (randomize) {
+      pairs.shuffle(rnd ?? Random());
+    }
     final newChoices = pairs.map((e) => e.value).toList(growable: false);
     final newAnswerIndex = pairs.indexWhere((e) => e.key == answerIndex);
     return QuizCard(

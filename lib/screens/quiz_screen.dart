@@ -110,7 +110,11 @@ class _QuizScreenState extends State<QuizScreen> {
   /// 与えられたカードを「インデックス順序のシャッフル」に従って並べ替えた新カードを返す。
   /// outOrder に 0..n-1 のシャッフル順を返す（保存用）。
   QuizCard _shuffledWithOrder(QuizCard c, {required List<int> outOrder}) {
-    final idx = List<int>.generate(c.choices.length, (i) => i)..shuffle();
+    final s = context.read<AppSettings>();
+    final idx = List<int>.generate(c.choices.length, (i) => i);
+    if (s.randomize) {
+     idx.shuffle();
+    }
     outOrder
       ..clear()
       ..addAll(idx);
@@ -244,7 +248,10 @@ class _QuizScreenState extends State<QuizScreen> {
       // b) limit 適用（ここで母集団に上限をかける）
       final limit = widget.limit;
       if (limit != null && limit > 0 && base.length > limit) {
-        base.shuffle(); // 切り詰め前に軽くシャッフル
+      final s = context.read<AppSettings>();
+      if (s.randomize) {
+       base.shuffle(); // 切り詰め前に軽くシャッフル（ON時のみ）
+      }
         base.removeRange(limit, base.length);
       }
 
