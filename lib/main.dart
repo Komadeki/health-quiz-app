@@ -57,12 +57,16 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       themeMode: s.themeMode,
-      builder: (context, child) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(
-          textScaler: const TextScaler.linear(1.0),
-        ),
-        child: child!,
-      ),
+      builder: (context, child) {
+        final mq = MediaQuery.of(context);
+        // AppSettings（s）から倍率を反映
+        return MediaQuery(
+          data: mq.copyWith(
+            textScaler: TextScaler.linear(s.textScaleFactor),
+          ),
+          child: child!,
+        );
+      },
       theme: ThemeData(
         useMaterial3: true,
         colorScheme:
