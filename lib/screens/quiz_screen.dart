@@ -53,6 +53,7 @@ class _QuizScreenState extends State<QuizScreen> {
   int? selected;
   bool revealed = false;
   int correctCount = 0;
+  bool _nextLock = false; // 再入防止
 
   bool _nextLock = false;
 
@@ -136,6 +137,7 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
     _init(); // 非同期初期化に分離
   }
 
@@ -209,6 +211,34 @@ class _QuizScreenState extends State<QuizScreen> {
     }
 
     final s = widget.resumeSession;
+=======
+    // UnitSelectScreen から渡されてきたカード束があればそちらを使用
+    // （toListで可変化しておく）
+    final base = (widget.overrideCards ?? widget.deck.cards).toList();
+
+    // 各カードの選択肢シャッフルは従来通り
+    sequence = base.map((c) => c.shuffled()).toList();
+
+    // 出題順ランダム化：ONならshuffle、OFFなら安定ソート
+    final settings = Provider.of<AppSettings>(context, listen: false);
+    if (settings.randomize) {
+      sequence.shuffle();
+    } else {
+      // ★ OFF時：問題内容に基づく安定ソート（毎回同じ順序を保証）
+      sequence.sort((a, b) {
+        final qa = a.question;
+        final qb = b.question;
+        if (qa != qb) return qa.compareTo(qb);
+        // 同じ問題文があった場合に備え、最初の選択肢をサブキーに使う
+        return a.choices.first.compareTo(b.choices.first);
+      });
+    }
+
+
+    // セッションID生成＆最初の問題の開始時刻を記録
+    _sessionId = _uuid.v4();
+    _qStart = DateTime.now();
+>>>>>>> origin/main
 
     // ───────── 0) ルート判定 ─────────
     final isMixedResume = (s != null && s.deckId == 'mixed');
@@ -519,6 +549,18 @@ class _QuizScreenState extends State<QuizScreen> {
     // ★ 再入防止ロック
     if (_nextLock) return;
     _nextLock = true;
+<<<<<<< HEAD
+=======
+    try {
+    if (selected == card.answerIndex) correctCount++;
+
+    // この問題のタグを集計
+    final isCorrect = (selected == card.answerIndex);
+    final tagsThisQuestion = card.tags; // List<String>
+    _bumpTags(tagsThisQuestion, isCorrect);
+
+    // --- AttemptEntry 保存（この問題の確定時点） ---
+>>>>>>> origin/main
     try {
       if (selected == card.answerIndex) correctCount++;
       final isCorrect = selected == card.answerIndex;
@@ -661,6 +703,7 @@ class _QuizScreenState extends State<QuizScreen> {
         return;
       }
 
+<<<<<<< HEAD
       // 4) 次の問題へ
       setState(() {
         index++;
@@ -670,6 +713,49 @@ class _QuizScreenState extends State<QuizScreen> {
       });
     } finally {
       _nextLock = false; // ★ 必ず解除
+=======
+      if (!mounted) return;
+      await _onQuizEndDebugLog(); // 直近5件の確認ログ
+      if (!mounted) return; // await後も安全チェック
+
+      // Navigatorを事前に確保して安全に使う
+      final nav = Navigator.of(context);
+
+      // 結果画面へ（deckId/deckTitle/durationSec を渡す）
+      nav.pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => ResultScreen(
+            total: total,
+            correct: correct,
+            sessionId: _sessionId,
+            unitBreakdown: Map<String, int>.from(_unitCount),
+            deckId: deckId,
+            deckTitle: deckTitle,
+            durationSec: durationSec,
+            unitTitleMap: unitTitleMap,
+          ),
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      index++;
+      selected = null;
+      revealed = false;
+      _qStart = DateTime.now(); // 次の問題の開始時刻
+    });
+    } finally {
+      _nextLock = false; // ★ 必ず解除
+    }
+  }
+
+  Future<void> _primaryAction() async {
+    if (revealed) {
+      await _next();
+    } else {
+      _reveal();
+>>>>>>> origin/main
     }
   }
 
@@ -693,10 +779,11 @@ class _QuizScreenState extends State<QuizScreen> {
       appBar: AppBar(
         title: Text('問題 ${index + 1}/${sequence.length}'),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(6),
+          preferredSize: const Size.fromHeight(6),
           child: _ProgressBar(),
         ),
       ),
+<<<<<<< HEAD
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -738,6 +825,137 @@ class _QuizScreenState extends State<QuizScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+=======
+      body: SafeArea(
+        child: Column(
+          children: [
+            // ① 上：スクロール領域（質問・選択肢・解説）
+            Expanded(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  if (revealed && !_nextLock) _next();
+                },
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        card.question,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // 選択肢
+                      ...List.generate(card.choices.length, (i) => _buildChoice(i)),
+
+                      const SizedBox(height: 12),
+
+                      // 解説
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 350),
+                        reverseDuration: const Duration(milliseconds: 180),
+                        switchInCurve: Curves.easeOutCubic,
+                        switchOutCurve: Curves.easeInCubic,
+                        transitionBuilder: (child, animation) {
+                          final slide = Tween<Offset>(
+                            begin: const Offset(0, 0.06),
+                            end: Offset.zero,
+                          ).animate(animation);
+                          return FadeTransition(
+                            opacity: animation,
+                            child: SlideTransition(position: slide, child: child),
+                          );
+                        },
+                        child: (revealed && (card.explanation ?? '').trim().isNotEmpty)
+                            ? Card(
+                                key: ValueKey('exp-$index'),
+                                elevation: 1.5,
+                                clipBehavior: Clip.antiAlias,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .surfaceContainerHighest
+                                          .withValues(alpha: 0.4),
+                                      child: Row(
+                                        children: [
+                                          const Icon(Icons.info_outline, size: 20),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            '解説',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(fontWeight: FontWeight.w600),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+                                      child: Text(
+                                        (card.explanation ?? '').trim(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(fontSize: 18, height: 1.5),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox.shrink(key: ValueKey('exp-empty')),
+                      ),
+
+                      const SizedBox(height: 24),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // ② 下：固定フッター（ボタン＋判定表示）
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: FilledButton(
+                      onPressed: (_nextLock || (selected == null && !revealed))
+                          ? null
+                          : () async { await _primaryAction(); },
+                      child: Text(
+                        revealed
+                            ? (index == sequence.length - 1 ? '結果へ' : '次へ')
+                            : '答えを見る',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  // ← コレが安全：collection-if ではなく三項演算子で配置
+                  revealed
+                      ? Text(
+                          isCorrect ? '正解！' : '不正解…',
+                          style: TextStyle(
+                            color: isCorrect ? Colors.green : Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ],
+              ),
+            ),
+>>>>>>> origin/main
           ],
         ),
       ),
@@ -794,7 +1012,17 @@ class _QuizScreenState extends State<QuizScreen> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
+<<<<<<< HEAD
           onTap: () => revealed ? _next() : _select(i),
+=======
+          onTap: () {
+           if (revealed) {
+             if (!_nextLock) _next();
+           } else {
+             _select(i);
+           }
+          },
+>>>>>>> origin/main
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             child: Row(
@@ -851,11 +1079,20 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 }
 
+<<<<<<< HEAD
 // 解説カード
 class _ExplanationCard extends StatelessWidget {
   final int index;
   final String text;
   const _ExplanationCard({required this.index, required this.text});
+=======
+// 進捗バーを切り出してリビルド負荷軽減（任意）
+class _ProgressBar extends StatelessWidget implements PreferredSizeWidget {
+  _ProgressBar();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(6);
+>>>>>>> origin/main
 
   @override
   Widget build(BuildContext context) {
