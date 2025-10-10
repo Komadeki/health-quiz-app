@@ -32,6 +32,7 @@ class _QuizScreenState extends State<QuizScreen> {
   int? selected;
   bool revealed = false;
   int correctCount = 0;
+  bool _nextLock = false; // 再入防止
 
   final Stopwatch _sw = Stopwatch()..start();
   bool _savedOnce = false; // 結果保存の多重防止
@@ -77,14 +78,25 @@ class _QuizScreenState extends State<QuizScreen> {
     // UnitSelectScreen から渡されてきたカード束があればそちらを使用
     // （toListで可変化しておく）
     final base = (widget.overrideCards ?? widget.deck.cards).toList();
+
     // 各カードの選択肢シャッフルは従来通り
     sequence = base.map((c) => c.shuffled()).toList();
 
-    // 出題順ランダム化の一本化：設定がONならここだけで shuffle
+    // 出題順ランダム化：ONならshuffle、OFFなら安定ソート
     final settings = Provider.of<AppSettings>(context, listen: false);
     if (settings.randomize) {
       sequence.shuffle();
+    } else {
+      // ★ OFF時：問題内容に基づく安定ソート（毎回同じ順序を保証）
+      sequence.sort((a, b) {
+        final qa = a.question;
+        final qb = b.question;
+        if (qa != qb) return qa.compareTo(qb);
+        // 同じ問題文があった場合に備え、最初の選択肢をサブキーに使う
+        return a.choices.first.compareTo(b.choices.first);
+      });
     }
+
 
     // セッションID生成＆最初の問題の開始時刻を記録
     _sessionId = _uuid.v4();
@@ -124,7 +136,11 @@ class _QuizScreenState extends State<QuizScreen> {
     setState(() => revealed = true);
   }
 
-  void _next() async {
+  Future<void> _next() async {
+    // ★ 再入防止ロック
+    if (_nextLock) return;
+    _nextLock = true;
+    try {
     if (selected == card.answerIndex) correctCount++;
 
     // この問題のタグを集計
@@ -266,11 +282,14 @@ class _QuizScreenState extends State<QuizScreen> {
       revealed = false;
       _qStart = DateTime.now(); // 次の問題の開始時刻
     });
+    } finally {
+      _nextLock = false; // ★ 必ず解除
+    }
   }
 
-  void _primaryAction() {
+  Future<void> _primaryAction() async {
     if (revealed) {
-      _next();
+      await _next();
     } else {
       _reveal();
     }
@@ -292,7 +311,7 @@ class _QuizScreenState extends State<QuizScreen> {
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          if (revealed) _next();
+         if (revealed && !_nextLock) _next();
         },
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -382,9 +401,9 @@ class _QuizScreenState extends State<QuizScreen> {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: (selected == null && !revealed)
+                  onPressed: (_nextLock || (selected == null && !revealed))
                       ? null
-                      : _primaryAction,
+                      : () async { await _primaryAction(); },
                   child: Text(
                     revealed
                         ? (index == sequence.length - 1 ? '結果へ' : '次へ')
@@ -462,11 +481,11 @@ class _QuizScreenState extends State<QuizScreen> {
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
           onTap: () {
-            if (revealed) {
-              _next();
-            } else {
-              _select(i);
-            }
+           if (revealed) {
+             if (!_nextLock) _next();
+           } else {
+             _select(i);
+           }
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
