@@ -407,11 +407,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       const SizedBox(height: 24),
 
+                      // ミックス練習
+                      _DeckLikeButton(
+                        leadingIcon: Icons.shuffle_outlined,
+                        title: 'ミックス練習（複数単元・横断）',
+                        subtitle: '選んだ単元をランダム出題',
+                        onTap: _openMultiSelect,
+                      ),
+
+                      const SizedBox(height: 16),
+
                       // 続きからボタン（有効時のみ）
+                      
                       if (_canResume)
                         SizedBox(
                           width: double.infinity,
-                          child: FilledButton.icon(
+                          child: FilledButton.tonalIcon(
                             icon: _isResuming
                                 ? const SizedBox(
                                     width: 18,
@@ -426,15 +437,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       const SizedBox(height: 24),
 
-                      // ミックス練習
-                      _DeckLikeButton(
-                        leadingIcon: Icons.shuffle_outlined,
-                        title: 'ミックス練習（複数単元・横断）',
-                        subtitle: '選んだ単元をランダム出題',
-                        onTap: _openMultiSelect,
-                      ),
-
-                      const SizedBox(height: 16),
                       const Divider(height: 32),
 
                       _MenuTile(
