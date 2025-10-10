@@ -56,12 +56,16 @@ class MyApp extends StatelessWidget {
 
       // ✅ テーマ関連を差し替え
       themeMode: s.themeMode, // ← ライト／ダーク切替に対応
-      builder: (context, child) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(
-          textScaler: const TextScaler.linear(1.0),
-        ),
-        child: child!,
-      ),
+      builder: (context, child) {
+        final mq = MediaQuery.of(context);
+        final s = context.watch<AppSettings>(); // 設定の textScaleFactor を適用
+        return MediaQuery(
+          data: mq.copyWith(
+            textScaler: TextScaler.linear(s.textScaleFactor),
+          ),
+          child: child!,
+        );
+      },
 
       theme: ThemeData(
         useMaterial3: true,
