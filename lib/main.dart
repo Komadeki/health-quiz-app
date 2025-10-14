@@ -56,19 +56,12 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-<<<<<<< HEAD
+
+      // ✅ テーマ関連：ライト/ダーク切替＋文字倍率反映
       themeMode: s.themeMode,
       builder: (context, child) {
         final mq = MediaQuery.of(context);
-        // AppSettings（s）から倍率を反映
-=======
-
-      // ✅ テーマ関連を差し替え
-      themeMode: s.themeMode, // ← ライト／ダーク切替に対応
-      builder: (context, child) {
-        final mq = MediaQuery.of(context);
-        final s = context.watch<AppSettings>(); // 設定の textScaleFactor を適用
->>>>>>> origin/main
+        // AppSettings の textScaleFactor を適用
         return MediaQuery(
           data: mq.copyWith(
             textScaler: TextScaler.linear(s.textScaleFactor),
@@ -76,10 +69,7 @@ class MyApp extends StatelessWidget {
           child: child!,
         );
       },
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/main
       theme: ThemeData(
         useMaterial3: true,
         colorScheme:
@@ -289,7 +279,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -431,7 +420,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(height: 16),
 
                       // 続きからボタン（有効時のみ）
-                      
                       if (_canResume)
                         SizedBox(
                           width: double.infinity,
