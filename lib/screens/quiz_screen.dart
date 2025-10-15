@@ -24,6 +24,7 @@ class QuizScreen extends StatefulWidget {
   final Deck deck;
   final List<QuizCard>? overrideCards; // UnitSelect などからの限定セット
   final QuizSession? resumeSession;    // 再開用
+  final String? type; // ★追加
 
   // ★ 追加（ミックス新規開始用の入力）
   final List<String>? selectedUnitIds;
@@ -33,6 +34,7 @@ class QuizScreen extends StatefulWidget {
     super.key,
     required this.deck,
     this.overrideCards,
+    this.type, // ★追加
     this.resumeSession,
     // ★ 追加
     this.selectedUnitIds,

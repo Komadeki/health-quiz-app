@@ -1,7 +1,7 @@
-//lib/screens/review_menu_screen.dart
+// lib/screens/review_menu_screen.dart
 import 'package:flutter/material.dart';
 import 'review_cards_screen.dart';
-import 'review_test_setup_screen.dart'; // PR②で実体を実装予定（stubでもOK）
+import 'review_test_setup_screen.dart';
 
 class ReviewMenuScreen extends StatelessWidget {
   const ReviewMenuScreen({super.key});
@@ -35,13 +35,4 @@ class ReviewMenuScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class ReviewTestSetupScreen extends StatelessWidget {
-  const ReviewTestSetupScreen({super.key}); // PR②で差し替え
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('復習テスト（準備中）')),
-    body: const Center(child: Text('PR②で有効化されます')),
-  );
 }

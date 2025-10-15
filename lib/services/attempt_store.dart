@@ -116,6 +116,46 @@ class AttemptStore {
     return out;
   }
 
+  /// （★新規）誤答頻度マップを返す: { key: wrongCount }
+  /// key は stableId 優先、無ければ質問文（正規化）で代用
+  Future<Map<String, int>> getWrongFrequencyMap() async {
+    final all = await _loadAll();
+    if (all.isEmpty) return <String, int>{};
+
+    final map = <String, int>{};
+    for (final e in all) {
+      if (!e.isCorrect) {
+        final key = _keyFromAttempt(e);
+        if (key.isEmpty) continue;
+        map.update(key, (v) => v + 1, ifAbsent: () => 1);
+      }
+    }
+    return map;
+  }
+
+  /// key生成ヘルパ（stableId優先・なければ質問文）
+  String _keyFromAttempt(AttemptEntry e) {
+    // stableId, cardStableId, cardId などプロジェクトの実装に応じて取得
+    try {
+      final v1 = (e as dynamic).stableId as String?;
+      if (v1 != null && v1.trim().isNotEmpty) return v1.trim();
+    } catch (_) {}
+    try {
+      final v2 = (e as dynamic).cardStableId as String?;
+      if (v2 != null && v2.trim().isNotEmpty) return v2.trim();
+    } catch (_) {}
+    try {
+      final v3 = (e as dynamic).cardId as String?;
+      if (v3 != null && v3.trim().isNotEmpty) return v3.trim();
+    } catch (_) {}
+
+    // フォールバック: 質問文を正規化
+    final q = (e.question ?? '').trim();
+    if (q.isEmpty) return '';
+    final normalized = q.replaceAll(RegExp(r'\s+'), ' ');
+    return 'Q::$normalized';
+  }
+
   /// 既存のAttemptEntry全削除（既存）
   Future<void> clearAll() async {
     final prefs = await SharedPreferences.getInstance();

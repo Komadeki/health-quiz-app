@@ -9,6 +9,10 @@ class QuizSession {
   final int currentIndex;         // 次に解く位置（0-based）
   final bool isFinished;          // 終了フラグ
 
+  // === ★追加 ===
+  /// 'normal' | 'mix' | 'review_test' など
+  final String type;
+
   // === 追加（後方互換のため null許容） ===
   final String? unitId;                   // 単一ユニット用に残すなら
   final List<String>? selectedUnitIds;    // ミックスの母集団特定用
@@ -25,6 +29,7 @@ class QuizSession {
     required this.itemIds,
     required this.currentIndex,
     required this.isFinished,
+    this.type = 'normal', // ★後方互換の既定値
     this.unitId,
     this.selectedUnitIds,
     this.limit,
@@ -39,6 +44,7 @@ class QuizSession {
     List<String>? itemIds,
     int? currentIndex,
     bool? isFinished,
+    String? type, // ★追加
     String? unitId,
     List<String>? selectedUnitIds,
     int? limit,
@@ -52,6 +58,7 @@ class QuizSession {
       itemIds: itemIds ?? this.itemIds,
       currentIndex: currentIndex ?? this.currentIndex,
       isFinished: isFinished ?? this.isFinished,
+      type: type ?? this.type, // ★追加
       unitId: unitId ?? this.unitId,
       selectedUnitIds: selectedUnitIds ?? this.selectedUnitIds,
       limit: limit ?? this.limit,
@@ -98,6 +105,7 @@ class QuizSession {
       itemIds: itemIds,
       currentIndex: (json['currentIndex'] is num) ? (json['currentIndex'] as num).toInt() : 0,
       isFinished: (json['isFinished'] is bool) ? json['isFinished'] as bool : false,
+      type: (json['type'] ?? 'normal').toString(), // ★追加：未保存データは 'normal'
       unitId: (json['unitId'] as String?)?.toString(),
       selectedUnitIds: asStringList(json['selectedUnitIds']),
       limit: (json['limit'] is num) ? (json['limit'] as num).toInt() : null,
@@ -114,6 +122,7 @@ class QuizSession {
       'itemIds': itemIds,
       'currentIndex': currentIndex,
       'isFinished': isFinished,
+      'type': type, // ★追加
       if (unitId != null) 'unitId': unitId,
       if (selectedUnitIds != null) 'selectedUnitIds': selectedUnitIds,
       if (limit != null) 'limit': limit,

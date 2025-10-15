@@ -22,9 +22,11 @@ class ResultScreen extends StatefulWidget {
   final bool saveHistory;
 
   // 表示関連
-  final Map<String, String>? unitTitleMap; // 日本語タイトル表示用
-  // 追加：一覧の初期表示最大件数などに使う
+  final Map<String, String>? unitTitleMap;
   final int initialMax;
+
+  // ★ 追加：セッションタイプ（'normal' | 'mix' | 'review_test'）
+  final String? sessionType;
 
   const ResultScreen({
     super.key,
@@ -40,8 +42,12 @@ class ResultScreen extends StatefulWidget {
     this.tags,
     this.saveHistory = true,
     this.unitTitleMap,
-    this.initialMax = 10, // ★ 既定値（必要なら好きな値に）
+    this.initialMax = 10,
+
+    // ★ 追加
+    this.sessionType,
   });
+
 
   @override
   State<ResultScreen> createState() => _ResultScreenState();
@@ -108,8 +114,14 @@ class _ResultScreenState extends State<ResultScreen> {
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
+            // ★ 追加：セッションタイプ別タイトルバッジ
+            if (widget.sessionType != null)
+              _buildSessionHeader(widget.sessionType!),
+            const SizedBox(height: 12),
+
             // スコアヘッダ
             _scoreHeader(context, total: total, correct: correct, wrong: wrong),
+
             const SizedBox(height: 16),
 
             // 出題サマリ（総計100% 横積みバー）
@@ -178,6 +190,41 @@ class _ResultScreenState extends State<ResultScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  // ★ ここに追加
+  Widget _buildSessionHeader(String type) {
+    String title;
+    Color? badgeColor;
+    switch (type) {
+      case 'review_test':
+        title = '復習テスト';
+        badgeColor = Colors.orange;
+        break;
+      case 'mix':
+        title = 'ミックス練習';
+        badgeColor = Colors.blue;
+        break;
+      default:
+        title = '通常出題';
+        badgeColor = Colors.grey;
+    }
+    return Row(
+      children: [
+        Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        const SizedBox(width: 8),
+        if (badgeColor != null)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: badgeColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(999),
+              border: Border.all(color: badgeColor),
+            ),
+            child: Text('type: $type', style: TextStyle(color: badgeColor, fontSize: 12)),
+          ),
+      ],
     );
   }
 

@@ -2,6 +2,9 @@
 import '../models/score_record.dart';
 import 'score_store.dart' as score_store;
 import '../utils/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // 先頭でimport
+import '../models/quiz_session.dart';                            // ★追加
+
 
 /// スコア保存の単一入口。
 /// - 表示側（Scores）は ScoreStore を参照しているため、必ず ScoreStore に保存する。
@@ -39,5 +42,32 @@ class ScoreSaver {
       );
     }
     return r;
+  }
+  // ============================================
+  // Active Quiz Session（途中再開用）— typeでキー分離
+  // ============================================
+
+  static String _activeKey(String type) => 'active_quiz_session_v1__$type';
+
+  /// 途中セッションを保存（例: type = 'normal' | 'mix' | 'review_test'）
+static Future<void> saveActive(QuizSession session) async {
+    final prefs = await SharedPreferences.getInstance(); // ←これにする
+    final ok = await prefs.setString(_activeKey(session.type), session.encode());
+    if (!ok) throw Exception('Failed to persist active session (${session.type})');
+    AppLog.d('[SCORE_SAVER] active saved: type=${session.type}, deckId=${session.deckId}');
+  }
+
+  /// 途中セッションの読込
+  static Future<QuizSession?> loadActive(String type) async {
+    final prefs = await SharedPreferences.getInstance();
+    final raw = prefs.getString(_activeKey(type));
+    final s = QuizSession.decode(raw);
+    AppLog.d('[SCORE_SAVER] active loaded: type=$type, exists=${s != null}');
+    return s;
+  }
+
+  /// 途中セッションの削除
+  static Future<void> clearActive(String type) async {
+    final prefs = await SharedPreferences.getInstance();
   }
 }
