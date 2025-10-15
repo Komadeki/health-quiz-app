@@ -12,6 +12,8 @@ import 'screens/unit_select_screen.dart';
 import 'screens/scores_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/quiz_screen.dart';
+import 'screens/review_menu_screen.dart'; // ← 先頭の import 群に追加
+
 import 'utils/logger.dart';
 
 // 続きから用
@@ -437,6 +439,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
 
                       const SizedBox(height: 24),
+
+                      // 🔽🔽 ここに追加 🔽🔽
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const ReviewMenuScreen()),
+                          );
+                        },
+                        icon: const Icon(Icons.refresh),
+                        label: const Text('復習'),
+                      ),
 
                       const Divider(height: 32),
 

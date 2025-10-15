@@ -138,6 +138,17 @@ class _QuizScreenState extends State<QuizScreen> {
     _init(); // 非同期初期化に分離
   }
 
+  @override
+  void didUpdateWidget(covariant QuizScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // 重要：overrideCards 指定時は再初期化しない（順序・選択肢の固定を維持）
+    if (widget.overrideCards != null && widget.overrideCards!.isNotEmpty) {
+      return; // 何もしない＝_init() を呼び直さない
+    }
+    // 通常デッキでウィジェット更新に応じて再初期化したい場合だけ、必要なら：
+    // _init();
+  }
+
   // mixed の保存用メタ（オートセーブ時に null で上書きされないように保持）
   late String _deckIdForSave; // 'mixed' or 通常 deck.id
   List<String>? _selectedUnitIdsForSave; // mixed のときに保持

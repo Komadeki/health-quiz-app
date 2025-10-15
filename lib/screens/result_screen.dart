@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:health_quiz_app/widgets/quiz_analytics.dart'; // SummaryStackedBar, computeTopUnits, UnitStat, segmentColor
 import '../models/score_record.dart';
 import '../services/attempt_store.dart';
+import '../services/score_saver.dart'; // 追加
 import 'attempt_history_screen.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -75,7 +76,7 @@ class _ResultScreenState extends State<ResultScreen> {
     );
 
     try {
-      await AttemptStore().addScore(record);
+      await ScoreSaver.save(record); // ここだけ置換（以前 AttemptStore/ScoreStore 直呼びしていた箇所）
       if (!mounted) return;
       setState(() => _saved = true);
       ScaffoldMessenger.of(context).showSnackBar(

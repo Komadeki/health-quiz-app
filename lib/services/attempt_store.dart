@@ -1,3 +1,4 @@
+//lib/services/attempt_store.dart
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -99,6 +100,20 @@ class AttemptStore {
   Future<List<AttemptEntry>> bySession(String sessionId) async {
     final all = await _loadAll();
     return all.where((e) => e.sessionId == sessionId).toList().reversed.toList();
+  }
+
+  /// これまでの誤答の「質問文」を時系列・重複ありで返す（見直しモード用）
+  /// ※ “ID” という名前だが実体は質問文。呼び出し側でカードに写像する。
+  Future<List<String>> getAllWrongCardIds() async {
+    final all = await _loadAll();
+    final out = <String>[];
+    for (final e in all) {
+      if (!e.isCorrect) {
+        final q = (e.question ?? '').trim();
+        if (q.isNotEmpty) out.add(q);
+      }
+    }
+    return out;
   }
 
   /// 既存のAttemptEntry全削除（既存）
@@ -270,5 +285,14 @@ class AttemptStore {
       AppLog.w('[AttemptStore] importScores failed: $e');
       return 0;
     }
+  }
+  /// 特定セッションIDにおける誤答の質問文リストを返す（重複あり）
+  Future<List<String>> getWrongQuestionsBySession(String sessionId) async {
+    final all = await _loadAll();
+    final wrong = all.where((e) => e.sessionId == sessionId && !e.isCorrect);
+    return wrong
+        .map((e) => (e.question ?? '').trim())
+        .where((q) => q.isNotEmpty)
+        .toList();
   }
 }
