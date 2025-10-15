@@ -11,17 +11,24 @@ class ReviewTestBuilder {
   final DeckLoader loader;
   final Random rng;
 
+  /// ★追加：ScoreStoreから集めた sessionId のフィルタ
+  /// これに含まれるセッションの Attempt だけを集計対象にする
+  final List<String>? sessionFilter;
+
   ReviewTestBuilder({
     required this.attempts,
     required this.loader,
+    this.sessionFilter,        // ★追加
     Random? rng,
   }) : rng = rng ?? Random();
 
   Future<List<QuizCard>> buildTopN({required int topN}) async {
-    // 1) 誤答頻度マップ
-    final freq = await attempts.getWrongFrequencyMap();
+    // 1) 誤答頻度マップ（★セッション絞り込みを適用）
+    final freq = await attempts.getWrongFrequencyMap(
+      onlySessionIds: sessionFilter, // ★ここが変更点
+    );
     if (freq.isEmpty) {
-      debugPrint('[ReviewTestBuilder] freqMap is empty');
+      debugPrint('[ReviewTestBuilder] freqMap is empty (scoped=${sessionFilter?.length ?? 0})');
       return [];
     }
 
@@ -134,7 +141,7 @@ class ReviewTestBuilder {
     result.shuffle(rng);
 
     debugPrint('[ReviewTestBuilder] tried=$tried, matched=$matched, skipped=$skipped, '
-        'returned=${result.length} / requested=$topN');
+        'returned=${result.length} / requested=$topN (scoped=${sessionFilter?.length ?? 0})');
 
     // ★補充なし：見つかった分だけ返す
     return result;

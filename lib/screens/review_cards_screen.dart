@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../models/card.dart';
 import '../services/attempt_store.dart';
 import '../services/deck_loader.dart';
+import '../services/session_scope.dart';
 import '../utils/logger.dart';
 
 class ReviewCardsScreen extends StatefulWidget {
@@ -14,33 +15,41 @@ class ReviewCardsScreen extends StatefulWidget {
   State<ReviewCardsScreen> createState() => _ReviewCardsScreenState();
 }
 
-enum MenuAction { sortOriginal, sortRandom, top10, top20, top30, top50 }
+enum MenuAction {
+  sortOriginal,
+  sortRandom,
+  sortByFreq,
+  sortByRecent,
+  toggleRepeatedOnly
+}
+
+enum _SortState { original, random, freq, recent }
 
 class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
   bool _showAnswer = false;
-  void _toggle() {
-    setState(() => _showAnswer = !_showAnswer);
-    debugPrint('[REVIEW] toggle -> $_showAnswer (idx=$_index)');
-  }
+  bool _onlyRepeated = false;
+  _SortState _sortState = _SortState.original;
 
   final _rng = Random();
 
-  // 表示用
   List<QuizCard> _base = [];
   List<QuizCard> _cards = [];
   int _index = 0;
   bool _loading = true;
 
-  // タイトルの逆引き（並び替えに強い）
   final Map<QuizCard, String> _deckTitleCache = {};
   final Map<QuizCard, String> _unitTitleCache = {};
 
-  // 解決インデックス
   final Map<String, QuizCard> _byStableId = {};
   final Map<String, QuizCard> _byInternalId = {};
   final Map<String, QuizCard> _byFull = {};
   final Map<String, List<QuizCard>> _byHead = {};
 
+  int? _days = 30;
+  String? _type;
+  List<String>? _scopedSessionIds;
+
+  // 画面表示用の“強め”正規化（見映え・部分一致用）
   String _norm(String s) {
     var t = s;
     t = t.replaceAll('\u3000', ' ');
@@ -51,6 +60,10 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     t = t.replaceAll(RegExp(r'\s+'), ' ');
     return t.trim();
   }
+
+  // ★AttemptStoreのキー化と互換にする（空白を1つに畳むだけ）
+  String _attemptStoreQuestionKey(String q) =>
+      'Q::${q.trim().replaceAll(RegExp(r'\s+'), ' ')}';
 
   String _head(String s, [int n = 22]) {
     final t = _norm(s);
@@ -63,20 +76,40 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) => _loadMany());
   }
 
+  void _toggle() {
+    setState(() => _showAnswer = !_showAnswer);
+    debugPrint('[REVIEW] toggle -> $_showAnswer (idx=$_index)');
+  }
+
+  void _announce(String msg) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(msg), duration: const Duration(milliseconds: 900)),
+    );
+  }
+
   String _visible(String s) =>
       s.replaceAll(RegExp(r'[\u200B-\u200D\uFEFF]'), '').trim();
 
   Future<void> _loadMany() async {
     try {
+      setState(() => _loading = true);
+
+      final sessionIds = await SessionScope.collect(days: _days, type: _type);
+      _scopedSessionIds = sessionIds;
+
       final attempts = AttemptStore();
       final loader = DeckLoader();
 
-      // 誤答ゼロなら戻る
-      final wrongQuestions = await attempts.getAllWrongCardIds();
+      // スコープ内の誤答（重複あり）
+      final wrongQuestions = await attempts.getAllWrongCardIdsFiltered(
+        onlySessionIds: sessionIds,
+      );
+
       if (wrongQuestions.isEmpty) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('復習対象がありません'), duration: Duration(seconds: 2)),
+          const SnackBar(content: Text('指定範囲に復習対象がありません'), duration: Duration(seconds: 2)),
         );
         unawaited(Future.delayed(const Duration(milliseconds: 300), () {
           if (mounted) Navigator.of(context).maybePop();
@@ -109,7 +142,6 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
             titleOfUnit[c] = '';
           }
 
-          // インデックス
           try {
             final sid = (c as dynamic).stableId as String?;
             if (sid != null && sid.isNotEmpty) _byStableId[sid] = c;
@@ -153,17 +185,13 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       setState(() {
         _base = List.of(outCards);
         _cards = List.of(outCards);
-        _deckTitleCache
-          ..clear()
-          ..addAll(titleOfDeck);
-        _unitTitleCache
-          ..clear()
-          ..addAll(titleOfUnit);
+        _deckTitleCache..clear()..addAll(titleOfDeck);
+        _unitTitleCache..clear()..addAll(titleOfUnit);
         _index = 0;
         _showAnswer = false;
         _loading = false;
       });
-      AppLog.d('[REVIEW] prepared cards=${_cards.length}');
+      AppLog.d('[REVIEW] prepared cards=${_cards.length} (scoped=${sessionIds.length})');
     } catch (e, st) {
       if (!mounted) return;
       setState(() => _loading = false);
@@ -171,7 +199,6 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     }
   }
 
-  // 右上メニュー
   Widget _buildMenu(BuildContext context) {
     return PopupMenuButton<MenuAction>(
       tooltip: 'メニュー',
@@ -183,28 +210,34 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
           case MenuAction.sortRandom:
             _applySort(original: false);
             break;
-          case MenuAction.top10:
-            _rebuildTopN(10);
+          case MenuAction.sortByFreq:
+            _applySortByFrequency();
             break;
-          case MenuAction.top20:
-            _rebuildTopN(20);
+          case MenuAction.sortByRecent:
+            _applySortByRecency();
             break;
-          case MenuAction.top30:
-            _rebuildTopN(30);
-            break;
-          case MenuAction.top50:
-            _rebuildTopN(50);
+          case MenuAction.toggleRepeatedOnly:
+            _toggleRepeatedOnly();
             break;
         }
       },
-      itemBuilder: (context) => const [
-        PopupMenuItem(value: MenuAction.sortOriginal, child: Text('元の順')),
-        PopupMenuItem(value: MenuAction.sortRandom, child: Text('ランダム')),
-        PopupMenuDivider(),
-        PopupMenuItem(value: MenuAction.top10, child: Text('上位10（誤答頻度）')),
-        PopupMenuItem(value: MenuAction.top20, child: Text('上位20（誤答頻度）')),
-        PopupMenuItem(value: MenuAction.top30, child: Text('上位30（誤答頻度）')),
-        PopupMenuItem(value: MenuAction.top50, child: Text('上位50（誤答頻度）')),
+      itemBuilder: (context) => [
+        const PopupMenuItem(value: MenuAction.sortOriginal, child: Text('元の順')),
+        const PopupMenuItem(value: MenuAction.sortRandom, child: Text('ランダム')),
+        const PopupMenuDivider(),
+        const PopupMenuItem(value: MenuAction.sortByFreq, child: Text('誤答頻度の高い順')),
+        const PopupMenuItem(value: MenuAction.sortByRecent, child: Text('最新誤答が新しい順')),
+        const PopupMenuDivider(),
+        PopupMenuItem(
+          value: MenuAction.toggleRepeatedOnly,
+          child: Row(
+            children: [
+              Icon(_onlyRepeated ? Icons.check_box : Icons.check_box_outline_blank),
+              const SizedBox(width: 8),
+              const Text('重複誤答のみ'),
+            ],
+          ),
+        ),
       ],
       icon: const Icon(Icons.more_vert),
     );
@@ -216,32 +249,28 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       _cards = original ? List.of(_base) : (List.of(_base)..shuffle(_rng));
       _index = 0;
       _showAnswer = false;
+      _sortState = original ? _SortState.original : _SortState.random;
     });
+    _announce(original ? '並び替え：元の順' : '並び替え：ランダム');
   }
 
+  // TopN再構築（残置）
   Future<void> _rebuildTopN(int n) async {
     try {
       final attempts = AttemptStore();
-      Map<String, int> freq = {};
-      try {
-        // 存在すれば使う（PR②想定API）
-        final dynamic fn = (attempts as dynamic).getWrongFrequencyMap;
-        if (fn is Function) {
-          final dynamic m = await Function.apply(fn, const []);
-          if (m is Map<String, int>) {
-            freq = m;
-          } else if (m is Map) {
-            m.forEach((k, v) {
-              if (k is String && v is num) freq[k] = v.toInt();
-            });
-          }
-        }
-      } catch (_) {}
+      final sessionIds =
+          _scopedSessionIds ?? await SessionScope.collect(days: _days, type: _type);
+
+      Map<String, int> freq = await attempts.getWrongFrequencyMap(
+        onlySessionIds: sessionIds,
+      );
+
       if (freq.isEmpty) {
-        // フォールバック：questionテキストで集計
-        final qs = await attempts.getAllWrongCardIds();
+        final qs = await attempts.getAllWrongCardIdsFiltered(
+          onlySessionIds: sessionIds,
+        );
         for (final raw in qs) {
-          final k = _norm(raw);
+          final k = _attemptStoreQuestionKey(raw);
           freq[k] = (freq[k] ?? 0) + 1;
         }
       }
@@ -254,7 +283,8 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       QuizCard? resolve(String key) {
         if (_byStableId.containsKey(key)) return _byStableId[key];
         if (_byInternalId.containsKey(key)) return _byInternalId[key];
-        final normed = _norm(key);
+        // attempt互換キーが Q::質問 なので、画面側の強め正規化→完全一致/先頭一致を試す
+        final normed = _norm(key.startsWith('Q::') ? key.substring(3) : key);
         final f = _byFull[normed];
         if (f != null) return f;
         final hk = _head(normed);
@@ -282,9 +312,171 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
         _index = 0;
         _showAnswer = false;
       });
+      AppLog.d('[REVIEW] rebuildTopN=$n -> ${out.length} (scoped=${sessionIds.length})');
     } catch (e, st) {
       AppLog.e('[REVIEW] rebuildTopN failed: $e\n$st');
     }
+  }
+
+  // ★頻度の高い順
+  Future<void> _applySortByFrequency() async {
+    if (_base.isEmpty) return;
+    try {
+      final attempts = AttemptStore();
+      final sessionIds =
+          _scopedSessionIds ?? await SessionScope.collect(days: _days, type: _type);
+      final freq = await attempts.getWrongFrequencyMap(onlySessionIds: sessionIds);
+
+      int scoreOf(QuizCard c) {
+        String? sid;
+        try { sid = (c as dynamic).stableId as String?; } catch (_) {}
+        final qKey = _attemptStoreQuestionKey(c.question);
+        return (sid != null && sid.isNotEmpty && freq.containsKey(sid))
+            ? (freq[sid] ?? 0)
+            : (freq[qKey] ?? 0);
+      }
+
+      setState(() {
+        _cards = List.of(_base)..sort((a, b) => scoreOf(b).compareTo(scoreOf(a)));
+        _index = 0;
+        _showAnswer = false;
+        _sortState = _SortState.freq;
+      });
+
+      final top5 = _cards.take(5).map((c) => scoreOf(c)).toList();
+      debugPrint('[REVIEW] sort=freq top5 scores=$top5');
+      _announce('並び替え：誤答頻度の高い順');
+    } catch (e, st) {
+      AppLog.e('[REVIEW] sortByFrequency failed: $e\n$st');
+    }
+  }
+
+  // ★最新誤答が新しい順
+  Future<void> _applySortByRecency() async {
+    if (_base.isEmpty) return;
+    try {
+      final sessionIds =
+          _scopedSessionIds ?? await SessionScope.collect(days: _days, type: _type);
+      final latest = await _buildLatestWrongAtMap(sessionIds);
+
+      DateTime epoch0 = DateTime.fromMillisecondsSinceEpoch(0);
+      DateTime timeOf(QuizCard c) {
+        String? sid;
+        try { sid = (c as dynamic).stableId as String?; } catch (_) {}
+        final qKey = _attemptStoreQuestionKey(c.question);
+        if (sid != null && sid.isNotEmpty && latest.containsKey(sid)) {
+          return latest[sid]!;
+        }
+        return latest[qKey] ?? epoch0;
+      }
+
+      setState(() {
+        _cards = List.of(_base)..sort((a, b) => timeOf(b).compareTo(timeOf(a)));
+        _index = 0;
+        _showAnswer = false;
+        _sortState = _SortState.recent;
+      });
+
+      final top3 =
+          _cards.take(3).map((c) => timeOf(c).toIso8601String()).toList();
+      debugPrint('[REVIEW] sort=recent top3 timestamps=$top3');
+      _announce('並び替え：最新誤答が新しい順');
+    } catch (e, st) {
+      AppLog.e('[REVIEW] sortByRecency failed: $e\n$st');
+    }
+  }
+
+  // ★重複誤答のみ
+  Future<void> _toggleRepeatedOnly() async {
+    _onlyRepeated = !_onlyRepeated;
+
+    if (!_onlyRepeated) {
+      setState(() {
+        _cards = List.of(_base);
+        _index = 0;
+        _showAnswer = false;
+      });
+      _announce('フィルタ解除：重複誤答のみ OFF');
+      return;
+    }
+
+    try {
+      final attempts = AttemptStore();
+      final sessionIds =
+          _scopedSessionIds ?? await SessionScope.collect(days: _days, type: _type);
+      final freq = await attempts.getWrongFrequencyMap(onlySessionIds: sessionIds);
+
+      bool isRepeated(QuizCard c) {
+        String? sid;
+        try { sid = (c as dynamic).stableId as String?; } catch (_) {}
+        final qKey = _attemptStoreQuestionKey(c.question);
+        final n = ((sid != null && sid.isNotEmpty) ? (freq[sid] ?? 0) : 0)
+                + (freq[qKey] ?? 0);
+        return n >= 2;
+      }
+
+      final filtered = _base.where(isRepeated).toList();
+      setState(() {
+        _cards = filtered;
+        _index = 0;
+        _showAnswer = false;
+      });
+
+      debugPrint('[REVIEW] filter=repeated only -> ${filtered.length}/${_base.length}');
+      _announce('重複誤答のみ：${filtered.length}/${_base.length}件');
+
+      if (filtered.isEmpty && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('重複して誤答した問題はありません')),
+        );
+      }
+    } catch (e, st) {
+      AppLog.e('[REVIEW] toggleRepeatedOnly failed: $e\n$st');
+    }
+  }
+
+  /// ★スコープ内の「最新誤答時刻」マップを推定
+  /// key は stableId 優先、無ければ AttemptStore互換の 'Q::質問'
+  Future<Map<String, DateTime>> _buildLatestWrongAtMap(List<String> sessionIds) async {
+    DateTime? _ts(dynamic e) {
+      // DateTime / ISO文字列 / epoch(秒/ms) に広めに対応
+      try { final v = (e as dynamic).answeredAt; if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); } catch (_) {}
+      try { final v = (e as dynamic).answeredAtMs; if (v is num) return DateTime.fromMillisecondsSinceEpoch(v.toInt()); } catch (_) {}
+      try { final v = (e as dynamic).timestamp;  if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); } catch (_) {}
+      try { final v = (e as dynamic).time;       if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); } catch (_) {}
+      try { final v = (e as dynamic).at;         if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); } catch (_) {}
+      try { final v = (e as dynamic).finishedAt; if (v is String) return DateTime.tryParse(v); } catch (_) {}
+      try { final v = (e as dynamic).completedAt;if (v is String) return DateTime.tryParse(v); } catch (_) {}
+      try { final v = (e as dynamic).createdAt;  if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); } catch (_) {}
+      return null;
+    }
+
+    String _keyFromAttempt(dynamic e) {
+      try { final v = (e as dynamic).stableId as String?; if (v != null && v.trim().isNotEmpty) return v.trim(); } catch (_) {}
+      try { final v = (e as dynamic).cardStableId as String?; if (v != null && v.trim().isNotEmpty) return v.trim(); } catch (_) {}
+      try { final v = (e as dynamic).cardId as String?; if (v != null && v.trim().isNotEmpty) return v.trim(); } catch (_) {}
+      final q = ((e as dynamic).question ?? '').toString();
+      return _attemptStoreQuestionKey(q);
+    }
+
+    final store = AttemptStore();
+    final map = <String, DateTime>{};
+
+    for (final sid in sessionIds) {
+      final attempts = await store.bySession(sid); // 新→古
+      for (final a in attempts) {
+        try { if ((a as dynamic).isCorrect == true) continue; } catch (_) { continue; }
+        final key = _keyFromAttempt(a);
+        if (key.isEmpty) continue;
+        final t = _ts(a);
+        if (t == null) continue;
+        final cur = map[key];
+        if (cur == null || t.isAfter(cur)) {
+          map[key] = t;
+        }
+      }
+    }
+    return map;
   }
 
   void _go(int delta) {
@@ -356,14 +548,29 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
 
     final deckTitle = _deckTitleOf(card);
     final unitTitle = _unitTitleOf(card);
-    final hint = 'タップで答え表示 / スワイプで移動';
+
+    final scopeLabel = () {
+      final d = _days;
+      final t = _type;
+      final daysPart = (d == null) ? '全期間' : '直近${d}日';
+      final typePart = (t == null) ? '' : '・タイプ:$t';
+      return '$daysPart$typePart';
+    }();
+
+    final sortLabel = {
+      _SortState.original: '元の順',
+      _SortState.random: 'ランダム',
+      _SortState.freq: '誤答頻度の高い順',
+      _SortState.recent: '最新誤答が新しい順',
+    }[_sortState]!;
+
+    final hint = 'タップで答え表示 / スワイプで移動（スコープ: $scopeLabel）';
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('見直しモード'),
         actions: [_buildMenu(context)],
       ),
-      // 1) 背景は QuizScreen と同じトーンに
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: GestureDetector(
@@ -381,7 +588,6 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
           child: ListView(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
             children: [
-              // ヘッダ（落ち着いたトーン）
               if (deckTitle.isNotEmpty)
                 Text(
                   '・単元　$deckTitle',
@@ -402,9 +608,13 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
               ],
               const SizedBox(height: 6),
               Text(hint, style: labelS.copyWith(color: onBg2)),
+              const SizedBox(height: 4),
+              Text(
+                '並び: $sortLabel　|　フィルタ: ${_onlyRepeated ? "重複のみ" : "なし"}　|　${_cards.length}/${_base.length}件',
+                style: labelS.copyWith(color: onBg2),
+              ),
               const SizedBox(height: 12),
 
-              // 2) 質問カード：白 + 軽い影 + 薄い枠 + 角丸16、内側余白20
               Card(
                 elevation: 2,
                 color: Colors.white,
@@ -424,7 +634,6 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
 
               const SizedBox(height: 12),
 
-              // 3) 答えカード（トグル時のみ）：同質感
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 220),
                 switchInCurve: Curves.easeOutCubic,
@@ -532,7 +741,6 @@ class _BottomBar extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          // 5) 下部バーも白ベース＋薄い境界線
           color: Colors.white.withOpacity(0.9),
           border: Border(top: BorderSide(color: cs.outlineVariant.withOpacity(0.6))),
         ),

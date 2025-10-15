@@ -1,7 +1,8 @@
-//lib/services/attempt_store.dart
+// lib/services/attempt_store.dart
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import 'package:flutter/foundation.dart'; // ← 未導入なら追加
 import '../models/attempt_entry.dart';
 import '../models/score_record.dart'; // ★追加
 import '../utils/logger.dart';
@@ -102,7 +103,7 @@ class AttemptStore {
     return all.where((e) => e.sessionId == sessionId).toList().reversed.toList();
   }
 
-  /// これまでの誤答の「質問文」を時系列・重複ありで返す（見直しモード用）
+  /// これまでの誤答の「質問文」を時系列・重複ありで返す（見直しモード用／全期間）
   /// ※ “ID” という名前だが実体は質問文。呼び出し側でカードに写像する。
   Future<List<String>> getAllWrongCardIds() async {
     final all = await _loadAll();
@@ -116,19 +117,94 @@ class AttemptStore {
     return out;
   }
 
-  /// （★新規）誤答頻度マップを返す: { key: wrongCount }
+  /// （★新規）指定セッション群に限定して誤答の「質問文」リストを返す（重複あり・見直しモード用）
+  Future<List<String>> getAllWrongCardIdsFiltered({
+    List<String>? onlySessionIds,
+  }) async {
+    final all = await _loadAll();
+    final out = <String>[];
+    int kept = 0;
+
+    for (final e in all) {
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) {
+        continue;
+      }
+      if (!e.isCorrect) {
+        kept++;
+        final q = (e.question ?? '').trim();
+        if (q.isNotEmpty) out.add(q);
+      }
+    }
+
+    if (onlySessionIds != null) {
+      debugPrint('[REVIEW] wrong-card set filtered by sessions '
+          '(${out.length} items from ${all.length} attempts, kept=$kept)');
+    }
+    return out;
+  }
+
+  // AttemptStore に追記
+  Future<Map<String, DateTime>> getWrongLatestAtMap({
+    List<String>? onlySessionIds,
+  }) async {
+    DateTime? _ts(dynamic e) {
+      // DateTime 直／ISO文字列／epoch int に緩く対応
+      try { final v = (e as dynamic).answeredAt; if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is int) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v : v * 1000); } catch (_) {}
+      try { final v = (e as dynamic).timestamp;  if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is int) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v : v * 1000); } catch (_) {}
+      try { final v = (e as dynamic).createdAt;  if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is int) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v : v * 1000); } catch (_) {}
+      return null;
+    }
+
+    final all = await _loadAll();
+    final map = <String, DateTime>{};
+
+    for (final e in all) {
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) continue;
+      if (!e.isCorrect) {
+        final key = _keyFromAttempt(e);
+        if (key.isEmpty) continue;
+        final t = _ts(e);
+        if (t == null) continue;
+        final cur = map[key];
+        if (cur == null || t.isAfter(cur)) {
+          map[key] = t;
+        }
+      }
+    }
+    debugPrint('[REVIEW] latestWrongAt filtered=${onlySessionIds?.length ?? 0} -> ${map.length}');
+    return map;
+  }
+
+    /// （新規）誤答頻度マップを返す: { key: wrongCount }
   /// key は stableId 優先、無ければ質問文（正規化）で代用
-  Future<Map<String, int>> getWrongFrequencyMap() async {
+  /// onlySessionIds を指定すると、そのセッションに属する Attempt のみ集計
+  Future<Map<String, int>> getWrongFrequencyMap({
+    List<String>? onlySessionIds,
+  }) async {
     final all = await _loadAll();
     if (all.isEmpty) return <String, int>{};
 
     final map = <String, int>{};
+    int total = 0, kept = 0;
+
     for (final e in all) {
+      total++;
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) {
+        continue;
+      }
       if (!e.isCorrect) {
+        kept++;
         final key = _keyFromAttempt(e);
         if (key.isEmpty) continue;
         map.update(key, (v) => v + 1, ifAbsent: () => 1);
       }
+    }
+
+    // デバッグ出力（スコープが指定されたときだけ）
+    if (onlySessionIds != null) {
+      try {
+        debugPrint('[REVIEW] attempts filtered by sessions: $kept/$total');
+      } catch (_) {}
     }
     return map;
   }
@@ -326,6 +402,7 @@ class AttemptStore {
       return 0;
     }
   }
+
   /// 特定セッションIDにおける誤答の質問文リストを返す（重複あり）
   Future<List<String>> getWrongQuestionsBySession(String sessionId) async {
     final all = await _loadAll();
