@@ -1,6 +1,6 @@
 {
   "id": "deck_M02",
-  "title": "現代社会と健康(中)",
+  "title": "現代社会と健康（中）",
   "isPurchased": false,
   "units": [
     {
@@ -8,6 +8,7 @@
       "title": "食事と健康",
       "cards": [
         {
+          "stableId": "M02:M02U01:181",
           "question": "健康的な食生活とはどのような生活か？",
           "choices": [
             "心身の健康を保つために栄養バランスのとれた食事を続ける生活",
@@ -26,6 +27,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U01:182",
           "question": "エネルギーを過剰にとり続けるとどのような影響があるか？",
           "choices": [
             "肥満や生活習慣病の原因になる",
@@ -44,6 +46,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U01:183",
           "question": "エネルギーが不足すると起こるおもな問題はどれか？",
           "choices": [
             "体力低下や月経不順",
@@ -62,6 +65,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U01:184",
           "question": "メタボリックシンドロームの特徴として正しいのはどれか？",
           "choices": [
             "内臓脂肪型肥満と生活習慣病のリスクを併せ持つ",
@@ -80,6 +84,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U01:185",
           "question": "健康によい食事の基本はどれか？",
           "choices": [
             "主食・主菜・副菜をそろえること",
@@ -98,6 +103,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U01:186",
           "question": "食事バランスガイドのコマの形は何を意味しているか？",
           "choices": [
             "運動と食事のバランスの大切さ",
@@ -116,6 +122,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U01:187",
           "question": "3・1・2弁当法で「3」は何を表しているか？",
           "choices": [
             "主食",
@@ -134,6 +141,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:188",
           "question": "生活リズムと食事の関係について正しいのはどれか？",
           "choices": [
             "規則正しい食事は体内リズムを整える",
@@ -152,6 +160,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:189",
           "question": "朝食をとることの主な意義はどれか？",
           "choices": [
             "体温と代謝を上げ、活動の準備をする",
@@ -170,6 +179,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:190",
           "question": "食品を選ぶ際に重視すべき点として最も適切なのはどれか？",
           "choices": [
             "栄養バランスや表示内容を確認する",
@@ -188,6 +198,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:191",
           "question": "栄養素のうちエネルギー源となるものはどれか？",
           "choices": [
             "たんぱく質・脂質・炭水化物",
@@ -206,6 +217,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:192",
           "question": "カルシウムの主な働きとして正しいのはどれか？",
           "choices": [
             "骨や歯をつくる",
@@ -224,6 +236,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:193",
           "question": "鉄が不足すると起こりやすいのはどれか？",
           "choices": [
             "貧血",
@@ -242,6 +255,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:194",
           "question": "ビタミンCの主な働きはどれか？",
           "choices": [
             "免疫機能を高める",
@@ -260,6 +274,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:195",
           "question": "メタボリックシンドロームの診断基準に含まれるものはどれか？",
           "choices": [
             "腹囲",
@@ -278,6 +293,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:196",
           "question": "朝食を抜く生活が続くとどのような影響があるか？",
           "choices": [
             "集中力や体温の低下",
@@ -296,6 +312,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:197",
           "question": "日本の食生活の変化として正しいのはどれか？",
           "choices": [
             "脂質の摂取が増加した",
@@ -314,6 +331,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:198",
           "question": "過剰な塩分摂取が招くおそれのある疾患はどれか？",
           "choices": [
             "高血圧",
@@ -332,6 +350,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:199",
           "question": "やせすぎによる健康問題として誤っているのはどれか？",
           "choices": [
             "骨粗しょう症になりやすい",
@@ -350,6 +369,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:200",
           "question": "サプリメントの利用に関して正しいのはどれか？",
           "choices": [
             "不足する栄養素を補う補助的手段である",
@@ -368,6 +388,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:201",
           "question": "食事バランスガイドで「主菜」にあたるものはどれか？",
           "choices": [
             "肉や魚",
@@ -386,6 +407,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:202",
           "question": "食事バランスガイドで「副菜」にあたるものはどれか？",
           "choices": [
             "野菜料理",
@@ -404,6 +426,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:203",
           "question": "フードロスとは何を指すか？",
           "choices": [
             "本来食べられるのに捨てられている食品",
@@ -422,6 +445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:204",
           "question": "SDGsと食生活に関係する目標として適切なのはどれか？",
           "choices": [
             "すべての人に健康と福祉を",
@@ -440,6 +464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:205",
           "question": "妊産婦の食生活で特に重要な栄養素はどれか？",
           "choices": [
             "鉄・カルシウム・葉酸",
@@ -458,6 +483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:206",
           "question": "妊産婦の食生活指針に関する内容として正しいのはどれか？",
           "choices": [
             "バランスのよい食事を心がける",
@@ -476,6 +502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:207",
           "question": "健康的な食生活を支援する社会的な仕組みはどれか？",
           "choices": [
             "スマートミール認証制度",
@@ -494,6 +521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:208",
           "question": "食生活の変化が進んだ結果として増加した疾患はどれか？",
           "choices": [
             "糖尿病や高血圧",
@@ -512,6 +540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:209",
           "question": "栄養バランスが整った食事をとる意義として正しいのはどれか？",
           "choices": [
             "体の機能を正常に保つ",
@@ -530,6 +559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U01:210",
           "question": "「食事と健康」の学習を通して身につけたい力として最も適切なのはどれか？",
           "choices": [
             "自分に合った食生活を考え実践する力",
@@ -554,6 +584,7 @@
       "title": "休養・睡眠と健康",
       "cards": [
         {
+          "stableId": "M02:M02U02:211",
           "question": "休養とはどのような行為を指すか？",
           "choices": [
             "心身の疲労を回復させる行為",
@@ -572,6 +603,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U02:212",
           "question": "睡眠が果たす主な役割はどれか？",
           "choices": [
             "心身の回復と記憶の整理",
@@ -590,6 +622,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U02:213",
           "question": "レム睡眠とノンレム睡眠の特徴の組み合わせとして正しいのはどれか？",
           "choices": [
             "レム睡眠＝脳が活動・夢を見る",
@@ -608,6 +641,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U02:214",
           "question": "睡眠のリズムを調整するホルモンはどれか？",
           "choices": [
             "メラトニン",
@@ -626,6 +660,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U02:215",
           "question": "睡眠不足が続くとどのような影響が現れるか？",
           "choices": [
             "注意力や判断力の低下",
@@ -644,6 +679,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U02:216",
           "question": "健康的な休養のとり方として適切なのはどれか？",
           "choices": [
             "趣味や運動を取り入れる",
@@ -662,6 +698,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U02:217",
           "question": "日本人の平均睡眠時間として最も近いのはどれか？",
           "choices": [
             "約7時間",
@@ -680,6 +717,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:218",
           "question": "睡眠不足が生活習慣病のリスクを高める理由はどれか？",
           "choices": [
             "ホルモン分泌や代謝の乱れを起こすから",
@@ -698,6 +736,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:219",
           "question": "加齢に伴う睡眠の変化として正しいのはどれか？",
           "choices": [
             "睡眠時間が短くなり浅くなる",
@@ -716,6 +755,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:220",
           "question": "睡眠の質を高める生活習慣として最も適切なのはどれか？",
           "choices": [
             "就寝前にスマートフォンを見ない",
@@ -734,6 +774,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:221",
           "question": "積極的休養の例として最も適切なのはどれか？",
           "choices": [
             "軽い運動や趣味活動",
@@ -752,6 +793,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:222",
           "question": "消極的休養の内容として正しいのはどれか？",
           "choices": [
             "静かに横になって体を休める",
@@ -770,6 +812,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:223",
           "question": "睡眠不足が長期化した場合に特に高まる健康リスクはどれか？",
           "choices": [
             "生活習慣病",
@@ -788,6 +831,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:224",
           "question": "ストレス解消と睡眠の関係として正しいのはどれか？",
           "choices": [
             "十分な睡眠はストレスへの耐性を高める",
@@ -806,6 +850,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:225",
           "question": "夜型の生活が続くと起こりやすい問題はどれか？",
           "choices": [
             "体内時計の乱れ",
@@ -824,6 +869,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:226",
           "question": "睡眠リズムを整える行動として正しいのはどれか？",
           "choices": [
             "毎朝同じ時刻に起きる",
@@ -842,6 +888,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:227",
           "question": "眠りを妨げる生活習慣として誤っているものはどれか？",
           "choices": [
             "寝る前にカフェインをとる",
@@ -860,6 +907,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:228",
           "question": "昼間に短時間眠ることの健康効果として正しいのはどれか？",
           "choices": [
             "集中力の回復",
@@ -878,6 +926,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:229",
           "question": "睡眠不足と交通事故との関係として正しいのはどれか？",
           "choices": [
             "睡眠不足は事故発生のリスクを高める",
@@ -896,6 +945,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:230",
           "question": "睡眠の質を高める入浴の仕方として適切なのはどれか？",
           "choices": [
             "就寝1〜2時間前にぬるめの湯に入る",
@@ -914,6 +964,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:231",
           "question": "成長期の睡眠不足によって影響を受けやすいのはどれか？",
           "choices": [
             "ホルモン分泌と発育",
@@ -932,6 +983,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:232",
           "question": "睡眠と学習効率の関係として正しいのはどれか？",
           "choices": [
             "十分な睡眠は記憶の定着を助ける",
@@ -950,6 +1002,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:233",
           "question": "睡眠障害の一種でないものはどれか？",
           "choices": [
             "糖尿病",
@@ -968,6 +1021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:234",
           "question": "日本人の睡眠に関する社会的課題として正しいのはどれか？",
           "choices": [
             "睡眠時間の短さが世界的に問題",
@@ -986,6 +1040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:235",
           "question": "スマートフォンの使用が睡眠に与える主な悪影響はどれか？",
           "choices": [
             "光刺激によるメラトニン分泌の抑制",
@@ -1004,6 +1059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:236",
           "question": "睡眠不足が精神面に及ぼす影響として正しいのはどれか？",
           "choices": [
             "イライラや抑うつなどの気分変化",
@@ -1022,6 +1078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:237",
           "question": "睡眠衛生とは何を指すか？",
           "choices": [
             "良い睡眠を得るための生活習慣の工夫",
@@ -1040,6 +1097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:238",
           "question": "「睡眠健康指針2014」で示された内容として適切なのはどれか？",
           "choices": [
             "規則的な睡眠習慣の推奨",
@@ -1058,6 +1116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:239",
           "question": "社会的要因による睡眠不足の例として最も近いのはどれか？",
           "choices": [
             "夜間のSNS利用",
@@ -1076,6 +1135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U02:240",
           "question": "休養・睡眠を確保する意義として最も適切なのはどれか？",
           "choices": [
             "心身の健康を維持し生活の質を高める",
@@ -1100,6 +1160,7 @@
       "title": "喫煙と健康",
       "cards": [
         {
+          "stableId": "M02:M02U03:241",
           "question": "喫煙によって最も直接的に影響を受ける器官はどれか？",
           "choices": [
             "肺",
@@ -1118,6 +1179,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U03:242",
           "question": "たばこの煙に含まれる有害物質のうち発がん性があるものはどれか？",
           "choices": [
             "タール",
@@ -1136,6 +1198,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U03:243",
           "question": "一酸化炭素が体に与える影響として正しいものはどれか？",
           "choices": [
             "血液の酸素運搬能力を低下させる",
@@ -1154,6 +1217,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U03:244",
           "question": "ニコチンの作用として最も適切なものはどれか？",
           "choices": [
             "神経を刺激して依存を生じさせる",
@@ -1172,6 +1236,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U03:245",
           "question": "受動喫煙によって起こる健康影響として誤っているものはどれか？",
           "choices": [
             "乳幼児突然死症候群の増加",
@@ -1190,6 +1255,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U03:246",
           "question": "喫煙者の1日の喫煙本数と肺がん死亡率の関係として正しいものはどれか？",
           "choices": [
             "本数が増えるほど死亡率が高い",
@@ -1208,6 +1274,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U03:247",
           "question": "喫煙をやめにくくする心理的要因として適切なものはどれか？",
           "choices": [
             "ストレス解消の手段と認識している",
@@ -1226,6 +1293,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:248",
           "question": "日本での禁煙対策に関する法律で正しいものはどれか？",
           "choices": [
             "健康増進法",
@@ -1244,6 +1312,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:249",
           "question": "世界的なたばこ対策の枠組みとして正しいものはどれか？",
           "choices": [
             "WHOたばこ規制枠組条約(FCTC)",
@@ -1262,6 +1331,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:250",
           "question": "加熱式たばこの特徴として正しいものはどれか？",
           "choices": [
             "煙は少ないが有害物質は含まれる",
@@ -1280,6 +1350,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:251",
           "question": "喫煙が循環器系に与える主な影響はどれか？",
           "choices": [
             "動脈硬化を促進する",
@@ -1298,6 +1369,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:252",
           "question": "女性の喫煙による影響として正しいものはどれか？",
           "choices": [
             "胎児の発育に悪影響を及ぼす",
@@ -1316,6 +1388,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:253",
           "question": "喫煙ががんの発生に関与する理由として最も適切なのはどれか？",
           "choices": [
             "発がん性物質が細胞のDNAを損傷する",
@@ -1334,6 +1407,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:254",
           "question": "ニコチン依存症の特徴として誤っているものはどれか？",
           "choices": [
             "離脱症状がみられる",
@@ -1352,6 +1426,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:255",
           "question": "禁煙外来で使用される治療法として正しいものはどれか？",
           "choices": [
             "ニコチン置換療法",
@@ -1370,6 +1445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:256",
           "question": "たばこの広告規制の目的として最も適切なものはどれか？",
           "choices": [
             "若年者の喫煙開始を防ぐ",
@@ -1388,6 +1464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:257",
           "question": "日本の喫煙率に関する特徴として正しいものはどれか？",
           "choices": [
             "男性の喫煙率が女性より高い",
@@ -1406,6 +1483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:258",
           "question": "受動喫煙の主な発生場所として正しいものはどれか？",
           "choices": [
             "家庭や飲食店などの室内",
@@ -1424,6 +1502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:259",
           "question": "WHOが提唱する「健康のためのたばこ規制枠組条約（FCTC）」の主な内容はどれか？",
           "choices": [
             "たばこの広告・販売・喫煙場所の規制",
@@ -1442,6 +1521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:260",
           "question": "喫煙と関連する疾患のうち誤っているものはどれか？",
           "choices": [
             "COPD",
@@ -1460,6 +1540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:261",
           "question": "受動喫煙により特に影響を受けやすい人はどれか？",
           "choices": [
             "乳幼児や妊婦",
@@ -1478,6 +1559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:262",
           "question": "喫煙を開始する要因として誤っているものはどれか？",
           "choices": [
             "仲間の影響",
@@ -1496,6 +1578,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:263",
           "question": "たばこを吸い始めてから体に起こる変化のうち、最も早く現れるものはどれか？",
           "choices": [
             "脈拍と血圧の上昇",
@@ -1514,6 +1597,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:264",
           "question": "喫煙をやめてから10年以上経過したときの変化として正しいものはどれか？",
           "choices": [
             "がんのリスクが非喫煙者に近づく",
@@ -1532,6 +1616,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:265",
           "question": "加熱式たばこと紙巻きたばこの違いとして最も正しいものはどれか？",
           "choices": [
             "煙が少なくても有害物質は存在する",
@@ -1550,6 +1635,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:266",
           "question": "禁煙補助薬の目的として正しいものはどれか？",
           "choices": [
             "離脱症状を軽減する",
@@ -1568,6 +1654,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:267",
           "question": "喫煙者が禁煙に失敗しやすい理由として最も適切なのはどれか？",
           "choices": [
             "ニコチン依存による強い欲求が残る",
@@ -1586,6 +1673,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:268",
           "question": "禁煙成功率を高める要因として正しいものはどれか？",
           "choices": [
             "医療機関での支援を受ける",
@@ -1604,6 +1692,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:269",
           "question": "公共の場での喫煙を制限する目的はどれか？",
           "choices": [
             "受動喫煙の防止",
@@ -1622,6 +1711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U03:270",
           "question": "喫煙対策における「社会的支援」の意義として正しいものはどれか？",
           "choices": [
             "禁煙の継続を助ける",
@@ -1646,6 +1736,7 @@
       "title": "飲酒と健康",
       "cards": [
         {
+          "stableId": "M02:M02U04:271",
           "question": "アルコールの主な成分はどれか？",
           "choices": [
             "エタノール",
@@ -1664,6 +1755,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U04:272",
           "question": "アルコールが体に入ると最初に分解される場所はどこか？",
           "choices": [
             "胃",
@@ -1682,6 +1774,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U04:273",
           "question": "アセトアルデヒドとは何か？",
           "choices": [
             "アルコールが代謝されてできる中間産物",
@@ -1700,6 +1793,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U04:274",
           "question": "アルコールの代謝に関わる酵素でないものはどれか？",
           "choices": [
             "ADH",
@@ -1718,6 +1812,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U04:275",
           "question": "アルコールの急性影響として正しいものはどれか？",
           "choices": [
             "判断力の低下",
@@ -1736,6 +1831,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U04:276",
           "question": "アルコール依存症の特徴はどれか？",
           "choices": [
             "飲酒のコントロールができない",
@@ -1754,6 +1850,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U04:277",
           "question": "アルコールハラスメントにあたる行為はどれか？",
           "choices": [
             "飲酒を強要する",
@@ -1772,6 +1869,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:278",
           "question": "未成年者の飲酒が特に危険とされる理由はどれか？",
           "choices": [
             "脳や肝臓が未発達だから",
@@ -1790,6 +1888,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:279",
           "question": "日本で20歳未満の飲酒が禁止されている理由はどれか？",
           "choices": [
             "発達への悪影響を防ぐため",
@@ -1808,6 +1907,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:280",
           "question": "飲酒運転を防止するために有効な社会的取り組みはどれか？",
           "choices": [
             "アルコール検知装置の設置",
@@ -1826,6 +1926,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:281",
           "question": "アルコール依存症の身体的な影響として適切なのはどれか？",
           "choices": [
             "肝硬変",
@@ -1844,6 +1945,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:282",
           "question": "アルコールが脳に与える影響で正しいものはどれか？",
           "choices": [
             "判断力や抑制の低下",
@@ -1862,6 +1964,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:283",
           "question": "「アルコールフラッシング反応」とはどのような現象か？",
           "choices": [
             "飲酒後に顔が赤くなる",
@@ -1880,6 +1983,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:284",
           "question": "大量飲酒によって最も影響を受けやすい臓器はどれか？",
           "choices": [
             "肝臓",
@@ -1898,6 +2002,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:285",
           "question": "妊娠中の飲酒によって起こるおそれがあるのはどれか？",
           "choices": [
             "胎児性アルコール症候群",
@@ -1916,6 +2021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:286",
           "question": "飲酒ががんのリスクを高める部位として誤っているのはどれか？",
           "choices": [
             "大腸",
@@ -1934,6 +2040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:287",
           "question": "急性アルコール中毒の危険な症状はどれか？",
           "choices": [
             "意識障害",
@@ -1952,6 +2059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:288",
           "question": "急性アルコール中毒が疑われる場合の対応として正しいのはどれか？",
           "choices": [
             "救急車を呼ぶ",
@@ -1970,6 +2078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:289",
           "question": "飲酒運転の罰則が強化された目的として正しいのはどれか？",
           "choices": [
             "事故の防止",
@@ -1988,6 +2097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:290",
           "question": "日本の飲酒対策として誤っているものはどれか？",
           "choices": [
             "20歳未満の飲酒を推奨する",
@@ -2006,6 +2116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:291",
           "question": "WHOが示すアルコールの世界的課題に含まれないものはどれか？",
           "choices": [
             "経済の活性化",
@@ -2024,6 +2135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:292",
           "question": "日本で行われているアルコール対策の一つはどれか？",
           "choices": [
             "広告・販売の自主規制",
@@ -2042,6 +2154,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:293",
           "question": "アルコールが社会問題になる要因として正しいものはどれか？",
           "choices": [
             "暴力や犯罪の誘発",
@@ -2060,6 +2173,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:294",
           "question": "飲酒によるアルコール依存症の精神的特徴はどれか？",
           "choices": [
             "飲酒への強い欲求",
@@ -2078,6 +2192,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:295",
           "question": "飲酒と自殺リスクの関係について正しいものはどれか？",
           "choices": [
             "多量飲酒者ほど自殺リスクが高い",
@@ -2096,6 +2211,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:296",
           "question": "アルコール依存症の回復に必要な支援として正しいものはどれか？",
           "choices": [
             "医療・カウンセリング",
@@ -2114,6 +2230,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:297",
           "question": "アルコールと生活習慣病の関係で正しいものはどれか？",
           "choices": [
             "高血圧や脂肪肝を引き起こす",
@@ -2132,6 +2249,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:298",
           "question": "職場でのアルコール対策として望ましいものはどれか？",
           "choices": [
             "飲酒運転防止教育の実施",
@@ -2150,6 +2268,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:299",
           "question": "アルコールに関する国際的な目標を掲げた会議はどれか？",
           "choices": [
             "世界保健総会",
@@ -2168,6 +2287,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U04:300",
           "question": "健康的な飲酒文化の形成に向けて重要な考え方はどれか？",
           "choices": [
             "個人と社会の責任を両立させる",
@@ -2192,6 +2312,7 @@
       "title": "薬物乱用と健康",
       "cards": [
         {
+          "stableId": "M02:M02U05:301",
           "question": "薬物乱用とはどのような行為を指すか？",
           "choices": [
             "医薬品を本来の目的以外で使用すること",
@@ -2210,6 +2331,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U05:302",
           "question": "覚醒剤の使用によって起こる主な影響はどれか？",
           "choices": [
             "興奮や幻覚",
@@ -2228,6 +2350,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U05:303",
           "question": "MDMAの乱用によって生じる危険な症状はどれか？",
           "choices": [
             "体温上昇や脱水症状",
@@ -2246,6 +2369,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U05:304",
           "question": "大麻の乱用によって特に問題となる影響はどれか？",
           "choices": [
             "記憶力や判断力の低下",
@@ -2264,6 +2388,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U05:305",
           "question": "薬物乱用が社会に及ぼす影響として適切なのはどれか？",
           "choices": [
             "犯罪や暴力の増加",
@@ -2282,6 +2407,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U05:306",
           "question": "薬物乱用者が使用をやめにくくなる理由として最も適切なのはどれか？",
           "choices": [
             "精神的・身体的依存が生じるから",
@@ -2300,6 +2426,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U05:307",
           "question": "薬物乱用を引き起こす要因として誤っているのはどれか？",
           "choices": [
             "自分を強く見せたい",
@@ -2318,6 +2445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:308",
           "question": "薬物乱用を防ぐために必要な社会的対策はどれか？",
           "choices": [
             "法による規制と取締り",
@@ -2336,6 +2464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:309",
           "question": "薬物乱用防止教育のねらいとして最も適切なのはどれか？",
           "choices": [
             "自分で断る力を育てる",
@@ -2354,6 +2483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:310",
           "question": "若者が薬物乱用に巻き込まれるきっかけとして多いものはどれか？",
           "choices": [
             "インターネットやSNSでの誘い",
@@ -2372,6 +2502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:311",
           "question": "薬物乱用による身体への影響として正しいのはどれか？",
           "choices": [
             "脳の機能が低下する",
@@ -2390,6 +2521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:312",
           "question": "シンナーなどの吸入剤を乱用すると起こりやすい障害はどれか？",
           "choices": [
             "脳の萎縮",
@@ -2408,6 +2540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:313",
           "question": "薬物依存の特徴として誤っているものはどれか？",
           "choices": [
             "使用をやめても支障がない",
@@ -2426,6 +2559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:314",
           "question": "薬物乱用者の脳画像でみられる変化として正しいのはどれか？",
           "choices": [
             "脳の一部が萎縮している",
@@ -2444,6 +2578,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:315",
           "question": "薬物乱用がもたらす家庭への影響として最も適切なのはどれか？",
           "choices": [
             "家族関係の悪化",
@@ -2462,6 +2597,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:316",
           "question": "薬物乱用が引き起こす社会的損失として正しいものはどれか？",
           "choices": [
             "犯罪や交通事故の増加",
@@ -2480,6 +2616,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:317",
           "question": "薬物乱用のきっかけとして最も多い理由はどれか？",
           "choices": [
             "好奇心や興味",
@@ -2498,6 +2635,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:318",
           "question": "薬物乱用を防ぐために家庭でできる工夫はどれか？",
           "choices": [
             "会話を大切にする",
@@ -2516,6 +2654,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:319",
           "question": "薬物乱用防止教育で育てたい資質として正しいのはどれか？",
           "choices": [
             "自己決定力",
@@ -2534,6 +2673,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:320",
           "question": "薬物乱用防止のための法律に関係するものはどれか？",
           "choices": [
             "覚醒剤取締法",
@@ -2552,6 +2692,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:321",
           "question": "薬物乱用の再発を防ぐために重要なのはどれか？",
           "choices": [
             "周囲の支援と治療の継続",
@@ -2570,6 +2711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:322",
           "question": "薬物依存症の治療で行われる主な支援はどれか？",
           "choices": [
             "自助グループによる支援",
@@ -2588,6 +2730,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:323",
           "question": "薬物乱用防止教育で特に重視すべき内容はどれか？",
           "choices": [
             "断るスキルの習得",
@@ -2606,6 +2749,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:324",
           "question": "若者が薬物乱用に誘われたときの適切な対応はどれか？",
           "choices": [
             "きっぱり断る",
@@ -2624,6 +2768,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:325",
           "question": "薬物乱用によって起こる交通事故が多い理由はどれか？",
           "choices": [
             "判断力や集中力が低下するから",
@@ -2642,6 +2787,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:326",
           "question": "薬物乱用防止における地域社会の役割として適切なのはどれか？",
           "choices": [
             "啓発活動の推進",
@@ -2660,6 +2806,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:327",
           "question": "薬物乱用防止運動のスローガンとして適切なのはどれか？",
           "choices": [
             "「ダメ。ゼッタイ。」",
@@ -2678,6 +2825,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:328",
           "question": "薬物乱用防止のために学校ができる取組として正しいのはどれか？",
           "choices": [
             "ロールプレイによる断り方の練習",
@@ -2696,6 +2844,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:329",
           "question": "薬物乱用を防ぐためにメディアが果たす役割はどれか？",
           "choices": [
             "正しい情報の発信",
@@ -2714,6 +2863,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U05:330",
           "question": "薬物乱用の根本的な防止につながる考え方はどれか？",
           "choices": [
             "自分の命と健康を大切にする意識",
@@ -2738,6 +2888,7 @@
       "title": "精神疾患の特徴",
       "cards": [
         {
+          "stableId": "M02:M02U06:331",
           "question": "精神疾患とはどのような状態を指すか？",
           "choices": [
             "心の働きに異常が起こり日常生活に支障が生じている状態",
@@ -2756,6 +2907,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U06:332",
           "question": "精神疾患の原因として最も適切なものはどれか？",
           "choices": [
             "生物的・心理的・社会的要因が複合的に関与する",
@@ -2774,6 +2926,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U06:333",
           "question": "精神疾患の発症に関係するストレス要因として正しいものはどれか？",
           "choices": [
             "人間関係や生活環境の変化",
@@ -2792,6 +2945,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U06:334",
           "question": "精神疾患の主な種類に含まれないものはどれか？",
           "choices": [
             "糖尿病",
@@ -2810,6 +2964,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U06:335",
           "question": "うつ病の特徴として正しいものはどれか？",
           "choices": [
             "気分の落ち込みや意欲の低下が長期間続く",
@@ -2828,6 +2983,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U06:336",
           "question": "統合失調症の主な症状として正しいものはどれか？",
           "choices": [
             "幻覚や妄想などの現実検討力の低下",
@@ -2846,6 +3002,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M02:M02U06:337",
           "question": "不安症の特徴として正しいものはどれか？",
           "choices": [
             "過度な不安や恐怖を感じ、回避行動がみられる",
@@ -2864,6 +3021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:338",
           "question": "摂食障害の特徴として誤っているものはどれか？",
           "choices": [
             "体型や体重へのこだわりが強い",
@@ -2882,6 +3040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:339",
           "question": "精神疾患の早期発見が重要とされる理由はどれか？",
           "choices": [
             "回復が早くなる傾向があるため",
@@ -2900,6 +3059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:340",
           "question": "現代社会で増えている精神疾患の背景として最も適切なものはどれか？",
           "choices": [
             "社会の複雑化や人間関係のストレス",
@@ -2918,6 +3078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:341",
           "question": "うつ病の発症に関連する要因として最も適切なものはどれか？",
           "choices": [
             "ストレスや生活環境の変化",
@@ -2936,6 +3097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:342",
           "question": "統合失調症の発症時期として多いのはどの年代か？",
           "choices": [
             "思春期から青年期",
@@ -2954,6 +3116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:343",
           "question": "不安症の例として適切なものはどれか？",
           "choices": [
             "パニック障害や強迫症",
@@ -2972,6 +3135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:344",
           "question": "摂食障害のうち、過食と排出を繰り返す特徴があるのはどれか？",
           "choices": [
             "過食症",
@@ -2990,6 +3154,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:345",
           "question": "依存症の説明として正しいものはどれか？",
           "choices": [
             "特定の物質や行為へのコントロールが失われる状態",
@@ -3008,6 +3173,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:346",
           "question": "精神疾患の発症を早期に気づくためのサインとして適切なものはどれか？",
           "choices": [
             "食欲や睡眠の変化",
@@ -3026,6 +3192,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:347",
           "question": "「精神疾患の3要因」として正しい組み合わせはどれか？",
           "choices": [
             "生物的・心理的・社会的",
@@ -3044,6 +3211,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:348",
           "question": "精神疾患の治療に関する考え方として正しいものはどれか？",
           "choices": [
             "医療・心理・社会的支援を組み合わせる",
@@ -3062,6 +3230,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:349",
           "question": "「DUP（精神病未治療期間）」とは何を指すか？",
           "choices": [
             "発症から適切な治療が始まるまでの期間",
@@ -3080,6 +3249,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:350",
           "question": "精神疾患の患者に対する支援として最も大切なことはどれか？",
           "choices": [
             "周囲が理解し支え合うこと",
@@ -3098,6 +3268,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:351",
           "question": "現代社会における新しい精神疾患として注目されているものはどれか？",
           "choices": [
             "ゲーム依存症",
@@ -3116,6 +3287,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:352",
           "question": "ネット依存の問題でみられる特徴はどれか？",
           "choices": [
             "利用時間の増加と生活リズムの乱れ",
@@ -3134,6 +3306,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:353",
           "question": "精神疾患の患者数が増えている背景に関連が深いのはどれか？",
           "choices": [
             "ストレス社会の進行や相談体制の整備",
@@ -3152,6 +3325,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:354",
           "question": "若年層における精神疾患の特徴として正しいものはどれか？",
           "choices": [
             "10〜30歳代での発症が多い",
@@ -3170,6 +3344,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:355",
           "question": "「DALYs」という指標が示す内容として最も適切なものはどれか？",
           "choices": [
             "疾病による損失年数を表す",
@@ -3188,6 +3363,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:356",
           "question": "精神疾患の予防において重要なことはどれか？",
           "choices": [
             "ストレスを上手に発散し相談する",
@@ -3206,6 +3382,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:357",
           "question": "精神疾患に関する誤った理解として最も適切なものはどれか？",
           "choices": [
             "性格の弱さが原因である",
@@ -3224,6 +3401,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:358",
           "question": "「メンタルヘルスリテラシー」とは何を意味するか？",
           "choices": [
             "心の健康に関する正しい知識と対応力",
@@ -3242,6 +3420,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:359",
           "question": "学校教育における精神疾患への取り組みとして正しいものはどれか？",
           "choices": [
             "正しい理解と支援を学ぶ教育を行う",
@@ -3260,6 +3439,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M02:M02U06:360",
           "question": "精神疾患のある人に接する際に最も大切な態度はどれか？",
           "choices": [
             "相手の話を受け止め共感する",

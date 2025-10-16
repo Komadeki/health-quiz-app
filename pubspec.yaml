@@ -21,13 +21,13 @@ dependencies:
   shared_preferences: ^2.5.3
   crypto: ^3.0.3   # ←★これを追加
   uuid: ^4.4.0
-  package_info_plus: ^8.0.0
+  package_info_plus: ^9.0.0
   url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   flutter_native_splash: ^2.4.1
 
 flutter:

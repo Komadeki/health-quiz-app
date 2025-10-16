@@ -1,6 +1,6 @@
 {
   "id": "deck_M01",
-  "title": "現代社会と健康(上)",
+  "title": "現代社会と健康（上）",
   "isPurchased": false,
   "units": [
     {
@@ -8,6 +8,7 @@
       "title": "健康の考え方と成り立ち",
       "cards": [
         {
+          "stableId": "M01:M01U01:1",
           "question": "WHO憲章で定義されている健康の意味はどれか？",
           "choices": [
             "病気でない状態",
@@ -24,6 +25,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U01:2",
           "question": "QOLの正しい英語表記はどれか？",
           "choices": [
             "Quantity of Life",
@@ -40,6 +42,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U01:3",
           "question": "次のうち健康の三要素に含まれないものはどれか？",
           "choices": [
             "体力",
@@ -56,6 +59,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U01:4",
           "question": "生活習慣病に当てはまるものはどれか？",
           "choices": [
             "がん",
@@ -72,6 +76,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U01:5",
           "question": "一次予防にあたるのはどれか？",
           "choices": [
             "病気の早期発見",
@@ -88,6 +93,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U01:6",
           "question": "二次予防の例はどれか？",
           "choices": [
             "健康診断",
@@ -104,6 +110,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U01:7",
           "question": "三次予防の目的はどれか？",
           "choices": [
             "生活習慣の改善",
@@ -120,6 +127,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:8",
           "question": "ヘルスプロモーションの考え方を提唱した会議はどれか？",
           "choices": [
             "ジュネーブ会議",
@@ -136,6 +144,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:9",
           "question": "ヘルスプロモーションで重視される要素はどれか？",
           "choices": [
             "個人の責任だけ",
@@ -152,6 +161,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:10",
           "question": "健康に影響を与える要因で最も大きいのはどれか？",
           "choices": [
             "遺伝",
@@ -168,6 +178,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:11",
           "question": "感染症の代表例はどれか？",
           "choices": [
             "がん",
@@ -184,6 +195,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:12",
           "question": "非感染症の代表例はどれか？",
           "choices": [
             "がん",
@@ -200,6 +212,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:13",
           "question": "次のうち健康の保持増進に含まれないものはどれか？",
           "choices": [
             "運動",
@@ -216,6 +229,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:14",
           "question": "次のうち健康指標に含まれないものはどれか？",
           "choices": [
             "死亡率",
@@ -232,6 +246,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:15",
           "question": "平均寿命の説明として正しいのはどれか？",
           "choices": [
             "生まれてからの生存年数",
@@ -248,6 +263,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:16",
           "question": "健康寿命の説明として正しいのはどれか？",
           "choices": [
             "病気の期間を含めた寿命",
@@ -264,6 +280,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:17",
           "question": "日本で死因の第1位はどれか？",
           "choices": [
             "心疾患",
@@ -280,6 +297,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:18",
           "question": "健康づくりのために優先すべき休養はどれか？",
           "choices": [
             "睡眠",
@@ -296,6 +314,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:19",
           "question": "ストレスの原因となるものはどれか？",
           "choices": [
             "ストレッサー",
@@ -312,6 +331,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:20",
           "question": "ストレスが強いときに優位になる神経はどれか？",
           "choices": [
             "交感神経",
@@ -328,6 +348,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:21",
           "question": "健康の保持増進に関して適切なのはどれか？",
           "choices": [
             "栄養・運動・休養",
@@ -344,6 +365,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:22",
           "question": "生活習慣病予防として適切でないものはどれか？",
           "choices": [
             "適度な運動",
@@ -360,6 +382,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:23",
           "question": "喫煙の主な健康被害として適切なのはどれか？",
           "choices": [
             "骨折",
@@ -376,6 +399,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:24",
           "question": "飲酒で特に注意すべき急性の健康障害はどれか？",
           "choices": [
             "急性アルコール中毒",
@@ -392,6 +416,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:25",
           "question": "健康日本21はどれか？",
           "choices": [
             "感染症対策",
@@ -408,6 +433,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:26",
           "question": "メタボリックシンドロームに含まれないのはどれか？",
           "choices": [
             "肥満",
@@ -424,6 +450,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:27",
           "question": "がん予防に役立たないものはどれか？",
           "choices": [
             "禁煙",
@@ -440,6 +467,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:28",
           "question": "保健所の主な役割として適切なのはどれか？",
           "choices": [
             "医療提供",
@@ -456,6 +484,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:29",
           "question": "健康保険制度の主な目的はどれか？",
           "choices": [
             "医療費の自己負担軽減",
@@ -472,6 +501,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U01:30",
           "question": "セルフメディケーションの説明として正しいのはどれか？",
           "choices": [
             "医師に頼らず市販薬などで自分の健康管理を行うこと",
@@ -494,6 +524,7 @@
       "title": "私たちの健康のすがた",
       "cards": [
         {
+          "stableId": "M01:M01U02:31",
           "question": "平均寿命とは何を示す指標か？",
           "choices": [
             "0歳の人があと何年生きられるかの平均",
@@ -510,6 +541,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U02:32",
           "question": "健康寿命とは何を示すか？",
           "choices": [
             "病気にかかっていない期間",
@@ -526,6 +558,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U02:33",
           "question": "日本人の平均寿命が延びた主な理由として正しいのはどれか。",
           "choices": [
             "医療技術や衛生環境の向上",
@@ -542,6 +575,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U02:34",
           "question": "現在の日本人の主な死因として最も割合が高いのはどれか。",
           "choices": [
             "感染症",
@@ -558,6 +592,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U02:35",
           "question": "1950年代と比べて現在の日本の死因の特徴として正しいものはどれか。",
           "choices": [
             "感染症が増加した",
@@ -574,6 +609,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U02:36",
           "question": "生活習慣病の例として正しいものはどれか。",
           "choices": [
             "がん・心臓病・脳卒中",
@@ -590,6 +626,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U02:37",
           "question": "健康の社会的決定要因(SDH)に含まれるものはどれか。",
           "choices": [
             "教育水準や収入",
@@ -606,6 +643,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:38",
           "question": "年齢別死亡率の特徴として正しいものはどれか。",
           "choices": [
             "全年齢でほぼ一定",
@@ -622,6 +660,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:39",
           "question": "ストレスを感じている人の割合として適切なのはどれか。",
           "choices": [
             "10〜20％",
@@ -638,6 +677,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:40",
           "question": "健康寿命と平均寿命の差を縮めるために最も重要なのはどれか。",
           "choices": [
             "医療費を増やす",
@@ -654,6 +694,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:41",
           "question": "日本人の死因の第1位は何か。",
           "choices": [
             "脳卒中",
@@ -670,6 +711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:42",
           "question": "生活習慣病の原因として適切でないものはどれか。",
           "choices": [
             "過度の飲酒",
@@ -686,6 +728,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:43",
           "question": "健康寿命を延ばすために最も効果的な行動はどれか。",
           "choices": [
             "病気になってから治療する",
@@ -702,6 +745,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:44",
           "question": "年齢別死亡率の形を表す言葉として正しいものはどれか。",
           "choices": [
             "右上がり",
@@ -718,6 +762,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:45",
           "question": "日本の健康水準が向上した主な要因として最も適切なのはどれか。",
           "choices": [
             "衛生環境や医療の進歩",
@@ -734,6 +779,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:46",
           "question": "生活習慣病予防の基本的な考え方として最も適切なのはどれか。",
           "choices": [
             "生活習慣を整えること",
@@ -750,6 +796,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:47",
           "question": "平均寿命と健康寿命の差が示すものは何か。",
           "choices": [
             "不健康な期間",
@@ -766,6 +813,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:48",
           "question": "高齢化が進むことによる社会的課題として最も適切なのはどれか。",
           "choices": [
             "感染症の拡大",
@@ -782,6 +830,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:49",
           "question": "ストレスが長期間続くことで起こりやすい影響はどれか。",
           "choices": [
             "免疫機能の低下",
@@ -798,6 +847,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:50",
           "question": "健康の保持・増進のために国が行っている施策として正しいものはどれか。",
           "choices": [
             "健康日本21",
@@ -814,6 +864,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:51",
           "question": "男女別の平均寿命について正しい記述はどれか。",
           "choices": [
             "男性が女性より長い",
@@ -830,6 +881,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:52",
           "question": "高齢者の割合が増える社会を何というか。",
           "choices": [
             "過密社会",
@@ -846,6 +898,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:53",
           "question": "健康寿命を延ばすための地域的な取り組みとして適切なのはどれか。",
           "choices": [
             "地域包括ケアシステム",
@@ -862,6 +915,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:54",
           "question": "悩みやストレスを感じる人の割合はどの年代で最も高いか。",
           "choices": [
             "10〜20代",
@@ -878,6 +932,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:55",
           "question": "健康格差の要因として最も関係が深いのはどれか。",
           "choices": [
             "血液型",
@@ -894,6 +949,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:56",
           "question": "肥満傾向のある人が増えた原因として最も関係があるのはどれか。",
           "choices": [
             "情報化による運動不足",
@@ -910,6 +966,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:57",
           "question": "国際的に見て日本の平均寿命はどのような水準にあるか。",
           "choices": [
             "世界的に低い",
@@ -926,6 +983,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:58",
           "question": "健康の社会的決定要因（SDH）の中で個人では変えにくいものはどれか。",
           "choices": [
             "教育や所得などの社会的条件",
@@ -942,6 +1000,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:59",
           "question": "日本における主な生活習慣病の死亡率が減少傾向にある理由として正しいものはどれか。",
           "choices": [
             "早期発見・治療・予防の進歩",
@@ -958,6 +1017,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U02:60",
           "question": "健康に関する意識の変化として最も適切なのはどれか。",
           "choices": [
             "病気でない状態を健康とする考えが主流",
@@ -980,6 +1040,7 @@
       "title": "生活習慣病の予防と回復",
       "cards": [
         {
+          "stableId": "M01:M01U03:61",
           "question": "生活習慣病とはどのような病気か？",
           "choices": [
             "生活習慣の乱れが関係する病気",
@@ -998,6 +1059,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U03:62",
           "question": "生活習慣病に分類される疾患はどれか？",
           "choices": [
             "がん・糖尿病・心疾患・脳血管疾患",
@@ -1015,6 +1077,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U03:63",
           "question": "生活習慣病の主な原因として最も適切なのはどれか？",
           "choices": [
             "不規則な生活や食習慣の乱れ",
@@ -1033,6 +1096,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U03:64",
           "question": "動脈硬化が進行すると最も起こりやすい病気はどれか？",
           "choices": [
             "心筋梗塞や脳梗塞",
@@ -1050,6 +1114,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U03:65",
           "question": "生活習慣病の予防段階で、発症を未然に防ぐのはどれか？",
           "choices": [
             "一次予防",
@@ -1067,6 +1132,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U03:66",
           "question": "病気の早期発見・早期治療を目的とする予防段階はどれか？",
           "choices": [
             "二次予防",
@@ -1084,6 +1150,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U03:67",
           "question": "発病後の社会復帰を目指すリハビリテーションはどの予防段階にあたるか？",
           "choices": [
             "三次予防",
@@ -1102,6 +1169,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:68",
           "question": "生活習慣病の増加に関係の深い社会的要因として適切なのはどれか？",
           "choices": [
             "ストレスの増加や運動不足",
@@ -1120,6 +1188,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:69",
           "question": "健康日本21（第二次）の目標に含まれる内容として正しいものはどれか？",
           "choices": [
             "生活習慣の改善と健康寿命の延伸",
@@ -1138,6 +1207,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:70",
           "question": "生活習慣病の予防において個人ができる取り組みとして最も適切なのはどれか？",
           "choices": [
             "バランスのとれた食事と定期的な運動",
@@ -1156,6 +1226,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:71",
           "question": "生活習慣病の英語表記として正しいものはどれか？",
           "choices": [
             "Lifestyle-related diseases",
@@ -1174,6 +1245,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:72",
           "question": "NCDs（非感染性疾患）に含まれる主な病気はどれか？",
           "choices": [
             "がん・糖尿病・心疾患・慢性呼吸器疾患",
@@ -1192,6 +1264,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:73",
           "question": "高血圧が続くと特に影響を受けやすい臓器はどれか？",
           "choices": [
             "心臓・脳・腎臓",
@@ -1210,6 +1283,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:74",
           "question": "メタボリックシンドロームの診断基準に含まれないものはどれか？",
           "choices": [
             "体温の低下",
@@ -1227,6 +1301,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:75",
           "question": "動脈硬化を促進する要因として最も関係が深いものはどれか？",
           "choices": [
             "脂質異常や喫煙",
@@ -1245,6 +1320,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:76",
           "question": "糖尿病の原因として最も適切なものはどれか？",
           "choices": [
             "インスリンの作用不足や分泌低下",
@@ -1263,6 +1339,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:77",
           "question": "COPD（慢性閉塞性肺疾患）の主な原因はどれか？",
           "choices": [
             "喫煙",
@@ -1281,6 +1358,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:78",
           "question": "高血圧や糖尿病など複数の生活習慣病が重なる状態を何というか？",
           "choices": [
             "メタボリックシンドローム",
@@ -1298,6 +1376,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:79",
           "question": "「健康寿命」とはどのような期間を指すか？",
           "choices": [
             "日常生活を自立して送れる期間",
@@ -1316,6 +1395,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:80",
           "question": "日本人の死因の第1位はどれか？",
           "choices": [
             "がん",
@@ -1334,6 +1414,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:81",
           "question": "がんの一次予防として最も適切なのはどれか？",
           "choices": [
             "禁煙や節度ある飲酒",
@@ -1352,6 +1433,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:82",
           "question": "がん検診や特定健診はどの予防にあたるか？",
           "choices": [
             "二次予防",
@@ -1370,6 +1452,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:83",
           "question": "リハビリテーションを通じて社会復帰を目指す段階はどれか？",
           "choices": [
             "三次予防",
@@ -1388,6 +1471,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:84",
           "question": "生活習慣病の発症に影響する社会的要因として誤っているものはどれか？",
           "choices": [
             "地域のつながりが強い",
@@ -1406,6 +1490,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:85",
           "question": "WHOが推進する「健康づくりのための行動計画」で強調されていることはどれか？",
           "choices": [
             "個人と社会の両面からの取り組み",
@@ -1424,6 +1509,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:86",
           "question": "SDH（健康の社会的決定要因）に含まれないものはどれか？",
           "choices": [
             "個人の遺伝子型",
@@ -1442,6 +1528,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:87",
           "question": "生活習慣病の対策として国が重視している「特定健診・特定保健指導」の目的はどれか？",
           "choices": [
             "メタボリックシンドロームの予防・改善",
@@ -1460,6 +1547,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:88",
           "question": "健康日本21（第二次）で掲げられた基本方針に含まれないものはどれか？",
           "choices": [
             "経済成長率の上昇",
@@ -1478,6 +1566,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:89",
           "question": "生活習慣病対策で地域の役割として最も重要なのはどれか？",
           "choices": [
             "健康づくりを支援する環境整備",
@@ -1496,6 +1585,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U03:90",
           "question": "生活習慣病の予防において「社会的支援」が重要とされる理由はどれか？",
           "choices": [
             "行動変容の継続を助けるから",
@@ -1520,6 +1610,7 @@
       "title": "がんの原因と予防",
       "cards": [
         {
+          "stableId": "M01:M01U04:91",
           "question": "がんとはどのような病気か？",
           "choices": [
             "体の細胞が異常に増える病気",
@@ -1538,6 +1629,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U04:92",
           "question": "がんの原因として正しいのはどれか？",
           "choices": [
             "生活習慣",
@@ -1556,6 +1648,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U04:93",
           "question": "がんを引き起こす生活習慣として正しいのはどれか？",
           "choices": [
             "喫煙や飲酒",
@@ -1574,6 +1667,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U04:94",
           "question": "感染によって起こるがんの原因となるウイルスはどれか？",
           "choices": [
             "ヒトパピローマウイルス",
@@ -1592,6 +1686,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U04:95",
           "question": "ヘリコバクター・ピロリ菌が関係するがんはどれか？",
           "choices": [
             "胃がん",
@@ -1610,6 +1705,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U04:96",
           "question": "がんの一次予防の目的はどれか？",
           "choices": [
             "発病の原因を減らす",
@@ -1628,6 +1724,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U04:97",
           "question": "がんの二次予防の内容として適切なのはどれか？",
           "choices": [
             "定期的ながん検診",
@@ -1646,6 +1743,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:98",
           "question": "がんの三次予防に含まれる内容はどれか？",
           "choices": [
             "再発防止と社会復帰の支援",
@@ -1664,6 +1762,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:99",
           "question": "日本人のがん死亡原因の上位に含まれるものはどれか？",
           "choices": [
             "肺がん",
@@ -1682,6 +1781,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:100",
           "question": "がんの早期発見が重要な理由はどれか？",
           "choices": [
             "治療効果が高まり生存率が上がるから",
@@ -1700,6 +1800,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:101",
           "question": "がんの発生に関係する年齢層として最も多いのはどれか？",
           "choices": [
             "40歳代以上",
@@ -1718,6 +1819,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:102",
           "question": "がんの罹患率が増加している理由として正しいのはどれか？",
           "choices": [
             "高齢化の進行",
@@ -1736,6 +1838,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:103",
           "question": "喫煙が最も関係しているがんはどれか？",
           "choices": [
             "肺がん",
@@ -1754,6 +1857,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:104",
           "question": "飲酒が関係しているがんとして正しいのはどれか？",
           "choices": [
             "食道がん",
@@ -1772,6 +1876,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:105",
           "question": "がんのリスクを下げる生活習慣として正しいのはどれか？",
           "choices": [
             "禁煙",
@@ -1790,6 +1895,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:106",
           "question": "ヒトパピローマウイルスの感染で発症するおそれがあるがんはどれか？",
           "choices": [
             "子宮頸がん",
@@ -1808,6 +1914,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:107",
           "question": "がん検診の目的として最も適切なのはどれか？",
           "choices": [
             "早期発見・早期治療",
@@ -1826,6 +1933,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:108",
           "question": "がん検診で胸部X線撮影が行われるのはどのがんのためか？",
           "choices": [
             "肺がん",
@@ -1844,6 +1952,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:109",
           "question": "がん検診でバリウムを使用するのはどのがんか？",
           "choices": [
             "胃がん",
@@ -1862,6 +1971,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:110",
           "question": "がんの罹患率が男女で異なる理由として最も適切なのはどれか？",
           "choices": [
             "性差による臓器や生活習慣の違い",
@@ -1880,6 +1990,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:111",
           "question": "がん治療で行われる放射線療法の目的はどれか？",
           "choices": [
             "がん細胞を破壊する",
@@ -1898,6 +2009,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:112",
           "question": "化学療法とはどのような治療か？",
           "choices": [
             "抗がん剤を用いる治療",
@@ -1916,6 +2028,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:113",
           "question": "がんの治療における手術療法の目的はどれか？",
           "choices": [
             "がんの病巣を取り除く",
@@ -1934,6 +2047,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:114",
           "question": "がん治療の副作用として正しいのはどれか？",
           "choices": [
             "脱毛や吐き気",
@@ -1952,6 +2066,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:115",
           "question": "がんの5年生存率が高いがんとして正しいのはどれか？",
           "choices": [
             "乳がん",
@@ -1970,6 +2085,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:116",
           "question": "がんの社会的取り組みとして適切なのはどれか？",
           "choices": [
             "がん検診の推進や医療体制の整備",
@@ -1988,6 +2104,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:117",
           "question": "がんのリスク要因を減らす社会的施策として正しいのはどれか？",
           "choices": [
             "禁煙・受動喫煙防止条例の制定",
@@ -2006,6 +2123,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:118",
           "question": "がん検診の受診率向上に向けた課題はどれか？",
           "choices": [
             "検診の重要性を理解していない人が多い",
@@ -2024,6 +2142,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:119",
           "question": "がんのスクリーニングとは何か？",
           "choices": [
             "症状のない人を対象に早期発見を行う検査",
@@ -2042,6 +2161,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U04:120",
           "question": "がん予防において「社会的支援」が重要とされる理由はどれか？",
           "choices": [
             "生活習慣の改善を継続しやすくするため",
@@ -2066,6 +2186,7 @@
       "title": "がんの治療と回復",
       "cards": [
         {
+          "stableId": "M01:M01U05:121",
           "question": "がんの主な治療法として正しいのはどれか？",
           "choices": [
             "手術療法",
@@ -2084,6 +2205,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U05:122",
           "question": "化学療法の目的として最も適切なのはどれか？",
           "choices": [
             "がん細胞を薬で攻撃する",
@@ -2102,6 +2224,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U05:123",
           "question": "放射線療法において行うことはどれか？",
           "choices": [
             "X線などをがんに照射する",
@@ -2120,6 +2243,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U05:124",
           "question": "がんの緩和ケアの目的として正しいのはどれか？",
           "choices": [
             "苦痛の軽減と生活の質の向上",
@@ -2138,6 +2262,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U05:125",
           "question": "がん患者を支える医療チームに含まれる職種はどれか？",
           "choices": [
             "医師・看護師・薬剤師など",
@@ -2156,6 +2281,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U05:126",
           "question": "がん免疫療法の特徴として正しいのはどれか？",
           "choices": [
             "免疫の働きを利用してがんを攻撃する",
@@ -2174,6 +2300,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U05:127",
           "question": "がんゲノム医療の目的として最も適切なのはどれか？",
           "choices": [
             "遺伝子情報に基づいて最適な治療を行う",
@@ -2192,6 +2319,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:128",
           "question": "がんサバイバーとはどのような人か？",
           "choices": [
             "がんを経験し治療を受けながら生きる人",
@@ -2210,6 +2338,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:129",
           "question": "がんとともに生きる社会づくりで重要とされる視点はどれか？",
           "choices": [
             "就労や教育など社会的支援",
@@ -2228,6 +2357,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:130",
           "question": "WHOによる緩和ケアの定義で重視されるのはどれか？",
           "choices": [
             "生命の質の向上",
@@ -2246,6 +2376,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:131",
           "question": "がんの手術療法で行われる内容として正しいのはどれか？",
           "choices": [
             "がんの部分を切除する",
@@ -2264,6 +2395,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:132",
           "question": "がん治療の3つの柱に含まれないものはどれか？",
           "choices": [
             "食事療法",
@@ -2282,6 +2414,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:133",
           "question": "がんの治療におけるチーム医療の目的はどれか？",
           "choices": [
             "患者を中心に多職種が連携すること",
@@ -2300,6 +2433,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:134",
           "question": "緩和ケアが開始されるのはいつからが望ましいか？",
           "choices": [
             "診断時から",
@@ -2318,6 +2452,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:135",
           "question": "がん免疫療法で使われる薬の種類はどれか？",
           "choices": [
             "免疫チェックポイント阻害薬",
@@ -2336,6 +2471,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:136",
           "question": "がんゲノム医療が広がった背景として正しいのはどれか？",
           "choices": [
             "遺伝子解析技術の進歩",
@@ -2354,6 +2490,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:137",
           "question": "がんサバイバーの社会的課題として適切なのはどれか？",
           "choices": [
             "就労や教育の継続",
@@ -2372,6 +2509,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:138",
           "question": "がんとともに生きる社会を支える仕組みの一つはどれか？",
           "choices": [
             "がん相談支援センター",
@@ -2390,6 +2528,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:139",
           "question": "がん患者支援で大切にされる考え方はどれか？",
           "choices": [
             "QOL（生活の質）の向上",
@@ -2408,6 +2547,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:140",
           "question": "がんの放射線療法で使用される線はどれか？",
           "choices": [
             "X線や電子線",
@@ -2426,6 +2566,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:141",
           "question": "がん免疫療法が注目される理由はどれか？",
           "choices": [
             "副作用が比較的少なく長期治療が可能",
@@ -2444,6 +2585,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:142",
           "question": "がんゲノム医療における遺伝子検査の目的はどれか？",
           "choices": [
             "治療薬の選択に役立てる",
@@ -2462,6 +2604,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:143",
           "question": "がんの社会的支援に含まれないものはどれか？",
           "choices": [
             "感染症対策",
@@ -2480,6 +2623,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:144",
           "question": "がんに対する差別や偏見を減らすために必要なのはどれか？",
           "choices": [
             "正しい知識の普及",
@@ -2498,6 +2642,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:145",
           "question": "がん患者の就労支援に関する取り組みの例はどれか？",
           "choices": [
             "職場復帰プログラムの整備",
@@ -2516,6 +2661,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:146",
           "question": "AYA世代とはどの年齢層を指すか？",
           "choices": [
             "思春期から若年成人期",
@@ -2534,6 +2680,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:147",
           "question": "がん対策推進基本計画の目的はどれか？",
           "choices": [
             "がん予防・治療・共生の総合的推進",
@@ -2552,6 +2699,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:148",
           "question": "がん情報サービスの役割として正しいのはどれか？",
           "choices": [
             "がんに関する正確な情報を提供する",
@@ -2570,6 +2718,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:149",
           "question": "がん哲学外来で重視されていることはどれか？",
           "choices": [
             "対話による心のケア",
@@ -2588,6 +2737,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U05:150",
           "question": "がんに関する社会的支援の拡充が目指す最終的な目標はどれか？",
           "choices": [
             "誰もががんとともに生きられる社会",
@@ -2612,6 +2762,7 @@
       "title": "運動と健康",
       "cards": [
         {
+          "stableId": "M01:M01U06:151",
           "question": "身体活動とはどのような行動を指すか？",
           "choices": [
             "生活の中での体を動かすすべての行動",
@@ -2630,6 +2781,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U06:152",
           "question": "運動とはどのような身体活動か？",
           "choices": [
             "意図的・計画的に体力を高めるための活動",
@@ -2648,6 +2800,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U06:153",
           "question": "身体活動不足がもたらす主な影響はどれか？",
           "choices": [
             "生活習慣病のリスク上昇",
@@ -2666,6 +2819,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U06:154",
           "question": "身体活動と死亡リスクの関係で正しいのはどれか？",
           "choices": [
             "身体活動量が多いほど死亡リスクは低い",
@@ -2684,6 +2838,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U06:155",
           "question": "メッツ（METs）は何を示す単位か？",
           "choices": [
             "活動の強さ",
@@ -2702,6 +2857,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U06:156",
           "question": "健康づくりのための身体活動指針「アクティブガイド」で推奨されるのはどれか？",
           "choices": [
             "今より＋10分の身体活動を増やす",
@@ -2720,6 +2876,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M01:M01U06:157",
           "question": "運動がメンタルヘルスに与える影響として正しいのはどれか？",
           "choices": [
             "ストレスの軽減に役立つ",
@@ -2738,6 +2895,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:158",
           "question": "女性の骨密度の変化で最大骨量を迎える時期はいつか？",
           "choices": [
             "20歳前後",
@@ -2756,6 +2914,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:159",
           "question": "社会的支援が身体活動の促進に役立つ理由はどれか？",
           "choices": [
             "継続的な行動変容を支えるから",
@@ -2774,6 +2933,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:160",
           "question": "ウォーカブルなまちづくり（Walkable City）の目的はどれか？",
           "choices": [
             "歩きやすい環境で身体活動を促す",
@@ -2792,6 +2952,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:161",
           "question": "身体活動のエネルギー消費量を表す単位として適切なのはどれか？",
           "choices": [
             "キロカロリー",
@@ -2810,6 +2971,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:162",
           "question": "運動不足が生活習慣病の原因となる理由はどれか？",
           "choices": [
             "代謝が低下するため",
@@ -2828,6 +2990,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:163",
           "question": "健康づくりのための運動の目安として正しいのはどれか？",
           "choices": [
             "1日60分程度の中強度の身体活動",
@@ -2846,6 +3009,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:164",
           "question": "中強度の身体活動に該当するのはどれか？",
           "choices": [
             "速歩や軽いジョギング",
@@ -2864,6 +3028,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:165",
           "question": "筋力トレーニングの健康への効果として正しいのはどれか？",
           "choices": [
             "骨量や筋力の維持に役立つ",
@@ -2882,6 +3047,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:166",
           "question": "メタボリックシンドローム予防に有効な運動の特徴はどれか？",
           "choices": [
             "有酸素性運動",
@@ -2900,6 +3066,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:167",
           "question": "骨粗しょう症予防に有効な運動はどれか？",
           "choices": [
             "負荷をかける運動",
@@ -2918,6 +3085,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:168",
           "question": "運動が高血圧に与える主な効果はどれか？",
           "choices": [
             "血圧を下げる方向に働く",
@@ -2936,6 +3104,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:169",
           "question": "過度な運動が健康に及ぼす影響として正しいのはどれか？",
           "choices": [
             "疲労やケガの原因になる",
@@ -2954,6 +3123,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:170",
           "question": "日常生活の中で身体活動を増やす工夫として適切なのはどれか？",
           "choices": [
             "階段を使う",
@@ -2972,6 +3142,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:171",
           "question": "座位行動と死亡リスクの関係で正しいのはどれか？",
           "choices": [
             "座っている時間が長いほど死亡リスクは高い",
@@ -2990,6 +3161,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:172",
           "question": "ウォーキングなどの有酸素運動の特徴はどれか？",
           "choices": [
             "酸素を使ってエネルギーを産生する",
@@ -3008,6 +3180,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:173",
           "question": "運動によって上昇する善玉コレステロールはどれか？",
           "choices": [
             "HDLコレステロール",
@@ -3026,6 +3199,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:174",
           "question": "社会環境が運動習慣に与える影響で正しいのはどれか？",
           "choices": [
             "安全な歩行空間が運動を促進する",
@@ -3044,6 +3218,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:175",
           "question": "身体活動量を客観的に測定する方法として適切なのはどれか？",
           "choices": [
             "歩数計や加速度センサーを使う",
@@ -3062,6 +3237,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:176",
           "question": "身体活動の促進を社会全体で進める意義はどれか？",
           "choices": [
             "国民の健康寿命を延ばすため",
@@ -3080,6 +3256,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:177",
           "question": "健康づくりのための運動習慣をつける工夫として最も適切なのはどれか？",
           "choices": [
             "無理せず続けられる方法を選ぶ",
@@ -3098,6 +3275,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:178",
           "question": "運動を行う際の安全面での注意点として正しいのはどれか？",
           "choices": [
             "体調や環境に合わせて無理をしない",
@@ -3116,6 +3294,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:179",
           "question": "健康日本21（第二次）で重視されている身体活動の目標はどれか？",
           "choices": [
             "1日あたりの歩数増加",
@@ -3134,6 +3313,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M01:M01U06:180",
           "question": "身体活動の社会的要因を説明するモデルはどれか？",
           "choices": [
             "社会生態学モデル",

@@ -1,5 +1,5 @@
 {
-  "id": "deck_health03",
+  "id": "deck_M03",
   "title": "現代社会と健康（下）",
   "isPurchased": false,
   "units": [
@@ -8,6 +8,7 @@
       "title": "精神疾患の予防",
       "cards": [
         {
+          "stableId": "M03:M03U01:361",
           "question": "精神疾患の予防で重視される考え方はどれか？",
           "choices": [
             "ストレスや不調を早く察知して対処する",
@@ -26,6 +27,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U01:362",
           "question": "精神疾患の早期発見において大切なのはどれか？",
           "choices": [
             "心や体の変化に気づくこと",
@@ -44,6 +46,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U01:363",
           "question": "セルフケアの具体的な内容として適切なのはどれか？",
           "choices": [
             "睡眠・食事・運動のリズムを整える",
@@ -62,6 +65,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U01:364",
           "question": "心の不調を感じたときにまず行うべき対応はどれか？",
           "choices": [
             "信頼できる人に相談する",
@@ -80,6 +84,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U01:365",
           "question": "周囲の人ができる支援として適切なのはどれか？",
           "choices": [
             "話を聴き共感を示す",
@@ -98,6 +103,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U01:366",
           "question": "精神疾患の治療・回復で重要とされる考え方はどれか？",
           "choices": [
             "リカバリー（回復）を支える",
@@ -116,6 +122,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U01:367",
           "question": "リカバリーのうち「パーソナル・リカバリー」の特徴はどれか？",
           "choices": [
             "自分らしく生きることを重視する",
@@ -134,6 +141,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:368",
           "question": "スティグマとは何を指すか？",
           "choices": [
             "精神疾患などに対する偏見や差別",
@@ -152,6 +160,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:369",
           "question": "アンチスティグマの取組として適切なのはどれか？",
           "choices": [
             "正しい知識を広める活動",
@@ -170,6 +179,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:370",
           "question": "精神疾患の予防における「3つの予防」のうち、誰もが対象となるものはどれか？",
           "choices": [
             "一次予防（普遍予防）",
@@ -188,6 +198,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:371",
           "question": "ストレスのサインとして当てはまるものはどれか？",
           "choices": [
             "眠れない・食欲がない",
@@ -206,6 +217,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:372",
           "question": "精神疾患の発症に関わるリスクとして正しいものはどれか？",
           "choices": [
             "過度なストレスや生活習慣の乱れ",
@@ -224,6 +236,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:373",
           "question": "心の不調を早く見つけるために有効な行動はどれか？",
           "choices": [
             "気分や体調を日記などで記録する",
@@ -242,6 +255,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:374",
           "question": "周囲の人が相談を受ける際に大切な態度はどれか？",
           "choices": [
             "批判せずに話を聴く",
@@ -260,6 +274,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:375",
           "question": "精神疾患の治療で医療機関が果たす主な役割はどれか？",
           "choices": [
             "診断と専門的治療",
@@ -278,6 +293,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:376",
           "question": "心の健康づくりのために重要な社会的要素はどれか？",
           "choices": [
             "安心して相談できる人間関係",
@@ -296,6 +312,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:377",
           "question": "心の健康問題への対応で学校が果たすべき役割はどれか？",
           "choices": [
             "相談体制やカウンセリングの整備",
@@ -314,6 +331,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:378",
           "question": "ストレス対処の方法として効果的なものはどれか？",
           "choices": [
             "好きな活動で気分転換する",
@@ -332,6 +350,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:379",
           "question": "「リカバリー」という言葉の意味として正しいものはどれか？",
           "choices": [
             "病気を抱えながらも自分らしく生きる",
@@ -350,6 +369,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:380",
           "question": "心の健康を守るための生活習慣として適切なのはどれか？",
           "choices": [
             "十分な睡眠をとる",
@@ -368,6 +388,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:381",
           "question": "精神疾患の一次予防の例として適切なのはどれか？",
           "choices": [
             "ストレスマネジメント教育",
@@ -386,6 +407,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:382",
           "question": "精神疾患の二次予防の目的はどれか？",
           "choices": [
             "早期発見・早期治療",
@@ -404,6 +426,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:383",
           "question": "精神疾患の三次予防の内容として正しいものはどれか？",
           "choices": [
             "再発防止と社会復帰支援",
@@ -422,6 +445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:384",
           "question": "周囲の支援者が気をつけるべき点はどれか？",
           "choices": [
             "相手のペースを尊重する",
@@ -440,6 +464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:385",
           "question": "心の不調を抱える人への社会的支援として適切なのはどれか？",
           "choices": [
             "地域の相談窓口の活用",
@@ -458,6 +483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:386",
           "question": "精神疾患に関するスティグマの種類に含まれないものはどれか？",
           "choices": [
             "生理的スティグマ",
@@ -476,6 +502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:387",
           "question": "精神疾患に関する「構造的スティグマ」とは何か？",
           "choices": [
             "社会制度や仕組みによる差別",
@@ -494,6 +521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:388",
           "question": "パーソナル・リカバリーの目標として適切なのはどれか？",
           "choices": [
             "自分らしい生き方を取り戻す",
@@ -512,6 +540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:389",
           "question": "学校での心の健康教育のねらいとして最も適切なのはどれか？",
           "choices": [
             "自他の心の不調に気づき支援できる力を育てる",
@@ -530,6 +559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U01:390",
           "question": "心の健康づくりにおいて社会が目指すべき姿はどれか？",
           "choices": [
             "誰もが安心して暮らせる共生社会",
@@ -554,6 +584,7 @@
       "title": "精神疾患からの回復",
       "cards": [
         {
+          "stableId": "M03:M03U02:391",
           "question": "精神疾患の治療における専門家の役割はどれか？",
           "choices": [
             "精神科医による診断と治療",
@@ -572,6 +603,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U02:392",
           "question": "カウンセリングの目的として正しいのはどれか？",
           "choices": [
             "悩みを共有し自己理解を深める",
@@ -590,6 +622,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U02:393",
           "question": "精神疾患の治療で用いられる薬の働きとして正しいのはどれか？",
           "choices": [
             "神経伝達のバランスを整える",
@@ -608,6 +641,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U02:394",
           "question": "地域におけるケアの特徴として正しいのはどれか？",
           "choices": [
             "病院だけでなく地域全体で支える",
@@ -626,6 +660,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U02:395",
           "question": "デイケアの目的として適切なのはどれか？",
           "choices": [
             "社会生活への復帰を支援する",
@@ -644,6 +679,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U02:396",
           "question": "リワーク支援とはどのような支援か？",
           "choices": [
             "職場復帰を支援するプログラム",
@@ -662,6 +698,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U02:397",
           "question": "ピアサポートの特徴として正しいのはどれか？",
           "choices": [
             "同じ経験をもつ人同士が支え合う",
@@ -680,6 +717,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:398",
           "question": "精神疾患からの回復過程で重要とされる支援はどれか？",
           "choices": [
             "医療・福祉・地域が連携する支援",
@@ -698,6 +736,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:399",
           "question": "精神疾患の早期発見のメリットとして正しいのはどれか？",
           "choices": [
             "再発のリスクを減らせる",
@@ -716,6 +755,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:400",
           "question": "精神疾患に対する偏見を減らすために必要なことはどれか？",
           "choices": [
             "正しい知識と理解を広める",
@@ -734,6 +774,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:401",
           "question": "ストレスケアで重要とされる考え方はどれか？",
           "choices": [
             "問題への対処と感情の整理",
@@ -752,6 +793,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:402",
           "question": "うつ病の症状として正しいものはどれか？",
           "choices": [
             "意欲の低下や眠れない状態",
@@ -770,6 +812,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:403",
           "question": "パニック障害の特徴として適切なのはどれか？",
           "choices": [
             "突然の強い不安や動悸が起こる",
@@ -788,6 +831,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:404",
           "question": "統合失調症の症状として正しいものはどれか？",
           "choices": [
             "幻覚や妄想が生じる",
@@ -806,6 +850,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:405",
           "question": "精神疾患の治療で行われるリハビリテーションの目的はどれか？",
           "choices": [
             "社会生活の再構築",
@@ -824,6 +869,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:406",
           "question": "心の健康づくりにおいて大切な姿勢はどれか？",
           "choices": [
             "自分を大切にし他者を尊重する",
@@ -842,6 +888,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:407",
           "question": "地域社会の役割として適切なのはどれか？",
           "choices": [
             "回復後の生活を支援する",
@@ -860,6 +907,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:408",
           "question": "家族が果たす支援として望ましいのはどれか？",
           "choices": [
             "本人を理解し寄り添う",
@@ -878,6 +926,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:409",
           "question": "社会的スティグマとは何を指すか？",
           "choices": [
             "病気を持つ人への偏見や差別",
@@ -896,6 +945,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:410",
           "question": "精神疾患に関する正しい理解を広めるために必要な活動はどれか？",
           "choices": [
             "啓発活動",
@@ -914,6 +964,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:411",
           "question": "地域における包括的ケアの目的はどれか？",
           "choices": [
             "医療・福祉・地域が連携して支援する",
@@ -932,6 +983,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:412",
           "question": "精神疾患の再発を防ぐために大切なのはどれか？",
           "choices": [
             "規則正しい生活を保つ",
@@ -950,6 +1002,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:413",
           "question": "医療機関以外での支援の場として適切なのはどれか？",
           "choices": [
             "地域生活支援センター",
@@ -968,6 +1021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:414",
           "question": "精神疾患からの回復における「当事者の力」とはどれか？",
           "choices": [
             "自らの経験をもとに支え合う力",
@@ -986,6 +1040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:415",
           "question": "支援の過程で信頼関係を築くために大切なことはどれか？",
           "choices": [
             "相手の話をよく聴く",
@@ -1004,6 +1059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:416",
           "question": "学校における心のケアで大切なことはどれか？",
           "choices": [
             "スクールカウンセラーに相談する",
@@ -1022,6 +1078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:417",
           "question": "相談をためらう人に対して適切な行動はどれか？",
           "choices": [
             "安心して話せる環境をつくる",
@@ -1040,6 +1097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:418",
           "question": "精神疾患の治療を受けるきっかけとして多いのはどれか？",
           "choices": [
             "家族や周囲の勧め",
@@ -1058,6 +1116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:419",
           "question": "社会復帰を支援する仕組みとして正しいものはどれか？",
           "choices": [
             "就労支援",
@@ -1076,6 +1135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U02:420",
           "question": "精神疾患からの回復で「支え合う社会」が目指す姿はどれか？",
           "choices": [
             "誰もが安心して生活できる地域社会",
@@ -1100,6 +1160,7 @@
       "title": "現代の感染症",
       "cards": [
         {
+          "stableId": "M03:M03U03:421",
           "question": "感染症とはどのような病気か？",
           "choices": [
             "病原体が人の体内に入り増えることで起こる病気",
@@ -1118,6 +1179,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U03:422",
           "question": "感染症の原因となる病原体として正しいものはどれか？",
           "choices": [
             "細菌・ウイルス・真菌など",
@@ -1136,6 +1198,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U03:423",
           "question": "感染症の感染経路に含まれないものはどれか？",
           "choices": [
             "接触感染",
@@ -1154,6 +1217,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U03:424",
           "question": "再興感染症とはどのような感染症か？",
           "choices": [
             "一度減少したが再び増加してきた感染症",
@@ -1172,6 +1236,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U03:425",
           "question": "新興感染症の例として正しいものはどれか？",
           "choices": [
             "エイズやSARSなど",
@@ -1190,6 +1255,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U03:426",
           "question": "エボラ出血熱の主な感染経路はどれか？",
           "choices": [
             "血液や体液との接触",
@@ -1208,6 +1274,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U03:427",
           "question": "再興感染症が再び増加している要因として正しいものはどれか？",
           "choices": [
             "ワクチン接種率の低下や薬剤耐性菌の増加",
@@ -1226,6 +1293,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:428",
           "question": "感染症の国際的な拡大を助長する要因はどれか？",
           "choices": [
             "交通や貿易の発達",
@@ -1244,6 +1312,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:429",
           "question": "新型コロナウイルス感染症（COVID-19）の感染拡大を防ぐために行われた対策はどれか？",
           "choices": [
             "マスク着用や手洗い",
@@ -1262,6 +1331,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:430",
           "question": "One Healthとはどのような考え方か？",
           "choices": [
             "人・動物・環境を一体として健康を守る考え方",
@@ -1280,6 +1350,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:431",
           "question": "インフルエンザの主な感染経路はどれか？",
           "choices": [
             "飛沫感染",
@@ -1298,6 +1369,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:432",
           "question": "新型インフルエンザが問題視される理由はどれか？",
           "choices": [
             "多くの人が免疫をもたないため流行しやすい",
@@ -1316,6 +1388,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:433",
           "question": "再興感染症の具体例として正しいものはどれか？",
           "choices": [
             "結核やマラリア",
@@ -1334,6 +1407,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:434",
           "question": "新興感染症が出現する要因として適切なのはどれか？",
           "choices": [
             "自然環境の変化や人間活動の拡大",
@@ -1352,6 +1426,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:435",
           "question": "WHOが定めた感染症対策の国際的な枠組みはどれか？",
           "choices": [
             "国際保健規則（IHR）",
@@ -1370,6 +1445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:436",
           "question": "マラリアの感染経路はどれか？",
           "choices": [
             "ハマダラカによる媒介",
@@ -1388,6 +1464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:437",
           "question": "感染症の予防で最も基本的な方法はどれか？",
           "choices": [
             "手洗いとうがい",
@@ -1406,6 +1483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:438",
           "question": "パンデミックとはどのような状態を指すか？",
           "choices": [
             "世界的に感染症が大流行している状態",
@@ -1424,6 +1502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:439",
           "question": "感染症の拡大を防ぐために社会全体で必要なことはどれか？",
           "choices": [
             "情報共有と協力体制の構築",
@@ -1442,6 +1521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:440",
           "question": "抗菌薬が効かなくなる現象を何というか？",
           "choices": [
             "薬剤耐性",
@@ -1460,6 +1540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:441",
           "question": "感染症の「感染源」に当てはまるものはどれか？",
           "choices": [
             "病原体を持つ人や動物",
@@ -1478,6 +1559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:442",
           "question": "感染症の「感染経路」を断つために有効なのはどれか？",
           "choices": [
             "消毒やマスクの使用",
@@ -1496,6 +1578,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:443",
           "question": "感染症に対する「感受性者対策」として正しいのはどれか？",
           "choices": [
             "予防接種を受ける",
@@ -1514,6 +1597,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:444",
           "question": "情報の偏りや誤情報による感染不安を何というか？",
           "choices": [
             "インフォデミック",
@@ -1532,6 +1616,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:445",
           "question": "「One World」という考え方の目的はどれか？",
           "choices": [
             "地球全体の健康を共有して守ること",
@@ -1550,6 +1635,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:446",
           "question": "感染症が発生しても社会機能を維持するために重要なことはどれか？",
           "choices": [
             "医療・物流などの継続計画を立てること",
@@ -1568,6 +1654,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:447",
           "question": "感染症の流行を抑えるために有効なワクチン接種率のことを何というか？",
           "choices": [
             "集団免疫",
@@ -1586,6 +1673,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:448",
           "question": "感染症対策におけるグローバル化の課題として正しいものはどれか？",
           "choices": [
             "人や物の移動により感染症が広がりやすくなる",
@@ -1604,6 +1692,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:449",
           "question": "感染症流行時に差別や偏見が生じる原因として適切なのはどれか？",
           "choices": [
             "誤った情報や不安による行動",
@@ -1622,6 +1711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U03:450",
           "question": "感染症の問題に対して私たちが取るべき基本的姿勢はどれか？",
           "choices": [
             "科学的根拠に基づいて冷静に行動する",
@@ -1646,6 +1736,7 @@
       "title": "感染症の予防",
       "cards": [
         {
+          "stableId": "M03:M03U04:451",
           "question": "感染症予防の三原則のうち「感染源対策」に該当する行動はどれか？",
           "choices": [
             "感染者を早期に発見し治療する",
@@ -1664,6 +1755,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U04:452",
           "question": "感染経路対策として最も適切なものはどれか？",
           "choices": [
             "免疫力を高める",
@@ -1682,6 +1774,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U04:453",
           "question": "感受性者対策の例として正しいものはどれか？",
           "choices": [
             "感染者の隔離",
@@ -1700,6 +1793,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U04:454",
           "question": "予防接種の目的として正しいものはどれか？",
           "choices": [
             "病気を完全に根絶すること",
@@ -1718,6 +1812,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U04:455",
           "question": "個人ができる感染症予防行動として正しいものはどれか？",
           "choices": [
             "不用意に外出する",
@@ -1736,6 +1831,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U04:456",
           "question": "社会全体で行う感染症対策に含まれるものはどれか？",
           "choices": [
             "定期予防接種制度",
@@ -1754,6 +1850,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U04:457",
           "question": "集団免疫が成立する条件として正しいものはどれか？",
           "choices": [
             "感染者全員が治療を受ける",
@@ -1772,6 +1869,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:458",
           "question": "ワクチン接種により得られる免疫はどれか？",
           "choices": [
             "自然免疫",
@@ -1790,6 +1888,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:459",
           "question": "感染症の流行を抑えるために最も重要な行動はどれか？",
           "choices": [
             "発症したら登校・出勤を控える",
@@ -1808,6 +1907,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:460",
           "question": "将来の新たな感染症に備えるために必要な視点はどれか？",
           "choices": [
             "過去の流行に学び予防意識を高める",
@@ -1826,6 +1926,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:461",
           "question": "感染症の三原則のうち「感受性者対策」に当たるものはどれか？",
           "choices": [
             "ワクチン接種を受ける",
@@ -1844,6 +1945,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:462",
           "question": "感染経路を断つために最も効果的な方法はどれか？",
           "choices": [
             "マスクの着用や手洗い",
@@ -1862,6 +1964,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:463",
           "question": "感染源対策として誤っているものはどれか？",
           "choices": [
             "感染者の治療",
@@ -1880,6 +1983,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:464",
           "question": "咳やくしゃみをする際に守るべきマナーを何というか？",
           "choices": [
             "ソーシャルディスタンス",
@@ -1898,6 +2002,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:465",
           "question": "飛沫感染と空気感染の違いとして正しいものはどれか？",
           "choices": [
             "飛沫感染は大きな粒子で短距離",
@@ -1916,6 +2021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:466",
           "question": "インフルエンザや麻しんなどに共通する感染経路はどれか？",
           "choices": [
             "飛沫感染",
@@ -1934,6 +2040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:467",
           "question": "感染症対策の基本となる「免疫」とは何か？",
           "choices": [
             "病原体を体内に取り入れる力",
@@ -1952,6 +2059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:468",
           "question": "免疫の種類のうち、病気にかかって得るものはどれか？",
           "choices": [
             "自然免疫",
@@ -1970,6 +2078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:469",
           "question": "母親から胎児や新生児に移行する免疫はどれか？",
           "choices": [
             "自然免疫",
@@ -1988,6 +2097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:470",
           "question": "予防接種を受けた後に免疫がつくまでに必要な期間はどれか？",
           "choices": [
             "1〜2日",
@@ -2006,6 +2116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:471",
           "question": "定期予防接種の対象となる感染症に含まれるものはどれか？",
           "choices": [
             "麻しん・風しん",
@@ -2024,6 +2135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:472",
           "question": "感染症法で定められる「新型インフルエンザ等感染症」に該当するものはどれか？",
           "choices": [
             "新しい型のインフルエンザ",
@@ -2042,6 +2154,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:473",
           "question": "新しい感染症が流行したときに社会が行うべき行動として適切なのはどれか？",
           "choices": [
             "正確な情報の共有",
@@ -2060,6 +2173,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:474",
           "question": "感染症の拡大を防ぐうえでマスクの効果が高い理由はどれか？",
           "choices": [
             "病原体を完全に殺すから",
@@ -2078,6 +2192,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:475",
           "question": "社会的支援による感染症予防の利点はどれか？",
           "choices": [
             "個人の努力だけでは防げない感染拡大を抑制できる",
@@ -2096,6 +2211,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:476",
           "question": "パンデミックとは何を意味するか？",
           "choices": [
             "地域的な感染流行",
@@ -2114,6 +2230,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:477",
           "question": "感染症の予防において個人の役割として最も重要なのはどれか？",
           "choices": [
             "自分や周囲を守る意識を持つこと",
@@ -2132,6 +2249,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:478",
           "question": "感染症の拡大を防ぐために「早期発見・早期対応」が重要な理由はどれか？",
           "choices": [
             "重症化を防ぎ感染連鎖を断てるから",
@@ -2150,6 +2268,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:479",
           "question": "感染症の予防に関する教育が学校で行われる意義はどれか？",
           "choices": [
             "正しい知識と行動を身につけるため",
@@ -2168,6 +2287,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U04:480",
           "question": "将来の感染症対策に必要とされる国際的な協力の内容として適切なのはどれか？",
           "choices": [
             "ワクチンや情報を共有する",
@@ -2192,6 +2312,7 @@
       "title": "性感染症・エイズとその予防",
       "cards": [
         {
+          "stableId": "M03:M03U05:481",
           "question": "性感染症（STI）とはどのような感染症か？",
           "choices": [
             "性的接触によって感染する病気",
@@ -2210,6 +2331,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U05:482",
           "question": "HIVはどのようなウイルスか？",
           "choices": [
             "免疫の働きを弱めるウイルス",
@@ -2228,6 +2350,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U05:483",
           "question": "エイズ（AIDS）とはどのような状態を指すか？",
           "choices": [
             "HIV感染によって免疫機能が著しく低下した状態",
@@ -2246,6 +2369,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U05:484",
           "question": "HIVの主な感染経路として正しいのはどれか？",
           "choices": [
             "血液や性行為を介して感染する",
@@ -2264,6 +2388,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U05:485",
           "question": "日本でHIV感染者が最も多い年代層はどれか？",
           "choices": [
             "20〜30代",
@@ -2282,6 +2407,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U05:486",
           "question": "性感染症の中で最も多く報告されているものはどれか？",
           "choices": [
             "クラミジア感染症",
@@ -2300,6 +2426,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U05:487",
           "question": "梅毒の感染経路として正しいのはどれか？",
           "choices": [
             "主に性的接触によって感染する",
@@ -2318,6 +2445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:488",
           "question": "性感染症の予防で最も有効な方法の一つはどれか？",
           "choices": [
             "コンドームを正しく使用する",
@@ -2336,6 +2464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:489",
           "question": "感染の不安がある場合に取るべき対応はどれか？",
           "choices": [
             "早めに医療機関で検査を受ける",
@@ -2354,6 +2483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:490",
           "question": "社会的な性感染症対策として正しいものはどれか？",
           "choices": [
             "啓発活動や検査体制の充実",
@@ -2372,6 +2502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:491",
           "question": "HIVの検査で結果が出るまでの一般的な期間はどれか？",
           "choices": [
             "2〜8週間",
@@ -2390,6 +2521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:492",
           "question": "HIV感染後、症状が現れにくい期間を何というか？",
           "choices": [
             "無症候期",
@@ -2408,6 +2540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:493",
           "question": "HIV感染によって起こる「日和見感染」とは何か？",
           "choices": [
             "免疫低下で通常は発症しない病気にかかること",
@@ -2426,6 +2559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:494",
           "question": "HIV感染が確認された場合に行うべき行動はどれか？",
           "choices": [
             "医療機関で継続的な治療を受ける",
@@ -2444,6 +2578,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:495",
           "question": "エイズ治療薬の主な目的はどれか？",
           "choices": [
             "HIVの増殖を抑えること",
@@ -2462,6 +2597,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:496",
           "question": "抗HIV薬の服用において重要なことはどれか？",
           "choices": [
             "毎日決められた時間に正しく服用する",
@@ -2480,6 +2616,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:497",
           "question": "HIVの感染を防ぐために個人でできる最も重要な行動はどれか？",
           "choices": [
             "性的接触時にコンドームを使用する",
@@ -2498,6 +2635,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:498",
           "question": "HIV感染者やエイズ患者に対する社会の姿勢として望ましいものはどれか？",
           "choices": [
             "差別せず理解と支援をもって接する",
@@ -2516,6 +2654,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:499",
           "question": "性感染症の早期発見に役立つ方法として正しいものはどれか？",
           "choices": [
             "定期的な検査を受ける",
@@ -2534,6 +2673,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:500",
           "question": "HPV感染症の主な予防方法はどれか？",
           "choices": [
             "ワクチン接種",
@@ -2552,6 +2692,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:501",
           "question": "梅毒患者が近年増加している理由として正しいのはどれか？",
           "choices": [
             "性的行動の多様化や感染への油断",
@@ -2570,6 +2711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:502",
           "question": "HIV感染の世界的な傾向として正しいのはどれか？",
           "choices": [
             "新規感染者は減少傾向にある",
@@ -2588,6 +2730,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:503",
           "question": "性感染症の感染拡大を防ぐ社会的支援として重要なのはどれか？",
           "choices": [
             "相談窓口や検査体制の整備",
@@ -2606,6 +2749,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:504",
           "question": "HIVに感染してもエイズを発症しない状態を維持できる理由はどれか？",
           "choices": [
             "抗HIV薬によりウイルス増殖が抑えられているから",
@@ -2624,6 +2768,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:505",
           "question": "HIV検査の方法として正しいのはどれか？",
           "choices": [
             "血液を採取して抗体を調べる",
@@ -2642,6 +2787,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:506",
           "question": "HIV検査を匿名で受けられる場所として適切なのはどれか？",
           "choices": [
             "保健所",
@@ -2660,6 +2806,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:507",
           "question": "性感染症予防の啓発に使われる赤いリボンの意味はどれか？",
           "choices": [
             "エイズに対する理解と支援の象徴",
@@ -2678,6 +2825,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:508",
           "question": "U=U（Undetectable＝Untransmittable）とは何を意味するか？",
           "choices": [
             "ウイルス量が検出限界以下なら感染させない",
@@ -2696,6 +2844,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:509",
           "question": "性感染症予防の社会的取り組みの目的として正しいのはどれか？",
           "choices": [
             "感染拡大を防ぎ健康被害を減らす",
@@ -2714,6 +2863,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U05:510",
           "question": "性感染症の正しい知識を広める意義として最も適切なのはどれか？",
           "choices": [
             "誤った偏見をなくし予防行動を促す",
@@ -2738,6 +2888,7 @@
       "title": "健康に関する意思決定・行動選択",
       "cards": [
         {
+          "stableId": "M03:M03U06:511",
           "question": "意思決定・行動選択とはどのようなことか？",
           "choices": [
             "自分の健康に関して最も望ましい行動を選ぶこと",
@@ -2756,6 +2907,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U06:512",
           "question": "意思決定・行動選択が健康に影響を与える理由はどれか？",
           "choices": [
             "日常の行動習慣が健康状態を左右するから",
@@ -2774,6 +2926,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U06:513",
           "question": "健康に関する意思決定に影響を与える個人的要因はどれか？",
           "choices": [
             "価値観や性格",
@@ -2792,6 +2945,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U06:514",
           "question": "健康に関する意思決定に影響を与える社会的要因はどれか？",
           "choices": [
             "家族や友人との関係",
@@ -2810,6 +2964,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U06:515",
           "question": "意思決定や行動選択を行う際に重要なことはどれか？",
           "choices": [
             "信頼できる情報をもとに判断すること",
@@ -2828,6 +2983,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U06:516",
           "question": "健康に関する情報の信頼性を確かめる際に有効なのはどれか？",
           "choices": [
             "発信者の専門性や出典を確認する",
@@ -2846,6 +3002,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U06:517",
           "question": "よりよい意思決定・行動選択のためのステップの最初の段階はどれか？",
           "choices": [
             "問題を自覚すること",
@@ -2864,6 +3021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:518",
           "question": "行動を続けるために有効な工夫はどれか？",
           "choices": [
             "具体的な目標を設定する",
@@ -2882,6 +3040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:519",
           "question": "ヘルスリテラシーとは何を指すか？",
           "choices": [
             "健康に関する情報を正しく理解し活用する力",
@@ -2900,6 +3059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:520",
           "question": "日本人のヘルスリテラシーが低い理由として適切なのはどれか？",
           "choices": [
             "医療情報へのアクセスや理解力が十分でない",
@@ -2918,6 +3078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:521",
           "question": "エビデンスとは何を意味するか？",
           "choices": [
             "科学的根拠",
@@ -2936,6 +3097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:522",
           "question": "健康情報を判断する際に重要な視点はどれか？",
           "choices": [
             "エビデンス・価値観・資源とニーズ",
@@ -2954,6 +3116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:523",
           "question": "エビデンスのレベルが高い研究として最も適切なのはどれか？",
           "choices": [
             "系統的レビュー",
@@ -2972,6 +3135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:524",
           "question": "ヘルスリテラシーを構成する4つの力に含まれないものはどれか？",
           "choices": [
             "記録する力",
@@ -2990,6 +3154,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:525",
           "question": "よりよい意思決定を行うためのプロセスに最も関連する考え方はどれか？",
           "choices": [
             "PDCAサイクル",
@@ -3008,6 +3173,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:526",
           "question": "「か・ち・も・な・い」による情報の信頼性判断で「か」が示す内容はどれか？",
           "choices": [
             "書かれたのは誰か",
@@ -3026,6 +3192,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:527",
           "question": "健康行動理論の1つであるヘルスビリーフモデルの目的はどれか？",
           "choices": [
             "人が健康行動を起こす心理的要因を説明する",
@@ -3044,6 +3211,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:528",
           "question": "行動を変容する際に最初に必要な段階はどれか？",
           "choices": [
             "気づきの段階",
@@ -3062,6 +3230,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:529",
           "question": "「行動変容の段階モデル」における最後の段階はどれか？",
           "choices": [
             "維持",
@@ -3080,6 +3249,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:530",
           "question": "自己効力感とは何を意味するか？",
           "choices": [
             "自分にできるという感覚",
@@ -3098,6 +3268,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:531",
           "question": "行動を継続する上で有効な社会的支援はどれか？",
           "choices": [
             "家族や友人の励まし",
@@ -3116,6 +3287,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:532",
           "question": "ヘルスリテラシーを高めるための有効な方法はどれか？",
           "choices": [
             "信頼できる情報源を利用する",
@@ -3134,6 +3306,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:533",
           "question": "社会的ヘルスリテラシーが重視する力はどれか？",
           "choices": [
             "他者と協働して健康を守る力",
@@ -3152,6 +3325,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:534",
           "question": "批判的ヘルスリテラシーの特徴として正しいのはどれか？",
           "choices": [
             "社会の仕組みや政策に働きかける力",
@@ -3170,6 +3344,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:535",
           "question": "「ヘルスプロモーション」と関係が深い概念はどれか？",
           "choices": [
             "人々が健康を自ら管理し改善する考え方",
@@ -3188,6 +3363,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:536",
           "question": "意思決定・行動選択においてSNSが与える影響はどれか？",
           "choices": [
             "情報の拡散と誤情報のリスクの両方",
@@ -3206,6 +3382,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:537",
           "question": "情報を選ぶ際に「も」が意味するのはどれか？",
           "choices": [
             "元ネタは何か",
@@ -3224,6 +3401,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:538",
           "question": "エビデンスに基づく保健活動の目的はどれか？",
           "choices": [
             "科学的根拠に基づいた効果的な健康づくり",
@@ -3242,6 +3420,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:539",
           "question": "行動変容を支える要素として正しいのはどれか？",
           "choices": [
             "自己効力感と社会的支援",
@@ -3260,6 +3439,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U06:540",
           "question": "よりよい意思決定・行動選択を行うために重要な態度はどれか？",
           "choices": [
             "情報を批判的に読み取る姿勢",
@@ -3284,6 +3464,7 @@
       "title": "健康に関する環境づくり",
       "cards": [
         {
+          "stableId": "M03:M03U07:541",
           "question": "健康に関する環境づくりの目的はどれか？",
           "choices": [
             "人々の健康を保持増進するため",
@@ -3302,6 +3483,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U07:542",
           "question": "健康の保持増進に関わる環境の例として正しいのはどれか？",
           "choices": [
             "運動施設や公園",
@@ -3320,6 +3502,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U07:543",
           "question": "環境による健康への影響を理解する上で重要な視点はどれか？",
           "choices": [
             "個人の生活習慣と社会的要因の両方",
@@ -3338,6 +3521,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U07:544",
           "question": "社会的つながりが健康に及ぼす影響として適切なのはどれか？",
           "choices": [
             "孤立を防ぎ心身の健康を支える",
@@ -3356,6 +3540,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U07:545",
           "question": "「健康に関する環境づくり」で行政の役割として適切なのはどれか？",
           "choices": [
             "地域の健康づくり施策を推進する",
@@ -3374,6 +3559,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U07:546",
           "question": "ヘルスプロモーションとはどのような考え方か？",
           "choices": [
             "人々が自ら健康をコントロールできるようにする考え方",
@@ -3392,6 +3578,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M03:M03U07:547",
           "question": "WHOが1986年に発表したヘルスプロモーションの国際会議はどれか？",
           "choices": [
             "オタワ会議",
@@ -3410,6 +3597,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:548",
           "question": "ヘルスプロモーションの基本戦略の1つでないものはどれか？",
           "choices": [
             "個人の責任を追及すること",
@@ -3428,6 +3616,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:549",
           "question": "「支援的な環境づくり」とはどのような取り組みか？",
           "choices": [
             "誰もが健康的に生活しやすい環境を整えること",
@@ -3446,6 +3635,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:550",
           "question": "地域のスポーツセンター設置などの事例が示す考え方はどれか？",
           "choices": [
             "健康づくりを地域全体で支える",
@@ -3464,6 +3654,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:551",
           "question": "健康に影響を与える「社会的要因」の例として最も適切なのはどれか？",
           "choices": [
             "所得格差や教育水準",
@@ -3482,6 +3673,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:552",
           "question": "ヘルスプロモーションの目的として正しいのはどれか？",
           "choices": [
             "人々が自分の健康をよりよくコントロールできるようにする",
@@ -3500,6 +3692,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:553",
           "question": "従来の健康づくりとヘルスプロモーションの違いとして正しいのはどれか？",
           "choices": [
             "個人努力中心から社会的支援重視に変化した",
@@ -3518,6 +3711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:554",
           "question": "ヘルスプロモーションの基本戦略に含まれないものはどれか？",
           "choices": [
             "企業利益の最大化",
@@ -3536,6 +3730,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:555",
           "question": "ヘルスプロモーションの柱として正しいものはどれか？",
           "choices": [
             "支援的な環境づくり",
@@ -3554,6 +3749,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:556",
           "question": "住民一人ひとりが健康に暮らせるまちづくりを表す言葉はどれか？",
           "choices": [
             "ヘルシーシティ",
@@ -3572,6 +3768,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:557",
           "question": "日本の健康づくり施策で1988年に始まったのはどれか？",
           "choices": [
             "第2次国民健康づくり対策（アクティブ80ヘルスプラン）",
@@ -3590,6 +3787,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:558",
           "question": "「健康日本21」が策定されたのはいつか？",
           "choices": [
             "2000年",
@@ -3608,6 +3806,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:559",
           "question": "第4次国民健康づくり対策の名称はどれか？",
           "choices": [
             "健康日本21（第二次）",
@@ -3626,6 +3825,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:560",
           "question": "「健康寿命」とはどのような指標か？",
           "choices": [
             "健康で自立して生活できる期間",
@@ -3644,6 +3844,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:561",
           "question": "ボランティア活動が健康に及ぼす影響として正しいものはどれか？",
           "choices": [
             "社会的つながりが増し心身の健康が保たれる",
@@ -3662,6 +3863,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:562",
           "question": "健康の社会的決定要因（SDH）に関する説明で正しいのはどれか？",
           "choices": [
             "健康は社会の構造や仕組みに影響される",
@@ -3680,6 +3882,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:563",
           "question": "健康格差の縮小を目指す取り組みとして適切なのはどれか？",
           "choices": [
             "誰もが利用できる医療や運動機会を整備する",
@@ -3698,6 +3901,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:564",
           "question": "ヘルスプロモーションの考え方を象徴する図で「坂を押す人」の例えが示すものはどれか？",
           "choices": [
             "個人の努力による健康づくり",
@@ -3716,6 +3920,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:565",
           "question": "ヘルスプロモーションにおける「住民参加」が重要とされる理由はどれか？",
           "choices": [
             "地域の課題を自ら考え行動する力を育む",
@@ -3734,6 +3939,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:566",
           "question": "SDGsの目標のうち「すべての人に健康と福祉を」を表す番号はどれか？",
           "choices": [
             "3",
@@ -3752,6 +3958,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:567",
           "question": "健康的なまちづくりの国際的取り組みの例として適切なのはどれか？",
           "choices": [
             "ヘルシーシティ運動",
@@ -3770,6 +3977,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:568",
           "question": "「ヘルスリテラシー」とはどのような力を指すか？",
           "choices": [
             "健康情報を理解し活用する力",
@@ -3788,6 +3996,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:569",
           "question": "健康リテラシーを高める環境づくりとして適切なのはどれか？",
           "choices": [
             "信頼できる情報を入手できる仕組みを整える",
@@ -3806,6 +4015,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M03:M03U07:570",
           "question": "「健康に関する環境づくり」が重視される背景として正しいのはどれか？",
           "choices": [
             "個人の生活習慣だけでは健康格差を是正できないため",

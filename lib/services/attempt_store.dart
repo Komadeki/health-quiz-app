@@ -2,15 +2,16 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
-import 'package:flutter/foundation.dart'; // ← 未導入なら追加
+import 'package:flutter/foundation.dart';
 import '../models/attempt_entry.dart';
-import '../models/score_record.dart'; // ★追加
+import '../models/score_record.dart'; // ← 298行目以降で利用
+import '../models/review_scope.dart';
 import '../utils/logger.dart';
 
 class AttemptStore {
   // ---- keys ----
   static const String kAttempts = 'attempts_v1'; // 既存: 1問ごとの履歴（AttemptEntry）をJSON配列で保存
-  static const String kScores   = 'scores_v2';   // ★追加: 成績サマリ（ScoreRecord）をJSON配列で保存
+  static const String kScores   = 'scores_v2';   // 成績サマリ（ScoreRecord）をJSON配列で保存（298行目以降で使用）
 
   static const int defaultRetention = 5000; // AttemptEntryの保持上限
 
@@ -18,9 +19,124 @@ class AttemptStore {
   static final AttemptStore _i = AttemptStore._();
   factory AttemptStore() => _i;
 
+  // ===== stableIdベースの新API（見直しモード／復習テスト用） =====
+
+  /// スコープ内（任意）で、誤答となった stableId をユニークに返す
+  Future<List<String>> getWrongStableIdsUnique({
+    List<String>? onlySessionIds,
+  }) async {
+    final all = await _loadAll();
+    final out = <String>{};
+
+    for (final e in all) {
+      // セッション絞り込み
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) {
+        continue;
+      }
+      // 正誤
+      if (e.isCorrect == true) continue;
+
+      // stableId を安全に取得（存在しない型でもコンパイルエラーにならないよう dynamic で握る）
+      String? sid;
+      try { sid = (e as dynamic).stableId as String?; } catch (_) {}
+      if (sid != null && sid.trim().isNotEmpty) {
+        out.add(sid.trim());
+      }
+    }
+    return out.toList();
+  }
+
+  /// スコープ内（任意）で、stableId ごとの誤答回数を返す
+  Future<Map<String, int>> getWrongFrequencyByStableId({
+    List<String>? onlySessionIds,
+  }) async {
+    final all = await _loadAll();
+    final map = <String, int>{};
+
+    for (final e in all) {
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) {
+        continue;
+      }
+      if (e.isCorrect == true) continue;
+
+      String? sid;
+      try { sid = (e as dynamic).stableId as String?; } catch (_) {}
+      if (sid == null || sid.trim().isEmpty) continue;
+
+      final key = sid.trim();
+      map.update(key, (v) => v + 1, ifAbsent: () => 1);
+    }
+    return map;
+  }
+
+  /// スコープ内（任意）で、stableId ごとの「最新の誤答時刻」を返す
+  Future<Map<String, DateTime>> getLatestWrongAtByStableId({
+    List<String>? onlySessionIds,
+  }) async {
+    final all = await _loadAll();
+    final map = <String, DateTime>{};
+
+    DateTime? _ts(dynamic x) {
+      // answeredAt / createdAt / timestamp / *_ms / *_sec など、緩めに吸収
+      DateTime? tryParse(dynamic v) {
+        if (v == null) return null;
+        if (v is DateTime) return v;
+        if (v is String) return DateTime.tryParse(v);
+        if (v is num) {
+          // 10桁程度なら秒、13桁程度ならミリ秒とみなす簡易ハンドリング
+          final n = v.toInt();
+          final ms = (n > 2000000000) ? n : n * 1000;
+          return DateTime.fromMillisecondsSinceEpoch(ms);
+        }
+        return null;
+      }
+
+      try {
+        final e = x as dynamic;
+        return tryParse(e.answeredAt) ??
+            tryParse(e.answeredAtMs) ??
+            tryParse(e.createdAt) ??
+            tryParse(e.createdAtMs) ??
+            tryParse(e.timestamp) ??
+            tryParse(e.time) ??
+            tryParse(e.at) ??
+            tryParse(e.finishedAt) ??
+            tryParse(e.completedAt);
+      } catch (_) {
+        return null;
+      }
+    }
+
+    for (final e in all) {
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) {
+        continue;
+      }
+      if (e.isCorrect == true) continue;
+
+      String? sid;
+      try { sid = (e as dynamic).stableId as String?; } catch (_) {}
+      if (sid == null || sid.trim().isEmpty) continue;
+
+      final t = _ts(e);
+      if (t == null) continue;
+
+      final key = sid.trim();
+      final cur = map[key];
+      if (cur == null || t.isAfter(cur)) {
+        map[key] = t;
+      }
+    }
+    return map;
+  }
+
+
   // ===========================================================================
   // AttemptEntry（既存機能） — 1問ごとの履歴
   // ===========================================================================
+
+  /// 質問テキストを AttemptStore 互換キーへ（空白のみ畳む）
+  static String _questionKey(String raw) =>
+      'Q::${raw.replaceAll(RegExp(r'\\s+'), ' ').trim()}';
 
   Future<List<AttemptEntry>> _loadAll() async {
     final prefs = await SharedPreferences.getInstance();
@@ -35,10 +151,19 @@ class AttemptStore {
           final map = (e as Map).cast<String, dynamic>();
           var a = AttemptEntry.fromMap(map);
 
-          // attemptId が無い古いデータに対しては補完
-          if ((a.attemptId == null) || (a.attemptId!.isEmpty)) {
+          // attemptId の補完（後方互換）
+          if ((a.attemptId == null) || a.attemptId!.isEmpty) {
             a = a.copyWith(attemptId: const Uuid().v4());
           }
+
+          // ★ stableId の補完（既存データ救済）
+          //   - すでに stableId があれば何もしない
+          //   - なければ 質問テキストから Q::キーを埋める
+          if ((a.stableId == null || a.stableId!.isEmpty) &&
+              (a.question?.trim().isNotEmpty ?? false)) {
+            a = a.copyWith(stableId: _questionKey(a.question!));
+          }
+
           items.add(a);
         } catch (err) {
           AppLog.w('[AttemptStore] skip broken item: $err');
@@ -54,12 +179,18 @@ class AttemptStore {
   Future<void> _saveAll(List<AttemptEntry> items) async {
     final prefs = await SharedPreferences.getInstance();
     try {
-      // 念のため attemptId が空のものがあれば付与
-      final normalized = items
-          .map((a) => (a.attemptId == null || a.attemptId!.isEmpty)
-              ? a.copyWith(attemptId: const Uuid().v4())
-              : a)
-          .toList();
+      // 念のため attemptId / stableId を正規化してから保存
+      final normalized = items.map((a0) {
+        var a = a0;
+        if (a.attemptId == null || a.attemptId!.isEmpty) {
+          a = a.copyWith(attemptId: const Uuid().v4());
+        }
+        if ((a.stableId == null || a.stableId!.isEmpty) &&
+            (a.question?.trim().isNotEmpty ?? false)) {
+          a = a.copyWith(stableId: _questionKey(a.question!));
+        }
+        return a;
+      }).toList();
 
       final ok = await prefs.setString(
         kAttempts,
@@ -73,14 +204,20 @@ class AttemptStore {
     }
   }
 
-  /// 1問分を追加（既存）
+  /// 1問分を追加（既存＋stableId補完）
   Future<void> add(AttemptEntry entry, {int? retention}) async {
     final all = await _loadAll();
 
-    // attemptId の自動付与（モデル側で未設定の場合）
-    final withId = (entry.attemptId == null || entry.attemptId!.isEmpty)
+    // attemptId の自動付与
+    var withId = (entry.attemptId == null || entry.attemptId!.isEmpty)
         ? entry.copyWith(attemptId: const Uuid().v4())
         : entry;
+
+    // ★ stableId の自動補完
+    if ((withId.stableId == null || withId.stableId!.isEmpty) &&
+        (withId.question?.trim().isNotEmpty ?? false)) {
+      withId = withId.copyWith(stableId: _questionKey(withId.question!));
+    }
 
     all.add(withId);
 
@@ -104,7 +241,7 @@ class AttemptStore {
   }
 
   /// これまでの誤答の「質問文」を時系列・重複ありで返す（見直しモード用／全期間）
-  /// ※ “ID” という名前だが実体は質問文。呼び出し側でカードに写像する。
+  /// ※ 互換性のため “ID” という名前だが実体は質問文。呼び出し側でカードに写像する。
   Future<List<String>> getAllWrongCardIds() async {
     final all = await _loadAll();
     final out = <String>[];
@@ -117,7 +254,7 @@ class AttemptStore {
     return out;
   }
 
-  /// （★新規）指定セッション群に限定して誤答の「質問文」リストを返す（重複あり・見直しモード用）
+  /// 指定セッション群に限定して誤答の「質問文」リストを返す（重複あり・見直しモード用）
   Future<List<String>> getAllWrongCardIdsFiltered({
     List<String>? onlySessionIds,
   }) async {
@@ -143,7 +280,7 @@ class AttemptStore {
     return out;
   }
 
-  // AttemptStore に追記
+  /// 直近の誤答タイムスタンプ（key=stableId or Q::キー）
   Future<Map<String, DateTime>> getWrongLatestAtMap({
     List<String>? onlySessionIds,
   }) async {
@@ -175,9 +312,7 @@ class AttemptStore {
     return map;
   }
 
-    /// （新規）誤答頻度マップを返す: { key: wrongCount }
-  /// key は stableId 優先、無ければ質問文（正規化）で代用
-  /// onlySessionIds を指定すると、そのセッションに属する Attempt のみ集計
+  /// 誤答頻度マップを返す: { key: wrongCount }（key は stableId 優先）
   Future<Map<String, int>> getWrongFrequencyMap({
     List<String>? onlySessionIds,
   }) async {
@@ -200,7 +335,6 @@ class AttemptStore {
       }
     }
 
-    // デバッグ出力（スコープが指定されたときだけ）
     if (onlySessionIds != null) {
       try {
         debugPrint('[REVIEW] attempts filtered by sessions: $kept/$total');
@@ -209,7 +343,7 @@ class AttemptStore {
     return map;
   }
 
-  /// key生成ヘルパ（stableId優先・なければ質問文）
+  /// key生成ヘルパ（stableId優先・無ければ質問文を Q:: でフォールバック）
   String _keyFromAttempt(AttemptEntry e) {
     // stableId, cardStableId, cardId などプロジェクトの実装に応じて取得
     try {
@@ -228,8 +362,7 @@ class AttemptStore {
     // フォールバック: 質問文を正規化
     final q = (e.question ?? '').trim();
     if (q.isEmpty) return '';
-    final normalized = q.replaceAll(RegExp(r'\s+'), ' ');
-    return 'Q::$normalized';
+    return _questionKey(q);
   }
 
   /// 既存のAttemptEntry全削除（既存）
@@ -260,9 +393,16 @@ class AttemptStore {
         try {
           final map = (e as Map).cast<String, dynamic>();
           var a = AttemptEntry.fromMap(map);
+
           if ((a.attemptId == null) || a.attemptId!.isEmpty) {
             a = a.copyWith(attemptId: const Uuid().v4());
           }
+          // ★ インポート時も stableId を補完
+          if ((a.stableId == null || a.stableId!.isEmpty) &&
+              (a.question?.trim().isNotEmpty ?? false)) {
+            a = a.copyWith(stableId: _questionKey(a.question!));
+          }
+
           items.add(a);
         } catch (err) {
           AppLog.w('[AttemptStore] import skip broken item: $err');
@@ -411,5 +551,103 @@ class AttemptStore {
         .map((e) => (e.question ?? '').trim())
         .where((q) => q.isNotEmpty)
         .toList();
+  }
+
+    // ===========================================================================
+  // 🔽 復習モード対応API（見直し／復習テスト 共通）
+  // ===========================================================================
+
+  /// 【見直しモード用】
+  /// 重複を除いた「誤答カードの stableId 一覧」を返す。
+  /// ※ type='review_test' など指定でスコープ絞り込みも可能。
+  Future<List<String>> getWrongStableIdsUniqueScoped({
+    List<String>? onlySessionIds,
+    String? type, // 'unit' | 'mixed' | 'review_test' | null
+  }) async {
+    final all = await _loadAll();
+    final out = <String>{};
+    for (final e in all) {
+      // typeで絞り込み（指定がなければ全体）
+      if (type != null && e.sessionType != type) continue;
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) continue;
+
+      if (!e.isCorrect) {
+        final key = _keyFromAttempt(e);
+        if (key.isNotEmpty) out.add(key);
+      }
+    }
+    AppLog.d('[REVIEW] getWrongStableIdsUnique -> ${out.length} items'); // ★追加ログ
+    return out.toList();
+  }
+
+  /// 【復習テスト用】
+  /// 誤答の出現頻度マップ (stableId → 回数) を ScoreScope で算出
+  Future<Map<String, int>> getWrongFrequencyMapScoped(ScoreScope scope) async {
+    final all = await _loadAll();
+    final freq = <String, int>{};
+
+    final from = scope.from;
+    final to = scope.to;
+    final types = scope.sessionTypes;
+
+    for (final e in all) {
+      // 1️⃣ 成績スコープによるフィルタ
+      if (types != null && types.isNotEmpty && !types.contains(e.sessionType)) {
+        continue;
+      }
+
+      final t = e.createdAt ?? e.answeredAt ?? e.timestamp;
+      if (from != null && t.isBefore(from)) continue;
+      if (to != null && t.isAfter(to)) continue;
+
+      // 2️⃣ 誤答のみ集計
+      if (!e.isCorrect) {
+        final key = _keyFromAttempt(e);
+        if (key.isEmpty) continue;
+        freq.update(key, (v) => v + 1, ifAbsent: () => 1);
+      }
+    }
+
+    debugPrint('[REVIEW] getWrongFrequencyMapScoped -> ${freq.length} items');
+    return freq;
+  }
+
+  /// 【メタ情報】誤答回数＋最新誤答時刻＋最新正誤を返す
+  /// → 見直しモードで「並び替え／フィルタ」に利用予定
+  Future<Map<String, ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})>>
+      buildReviewMeta({
+    List<String>? onlySessionIds,
+    String? type,
+  }) async {
+    final all = await _loadAll();
+    final map = <String, ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})>{};
+
+    for (final e in all) {
+      if (type != null && e.sessionType != type) continue;
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) continue;
+
+      final sid = _keyFromAttempt(e);
+      if (sid.isEmpty) continue;
+
+      final cur = map[sid];
+      var wrong = cur?.wrongCount ?? 0;
+      DateTime? latest = cur?.latestWrongAt;
+      bool? lastCorrect = cur?.latestWasCorrect;
+
+      if (!e.isCorrect) {
+        wrong += 1;
+        final t = e.createdAt ?? e.answeredAt ?? e.timestamp;
+        if (t != null && (latest == null || t.isAfter(latest))) latest = t;
+      }
+      // 最新正誤
+      final t = e.createdAt ?? e.answeredAt ?? e.timestamp;
+      if (t != null && (latest == null || t.isAfter(latest))) {
+        lastCorrect = e.isCorrect;
+      }
+
+      map[sid] = (wrongCount: wrong, latestWrongAt: latest, latestWasCorrect: lastCorrect);
+    }
+
+    return map;
   }
 }

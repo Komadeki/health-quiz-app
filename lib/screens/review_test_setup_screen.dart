@@ -1,10 +1,11 @@
 // lib/screens/review_test_setup_screen.dart
 import 'package:flutter/material.dart';
 import '../models/deck.dart';
+import '../models/review_scope.dart';
 import '../services/attempt_store.dart';
+// ★統合版にするなら下は削除：import '../services/attempt_store_review_ext.dart';
 import '../services/deck_loader.dart';
 import '../services/review_test_builder.dart';
-import '../services/session_scope.dart'; // ★追加：成績スコープ収集
 import 'quiz_screen.dart';
 
 class ReviewTestSetupScreen extends StatefulWidget {
@@ -16,39 +17,64 @@ class ReviewTestSetupScreen extends StatefulWidget {
 
 class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
   // 出題数プリセット
-  final _sizes = const [10, 20, 30, 50];
+  final List<int> _sizes = const [10, 20, 30, 50];
   int _selected = 10;
 
-  // セッションスコープ（将来UIで変更可能）
-  int? _days = 30;        // 直近30日（nullなら全期間）
-  String? _type;          // 'normal' | 'mixed' | 'review_test' など（nullなら全タイプ）
+  // 成績スコープ簡易UI（将来拡張用）
+  int? _days = 30;          // 直近30日（null=全期間）
+  String? _type;            // 'unit' | 'mixed' | 'review_test'（null=全タイプ）
 
   bool _busy = false;
-  int _available = -1;    // スコープ内のユニーク誤答候補数
-  List<String>? _scopedSessionIds; // 収集済みセッションID（キャッシュ）
+  bool _probing = false;
+  int _available = -1;      // スコープ内ユニーク誤答（stableIdベース）
 
   @override
   void initState() {
     super.initState();
-    _probeAvailable();
+    // 初回フレーム描画後に集計を開始（jank抑制）
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _probeAvailable();
+    });
   }
 
-  /// スコープ内の候補数を試算して表示（誤答のユニーク数）
-  Future<void> _probeAvailable() async {
-    // 1) 成績スコープから sessionId を収集
-    final sessionIds = await SessionScope.collect(days: _days, type: _type);
+  /// UI状態から ScoreScope を構成
+  ScoreScope _buildScope() {
+    final now = DateTime.now();
+    final from = (_days == null) ? null : now.subtract(Duration(days: _days!));
 
-    // 2) AttemptStore を sessionIds で絞って候補数を取得
-    final store = AttemptStore();
-    final freq = await store.getWrongFrequencyMap(
-      onlySessionIds: sessionIds,
+    Set<String>? sessionTypes;
+    if (_type != null && _type!.trim().isNotEmpty) {
+      sessionTypes = {_type!.trim()};
+    } else {
+      // 既定は「単元＋ミックス」を対象（= review_test は除外）
+      sessionTypes = {'unit', 'mixed'};
+    }
+
+    return ScoreScope(
+      from: from,
+      to: null,
+      sessionTypes: sessionTypes,
+      onlyFinishedSessions: true,
+      onlyLatestAttemptsPerCard: true,
+      excludeWhenCorrectedLater: true,
     );
+  }
 
-    if (!mounted) return;
-    setState(() {
-      _scopedSessionIds = sessionIds;
-      _available = freq.length; // ユニーク誤答件数
-    });
+  /// スコープ内の候補数（ユニーク誤答stableId）を試算
+  Future<void> _probeAvailable() async {
+    if (_probing) return;
+    _probing = true;
+    try {
+      final store = AttemptStore();
+      final scope = _buildScope();
+      final freq = await store.getWrongFrequencyMapScoped(scope); // ★ ScoreScope渡しで統一
+      if (!mounted) return;
+      setState(() {
+        _available = freq.length; // ユニークID数 = 候補枚数
+      });
+    } finally {
+      _probing = false;
+    }
   }
 
   Future<void> _start() async {
@@ -56,22 +82,18 @@ class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
     setState(() => _busy = true);
 
     try {
-      // スコープが未取得なら再収集
-      final sessionIds = _scopedSessionIds ??
-          await SessionScope.collect(days: _days, type: _type);
-
-      // Builder にスコープを渡す（補充なし）
       final attempts = AttemptStore();
-      final loader = DeckLoader();
+      final loader = await DeckLoader.instance(); // シングルトン＋索引済み
+      final scope = _buildScope();
+
       final builder = ReviewTestBuilder(
         attempts: attempts,
         loader: loader,
-        sessionFilter: sessionIds, // ★重要：ここで絞り込み
       );
 
-      // ハング保険：10秒でタイムアウト
+      // 補充なしでTop-Nを構築（見つかった分だけ）
       final cards = await builder
-          .buildTopN(topN: _selected)
+          .buildTopNWithScope(topN: _selected, scope: scope)
           .timeout(const Duration(seconds: 10));
 
       if (!mounted) return;
@@ -84,7 +106,7 @@ class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
         return;
       }
 
-      // 補充なし仕様：候補がN未満でもそのまま出題
+      // ダミーデッキで QuizScreen を起動
       final fakeDeck = Deck(
         id: 'review',
         title: '復習テスト',
@@ -92,7 +114,7 @@ class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
         units: const [],
       );
 
-      Navigator.push(
+      await Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) => QuizScreen(
@@ -116,17 +138,19 @@ class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
   Widget build(BuildContext context) {
     final disabled = _busy || (_available == 0);
 
-    final scopeLabel = () {
+    final String scopeLabel = () {
       final d = _days;
       final t = _type;
       final daysPart = (d == null) ? '全期間' : '直近${d}日';
-      final typePart = (t == null) ? '' : '・タイプ:$t';
+      final typePart =
+          (t == null || t.isEmpty) ? '（タイプ: 単元+ミックス）' : '（タイプ: $t）';
       return '$daysPart$typePart';
     }();
 
-    final shortageHint = (_available >= 0 && _selected > _available)
-        ? '（候補は$_available件のため$_available件で出題）'
-        : '';
+    final String shortageHint =
+        (_available >= 0 && _selected > _available)
+            ? '（候補は$_available件のため$_available件で出題）'
+            : '';
 
     return Scaffold(
       appBar: AppBar(title: const Text('復習テストの設定')),
@@ -190,7 +214,7 @@ class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
 
             const Spacer(),
 
-            // 画面再計測（将来、期間やタイプをUIで変更する際に使用）
+            // 再計算
             Row(
               children: [
                 TextButton.icon(

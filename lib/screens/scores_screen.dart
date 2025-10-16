@@ -40,7 +40,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
       final records = await ScoreStore.instance.loadAll();
       records.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
-      final decks = await DeckLoader().loadAll();
+      final decks = await (await DeckLoader.instance()).loadAll();
 
       // デッキ名・ユニット名マップを同時構築
       final Map<String, String> deckTitleMap = {};

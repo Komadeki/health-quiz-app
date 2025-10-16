@@ -63,6 +63,20 @@ def card_from_row(row: Dict[str, str]) -> Dict[str, Any]:
       id, deck_id, unit_id, question, choice1..4, answer_index(1-4), explanation, tags, importance(1/2/3)
       ※ 互換対応: importance が無い場合は difficulty(1/2/3) を読み取る
     """
+
+    # ---- stableId の決定（CSVに stable_id があれば優先。無ければ deck_id:unit_id:id で生成）----
+    def _gen_stable_id(r: Dict[str, str]) -> str:
+        explicit = (r.get("stable_id") or "").strip()
+        if explicit:
+            return explicit
+        deck = (r.get("deck_id") or "").strip()
+        unit = (r.get("unit_id") or "").strip()
+        cid  = (r.get("id") or "").strip()
+        parts = [p for p in (deck, unit, cid) if p]
+        return ":".join(parts) if parts else ""
+
+    stable_id = _gen_stable_id(row)
+
     q = row.get("question", "")
     if not q:
         return {}
@@ -87,12 +101,13 @@ def card_from_row(row: Dict[str, str]) -> Dict[str, Any]:
         importance = 2
 
     return {
+        # ★ 追加：JSON に stableId を出力
+        **({"stableId": stable_id} if stable_id else {}),
         "question": q,
         "choices": choices,
         "answerIndex": ans0,
         "explanation": exp,
         "tags": tags,
-        # ★ JSONでも "importance" キーで出力
         "importance": importance,
         # isPremium は build_unit で付与
     }

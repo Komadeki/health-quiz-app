@@ -14,6 +14,7 @@ import '../services/deck_loader.dart';
 import '../services/attempt_store.dart';
 import '../models/attempt_entry.dart';
 import '../utils/logger.dart';
+import '../utils/stable_id.dart';
 
 // ★ セッション保存/再開
 import 'package:shared_preferences/shared_preferences.dart';
@@ -79,12 +80,12 @@ class _QuizScreenState extends State<QuizScreen> {
   // ===== ユーティリティ =====
   // 安定ID（問題文＋元の選択肢順から計算）※シャッフル後には使わない
   // quiz_screen.dart 内の private 関数（唯一の実装）
-  String _stableIdForOriginal(QuizCard c) {
-    String norm(String s) => s.replaceAll(RegExp(r'\s+'), ' ').trim();
-    final q = norm(c.question);
-    final cs = c.choices.map(norm).join('|');
-    return crypto.md5.convert(utf8.encode('$q\n$cs')).toString();
-  }
+  // String _stableIdForOriginal(QuizCard c) {
+    // String norm(String s) => s.replaceAll(RegExp(r'\s+'), ' ').trim();
+    // final q = norm(c.question);
+    // final cs = c.choices.map(norm).join('|');
+    // return crypto.md5.convert(utf8.encode('$q\n$cs')).toString();
+  // }
 
   // QuizCardにunitIdが未実装でも安全に取得
   String _unitIdOf(QuizCard c) {
@@ -173,8 +174,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
       final base = List<QuizCard>.from(widget.overrideCards!);
       // 安定ID逆引き（元のテキスト順で）
-      _id2card = {for (final c in base) _stableIdForOriginal(c): c};
-      final items = [for (final c in base) (_stableIdForOriginal(c), c)];
+      _id2card = {for (final c in base) stableIdForOriginal(c): c};
+      final items = [for (final c in base) (stableIdForOriginal(c), c)];
 
       // 出題順は base の順をそのまま使用（均等配分を壊さない）
       sequence = [];
@@ -242,7 +243,7 @@ class _QuizScreenState extends State<QuizScreen> {
       }
 
       // 1) 母集団を QuizScreen 側で再構築（購入フィルタなし）
-      final allDecks = await DeckLoader().loadAll();
+      final allDecks = await (await DeckLoader.instance()).loadAll();
       final unitSet = s.selectedUnitIds!.toSet();
       final List<QuizCard> base = [];
       for (final d in allDecks) {
@@ -253,7 +254,7 @@ class _QuizScreenState extends State<QuizScreen> {
       }
 
       // 2) 安定ID逆引き
-      _id2card = {for (final c in base) _stableIdForOriginal(c): c};
+      _id2card = {for (final c in base) stableIdForOriginal(c): c};
 
       // 3) 欠損チェック
       final missing = s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
@@ -304,7 +305,7 @@ class _QuizScreenState extends State<QuizScreen> {
       _limitForSave = widget.limit;
 
       // a) 母集団を再構築（購入フィルタなし）
-      final allDecks = await DeckLoader().loadAll();
+      final allDecks = await (await DeckLoader.instance()).loadAll();
       final unitSet = widget.selectedUnitIds!.toSet();
       final base = <QuizCard>[];
       for (final d in allDecks) {
@@ -325,8 +326,8 @@ class _QuizScreenState extends State<QuizScreen> {
       }
 
       // c) 安定ID逆引き & 出題順（シャッフルはここだけ）
-      _id2card = {for (final c in base) _stableIdForOriginal(c): c};
-      var items = [for (final c in base) (_stableIdForOriginal(c), c)];
+      _id2card = {for (final c in base) stableIdForOriginal(c): c};
+      var items = [for (final c in base) (stableIdForOriginal(c), c)];
       if (settings.randomize) items.shuffle();
 
       // d) sequence を作りつつ、各カードの choiceOrder を記録
@@ -382,19 +383,20 @@ class _QuizScreenState extends State<QuizScreen> {
     }
 
     // ───────── 3) 通常デッキ：新規 or 再開 ─────────
-    // 1) ベース問題集合（UnitSelect 等から来ていれば限定セット）
-    final baseDefault = (widget.overrideCards ?? widget.deck.cards).toList();
-
-    // 2) 安定IDの逆引き（必ず「元の並び・元の選択肢」で計算する）
-    _id2card = {for (final c in baseDefault) _stableIdForOriginal(c): c};
+    // 1) ベース問題集合（新規時用：UnitSelect 等から来ていれば限定セット）
+    final baseForNew = (widget.overrideCards ?? widget.deck.cards).toList();
 
     if (s == null) {
       // ─ 新規セッション（通常/限定）
-      // a) 出題順（安定IDと対で保持）
-      final items = [for (final c in baseDefault) (_stableIdForOriginal(c), c)];
+
+      // a) 安定IDの逆引き（必ず「元の並び・元の選択肢」で計算する）
+      _id2card = {for (final c in baseForNew) stableIdForOriginal(c): c};
+
+      // b) 出題順（安定IDと対で保持）
+      final items = [for (final c in baseForNew) (stableIdForOriginal(c), c)];
       if (settings.randomize) items.shuffle(); // ★ 出題順のシャッフルはここだけ
 
-      // b) カード配列作成＋選択肢順を記録
+      // c) カード配列作成＋選択肢順を記録
       sequence = [];
       _choiceOrders.clear();
       for (final it in items) {
@@ -406,28 +408,32 @@ class _QuizScreenState extends State<QuizScreen> {
         sequence.add(shuffledCard);
       }
 
-      // c) 出題順の安定ID列
+      // d) 出題順の安定ID列
       _stableOrder = [for (final it in items) it.$1];
 
-      // d) セッションID・開始時刻
+      // e) セッションID・開始時刻
       _sessionId = const Uuid().v4();
       _deckIdForSave = widget.deck.id; // 通常
       _qStart = DateTime.now();
 
-      // e) ユニット内訳
+      // f) ユニット内訳
       _unitCount.clear();
       for (final qc in sequence) {
         final uid = _unitIdOf(qc);
         _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
       }
 
-      // f) 初期セーブ
+      // g) 初期セーブ（単元練習では unitId / selectedUnitIds を記録）
       await _saveSession(
         QuizSession(
           sessionId: _sessionId,
-          deckId: _deckIdForSave,
-          unitId: null,
-          selectedUnitIds: null,
+          deckId: _deckIdForSave, // 通常 deck.id
+          unitId: widget.overrideCards != null && widget.overrideCards!.isNotEmpty
+              ? _unitIdOf(widget.overrideCards!.first)
+              : null,
+          selectedUnitIds: widget.overrideCards != null && widget.overrideCards!.isNotEmpty
+              ? [_unitIdOf(widget.overrideCards!.first)]
+              : null,
           limit: null,
           itemIds: _stableOrder,
           currentIndex: 0,
@@ -444,10 +450,28 @@ class _QuizScreenState extends State<QuizScreen> {
       _sessionId = s.sessionId;
       _deckIdForSave = widget.deck.id;
 
+      // ★ unitId が指定されている場合、そのユニットだけに絞る
+      late final List<QuizCard> baseDefault;
+      if (s.unitId != null && s.unitId!.isNotEmpty) {
+        final targetUnit = widget.deck.units?.firstWhere(
+          (u) => u.id == s.unitId,
+          orElse: () => widget.deck.units!.first,
+        );
+        baseDefault = targetUnit?.cards.toList() ?? widget.deck.cards.toList();
+        AppLog.d('[RESUME] single-unit mode detected: ${s.unitId} '
+            'cards=${baseDefault.length}');
+      } else {
+        baseDefault = (widget.overrideCards ?? widget.deck.cards).toList();
+      }
+
+      // ★ ここで逆引きを作ってから missing 判定
+      _id2card = {for (final c in baseDefault) stableIdForOriginal(c): c};
+
       // a) 欠損チェック
       final missing = s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
       if (missing.isNotEmpty) {
-        AppLog.d('[RESUME][MISSING] deck=${s.deckId} missing=${missing.length} sample=${missing.take(5).toList()}');
+        AppLog.d('[RESUME][MISSING] deck=${s.deckId} missing=${missing.length} '
+            'sample=${missing.take(5).toList()}');
         await _failAndClear('前回の出題を復元できませんでした（問題セットが更新された可能性）');
         return;
       }
@@ -542,23 +566,31 @@ class _QuizScreenState extends State<QuizScreen> {
         final ended = DateTime.now();
         final started = _qStart ?? ended;
         final durationMs = ended.difference(started).inMilliseconds;
+
+        // ★ デバッグ：保存する stableId を確認
+        AppLog.d('[ATTEMPT/SAVE] stableId=${_stableOrder[index]}');
+
         final attempt = AttemptEntry(
           attemptId: const Uuid().v4(),
           sessionId: _sessionId,
           questionNumber: index + 1,            // 1-based
           unitId: _unitIdOf(card),
-          cardId: index.toString(),             // QuizCard に id があるなら差し替え可
+          cardId: index.toString(),
           question: card.question,
           selectedIndex: (selected ?? 0) + 1,   // 1-based
           correctIndex: (card.answerIndex) + 1, // 1-based
           isCorrect: isCorrect,
           durationMs: durationMs,
           timestamp: ended,
+          // ★ ここが超重要：出題順の安定IDを保存する
+          stableId: _stableOrder[index],
         );
+
         await AttemptStore().add(attempt);
         AppLog.d('[ATTEMPT] ${attempt.sessionId} Q${attempt.questionNumber} '
             '${attempt.isCorrect ? "○" : "×"} ${attempt.durationMs}ms');
       } catch (_) {}
+
 
       // 2) オートセーブ（⚠️ 必ず _stableOrder を使う）
       try {
@@ -591,7 +623,7 @@ class _QuizScreenState extends State<QuizScreen> {
         final durationSec = _sw.elapsed.inSeconds;
 
         // デッキ/ユニットタイトル解決
-        final decks = await DeckLoader().loadAll();
+        final decks = await (await DeckLoader.instance()).loadAll();
         final Map<String, String> deckTitleMap = {};
         final Map<String, String> unitTitleMap = {};
         for (final d in decks) {

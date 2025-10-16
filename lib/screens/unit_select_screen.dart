@@ -294,8 +294,12 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) =>
-            QuizScreen(deck: widget.deck, overrideCards: cards),
+        builder: (_) =>QuizScreen(
+          deck: widget.deck,
+          overrideCards: cards,
+          selectedUnitIds: _selectedUnitIds.toList(),
+          limit: _limit ?? cards.length,
+        ),
       ),
     );
   }

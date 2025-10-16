@@ -213,7 +213,7 @@ class AttemptHistoryScreen extends StatelessWidget {
     // awaitの前にNavigatorを確保
     final nav = Navigator.of(context);
 
-    final loader = DeckLoader();
+    final loader = await DeckLoader.instance();
     final decks = await loader.loadAll();
 
     // AttemptEntry.unitId に紐づくデッキを取得
@@ -249,7 +249,7 @@ class AttemptHistoryScreen extends StatelessWidget {
     // awaitの前にNavigatorを確保
     final nav = Navigator.of(context);
 
-    final loader = DeckLoader();
+    final loader = await DeckLoader.instance();
     final decks = await loader.loadAll();
 
     // まず最初の誤答の unitId を採用（同一デッキ前提）

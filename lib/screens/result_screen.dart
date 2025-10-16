@@ -1,9 +1,17 @@
 // lib/screens/result_screen.dart
 import 'package:flutter/material.dart';
 import 'package:health_quiz_app/widgets/quiz_analytics.dart'; // SummaryStackedBar, computeTopUnits, UnitStat, segmentColor
+
 import '../models/score_record.dart';
 import '../services/attempt_store.dart';
 import '../services/score_saver.dart'; // 追加
+
+// ▼ 追加（誤答のみリトライに必須）
+import '../services/deck_loader.dart';
+import '../models/deck.dart';
+import '../models/card.dart';
+import 'quiz_screen.dart';
+
 import 'attempt_history_screen.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -43,11 +51,8 @@ class ResultScreen extends StatefulWidget {
     this.saveHistory = true,
     this.unitTitleMap,
     this.initialMax = 10,
-
-    // ★ 追加
     this.sessionType,
   });
-
 
   @override
   State<ResultScreen> createState() => _ResultScreenState();
@@ -56,10 +61,14 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
   bool _saved = false;
 
+  // ── 誤答だけ再挑戦用（キャッシュ）
+  Future<List<QuizCard>>? _wrongCardsFuture;
+
   @override
   void initState() {
     super.initState();
     _maybeSaveRecordOnce();
+    _wrongCardsFuture = _getWrongCardsForThisSession(); // 先に仕込んでおく
   }
 
   Future<void> _maybeSaveRecordOnce() async {
@@ -82,7 +91,7 @@ class _ResultScreenState extends State<ResultScreen> {
     );
 
     try {
-      await ScoreSaver.save(record); // ここだけ置換（以前 AttemptStore/ScoreStore 直呼びしていた箇所）
+      await ScoreSaver.save(record);
       if (!mounted) return;
       setState(() => _saved = true);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -92,6 +101,32 @@ class _ResultScreenState extends State<ResultScreen> {
       // 失敗は致命的でないので握りつぶす
     }
   }
+
+  // ============ ここから：誤答カードの収集（stableIdベース） ============
+  Future<List<QuizCard>> _getWrongCardsForThisSession() async {
+    final sid = widget.sessionId;
+    if (sid == null || sid.isEmpty) return <QuizCard>[];
+
+    // このセッションに紐付いた誤答の stableId をユニークに取得
+    final attempts = AttemptStore();
+    final ids = await attempts.getWrongStableIdsUnique(
+      onlySessionIds: <String>[sid],
+    );
+
+    if (ids.isEmpty) return <QuizCard>[];
+
+    // stableId -> QuizCard に解決
+    final loader = await DeckLoader.instance();
+    final cards = loader.mapStableIdsToCards(ids);
+
+    // デバッグ用：不一致があれば検知
+    if (cards.isEmpty) {
+      // ignore: avoid_print
+      print('[WRONG-RETRY] no cards were resolved from stableIds=${ids.take(5).toList()}');
+    }
+    return cards;
+  }
+  // ============ ここまで：誤答カードの収集 ============
 
   @override
   Widget build(BuildContext context) {
@@ -129,13 +164,13 @@ class _ResultScreenState extends State<ResultScreen> {
             SummaryStackedBar(data: top),
             const SizedBox(height: 12),
 
-            // 出題内訳カード（既存置換OK）
+            // 出題内訳カード
             if (ub.isNotEmpty)
               _UnitBreakdownCard(
                 unitBreakdown: ub,
                 totalQuestions: total,
                 unitTitleMap: widget.unitTitleMap,
-                initialMax: widget.initialMax, // ★ 親の既定値を子へ伝搬
+                initialMax: widget.initialMax,
               ),
 
             const SizedBox(height: 24),
@@ -169,6 +204,53 @@ class _ResultScreenState extends State<ResultScreen> {
                         sessionId: widget.sessionId!,
                         unitTitleMap: widget.unitTitleMap,
                       ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
+
+              // ★★ 誤答だけもう一度（stableIdベース／このセッション限定） ★★
+              FutureBuilder<List<QuizCard>>(
+                future: _wrongCardsFuture,
+                builder: (context, snap) {
+                  final ready = snap.connectionState == ConnectionState.done;
+                  final list = snap.data ?? const <QuizCard>[];
+                  final hasWrong = list.isNotEmpty;
+
+                  return FilledButton.icon(
+                    onPressed: (ready && hasWrong)
+                        ? () async {
+                            // ここが肝：overrideCards に誤答カードを渡す
+                            final fakeDeck = Deck(
+                              id: 'mixed',
+                              title: '誤答だけもう一度',
+                              isPurchased: true,
+                              units: const [],
+                            );
+                            // 念のため安定順に軽くシャッフル（好みでOFF可）
+                            final cards = List<QuizCard>.from(list)..shuffle();
+
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => QuizScreen(
+                                  deck: fakeDeck,
+                                  overrideCards: cards,
+                                  type: 'wrong_retry',
+                                ),
+                              ),
+                            );
+                          }
+                        : null,
+                    icon: const Icon(Icons.refresh),
+                    label: Text(
+                      ready
+                          ? (hasWrong ? '誤答だけもう一度（${list.length}問）' : '今回の誤答はありません')
+                          : '誤答を抽出中…',
+                    ),
+                    style: FilledButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 48),
+                      textStyle: const TextStyle(fontSize: 18),
                     ),
                   );
                 },
@@ -273,7 +355,7 @@ class _UnitBreakdownCard extends StatefulWidget {
     required this.unitBreakdown,
     required this.totalQuestions,
     this.unitTitleMap,
-    this.initialMax = 5, // ★ 未初期化エラーの本丸：ここで既定値を与える
+    this.initialMax = 5,
   });
 
   @override
@@ -319,8 +401,7 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
                 title: (widget.unitTitleMap?[entries[i].key] ?? entries[i].key),
                 asked: entries[i].value,
                 total: total == 0
-                    ? widget.unitBreakdown.values
-                        .fold<int>(0, (a, b) => a + b) // 念のための保険
+                    ? widget.unitBreakdown.values.fold<int>(0, (a, b) => a + b)
                     : total,
               ),
 
@@ -332,9 +413,7 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
                   onPressed: () => setState(() => _expanded = !_expanded),
                   icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
                   label: Text(
-                    _expanded
-                        ? '閉じる'
-                        : 'もっと見る（全${entries.length}件）',
+                    _expanded ? '閉じる' : 'もっと見る（全${entries.length}件）',
                   ),
                 ),
               ),
@@ -344,7 +423,7 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
       ),
     );
   }
-  // ignore: unused_element_parameter
+
   Widget _row({
     required BuildContext context,
     required int index,
@@ -362,7 +441,7 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
         children: [
           Row(
             children: [
-              // カラーインジケータ（ResultScreenのサマリバーに合わせて index 色）
+              // カラーインジケータ（サマリバー配色と合わせる）
               Container(
                 width: 10,
                 height: 10,

@@ -8,6 +8,7 @@
       "title": "結婚生活と健康",
       "cards": [
         {
+          "stableId": "M06:M06U01:901",
           "question": "結婚生活とはどのようなものを指すか？",
           "choices": [
             "社会的に承認された男女の生活",
@@ -26,6 +27,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U01:902",
           "question": "結婚生活に求められる基本的な条件はどれか？",
           "choices": [
             "経済力と責任感",
@@ -44,6 +46,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U01:903",
           "question": "結婚生活を維持するために必要な能力として最も適切なのはどれか？",
           "choices": [
             "暴力的に意見を通す力",
@@ -62,6 +65,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U01:904",
           "question": "結婚生活が心身の健康に与える影響として正しいものはどれか？",
           "choices": [
             "社会的支援が得やすく健康維持に良い影響をもたらす",
@@ -80,6 +84,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U01:905",
           "question": "結婚生活における「ドメスティック・バイオレンス（DV）」の説明として正しいものはどれか？",
           "choices": [
             "配偶者や恋人など親しい関係にある者への暴力",
@@ -98,6 +103,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U01:906",
           "question": "結婚生活におけるDVの防止で大切な対応はどれか？",
           "choices": [
             "一人で抱え込み我慢する",
@@ -116,6 +122,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U01:907",
           "question": "夫婦関係が健康に与える影響として正しいものはどれか？",
           "choices": [
             "良好な夫婦関係は心身の健康を支える",
@@ -134,6 +141,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:908",
           "question": "親子関係で重要とされる「愛着（アタッチメント）」とはどれか？",
           "choices": [
             "親と子の間の情緒的な結びつき",
@@ -152,6 +160,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:909",
           "question": "親が子どもに過度に干渉する育て方のタイプを何というか？",
           "choices": [
             "支配型",
@@ -170,6 +179,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:910",
           "question": "子どもの成長に悪影響を与える「逆境的小児期体験（ACEs）」に含まれるものはどれか？",
           "choices": [
             "家庭内暴力の目撃",
@@ -188,6 +198,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:911",
           "question": "結婚生活における「相互理解」を深めるために必要なことはどれか？",
           "choices": [
             "一方的に意見を押し通す",
@@ -206,6 +217,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:912",
           "question": "結婚生活を始める前に確認しておくべき事項として適切なのはどれか？",
           "choices": [
             "互いの健康状態",
@@ -224,6 +236,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:913",
           "question": "結婚生活で起こりやすい課題として最も適切なのはどれか？",
           "choices": [
             "金銭管理や家事分担などの生活習慣の違い",
@@ -242,6 +255,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:914",
           "question": "配偶者暴力相談支援センターの役割として正しいものはどれか？",
           "choices": [
             "DV被害者への相談・保護支援を行う",
@@ -260,6 +274,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:915",
           "question": "児童虐待防止法で定義されている虐待に含まれないものはどれか？",
           "choices": [
             "身体的虐待",
@@ -278,6 +293,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:916",
           "question": "ネグレクトとはどのような行為を指すか？",
           "choices": [
             "子どもの基本的な世話や養育を怠ること",
@@ -296,6 +312,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:917",
           "question": "親の養育態度のうち「放任型」にあたるものはどれか？",
           "choices": [
             "子どもに関心を示さない",
@@ -314,6 +331,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:918",
           "question": "親の養育態度のうち「受容型」にあたるものはどれか？",
           "choices": [
             "子どもの個性を尊重し受け入れる",
@@ -332,6 +350,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:919",
           "question": "子どもの心身の発達において最も大切な家庭環境の特徴はどれか？",
           "choices": [
             "安心して愛されていると感じられる環境",
@@ -350,6 +369,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:920",
           "question": "ACEsが将来の健康に及ぼす影響として正しいものはどれか？",
           "choices": [
             "生活習慣病やうつなどのリスクを高める",
@@ -368,6 +388,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:921",
           "question": "結婚に関する統計として正しいものはどれか？",
           "choices": [
             "平均初婚年齢は上昇傾向にある",
@@ -386,6 +407,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:922",
           "question": "離婚件数の推移に関する説明として正しいものはどれか？",
           "choices": [
             "2000年代前半をピークに減少傾向にある",
@@ -404,6 +426,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:923",
           "question": "未婚率の上昇の要因として最も適切なものはどれか？",
           "choices": [
             "結婚観や価値観の多様化",
@@ -422,6 +445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:924",
           "question": "国際結婚に関する説明として正しいものはどれか？",
           "choices": [
             "全体の婚姻件数の約3％前後を占める",
@@ -440,6 +464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:925",
           "question": "良好な結婚生活を送るために重要な生活習慣はどれか？",
           "choices": [
             "お互いの健康を気遣い生活リズムを整える",
@@ -458,6 +483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:926",
           "question": "結婚生活で「心理的自立」が求められる理由はどれか？",
           "choices": [
             "相手に過度に依存せず、主体的に行動できるため",
@@ -476,6 +502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:927",
           "question": "DV防止法が制定された目的はどれか？",
           "choices": [
             "配偶者からの暴力の防止と被害者の保護",
@@ -494,6 +521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:928",
           "question": "親子関係において「安全基地」とされるのはどれか？",
           "choices": [
             "子どもが安心して探索できるよう支える親の存在",
@@ -512,6 +540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:929",
           "question": "社会的支援が結婚生活や子育てに果たす役割はどれか？",
           "choices": [
             "孤立を防ぎ精神的・経済的安定をもたらす",
@@ -530,6 +559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U01:930",
           "question": "結婚生活と健康の学習で最も重視すべき視点はどれか？",
           "choices": [
             "相互尊重とコミュニケーションの重要性",
@@ -554,6 +584,7 @@
       "title": "中高年期と健康",
       "cards": [
         {
+          "stableId": "M06:M06U02:931",
           "question": "中高年期における身体的な特徴として正しいものはどれか？",
           "choices": [
             "基礎代謝量が低下し筋力が衰える",
@@ -572,6 +603,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U02:932",
           "question": "中高年期の心理的変化として適切なのはどれか？",
           "choices": [
             "将来への不安や喪失感を感じることがある",
@@ -590,6 +622,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U02:933",
           "question": "中高年期の健康を左右する要因として最も関係が深いものはどれか？",
           "choices": [
             "生活習慣",
@@ -608,6 +641,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U02:934",
           "question": "フレイルとはどのような状態か？",
           "choices": [
             "加齢により心身の活力が低下した状態",
@@ -626,6 +660,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U02:935",
           "question": "中高年期に増加する疾患として正しいものはどれか？",
           "choices": [
             "高血圧や糖尿病",
@@ -644,6 +679,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U02:936",
           "question": "高齢者の健康支援で重要な考え方はどれか？",
           "choices": [
             "自立とQOLの向上",
@@ -662,6 +698,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U02:937",
           "question": "介護保険制度の特徴として正しいものはどれか？",
           "choices": [
             "40歳以上の人が保険料を負担する",
@@ -680,6 +717,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:938",
           "question": "リハビリテーションの目的として適切なのはどれか？",
           "choices": [
             "失われた機能の回復と社会復帰の支援",
@@ -698,6 +736,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:939",
           "question": "ユニバーサルデザインの目的として正しいものはどれか？",
           "choices": [
             "すべての人が使いやすいように設計する",
@@ -716,6 +755,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:940",
           "question": "中高年期の健康づくりで大切な視点はどれか？",
           "choices": [
             "生涯を通じた健康管理",
@@ -734,6 +774,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:941",
           "question": "加齢に伴い低下しやすい体の機能はどれか？",
           "choices": [
             "筋力や感覚機能",
@@ -752,6 +793,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:942",
           "question": "中高年期の体力低下に影響を与える生活習慣はどれか？",
           "choices": [
             "運動不足や睡眠不足",
@@ -770,6 +812,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:943",
           "question": "加齢による筋力や持久力の変化として正しいものはどれか？",
           "choices": [
             "20歳前後をピークに徐々に低下する",
@@ -788,6 +831,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:944",
           "question": "中高年期に起こりやすい骨の変化はどれか？",
           "choices": [
             "骨量の減少や骨粗しょう症",
@@ -806,6 +850,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:945",
           "question": "高齢期の転倒リスクを高める要因として正しいものはどれか？",
           "choices": [
             "筋力や平衡感覚の低下",
@@ -824,6 +869,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:946",
           "question": "中高年期におけるストレスの主な要因として最も適切なのはどれか？",
           "choices": [
             "家庭や職場での役割変化",
@@ -842,6 +888,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:947",
           "question": "フレイルの予防に有効な行動として正しいものはどれか？",
           "choices": [
             "適度な運動とバランスのよい食事",
@@ -860,6 +907,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:948",
           "question": "高齢者に対するリハビリテーションの目的はどれか？",
           "choices": [
             "残された機能の維持と自立支援",
@@ -878,6 +926,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:949",
           "question": "介護予防の観点から重要なのはどれか？",
           "choices": [
             "心身の虚弱化を早期に防ぐこと",
@@ -896,6 +945,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:950",
           "question": "QOL（生活の質）を高めるために大切な視点はどれか？",
           "choices": [
             "身体面・心理面・社会面の調和",
@@ -914,6 +964,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:951",
           "question": "ユニバーサルデザインの考え方として適切なのはどれか？",
           "choices": [
             "誰もが使いやすいように最初から設計する",
@@ -932,6 +983,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:952",
           "question": "社会的つながりが健康に与える影響として正しいものはどれか？",
           "choices": [
             "孤立は死亡リスクを高める",
@@ -950,6 +1002,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:953",
           "question": "ソーシャルサポートとはどのようなものか？",
           "choices": [
             "他者から受ける支援や助け",
@@ -968,6 +1021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:954",
           "question": "サクセスフル・エイジングの条件として適切なのはどれか？",
           "choices": [
             "心身の健康維持と社会的な活動参加",
@@ -986,6 +1040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:955",
           "question": "ライフコースアプローチの考え方として正しいものはどれか？",
           "choices": [
             "人生全体を通して健康を捉える",
@@ -1004,6 +1059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:956",
           "question": "認知機能の低下を防ぐ生活習慣として適切なのはどれか？",
           "choices": [
             "社会活動や学習を継続する",
@@ -1022,6 +1078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:957",
           "question": "加齢により起こる免疫機能の変化として正しいものはどれか？",
           "choices": [
             "感染症にかかりやすくなる",
@@ -1040,6 +1097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:958",
           "question": "健康寿命を延ばすために重要な行動はどれか？",
           "choices": [
             "定期的な運動と社会参加",
@@ -1058,6 +1116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:959",
           "question": "高齢者を支える社会の仕組みとして正しいものはどれか？",
           "choices": [
             "保健・医療・福祉が連携して支援する",
@@ -1076,6 +1135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U02:960",
           "question": "中高年期の健康維持において自己管理が重要な理由はどれか？",
           "choices": [
             "主体的に生活習慣を調整できるから",
@@ -1100,6 +1160,7 @@
       "title": "働くことと健康",
       "cards": [
         {
+          "stableId": "M06:M06U03:961",
           "question": "働くことの意義として最も適切なのはどれか？",
           "choices": [
             "生活の糧を得るだけの行為",
@@ -1118,6 +1179,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U03:962",
           "question": "働くことと健康のかかわりとして正しいのはどれか？",
           "choices": [
             "働くことは常に健康を損なう",
@@ -1136,6 +1198,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U03:963",
           "question": "ライフステージの変化に応じて考慮すべきことはどれか？",
           "choices": [
             "仕事量を一定に保つこと",
@@ -1154,6 +1217,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U03:964",
           "question": "働き方の変化として正しいのはどれか？",
           "choices": [
             "肉体労働が中心になった",
@@ -1172,6 +1236,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U03:965",
           "question": "健康問題の変化として適切なのはどれか？",
           "choices": [
             "感染症が主な問題である",
@@ -1190,6 +1255,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U03:966",
           "question": "過労死とはどのような状態を指すか？",
           "choices": [
             "病気による自然死",
@@ -1208,6 +1274,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U03:967",
           "question": "「ワーク・ライフ・バランス」とは何を意味するか？",
           "choices": [
             "仕事を最優先にすること",
@@ -1226,6 +1293,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:968",
           "question": "職場のストレス要因として適切なのはどれか？",
           "choices": [
             "人間関係や業務量",
@@ -1244,6 +1312,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:969",
           "question": "ストレスが健康に及ぼす影響として正しいのはどれか？",
           "choices": [
             "ストレスは常に悪影響を与える",
@@ -1262,6 +1331,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:970",
           "question": "健康的に働くために個人ができる工夫として適切なのはどれか？",
           "choices": [
             "睡眠を削って働く",
@@ -1280,6 +1350,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:971",
           "question": "労働の三次産業化とはどのような傾向を指すか？",
           "choices": [
             "農業・林業が中心になる",
@@ -1298,6 +1369,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:972",
           "question": "精神的な健康問題として増加しているのはどれか？",
           "choices": [
             "骨折",
@@ -1316,6 +1388,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:973",
           "question": "労働時間が長いことによって起こりやすい問題はどれか？",
           "choices": [
             "集中力の向上",
@@ -1334,6 +1407,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:974",
           "question": "仕事上のストレス要因に含まれないものはどれか？",
           "choices": [
             "上司や同僚との関係",
@@ -1352,6 +1426,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:975",
           "question": "VDT作業とは何を指すか？",
           "choices": [
             "体力を使う作業",
@@ -1370,6 +1445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:976",
           "question": "VDT作業で注意すべき健康影響はどれか？",
           "choices": [
             "視力低下や肩こり",
@@ -1388,6 +1464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:977",
           "question": "テレワークの利点として適切なのはどれか？",
           "choices": [
             "通勤時間が減る",
@@ -1406,6 +1483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:978",
           "question": "テレワークにおける課題として適切なのはどれか？",
           "choices": [
             "通勤の負担",
@@ -1424,6 +1502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:979",
           "question": "働く人の健康を守るために国が定めている法律はどれか？",
           "choices": [
             "食品衛生法",
@@ -1442,6 +1521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:980",
           "question": "職場のメンタルヘルス対策として正しいのはどれか？",
           "choices": [
             "相談窓口の設置やストレスチェック",
@@ -1460,6 +1540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:981",
           "question": "ワーク・ライフ・バランスの推進によって期待される効果はどれか？",
           "choices": [
             "過労死の増加",
@@ -1478,6 +1559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:982",
           "question": "心身の健康を守るための組織的取り組みとして正しいのはどれか？",
           "choices": [
             "健康診断の実施",
@@ -1496,6 +1578,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:983",
           "question": "働く目的として近年増加している理由はどれか？",
           "choices": [
             "社会とのつながりや生きがいのため",
@@ -1514,6 +1597,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:984",
           "question": "過労死を防ぐために企業が行うべき取り組みはどれか？",
           "choices": [
             "残業時間の管理と休暇の確保",
@@ -1532,6 +1616,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:985",
           "question": "心の健康を維持するセルフケアとして最も適切なのはどれか？",
           "choices": [
             "悩みを抱え込む",
@@ -1550,6 +1635,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:986",
           "question": "産業医の役割として正しいのはどれか？",
           "choices": [
             "従業員の健康を管理・指導する",
@@ -1568,6 +1654,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:987",
           "question": "労働災害の防止に最も関係するものはどれか？",
           "choices": [
             "安全教育と環境整備",
@@ -1586,6 +1673,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:988",
           "question": "働き方改革の目的として正しいのはどれか？",
           "choices": [
             "生産性の向上と健康的な働き方の実現",
@@ -1604,6 +1692,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:989",
           "question": "将来の働き方の課題として挙げられるものはどれか？",
           "choices": [
             "高齢化やAIの進展への対応",
@@ -1622,6 +1711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U03:990",
           "question": "健康的な職場づくりのために必要な視点はどれか？",
           "choices": [
             "個人の努力のみで解決する",
@@ -1646,6 +1736,7 @@
       "title": "労働災害と健康",
       "cards": [
         {
+          "stableId": "M06:M06U04:991",
           "question": "労働災害とはどのような出来事を指すか？",
           "choices": [
             "仕事に関係して起こるけがや病気",
@@ -1664,6 +1755,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U04:992",
           "question": "労働災害の発生要因として最も直接的なものはどれか？",
           "choices": [
             "不安全行動",
@@ -1682,6 +1774,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U04:993",
           "question": "不安全状態に含まれるものはどれか？",
           "choices": [
             "防護装置の欠如",
@@ -1700,6 +1793,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U04:994",
           "question": "不安全行動に該当する例はどれか？",
           "choices": [
             "ヘルメットを着用せず作業する",
@@ -1718,6 +1812,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U04:995",
           "question": "労働災害の代表的な疾病として正しいものはどれか？",
           "choices": [
             "塵肺",
@@ -1736,6 +1831,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U04:996",
           "question": "アスベストが引き起こすおそれのある健康障害はどれか？",
           "choices": [
             "肺がん",
@@ -1754,6 +1850,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U04:997",
           "question": "VDT作業による健康影響として最も適切なものはどれか？",
           "choices": [
             "眼精疲労",
@@ -1772,6 +1869,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:998",
           "question": "労働災害防止の基本原則として最も適切なものはどれか？",
           "choices": [
             "安全衛生管理を徹底する",
@@ -1790,6 +1888,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:999",
           "question": "労働災害の中で最も発生件数が多いのはどれか？",
           "choices": [
             "転倒",
@@ -1808,6 +1907,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1000",
           "question": "過労死の主な要因として正しいものはどれか？",
           "choices": [
             "長時間労働",
@@ -1826,6 +1926,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1001",
           "question": "職業性ストレスによって起こる心身の反応で最も適切なものはどれか？",
           "choices": [
             "抑うつや不眠",
@@ -1844,6 +1945,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1002",
           "question": "長時間労働の是正が必要な理由として最も適切なものはどれか？",
           "choices": [
             "心身の健康を守るため",
@@ -1862,6 +1964,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1003",
           "question": "過労死等防止対策推進法が制定された目的はどれか？",
           "choices": [
             "過労死や過労自殺を防止するため",
@@ -1880,6 +1983,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1004",
           "question": "労働安全衛生法で定められている内容として正しいものはどれか？",
           "choices": [
             "事業者の安全配慮義務",
@@ -1898,6 +2002,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1005",
           "question": "安全衛生管理体制の中で,50人以上の事業場に設置が義務づけられているのはどれか？",
           "choices": [
             "衛生委員会",
@@ -1916,6 +2021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1006",
           "question": "安全衛生管理体制の中で,安全衛生推進者の役割として正しいものはどれか？",
           "choices": [
             "労働者の安全教育を行う",
@@ -1934,6 +2040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1007",
           "question": "労働安全衛生マネジメントシステム(PDCAサイクル)における「C」はどの段階か？",
           "choices": [
             "点検(Check)",
@@ -1952,6 +2059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1008",
           "question": "リスクアセスメントの目的として最も適切なものはどれか？",
           "choices": [
             "危険要因を特定し,リスクを低減する",
@@ -1970,6 +2078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1009",
           "question": "作業環境管理の目的として正しいものはどれか？",
           "choices": [
             "有害物質や温度などの作業環境を安全に保つ",
@@ -1988,6 +2097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1010",
           "question": "作業管理の具体的な内容として適切なものはどれか？",
           "choices": [
             "作業手順や方法を安全に設定する",
@@ -2006,6 +2116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1011",
           "question": "健康管理の一環として行われるものはどれか？",
           "choices": [
             "定期健康診断",
@@ -2024,6 +2135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1012",
           "question": "労働災害を防止する三管理に含まれないものはどれか？",
           "choices": [
             "労務管理",
@@ -2042,6 +2154,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1013",
           "question": "作業主任者の主な職務として正しいものはどれか？",
           "choices": [
             "現場での安全作業を直接指導する",
@@ -2060,6 +2173,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1014",
           "question": "安全帯(フルハーネス型)の主な目的はどれか？",
           "choices": [
             "高所作業時の墜落を防止する",
@@ -2078,6 +2192,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1015",
           "question": "労働災害による死亡原因として最も多いものはどれか？",
           "choices": [
             "墜落・転落",
@@ -2096,6 +2211,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1016",
           "question": "労働災害発生率が特に高い業種はどれか？",
           "choices": [
             "建設業",
@@ -2114,6 +2230,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1017",
           "question": "女性労働者に多い職業性疾病として適切なものはどれか？",
           "choices": [
             "頸肩腕障害",
@@ -2132,6 +2249,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1018",
           "question": "精神障害による労災認定件数が増加している主な要因はどれか？",
           "choices": [
             "職場のストレス増加",
@@ -2150,6 +2268,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1019",
           "question": "安全意識を高めるために重要な取組はどれか？",
           "choices": [
             "安全教育の実施",
@@ -2168,6 +2287,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U04:1020",
           "question": "職場の安全文化を形成するために重要なことはどれか？",
           "choices": [
             "全員が安全を共有し協力する",
@@ -2192,6 +2312,7 @@
       "title": "健康的な職業生活",
       "cards": [
         {
+          "stableId": "M06:M06U05:1021",
           "question": "健康的な職業生活の基本的な目的はどれか？",
           "choices": [
             "働く人の安全と健康の確保",
@@ -2210,6 +2331,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U05:1022",
           "question": "THP（Total Health Promotion Plan）の目的はどれか？",
           "choices": [
             "心身両面からの健康づくりを進める",
@@ -2228,6 +2350,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U05:1023",
           "question": "THPにおける健康づくりスタッフに含まれる職種はどれか？",
           "choices": [
             "保健師",
@@ -2246,6 +2369,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U05:1024",
           "question": "メンタルヘルスケアの目的として正しいものはどれか？",
           "choices": [
             "心の健康の保持増進",
@@ -2264,6 +2388,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U05:1025",
           "question": "職場におけるメンタルヘルス対策の第1ステップに当たるものはどれか？",
           "choices": [
             "セルフケア",
@@ -2282,6 +2407,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U05:1026",
           "question": "職場におけるハラスメント対策として適切なものはどれか？",
           "choices": [
             "相談窓口の設置や啓発活動の実施",
@@ -2300,6 +2426,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M06:M06U05:1027",
           "question": "仕事と生活の調和を意味する言葉はどれか？",
           "choices": [
             "ワーク・ライフ・バランス",
@@ -2318,6 +2445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1028",
           "question": "余暇の活用が健康づくりに役立つ理由はどれか？",
           "choices": [
             "心身のリフレッシュと社会参加を促すから",
@@ -2336,6 +2464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1029",
           "question": "職場における健康診断の目的として正しいものはどれか？",
           "choices": [
             "労働者の健康状態を把握し疾病を早期発見する",
@@ -2354,6 +2483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1030",
           "question": "アクティブ・ラーニングで扱われるテーマとして適切なものはどれか？",
           "choices": [
             "職場での健康づくり施策を考える",
@@ -2372,6 +2502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1031",
           "question": "職場における健康づくり活動の基本方針を示したものはどれか？",
           "choices": [
             "健康日本21",
@@ -2390,6 +2521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1032",
           "question": "労働安全衛生法の目的として正しいものはどれか？",
           "choices": [
             "労働者の安全と健康の確保",
@@ -2408,6 +2540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1033",
           "question": "定期健康診断の実施頻度として正しいものはどれか？",
           "choices": [
             "年1回",
@@ -2426,6 +2559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1034",
           "question": "ストレスチェック制度が義務化されたのはどのような事業場か？",
           "choices": [
             "常時50人以上の労働者がいる事業場",
@@ -2444,6 +2578,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1035",
           "question": "メンタルヘルスケアの「ラインによるケア」を行う主体はどれか？",
           "choices": [
             "上司・管理監督者",
@@ -2462,6 +2597,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1036",
           "question": "事業場外資源によるケアの例として正しいものはどれか？",
           "choices": [
             "EAP（従業員支援プログラム）の利用",
@@ -2480,6 +2616,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1037",
           "question": "職場のハラスメント防止に関する法律が施行されたのはいつか？",
           "choices": [
             "2020年6月",
@@ -2498,6 +2635,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1038",
           "question": "職場の健康づくりにおける専門職の役割として最も適切なものはどれか？",
           "choices": [
             "健康指導や相談などの専門的支援",
@@ -2516,6 +2654,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1039",
           "question": "産業医の主な役割はどれか？",
           "choices": [
             "労働者の健康管理と職場環境の改善",
@@ -2534,6 +2673,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1040",
           "question": "特定保健指導の対象となる人はどれか？",
           "choices": [
             "メタボリックシンドローム該当者や予備群",
@@ -2552,6 +2692,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1041",
           "question": "ストレスチェックの目的として正しいものはどれか？",
           "choices": [
             "労働者の心理的ストレスの状態を把握する",
@@ -2570,6 +2711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1042",
           "question": "メンタルヘルス不調の一次予防に当たる活動はどれか？",
           "choices": [
             "職場のストレス要因を減らす環境づくり",
@@ -2588,6 +2730,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1043",
           "question": "余暇の意義に関する説明として最も適切なものはどれか？",
           "choices": [
             "心身の回復と生活の質の向上につながる",
@@ -2606,6 +2749,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1044",
           "question": "日本の有給休暇取得率はおおむねどの程度か？",
           "choices": [
             "50〜60％程度",
@@ -2624,6 +2768,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1045",
           "question": "仕事と生活の調和を進めるための国の取り組みはどれか？",
           "choices": [
             "働き方改革関連法",
@@ -2642,6 +2787,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1046",
           "question": "ワーク・ライフ・バランスが重視される背景として最も適切なものはどれか？",
           "choices": [
             "少子高齢化や共働き世帯の増加",
@@ -2660,6 +2806,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1047",
           "question": "ワーク・ライフ・バランスの実現が期待される効果はどれか？",
           "choices": [
             "心身の健康維持と生活の満足度向上",
@@ -2678,6 +2825,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1048",
           "question": "ICTの活用がワーク・ライフ・バランスに及ぼす影響として適切なものはどれか？",
           "choices": [
             "柔軟な働き方が可能になる",
@@ -2696,6 +2844,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1049",
           "question": "健康的な職業生活を支える社会的要因として最も重要なものはどれか？",
           "choices": [
             "雇用の安定と社会保障の充実",
@@ -2714,6 +2863,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M06:M06U05:1050",
           "question": "職場の健康づくり活動を推進する上で最も重要な視点はどれか？",
           "choices": [
             "働く人一人ひとりの主体的な参加",

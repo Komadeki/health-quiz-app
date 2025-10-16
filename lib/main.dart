@@ -1,4 +1,6 @@
 // lib/main.dart
+import 'dart:async'; // ← 非同期ユーティリティ用（unawaited, microtask 等）
+
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'; // kDebugMode
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -30,10 +32,20 @@ void main() async {
   final settings = AppSettings();
   await settings.load();
 
-  // ★ 追加：安定ID式のバージョン移行（古いセッションを安全にクリア）
+  // ★安定ID式のバージョン移行（古いセッションを安全にクリア）
   final prefs = await SharedPreferences.getInstance();
-  await QuizSessionLocalRepository(prefs).migrateIfNeeded();
 
+  // ⚙️ 改善点① migrateIfNeededをmicrotaskで非同期遅延実行（UIブロック防止）
+  unawaited(Future.microtask(() async {
+    await QuizSessionLocalRepository(prefs).migrateIfNeeded();
+  }));
+
+  // ⚙️ 改善点② DeckLoaderの初期化を遅延バックグラウンド実行（compute負荷を分散）
+  Future.delayed(const Duration(milliseconds: 500), () {
+    DeckLoader.instance();
+  });
+
+  // ここからrunApp（UI優先）
   runApp(
     ChangeNotifierProvider(
       create: (_) => settings,
@@ -121,7 +133,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadDecks() async {
     try {
-      final all = await DeckLoader().loadAll();
+      // 🔸 修正版：DeckLoader.instance() を await で取得（UIブロックしない）
+      final loader = await DeckLoader.instance();
+      final all = await loader.loadAll();
+
       if (!mounted) return;
       setState(() {
         decks = all;
@@ -194,6 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_isResuming) return; // 遷移中は覗かない
     final prefs = await SharedPreferences.getInstance();
     final repo = QuizSessionLocalRepository(prefs);
+    await repo.migrateIfNeeded(); // ← これを追加
     final active = await repo.loadActive();
     AppLog.d('[RESUME] probe: ${active == null ? "none" : "exists"}');
     if (!mounted) return;
@@ -230,22 +246,20 @@ class _HomeScreenState extends State<HomeScreen> {
       var list = decks;
       if (list.isEmpty) {
         try {
-          list = await DeckLoader().loadAll();
+          final loader = await DeckLoader.instance();
+          list = await loader.loadAll();
           AppLog.d('[RESUME] decks reloaded for resume: ${list.length}');
         } catch (e) {
           AppLog.d('[RESUME] deck reload failed: $e');
         }
       }
 
-      // 👇 mixed でもブロックしない
       Deck? deck;
       if (active.deckId == 'mixed') {
-        // タイトル表示用の仮デッキ（実データ復元は QuizScreen 側がやる）
         deck = (list.isNotEmpty)
             ? list.first
             : Deck(id: 'mixed', title: 'ミックス練習', units: const [], isPurchased: true);
       } else {
-        // 通常デッキは ID で検索
         try {
           deck = list.firstWhere((d) => d.id == active.deckId);
         } catch (_) {
@@ -281,10 +295,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // ======= build 以下は変更なし =======
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('高校保健一問一答'),
@@ -318,6 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
         ],
       ),
+
       body: loading
           ? const Center(child: CircularProgressIndicator())
           : error != null

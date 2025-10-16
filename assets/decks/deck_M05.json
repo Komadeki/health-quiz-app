@@ -8,6 +8,7 @@
       "title": "ライフステージと健康",
       "cards": [
         {
+          "stableId": "M05:M05U01:751",
           "question": "ライフステージとはどのようなものか？",
           "choices": [
             "人の一生をいくつかの段階に分けたもの",
@@ -26,6 +27,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U01:752",
           "question": "乳幼児期に特徴的な健康課題はどれか？",
           "choices": [
             "感染症や事故の予防",
@@ -44,6 +46,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U01:753",
           "question": "学童期に多くみられる健康課題はどれか？",
           "choices": [
             "虫歯や視力の低下",
@@ -62,6 +65,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U01:754",
           "question": "思春期における特徴的な心身の変化はどれか？",
           "choices": [
             "第二次性徴の出現",
@@ -80,6 +84,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U01:755",
           "question": "成人期の健康課題として最も適切なのはどれか？",
           "choices": [
             "生活習慣病の予防",
@@ -98,6 +103,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U01:756",
           "question": "高齢期に増加する健康課題はどれか？",
           "choices": [
             "認知症や転倒",
@@ -116,6 +122,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U01:757",
           "question": "年齢階級別死亡率の特徴として正しいのはどれか？",
           "choices": [
             "高齢になるほど死亡率が高い",
@@ -134,6 +141,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:758",
           "question": "乳幼児期の死亡原因として多いものはどれか？",
           "choices": [
             "先天異常や周産期の疾患",
@@ -152,6 +160,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:759",
           "question": "中高年期における主な死亡原因はどれか？",
           "choices": [
             "がんや心疾患",
@@ -170,6 +179,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:760",
           "question": "ライフステージごとの健康支援で重要な考え方はどれか？",
           "choices": [
             "発達段階に応じた支援",
@@ -188,6 +198,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:761",
           "question": "思春期の社会的発達の特徴として最も適切なのはどれか？",
           "choices": [
             "自我の確立が進む",
@@ -206,6 +217,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:762",
           "question": "成人期の社会的特徴として正しいのはどれか？",
           "choices": [
             "職業や家庭を持つ人が多く社会的責任が増す",
@@ -224,6 +236,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:763",
           "question": "高齢期の生活支援として適切なのはどれか？",
           "choices": [
             "介護や地域での支援",
@@ -242,6 +255,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:764",
           "question": "学童期における健康支援として適切なのはどれか？",
           "choices": [
             "定期的な健康診断と生活習慣の確立",
@@ -260,6 +274,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:765",
           "question": "乳幼児期の社会的支援の例として適切なのはどれか？",
           "choices": [
             "母子保健や予防接種",
@@ -278,6 +293,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:766",
           "question": "思春期に多くみられる心の健康課題はどれか？",
           "choices": [
             "自己肯定感の低下やストレス",
@@ -296,6 +312,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:767",
           "question": "青年期の特徴として正しいのはどれか？",
           "choices": [
             "自己の生き方を模索する時期",
@@ -314,6 +331,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:768",
           "question": "中年期の健康課題で重要なのはどれか？",
           "choices": [
             "生活習慣病の予防やストレス管理",
@@ -332,6 +350,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:769",
           "question": "老年期の健康づくりで重視されることはどれか？",
           "choices": [
             "社会参加や生きがいづくり",
@@ -350,6 +369,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:770",
           "question": "日本の平均寿命について正しいのはどれか？",
           "choices": [
             "女性が男性より長い",
@@ -368,6 +388,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:771",
           "question": "死因の第1位として最も多いのはどれか？",
           "choices": [
             "がん",
@@ -386,6 +407,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:772",
           "question": "乳児死亡率の改善に貢献した要因はどれか？",
           "choices": [
             "医療技術の進歩や保健制度の充実",
@@ -404,6 +426,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:773",
           "question": "思春期における性教育の目的はどれか？",
           "choices": [
             "自他の尊重と責任ある行動を学ぶ",
@@ -422,6 +445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:774",
           "question": "成人期における社会的支援として適切なのはどれか？",
           "choices": [
             "職場の健康管理やストレス対策",
@@ -440,6 +464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:775",
           "question": "高齢期の死亡原因として最も多いのはどれか？",
           "choices": [
             "がん",
@@ -458,6 +483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:776",
           "question": "「健康寿命」とは何を意味するか？",
           "choices": [
             "健康に生活できる期間",
@@ -476,6 +502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:777",
           "question": "青年期の支援で重視されることはどれか？",
           "choices": [
             "進路や人間関係に関する相談体制",
@@ -494,6 +521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:778",
           "question": "各ライフステージにおける健康課題を考える目的はどれか？",
           "choices": [
             "自分や他者の健康をよりよく保つため",
@@ -512,6 +540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:779",
           "question": "高齢化社会に対応するために必要なことはどれか？",
           "choices": [
             "地域での支え合いや介護体制の整備",
@@ -530,6 +559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U01:780",
           "question": "ライフステージにおける社会的支援の意義はどれか？",
           "choices": [
             "誰もが健康に生きるために社会全体で支えること",
@@ -554,6 +584,7 @@
       "title": "思春期と健康",
       "cards": [
         {
+          "stableId": "M05:M05U02:781",
           "question": "思春期とはどのような時期を指すか？",
           "choices": [
             "子どもから大人へ移行する時期",
@@ -572,6 +603,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U02:782",
           "question": "思春期に起こる女性の身体的変化として正しいものはどれか？",
           "choices": [
             "月経が始まる",
@@ -590,6 +622,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U02:783",
           "question": "思春期に起こる男性の身体的変化として正しいものはどれか？",
           "choices": [
             "精通が起こる",
@@ -608,6 +641,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U02:784",
           "question": "月経周期が約28日である理由として正しいものはどれか？",
           "choices": [
             "卵胞の発育と排卵のリズムによる",
@@ -626,6 +660,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U02:785",
           "question": "月経前症候群（PMS）とはどのような状態か？",
           "choices": [
             "月経前に心身の不調が現れる",
@@ -644,6 +679,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U02:786",
           "question": "思春期に心の不安定さが見られる主な要因はどれか？",
           "choices": [
             "自我のめばえによる葛藤",
@@ -662,6 +698,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U02:787",
           "question": "思春期に見られる「自我のめばえ」とはどのようなことか？",
           "choices": [
             "自分を客観的に見つめ、自分らしさを意識するようになる",
@@ -680,6 +717,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:788",
           "question": "思春期におけるホルモンの働きで正しいものはどれか？",
           "choices": [
             "性腺刺激ホルモンが性の成熟を促す",
@@ -698,6 +736,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:789",
           "question": "思春期の健康課題として適切なものはどれか？",
           "choices": [
             "不規則な生活やダイエットによる体調不良",
@@ -716,6 +755,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:790",
           "question": "思春期の健康問題に対して大切な対応はどれか？",
           "choices": [
             "信頼できる大人に相談する",
@@ -734,6 +774,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:791",
           "question": "月経周期に関係する主なホルモンはどれか？",
           "choices": [
             "卵胞ホルモンと黄体ホルモン",
@@ -752,6 +793,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:792",
           "question": "排卵とはどのような現象か？",
           "choices": [
             "卵巣から卵子が放出されること",
@@ -770,6 +812,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:793",
           "question": "初経とは何を意味するか？",
           "choices": [
             "初めて月経を経験すること",
@@ -788,6 +831,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:794",
           "question": "精通とは何を意味するか？",
           "choices": [
             "初めて精液を排出すること",
@@ -806,6 +850,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:795",
           "question": "思春期に分泌が活発になる性腺刺激ホルモンはどれか？",
           "choices": [
             "FSHとLH",
@@ -824,6 +869,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:796",
           "question": "思春期における女性の健康問題で適切なものはどれか？",
           "choices": [
             "月経不順や月経困難症",
@@ -842,6 +888,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:797",
           "question": "月経困難症とはどのような状態か？",
           "choices": [
             "月経時に下腹部痛などが強く日常生活に支障をきたす",
@@ -860,6 +907,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:798",
           "question": "思春期における脳の発達で特徴的な部分はどれか？",
           "choices": [
             "前頭前野の発達",
@@ -878,6 +926,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:799",
           "question": "自己実現とはどのような状態を指すか？",
           "choices": [
             "自分の可能性を発揮して目標を実現すること",
@@ -896,6 +945,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:800",
           "question": "メタ認知の発達によってできるようになることはどれか？",
           "choices": [
             "自分の考え方を客観的に理解できる",
@@ -914,6 +964,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:801",
           "question": "思春期におけるストレス対処で望ましい行動はどれか？",
           "choices": [
             "信頼できる人に相談する",
@@ -932,6 +983,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:802",
           "question": "過度なダイエットによる健康への影響として正しいものはどれか？",
           "choices": [
             "月経不順を起こす",
@@ -950,6 +1002,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:803",
           "question": "思春期における異性への関心の高まりは何によって起こるか？",
           "choices": [
             "性ホルモンの分泌",
@@ -968,6 +1021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:804",
           "question": "思春期に起こりやすい行動上の特徴はどれか？",
           "choices": [
             "反抗的な態度や感情の起伏が見られる",
@@ -986,6 +1040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:805",
           "question": "月経周期の乱れが続くときの適切な対応はどれか？",
           "choices": [
             "婦人科を受診する",
@@ -1004,6 +1059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:806",
           "question": "思春期の健康教育で重視すべき内容はどれか？",
           "choices": [
             "性に関する正しい知識の習得",
@@ -1022,6 +1078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:807",
           "question": "思春期の体の変化に不安を感じたときの望ましい行動はどれか？",
           "choices": [
             "信頼できる大人に相談する",
@@ -1040,6 +1097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:808",
           "question": "思春期の心の発達において重要な人間関係の要素はどれか？",
           "choices": [
             "他者との相互理解と共感",
@@ -1058,6 +1116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:809",
           "question": "自己理解を深めるために有効な方法はどれか？",
           "choices": [
             "日記や振り返りを行う",
@@ -1076,6 +1135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U02:810",
           "question": "思春期の心と体の調和を保つために大切なことはどれか？",
           "choices": [
             "生活リズムを整え、バランスよく過ごす",
@@ -1100,6 +1160,7 @@
       "title": "性意識と性行動の選択",
       "cards": [
         {
+          "stableId": "M05:M05U03:811",
           "question": "性意識とはどのようなものか？",
           "choices": [
             "性や恋愛に対する考え方や感じ方",
@@ -1118,6 +1179,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U03:812",
           "question": "性的指向（セクシュアル・オリエンテーション）とはどれか？",
           "choices": [
             "恋愛や性的関心が向かう対象のこと",
@@ -1136,6 +1198,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U03:813",
           "question": "性自認（ジェンダー・アイデンティティ）とはどれか？",
           "choices": [
             "自分がどの性として生きたいかという意識",
@@ -1154,6 +1217,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U03:814",
           "question": "SOGIとは何を意味するか？",
           "choices": [
             "性的指向と性自認の総称",
@@ -1172,6 +1236,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U03:815",
           "question": "性に関する情報を得る際に重要な点はどれか？",
           "choices": [
             "情報の正確性を確かめること",
@@ -1190,6 +1255,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U03:816",
           "question": "デートDVとはどのような行為か？",
           "choices": [
             "交際相手への暴力や支配行為",
@@ -1208,6 +1274,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U03:817",
           "question": "ストーカー行為にあたるものはどれか？",
           "choices": [
             "相手の承諾なく繰り返しつきまとうこと",
@@ -1226,6 +1293,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:818",
           "question": "性暴力被害にあった場合の適切な対応はどれか？",
           "choices": [
             "信頼できる大人や相談窓口に助けを求める",
@@ -1244,6 +1312,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:819",
           "question": "LGBTQ＋の「T」は何を表すか？",
           "choices": [
             "トランスジェンダー",
@@ -1262,6 +1331,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:820",
           "question": "性に関する誤った情報の影響として最も適切なものはどれか？",
           "choices": [
             "偏見や誤解を助長する",
@@ -1280,6 +1350,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:821",
           "question": "性意識の形成に影響を与える要因として正しいものはどれか？",
           "choices": [
             "文化や家庭環境",
@@ -1298,6 +1369,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:822",
           "question": "青年期に性意識が高まる主な理由はどれか？",
           "choices": [
             "ホルモンの変化と心理的発達",
@@ -1316,6 +1388,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:823",
           "question": "性的同意に関して正しい考え方はどれか？",
           "choices": [
             "相手の自由な意思のもとで同意することが必要",
@@ -1334,6 +1407,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:824",
           "question": "性情報の取得先として最も信頼できるものはどれか？",
           "choices": [
             "公的機関や専門家による情報",
@@ -1352,6 +1426,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:825",
           "question": "デートDVを防ぐために大切な態度はどれか？",
           "choices": [
             "相手の意思を尊重する",
@@ -1370,6 +1445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:826",
           "question": "性暴力加害を防ぐための社会的取組として適切なものはどれか？",
           "choices": [
             "啓発活動や教育の充実",
@@ -1388,6 +1464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:827",
           "question": "#MeToo運動が訴えた主な内容はどれか？",
           "choices": [
             "性暴力の被害を社会に伝え支援を求めること",
@@ -1406,6 +1483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:828",
           "question": "LGBTQ＋のQが意味するものはどれか？",
           "choices": [
             "クエスチョニング",
@@ -1424,6 +1502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:829",
           "question": "性的マイノリティへの偏見をなくすために重要なことはどれか？",
           "choices": [
             "多様な性の理解と尊重",
@@ -1442,6 +1521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:830",
           "question": "性的な話題に関して信頼できる相談先はどれか？",
           "choices": [
             "学校や公的相談窓口",
@@ -1460,6 +1540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:831",
           "question": "性行動の判断で重視すべき視点はどれか？",
           "choices": [
             "相手と自分の心身の健康と権利",
@@ -1478,6 +1559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:832",
           "question": "誤った性情報の広がりを防ぐために必要なことはどれか？",
           "choices": [
             "情報の出典を確認し共有前に考える",
@@ -1496,6 +1578,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:833",
           "question": "性暴力の特徴として誤っているものはどれか？",
           "choices": [
             "被害者の年齢や性別にかかわらず起こる",
@@ -1514,6 +1597,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:834",
           "question": "交際中の性的関係で最も大切にすべきことはどれか？",
           "choices": [
             "相手との信頼関係と同意",
@@ -1532,6 +1616,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:835",
           "question": "性的同意を得ていない関係で起こる問題として正しいものはどれか？",
           "choices": [
             "犯罪やトラウマにつながる",
@@ -1550,6 +1635,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:836",
           "question": "性的少数者に対して学校でできる配慮の例として正しいものはどれか？",
           "choices": [
             "トイレや制服の柔軟な対応",
@@ -1568,6 +1654,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:837",
           "question": "性に関する行動選択における主体性とはどれか？",
           "choices": [
             "自分の価値観に基づいて判断すること",
@@ -1586,6 +1673,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:838",
           "question": "恋愛や性的関係でトラブルを防ぐために必要なのはどれか？",
           "choices": [
             "相互理解とコミュニケーション",
@@ -1604,6 +1692,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:839",
           "question": "性的意識の変化はどのように進むか？",
           "choices": [
             "思春期に高まり成熟とともに安定する",
@@ -1622,6 +1711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U03:840",
           "question": "性に関する正しい理解を深めるために最も重要なのはどれか？",
           "choices": [
             "科学的根拠に基づく教育を受ける",
@@ -1646,6 +1736,7 @@
       "title": "妊娠・出産と健康",
       "cards": [
         {
+          "stableId": "M05:M05U04:841",
           "question": "受精とはどのような現象か？",
           "choices": [
             "卵子と精子が結合すること",
@@ -1664,6 +1755,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U04:842",
           "question": "妊娠の成立に必要な条件として正しいのはどれか？",
           "choices": [
             "排卵と受精が正常に行われること",
@@ -1682,6 +1774,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U04:843",
           "question": "妊娠期間は通常どのくらいか？",
           "choices": [
             "約280日（40週）",
@@ -1700,6 +1793,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U04:844",
           "question": "妊娠初期に見られる体の変化として正しいのはどれか？",
           "choices": [
             "つわりが起こる",
@@ -1718,6 +1812,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U04:845",
           "question": "出産の流れで「陣痛」が起こるのはどの段階か？",
           "choices": [
             "分娩第1期",
@@ -1736,6 +1831,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U04:846",
           "question": "出産の第2期に起こることはどれか？",
           "choices": [
             "胎児が母体から出てくる",
@@ -1754,6 +1850,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U04:847",
           "question": "出産後6〜8週間の母体の回復期間を何というか？",
           "choices": [
             "産褥期",
@@ -1772,6 +1869,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:848",
           "question": "母子保健サービスの目的として正しいのはどれか？",
           "choices": [
             "妊娠・出産・育児の健康を支援する",
@@ -1790,6 +1888,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:849",
           "question": "母子健康手帳はいつ交付されるか？",
           "choices": [
             "妊娠が確認されたとき",
@@ -1808,6 +1907,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:850",
           "question": "妊娠中の健康管理で特に大切なのはどれか？",
           "choices": [
             "栄養バランスと定期的な健診",
@@ -1826,6 +1926,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:851",
           "question": "妊娠中に摂取を控えるべきものはどれか？",
           "choices": [
             "アルコール",
@@ -1844,6 +1945,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:852",
           "question": "妊娠中に必要な栄養素として特に重要なのはどれか？",
           "choices": [
             "葉酸",
@@ -1862,6 +1964,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:853",
           "question": "出産時に胎児が母体から出てくるための子宮の収縮を何というか？",
           "choices": [
             "陣痛",
@@ -1880,6 +1983,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:854",
           "question": "妊娠後期に注意が必要な症状はどれか？",
           "choices": [
             "妊娠高血圧症候群",
@@ -1898,6 +2002,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:855",
           "question": "妊娠中の体重増加の目安として正しいのはどれか？",
           "choices": [
             "BMIによって異なる",
@@ -1916,6 +2021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:856",
           "question": "妊娠初期の母体が注意すべき感染症はどれか？",
           "choices": [
             "風しん",
@@ -1934,6 +2040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:857",
           "question": "出産時に胎児と一緒に排出されるものはどれか？",
           "choices": [
             "胎盤",
@@ -1952,6 +2059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:858",
           "question": "マタニティマークの目的として正しいのはどれか？",
           "choices": [
             "妊婦への配慮を促す",
@@ -1970,6 +2078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:859",
           "question": "妊娠・出産の経過を一貫して管理する仕組みはどれか？",
           "choices": [
             "母子健康手帳",
@@ -1988,6 +2097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:860",
           "question": "「健やか親子21（第2次）」の主な目標はどれか？",
           "choices": [
             "すべての子どもが健やかに育つ社会の実現",
@@ -2006,6 +2116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:861",
           "question": "母子保健サービスの一つでないものはどれか？",
           "choices": [
             "高齢者健康相談",
@@ -2024,6 +2135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:862",
           "question": "「母子保健法」に基づく市町村の役割として正しいのはどれか？",
           "choices": [
             "妊婦健診費用の助成",
@@ -2042,6 +2154,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:863",
           "question": "妊娠中の母体が適度な運動を行う目的はどれか？",
           "choices": [
             "体力維持とストレス軽減",
@@ -2060,6 +2173,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:864",
           "question": "妊娠初期に薬を服用する際の注意として正しいのはどれか？",
           "choices": [
             "医師の指示に従う",
@@ -2078,6 +2192,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:865",
           "question": "母子保健サービスの利用で最も大切な姿勢はどれか？",
           "choices": [
             "自ら情報を得て積極的に活用する",
@@ -2096,6 +2211,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:866",
           "question": "胎児の成長が始まる場所として正しいのはどれか？",
           "choices": [
             "子宮内膜",
@@ -2114,6 +2230,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:867",
           "question": "出産後の母乳分泌を促すホルモンはどれか？",
           "choices": [
             "プロラクチン",
@@ -2132,6 +2249,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:868",
           "question": "「胎盤」の主な役割として正しいのはどれか？",
           "choices": [
             "母体と胎児の間で栄養や酸素を交換する",
@@ -2150,6 +2268,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:869",
           "question": "出産時に「破水」が起こるのはどの段階か？",
           "choices": [
             "陣痛の開始前後",
@@ -2168,6 +2287,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U04:870",
           "question": "母子保健の基本的な理念として最も適切なのはどれか？",
           "choices": [
             "母と子の健康を社会全体で支える",
@@ -2192,6 +2312,7 @@
       "title": "避妊法と人工妊娠中絶",
       "cards": [
         {
+          "stableId": "M05:M05U05:871",
           "question": "家族計画の目的として最も適切なものはどれか？",
           "choices": [
             "望ましい時期に子どもをもうけること",
@@ -2210,6 +2331,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U05:872",
           "question": "避妊の主な目的はどれか？",
           "choices": [
             "妊娠を望まない時期に妊娠を防ぐこと",
@@ -2228,6 +2350,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U05:873",
           "question": "コンドームの特徴として正しいものはどれか？",
           "choices": [
             "性感染症の予防にも有効である",
@@ -2246,6 +2369,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U05:874",
           "question": "低用量ピルの主な作用はどれか？",
           "choices": [
             "排卵を抑える",
@@ -2264,6 +2388,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U05:875",
           "question": "緊急避妊薬（アフターピル）の使用目的として正しいものはどれか？",
           "choices": [
             "避妊に失敗した後に妊娠を防ぐため",
@@ -2282,6 +2407,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U05:876",
           "question": "月経周期を利用した「安全日」に関する説明として正しいものはどれか？",
           "choices": [
             "排卵日を予測して性行為を避ける方法",
@@ -2300,6 +2426,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M05:M05U05:877",
           "question": "日本で多く用いられている避妊法はどれか？",
           "choices": [
             "コンドーム",
@@ -2318,6 +2445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:878",
           "question": "人工妊娠中絶が認められている法律はどれか？",
           "choices": [
             "母体保護法",
@@ -2336,6 +2464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:879",
           "question": "日本における人工妊娠中絶の実施件数の傾向として正しいものはどれか？",
           "choices": [
             "年々減少している",
@@ -2354,6 +2483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:880",
           "question": "人工妊娠中絶を行う際に求められる条件として正しいものはどれか？",
           "choices": [
             "母体の健康や経済的理由など",
@@ -2372,6 +2502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:881",
           "question": "コンドーム使用時に注意すべき点として正しいものはどれか？",
           "choices": [
             "使用前に破損がないか確認する",
@@ -2390,6 +2521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:882",
           "question": "低用量ピルの服用を中止した場合の影響として正しいものはどれか？",
           "choices": [
             "再び排卵が起こる",
@@ -2408,6 +2540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:883",
           "question": "緊急避妊薬（アフターピル）の服用可能な目安時間はどれか？",
           "choices": [
             "性交後72時間以内",
@@ -2426,6 +2559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:884",
           "question": "人工妊娠中絶が最も多く行われている年齢層はどれか？",
           "choices": [
             "20〜24歳",
@@ -2444,6 +2578,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:885",
           "question": "人工妊娠中絶が可能な妊娠週数の上限として正しいものはどれか？",
           "choices": [
             "妊娠22週未満",
@@ -2462,6 +2597,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:886",
           "question": "人工妊娠中絶の身体的リスクとして誤っているものはどれか？",
           "choices": [
             "不妊症の可能性がある",
@@ -2480,6 +2616,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:887",
           "question": "人工妊娠中絶の心理的影響として考えられるものはどれか？",
           "choices": [
             "罪悪感や喪失感",
@@ -2498,6 +2635,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:888",
           "question": "人工妊娠中絶を減らすために必要な社会的取組として最も適切なものはどれか？",
           "choices": [
             "性教育の充実",
@@ -2516,6 +2654,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:889",
           "question": "避妊法の中で最も避妊効果が高いものはどれか？",
           "choices": [
             "子宮内避妊具（IUD/IUS）",
@@ -2534,6 +2673,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:890",
           "question": "「膣外射精法」の説明として正しいものはどれか？",
           "choices": [
             "射精を体外で行うが避妊効果は低い",
@@ -2552,6 +2692,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:891",
           "question": "女性ホルモンを利用した避妊法に分類されるものはどれか？",
           "choices": [
             "低用量ピル",
@@ -2570,6 +2711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:892",
           "question": "IUD（子宮内避妊具）の特徴として正しいものはどれか？",
           "choices": [
             "長期間体内で避妊効果を持つ",
@@ -2588,6 +2730,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:893",
           "question": "避妊を考える際に大切な視点として最も適切なものはどれか？",
           "choices": [
             "パートナーと話し合って選ぶ",
@@ -2606,6 +2749,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:894",
           "question": "避妊法選択における「デュアルプロテクション」とはどれか？",
           "choices": [
             "避妊と性感染症予防の両立",
@@ -2624,6 +2768,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:895",
           "question": "人工妊娠中絶の件数減少の背景として最も関連が深いのはどれか？",
           "choices": [
             "避妊法の普及と性教育の充実",
@@ -2642,6 +2787,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:896",
           "question": "緊急避妊薬の有効成分として用いられるものはどれか？",
           "choices": [
             "レボノルゲストレル",
@@ -2660,6 +2806,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:897",
           "question": "人工妊娠中絶に関して国際的に重視されている観点はどれか？",
           "choices": [
             "女性のリプロダクティブ・ライツ（性と生殖の権利）",
@@ -2678,6 +2825,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:898",
           "question": "人工妊娠中絶における「母体保護法指定医」とはどのような医師か？",
           "choices": [
             "中絶を安全に行う資格を持つ医師",
@@ -2696,6 +2844,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:899",
           "question": "避妊の失敗率が最も高いのはどれか？",
           "choices": [
             "膣外射精法",
@@ -2714,6 +2863,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M05:M05U05:900",
           "question": "安全で効果的な避妊法を実現するために必要なことはどれか？",
           "choices": [
             "正しい知識と継続的な使用",

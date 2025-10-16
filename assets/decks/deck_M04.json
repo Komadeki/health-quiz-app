@@ -1,5 +1,5 @@
 {
-  "id": "deck_health04",
+  "id": "deck_M04",
   "title": "安全な社会生活",
   "isPurchased": false,
   "units": [
@@ -8,6 +8,7 @@
       "title": "事故の現状と発生要因",
       "cards": [
         {
+          "stableId": "M04:M04U01:571",
           "question": "事故とはどのような出来事を指すか？",
           "choices": [
             "意図せずに起こる不慮の外傷や損傷",
@@ -26,6 +27,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U01:572",
           "question": "交通事故や転倒などをまとめて呼ぶ用語はどれか？",
           "choices": [
             "不慮の事故",
@@ -44,6 +46,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U01:573",
           "question": "事故の発生に関する要因のうち「人的要因」に含まれるのはどれか？",
           "choices": [
             "注意不足や焦り",
@@ -62,6 +65,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U01:574",
           "question": "事故の発生要因の「環境的要因」に含まれるものはどれか？",
           "choices": [
             "道路や建物の構造",
@@ -80,6 +84,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U01:575",
           "question": "事故の発生要因の「行動的要因」に該当するものはどれか？",
           "choices": [
             "スピードの出しすぎ",
@@ -98,6 +103,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U01:576",
           "question": "高齢者に多い事故の特徴として最も適切なのはどれか？",
           "choices": [
             "家庭内での転倒・転落が多い",
@@ -116,6 +122,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U01:577",
           "question": "乳幼児の事故で多い発生場所はどこか？",
           "choices": [
             "家庭内",
@@ -134,6 +141,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:578",
           "question": "思春期の事故に多い傾向として正しいものはどれか？",
           "choices": [
             "交通事故やスポーツ事故が多い",
@@ -152,6 +160,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:579",
           "question": "ハインリッヒの法則で示される「1：29：300」は何を意味するか？",
           "choices": [
             "1件の重大事故の背後に多くの軽微な事故とヒヤリハットがある",
@@ -170,6 +179,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:580",
           "question": "事故の分析に用いられる「ハドン・マトリクス」の視点に含まれないものはどれか？",
           "choices": [
             "経済的要因",
@@ -188,6 +198,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:581",
           "question": "事故の発生に関係する人的要因の例として正しいのはどれか？",
           "choices": [
             "疲労や不注意",
@@ -206,6 +217,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:582",
           "question": "事故の発生に関係する環境的要因の例として適切なのはどれか？",
           "choices": [
             "照明が暗い場所",
@@ -224,6 +236,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:583",
           "question": "事故の発生に関する行動的要因とは何を指すか？",
           "choices": [
             "危険な行動や安全意識の欠如",
@@ -242,6 +255,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:584",
           "question": "交通事故による死亡者数の近年の傾向として正しいのはどれか？",
           "choices": [
             "減少傾向にある",
@@ -260,6 +274,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:585",
           "question": "高齢者の交通事故の特徴として正しいものはどれか？",
           "choices": [
             "歩行中や自転車乗用中の事故が多い",
@@ -278,6 +293,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:586",
           "question": "高校生の事故の多くを占めるのはどれか？",
           "choices": [
             "体育や部活動中のけが",
@@ -296,6 +312,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:587",
           "question": "事故防止のための「3Eアプローチ」に含まれないものはどれか？",
           "choices": [
             "Economy（経済）",
@@ -314,6 +331,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:588",
           "question": "事故予防のための「Education（教育）」の具体例はどれか？",
           "choices": [
             "安全講習会の実施",
@@ -332,6 +350,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:589",
           "question": "事故予防の「Engineering（環境）」の例として正しいものはどれか？",
           "choices": [
             "道路の照明を明るくする",
@@ -350,6 +369,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:590",
           "question": "事故予防の「Enforcement（法的整備）」の例はどれか？",
           "choices": [
             "シートベルト着用義務化",
@@ -368,6 +388,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:591",
           "question": "ハドン・マトリクスでは「事故前」に注目する目的はどれか？",
           "choices": [
             "事故を未然に防ぐため",
@@ -386,6 +407,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:592",
           "question": "ハドン・マトリクスの「事故中」の対策として適切なのはどれか？",
           "choices": [
             "シートベルトの着用",
@@ -404,6 +426,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:593",
           "question": "ハドン・マトリクスの「事故後」に該当する取り組みはどれか？",
           "choices": [
             "救急搬送体制の整備",
@@ -422,6 +445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:594",
           "question": "事故の防止における「ヒューマンエラー」の例として正しいものはどれか？",
           "choices": [
             "赤信号を見落とす",
@@ -440,6 +464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:595",
           "question": "事故要因の分析で用いられる「ヒューマンファクター」とは何か？",
           "choices": [
             "人間の行動や心理的特性が事故に関係する考え方",
@@ -458,6 +483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:596",
           "question": "ハインリッヒの法則が示す教訓として正しいものはどれか？",
           "choices": [
             "小さなヒヤリハットの段階で対策することが重要である",
@@ -476,6 +502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:597",
           "question": "事故防止のための「安全教育」で大切な視点はどれか？",
           "choices": [
             "危険を予測し行動できる力を育てる",
@@ -494,6 +521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:598",
           "question": "事故防止のために設けられる道路の構造的対策の例はどれか？",
           "choices": [
             "ガードレールの設置",
@@ -512,6 +540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:599",
           "question": "学校での事故防止において教員が重視すべき点はどれか？",
           "choices": [
             "安全点検と危険予測",
@@ -530,6 +559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U01:600",
           "question": "事故の防止において社会的支援が果たす役割として適切なのはどれか？",
           "choices": [
             "地域や行政が安全環境づくりに関わること",
@@ -554,6 +584,7 @@
       "title": "安全な社会の形成",
       "cards": [
         {
+          "stableId": "M04:M04U02:601",
           "question": "安全な社会の形成の目的として最も適切なのはどれか？",
           "choices": [
             "すべての人が安全に生活できる社会をつくること",
@@ -572,6 +603,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U02:602",
           "question": "個人の安全を確保するために重要な行動はどれか？",
           "choices": [
             "危険を予測し回避する行動",
@@ -590,6 +622,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U02:603",
           "question": "災害時にとるべき基本的な行動として正しいのはどれか？",
           "choices": [
             "落ち着いて避難経路を確認する",
@@ -608,6 +641,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U02:604",
           "question": "「自助」「共助」「公助」のうち、まず優先して行うべきなのはどれか？",
           "choices": [
             "自助",
@@ -626,6 +660,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U02:605",
           "question": "共助の具体的な例として最も適切なのはどれか？",
           "choices": [
             "地域での避難誘導",
@@ -644,6 +679,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U02:606",
           "question": "公助の中心的な役割を担うのはどれか？",
           "choices": [
             "行政",
@@ -662,6 +698,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U02:607",
           "question": "「正常性バイアス」とはどのような現象か？",
           "choices": [
             "危険を過小評価して普段どおりに行動してしまうこと",
@@ -680,6 +717,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:608",
           "question": "ハインリッヒの法則が示す内容として正しいのはどれか？",
           "choices": [
             "1件の重大事故の背後には多くの軽微な事故やヒヤリハットがある",
@@ -698,6 +736,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:609",
           "question": "災害リスクを表す式として正しいのはどれか？",
           "choices": [
             "リスク＝ハザード×脆弱性",
@@ -716,6 +755,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:610",
           "question": "「ハザードマップ」の目的として正しいのはどれか？",
           "choices": [
             "災害の危険区域や避難場所を事前に知ること",
@@ -734,6 +774,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:611",
           "question": "地震発生時にまず行うべき行動はどれか？",
           "choices": [
             "身の安全を確保する",
@@ -752,6 +793,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:612",
           "question": "避難情報の「避難指示」はどのレベルにあたるか？",
           "choices": [
             "レベル4",
@@ -770,6 +812,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:613",
           "question": "警戒レベル5の行動として最も適切なのはどれか？",
           "choices": [
             "命を守る最善の行動をとる",
@@ -788,6 +831,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:614",
           "question": "行政による災害対策の例として正しいのはどれか？",
           "choices": [
             "防災訓練の実施",
@@ -806,6 +850,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:615",
           "question": "地域の防災活動の目的として最も適切なのはどれか？",
           "choices": [
             "住民一人ひとりが協力して安全を守ること",
@@ -824,6 +869,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:616",
           "question": "避難所の設置目的として正しいのはどれか？",
           "choices": [
             "被災者が一時的に安全に生活できる場所を確保する",
@@ -842,6 +888,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:617",
           "question": "障害のある人や高齢者などへの支援を示すカードはどれか？",
           "choices": [
             "ヘルプカード",
@@ -860,6 +907,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:618",
           "question": "災害時における「情報の活用」で重要なのはどれか？",
           "choices": [
             "正確な情報を見極める",
@@ -878,6 +926,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:619",
           "question": "「リスク・ハザード・災害」のうち、ハザードの意味として正しいのはどれか？",
           "choices": [
             "危険のもととなる自然現象や要因",
@@ -896,6 +945,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:620",
           "question": "防災教育の目的として最も適切なのはどれか？",
           "choices": [
             "自ら考え行動できる力を育てること",
@@ -914,6 +964,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:621",
           "question": "「災害リスクマネジメント」に含まれる考え方として正しいのはどれか？",
           "choices": [
             "危険を予測し、被害を最小限にする行動を計画する",
@@ -932,6 +983,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:622",
           "question": "「防災・減災」の違いとして正しいのはどれか？",
           "choices": [
             "防災は被害を防ぐ、減災は被害を軽減する",
@@ -950,6 +1002,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:623",
           "question": "地震の揺れを減らす建築の工夫として正しいのはどれか？",
           "choices": [
             "免震構造や制震装置の導入",
@@ -968,6 +1021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:624",
           "question": "「指定避難所」とは何を目的とした施設か？",
           "choices": [
             "災害発生時に安全に避難できる場所",
@@ -986,6 +1040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:625",
           "question": "「災害弱者」とはどのような人を指すか？",
           "choices": [
             "災害時に特別な支援を必要とする人",
@@ -1004,6 +1059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:626",
           "question": "地域防災力を高めるために必要なことはどれか？",
           "choices": [
             "日頃から地域の人とつながりを持つこと",
@@ -1022,6 +1078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:627",
           "question": "「BCP（事業継続計画）」の目的として正しいのはどれか？",
           "choices": [
             "災害後も事業を継続・早期再開できるようにする",
@@ -1040,6 +1097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:628",
           "question": "学校における防災教育で特に重視すべき点はどれか？",
           "choices": [
             "自分で判断して行動する力を育てる",
@@ -1058,6 +1116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:629",
           "question": "災害からの教訓を社会に活かすために重要なことはどれか？",
           "choices": [
             "記録し伝承すること",
@@ -1076,6 +1135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U02:630",
           "question": "安全な社会を築くために一人ひとりができることはどれか？",
           "choices": [
             "日頃から危険を意識し防災行動を習慣化する",
@@ -1100,6 +1160,7 @@
       "title": "交通における安全",
       "cards": [
         {
+          "stableId": "M04:M04U03:631",
           "question": "交通事故を防止するためにまず重要なことはどれか？",
           "choices": [
             "安全な行動を自ら心がけること",
@@ -1118,6 +1179,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U03:632",
           "question": "交通事故防止のための基本的な取り組みとして正しいものはどれか？",
           "choices": [
             "交通ルールの順守",
@@ -1136,6 +1198,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U03:633",
           "question": "自動車の安全を高める装備として正しいものはどれか？",
           "choices": [
             "エアバッグ",
@@ -1154,6 +1217,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U03:634",
           "question": "ドライブレコーダーの主な目的はどれか？",
           "choices": [
             "事故や危険運転の記録",
@@ -1172,6 +1236,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U03:635",
           "question": "交通事故の原因の多くを占めるものはどれか？",
           "choices": [
             "人的要因",
@@ -1190,6 +1255,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U03:636",
           "question": "シートベルトの着用が義務づけられている理由として正しいものはどれか？",
           "choices": [
             "衝突時のけがを防ぐため",
@@ -1208,6 +1274,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U03:637",
           "question": "子どもが自動車に乗るときに必要な安全対策はどれか？",
           "choices": [
             "チャイルドシートの使用",
@@ -1226,6 +1293,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:638",
           "question": "運転免許を取得した人が特に意識すべきことはどれか？",
           "choices": [
             "安全運転の責任",
@@ -1244,6 +1312,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:639",
           "question": "高齢運転者に関する対策として導入されているものはどれか？",
           "choices": [
             "高齢運転者マークの表示",
@@ -1262,6 +1331,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:640",
           "question": "交通事故を起こした際に運転者が負う責任として誤っているものはどれか？",
           "choices": [
             "刑事責任",
@@ -1280,6 +1350,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:641",
           "question": "交通事故を起こした場合にまず行うべき対応はどれか？",
           "choices": [
             "負傷者の救護",
@@ -1298,6 +1369,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:642",
           "question": "交通事故を起こした際に適用される保険制度として正しいものはどれか？",
           "choices": [
             "自賠責保険",
@@ -1316,6 +1388,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:643",
           "question": "歩行者が横断歩道を渡るときに最も注意すべきことはどれか？",
           "choices": [
             "左右の安全確認",
@@ -1334,6 +1407,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:644",
           "question": "運転中のスマートフォン使用が危険な理由はどれか？",
           "choices": [
             "注意が散漫になるため",
@@ -1352,6 +1426,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:645",
           "question": "夜間に歩行者が着用すると安全性が高まるものはどれか？",
           "choices": [
             "反射材",
@@ -1370,6 +1445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:646",
           "question": "飲酒運転をした場合に課せられる罰則として正しいものはどれか？",
           "choices": [
             "厳しい刑罰",
@@ -1388,6 +1464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:647",
           "question": "スピードを出しすぎると危険なのはなぜか？",
           "choices": [
             "停止距離が長くなるから",
@@ -1406,6 +1483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:648",
           "question": "交通安全教育の目的として正しいものはどれか？",
           "choices": [
             "安全な行動を自ら選択できる力を育む",
@@ -1424,6 +1502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:649",
           "question": "ゾーン30とは何を目的とした制度か？",
           "choices": [
             "住宅街などで速度を30km/h以下に制限すること",
@@ -1442,6 +1521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:650",
           "question": "ラウンドアバウトの特徴として正しいものはどれか？",
           "choices": [
             "信号を使わずに交差点を通行できる",
@@ -1460,6 +1540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:651",
           "question": "ABS（アンチロック・ブレーキ・システム）の目的はどれか？",
           "choices": [
             "急ブレーキ時にタイヤがロックするのを防ぐ",
@@ -1478,6 +1559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:652",
           "question": "自動ハイビームの機能として正しいものはどれか？",
           "choices": [
             "対向車を検知してライトを自動で切り替える",
@@ -1496,6 +1578,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:653",
           "question": "運転中の眠気を防ぐために有効なのはどれか？",
           "choices": [
             "こまめに休憩を取る",
@@ -1514,6 +1597,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:654",
           "question": "交通事故による死者数が減少した主な理由はどれか？",
           "choices": [
             "安全技術の進歩と意識向上",
@@ -1532,6 +1616,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:655",
           "question": "自転車に乗るときに義務づけられていることはどれか？",
           "choices": [
             "交通ルールを守ること",
@@ -1550,6 +1635,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:656",
           "question": "自転車事故を防ぐために有効な行動はどれか？",
           "choices": [
             "ヘルメットの着用",
@@ -1568,6 +1654,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:657",
           "question": "交通事故の発生要因として誤っているものはどれか？",
           "choices": [
             "道路の整備が進んだこと",
@@ -1586,6 +1673,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:658",
           "question": "若年層の交通事故が多い要因として正しいものはどれか？",
           "choices": [
             "経験不足と過信",
@@ -1604,6 +1692,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:659",
           "question": "高齢者の交通事故を防ぐために有効な地域の取り組みはどれか？",
           "choices": [
             "免許返納支援や代替交通手段の整備",
@@ -1622,6 +1711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U03:660",
           "question": "交通安全社会を実現するために最も大切な考え方はどれか？",
           "choices": [
             "人と人が互いに思いやる意識",
@@ -1646,6 +1736,7 @@
       "title": "応急手当の意義とその基本",
       "cards": [
         {
+          "stableId": "M04:M04U04:661",
           "question": "応急手当とは何を目的として行うものか？",
           "choices": [
             "けがや病気による被害を最小限にする",
@@ -1664,6 +1755,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U04:662",
           "question": "応急手当を行う人に求められる態度として適切なのはどれか？",
           "choices": [
             "落ち着いて行動する",
@@ -1682,6 +1774,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U04:663",
           "question": "応急手当の手順で最初に行うべきことはどれか？",
           "choices": [
             "安全の確認",
@@ -1700,6 +1793,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U04:664",
           "question": "応急手当の一般的手順で安全を確認した後に行うことはどれか？",
           "choices": [
             "反応の確認",
@@ -1718,6 +1812,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U04:665",
           "question": "反応がない場合に次に行うべき行動はどれか？",
           "choices": [
             "助けを呼び119番通報とAEDの手配を行う",
@@ -1736,6 +1831,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U04:666",
           "question": "呼吸の有無を確認する時間として適切なのはどれか？",
           "choices": [
             "10秒以内",
@@ -1754,6 +1850,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U04:667",
           "question": "呼吸がないと判断された場合に行う処置はどれか？",
           "choices": [
             "胸骨圧迫",
@@ -1772,6 +1869,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:668",
           "question": "胸骨圧迫のテンポとして正しいのはどれか？",
           "choices": [
             "1分間に100〜120回",
@@ -1790,6 +1888,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:669",
           "question": "AEDの目的として正しいものはどれか？",
           "choices": [
             "心臓の正常なリズムを取り戻す",
@@ -1808,6 +1907,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:670",
           "question": "応急手当を行う意義として正しいのはどれか？",
           "choices": [
             "救命率を高めることができる",
@@ -1826,6 +1926,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:671",
           "question": "応急手当を行う際に最も大切な心構えはどれか？",
           "choices": [
             "勇気と冷静さ",
@@ -1844,6 +1945,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:672",
           "question": "反応があるが呼吸が苦しそうな人に適切な対応はどれか？",
           "choices": [
             "楽な姿勢をとらせる",
@@ -1862,6 +1964,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:673",
           "question": "119番通報を行うときに伝えるべき内容として誤っているものはどれか？",
           "choices": [
             "通報者の氏名と電話番号",
@@ -1880,6 +1983,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:674",
           "question": "119番通報の際に「意識がありません」と伝える目的はどれか？",
           "choices": [
             "救急隊に緊急性を伝えるため",
@@ -1898,6 +2002,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:675",
           "question": "救急車を呼ぶべき状況として最も適切なのはどれか？",
           "choices": [
             "意識がなく呼びかけに反応がない",
@@ -1916,6 +2021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:676",
           "question": "AEDが届いたときにまず確認すべきことはどれか？",
           "choices": [
             "電源を入れる",
@@ -1934,6 +2040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:677",
           "question": "AEDの電極パッドを貼る位置として正しいものはどれか？",
           "choices": [
             "右胸と左脇腹",
@@ -1952,6 +2059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:678",
           "question": "AEDが「ショック不要」と指示した場合の対応はどれか？",
           "choices": [
             "胸骨圧迫を続ける",
@@ -1970,6 +2078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:679",
           "question": "応急手当を行う際の感染防止策として適切なのはどれか？",
           "choices": [
             "手袋を着用する",
@@ -1988,6 +2097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:680",
           "question": "応急手当の効果を高めるために重要な社会的要素はどれか？",
           "choices": [
             "多くの人が訓練を受けること",
@@ -2006,6 +2116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:681",
           "question": "心停止後1分ごとに救命率はどのように変化するか？",
           "choices": [
             "約10％ずつ低下する",
@@ -2024,6 +2135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:682",
           "question": "応急手当を行う人の法的保護を定めた考え方を何というか？",
           "choices": [
             "善意の救護者（Good Samaritan）法",
@@ -2042,6 +2154,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:683",
           "question": "一次救命処置（BLS）に含まれるものとして正しいのはどれか？",
           "choices": [
             "心肺蘇生とAED",
@@ -2060,6 +2173,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:684",
           "question": "救命の連鎖における最初の行動はどれか？",
           "choices": [
             "心停止の早期認識と通報",
@@ -2078,6 +2192,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:685",
           "question": "救急相談センター（#7119）の役割として正しいものはどれか？",
           "choices": [
             "緊急性の判断を助ける",
@@ -2096,6 +2211,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:686",
           "question": "応急手当の対象として最も当てはまるのはどれか？",
           "choices": [
             "突然のけがや急病",
@@ -2114,6 +2230,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:687",
           "question": "救命処置を行うときの胸骨圧迫の深さとして正しいのはどれか？",
           "choices": [
             "5cm程度",
@@ -2132,6 +2249,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:688",
           "question": "人工呼吸を行うときの正しい方法はどれか？",
           "choices": [
             "鼻をつまんで口から息を吹き込む",
@@ -2150,6 +2268,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:689",
           "question": "応急手当を普及させる上で学校が果たす役割はどれか？",
           "choices": [
             "訓練や講習を実施する",
@@ -2168,6 +2287,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U04:690",
           "question": "応急手当を学ぶことの社会的意義はどれか？",
           "choices": [
             "地域全体の救命力を高める",
@@ -2192,6 +2312,7 @@
       "title": "日常的な応急手当",
       "cards": [
         {
+          "stableId": "M04:M04U05:691",
           "question": "出血時の初期対応として最も基本となる止血法はどれか？",
           "choices": [
             "直接圧迫止血",
@@ -2210,6 +2331,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U05:692",
           "question": "直接圧迫止血を行う際に適切な材料の当て方はどれか？",
           "choices": [
             "清潔なガーゼやハンカチを出血部位に当て確実に圧迫する",
@@ -2228,6 +2350,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U05:693",
           "question": "捻挫や打撲の初期手当に用いるRICE法でRが示すものはどれか？",
           "choices": [
             "安静",
@@ -2246,6 +2369,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U05:694",
           "question": "RICE法のC（Compression）の目的はどれか？",
           "choices": [
             "腫れと内出血を抑える",
@@ -2264,6 +2388,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U05:695",
           "question": "RICE法のE（Elevation）の具体的な行い方はどれか？",
           "choices": [
             "患部を心臓より高く保つ",
@@ -2282,6 +2407,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U05:696",
           "question": "骨折が疑われるときの基本対応として適切なのはどれか？",
           "choices": [
             "動かさずに副木などで固定する",
@@ -2300,6 +2426,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U05:697",
           "question": "熱中症が疑われる人への最初の環境調整として適切なのはどれか？",
           "choices": [
             "風通しのよい日陰や涼しい場所へ移す",
@@ -2318,6 +2445,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:698",
           "question": "熱中症の応急手当で効率よく冷やす部位はどれか？",
           "choices": [
             "首・わきの下・足の付け根",
@@ -2336,6 +2464,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:699",
           "question": "軽症の熱中症が疑われる場合の望ましい水分補給はどれか？",
           "choices": [
             "0.1〜0.2％の食塩を含む水や経口補水液・スポーツドリンク",
@@ -2354,6 +2483,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:700",
           "question": "熱中症の重症が疑われ救急要請が必要となるサインはどれか？",
           "choices": [
             "意識がもうろうとして反応が鈍い",
@@ -2372,6 +2502,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:701",
           "question": "止血後に包帯や副木で固定する目的として正しいのはどれか？",
           "choices": [
             "出血や腫れの再発を防ぐため",
@@ -2390,6 +2521,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:702",
           "question": "副木固定を行う際に注意すべき点はどれか？",
           "choices": [
             "関節を含めて固定する",
@@ -2408,6 +2540,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:703",
           "question": "骨折時に副木がない場合の応急手当として適切なのはどれか？",
           "choices": [
             "厚手の雑誌や板などで代用する",
@@ -2426,6 +2559,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:704",
           "question": "擦り傷の応急手当で最も重要な最初の対応はどれか？",
           "choices": [
             "流水で汚れを洗い流す",
@@ -2444,6 +2578,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:705",
           "question": "やけどの応急手当として正しいのはどれか？",
           "choices": [
             "すぐに流水で冷やす",
@@ -2462,6 +2597,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:706",
           "question": "鼻出血の応急手当で誤っているものはどれか？",
           "choices": [
             "首を後ろに反らせる",
@@ -2480,6 +2616,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:707",
           "question": "打撲の応急手当で冷却する際に注意すべきことはどれか？",
           "choices": [
             "直接氷を当てずタオルを挟む",
@@ -2498,6 +2635,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:708",
           "question": "ねんざの症状として正しいのはどれか？",
           "choices": [
             "関節周囲の腫れや痛み",
@@ -2516,6 +2654,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:709",
           "question": "RICE法でI（Ice）を行う際の適切な時間はどれか？",
           "choices": [
             "15〜20分を目安に行う",
@@ -2534,6 +2673,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:710",
           "question": "熱中症予防のための環境指標WBGTとは何を示すか？",
           "choices": [
             "暑さ指数",
@@ -2552,6 +2692,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:711",
           "question": "熱中症のI度（軽度）の症状として適切なのはどれか？",
           "choices": [
             "めまいや立ちくらみ",
@@ -2570,6 +2711,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:712",
           "question": "熱中症のⅡ度（中等症）で現れやすい症状はどれか？",
           "choices": [
             "頭痛や吐き気",
@@ -2588,6 +2730,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:713",
           "question": "熱中症のⅢ度（重症）でみられる危険な状態はどれか？",
           "choices": [
             "意識障害やけいれん",
@@ -2606,6 +2749,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:714",
           "question": "熱中症予防のために特に注意が必要な条件はどれか？",
           "choices": [
             "高温多湿で風が弱い日",
@@ -2624,6 +2768,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:715",
           "question": "水分補給のポイントとして誤っているものはどれか？",
           "choices": [
             "のどが渇いてから飲む",
@@ -2642,6 +2787,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:716",
           "question": "アナフィラキシーとはどのような状態か？",
           "choices": [
             "全身に急激なアレルギー反応が起こる状態",
@@ -2660,6 +2806,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:717",
           "question": "アナフィラキシーで現れやすい症状はどれか？",
           "choices": [
             "呼吸困難や血圧低下",
@@ -2678,6 +2825,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:718",
           "question": "アナフィラキシーの応急対応として正しいのはどれか？",
           "choices": [
             "エピペンを使用し救急要請する",
@@ -2696,6 +2844,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:719",
           "question": "けが人を安全に運ぶときの原則として正しいのはどれか？",
           "choices": [
             "無理に動かさず安全を確保する",
@@ -2714,6 +2863,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U05:720",
           "question": "溺水時の応急手当として適切なのはどれか？",
           "choices": [
             "すぐに救助を呼び呼吸と意識を確認する",
@@ -2738,6 +2888,7 @@
       "title": "心肺蘇生法",
       "cards": [
         {
+          "stableId": "M04:M04U06:721",
           "question": "心肺蘇生法とはどのような処置か？",
           "choices": [
             "心臓や呼吸が止まった人の命を救うための応急手当",
@@ -2756,6 +2907,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U06:722",
           "question": "胸骨圧迫の目的はどれか？",
           "choices": [
             "心臓が止まっても血液を全身に送り続けるため",
@@ -2774,6 +2926,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U06:723",
           "question": "胸骨圧迫を行う際の圧迫の深さはどれくらいか？",
           "choices": [
             "およそ1cm",
@@ -2792,6 +2945,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U06:724",
           "question": "胸骨圧迫のテンポとして正しいのはどれか？",
           "choices": [
             "毎分60回程度",
@@ -2810,6 +2964,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U06:725",
           "question": "胸骨圧迫を行う手の位置として正しいのはどれか？",
           "choices": [
             "胸の中央",
@@ -2828,6 +2983,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U06:726",
           "question": "人工呼吸と胸骨圧迫の組み合わせの基本はどれか？",
           "choices": [
             "圧迫10回ごとに人工呼吸1回",
@@ -2846,6 +3002,7 @@
           "isPremium": false
         },
         {
+          "stableId": "M04:M04U06:727",
           "question": "AEDとは何か？",
           "choices": [
             "体温を測る機械",
@@ -2864,6 +3021,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:728",
           "question": "AEDを使用する目的として正しいのはどれか？",
           "choices": [
             "呼吸を再開させるため",
@@ -2882,6 +3040,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:729",
           "question": "AEDの使用手順で最初に行うことはどれか？",
           "choices": [
             "電源を入れる",
@@ -2900,6 +3059,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:730",
           "question": "心肺蘇生法を行う前に最初に確認すべきことはどれか？",
           "choices": [
             "反応があるかどうか",
@@ -2918,6 +3078,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:731",
           "question": "心肺蘇生法の実施において最も重要なことはどれか？",
           "choices": [
             "勇気をもってためらわずに行動すること",
@@ -2936,6 +3097,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:732",
           "question": "心肺蘇生法において119番通報を行う目的はどれか？",
           "choices": [
             "現場の安全を確認するため",
@@ -2954,6 +3116,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:733",
           "question": "反応がない場合に次に確認することはどれか？",
           "choices": [
             "呼吸の有無",
@@ -2972,6 +3135,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:734",
           "question": "呼吸がない場合に行うべき行動はどれか？",
           "choices": [
             "119番通報とAEDの手配を行う",
@@ -2990,6 +3154,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:735",
           "question": "胸骨圧迫を行う際の姿勢として正しいものはどれか？",
           "choices": [
             "ひじを曲げて力をかける",
@@ -3008,6 +3173,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:736",
           "question": "人工呼吸を行うときの気道確保の方法はどれか？",
           "choices": [
             "あご先挙上法",
@@ -3026,6 +3192,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:737",
           "question": "人工呼吸の際に息を吹き込む時間として適切なのはどれか？",
           "choices": [
             "1回あたり約1秒",
@@ -3044,6 +3211,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:738",
           "question": "人工呼吸を省略してもよい場合として正しいのはどれか？",
           "choices": [
             "感染の危険がある場合",
@@ -3062,6 +3230,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:739",
           "question": "AEDの音声ガイダンスの目的はどれか？",
           "choices": [
             "操作を簡単にするため",
@@ -3080,6 +3249,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:740",
           "question": "電気ショックが不要と指示された場合にとるべき対応はどれか？",
           "choices": [
             "すぐに胸骨圧迫を再開する",
@@ -3098,6 +3268,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:741",
           "question": "AEDの電極パッドを貼る位置として正しいのはどれか？",
           "choices": [
             "右胸上部と左脇腹部",
@@ -3116,6 +3287,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:742",
           "question": "胸骨圧迫を中断してよいのはどのようなときか？",
           "choices": [
             "AEDの指示に従うとき",
@@ -3134,6 +3306,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:743",
           "question": "蘇生の連鎖（Chain of Survival）の第一段階はどれか？",
           "choices": [
             "心停止の予防",
@@ -3152,6 +3325,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:744",
           "question": "蘇生の連鎖の第二段階にあたるのはどれか？",
           "choices": [
             "心停止の予防",
@@ -3170,6 +3344,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:745",
           "question": "心肺蘇生法を行う際に安全確認を行う理由はどれか？",
           "choices": [
             "救助者自身が事故に遭わないため",
@@ -3188,6 +3363,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:746",
           "question": "救助者が2人いる場合の胸骨圧迫と人工呼吸の役割分担はどれか？",
           "choices": [
             "交代しながら行う",
@@ -3206,6 +3382,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:747",
           "question": "胸骨圧迫を再開するタイミングとして正しいのはどれか？",
           "choices": [
             "ショック直後",
@@ -3224,6 +3401,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:748",
           "question": "心肺蘇生法の有効性が高いのはどのような場合か？",
           "choices": [
             "早期に処置が開始された場合",
@@ -3242,6 +3420,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:749",
           "question": "感染症流行時に人工呼吸を行う際の注意点はどれか？",
           "choices": [
             "マスクや布で口を覆う",
@@ -3260,6 +3439,7 @@
           "isPremium": true
         },
         {
+          "stableId": "M04:M04U06:750",
           "question": "学校や地域にAEDを設置する意義はどれか？",
           "choices": [
             "救命率を高めることができるから",
