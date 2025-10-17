@@ -1,6 +1,8 @@
 // lib/screens/review_cards_screen.dart
 import 'dart:async';
 import 'dart:math';
+import 'dart:convert';
+import 'package:crypto/crypto.dart' as crypto;
 import 'package:flutter/material.dart';
 
 import '../models/card.dart';
@@ -61,9 +63,222 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     return t.trim();
   }
 
-  // ★AttemptStoreのキー化と互換にする（空白を1つに畳むだけ）
+  // AttemptStore の “質問キー”（空白を1つに畳むだけ）
   String _attemptStoreQuestionKey(String q) =>
       'Q::${q.trim().replaceAll(RegExp(r'\s+'), ' ')}';
+
+  // 質問文＋（元の順の）選択肢から stableId を再計算（Attempt 保存時と一致）
+  String _sidOf(QuizCard c) {
+    String norm(String s) => s.replaceAll(RegExp(r'\s+'), ' ').trim();
+    final q = norm(c.question);
+    final cs = c.choices.map(norm).join('|');
+    return crypto.md5.convert(utf8.encode('$q\n$cs')).toString();
+  }
+
+  /// ★スコープ内の Attempt を直接走査して freq / latest を構築（最強フォールバック）
+  Future<({
+    Map<String, int> freqBySid,
+    Map<String, int> freqByQ,
+    Map<String, DateTime> latestBySid,
+    Map<String, DateTime> latestByQ
+  })> _scanAttemptsScoped() async {
+    final sessionIds =
+        _scopedSessionIds ?? await SessionScope.collect(days: _days, type: _type);
+    final store = AttemptStore();
+    final freqSid = <String, int>{};
+    final freqQ = <String, int>{};
+    final latSid = <String, DateTime>{};
+    final latQ = <String, DateTime>{};
+
+    DateTime? _ts(dynamic e) {
+      try {
+        final v = (e as dynamic).answeredAt;
+        if (v is DateTime) return v;
+        if (v is String) return DateTime.tryParse(v);
+        if (v is num) {
+          return DateTime.fromMillisecondsSinceEpoch(
+              v > 2000000000 ? v.toInt() : (v * 1000).toInt());
+        }
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).answeredAtMs;
+        if (v is num) return DateTime.fromMillisecondsSinceEpoch(v.toInt());
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).timestamp;
+        if (v is DateTime) return v;
+        if (v is String) return DateTime.tryParse(v);
+        if (v is num) {
+          return DateTime.fromMillisecondsSinceEpoch(
+              v > 2000000000 ? v.toInt() : (v * 1000).toInt());
+        }
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).time;
+        if (v is num) {
+          return DateTime.fromMillisecondsSinceEpoch(
+              v > 2000000000 ? v.toInt() : (v * 1000).toInt());
+        }
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).at;
+        if (v is num) {
+          return DateTime.fromMillisecondsSinceEpoch(
+              v > 2000000000 ? v.toInt() : (v * 1000).toInt());
+        }
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).finishedAt;
+        if (v is String) return DateTime.tryParse(v);
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).completedAt;
+        if (v is String) return DateTime.tryParse(v);
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).createdAt;
+        if (v is DateTime) return v;
+        if (v is String) return DateTime.tryParse(v);
+        if (v is num) {
+          return DateTime.fromMillisecondsSinceEpoch(
+              v > 2000000000 ? v.toInt() : (v * 1000).toInt());
+        }
+      } catch (_) {}
+      return null;
+    }
+
+    String _keySid(dynamic e) {
+      try {
+        final v = (e as dynamic).stableId as String?;
+        if (v != null && v.trim().isNotEmpty) return v.trim();
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).cardStableId as String?;
+        if (v != null && v.trim().isNotEmpty) return v.trim();
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).cardId as String?;
+        if (v != null && v.trim().isNotEmpty) return v.trim();
+      } catch (_) {}
+      return '';
+    }
+
+    String _keyQ(dynamic e) {
+      final q = ((e as dynamic).question ?? '').toString();
+      return _attemptStoreQuestionKey(q);
+    }
+
+    for (final sid in sessionIds) {
+      final attempts = await store.bySession(sid);
+      for (final a in attempts) {
+        try {
+          if ((a as dynamic).isCorrect == true) continue;
+        } catch (_) {
+          continue;
+        }
+        final t = _ts(a);
+        final ks = _keySid(a);
+        final kq = _keyQ(a);
+        if (ks.isNotEmpty) {
+          freqSid[ks] = (freqSid[ks] ?? 0) + 1;
+          if (t != null) {
+            final cur = latSid[ks];
+            if (cur == null || t.isAfter(cur)) latSid[ks] = t;
+          }
+        }
+        if (kq.isNotEmpty) {
+          freqQ[kq] = (freqQ[kq] ?? 0) + 1;
+          if (t != null) {
+            final cur = latQ[kq];
+            if (cur == null || t.isAfter(cur)) latQ[kq] = t;
+          }
+        }
+      }
+    }
+    return (
+      freqBySid: freqSid,
+      freqByQ: freqQ,
+      latestBySid: latSid,
+      latestByQ: latQ
+    );
+  }
+
+  // ★頻度マップ取得（キー混在でも sid に統一して返す）
+  Future<Map<String, int>> _fetchFreqWithFallback() async {
+    // 1) AttemptStore API を試す
+    try {
+      final attempts = AttemptStore();
+      final sessionIds =
+          _scopedSessionIds ?? await SessionScope.collect(days: _days, type: _type);
+      final raw = await attempts.getWrongFrequencyMap(onlySessionIds: sessionIds);
+      if (_base.isNotEmpty && raw.isNotEmpty) {
+        final bySid = <String, int>{};
+        for (final c in _base) {
+          final sid = _sidOf(c);
+          final qKey = _attemptStoreQuestionKey(c.question);
+          final n = (raw[sid] ?? 0);
+          final m = (raw[qKey] ?? 0);
+          final v = (m > n) ? m : n;
+          if (v > 0) bySid[sid] = v;
+        }
+        if (bySid.isNotEmpty) return bySid;
+      } else if (raw.isNotEmpty) {
+        return raw;
+      }
+    } catch (_) {}
+    // 2) 直接スキャン（最強フォールバック）
+    final scanned = await _scanAttemptsScoped();
+    final bySid = <String, int>{};
+    for (final c in _base) {
+      final sid = _sidOf(c);
+      final q = _attemptStoreQuestionKey(c.question);
+      final v1 = scanned.freqBySid[sid] ?? 0;
+      final v2 = scanned.freqByQ[q] ?? 0;
+      final v = (v2 > v1) ? v2 : v1;
+      if (v > 0) bySid[sid] = v;
+    }
+    AppLog.d('[REVIEW] freq fallback scan -> matched=${bySid.length}/${_base.length}');
+    return bySid;
+  }
+
+  // ★最新時刻マップ取得（キー混在でも sid に統一して返す）
+  Future<Map<String, DateTime>> _fetchLatestWithFallback() async {
+    // 1) 既存の latest を試す
+    try {
+      final sessionIds =
+          _scopedSessionIds ?? await SessionScope.collect(days: _days, type: _type);
+      final latest = await _buildLatestWrongAtMap(sessionIds); // sid/Q::混在
+      if (_base.isNotEmpty && latest.isNotEmpty) {
+        final bySid = <String, DateTime>{};
+        final epoch0 = DateTime.fromMillisecondsSinceEpoch(0);
+        for (final c in _base) {
+          final sid = _sidOf(c);
+          final q = _attemptStoreQuestionKey(c.question);
+          final t1 = latest[sid] ?? epoch0;
+          final t2 = latest[q] ?? epoch0;
+          final t = t1.isAfter(t2) ? t1 : t2;
+          if (t.isAfter(epoch0)) bySid[sid] = t;
+        }
+        if (bySid.isNotEmpty) return bySid;
+      } else if (latest.isNotEmpty) {
+        return latest;
+      }
+    } catch (_) {}
+    // 2) 直接スキャン（最強フォールバック）
+    final scanned = await _scanAttemptsScoped();
+    final bySid = <String, DateTime>{};
+    final epoch0 = DateTime.fromMillisecondsSinceEpoch(0);
+    for (final c in _base) {
+      final sid = _sidOf(c);
+      final q = _attemptStoreQuestionKey(c.question);
+      final t1 = scanned.latestBySid[sid] ?? epoch0;
+      final t2 = scanned.latestByQ[q] ?? epoch0;
+      final t = t1.isAfter(t2) ? t1 : t2;
+      if (t.isAfter(epoch0)) bySid[sid] = t;
+    }
+    AppLog.d('[REVIEW] latest fallback scan -> matched=${bySid.length}/${_base.length}');
+    return bySid;
+  }
 
   String _head(String s, [int n = 22]) {
     final t = _norm(s);
@@ -109,7 +324,9 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       if (wrongQuestions.isEmpty) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('指定範囲に復習対象がありません'), duration: Duration(seconds: 2)),
+          const SnackBar(
+              content: Text('指定範囲に復習対象がありません'),
+              duration: Duration(seconds: 2)),
         );
         unawaited(Future.delayed(const Duration(milliseconds: 300), () {
           if (mounted) Navigator.of(context).maybePop();
@@ -156,7 +373,7 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
         }
       }
 
-      // AttemptStoreから得た誤答の“質問文”で解決 → 重複除去
+      // AttemptStore から得た誤答の“質問文”で解決 → 重複除去
       final outCards = <QuizCard>[];
       final seen = <QuizCard>{};
       for (final raw in wrongQuestions.map(_norm).toSet()) {
@@ -185,8 +402,12 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       setState(() {
         _base = List.of(outCards);
         _cards = List.of(outCards);
-        _deckTitleCache..clear()..addAll(titleOfDeck);
-        _unitTitleCache..clear()..addAll(titleOfUnit);
+        _deckTitleCache
+          ..clear()
+          ..addAll(titleOfDeck);
+        _unitTitleCache
+          ..clear()
+          ..addAll(titleOfUnit);
         _index = 0;
         _showAnswer = false;
         _loading = false;
@@ -318,23 +539,12 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     }
   }
 
-  // ★頻度の高い順
+  // ★誤答頻度の高い順（stableId ベース）
   Future<void> _applySortByFrequency() async {
     if (_base.isEmpty) return;
     try {
-      final attempts = AttemptStore();
-      final sessionIds =
-          _scopedSessionIds ?? await SessionScope.collect(days: _days, type: _type);
-      final freq = await attempts.getWrongFrequencyMap(onlySessionIds: sessionIds);
-
-      int scoreOf(QuizCard c) {
-        String? sid;
-        try { sid = (c as dynamic).stableId as String?; } catch (_) {}
-        final qKey = _attemptStoreQuestionKey(c.question);
-        return (sid != null && sid.isNotEmpty && freq.containsKey(sid))
-            ? (freq[sid] ?? 0)
-            : (freq[qKey] ?? 0);
-      }
+      final freq = await _fetchFreqWithFallback();
+      int scoreOf(QuizCard c) => freq[_sidOf(c)] ?? 0;
 
       setState(() {
         _cards = List.of(_base)..sort((a, b) => scoreOf(b).compareTo(scoreOf(a)));
@@ -344,31 +554,20 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       });
 
       final top5 = _cards.take(5).map((c) => scoreOf(c)).toList();
-      debugPrint('[REVIEW] sort=freq top5 scores=$top5');
+      AppLog.d('[REVIEW] sort=freq top5=$top5');
       _announce('並び替え：誤答頻度の高い順');
     } catch (e, st) {
       AppLog.e('[REVIEW] sortByFrequency failed: $e\n$st');
     }
   }
 
-  // ★最新誤答が新しい順
+  // ★最新誤答が新しい順（stableId ベース）
   Future<void> _applySortByRecency() async {
     if (_base.isEmpty) return;
     try {
-      final sessionIds =
-          _scopedSessionIds ?? await SessionScope.collect(days: _days, type: _type);
-      final latest = await _buildLatestWrongAtMap(sessionIds);
-
-      DateTime epoch0 = DateTime.fromMillisecondsSinceEpoch(0);
-      DateTime timeOf(QuizCard c) {
-        String? sid;
-        try { sid = (c as dynamic).stableId as String?; } catch (_) {}
-        final qKey = _attemptStoreQuestionKey(c.question);
-        if (sid != null && sid.isNotEmpty && latest.containsKey(sid)) {
-          return latest[sid]!;
-        }
-        return latest[qKey] ?? epoch0;
-      }
+      final latest = await _fetchLatestWithFallback();
+      final epoch0 = DateTime.fromMillisecondsSinceEpoch(0);
+      DateTime timeOf(QuizCard c) => latest[_sidOf(c)] ?? epoch0;
 
       setState(() {
         _cards = List.of(_base)..sort((a, b) => timeOf(b).compareTo(timeOf(a)));
@@ -377,16 +576,15 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
         _sortState = _SortState.recent;
       });
 
-      final top3 =
-          _cards.take(3).map((c) => timeOf(c).toIso8601String()).toList();
-      debugPrint('[REVIEW] sort=recent top3 timestamps=$top3');
+      final top3 = _cards.take(3).map((c) => timeOf(c).toIso8601String()).toList();
+      AppLog.d('[REVIEW] sort=recent top3=$top3');
       _announce('並び替え：最新誤答が新しい順');
     } catch (e, st) {
       AppLog.e('[REVIEW] sortByRecency failed: $e\n$st');
     }
   }
 
-  // ★重複誤答のみ
+  // ★重複誤答のみ（stableId ベース）
   Future<void> _toggleRepeatedOnly() async {
     _onlyRepeated = !_onlyRepeated;
 
@@ -401,19 +599,8 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     }
 
     try {
-      final attempts = AttemptStore();
-      final sessionIds =
-          _scopedSessionIds ?? await SessionScope.collect(days: _days, type: _type);
-      final freq = await attempts.getWrongFrequencyMap(onlySessionIds: sessionIds);
-
-      bool isRepeated(QuizCard c) {
-        String? sid;
-        try { sid = (c as dynamic).stableId as String?; } catch (_) {}
-        final qKey = _attemptStoreQuestionKey(c.question);
-        final n = ((sid != null && sid.isNotEmpty) ? (freq[sid] ?? 0) : 0)
-                + (freq[qKey] ?? 0);
-        return n >= 2;
-      }
+      final freq = await _fetchFreqWithFallback();
+      bool isRepeated(QuizCard c) => (freq[_sidOf(c)] ?? 0) >= 2;
 
       final filtered = _base.where(isRepeated).toList();
       setState(() {
@@ -422,7 +609,7 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
         _showAnswer = false;
       });
 
-      debugPrint('[REVIEW] filter=repeated only -> ${filtered.length}/${_base.length}');
+      AppLog.d('[REVIEW] filter=repeated -> ${filtered.length}/${_base.length}');
       _announce('重複誤答のみ：${filtered.length}/${_base.length}件');
 
       if (filtered.isEmpty && mounted) {
@@ -439,22 +626,75 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
   /// key は stableId 優先、無ければ AttemptStore互換の 'Q::質問'
   Future<Map<String, DateTime>> _buildLatestWrongAtMap(List<String> sessionIds) async {
     DateTime? _ts(dynamic e) {
-      // DateTime / ISO文字列 / epoch(秒/ms) に広めに対応
-      try { final v = (e as dynamic).answeredAt; if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); } catch (_) {}
-      try { final v = (e as dynamic).answeredAtMs; if (v is num) return DateTime.fromMillisecondsSinceEpoch(v.toInt()); } catch (_) {}
-      try { final v = (e as dynamic).timestamp;  if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); } catch (_) {}
-      try { final v = (e as dynamic).time;       if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); } catch (_) {}
-      try { final v = (e as dynamic).at;         if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); } catch (_) {}
-      try { final v = (e as dynamic).finishedAt; if (v is String) return DateTime.tryParse(v); } catch (_) {}
-      try { final v = (e as dynamic).completedAt;if (v is String) return DateTime.tryParse(v); } catch (_) {}
-      try { final v = (e as dynamic).createdAt;  if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); } catch (_) {}
+      try {
+        final v = (e as dynamic).answeredAt;
+        if (v is DateTime) return v;
+        if (v is String) return DateTime.tryParse(v);
+        if (v is num) {
+          return DateTime.fromMillisecondsSinceEpoch(
+              v > 2000000000 ? v.toInt() : (v * 1000).toInt());
+        }
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).answeredAtMs;
+        if (v is num) return DateTime.fromMillisecondsSinceEpoch(v.toInt());
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).timestamp;
+        if (v is DateTime) return v;
+        if (v is String) return DateTime.tryParse(v);
+        if (v is num) {
+          return DateTime.fromMillisecondsSinceEpoch(
+              v > 2000000000 ? v.toInt() : (v * 1000).toInt());
+        }
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).time;
+        if (v is num) {
+          return DateTime.fromMillisecondsSinceEpoch(
+              v > 2000000000 ? v.toInt() : (v * 1000).toInt());
+        }
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).at;
+        if (v is num) {
+          return DateTime.fromMillisecondsSinceEpoch(
+              v > 2000000000 ? v.toInt() : (v * 1000).toInt());
+        }
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).finishedAt;
+        if (v is String) return DateTime.tryParse(v);
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).completedAt;
+        if (v is String) return DateTime.tryParse(v);
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).createdAt;
+        if (v is DateTime) return v;
+        if (v is String) return DateTime.tryParse(v);
+        if (v is num) {
+          return DateTime.fromMillisecondsSinceEpoch(
+              v > 2000000000 ? v.toInt() : (v * 1000).toInt());
+        }
+      } catch (_) {}
       return null;
     }
 
     String _keyFromAttempt(dynamic e) {
-      try { final v = (e as dynamic).stableId as String?; if (v != null && v.trim().isNotEmpty) return v.trim(); } catch (_) {}
-      try { final v = (e as dynamic).cardStableId as String?; if (v != null && v.trim().isNotEmpty) return v.trim(); } catch (_) {}
-      try { final v = (e as dynamic).cardId as String?; if (v != null && v.trim().isNotEmpty) return v.trim(); } catch (_) {}
+      try {
+        final v = (e as dynamic).stableId as String?;
+        if (v != null && v.trim().isNotEmpty) return v.trim();
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).cardStableId as String?;
+        if (v != null && v.trim().isNotEmpty) return v.trim();
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).cardId as String?;
+        if (v != null && v.trim().isNotEmpty) return v.trim();
+      } catch (_) {}
       final q = ((e as dynamic).question ?? '').toString();
       return _attemptStoreQuestionKey(q);
     }
@@ -465,7 +705,11 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     for (final sid in sessionIds) {
       final attempts = await store.bySession(sid); // 新→古
       for (final a in attempts) {
-        try { if ((a as dynamic).isCorrect == true) continue; } catch (_) { continue; }
+        try {
+          if ((a as dynamic).isCorrect == true) continue;
+        } catch (_) {
+          continue;
+        }
         final key = _keyFromAttempt(a);
         if (key.isEmpty) continue;
         final t = _ts(a);
@@ -543,8 +787,8 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     final onBg2 = cs.onSurface.withOpacity(0.68);
     final titleS = tt.titleMedium ?? const TextStyle(fontSize: 16);
     final labelS = tt.labelMedium ?? const TextStyle(fontSize: 12);
-    final questionS = tt.headlineSmall ??
-        const TextStyle(fontSize: 24, fontWeight: FontWeight.w700);
+    final questionS =
+        tt.headlineSmall ?? const TextStyle(fontSize: 24, fontWeight: FontWeight.w700);
 
     final deckTitle = _deckTitleOf(card);
     final unitTitle = _unitTitleOf(card);
@@ -592,7 +836,9 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
                 Text(
                   '・単元　$deckTitle',
                   style: titleS.copyWith(
-                      color: onBg, fontWeight: FontWeight.w700, fontSize: (titleS.fontSize ?? 16) + 2),
+                      color: onBg,
+                      fontWeight: FontWeight.w700,
+                      fontSize: (titleS.fontSize ?? 16) + 2),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -600,8 +846,8 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
                 const SizedBox(height: 4),
                 Text(
                   '・ユニット　$unitTitle',
-                  style: labelS.copyWith(
-                      color: onBg2, fontSize: (labelS.fontSize ?? 12) + 2),
+                  style:
+                      labelS.copyWith(color: onBg2, fontSize: (labelS.fontSize ?? 12) + 2),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -614,7 +860,6 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
                 style: labelS.copyWith(color: onBg2),
               ),
               const SizedBox(height: 12),
-
               Card(
                 elevation: 2,
                 color: Colors.white,
@@ -631,9 +876,7 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 12),
-
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 220),
                 switchInCurve: Curves.easeOutCubic,
@@ -648,7 +891,6 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
                       )
                     : const SizedBox.shrink(key: ValueKey('empty')),
               ),
-
               const SizedBox(height: 80),
             ],
           ),
