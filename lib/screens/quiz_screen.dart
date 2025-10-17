@@ -199,13 +199,42 @@ class _QuizScreenState extends State<QuizScreen> {
     _limitForSave = null;
 
     // ───────── A) overrideCards 優先（ミックスはここで完結） ─────────
-    if (widget.overrideCards != null && widget.overrideCards!.isNotEmpty) {
-      //_sessionId = const Uuid().v4();
-      _deckIdForSave = 'mixed';
-      _selectedUnitIdsForSave = widget.selectedUnitIds; // メタ情報として保持（再開用）
+   if (widget.overrideCards != null && widget.overrideCards!.isNotEmpty) {
       _limitForSave = widget.limit;
 
+      // 1) このセットに含まれるユニットIDを収集
       final base = List<QuizCard>.from(widget.overrideCards!);
+      final unitIdsSet = <String>{};
+      for (final c in base) {
+        unitIdsSet.add(_unitIdOf(c));
+      }
+
+      // 2) デッキ跨ぎ判定（ユニット→デッキの逆引きを作成）
+      final loader = await DeckLoader.instance();
+      final decks = await loader.loadAll();
+      final unit2deck = <String, String>{};
+      for (final d in decks) {
+        for (final u in (d.units ?? const [])) {
+          final uid = u.id.trim();
+          if (uid.isNotEmpty) unit2deck[uid] = d.id;
+        }
+      }
+      final deckSet = <String>{
+        for (final uid in unitIdsSet) if (unit2deck[uid]?.isNotEmpty == true) unit2deck[uid]!,
+      };
+
+      // 3) 単元 or ミックス の保存メタを決定
+      if (unitIdsSet.length == 1 && deckSet.length <= 1) {
+        // 単元として保存
+        _deckIdForSave = deckSet.isNotEmpty ? deckSet.first : widget.deck.id;
+        _selectedUnitIdsForSave = null; // 単元扱いなので保存しない
+      } else {
+        // ミックスとして保存
+        _deckIdForSave = 'mixed';
+        // selectedUnitIds が未指定なら、実カードからの集合を保存
+        _selectedUnitIdsForSave = widget.selectedUnitIds ?? unitIdsSet.toList();
+      }
+
       // 安定ID逆引き（元のテキスト順で）
       _id2card = {for (final c in base) stableIdForOriginal(c): c};
       final items = [for (final c in base) (stableIdForOriginal(c), c)];
@@ -667,31 +696,54 @@ class _QuizScreenState extends State<QuizScreen> {
           }
         }
 
-        // ★★★ ここから：タイトル自動整理（跨ぎ判定対応）★★★
+        // ★★★ ここから：タイトル自動整理（デッキ跨ぎベース版）★★★
         String deckTitleById(String id) =>
             (deckTitleMap[id]?.trim().isNotEmpty ?? false)
                 ? deckTitleMap[id]!.trim()
                 : id;
 
-        // このセッションで扱ったユニットIDの集合を取得
-        // - ミックス系は _selectedUnitIdsForSave を優先
-        // - それ以外は _unitCount のキー（sequence から集計済み）を使用
-        final List<String>? unitIdsForThisRun = _selectedUnitIdsForSave ??
-            (_unitCount.isEmpty ? null : _unitCount.keys.toList());
+        // 1) 今回出題したユニットIDを sequence から収集
+        List<String> unitIdsForThisRun = [];
+        if (_unitCount.isNotEmpty) {
+          unitIdsForThisRun = _unitCount.keys.toList();
+        } else if (sequence.isNotEmpty) {
+          unitIdsForThisRun = sequence.map((c) => _unitIdOf(c)).toSet().toList();
+        } else if ((_selectedUnitIdsForSave?.isNotEmpty ?? false)) {
+          unitIdsForThisRun = List<String>.from(_selectedUnitIdsForSave!);
+        }
 
-        final bool crossDeck = await _isCrossDeckByUnitIds(unitIdsForThisRun);
+        // 2) ユニット→デッキ対応表を作成
+        final unit2deck = <String, String>{};
+        for (final d in decks) {
+          for (final u in (d.units ?? const [])) {
+            final uid = u.id.trim();
+            if (uid.isNotEmpty) unit2deck[uid] = d.id;
+          }
+        }
+
+        // 3) 出題ユニットが属するデッキ集合を求める
+        final deckSet = <String>{};
+        for (final uid in unitIdsForThisRun) {
+          final did = unit2deck[uid];
+          if (did != null && did.isNotEmpty) deckSet.add(did);
+        }
+        final bool crossDeck = deckSet.length > 1;
+
+        // 4) タイトル決定
         final bool isRetryWrong = (widget.type == 'retry_wrong');
-        final bool looksMixed = (_deckIdForSave == 'mixed') || crossDeck;
-
         late final String titleForScore;
+
         if (isRetryWrong) {
-          titleForScore = looksMixed
+          titleForScore = crossDeck
               ? '誤答だけもう一度（ミックス練習）'
-              : '誤答だけもう一度（${deckTitleById(widget.deck.id)}）';
+              : '誤答だけもう一度（${deckTitleById(deckSet.isNotEmpty ? deckSet.first : widget.deck.id)}）';
         } else {
-          titleForScore = looksMixed ? 'ミックス練習' : deckTitleById(widget.deck.id);
+          titleForScore = crossDeck
+              ? 'ミックス練習'
+              : deckTitleById(deckSet.isNotEmpty ? deckSet.first : widget.deck.id);
         }
         // ★★★ ここまで：タイトル自動整理 ★★★
+
 
         // タグ統計
         final Map<String, TagStat> tagStats = {};

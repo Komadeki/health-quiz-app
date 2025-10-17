@@ -16,7 +16,7 @@ import '../models/card.dart';
 import '../utils/stable_id.dart';
 import 'quiz_screen.dart';
 
-enum RecordKindFilter { all, unit, mix }
+enum RecordKindFilter { all, unit, mix, retry}
 enum SortMode { newest, oldest, accuracy }
 
 class ScoresScreen extends StatefulWidget {
@@ -83,18 +83,35 @@ class _ScoresScreenState extends State<ScoresScreen> {
     }
   }
 
-  // ===== フィルタ適用 & 並び替え =====
+  // ===== 種別フィルタ =====
   List<ScoreRecord> get _filteredSorted {
     Iterable<ScoreRecord> it = _records;
 
-    // 種別
-    if (_kind == RecordKindFilter.unit) {
-      it = it.where((r) => r.selectedUnitIds == null);
-    } else if (_kind == RecordKindFilter.mix) {
-      it = it.where((r) => r.selectedUnitIds != null);
+    switch (_kind) {
+      case RecordKindFilter.all:
+        // 全件表示
+        break;
+
+      case RecordKindFilter.unit:
+        // 「ミックス練習」でも「誤答だけ〜」でもないものを表示
+        it = it.where((r) {
+          final t = r.deckTitle.trim();
+          return t != 'ミックス練習' && !t.startsWith('誤答だけもう一度');
+        });
+        break;
+
+      case RecordKindFilter.mix:
+        // 「ミックス練習」だけ
+        it = it.where((r) => r.deckTitle.trim() == 'ミックス練習');
+        break;
+
+      case RecordKindFilter.retry:
+        // 「誤答だけもう一度」だけ
+        it = it.where((r) => r.deckTitle.trim().startsWith('誤答だけもう一度'));
+        break;
     }
 
-    // 日付範囲（両端含む）
+    // ===== 日付範囲 =====
     if (_range != null) {
       final startMs = DateTime(_range!.start.year, _range!.start.month, _range!.start.day)
           .millisecondsSinceEpoch;
@@ -103,6 +120,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
       it = it.where((r) => r.timestamp >= startMs && r.timestamp <= endMs);
     }
 
+    // ===== ソート =====
     final list = it.toList();
     switch (_sort) {
       case SortMode.newest:
@@ -116,8 +134,10 @@ class _ScoresScreenState extends State<ScoresScreen> {
         list.sort((a, b) => acc(b).compareTo(acc(a)));
         break;
     }
+
     return list;
   }
+
 
   Future<void> _pickRange() async {
     final now = DateTime.now();
@@ -194,6 +214,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
                               DropdownMenuItem(value: RecordKindFilter.all, child: Text('すべて')),
                               DropdownMenuItem(value: RecordKindFilter.unit, child: Text('単元')),
                               DropdownMenuItem(value: RecordKindFilter.mix, child: Text('ミックス')),
+                              DropdownMenuItem(value: RecordKindFilter.retry, child: Text('誤答だけ')),
                             ],
                             onChanged: (v) => setState(() => _kind = v ?? _kind),
                           ),
@@ -575,6 +596,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
         builder: (_) => QuizScreen(
           deck: decks.first,         // ダミー
           overrideCards: cards,      // ← これが実際の出題セット
+          type: 'retry_wrong',
         ),
       ),
     );
