@@ -621,6 +621,41 @@ class AttemptStore {
     return freq;
   }
 
+  /// 【復習テスト用】ScoreScopeで絞り込んだ「stableIdごとの最新誤答時刻」を返す
+  Future<Map<String, DateTime>> getLatestWrongAtScoped(ScoreScope scope) async {
+    final all = await _loadAll();
+    final latest = <String, DateTime>{};
+
+    final from = scope.from;
+    final to = scope.to;
+    final types = scope.sessionTypes;
+
+    DateTime? _ts(AttemptEntry e) {
+      return e.createdAt ?? e.answeredAt ?? e.timestamp;
+    }
+
+    for (final e in all) {
+      if (types != null && types.isNotEmpty && !types.contains(e.sessionType)) {
+        continue;
+      }
+
+      final t = _ts(e);
+      if (from != null && (t == null || t.isBefore(from))) continue;
+      if (to != null && (t == null || t.isAfter(to))) continue;
+
+      if (!e.isCorrect) {
+        final key = _keyFromAttempt(e);
+        if (key.isEmpty || t == null) continue;
+
+        final cur = latest[key];
+        if (cur == null || t.isAfter(cur)) latest[key] = t;
+      }
+    }
+
+    debugPrint('[REVIEW] getLatestWrongAtScoped -> ${latest.length} items');
+    return latest;
+  }
+
   /// 【メタ情報】誤答回数＋最新誤答時刻＋最新正誤を返す
   /// → 見直しモードで「並び替え／フィルタ」に利用予定
   Future<Map<String, ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})>>

@@ -7,7 +7,7 @@ import '../models/deck.dart';
 import '../models/card.dart';
 import '../utils/stable_id.dart';
 
-/// Deck/QuizCard のローダ兼インデクサ
+/// lo/QuizCard のローダ兼インデクサ
 /// - 初回ロード時に assets/decks/deck_*.json を全読込
 /// - QuizCard を「内容から計算した stableId」で引けるインデックスを構築
 /// - JSON デコードは compute で別 Isolate、インデックス構築はメインで安全に

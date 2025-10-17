@@ -21,11 +21,14 @@ import '../data/quiz_session_local_repository.dart';
 
 class QuizScreen extends StatefulWidget {
   final Deck deck;
-  final List<QuizCard>? overrideCards; // UnitSelect などからの限定セット
-  final QuizSession? resumeSession;    // 再開用
-  final String? type; // ★追加
+  final List<QuizCard>? overrideCards;
+  final QuizSession? resumeSession;
 
-  // ★ 追加（ミックス新規開始用の入力）
+  @Deprecated('use sessionType instead')
+  final String? type;            // ← 互換用（残す）
+  final String sessionType;      // ← 正準
+
+  // ミックス新規開始用の入力
   final List<String>? selectedUnitIds;
   final int? limit;
 
@@ -33,16 +36,19 @@ class QuizScreen extends StatefulWidget {
     super.key,
     required this.deck,
     this.overrideCards,
-    this.type, // ★追加
     this.resumeSession,
-    // ★ 追加
+
+    // 互換＋正準
+    this.type,                           // ← 受け取りは維持
+    String? sessionType,                 // ← 受け取り名を追加
     this.selectedUnitIds,
     this.limit,
-  });
+  }) : sessionType = sessionType ?? (type ?? 'normal'); // ★ 集約（優先順：sessionType > type > 'normal'
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
 }
+
 
 class _QuizScreenState extends State<QuizScreen> {
   // ===== ランタイム状態 =====
@@ -763,9 +769,12 @@ class _QuizScreenState extends State<QuizScreen> {
             ScoreRecord(
               id: const Uuid().v4(),
               deckId: deckIdSave,
-              deckTitle: titleForScore, // ← ここを反映
+              deckTitle: (widget.sessionType == 'review_test')
+                      ? '復習テスト'
+                      : titleForScore, // ★ review_test はタイトル固定
               score: correct,
               total: total,
+
               durationSec: durationSec,
               timestamp: timestamp.millisecondsSinceEpoch,
               tags: tagStats.isEmpty ? null : tagStats,
@@ -807,7 +816,9 @@ class _QuizScreenState extends State<QuizScreen> {
               sessionId: _sessionId!,
               unitBreakdown: Map<String, int>.from(_unitCount),
               deckId: deckIdSave,
-              deckTitle: titleForScore, // ← ここを反映
+              deckTitle: (widget.sessionType == 'review_test')
+                ? '復習テスト'
+                : titleForScore,       // ★ 復習テスト時は固定表示
               durationSec: durationSec,
               unitTitleMap: unitTitleMap,
             ),

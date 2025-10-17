@@ -16,7 +16,7 @@ import '../models/card.dart';
 import '../utils/stable_id.dart';
 import 'quiz_screen.dart';
 
-enum RecordKindFilter { all, unit, mix, retry}
+enum RecordKindFilter { all, unit, mix, retry, reviewTest }
 enum SortMode { newest, oldest, accuracy }
 
 class ScoresScreen extends StatefulWidget {
@@ -93,10 +93,13 @@ class _ScoresScreenState extends State<ScoresScreen> {
         break;
 
       case RecordKindFilter.unit:
-        // 「ミックス練習」でも「誤答だけ〜」でもないものを表示
+        // 単元のみ = 「ミックス練習」「誤答だけもう一度*」「復習テスト」を除外
         it = it.where((r) {
           final t = r.deckTitle.trim();
-          return t != 'ミックス練習' && !t.startsWith('誤答だけもう一度');
+          final isMix = (t == 'ミックス練習');
+          final isRetry = t.startsWith('誤答だけもう一度');
+          final isReviewTest = (t == '復習テスト');
+          return !isMix && !isRetry && !isReviewTest;
         });
         break;
 
@@ -108,6 +111,15 @@ class _ScoresScreenState extends State<ScoresScreen> {
       case RecordKindFilter.retry:
         // 「誤答だけもう一度」だけ
         it = it.where((r) => r.deckTitle.trim().startsWith('誤答だけもう一度'));
+        break;
+
+      case RecordKindFilter.reviewTest:
+        // 「復習テスト」だけ（まず type を見て、無い旧データはタイトルで判定）
+        it = it.where((r) => r.deckTitle.trim() == '復習テスト');
+        break;
+
+      case RecordKindFilter.reviewTest:
+        it = it.where((r) => r.deckTitle.trim() == '復習テスト');
         break;
     }
 
@@ -215,6 +227,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
                               DropdownMenuItem(value: RecordKindFilter.unit, child: Text('単元')),
                               DropdownMenuItem(value: RecordKindFilter.mix, child: Text('ミックス')),
                               DropdownMenuItem(value: RecordKindFilter.retry, child: Text('誤答だけ')),
+                              DropdownMenuItem(value: RecordKindFilter.reviewTest, child: Text('復習テスト')),
                             ],
                             onChanged: (v) => setState(() => _kind = v ?? _kind),
                           ),
