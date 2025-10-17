@@ -76,15 +76,6 @@ class _QuizScreenState extends State<QuizScreen> {
   final bool _abortAndPop = false; // 復元不能時の安全フラグ
 
   // ===== ユーティリティ =====
-  // 安定ID（問題文＋元の選択肢順から計算）※シャッフル後には使わない
-  // quiz_screen.dart 内の private 関数（唯一の実装）
-  // String _stableIdForOriginal(QuizCard c) {
-    // String norm(String s) => s.replaceAll(RegExp(r'\s+'), ' ').trim();
-    // final q = norm(c.question);
-    // final cs = c.choices.map(norm).join('|');
-    // return crypto.md5.convert(utf8.encode('$q\n$cs')).toString();
-  // }
-
   // QuizCardにunitIdが未実装でも安全に取得
   String _unitIdOf(QuizCard c) {
     try {
@@ -139,6 +130,31 @@ class _QuizScreenState extends State<QuizScreen> {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
     Navigator.pop(context);
+  }
+
+  /// ★ 追加：与えられた unitId 群が「複数デッキ」に跨っているかを判定
+  Future<bool> _isCrossDeckByUnitIds(List<String>? unitIds) async {
+    if (unitIds == null || unitIds.isEmpty) return false;
+    if (unitIds.length == 1) return false;
+
+    final loader = await DeckLoader.instance();
+    final decks = await loader.loadAll();
+
+    final unit2deck = <String, String>{};
+    for (final d in decks) {
+      for (final u in (d.units ?? const [])) {
+        final uid = u.id.trim();
+        if (uid.isEmpty) continue;
+        unit2deck[uid] = d.id;
+      }
+    }
+
+    final deckSet = <String>{};
+    for (final uid in unitIds) {
+      final did = unit2deck[uid];
+      if (did != null && did.isNotEmpty) deckSet.add(did);
+    }
+    return deckSet.length > 1;
   }
 
   // ===== ライフサイクル =====
@@ -650,7 +666,32 @@ class _QuizScreenState extends State<QuizScreen> {
             if (uid.isNotEmpty) unitTitleMap[uid] = ut.isNotEmpty ? ut : uid;
           }
         }
-        final deckTitle = deckTitleMap[widget.deck.id] ?? widget.deck.title;
+
+        // ★★★ ここから：タイトル自動整理（跨ぎ判定対応）★★★
+        String deckTitleById(String id) =>
+            (deckTitleMap[id]?.trim().isNotEmpty ?? false)
+                ? deckTitleMap[id]!.trim()
+                : id;
+
+        // このセッションで扱ったユニットIDの集合を取得
+        // - ミックス系は _selectedUnitIdsForSave を優先
+        // - それ以外は _unitCount のキー（sequence から集計済み）を使用
+        final List<String>? unitIdsForThisRun = _selectedUnitIdsForSave ??
+            (_unitCount.isEmpty ? null : _unitCount.keys.toList());
+
+        final bool crossDeck = await _isCrossDeckByUnitIds(unitIdsForThisRun);
+        final bool isRetryWrong = (widget.type == 'retry_wrong');
+        final bool looksMixed = (_deckIdForSave == 'mixed') || crossDeck;
+
+        late final String titleForScore;
+        if (isRetryWrong) {
+          titleForScore = looksMixed
+              ? '誤答だけもう一度（ミックス練習）'
+              : '誤答だけもう一度（${deckTitleById(widget.deck.id)}）';
+        } else {
+          titleForScore = looksMixed ? 'ミックス練習' : deckTitleById(widget.deck.id);
+        }
+        // ★★★ ここまで：タイトル自動整理 ★★★
 
         // タグ統計
         final Map<String, TagStat> tagStats = {};
@@ -670,7 +711,7 @@ class _QuizScreenState extends State<QuizScreen> {
             ScoreRecord(
               id: const Uuid().v4(),
               deckId: deckIdSave,
-              deckTitle: deckTitle,
+              deckTitle: titleForScore, // ← ここを反映
               score: correct,
               total: total,
               durationSec: durationSec,
@@ -714,7 +755,7 @@ class _QuizScreenState extends State<QuizScreen> {
               sessionId: _sessionId!,
               unitBreakdown: Map<String, int>.from(_unitCount),
               deckId: deckIdSave,
-              deckTitle: deckTitle,
+              deckTitle: titleForScore, // ← ここを反映
               durationSec: durationSec,
               unitTitleMap: unitTitleMap,
             ),

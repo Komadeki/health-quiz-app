@@ -238,7 +238,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                 builder: (_) => QuizScreen(
                                   deck: fakeDeck,
                                   overrideCards: cards,
-                                  type: 'wrong_retry',
+                                  type: 'retry_wrong', 
                                 ),
                               ),
                             );
