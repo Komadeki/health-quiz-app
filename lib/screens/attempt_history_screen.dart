@@ -5,6 +5,7 @@ import '../services/deck_loader.dart';
 import '../models/card.dart';
 import 'quiz_screen.dart';
 import 'package:health_quiz_app/widgets/quiz_analytics.dart'; // ErrorRateTag
+import '../utils/stable_id.dart';
 
 class AttemptHistoryScreen extends StatelessWidget {
   final String sessionId;
@@ -23,7 +24,12 @@ class AttemptHistoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('今回の履歴')),
       body: FutureBuilder<List<AttemptEntry>>(
-        future: AttemptStore().bySession(sessionId),
+        future: (() async {
+          debugPrint('[HISTORY] query sid=$sessionId');
+          final r = await AttemptStore().bySession(sessionId); // ← bySession 名が違えば合わせて
+          debugPrint('[HISTORY] hits=${r.length}');
+          return r;
+        })(),
         builder: (context, snap) {
           if (snap.connectionState != ConnectionState.done) {
             return const Center(child: CircularProgressIndicator());
@@ -208,36 +214,56 @@ class AttemptHistoryScreen extends StatelessWidget {
 
   // ==== 機能 ====
 
-  // 単問リプレイ
+  /* 置き換え開始 */
   Future<void> _replaySingle(BuildContext context, AttemptEntry a) async {
-    // awaitの前にNavigatorを確保
     final nav = Navigator.of(context);
 
     final loader = await DeckLoader.instance();
     final decks = await loader.loadAll();
 
-    // AttemptEntry.unitId に紐づくデッキを取得
-    final deck = decks.firstWhere(
-      (d) => d.id == a.unitId,
-      orElse: () => decks.first,
-    );
+    QuizCard? _find() {
+      final sid = (a.stableId ?? '').trim();
+      if (sid.isNotEmpty) {
+        for (final d in decks) {
+          for (final c in d.cards) {
+            if (stableIdForOriginal(c) == sid) return c;
+          }
+        }
+      }
+      final q = a.question.trim();
+      if (q.isNotEmpty) {
+        for (final d in decks) {
+          try {
+            return d.cards.firstWhere((c) => c.question.trim() == q);
+          } catch (_) {}
+        }
+      }
+      return null;
+    }
 
-    final found = deck.cards.firstWhere(
-      (c) => c.question.trim() == a.question.trim(),
-      orElse: () => deck.cards.first,
-    );
+    final found = _find();
+    if (found == null) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('カードの特定に失敗しました')),
+      );
+      return;
+    }
 
     if (!context.mounted) return;
-
     await nav.push(
       MaterialPageRoute(
-        builder: (_) => QuizScreen(deck: deck, overrideCards: [found]),
+        builder: (_) => QuizScreen(deck: decks.first, overrideCards: [found]),
       ),
     );
   }
 
+
   // 誤答だけ再挑戦
+  // 先頭の import 群に追加が必要なものはありません（既にあります）
+  /* 置き換え開始 */
   Future<void> _replayWrong(BuildContext context, List<AttemptEntry> items) async {
+    // 1) 誤答だけを抽出
     final wrong = items.where((e) => !e.isCorrect).toList();
     if (wrong.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -246,46 +272,61 @@ class AttemptHistoryScreen extends StatelessWidget {
       return;
     }
 
-    // awaitの前にNavigatorを確保
-    final nav = Navigator.of(context);
+    // 2) 重複除去キー（stableId 優先、なければ質問文正規化）
+    String _keyOf(AttemptEntry a) {
+      final sid = (a.stableId ?? '').trim();
+      if (sid.isNotEmpty) return 'S::$sid';
+      return 'Q::${a.question.replaceAll(RegExp(r'\s+'), ' ').trim()}';
+    }
 
+    final seen = <String>{};
     final loader = await DeckLoader.instance();
     final decks = await loader.loadAll();
 
-    // まず最初の誤答の unitId を採用（同一デッキ前提）
-    final unitId = wrong.first.unitId;
-    final deck = decks.firstWhere(
-      (d) => d.id == unitId,
-      orElse: () => decks.first,
-    );
+    // 3) 1件ずつ “全デッキ横断” でカード同定
+    QuizCard? _findCard(AttemptEntry a) {
+      final sid = (a.stableId ?? '').trim();
+      if (sid.isNotEmpty) {
+        for (final d in decks) {
+          for (final c in d.cards) {
+            if (stableIdForOriginal(c) == sid) return c;
+          }
+        }
+      }
+      final q = a.question.trim();
+      if (q.isNotEmpty) {
+        for (final d in decks) {
+          try {
+            return d.cards.firstWhere((c) => c.question.trim() == q);
+          } catch (_) {}
+        }
+      }
+      return null;
+    }
 
-    // 重複質問を除外してカードを収集
-    final set = <String>{};
     final list = <QuizCard>[];
     for (final a in wrong) {
-      final q = a.question.trim();
-      if (!set.add(q)) continue; // 既出はスキップ
-      final match = deck.cards.firstWhere(
-        (c) => c.question.trim() == q,
-        orElse: () => deck.cards.first,
-      );
-      list.add(match);
+      if (!seen.add(_keyOf(a))) continue; // 同一問題は1度だけ
+      final c = _findCard(a);
+      if (c != null) list.add(c);
     }
 
     if (list.isEmpty) {
-     if (!context.mounted) return;
-     final messenger = ScaffoldMessenger.of(context);
-     messenger.showSnackBar(
-       const SnackBar(content: Text('カードの特定に失敗しました')),
-     );
-     return;
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('カードの特定に失敗しました')),
+      );
+      return;
     }
 
     if (!context.mounted) return;
-
-    await nav.push(
+    // overrideCards を渡せば、どのデッキでも動く
+    await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => QuizScreen(deck: deck, overrideCards: list),
+        builder: (_) => QuizScreen(
+          deck: decks.first,        // ダミー
+          overrideCards: list,      // ← 実際の出題セット
+        ),
       ),
     );
   }

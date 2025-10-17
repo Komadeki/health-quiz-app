@@ -197,7 +197,9 @@ class _ResultScreenState extends State<ResultScreen> {
                   minimumSize: const Size(double.infinity, 48),
                   textStyle: const TextStyle(fontSize: 18),
                 ),
+                
                 onPressed: () {
+                  debugPrint('[HISTORY/NAV] open sid=${widget.sessionId}'); 
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => AttemptHistoryScreen(

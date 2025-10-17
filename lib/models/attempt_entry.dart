@@ -4,21 +4,21 @@ import 'dart:convert';
 /// 1問ごとの解答ログ
 /// 重要: 復習用に stableId を保存します（今後はこれが集計キー）
 class AttemptEntry {
-  final String? attemptId;      // 重複判定・インポート用（任意）
-  final String sessionId;       // 1回のクイズ実施単位のID
-  final int questionNumber;     // そのセッション内での通し番号 (1-based)
-  final String unitId;          // 出題ユニットID
+  final String? attemptId;   // 重複判定・インポート用（任意）
+  final String sessionId;    // 1回のクイズ実施単位ID（必須）
+  final int questionNumber;  // セッション内通し番号 (1-based 想定だが厳密には保存値を尊重)
+  final String unitId;       // 出題ユニットID
 
-  final String cardId;          // 教材側のカードID（任意のIDでもOK）
-  final String question;        // 問題文（保存時点のスナップショット）
-  final int selectedIndex;      // ユーザーの選択（1〜4など）
-  final int correctIndex;       // 正答（1〜4など）
-  final bool isCorrect;         // 正誤
-  final int durationMs;         // 問題に要した時間(ms)
-  final DateTime timestamp;     // 保存時刻（ISOで保存）
+  final String cardId;       // 教材側のカードID（任意のIDでもOK）
+  final String question;     // 問題文（保存時点のスナップショット）
+  final int selectedIndex;   // ユーザーの選択（1〜4など。旧データ0ベースも許容）
+  final int correctIndex;    // 正答（1〜4など。旧データ0ベースも許容）
+  final bool isCorrect;      // 正誤
+  final int durationMs;      // 問題に要した時間(ms)
+  final DateTime timestamp;  // 保存時刻
 
-  /// ★追加: 復習・集計用の安定キー（必須ではないが今後はこれを使う）
-  /// JSONでは "stableId" が基本。互換として "cardStableId" や "card_id" なども受け入れる。
+  /// 復習・集計用の安定キー（null可）
+  /// JSONでは "stableId" を基本とし、互換として "cardStableId" / "card_stable_id" / "card_id" なども受け入れる。
   final String? stableId;
 
   const AttemptEntry({
@@ -66,6 +66,56 @@ class AttemptEntry {
     );
   }
 
+  // ====== Robust parsers ======
+  static int _asInt(dynamic v, {int defaultValue = 0}) {
+    if (v == null) return defaultValue;
+    if (v is int) return v;
+    if (v is double) return v.round();
+    if (v is bool) return v ? 1 : 0;
+    if (v is String) {
+      final t = v.trim();
+      final n = int.tryParse(t);
+      if (n != null) return n;
+      // "12.0" など
+      final d = double.tryParse(t);
+      if (d != null) return d.round();
+    }
+    return defaultValue;
+  }
+
+  static bool _asBool(dynamic v, {bool defaultValue = false}) {
+    if (v == null) return defaultValue;
+    if (v is bool) return v;
+    if (v is num) return v != 0;
+    if (v is String) {
+      final t = v.trim().toLowerCase();
+      return t == 'true' || t == '1' || t == 'yes';
+    }
+    return defaultValue;
+  }
+
+  static String _asString(dynamic v, {String defaultValue = ''}) {
+    if (v == null) return defaultValue;
+    final s = v.toString().trim();
+    return s.isEmpty ? defaultValue : s;
+  }
+
+  static DateTime _asDateTime(dynamic v) {
+    if (v is DateTime) return v;
+    if (v is String) {
+      final t = DateTime.tryParse(v.trim());
+      if (t != null) return t;
+      // ISOでない文字列は現在時刻にフォールバック
+      return DateTime.now();
+    }
+    if (v is num) {
+      final n = v.toInt();
+      final ms = (n > 2000000000) ? n : n * 1000; // 秒/ミリ秒の素朴判定
+      return DateTime.fromMillisecondsSinceEpoch(ms);
+    }
+    return DateTime.now();
+  }
+
   Map<String, dynamic> toMap() => {
         'attemptId': attemptId,
         'sessionId': sessionId,
@@ -78,63 +128,41 @@ class AttemptEntry {
         'isCorrect': isCorrect,
         'durationMs': durationMs,
         'timestamp': timestamp.toIso8601String(),
-        // ★必ず含める（null可）
         'stableId': stableId,
       };
 
   factory AttemptEntry.fromMap(Map<String, dynamic> map) {
-    // ---- timestamp は ISO文字列 or epoch(int/num[秒/ミリ秒]) を許容 ----
-    DateTime _parseTs(dynamic v) {
-      if (v is DateTime) return v;
-      if (v is String) {
-        final dt = DateTime.tryParse(v);
-        if (dt != null) return dt;
-      } else if (v is num) {
-        // 10桁(秒) or 13桁(ミリ秒) に広めに対応
-        final isMs = v > 2000000000; // ~2033年あたりを境に判定
-        final ms = isMs ? v.toInt() : (v.toInt() * 1000);
-        return DateTime.fromMillisecondsSinceEpoch(ms);
-      }
-      // フォールバック：現在時刻（壊れ値回避）
-      return DateTime.now();
-    }
-
-    // ---- 後方互換: 各種キー名の取りこぼしを防ぐ ----
-    int _asInt(dynamic x) => (x as num).toInt();
-    String _asString(dynamic x) => (x ?? '').toString();
-
-    final String unitId =
-        (map['unitId'] ?? map['unit_id'] ?? map['unitID'] ?? '').toString();
-    final String cardId =
-        (map['cardId'] ?? map['card_id'] ?? map['cardID'] ?? '').toString();
-
-    final String? stableId =
-        (map['stableId'] as String?) ??
-        (map['cardStableId'] as String?) ??
-        (map['card_stable_id'] as String?) ??
-        (map['card_id'] as String?); // 古いキー想定
-
-    final dynamic qNoRaw =
-        map['questionNumber'] ?? map['qNo'] ?? map['index'] ?? 1;
-
-    final dynamic selRaw =
-        map['selectedIndex'] ?? map['selected_index'] ?? map['answer'] ?? 0;
-    final dynamic corRaw =
-        map['correctIndex'] ?? map['correct_index'] ?? map['correct'] ?? 0;
+    // 互換: key名の揺れを吸収
+    final unitId = _asString(
+      map['unitId'] ?? map['unit_id'] ?? map['unitID'],
+    );
+    final cardId = _asString(
+      map['cardId'] ?? map['card_id'] ?? map['cardID'],
+    );
+    final rawStable = (map['stableId'] ??
+        map['cardStableId'] ??
+        map['card_stable_id'] ??
+        map['card_id']);
+    final stableId = _asString(rawStable, defaultValue: '').trim();
+    final qNoRaw = map['questionNumber'] ?? map['qNo'] ?? map['index'] ?? 1;
+    final selRaw = map['selectedIndex'] ?? map['selected_index'] ?? map['answer'] ?? 0;
+    final corRaw = map['correctIndex'] ?? map['correct_index'] ?? map['correct'] ?? 0;
 
     return AttemptEntry(
-      attemptId: map['attemptId'] as String?,
+      attemptId: map['attemptId'] == null ? null : _asString(map['attemptId']),
       sessionId: _asString(map['sessionId']),
-      questionNumber: _asInt(qNoRaw),
+      questionNumber: _asInt(qNoRaw, defaultValue: 1),
       unitId: unitId,
       cardId: cardId,
       question: _asString(map['question']),
       selectedIndex: _asInt(selRaw),
       correctIndex: _asInt(corRaw),
-      isCorrect: map['isCorrect'] as bool? ?? false,
-      durationMs: _asInt(map['durationMs'] ?? map['duration_ms'] ?? 0),
-      timestamp: _parseTs(map['timestamp'] ?? map['answeredAt'] ?? map['createdAt']),
-      stableId: (stableId != null && stableId.trim().isNotEmpty) ? stableId.trim() : null,
+      isCorrect: _asBool(map['isCorrect']),
+      durationMs: _asInt(map['durationMs'] ?? map['duration_ms']),
+      timestamp: _asDateTime(
+        map['timestamp'] ?? map['answeredAt'] ?? map['createdAt'],
+      ),
+      stableId: stableId.isEmpty ? null : stableId,
     );
   }
 

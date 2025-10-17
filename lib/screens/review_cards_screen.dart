@@ -1,7 +1,4 @@
 // lib/screens/review_cards_screen.dart
-import 'dart:convert';
-import 'package:crypto/crypto.dart' as crypto;
-
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -11,6 +8,7 @@ import '../services/attempt_store.dart';
 import '../services/deck_loader.dart';
 import '../services/session_scope.dart';
 import '../utils/logger.dart';
+import '../utils/stable_id.dart';
 
 class ReviewCardsScreen extends StatefulWidget {
   const ReviewCardsScreen({super.key});
@@ -62,13 +60,63 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       final store = AttemptStore();
       final loader = await DeckLoader.instance();
 
-      // ここが肝：誤答の stableId（ユニーク）だけを取得
+      // ここが肝：誤答の stableId（ユニーク）だけを取得（無くても後段でフォールバック）
       final wrongIds = await store.getWrongStableIdsUnique(
         onlySessionIds: sessionIds,
       );
 
-      if (wrongIds.isEmpty) {
-        if (!mounted) return;
+      // 現在の assets から sid→card の逆引きを作成（DeckLoader 依存の getByStableId に頼らない）
+      final decks = await loader.loadAll();
+      final bySid = <String, QuizCard>{};
+      for (final d in decks) {
+        for (final c in d.cards) {
+          bySid[_sidOf(c)] = c; // 安定ID（元順MD5）
+        }
+      }
+
+      // stableId リストからカードを復元
+      final outCards = <QuizCard>[
+        for (final id in wrongIds)
+          if (bySid.containsKey(id)) bySid[id]!,
+      ];
+
+      // 0件なら質問文ベースでフォールバック（古い Attempt で stableId が無い場合の救済）
+      if (outCards.isEmpty) {
+        final qs = await store.getAllWrongCardIdsFiltered(onlySessionIds: sessionIds);
+        String norm(String s) => s.replaceAll(RegExp(r'\s+'), ' ').trim();
+
+        QuizCard? _findByQuestion(String qnorm) {
+          // 完全一致 → 先頭一致(最大16文字) → 部分一致の順で走査
+          for (final c in bySid.values) {
+            if (norm(c.question) == qnorm) return c;
+          }
+          final headLen = min(qnorm.length, 16);
+          final head = qnorm.substring(0, headLen);
+          for (final c in bySid.values) {
+            if (norm(c.question).startsWith(head)) return c;
+          }
+          for (final c in bySid.values) {
+            if (norm(c.question).contains(head)) return c;
+          }
+          return null;
+        }
+
+        final seen = <QuizCard>{};
+        for (final q in qs.map(norm).toSet()) {
+          final hit = _findByQuestion(q);
+          if (hit != null && seen.add(hit)) outCards.add(hit);
+        }
+        AppLog.d('[REVIEW] fallback by question -> ${outCards.length}');
+      }
+
+      outCards.shuffle(_rng);
+
+      // 表示用にデッキ/ユニット名のキャッシュも作っておく（情報は落とさない）
+      await _buildDeckUnitTitleCaches(loader);
+
+      if (!mounted) return;
+      if (outCards.isEmpty) {
+        setState(() => _loading = false);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('復習対象がありません')),
         );
@@ -76,18 +124,6 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
         return;
       }
 
-      // stableId → QuizCard へ 1:1 で解決
-      final outCards = <QuizCard>[];
-      for (final id in wrongIds) {
-        final c = loader.getByStableId(id);
-        if (c != null) outCards.add(c);
-      }
-      outCards.shuffle(_rng);
-
-      // 表示用にデッキ/ユニット名のキャッシュも作っておく（情報は落とさない）
-      await _buildDeckUnitTitleCaches(loader);
-
-      if (!mounted) return;
       setState(() {
         _base = List.of(outCards);
         _cards = List.of(outCards);
@@ -143,7 +179,6 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       try {
         final unitMap = (d as dynamic).unitTitleMap as Map<String, String>?;
         if (unitMap != null) {
-          // 各カードに unitId があれば、そこからタイトル復元
           Iterable<QuizCard> allCards = const [];
           try {
             allCards = (d as dynamic).cards as List<QuizCard>? ?? const [];
@@ -185,13 +220,8 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       );
     } catch (_) {}
 
-    // freq が空 or 全部0ならフォールバック判定
-    final allZero = freq.isEmpty ||
-        _base.every((c) {
-          String? sid;
-          try { sid = (c as dynamic).stableId as String?; } catch (_) {}
-          return sid == null || (freq[sid] ?? 0) == 0;
-        });
+    // freq が空 or 全部0ならフォールバック判定（必ず _sidOf(c) で照合）
+    final allZero = freq.isEmpty || _base.every((c) => (freq[_sidOf(c)] ?? 0) == 0);
     if (!allZero) return freq;
 
     // 2) Attempt を直接なめて、isCorrect==false をカウント
@@ -210,6 +240,7 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
           } catch (_) {}
         }
       }
+      AppLog.d('[REVIEW] freq fallback scan -> matched=${fb.length}/${_base.length}');
     } catch (_) {}
     return fb;
   }
@@ -226,24 +257,16 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     } catch (_) {}
 
     final epoch0 = DateTime.fromMillisecondsSinceEpoch(0);
-    final emptyOrEpoch = latest.isEmpty ||
-        _base.every((c) {
-          String? sid;
-          try { sid = (c as dynamic).stableId as String?; } catch (_) {}
-          final t = (sid != null) ? (latest[sid] ?? epoch0) : epoch0;
-          return t == epoch0;
-        });
+    final emptyOrEpoch =
+        latest.isEmpty || _base.every((c) => (latest[_sidOf(c)] ?? epoch0) == epoch0);
     if (!emptyOrEpoch) return latest;
 
     // 2) Attempt を直接なめて、直近の×時刻を採用
     final Map<String, DateTime> fb = {};
     DateTime? _ts(dynamic e) {
-      try { final v = (e as dynamic).timestamp;  if (v is DateTime) return v; } catch (_) {}
-      try { final v = (e as dynamic).answeredAt; if (v is DateTime) return v; } catch (_) {}
-      try { final v = (e as dynamic).createdAt;  if (v is DateTime) return v; } catch (_) {}
-      try { final v = (e as dynamic).timestamp;  if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); if (v is String) return DateTime.tryParse(v); } catch (_) {}
-      try { final v = (e as dynamic).answeredAt; if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); if (v is String) return DateTime.tryParse(v); } catch (_) {}
-      try { final v = (e as dynamic).createdAt;  if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); if (v is String) return DateTime.tryParse(v); } catch (_) {}
+      try { final v = (e as dynamic).timestamp;  if (v is DateTime) return v; if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); if (v is String) return DateTime.tryParse(v); } catch (_) {}
+      try { final v = (e as dynamic).answeredAt; if (v is DateTime) return v; if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); if (v is String) return DateTime.tryParse(v); } catch (_) {}
+      try { final v = (e as dynamic).createdAt;  if (v is DateTime) return v; if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); if (v is String) return DateTime.tryParse(v); } catch (_) {}
       return null;
     }
 
@@ -264,18 +287,14 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
           } catch (_) {}
         }
       }
+      AppLog.d('[REVIEW] latest fallback scan -> matched=${fb.length}/${_base.length}');
     } catch (_) {}
     return fb;
   }
   // ===================== ここまで：クラス内ヘルパー =====================
 
-  // 質問文と選択肢（元の順）から MD5 を算出（Attempt 保存時と同じロジック）
-  String _sidOf(QuizCard c) {
-    String norm(String s) => s.replaceAll(RegExp(r'\s+'), ' ').trim();
-    final q = norm(c.question);
-    final cs = c.choices.map(norm).join('|');
-    return crypto.md5.convert(utf8.encode('$q\n$cs')).toString();
-  }
+  // Attempt 保存時と同一ロジック（stable_id.dart）に統一
+  String _sidOf(QuizCard c) => stableIdForOriginal(c);
 
   // ===================================================
   // 並べ替え／フィルタ（stableIdベース）
@@ -285,10 +304,7 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
 
     final freq = await _fetchFreqWithFallback(); // 既存の取得ヘルパーを利用
 
-    int scoreOf(QuizCard c) {
-      final sid = _sidOf(c);              // ← ここを統一
-      return freq[sid] ?? 0;
-    }
+    int scoreOf(QuizCard c) => freq[_sidOf(c)] ?? 0;
 
     setState(() {
       _cards = List.of(_base)..sort((a, b) => scoreOf(b).compareTo(scoreOf(a)));
@@ -306,11 +322,9 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     if (_base.isEmpty) return;
 
     final latest = await _fetchLatestWithFallback(); // 既存の取得ヘルパーを利用
+    final epoch0 = DateTime.fromMillisecondsSinceEpoch(0);
 
-    DateTime timeOf(QuizCard c) {
-      final sid = _sidOf(c);              // ← ここを統一
-      return latest[sid] ?? DateTime.fromMillisecondsSinceEpoch(0);
-    }
+    DateTime timeOf(QuizCard c) => latest[_sidOf(c)] ?? epoch0;
 
     setState(() {
       _cards = List.of(_base)..sort((a, b) => timeOf(b).compareTo(timeOf(a)));
@@ -337,11 +351,7 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     }
 
     final freq = await _fetchFreqWithFallback(); // 既存の取得ヘルパーを利用
-
-    bool isRepeated(QuizCard c) {
-      final sid = _sidOf(c);              // ← ここを統一
-      return (freq[sid] ?? 0) >= 2;
-    }
+    bool isRepeated(QuizCard c) => (freq[_sidOf(c)] ?? 0) >= 2;
 
     final filtered = _base.where(isRepeated).toList();
     setState(() {
@@ -359,7 +369,6 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       );
     }
   }
-
 
   // ===================================================
   // UI（既存踏襲）
@@ -631,4 +640,3 @@ class _BottomBar extends StatelessWidget {
     );
   }
 }
-

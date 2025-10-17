@@ -140,7 +140,11 @@ class AttemptStore {
 
   Future<List<AttemptEntry>> _loadAll() async {
     final prefs = await SharedPreferences.getInstance();
-    final raw = prefs.getString(kAttempts);
+    // 新キー（attempts_v1）を優先し、データが無ければ旧キー（attempts.v1）を試す
+    String? raw = prefs.getString(kAttempts);
+    if (raw == null || raw.isEmpty) {
+      raw = prefs.getString('attempts.v1');
+    }
     if (raw == null || raw.isEmpty) return [];
 
     try {
@@ -226,6 +230,8 @@ class AttemptStore {
       all.removeRange(0, all.length - cap); // 古い方から間引く
     }
     await _saveAll(all);
+    debugPrint('[ATTEMPT/STORE] add sid=${withId.sessionId} total=${all.length}');
+
   }
 
   /// 新しいものから最大 limit 件（既存）
@@ -237,8 +243,11 @@ class AttemptStore {
   /// 指定セッションの履歴（新→古）（既存）
   Future<List<AttemptEntry>> bySession(String sessionId) async {
     final all = await _loadAll();
-    return all.where((e) => e.sessionId == sessionId).toList().reversed.toList();
+    final out = all.where((e) => e.sessionId == sessionId).toList().reversed.toList();
+    debugPrint('[ATTEMPT/STORE] bySession sid=$sessionId -> ${out.length}');
+    return out;
   }
+
 
   /// これまでの誤答の「質問文」を時系列・重複ありで返す（見直しモード用／全期間）
   /// ※ 互換性のため “ID” という名前だが実体は質問文。呼び出し側でカードに写像する。

@@ -2,11 +2,19 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../models/score_record.dart';
 import '../services/score_store.dart';
 import '../services/deck_loader.dart';
 import '../widgets/quiz_analytics.dart';
 import 'attempt_history_screen.dart';
+
+// ★ 追加：誤答カード再特定で使用
+import '../services/attempt_store.dart';
+import '../models/attempt_entry.dart';
+import '../models/card.dart';
+import '../utils/stable_id.dart';
+import 'quiz_screen.dart';
 
 enum RecordKindFilter { all, unit, mix }
 enum SortMode { newest, oldest, accuracy }
@@ -45,15 +53,12 @@ class _ScoresScreenState extends State<ScoresScreen> {
       // デッキ名・ユニット名マップを同時構築
       final Map<String, String> deckTitleMap = {};
       final Map<String, String> unitTitleMap = {};
-
       for (final d in decks) {
         final deckId = d.id.trim();
         final deckTitle = d.title.trim();
-
         if (deckId.isNotEmpty) {
           deckTitleMap[deckId] = deckTitle.isNotEmpty ? deckTitle : deckId;
         }
-
         for (final u in (d.units ?? const [])) {
           final unitId = u.id.trim();
           final unitTitle = u.title.trim();
@@ -305,12 +310,11 @@ class _ScoresScreenState extends State<ScoresScreen> {
                                                 padding: const EdgeInsets.only(top: 4),
                                                 child: Tooltip(
                                                   message: '履歴を開く',
-                                                  child:
-                                                      InkResponse(
-                                                        radius: 18,
-                                                        onTap: () => _onTapRecord(context, r),
-                                                        child: const Icon(Icons.history, size: 18),
-                                                      ),
+                                                  child: InkResponse(
+                                                    radius: 18,
+                                                    onTap: () => _onTapRecord(context, r),
+                                                    child: const Icon(Icons.history, size: 18),
+                                                  ),
                                                 ),
                                               ),
                                           ],
@@ -319,9 +323,9 @@ class _ScoresScreenState extends State<ScoresScreen> {
                                     ),
                                   ),
 
-                                  // 主要ユニットチップ — コンパクト化（ChipThemeで絞る）
+                                  // 主要ユニットチップ
                                   if (ubStat.isNotEmpty) ...[
-                                    const SizedBox(height: 6), // 8→6 に縮小
+                                    const SizedBox(height: 6),
                                     Theme(
                                       data: theme.copyWith(
                                         chipTheme: theme.chipTheme.copyWith(
@@ -330,16 +334,14 @@ class _ScoresScreenState extends State<ScoresScreen> {
                                           side: BorderSide(color: theme.colorScheme.outline.withOpacity(0.25)),
                                         ),
                                         textTheme: theme.textTheme.copyWith(
-                                          bodySmall: theme.textTheme.bodySmall?.copyWith(
-                                            height: 1.0, // 行間を詰める
-                                          ),
+                                          bodySmall: theme.textTheme.bodySmall?.copyWith(height: 1.0),
                                         ),
                                       ),
                                       child: UnitRatioChips(
                                         unitBreakdown: ubStat,
                                         unitTitleMap: _unitTitleMap,
                                         topK: 3,
-                                        padding: const EdgeInsets.only(top: 0), // 呼び出し側の余白も最小化
+                                        padding: const EdgeInsets.only(top: 0),
                                       ),
                                     ),
                                   ],
@@ -354,6 +356,8 @@ class _ScoresScreenState extends State<ScoresScreen> {
                 ),
     );
   }
+
+  // ====== レコード操作 ======
 
   Future<void> _onTapRecord(BuildContext context, ScoreRecord record) async {
     if (record.sessionId != null && record.sessionId!.isNotEmpty) {
@@ -392,6 +396,15 @@ class _ScoresScreenState extends State<ScoresScreen> {
                   onTap: () {
                     Navigator.pop(context);
                     _onTapRecord(context, r);
+                  },
+                ),
+              if (canOpenHistory)
+                ListTile(
+                  leading: const Icon(Icons.refresh),
+                  title: const Text('誤答だけもう一度'),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    await _replayWrongFromScore(context, r.sessionId!);
                   },
                 ),
               ListTile(
@@ -472,5 +485,98 @@ class _ScoresScreenState extends State<ScoresScreen> {
       if (!context.mounted) return;
       messenger.showSnackBar(SnackBar(content: Text('削除に失敗しました: $e')));
     }
+  }
+
+  // ====== ここから「誤答だけもう一度」実装（成績→セッションID起点） ======
+
+  // AttemptEntry 1件に対応する QuizCard を全デッキから探索（stableId優先）
+  Future<QuizCard?> _findCardForAttempt(AttemptEntry a) async {
+    final loader = await DeckLoader.instance();
+    final decks = await loader.loadAll();
+
+    // 1) unitId 一致のデッキを優先
+    var deckByUnit = decks.where((d) => d.id == a.unitId);
+    // 2) stableId で検索（所属デッキ→全デッキ）
+    final sid = (a.stableId ?? '').trim();
+    if (sid.isNotEmpty) {
+      if (deckByUnit.isNotEmpty) {
+        try {
+          return deckByUnit.first.cards.firstWhere(
+            (c) => stableIdForOriginal(c) == sid,
+          );
+        } catch (_) {}
+      }
+      for (final d in decks) {
+        try {
+          return d.cards.firstWhere((c) => stableIdForOriginal(c) == sid);
+        } catch (_) {}
+      }
+    }
+
+    // 3) フォールバック：質問文一致（所属デッキ→全デッキ）
+    final q = a.question.trim();
+    if (q.isNotEmpty && deckByUnit.isNotEmpty) {
+      try {
+        return deckByUnit.first.cards.firstWhere((c) => c.question.trim() == q);
+      } catch (_) {}
+    }
+    if (q.isNotEmpty) {
+      for (final d in decks) {
+        try {
+          return d.cards.firstWhere((c) => c.question.trim() == q);
+        } catch (_) {}
+      }
+    }
+    return null;
+  }
+
+  // セッションIDから「誤答だけ」を復元し、QuizScreen(overrideCards)で再挑戦
+  Future<void> _replayWrongFromScore(BuildContext context, String sessionId) async {
+    final attempts = await AttemptStore().bySession(sessionId);
+    final wrong = attempts.where((e) => !e.isCorrect).toList();
+
+    if (wrong.isEmpty) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('この回の誤答はありません')),
+      );
+      return;
+    }
+
+    // 重複排除キー（stableId 優先、なければ質問文正規化）
+    String keyOf(AttemptEntry a) {
+      final sid = (a.stableId ?? '').trim();
+      if (sid.isNotEmpty) return 'S::$sid';
+      return 'Q::${a.question.replaceAll(RegExp(r'\\s+'), ' ').trim()}';
+    }
+
+    final seen = <String>{};
+    final cards = <QuizCard>[];
+
+    for (final a in wrong) {
+      if (!seen.add(keyOf(a))) continue;
+      final c = await _findCardForAttempt(a);
+      if (c != null) cards.add(c);
+    }
+
+    if (cards.isEmpty) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('カードの特定に失敗しました')),
+      );
+      return;
+    }
+
+    if (!context.mounted) return;
+    // QuizScreen は overrideCards 指定時 deck.cards を使わないため、どのデッキでもOK
+    final decks = await (await DeckLoader.instance()).loadAll();
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => QuizScreen(
+          deck: decks.first,         // ダミー
+          overrideCards: cards,      // ← これが実際の出題セット
+        ),
+      ),
+    );
   }
 }

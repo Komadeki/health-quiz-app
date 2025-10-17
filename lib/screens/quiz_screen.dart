@@ -5,8 +5,6 @@ import '../models/card.dart';
 import '../models/quiz_card_ext.dart'; // ← withChoiceOrder 拡張
 import '../models/score_record.dart';
 import 'result_screen.dart';
-import 'dart:convert';
-import 'package:crypto/crypto.dart' as crypto;
 import 'package:uuid/uuid.dart';
 import 'package:provider/provider.dart';
 import '../services/app_settings.dart';
@@ -50,7 +48,7 @@ class _QuizScreenState extends State<QuizScreen> {
   // ===== ランタイム状態 =====
   late List<QuizCard> sequence; // 出題順に並んだカード（選択肢は各カード内で並び済み）
   late List<String> _stableOrder; // ★ 出題順に対応する「安定ID」列（保存・復元の唯一の根拠）
-  late String _sessionId;
+  String? _sessionId;
 
   int index = 0;
   int? selected;
@@ -95,6 +93,15 @@ class _QuizScreenState extends State<QuizScreen> {
       if (v is String && v.isNotEmpty) return v;
     } catch (_) {}
     return widget.deck.id;
+  }
+
+  // QuizCardにidが未実装でも安全に取得（Attempt保存時用）
+  String _cardIdOf(QuizCard c, String fallback) {
+    try {
+      final v = (c as dynamic).id;
+      if (v is String && v.trim().isNotEmpty) return v.trim();
+    } catch (_) {}
+    return fallback; // 取れなければ stableId など安全なIDにフォールバック
   }
 
   void _bumpTags(Iterable<String> tags, bool isCorrect) {
@@ -158,6 +165,16 @@ class _QuizScreenState extends State<QuizScreen> {
   int? _limitForSave;                    // mixed のときに保持
 
   Future<void> _init() async {
+    // ===== セッションIDの初期化 =====
+    final isResume = widget.resumeSession != null; // ← resumeSession があるかどうかで判定
+    if (isResume) {
+      _sessionId = widget.resumeSession!.sessionId; // ← 前回のセッションIDを再利用
+    } else {
+      _sessionId ??= const Uuid().v4(); // ← 新規開始時は1回だけ発行
+    }
+
+    debugPrint('[SESSION] start sid=${_sessionId}');
+
     final settings = Provider.of<AppSettings>(context, listen: false);
     _choiceOrders = {};
     sequence = [];
@@ -167,7 +184,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     // ───────── A) overrideCards 優先（ミックスはここで完結） ─────────
     if (widget.overrideCards != null && widget.overrideCards!.isNotEmpty) {
-      _sessionId = const Uuid().v4();
+      //_sessionId = const Uuid().v4();
       _deckIdForSave = 'mixed';
       _selectedUnitIdsForSave = widget.selectedUnitIds; // メタ情報として保持（再開用）
       _limitForSave = widget.limit;
@@ -203,7 +220,7 @@ class _QuizScreenState extends State<QuizScreen> {
       // 初回セーブ（mixed として）
       await _saveSession(
         QuizSession(
-          sessionId: _sessionId,
+          sessionId: _sessionId!,
           deckId: 'mixed',
           unitId: null,
           selectedUnitIds: _selectedUnitIdsForSave,
@@ -299,7 +316,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     // ───────── 2) ミックス“新規開始”（selectedUnitIds/limit を受領）─────────
     if (isMixedNew) {
-      _sessionId = const Uuid().v4();
+      //_sessionId = const Uuid().v4();
       _deckIdForSave = 'mixed';
       _selectedUnitIdsForSave = List<String>.from(widget.selectedUnitIds!);
       _limitForSave = widget.limit;
@@ -357,7 +374,7 @@ class _QuizScreenState extends State<QuizScreen> {
       // f) 初回セーブ（deckId:'mixed' / selectedUnitIds / limit / choiceOrders を保存）
       await _saveSession(
         QuizSession(
-          sessionId: _sessionId,
+          sessionId: _sessionId!,
           deckId: 'mixed',
           unitId: null,
           selectedUnitIds: _selectedUnitIdsForSave,
@@ -412,7 +429,7 @@ class _QuizScreenState extends State<QuizScreen> {
       _stableOrder = [for (final it in items) it.$1];
 
       // e) セッションID・開始時刻
-      _sessionId = const Uuid().v4();
+      //_sessionId = const Uuid().v4();
       _deckIdForSave = widget.deck.id; // 通常
       _qStart = DateTime.now();
 
@@ -426,7 +443,7 @@ class _QuizScreenState extends State<QuizScreen> {
       // g) 初期セーブ（単元練習では unitId / selectedUnitIds を記録）
       await _saveSession(
         QuizSession(
-          sessionId: _sessionId,
+          sessionId: _sessionId!,
           deckId: _deckIdForSave, // 通常 deck.id
           unitId: widget.overrideCards != null && widget.overrideCards!.isNotEmpty
               ? _unitIdOf(widget.overrideCards!.first)
@@ -572,10 +589,11 @@ class _QuizScreenState extends State<QuizScreen> {
 
         final attempt = AttemptEntry(
           attemptId: const Uuid().v4(),
-          sessionId: _sessionId,
+          sessionId: _sessionId!,
           questionNumber: index + 1,            // 1-based
           unitId: _unitIdOf(card),
-          cardId: index.toString(),
+          cardId: _cardIdOf(card, _stableOrder[index]),
+
           question: card.question,
           selectedIndex: (selected ?? 0) + 1,   // 1-based
           correctIndex: (card.answerIndex) + 1, // 1-based
@@ -585,18 +603,15 @@ class _QuizScreenState extends State<QuizScreen> {
           // ★ ここが超重要：出題順の安定IDを保存する
           stableId: _stableOrder[index],
         );
-
         await AttemptStore().add(attempt);
-        AppLog.d('[ATTEMPT] ${attempt.sessionId} Q${attempt.questionNumber} '
-            '${attempt.isCorrect ? "○" : "×"} ${attempt.durationMs}ms');
-      } catch (_) {}
-
-
+        debugPrint('[ATTEMPT] saved sid=${_sessionId} '
+                   'stableId=${attempt.stableId} q=${attempt.questionNumber}');
+              } catch (_) {}
       // 2) オートセーブ（⚠️ 必ず _stableOrder を使う）
       try {
         await _saveSession(
           QuizSession(
-            sessionId: _sessionId,
+            sessionId: _sessionId!,
             deckId: _deckIdForSave,             // mixed のときは 'mixed'
             unitId: null,
             selectedUnitIds: _selectedUnitIdsForSave,
@@ -649,6 +664,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
         // スコア保存
         try {
+            debugPrint('[SCORE] save sid=${_sessionId} total=${sequence.length} correct=$correctCount');
+
           await AttemptStore().addScore(
             ScoreRecord(
               id: const Uuid().v4(),
@@ -660,7 +677,7 @@ class _QuizScreenState extends State<QuizScreen> {
               timestamp: timestamp.millisecondsSinceEpoch,
               tags: tagStats.isEmpty ? null : tagStats,
               selectedUnitIds: _selectedUnitIdsForSave, // mixed のとき残る
-              sessionId: _sessionId,
+              sessionId: _sessionId!,
               unitBreakdown: Map<String, int>.from(_unitCount),
             ),
           );
@@ -670,7 +687,7 @@ class _QuizScreenState extends State<QuizScreen> {
         try {
           await _markFinishedAndClear(
             QuizSession(
-              sessionId: _sessionId,
+              sessionId: _sessionId!,
               deckId: deckIdSave,
               unitId: null,
               selectedUnitIds: _selectedUnitIdsForSave,
@@ -694,7 +711,7 @@ class _QuizScreenState extends State<QuizScreen> {
             builder: (_) => ResultScreen(
               total: total,
               correct: correct,
-              sessionId: _sessionId,
+              sessionId: _sessionId!,
               unitBreakdown: Map<String, int>.from(_unitCount),
               deckId: deckIdSave,
               deckTitle: deckTitle,
