@@ -326,6 +326,7 @@ class AttemptHistoryScreen extends StatelessWidget {
         builder: (_) => QuizScreen(
           deck: decks.first,        // ダミー
           overrideCards: list,      // ← 実際の出題セット
+          type: 'retry_wrong', // ← 追加：誤答リトライを明示
         ),
       ),
     );
