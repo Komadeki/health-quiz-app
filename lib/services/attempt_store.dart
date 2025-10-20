@@ -562,7 +562,7 @@ class AttemptStore {
         .toList();
   }
 
-    // ===========================================================================
+  //===========================================================================
   // 🔽 復習モード対応API（見直し／復習テスト 共通）
   // ===========================================================================
 
@@ -589,37 +589,107 @@ class AttemptStore {
     return out.toList();
   }
 
-  /// 【復習テスト用】
-  /// 誤答の出現頻度マップ (stableId → 回数) を ScoreScope で算出
+  /// 【復習テスト用】誤答の出現頻度 (stableId → 回数) を ScoreScope で算出
   Future<Map<String, int>> getWrongFrequencyMapScoped(ScoreScope scope) async {
-    final all = await _loadAll();
-    final freq = <String, int>{};
+    final attempts = await _loadAll();
+    final out = <String, int>{};
 
-    final from = scope.from;
-    final to = scope.to;
-    final types = scope.sessionTypes;
+    final DateTime? from = scope.from;
+    final DateTime? to   = scope.to;
+    final Set<String>? types = scope.sessionTypes; // 例: {'unit','mixed'} or null
 
-    for (final e in all) {
-      // 1️⃣ 成績スコープによるフィルタ
-      if (types != null && types.isNotEmpty && !types.contains(e.sessionType)) {
-        continue;
+    // ---- ScoreRecord 用：型ゆれを吸収して開始時刻をとる（startedAt/createdAt/timestamp など）
+    DateTime? _scoreTime(dynamic s) {
+      DateTime? p(v) {
+        if (v == null) return null;
+        if (v is DateTime) return v;
+        if (v is String)   return DateTime.tryParse(v);        // ← ここが => ではなく return
+        if (v is num) {
+          final n = v.toInt();
+          final ms = n > 2000000000 ? n : n * 1000;            // 秒/ミリ秒両対応
+          return DateTime.fromMillisecondsSinceEpoch(ms);
+        }
+        return null;
+      }
+      try { final t = p((s as dynamic).startedAt);   if (t != null) return t; } catch (_) {}
+      try { final t = p((s as dynamic).startedAtMs); if (t != null) return t; } catch (_) {}
+      try { final t = p((s as dynamic).createdAt);   if (t != null) return t; } catch (_) {}
+      try { final t = p((s as dynamic).timestamp);   if (t != null) return t; } catch (_) {}
+      return null;
+    }
+
+    // ---- ScoreRecord 用：type を緩く取得（type/sessionType/mode のいずれか）
+    String? _scoreType(dynamic s) {
+      try { final v = (s as dynamic).type as String?;        if (v != null && v.isNotEmpty) return v; } catch (_) {}
+      try { final v = (s as dynamic).sessionType as String?; if (v != null && v.isNotEmpty) return v; } catch (_) {}
+      try { final v = (s as dynamic).mode as String?;        if (v != null && v.isNotEmpty) return v; } catch (_) {}
+      return null;
+    }
+
+    // ① ScoreRecord を同条件でフィルタし、対象 sessionId 集合を作る
+    final scores = await loadScores();
+    final scopedSessionIds = scores
+        .where((s) {
+          final st = _scoreTime(s);
+          final ty = _scoreType(s);
+          // 取れない情報は「通す」（除外しない）→ sessions=0 を回避
+          final okType = (types == null || types.isEmpty) || (ty == null) || types.contains(ty);
+          final okFrom = (from == null) || (st == null) || st.isAfter(from);
+          final okTo   = (to   == null) || (st == null) || st.isBefore(to);
+          return okType && okFrom && okTo;
+        })
+        .map((s) {
+          try { return (s as dynamic).sessionId as String; } catch (_) { return ''; }
+        })
+        .where((id) => id.isNotEmpty)
+        .toSet();
+
+    // ---- Attempt 用：回答時刻を緩く取得（answeredAt/createdAt/timestamp など）
+    DateTime? _attemptTime(dynamic e) {
+      DateTime? p(v) {
+        if (v == null) return null;
+        if (v is DateTime) return v;
+        if (v is String)   return DateTime.tryParse(v);
+        if (v is num) {
+          final n = v.toInt();
+          final ms = n > 2000000000 ? n : n * 1000;
+          return DateTime.fromMillisecondsSinceEpoch(ms);
+        }
+        return null;
+      }
+      try { final t = p((e as dynamic).answeredAt);   if (t != null) return t; } catch (_) {}
+      try { final t = p((e as dynamic).answeredAtMs); if (t != null) return t; } catch (_) {}
+      try { final t = p((e as dynamic).createdAt);    if (t != null) return t; } catch (_) {}
+      try { final t = p((e as dynamic).timestamp);    if (t != null) return t; } catch (_) {}
+      return null;
+    }
+
+    // ② セッション限定 + 期間チェック + 誤答のみ集計
+    for (final e in attempts) {
+      // 見直しと同じ “sessionIds 限定” に揃える（集合が作れた場合のみ適用）
+      if (scopedSessionIds.isNotEmpty && !scopedSessionIds.contains(e.sessionId)) continue;
+
+      // Attempt 側 sessionType は null を許容（null で除外しない）
+      if (types != null && types.isNotEmpty) {
+        final st = e.sessionType;
+        if (st != null && !types.contains(st)) continue;
       }
 
-      final t = e.createdAt ?? e.answeredAt ?? e.timestamp;
-      if (from != null && t.isBefore(from)) continue;
-      if (to != null && t.isAfter(to)) continue;
+      final t = _attemptTime(e);
+      if (from != null && t != null && t.isBefore(from)) continue;
+      if (to   != null && t != null && t.isAfter(to))    continue;
 
-      // 2️⃣ 誤答のみ集計
       if (!e.isCorrect) {
         final key = _keyFromAttempt(e);
         if (key.isEmpty) continue;
-        freq.update(key, (v) => v + 1, ifAbsent: () => 1);
+        out.update(key, (v) => v + 1, ifAbsent: () => 1);
       }
     }
 
-    debugPrint('[REVIEW] getWrongFrequencyMapScoped -> ${freq.length} items');
-    return freq;
+    debugPrint('[REVIEW] getWrongFrequencyMapScoped -> ${out.length} items (sessions=${scopedSessionIds.length})');
+    return out;
   }
+
 
   /// 【メタ情報】誤答回数＋最新誤答時刻＋最新正誤を返す
   /// → 見直しモードで「並び替え／フィルタ」に利用予定

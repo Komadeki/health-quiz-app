@@ -443,48 +443,53 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       const SizedBox(height: 24),
 
-                      // ミックス練習
+                      // ミックス練習（＝単元カードと同じ見た目）
                       _DeckLikeButton(
                         leadingIcon: Icons.shuffle_outlined,
                         title: 'ミックス練習（複数単元・横断）',
                         subtitle: '選んだ単元をランダム出題',
                         onTap: _openMultiSelect,
+                        style: DeckButtonStyle.normal,
                       ),
 
                       const SizedBox(height: 16),
 
-                      // 続きからボタン（有効時のみ）
+                      // 続きから再開（形は同じカード、色だけ淡グリーン）
                       if (_canResume)
-                        SizedBox(
-                          width: double.infinity,
-                          child: FilledButton.tonalIcon(
-                            icon: _isResuming
-                                ? const SizedBox(
-                                    width: 18,
-                                    height: 18,
-                                    child: CircularProgressIndicator(strokeWidth: 2),
-                                  )
-                                : const Icon(Icons.play_circle_fill),
-                            label: Text(_isResuming ? '開いています…' : '続きから再開'),
-                            onPressed: _isResuming ? null : _resumeIfExists,
-                          ),
+                        _DeckLikeButton(
+                          leadingIcon: Icons.play_circle_fill,
+                          title: _isResuming ? '開いています…' : '続きから再開',
+                          subtitle: '前回の続きからクイズを再開',
+                          onTap: _isResuming ? null : _resumeIfExists,
+                          trailing: _isResuming
+                              ? const SizedBox(
+                                  width: 18, height: 18,
+                                  child: CircularProgressIndicator(strokeWidth: 2),
+                                )
+                              : null,
+                          style: DeckButtonStyle.tonal,
                         ),
 
-                      const SizedBox(height: 24),
+                      if (_canResume) const SizedBox(height: 16),
 
-                      // 🔽🔽 ここに追加 🔽🔽
-                      ElevatedButton.icon(
-                        onPressed: () {
+                      // 復習（＝単元カードと同じ見た目）
+                      _DeckLikeButton(
+                        leadingIcon: Icons.refresh,
+                        title: '復習',
+                        subtitle: '間違えた問題の見直し・復習テスト',
+                        onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (_) => const ReviewMenuScreen()),
                           );
                         },
-                        icon: const Icon(Icons.refresh),
-                        label: const Text('復習'),
+                        style: DeckButtonStyle.normal,
                       ),
 
                       const Divider(height: 32),
+
+
+
 
                       _MenuTile(
                         icon: Icons.query_stats_outlined,
@@ -617,76 +622,102 @@ class _DeckTile extends StatelessWidget {
   }
 }
 
+enum DeckButtonStyle { normal, tonal }
+
 class _DeckLikeButton extends StatelessWidget {
   final IconData leadingIcon;
   final String title;
   final String? subtitle;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
+  final Widget? trailing;
+  final DeckButtonStyle style;
 
   const _DeckLikeButton({
+    super.key,
     required this.leadingIcon,
     required this.title,
     this.subtitle,
-    required this.onTap,
+    this.onTap,
+    this.trailing,
+    this.style = DeckButtonStyle.normal, // ← 既定：単元カードと同じ
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final bool isTonal = style == DeckButtonStyle.tonal;
+
+    // ✅ “単元カード”と同じ質感（surface色＋薄い枠＋やわらかい影）
+    final BoxDecoration normalDecoration = BoxDecoration(
+      color: theme.colorScheme.surface,
+      borderRadius: BorderRadius.circular(16),
+      border: Border.all(color: theme.colorScheme.outline.withOpacity(0.12)),
+      boxShadow: const [
+        BoxShadow(
+          blurRadius: 12,
+          offset: Offset(0, 2),
+          color: Color(0x1A000000), // ~6% (0x1A) 黒のごく薄い影
+        ),
+      ],
+    );
+
+    // ✅ “続きから再開”用（淡いグリーンのトーナル、薄め＋軽い枠）
+    final BoxDecoration tonalDecoration = BoxDecoration(
+      // ← 色味を少し淡くするため、withOpacity(0.85)
+      color: theme.colorScheme.primaryContainer.withOpacity(0.5),
+      borderRadius: BorderRadius.circular(16),
+      border: Border.all(
+        // ← ごく淡いグリーンの枠線（彩度控えめ）
+        color: theme.colorScheme.primary.withOpacity(0.07),
+        width: 1.0,
+      ),
+      boxShadow: const [
+        BoxShadow(
+          blurRadius: 10,
+          offset: Offset(0, 2),
+          color: Color(0x12000000), // 透明度約7%のやわらかい影
+        ),
+      ],
+    );
+
+    final decoration = isTonal ? tonalDecoration : normalDecoration;
+
+    final Color iconColor =
+        isTonal ? theme.colorScheme.onPrimaryContainer : theme.colorScheme.primary;
+    final titleStyle = theme.textTheme.titleMedium?.copyWith(
+      fontWeight: FontWeight.w600,
+      color: isTonal ? theme.colorScheme.onPrimaryContainer : null,
+    );
+    final subtitleStyle = theme.textTheme.bodySmall?.copyWith(
+      color: isTonal ? theme.colorScheme.onPrimaryContainer.withOpacity(0.8) : null,
+    );
+
     return InkWell(
       borderRadius: BorderRadius.circular(16),
       onTap: onTap,
       child: Ink(
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-              color: Colors.black.withValues(alpha: 0.06),
-            ),
-          ],
-          border: Border.all(
-            color: theme.colorScheme.outline.withValues(alpha: 0.12),
-          ),
-        ),
+        decoration: decoration,
         child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Row(
             children: [
-              Row(
-                children: [
-                  Icon(leadingIcon, color: theme.colorScheme.primary),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              if (subtitle != null) ...[
-                const SizedBox(height: 16),
-                Row(
+              Icon(leadingIcon, size: 24, color: iconColor),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.shuffle_rounded, size: 18),
-                    const SizedBox(width: 6),
-                    Text(
-                      subtitle!,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.hintColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    Text(title, style: titleStyle),
+                    if (subtitle != null) ...[
+                      const SizedBox(height: 2),
+                      Text(subtitle!, style: subtitleStyle),
+                    ],
                   ],
                 ),
+              ),
+              if (trailing != null) ...[
+                const SizedBox(width: 8),
+                trailing!,
               ],
             ],
           ),
@@ -695,6 +726,8 @@ class _DeckLikeButton extends StatelessWidget {
     );
   }
 }
+
+
 
 class _MenuTile extends StatelessWidget {
   final IconData icon;
