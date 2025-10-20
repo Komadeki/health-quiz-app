@@ -281,7 +281,7 @@ class SettingsScreen extends StatelessWidget {
           _SectionHeader('アプリ情報'),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: const Text('バージョン v1.0.0（例）'),
+            title: const Text('バージョン v1.0.0'),
             subtitle: const Text('開発：もけけapps'),
           ),
 
