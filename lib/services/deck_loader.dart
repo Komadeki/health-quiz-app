@@ -2,6 +2,8 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart'; // compute 用（JSON decode のみ）
 import 'package:flutter/services.dart' show rootBundle;
+import '../services/purchase_store.dart';
+
 
 import '../models/deck.dart';
 import '../models/card.dart';
@@ -50,28 +52,6 @@ class DeckLoader {
       await _reload();
     }
     return _decks;
-  }
-
-  /// 全カードフラット版（互換維持／内部キャッシュ利用）
-  Future<List<QuizCard>> loadAllCardsFlatten() async {
-    final decks = await loadAll();
-    final out = <QuizCard>[];
-    for (final d in decks) {
-      try {
-        if ((d as dynamic).cards != null) {
-          out.addAll((d as dynamic).cards as List<QuizCard>);
-        } else if ((d as dynamic).units != null) {
-          final units = (d as dynamic).units as List<dynamic>;
-          for (final u in units) {
-            final cards = (u as dynamic).cards as List<QuizCard>?;
-            if (cards != null) out.addAll(cards);
-          }
-        } else if ((d as dynamic).allCards != null) {
-          out.addAll((d as dynamic).allCards() as List<QuizCard>);
-        }
-      } catch (_) {}
-    }
-    return out;
   }
 
   // ========= 追加API：stableId ド直結 =========

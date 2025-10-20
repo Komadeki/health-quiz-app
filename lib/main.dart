@@ -9,12 +9,15 @@ import 'package:provider/provider.dart';
 import 'models/deck.dart';
 import 'services/deck_loader.dart';
 import 'services/app_settings.dart';
+import 'services/gate.dart';
+
 import 'screens/multi_select_screen.dart';
 import 'screens/unit_select_screen.dart';
 import 'screens/scores_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/quiz_screen.dart';
 import 'screens/review_menu_screen.dart'; // ← 先頭の import 群に追加
+import 'screens/purchase_screen.dart';
 
 import 'utils/logger.dart';
 
@@ -185,6 +188,20 @@ class _HomeScreenState extends State<HomeScreen> {
       MaterialPageRoute(builder: (_) => MultiSelectScreen(decks: decks)),
     );
     if (mounted) _checkResume();
+  }
+
+  // ← ソフトゲート付きのラッパー関数
+  Future<void> _openUnitSelectSoft(Deck deck) async {
+    final ok = await Gate.canAccessDeck(deck.id);
+    if (!ok && mounted) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('一部無料で体験できます。全カード解放は「購入」から。'),
+        ),
+      );
+    }
+    _openUnitSelect(deck); // 既存の遷移関数をそのまま利用
   }
 
   Future<void> _openUnitSelect(Deck deck) async {
@@ -403,7 +420,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: _DeckTile(
                                           title: leftDeck.title,
                                           isPurchased: leftDeck.isPurchased,
-                                          onTap: () => _openUnitSelect(leftDeck),
+                                          onTap: () => _openUnitSelectSoft(leftDeck),
                                         ),
                                       ),
                                       const SizedBox(width: spacing),
@@ -415,7 +432,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 isPurchased:
                                                     rightDeck.isPurchased,
                                                 onTap: () =>
-                                                    _openUnitSelect(rightDeck),
+                                                    _openUnitSelectSoft(rightDeck),
                                               ),
                                       ),
                                     ],
@@ -487,7 +504,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       _MenuTile(
                         icon: Icons.shopping_bag_outlined,
                         label: '購入',
-                        onTap: () => _notImplemented('購入'),
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => PurchaseScreen()),
+                        ),
                       ),
                     ],
                   ),

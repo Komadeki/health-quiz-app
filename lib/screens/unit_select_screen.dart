@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart'; // ← 追加
 import '../services/app_settings.dart'; // ← 追加
+import '../services/gate.dart';
 import '../models/deck.dart';
 import '../models/unit.dart';
 import '../models/card.dart';
 import 'quiz_screen.dart';
 import 'package:health_quiz_app/utils/logger.dart'; // ← 追加（AppLog）
+import '../screens/purchase_screen.dart';
 
 class UnitSelectScreen extends StatefulWidget {
   final Deck deck;
@@ -423,11 +425,54 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
               width: double.infinity,
               child: FilledButton(
                 onPressed: _canStart
-                    ? () {
+                    ? () async {
                         AppLog.d(
-                          'start quiz: selectedUnitIds=$_selectedUnitIds, '
-                          'limit=$_limit',
+                          'start quiz: selectedUnitIds=$_selectedUnitIds, limit=$_limit',
                         );
+
+                        // 🧩 Gate制御（フェイルセーフ）
+                        final deckOk = await Gate.canAccessDeck(widget.deck.id);
+
+                        // いま選ばれているユニットの中に isPremium なカードが含まれるか？（簡易判定）
+                        final units = widget.deck.units;
+                        final hasPremium = _selectedUnitIds.any((uid) {
+                          final u = units.firstWhere((x) => x.id == uid);
+                          return u.cards.any((c) => c.isPremium == true);
+                        });
+
+                        if (!deckOk && hasPremium) {
+                          final go = await showDialog<bool>(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: const Text('有料カードが含まれています'),
+                              content: const Text('購入すると全カードが解放されます。無料カードのみで続けることもできます。'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, false),
+                                  child: const Text('無料だけで続ける'),
+                                ),
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, true),
+                                  child: const Text('購入へ進む'),
+                                ),
+                              ],
+                            ),
+                          );
+
+                          if (go == true) {
+                            if (!context.mounted) return;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => PurchaseScreen()), // ← const を付けない
+                            );
+                            return;
+                          }
+
+                          // 「無料だけで続ける」：現状は無料カードのみ想定なので何もせず続行
+                          // （将来"一部無料"運用に変えるなら、この場で有料カードを除外する処理を追加）
+                        }
+
+                        // ✅ ここまで来たら開始OK（既存の開始処理を呼ぶ）
                         _startQuiz();
                       }
                     : null,
@@ -438,7 +483,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                 ),
               ),
             ),
-          ),
+          )
         ],
       ),
     );
