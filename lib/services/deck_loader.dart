@@ -2,8 +2,6 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart'; // compute 用（JSON decode のみ）
 import 'package:flutter/services.dart' show rootBundle;
-import '../services/purchase_store.dart';
-
 
 import '../models/deck.dart';
 import '../models/card.dart';
@@ -41,7 +39,7 @@ class DeckLoader {
   bool _loaded = false;
   List<Deck> _decks = [];
   final Map<String, QuizCard> _byStableId = {}; // 内容ベース stableId -> card
-  final Map<String, QuizCard> _byAnyId = {};    // 既存の id 等 -> card（フォールバック）
+  final Map<String, QuizCard> _byAnyId = {}; // 既存の id 等 -> card（フォールバック）
 
   // ========= 公開API：互換維持 =========
 
@@ -107,18 +105,28 @@ class DeckLoader {
         _byStableId.putIfAbsent(sid, () => c);
 
         // 2) 既存IDたちでも逆引きできるようにフォールバック索引を作る
-        void _addAny(String? v) {
+        void addAny(String? v) {
           if (v == null) return;
           final t = v.trim();
           if (t.isEmpty) return;
           _byAnyId.putIfAbsent(t, () => c);
         }
 
-        try { _addAny((c as dynamic).stableId as String?); } catch (_) {}
-        try { _addAny((c as dynamic).cardStableId as String?); } catch (_) {}
-        try { _addAny((c as dynamic).id as String?); } catch (_) {}
-        try { _addAny((c as dynamic).uuid as String?); } catch (_) {}
-        try { _addAny((c as dynamic).key as String?); } catch (_) {}
+        try {
+          addAny((c as dynamic).stableId as String?);
+        } catch (_) {}
+        try {
+          addAny((c as dynamic).cardStableId as String?);
+        } catch (_) {}
+        try {
+          addAny((c as dynamic).id as String?);
+        } catch (_) {}
+        try {
+          addAny((c as dynamic).uuid as String?);
+        } catch (_) {}
+        try {
+          addAny((c as dynamic).key as String?);
+        } catch (_) {}
       }
     }
 
@@ -130,11 +138,12 @@ class DeckLoader {
     final manifestJson = await rootBundle.loadString('AssetManifest.json');
     final Map<String, dynamic> manifest = jsonDecode(manifestJson);
 
-    final deckFiles = manifest.keys
-        .where((p) => p.startsWith('assets/decks/') && p.endsWith('.json'))
-        .where((p) => RegExp(r'assets/decks/deck_.*\.json$').hasMatch(p))
-        .toList()
-      ..sort();
+    final deckFiles =
+        manifest.keys
+            .where((p) => p.startsWith('assets/decks/') && p.endsWith('.json'))
+            .where((p) => RegExp(r'assets/decks/deck_.*\.json$').hasMatch(p))
+            .toList()
+          ..sort();
 
     // 各ファイルを compute 経由で並列デコード
     final futures = deckFiles.map(_decodeDeckAsync).toList();
@@ -146,7 +155,10 @@ class DeckLoader {
   Future<Deck?> _decodeDeckAsync(String path) async {
     try {
       final raw = await rootBundle.loadString(path);
-      final map = await compute<String, Map<String, dynamic>>(_parseJsonToMap, raw);
+      final map = await compute<String, Map<String, dynamic>>(
+        _parseJsonToMap,
+        raw,
+      );
 
       // unitTitle を各カードに冗長コピー（既存挙動を踏襲）
       final unitTitleMap = <String, String>{};
@@ -155,7 +167,9 @@ class DeckLoader {
         for (final u in units) {
           if (u is Map<String, dynamic>) {
             final uid = (u['id'] ?? u['unitId'] ?? u['unit_id'])?.toString();
-            final ut = (u['title'] ?? u['unit_title'] ?? u['name'] ?? u['unitTitle'])?.toString();
+            final ut =
+                (u['title'] ?? u['unit_title'] ?? u['name'] ?? u['unitTitle'])
+                    ?.toString();
             if (uid != null && uid.isNotEmpty && ut != null && ut.isNotEmpty) {
               unitTitleMap[uid] = ut.trim();
             }

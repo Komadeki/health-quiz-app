@@ -10,8 +10,10 @@ import '../utils/logger.dart';
 
 class AttemptStore {
   // ---- keys ----
-  static const String kAttempts = 'attempts_v1'; // 既存: 1問ごとの履歴（AttemptEntry）をJSON配列で保存
-  static const String kScores   = 'scores_v2';   // 成績サマリ（ScoreRecord）をJSON配列で保存（298行目以降で使用）
+  static const String kAttempts =
+      'attempts_v1'; // 既存: 1問ごとの履歴（AttemptEntry）をJSON配列で保存
+  static const String kScores =
+      'scores_v2'; // 成績サマリ（ScoreRecord）をJSON配列で保存（298行目以降で使用）
 
   static const int defaultRetention = 5000; // AttemptEntryの保持上限
 
@@ -38,7 +40,9 @@ class AttemptStore {
 
       // stableId を安全に取得（存在しない型でもコンパイルエラーにならないよう dynamic で握る）
       String? sid;
-      try { sid = (e as dynamic).stableId as String?; } catch (_) {}
+      try {
+        sid = (e as dynamic).stableId as String?;
+      } catch (_) {}
       if (sid != null && sid.trim().isNotEmpty) {
         out.add(sid.trim());
       }
@@ -60,7 +64,9 @@ class AttemptStore {
       if (e.isCorrect == true) continue;
 
       String? sid;
-      try { sid = (e as dynamic).stableId as String?; } catch (_) {}
+      try {
+        sid = (e as dynamic).stableId as String?;
+      } catch (_) {}
       if (sid == null || sid.trim().isEmpty) continue;
 
       final key = sid.trim();
@@ -76,7 +82,7 @@ class AttemptStore {
     final all = await _loadAll();
     final map = <String, DateTime>{};
 
-    DateTime? _ts(dynamic x) {
+    DateTime? ts(dynamic x) {
       // answeredAt / createdAt / timestamp / *_ms / *_sec など、緩めに吸収
       DateTime? tryParse(dynamic v) {
         if (v == null) return null;
@@ -114,10 +120,12 @@ class AttemptStore {
       if (e.isCorrect == true) continue;
 
       String? sid;
-      try { sid = (e as dynamic).stableId as String?; } catch (_) {}
+      try {
+        sid = (e as dynamic).stableId as String?;
+      } catch (_) {}
       if (sid == null || sid.trim().isEmpty) continue;
 
-      final t = _ts(e);
+      final t = ts(e);
       if (t == null) continue;
 
       final key = sid.trim();
@@ -128,7 +136,6 @@ class AttemptStore {
     }
     return map;
   }
-
 
   // ===========================================================================
   // AttemptEntry（既存機能） — 1問ごとの履歴
@@ -164,8 +171,8 @@ class AttemptStore {
           //   - すでに stableId があれば何もしない
           //   - なければ 質問テキストから Q::キーを埋める
           if ((a.stableId == null || a.stableId!.isEmpty) &&
-              (a.question?.trim().isNotEmpty ?? false)) {
-            a = a.copyWith(stableId: _questionKey(a.question!));
+              (a.question.trim().isNotEmpty ?? false)) {
+            a = a.copyWith(stableId: _questionKey(a.question));
           }
 
           items.add(a);
@@ -190,8 +197,8 @@ class AttemptStore {
           a = a.copyWith(attemptId: const Uuid().v4());
         }
         if ((a.stableId == null || a.stableId!.isEmpty) &&
-            (a.question?.trim().isNotEmpty ?? false)) {
-          a = a.copyWith(stableId: _questionKey(a.question!));
+            (a.question.trim().isNotEmpty ?? false)) {
+          a = a.copyWith(stableId: _questionKey(a.question));
         }
         return a;
       }).toList();
@@ -219,8 +226,8 @@ class AttemptStore {
 
     // ★ stableId の自動補完
     if ((withId.stableId == null || withId.stableId!.isEmpty) &&
-        (withId.question?.trim().isNotEmpty ?? false)) {
-      withId = withId.copyWith(stableId: _questionKey(withId.question!));
+        (withId.question.trim().isNotEmpty ?? false)) {
+      withId = withId.copyWith(stableId: _questionKey(withId.question));
     }
 
     all.add(withId);
@@ -230,8 +237,9 @@ class AttemptStore {
       all.removeRange(0, all.length - cap); // 古い方から間引く
     }
     await _saveAll(all);
-    debugPrint('[ATTEMPT/STORE] add sid=${withId.sessionId} total=${all.length}');
-
+    debugPrint(
+      '[ATTEMPT/STORE] add sid=${withId.sessionId} total=${all.length}',
+    );
   }
 
   /// 新しいものから最大 limit 件（既存）
@@ -243,11 +251,14 @@ class AttemptStore {
   /// 指定セッションの履歴（新→古）（既存）
   Future<List<AttemptEntry>> bySession(String sessionId) async {
     final all = await _loadAll();
-    final out = all.where((e) => e.sessionId == sessionId).toList().reversed.toList();
+    final out = all
+        .where((e) => e.sessionId == sessionId)
+        .toList()
+        .reversed
+        .toList();
     debugPrint('[ATTEMPT/STORE] bySession sid=$sessionId -> ${out.length}');
     return out;
   }
-
 
   /// これまでの誤答の「質問文」を時系列・重複ありで返す（見直しモード用／全期間）
   /// ※ 互換性のため “ID” という名前だが実体は質問文。呼び出し側でカードに写像する。
@@ -283,8 +294,10 @@ class AttemptStore {
     }
 
     if (onlySessionIds != null) {
-      debugPrint('[REVIEW] wrong-card set filtered by sessions '
-          '(${out.length} items from ${all.length} attempts, kept=$kept)');
+      debugPrint(
+        '[REVIEW] wrong-card set filtered by sessions '
+        '(${out.length} items from ${all.length} attempts, kept=$kept)',
+      );
     }
     return out;
   }
@@ -293,11 +306,35 @@ class AttemptStore {
   Future<Map<String, DateTime>> getWrongLatestAtMap({
     List<String>? onlySessionIds,
   }) async {
-    DateTime? _ts(dynamic e) {
+    DateTime? ts(dynamic e) {
       // DateTime 直／ISO文字列／epoch int に緩く対応
-      try { final v = (e as dynamic).answeredAt; if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is int) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v : v * 1000); } catch (_) {}
-      try { final v = (e as dynamic).timestamp;  if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is int) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v : v * 1000); } catch (_) {}
-      try { final v = (e as dynamic).createdAt;  if (v is DateTime) return v; if (v is String) return DateTime.tryParse(v); if (v is int) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v : v * 1000); } catch (_) {}
+      try {
+        final v = (e as dynamic).answeredAt;
+        if (v is DateTime) return v;
+        if (v is String) return DateTime.tryParse(v);
+        if (v is int)
+          return DateTime.fromMillisecondsSinceEpoch(
+            v > 2000000000 ? v : v * 1000,
+          );
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).timestamp;
+        if (v is DateTime) return v;
+        if (v is String) return DateTime.tryParse(v);
+        if (v is int)
+          return DateTime.fromMillisecondsSinceEpoch(
+            v > 2000000000 ? v : v * 1000,
+          );
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).createdAt;
+        if (v is DateTime) return v;
+        if (v is String) return DateTime.tryParse(v);
+        if (v is int)
+          return DateTime.fromMillisecondsSinceEpoch(
+            v > 2000000000 ? v : v * 1000,
+          );
+      } catch (_) {}
       return null;
     }
 
@@ -305,11 +342,12 @@ class AttemptStore {
     final map = <String, DateTime>{};
 
     for (final e in all) {
-      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) continue;
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId))
+        continue;
       if (!e.isCorrect) {
         final key = _keyFromAttempt(e);
         if (key.isEmpty) continue;
-        final t = _ts(e);
+        final t = ts(e);
         if (t == null) continue;
         final cur = map[key];
         if (cur == null || t.isAfter(cur)) {
@@ -317,7 +355,9 @@ class AttemptStore {
         }
       }
     }
-    debugPrint('[REVIEW] latestWrongAt filtered=${onlySessionIds?.length ?? 0} -> ${map.length}');
+    debugPrint(
+      '[REVIEW] latestWrongAt filtered=${onlySessionIds?.length ?? 0} -> ${map.length}',
+    );
     return map;
   }
 
@@ -408,8 +448,8 @@ class AttemptStore {
           }
           // ★ インポート時も stableId を補完
           if ((a.stableId == null || a.stableId!.isEmpty) &&
-              (a.question?.trim().isNotEmpty ?? false)) {
-            a = a.copyWith(stableId: _questionKey(a.question!));
+              (a.question.trim().isNotEmpty ?? false)) {
+            a = a.copyWith(stableId: _questionKey(a.question));
           }
 
           items.add(a);
@@ -578,14 +618,17 @@ class AttemptStore {
     for (final e in all) {
       // typeで絞り込み（指定がなければ全体）
       if (type != null && e.sessionType != type) continue;
-      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) continue;
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId))
+        continue;
 
       if (!e.isCorrect) {
         final key = _keyFromAttempt(e);
         if (key.isNotEmpty) out.add(key);
       }
     }
-    AppLog.d('[REVIEW] getWrongStableIdsUnique -> ${out.length} items'); // ★追加ログ
+    AppLog.d(
+      '[REVIEW] getWrongStableIdsUnique -> ${out.length} items',
+    ); // ★追加ログ
     return out.toList();
   }
 
@@ -595,34 +638,57 @@ class AttemptStore {
     final out = <String, int>{};
 
     final DateTime? from = scope.from;
-    final DateTime? to   = scope.to;
-    final Set<String>? types = scope.sessionTypes; // 例: {'unit','mixed'} or null
+    final DateTime? to = scope.to;
+    final Set<String>? types =
+        scope.sessionTypes; // 例: {'unit','mixed'} or null
 
     // ---- ScoreRecord 用：型ゆれを吸収して開始時刻をとる（startedAt/createdAt/timestamp など）
-    DateTime? _scoreTime(dynamic s) {
+    DateTime? scoreTime(dynamic s) {
       DateTime? p(v) {
         if (v == null) return null;
         if (v is DateTime) return v;
-        if (v is String)   return DateTime.tryParse(v);        // ← ここが => ではなく return
+        if (v is String) return DateTime.tryParse(v); // ← ここが => ではなく return
         if (v is num) {
           final n = v.toInt();
-          final ms = n > 2000000000 ? n : n * 1000;            // 秒/ミリ秒両対応
+          final ms = n > 2000000000 ? n : n * 1000; // 秒/ミリ秒両対応
           return DateTime.fromMillisecondsSinceEpoch(ms);
         }
         return null;
       }
-      try { final t = p((s as dynamic).startedAt);   if (t != null) return t; } catch (_) {}
-      try { final t = p((s as dynamic).startedAtMs); if (t != null) return t; } catch (_) {}
-      try { final t = p((s as dynamic).createdAt);   if (t != null) return t; } catch (_) {}
-      try { final t = p((s as dynamic).timestamp);   if (t != null) return t; } catch (_) {}
+
+      try {
+        final t = p((s as dynamic).startedAt);
+        if (t != null) return t;
+      } catch (_) {}
+      try {
+        final t = p((s as dynamic).startedAtMs);
+        if (t != null) return t;
+      } catch (_) {}
+      try {
+        final t = p((s as dynamic).createdAt);
+        if (t != null) return t;
+      } catch (_) {}
+      try {
+        final t = p((s as dynamic).timestamp);
+        if (t != null) return t;
+      } catch (_) {}
       return null;
     }
 
     // ---- ScoreRecord 用：type を緩く取得（type/sessionType/mode のいずれか）
-    String? _scoreType(dynamic s) {
-      try { final v = (s as dynamic).type as String?;        if (v != null && v.isNotEmpty) return v; } catch (_) {}
-      try { final v = (s as dynamic).sessionType as String?; if (v != null && v.isNotEmpty) return v; } catch (_) {}
-      try { final v = (s as dynamic).mode as String?;        if (v != null && v.isNotEmpty) return v; } catch (_) {}
+    String? scoreType(dynamic s) {
+      try {
+        final v = (s as dynamic).type as String?;
+        if (v != null && v.isNotEmpty) return v;
+      } catch (_) {}
+      try {
+        final v = (s as dynamic).sessionType as String?;
+        if (v != null && v.isNotEmpty) return v;
+      } catch (_) {}
+      try {
+        final v = (s as dynamic).mode as String?;
+        if (v != null && v.isNotEmpty) return v;
+      } catch (_) {}
       return null;
     }
 
@@ -630,20 +696,27 @@ class AttemptStore {
     final scores = await loadScores();
     final scopedSessionIds = scores
         .where((s) {
-          final st = _scoreTime(s);
-          final ty = _scoreType(s);
+          final st = scoreTime(s);
+          final ty = scoreType(s);
           // 取れない情報は「通す」（除外しない）→ sessions=0 を回避
-          final okType = (types == null || types.isEmpty) || (ty == null) || types.contains(ty);
+          final okType =
+              (types == null || types.isEmpty) ||
+              (ty == null) ||
+              types.contains(ty);
           final okFrom = (from == null) || (st == null) || st.isAfter(from);
-          final okTo   = (to   == null) || (st == null) || st.isBefore(to);
+          final okTo = (to == null) || (st == null) || st.isBefore(to);
           return okType && okFrom && okTo;
         })
         .map((s) {
-          try { return (s as dynamic).sessionId as String; } catch (_) { return ''; }
+          try {
+            return (s as dynamic).sessionId as String;
+          } catch (_) {
+            return '';
+          }
         })
         .where((id) => id.isNotEmpty)
         .toSet();
-        
+
     // ★追加：スコープ（セッション集合）が空なら、見直しモードと同様に 0 件を返す
     if (scopedSessionIds.isEmpty) {
       debugPrint('[REVIEW] getWrongFrequencyMapScoped -> 0 items (sessions=0)');
@@ -651,11 +724,11 @@ class AttemptStore {
     }
 
     // ---- Attempt 用：回答時刻を緩く取得（answeredAt/createdAt/timestamp など）
-    DateTime? _attemptTime(dynamic e) {
+    DateTime? attemptTime(dynamic e) {
       DateTime? p(v) {
         if (v == null) return null;
         if (v is DateTime) return v;
-        if (v is String)   return DateTime.tryParse(v);
+        if (v is String) return DateTime.tryParse(v);
         if (v is num) {
           final n = v.toInt();
           final ms = n > 2000000000 ? n : n * 1000;
@@ -663,17 +736,32 @@ class AttemptStore {
         }
         return null;
       }
-      try { final t = p((e as dynamic).answeredAt);   if (t != null) return t; } catch (_) {}
-      try { final t = p((e as dynamic).answeredAtMs); if (t != null) return t; } catch (_) {}
-      try { final t = p((e as dynamic).createdAt);    if (t != null) return t; } catch (_) {}
-      try { final t = p((e as dynamic).timestamp);    if (t != null) return t; } catch (_) {}
+
+      try {
+        final t = p((e as dynamic).answeredAt);
+        if (t != null) return t;
+      } catch (_) {}
+      try {
+        final t = p((e as dynamic).answeredAtMs);
+        if (t != null) return t;
+      } catch (_) {}
+      try {
+        final t = p((e as dynamic).createdAt);
+        if (t != null) return t;
+      } catch (_) {}
+      try {
+        final t = p((e as dynamic).timestamp);
+        if (t != null) return t;
+      } catch (_) {}
       return null;
     }
 
     // ② セッション限定 + 期間チェック + 誤答のみ集計
     for (final e in attempts) {
       // 見直しと同じ “sessionIds 限定” に揃える（集合が作れた場合のみ適用）
-      if (scopedSessionIds.isNotEmpty && !scopedSessionIds.contains(e.sessionId)) continue;
+      if (scopedSessionIds.isNotEmpty &&
+          !scopedSessionIds.contains(e.sessionId))
+        continue;
 
       // Attempt 側 sessionType は null を許容（null で除外しない）
       if (types != null && types.isNotEmpty) {
@@ -681,9 +769,9 @@ class AttemptStore {
         if (st != null && !types.contains(st)) continue;
       }
 
-      final t = _attemptTime(e);
+      final t = attemptTime(e);
       if (from != null && t != null && t.isBefore(from)) continue;
-      if (to   != null && t != null && t.isAfter(to))    continue;
+      if (to != null && t != null && t.isAfter(to)) continue;
 
       if (!e.isCorrect) {
         final key = _keyFromAttempt(e);
@@ -692,24 +780,32 @@ class AttemptStore {
       }
     }
 
-    debugPrint('[REVIEW] getWrongFrequencyMapScoped -> ${out.length} items (sessions=${scopedSessionIds.length})');
+    debugPrint(
+      '[REVIEW] getWrongFrequencyMapScoped -> ${out.length} items (sessions=${scopedSessionIds.length})',
+    );
     return out;
   }
 
-
   /// 【メタ情報】誤答回数＋最新誤答時刻＋最新正誤を返す
   /// → 見直しモードで「並び替え／フィルタ」に利用予定
-  Future<Map<String, ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})>>
-      buildReviewMeta({
-    List<String>? onlySessionIds,
-    String? type,
-  }) async {
+  Future<
+    Map<
+      String,
+      ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})
+    >
+  >
+  buildReviewMeta({List<String>? onlySessionIds, String? type}) async {
     final all = await _loadAll();
-    final map = <String, ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})>{};
+    final map =
+        <
+          String,
+          ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})
+        >{};
 
     for (final e in all) {
       if (type != null && e.sessionType != type) continue;
-      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) continue;
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId))
+        continue;
 
       final sid = _keyFromAttempt(e);
       if (sid.isEmpty) continue;
@@ -722,15 +818,19 @@ class AttemptStore {
       if (!e.isCorrect) {
         wrong += 1;
         final t = e.createdAt ?? e.answeredAt ?? e.timestamp;
-        if (t != null && (latest == null || t.isAfter(latest))) latest = t;
+        if ((latest == null || t.isAfter(latest))) latest = t;
       }
       // 最新正誤
       final t = e.createdAt ?? e.answeredAt ?? e.timestamp;
-      if (t != null && (latest == null || t.isAfter(latest))) {
+      if ((latest == null || t.isAfter(latest))) {
         lastCorrect = e.isCorrect;
       }
 
-      map[sid] = (wrongCount: wrong, latestWrongAt: latest, latestWasCorrect: lastCorrect);
+      map[sid] = (
+        wrongCount: wrong,
+        latestWrongAt: latest,
+        latestWasCorrect: lastCorrect,
+      );
     }
 
     return map;

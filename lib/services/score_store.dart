@@ -55,8 +55,8 @@ class ScoreStore {
           final r = (item is Map<String, dynamic>)
               ? _fromV1(item)
               : (item is Map)
-                  ? _fromV1(Map<String, dynamic>.from(item))
-                  : null;
+              ? _fromV1(Map<String, dynamic>.from(item))
+              : null;
           if (r != null) {
             merged.putIfAbsent(r.id, () => r);
           }
@@ -138,7 +138,8 @@ class ScoreStore {
       if (tsRaw is int) {
         tsMs = tsRaw;
       } else if (tsRaw is String) {
-        tsMs = DateTime.tryParse(tsRaw)?.millisecondsSinceEpoch ??
+        tsMs =
+            DateTime.tryParse(tsRaw)?.millisecondsSinceEpoch ??
             DateTime.now().millisecondsSinceEpoch;
       } else if (tsRaw is DateTime) {
         tsMs = tsRaw.millisecondsSinceEpoch;
@@ -166,6 +167,7 @@ class ScoreStore {
       return null;
     }
   }
+
   /// 1件削除（id指定）
   Future<void> delete(String id) async {
     final all = await loadAll();

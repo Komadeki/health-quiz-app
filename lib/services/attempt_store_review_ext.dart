@@ -28,7 +28,7 @@ extension ReviewScoped on AttemptStore {
     final payload = WrongFrequencyPayload(
       freq: freq,
       meta: WrongFreqMeta(
-        totalAttempts: 0,                  // 不明：必要なら SessionScope 側で拡張
+        totalAttempts: 0, // 不明：必要なら SessionScope 側で拡張
         totalWrongAttempts: freq.values.fold(0, (a, b) => a + b),
         uniqueCards: freq.length,
         oldest: null,
@@ -36,9 +36,11 @@ extension ReviewScoped on AttemptStore {
       ),
     );
 
-    AppLog.i('[REVIEW/BUILD] scope=$scope '
-        'sessions=${sessionIds.length} uniqStable=${payload.meta.uniqueCards} '
-        'wrong=${payload.meta.totalWrongAttempts} timeMs=${sw.elapsedMilliseconds}');
+    AppLog.i(
+      '[REVIEW/BUILD] scope=$scope '
+      'sessions=${sessionIds.length} uniqStable=${payload.meta.uniqueCards} '
+      'wrong=${payload.meta.totalWrongAttempts} timeMs=${sw.elapsedMilliseconds}',
+    );
     return payload;
   }
 
