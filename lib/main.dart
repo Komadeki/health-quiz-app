@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'; // kDebugMode
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:health_quiz_app/app_config.dart';
 
 import 'models/deck.dart';
 import 'services/deck_loader.dart';
@@ -84,18 +85,12 @@ class MyApp extends StatelessWidget {
 
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
-          brightness: Brightness.light,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green, brightness: Brightness.light),
         fontFamily: 'NotoSansJP',
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
-          brightness: Brightness.dark,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green, brightness: Brightness.dark),
         fontFamily: 'NotoSansJP',
       ),
       routes: {
@@ -173,10 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _setAlternatePurchased() {
     setState(() {
-      decks = [
-        for (int i = 0; i < decks.length; i++)
-          decks[i].copyWith(isPurchased: i.isEven),
-      ];
+      decks = [for (int i = 0; i < decks.length; i++) decks[i].copyWith(isPurchased: i.isEven)];
     });
   }
   // ===================================
@@ -194,18 +186,15 @@ class _HomeScreenState extends State<HomeScreen> {
     final ok = await Gate.canAccessDeck(deck.id);
     if (!ok && mounted) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('一部無料で体験できます。全カード解放は「購入」から。')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('一部無料で体験できます。全カード解放は「購入」から。')));
     }
     _openUnitSelect(deck); // 既存の遷移関数をそのまま利用
   }
 
   Future<void> _openUnitSelect(Deck deck) async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => UnitSelectScreen(deck: deck)),
-    );
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => UnitSelectScreen(deck: deck)));
     if (mounted) _checkResume();
   }
 
@@ -214,9 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.pushNamed(context, '/settings');
       return;
     }
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('$title は今後実装予定です')));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$title は今後実装予定です')));
   }
 
   // 起動／復帰時に「続きから」可能かチェック
@@ -275,12 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (active.deckId == 'mixed') {
         deck = (list.isNotEmpty)
             ? list.first
-            : Deck(
-                id: 'mixed',
-                title: 'ミックス練習',
-                units: const [],
-                isPurchased: true,
-              );
+            : Deck(id: 'mixed', title: 'ミックス練習', units: const [], isPurchased: true);
       } else {
         try {
           deck = list.firstWhere((d) => d.id == active.deckId);
@@ -289,16 +271,14 @@ class _HomeScreenState extends State<HomeScreen> {
         }
         if (deck == null) {
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('対応するデッキが見つかりません（${active.deckId}）')),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text('対応するデッキが見つかりません（${active.deckId}）')));
           }
           setState(() => _isResuming = false);
           return;
         }
-        AppLog.d(
-          '[RESUME] navigate deck=${deck.id} len=${active.itemIds.length}',
-        );
+        AppLog.d('[RESUME] navigate deck=${deck.id} len=${active.itemIds.length}');
       }
 
       await Navigator.push(
@@ -325,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('高校保健一問一答'),
+        title: Text(AppConfig.appTitle),
         actions: [
           if (kDebugMode)
             PopupMenuButton<String>(
@@ -363,10 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ? Center(
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: Text(
-                  '読み込みエラー: $error',
-                  style: const TextStyle(color: Colors.red),
-                ),
+                child: Text('読み込みエラー: $error', style: const TextStyle(color: Colors.red)),
               ),
             )
           : RefreshIndicator(
@@ -379,16 +356,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Row(
                     children: [
-                      Icon(
-                        Icons.menu_book_outlined,
-                        color: theme.colorScheme.primary,
-                      ),
+                      Icon(Icons.menu_book_outlined, color: theme.colorScheme.primary),
                       const SizedBox(width: 8),
                       Text(
                         '単元を選ぶ',
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
                       ),
                     ],
                   ),
@@ -417,9 +389,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               final right = left + 1;
 
                               final leftDeck = decks[left];
-                              final rightDeck = (right < decks.length)
-                                  ? decks[right]
-                                  : null;
+                              final rightDeck = (right < decks.length) ? decks[right] : null;
 
                               return Row(
                                 children: [
@@ -427,8 +397,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: _DeckTile(
                                       title: leftDeck.title,
                                       isPurchased: leftDeck.isPurchased,
-                                      onTap: () =>
-                                          _openUnitSelectSoft(leftDeck),
+                                      onTap: () => _openUnitSelectSoft(leftDeck),
                                     ),
                                   ),
                                   const SizedBox(width: spacing),
@@ -438,8 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         : _DeckTile(
                                             title: rightDeck.title,
                                             isPurchased: rightDeck.isPurchased,
-                                            onTap: () =>
-                                                _openUnitSelectSoft(rightDeck),
+                                            onTap: () => _openUnitSelectSoft(rightDeck),
                                           ),
                                   ),
                                 ],
@@ -488,9 +456,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) => const ReviewMenuScreen(),
-                        ),
+                        MaterialPageRoute(builder: (_) => const ReviewMenuScreen()),
                       );
                     },
                     style: DeckButtonStyle.normal,
@@ -532,11 +498,7 @@ class _DeckTile extends StatelessWidget {
   final String title;
   final bool isPurchased;
   final VoidCallback onTap;
-  const _DeckTile({
-    required this.title,
-    required this.isPurchased,
-    required this.onTap,
-  });
+  const _DeckTile({required this.title, required this.isPurchased, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -556,9 +518,7 @@ class _DeckTile extends StatelessWidget {
               color: Colors.black.withValues(alpha: 0.06),
             ),
           ],
-          border: Border.all(
-            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.6),
-          ),
+          border: Border.all(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.6)),
         ),
         child: Padding(
           padding: const EdgeInsets.all(14),
@@ -567,11 +527,7 @@ class _DeckTile extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.menu_book_outlined,
-                    size: 22,
-                    color: theme.colorScheme.primary,
-                  ),
+                  Icon(Icons.menu_book_outlined, size: 22, color: theme.colorScheme.primary),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -593,11 +549,7 @@ class _DeckTile extends StatelessWidget {
                   if (isPurchased)
                     Row(
                       children: [
-                        Icon(
-                          Icons.lock_open_rounded,
-                          size: 18,
-                          color: theme.colorScheme.primary,
-                        ),
+                        Icon(Icons.lock_open_rounded, size: 18, color: theme.colorScheme.primary),
                         const SizedBox(width: 6),
                         Text(
                           '購入済み',
@@ -703,9 +655,7 @@ class _DeckLikeButton extends StatelessWidget {
       color: isTonal ? theme.colorScheme.onPrimaryContainer : null,
     );
     final subtitleStyle = theme.textTheme.bodySmall?.copyWith(
-      color: isTonal
-          ? theme.colorScheme.onPrimaryContainer.withOpacity(0.8)
-          : null,
+      color: isTonal ? theme.colorScheme.onPrimaryContainer.withOpacity(0.8) : null,
     );
 
     return InkWell(
@@ -744,11 +694,7 @@ class _MenuTile extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onTap;
-  const _MenuTile({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
+  const _MenuTile({required this.icon, required this.label, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -759,9 +705,7 @@ class _MenuTile extends StatelessWidget {
         leading: Icon(icon, color: theme.colorScheme.primary),
         title: Text(
           label,
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+          style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
         ),
         trailing: const Icon(Icons.chevron_right_rounded),
         onTap: onTap,
