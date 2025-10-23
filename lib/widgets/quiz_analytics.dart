@@ -1,7 +1,6 @@
 // lib/widgets/quiz_analytics.dart
 import 'package:flutter/material.dart';
 
-
 /// 出題・誤答の簡易モデル（既に同名クラスがある場合は、こちらを削除して既存を import してください）
 class UnitStat {
   final int asked;
@@ -21,7 +20,12 @@ class _Seg {
   final String displayTitle;
   final int asked;
   final double ratio; // 0..1
-  _Seg({required this.unitId, required this.displayTitle, required this.asked, required this.ratio});
+  _Seg({
+    required this.unitId,
+    required this.displayTitle,
+    required this.asked,
+    required this.ratio,
+  });
 }
 
 TopUnits computeTopUnits({
@@ -32,18 +36,21 @@ TopUnits computeTopUnits({
   final totalAsked = unitBreakdown.values.fold<int>(0, (a, b) => a + b.asked);
   final safeTotal = totalAsked == 0 ? 1 : totalAsked;
 
-  final segs = unitBreakdown.entries
-      .where((e) => e.value.asked > 0)
-      .map((e) => _Seg(
-            unitId: e.key,
-            displayTitle: (unitTitleMap?[e.key]?.trim().isNotEmpty ?? false)
-                ? unitTitleMap![e.key]!
-                : e.key,
-            asked: e.value.asked,
-            ratio: e.value.asked / safeTotal,
-          ))
-      .toList()
-    ..sort((a, b) => b.ratio.compareTo(a.ratio));
+  final segs =
+      unitBreakdown.entries
+          .where((e) => e.value.asked > 0)
+          .map(
+            (e) => _Seg(
+              unitId: e.key,
+              displayTitle: (unitTitleMap?[e.key]?.trim().isNotEmpty ?? false)
+                  ? unitTitleMap![e.key]!
+                  : e.key,
+              asked: e.value.asked,
+              ratio: e.value.asked / safeTotal,
+            ),
+          )
+          .toList()
+        ..sort((a, b) => b.ratio.compareTo(a.ratio));
 
   if (segs.length <= topN) return TopUnits(top: segs);
   final top = segs.take(topN).toList();
@@ -190,7 +197,8 @@ class UnitRatioChips extends StatelessWidget {
             Chip(
               label: Text('${segs[i].displayTitle} ${pct(segs[i].ratio)}'),
               visualDensity: VisualDensity.compact,
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap, // ← 高さを詰める
+              materialTapTargetSize:
+                  MaterialTapTargetSize.shrinkWrap, // ← 高さを詰める
               labelPadding: const EdgeInsets.symmetric(
                 horizontal: 8,
                 vertical: 2, // ← 内部上下の余白をギュッと詰める
@@ -204,7 +212,6 @@ class UnitRatioChips extends StatelessWidget {
     );
   }
 }
-
 
 // ──────────────── 2) 誤答率タグ（AttemptHistory 用） ────────────────
 class ErrorRateTag extends StatelessWidget {
@@ -230,9 +237,9 @@ class ErrorRateTag extends StatelessWidget {
         padding: padding,
         child: Text(
           text,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                color: Colors.grey[700],
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall!.copyWith(color: Colors.grey[700]),
         ),
       );
     }

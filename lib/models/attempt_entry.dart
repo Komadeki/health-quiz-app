@@ -4,18 +4,18 @@ import 'dart:convert';
 /// 1問ごとの解答ログ
 /// 重要: 復習用に stableId を保存します（今後はこれが集計キー）
 class AttemptEntry {
-  final String? attemptId;   // 重複判定・インポート用（任意）
-  final String sessionId;    // 1回のクイズ実施単位ID（必須）
-  final int questionNumber;  // セッション内通し番号 (1-based 想定だが厳密には保存値を尊重)
-  final String unitId;       // 出題ユニットID
+  final String? attemptId; // 重複判定・インポート用（任意）
+  final String sessionId; // 1回のクイズ実施単位ID（必須）
+  final int questionNumber; // セッション内通し番号 (1-based 想定だが厳密には保存値を尊重)
+  final String unitId; // 出題ユニットID
 
-  final String cardId;       // 教材側のカードID（任意のIDでもOK）
-  final String question;     // 問題文（保存時点のスナップショット）
-  final int selectedIndex;   // ユーザーの選択（1〜4など。旧データ0ベースも許容）
-  final int correctIndex;    // 正答（1〜4など。旧データ0ベースも許容）
-  final bool isCorrect;      // 正誤
-  final int durationMs;      // 問題に要した時間(ms)
-  final DateTime timestamp;  // 保存時刻
+  final String cardId; // 教材側のカードID（任意のIDでもOK）
+  final String question; // 問題文（保存時点のスナップショット）
+  final int selectedIndex; // ユーザーの選択（1〜4など。旧データ0ベースも許容）
+  final int correctIndex; // 正答（1〜4など。旧データ0ベースも許容）
+  final bool isCorrect; // 正誤
+  final int durationMs; // 問題に要した時間(ms)
+  final DateTime timestamp; // 保存時刻
 
   /// 復習・集計用の安定キー（null可）
   /// JSONでは "stableId" を基本とし、互換として "cardStableId" / "card_stable_id" / "card_id" なども受け入れる。
@@ -117,36 +117,35 @@ class AttemptEntry {
   }
 
   Map<String, dynamic> toMap() => {
-        'attemptId': attemptId,
-        'sessionId': sessionId,
-        'questionNumber': questionNumber,
-        'unitId': unitId,
-        'cardId': cardId,
-        'question': question,
-        'selectedIndex': selectedIndex,
-        'correctIndex': correctIndex,
-        'isCorrect': isCorrect,
-        'durationMs': durationMs,
-        'timestamp': timestamp.toIso8601String(),
-        'stableId': stableId,
-      };
+    'attemptId': attemptId,
+    'sessionId': sessionId,
+    'questionNumber': questionNumber,
+    'unitId': unitId,
+    'cardId': cardId,
+    'question': question,
+    'selectedIndex': selectedIndex,
+    'correctIndex': correctIndex,
+    'isCorrect': isCorrect,
+    'durationMs': durationMs,
+    'timestamp': timestamp.toIso8601String(),
+    'stableId': stableId,
+  };
 
   factory AttemptEntry.fromMap(Map<String, dynamic> map) {
     // 互換: key名の揺れを吸収
-    final unitId = _asString(
-      map['unitId'] ?? map['unit_id'] ?? map['unitID'],
-    );
-    final cardId = _asString(
-      map['cardId'] ?? map['card_id'] ?? map['cardID'],
-    );
-    final rawStable = (map['stableId'] ??
+    final unitId = _asString(map['unitId'] ?? map['unit_id'] ?? map['unitID']);
+    final cardId = _asString(map['cardId'] ?? map['card_id'] ?? map['cardID']);
+    final rawStable =
+        (map['stableId'] ??
         map['cardStableId'] ??
         map['card_stable_id'] ??
         map['card_id']);
     final stableId = _asString(rawStable, defaultValue: '').trim();
     final qNoRaw = map['questionNumber'] ?? map['qNo'] ?? map['index'] ?? 1;
-    final selRaw = map['selectedIndex'] ?? map['selected_index'] ?? map['answer'] ?? 0;
-    final corRaw = map['correctIndex'] ?? map['correct_index'] ?? map['correct'] ?? 0;
+    final selRaw =
+        map['selectedIndex'] ?? map['selected_index'] ?? map['answer'] ?? 0;
+    final corRaw =
+        map['correctIndex'] ?? map['correct_index'] ?? map['correct'] ?? 0;
 
     return AttemptEntry(
       attemptId: map['attemptId'] == null ? null : _asString(map['attemptId']),

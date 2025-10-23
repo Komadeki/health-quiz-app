@@ -21,12 +21,12 @@ class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
   int _selected = 10;
 
   // 成績スコープ簡易UI（将来拡張用）
-  int? _days = 30;          // 直近30日（null=全期間）
-  String? _type;            // 'unit' | 'mixed' | 'review_test'（null=全タイプ）
+  final int _days = 30; // 直近30日（null=全期間）
+  String? _type; // 'unit' | 'mixed' | 'review_test'（null=全タイプ）
 
   bool _busy = false;
   bool _probing = false;
-  int _available = -1;      // スコープ内ユニーク誤答（stableIdベース）
+  int _available = -1; // スコープ内ユニーク誤答（stableIdベース）
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
   /// UI状態から ScoreScope を構成
   ScoreScope _buildScope() {
     final now = DateTime.now();
-    final from = (_days == null) ? null : now.subtract(Duration(days: _days!));
+    final from = (_days == null) ? null : now.subtract(Duration(days: _days));
 
     Set<String>? sessionTypes;
     if (_type != null && _type!.trim().isNotEmpty) {
@@ -67,7 +67,9 @@ class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
     try {
       final store = AttemptStore();
       final scope = _buildScope();
-      final freq = await store.getWrongFrequencyMapScoped(scope); // ★ ScoreScope渡しで統一
+      final freq = await store.getWrongFrequencyMapScoped(
+        scope,
+      ); // ★ ScoreScope渡しで統一
       if (!mounted) return;
       setState(() {
         _available = freq.length; // ユニークID数 = 候補枚数
@@ -86,10 +88,7 @@ class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
       final loader = await DeckLoader.instance(); // シングルトン＋索引済み
       final scope = _buildScope();
 
-      final builder = ReviewTestBuilder(
-        attempts: attempts,
-        loader: loader,
-      );
+      final builder = ReviewTestBuilder(attempts: attempts, loader: loader);
 
       // 補充なしでTop-Nを構築（見つかった分だけ）
       final cards = await builder
@@ -126,9 +125,9 @@ class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
       );
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('復習テストの準備に失敗しました: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('復習テストの準備に失敗しました: $e')));
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -141,16 +140,16 @@ class _ReviewTestSetupScreenState extends State<ReviewTestSetupScreen> {
     final String scopeLabel = () {
       final d = _days;
       final t = _type;
-      final daysPart = (d == null) ? '全期間' : '直近${d}日';
-      final typePart =
-          (t == null || t.isEmpty) ? '（タイプ: 単元+ミックス）' : '（タイプ: $t）';
+      final daysPart = (d == null) ? '全期間' : '直近$d日';
+      final typePart = (t == null || t.isEmpty)
+          ? '（タイプ: 単元+ミックス）'
+          : '（タイプ: $t）';
       return '$daysPart$typePart';
     }();
 
-    final String shortageHint =
-        (_available >= 0 && _selected > _available)
-            ? '（候補は$_available件のため$_available件で出題）'
-            : '';
+    final String shortageHint = (_available >= 0 && _selected > _available)
+        ? '（候補は$_available件のため$_available件で出題）'
+        : '';
 
     return Scaffold(
       appBar: AppBar(title: const Text('復習テストの設定')),

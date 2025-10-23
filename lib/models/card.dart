@@ -2,13 +2,13 @@
 import 'dart:math';
 
 class QuizCard {
-  final String question;        // 問題文
-  final List<String> choices;   // 選択肢（4択想定）
-  final int answerIndex;        // 正解のindex（0-based）
-  final String? explanation;    // 解説（任意）
-  final bool isPremium;         // 有料かどうか
-  final List<String> unitTags;  // 分野タグ（複数可）
-  final String? unitId;         // ★追加：所属ユニットID（任意・後方互換）
+  final String question; // 問題文
+  final List<String> choices; // 選択肢（4択想定）
+  final int answerIndex; // 正解のindex（0-based）
+  final String? explanation; // 解説（任意）
+  final bool isPremium; // 有料かどうか
+  final List<String> unitTags; // 分野タグ（複数可）
+  final String? unitId; // ★追加：所属ユニットID（任意・後方互換）
 
   const QuizCard({
     required this.question,
@@ -20,7 +20,7 @@ class QuizCard {
     this.unitId, // ★追加
   });
 
-    QuizCard copyWith({
+  QuizCard copyWith({
     String? question,
     List<String>? choices,
     int? answerIndex,
@@ -39,8 +39,6 @@ class QuizCard {
       unitId: unitId ?? this.unitId,
     );
   }
-
-  
 
   List<String> get tags => unitTags;
 

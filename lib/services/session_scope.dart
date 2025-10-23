@@ -13,10 +13,7 @@ import '../models/attempt_entry.dart';
 /// - finishedAt が取れない場合、同 session の Attempt の最終回答時刻をフォールバックに使用。
 /// - type が取れない場合、同 session の Attempt の type/mode/quizType/sourceType を参照。
 class SessionScope {
-  static Future<List<String>> collect({
-    int? days,
-    String? type,
-  }) async {
+  static Future<List<String>> collect({int? days, String? type}) async {
     final attemptStore = AttemptStore();
 
     // 1) 成績一覧（Score）を AttemptStore 経由で取得
@@ -32,7 +29,7 @@ class SessionScope {
     final inferredTypeCache = <String, String?>{};
 
     // ScoreRecord から安全に日時を得る
-    DateTime? _extractScoreFinishedAt(ScoreRecord s) {
+    DateTime? extractScoreFinishedAt(ScoreRecord s) {
       // DateTime 直接
       try {
         final v = (s as dynamic).finishedAt as DateTime?;
@@ -108,7 +105,9 @@ class SessionScope {
           // toJsonが無い場合やキーが無い場合は無視
         }
         try {
-          final dynamic v = (s as dynamic).__getattribute__(key); // 万一のダイナミック呼び出し
+          final dynamic v = (s as dynamic).__getattribute__(
+            key,
+          ); // 万一のダイナミック呼び出し
           if (v is DateTime) return v;
           if (v is String) {
             final t = fromIso(v);
@@ -124,7 +123,7 @@ class SessionScope {
     }
 
     // ScoreRecord から安全に type を得る
-    String? _extractScoreType(ScoreRecord s) {
+    String? extractScoreType(ScoreRecord s) {
       String? pick(dynamic v) =>
           (v is String && v.trim().isNotEmpty) ? v.trim() : null;
       try {
@@ -156,7 +155,7 @@ class SessionScope {
     }
 
     // AttemptEntry 側の時刻/type 取得（フォールバック用）
-    DateTime? _attemptTime(AttemptEntry e) {
+    DateTime? attemptTime(AttemptEntry e) {
       try {
         final v = (e as dynamic).answeredAt as DateTime?;
         if (v != null) return v;
@@ -186,7 +185,7 @@ class SessionScope {
       return null;
     }
 
-    String? _attemptType(AttemptEntry e) {
+    String? attemptType(AttemptEntry e) {
       String? pick(dynamic v) =>
           (v is String && v.trim().isNotEmpty) ? v.trim() : null;
       try {
@@ -208,14 +207,14 @@ class SessionScope {
       return null;
     }
 
-    Future<DateTime?> _latestAttemptTimeOf(String sessionId) async {
+    Future<DateTime?> latestAttemptTimeOf(String sessionId) async {
       if (latestAttemptTimeCache.containsKey(sessionId)) {
         return latestAttemptTimeCache[sessionId];
       }
       final list = await attemptStore.bySession(sessionId);
       DateTime? latest;
       for (final a in list) {
-        final t = _attemptTime(a);
+        final t = attemptTime(a);
         if (t == null) continue;
         if (latest == null || t.isAfter(latest)) latest = t;
       }
@@ -223,13 +222,13 @@ class SessionScope {
       return latest;
     }
 
-    Future<String?> _inferTypeFromAttempts(String sessionId) async {
+    Future<String?> inferTypeFromAttempts(String sessionId) async {
       if (inferredTypeCache.containsKey(sessionId)) {
         return inferredTypeCache[sessionId];
       }
       final list = await attemptStore.bySession(sessionId);
       for (final a in list) {
-        final ty = _attemptType(a);
+        final ty = attemptType(a);
         if (ty != null) {
           inferredTypeCache[sessionId] = ty;
           return ty;
@@ -247,15 +246,15 @@ class SessionScope {
       if (sid.isEmpty) continue;
 
       // finishedAt を取得（無ければ Attempt 側から最終回答時刻）
-      DateTime? finished = _extractScoreFinishedAt(s);
-      finished ??= await _latestAttemptTimeOf(sid);
+      DateTime? finished = extractScoreFinishedAt(s);
+      finished ??= await latestAttemptTimeOf(sid);
       if (since != null && (finished == null || finished.isBefore(since))) {
         continue; // 期間外
       }
 
       // type を取得（無ければ Attempt 側から推定）
-      String? t = _extractScoreType(s);
-      t ??= await _inferTypeFromAttempts(sid);
+      String? t = extractScoreType(s);
+      t ??= await inferTypeFromAttempts(sid);
       if (type != null && t != type) {
         continue; // 指定タイプと不一致
       }
@@ -263,8 +262,10 @@ class SessionScope {
       out.add(sid);
     }
 
-    debugPrint('[REVIEW] session scope days=$days type=$type -> '
-        '${out.length} sessions (scores=${scores.length})');
+    debugPrint(
+      '[REVIEW] session scope days=$days type=$type -> '
+      '${out.length} sessions (scores=${scores.length})',
+    );
     return out.toList();
   }
 }

@@ -32,9 +32,7 @@ class SettingsScreen extends StatelessWidget {
     if (ok == true) {
       await context.read<AppSettings>().resetToDefaults();
       if (!context.mounted) return;
-      messenger.showSnackBar(
-        const SnackBar(content: Text('設定をデフォルトに戻しました')),
-      );
+      messenger.showSnackBar(const SnackBar(content: Text('設定をデフォルトに戻しました')));
     }
   }
 
@@ -67,9 +65,7 @@ class SettingsScreen extends StatelessWidget {
     if (ok != true) return;
     await AttemptStore().clearAll();
     if (!context.mounted) return;
-    messenger.showSnackBar(
-      const SnackBar(content: Text('試行履歴を削除しました')),
-    );
+    messenger.showSnackBar(const SnackBar(content: Text('試行履歴を削除しました')));
   }
 
   // ──────────────────────────────
@@ -86,9 +82,7 @@ class SettingsScreen extends StatelessWidget {
       );
     } catch (e) {
       if (!context.mounted) return;
-      messenger.showSnackBar(
-        SnackBar(content: Text('エクスポートに失敗しました：$e')),
-      );
+      messenger.showSnackBar(SnackBar(content: Text('エクスポートに失敗しました：$e')));
     }
   }
 
@@ -136,9 +130,7 @@ class SettingsScreen extends StatelessWidget {
     final text = controller.text.trim();
     if (text.isEmpty) {
       if (!context.mounted) return;
-      messenger.showSnackBar(
-        const SnackBar(content: Text('JSONが空です')),
-      );
+      messenger.showSnackBar(const SnackBar(content: Text('JSONが空です')));
       return;
     }
 
@@ -150,9 +142,7 @@ class SettingsScreen extends StatelessWidget {
       );
     } catch (e) {
       if (!context.mounted) return;
-      messenger.showSnackBar(
-        SnackBar(content: Text('インポートに失敗しました：$e')),
-      );
+      messenger.showSnackBar(SnackBar(content: Text('インポートに失敗しました：$e')));
     }
   }
 
@@ -177,13 +167,11 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.text_fields),
             title: const Text('文字サイズ'),
-            subtitle: Text(
-              switch (s.textSize) {
-                TextSize.small => '小',
-                TextSize.medium => '中',
-                TextSize.large => '大',
-              },
-            ),
+            subtitle: Text(switch (s.textSize) {
+              TextSize.small => '小',
+              TextSize.medium => '中',
+              TextSize.large => '大',
+            }),
             trailing: DropdownButton<TextSize>(
               value: s.textSize,
               onChanged: (v) => s.setTextSize(v!),
@@ -281,7 +269,7 @@ class SettingsScreen extends StatelessWidget {
           _SectionHeader('アプリ情報'),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: const Text('バージョン v1.0.0（例）'),
+            title: const Text('バージョン v1.0.0'),
             subtitle: const Text('開発：もけけapps'),
           ),
 

@@ -16,7 +16,8 @@ import '../models/card.dart';
 import '../utils/stable_id.dart';
 import 'quiz_screen.dart';
 
-enum RecordKindFilter { all, unit, mix, retry}
+enum RecordKindFilter { all, unit, mix, retry, reviewTest }
+
 enum SortMode { newest, oldest, accuracy }
 
 class ScoresScreen extends StatefulWidget {
@@ -77,9 +78,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
     } catch (e) {
       if (!mounted) return;
       setState(() => _loading = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('成績の読み込みに失敗しました: $e')),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('成績の読み込みに失敗しました: $e')));
     }
   }
 
@@ -96,7 +95,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
         // 「ミックス練習」でも「誤答だけ〜」でもないものを表示
         it = it.where((r) {
           final t = r.deckTitle.trim();
-          return t != 'ミックス練習' && !t.startsWith('誤答だけもう一度');
+          return t != 'ミックス練習' && !t.startsWith('誤答だけもう一度') && t != '復習テスト';
         });
         break;
 
@@ -109,14 +108,29 @@ class _ScoresScreenState extends State<ScoresScreen> {
         // 「誤答だけもう一度」だけ
         it = it.where((r) => r.deckTitle.trim().startsWith('誤答だけもう一度'));
         break;
+
+      case RecordKindFilter.reviewTest:
+        // 「復習テスト」だけ
+        it = it.where((r) => r.deckTitle.trim() == '復習テスト');
+        break;
     }
 
     // ===== 日付範囲 =====
     if (_range != null) {
-      final startMs = DateTime(_range!.start.year, _range!.start.month, _range!.start.day)
-          .millisecondsSinceEpoch;
-      final endMs = DateTime(_range!.end.year, _range!.end.month, _range!.end.day, 23, 59, 59, 999)
-          .millisecondsSinceEpoch;
+      final startMs = DateTime(
+        _range!.start.year,
+        _range!.start.month,
+        _range!.start.day,
+      ).millisecondsSinceEpoch;
+      final endMs = DateTime(
+        _range!.end.year,
+        _range!.end.month,
+        _range!.end.day,
+        23,
+        59,
+        59,
+        999,
+      ).millisecondsSinceEpoch;
       it = it.where((r) => r.timestamp >= startMs && r.timestamp <= endMs);
     }
 
@@ -137,7 +151,6 @@ class _ScoresScreenState extends State<ScoresScreen> {
 
     return list;
   }
-
 
   Future<void> _pickRange() async {
     final now = DateTime.now();
@@ -195,186 +208,202 @@ class _ScoresScreenState extends State<ScoresScreen> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _records.isEmpty
-              ? const Center(child: Text('まだ成績がありません'))
-              : Column(
-                  children: [
-                    // ===== 上部ツールバー（1行に集約） =====
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 8, 12, 6),
-                      child: Wrap(
-                        alignment: WrapAlignment.spaceBetween,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        spacing: 12,
-                        runSpacing: 8,
-                        children: [
-                          DropdownButton<RecordKindFilter>(
-                            value: _kind,
-                            underline: const SizedBox(),
-                            items: const [
-                              DropdownMenuItem(value: RecordKindFilter.all, child: Text('すべて')),
-                              DropdownMenuItem(value: RecordKindFilter.unit, child: Text('単元')),
-                              DropdownMenuItem(value: RecordKindFilter.mix, child: Text('ミックス')),
-                              DropdownMenuItem(value: RecordKindFilter.retry, child: Text('誤答だけ')),
-                            ],
-                            onChanged: (v) => setState(() => _kind = v ?? _kind),
+          ? const Center(child: Text('まだ成績がありません'))
+          : Column(
+              children: [
+                // ===== 上部ツールバー（1行に集約） =====
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 8, 12, 6),
+                  child: Wrap(
+                    alignment: WrapAlignment.spaceBetween,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 12,
+                    runSpacing: 8,
+                    children: [
+                      DropdownButton<RecordKindFilter>(
+                        value: _kind,
+                        underline: const SizedBox(),
+                        items: const [
+                          DropdownMenuItem(value: RecordKindFilter.all, child: Text('すべて')),
+                          DropdownMenuItem(value: RecordKindFilter.unit, child: Text('単元')),
+                          DropdownMenuItem(value: RecordKindFilter.mix, child: Text('ミックス')),
+                          DropdownMenuItem(value: RecordKindFilter.retry, child: Text('誤答だけ')),
+                          DropdownMenuItem(
+                            value: RecordKindFilter.reviewTest,
+                            child: Text('復習テスト'),
                           ),
-                          DropdownButton<SortMode>(
-                            value: _sort,
-                            underline: const SizedBox(),
-                            items: const [
-                              DropdownMenuItem(value: SortMode.newest, child: Text('新しい順')),
-                              DropdownMenuItem(value: SortMode.oldest, child: Text('古い順')),
-                              DropdownMenuItem(value: SortMode.accuracy, child: Text('正答率順')),
-                            ],
-                            onChanged: (v) => setState(() => _sort = v ?? _sort),
-                          ),
-                          // 期間ボタン（横幅が足りない端末では自動折返し）
-                          OutlinedButton.icon(
-                            icon: const Icon(Icons.event),
-                            label: Text(_range == null
-                                ? '期間を選択'
-                                : '${_fmtYmd(_range!.start)} ～ ${_fmtYmd(_range!.end)}'),
-                            onPressed: _pickRange,
-                            style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(horizontal: 12),
-                              minimumSize: const Size(0, 40),
-                              visualDensity: const VisualDensity(horizontal: -1, vertical: -1),
-                            ),
-                          ),
-                          if (_range != null)
-                            TextButton.icon(
-                              icon: const Icon(Icons.close),
-                              label: const Text('クリア'),
-                              onPressed: () => setState(() => _range = null),
-                              style: TextButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(horizontal: 8),
-                                visualDensity: const VisualDensity(horizontal: -1, vertical: -2),
-                              ),
-                            ),
-                          Text('全 ${filtered.length} 件', style: theme.textTheme.bodySmall),
                         ],
+                        onChanged: (v) => setState(() => _kind = v ?? _kind),
                       ),
-                    ),
-                    const Divider(height: 1),
+                      DropdownButton<SortMode>(
+                        value: _sort,
+                        underline: const SizedBox(),
+                        items: const [
+                          DropdownMenuItem(value: SortMode.newest, child: Text('新しい順')),
+                          DropdownMenuItem(value: SortMode.oldest, child: Text('古い順')),
+                          DropdownMenuItem(value: SortMode.accuracy, child: Text('正答率順')),
+                        ],
+                        onChanged: (v) => setState(() => _sort = v ?? _sort),
+                      ),
+                      // 期間ボタン（横幅が足りない端末では自動折返し）
+                      OutlinedButton.icon(
+                        icon: const Icon(Icons.event),
+                        label: Text(
+                          _range == null
+                              ? '期間を選択'
+                              : '${_fmtYmd(_range!.start)} ～ ${_fmtYmd(_range!.end)}',
+                        ),
+                        onPressed: _pickRange,
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          minimumSize: const Size(0, 40),
+                          visualDensity: const VisualDensity(horizontal: -1, vertical: -1),
+                        ),
+                      ),
+                      if (_range != null)
+                        TextButton.icon(
+                          icon: const Icon(Icons.close),
+                          label: const Text('クリア'),
+                          onPressed: () => setState(() => _range = null),
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            visualDensity: const VisualDensity(horizontal: -1, vertical: -2),
+                          ),
+                        ),
+                      Text('全 ${filtered.length} 件', style: theme.textTheme.bodySmall),
+                    ],
+                  ),
+                ),
+                const Divider(height: 1),
 
-                    // ===== リスト（フィルタ適用後） =====
-                    Expanded(
-                      child: ListView.separated(
-                        padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
-                        separatorBuilder: (_, __) => const SizedBox(height: 8),
-                        itemCount: filtered.length,
-                        itemBuilder: (_, i) {
-                          final r = filtered[i];
-                          final rate = (r.total == 0) ? 0 : ((r.score * 100) / r.total).round();
-                          final dt = DateTime.fromMillisecondsSinceEpoch(r.timestamp);
-                          final when =
-                              '${dt.year}/${dt.month.toString().padLeft(2, "0")}/${dt.day.toString().padLeft(2, "0")} '
-                              '${dt.hour.toString().padLeft(2, "0")}:${dt.minute.toString().padLeft(2, "0")}';
+                // ===== リスト（フィルタ適用後） =====
+                Expanded(
+                  child: ListView.separated(
+                    padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
+                    separatorBuilder: (_, __) => const SizedBox(height: 8),
+                    itemCount: filtered.length,
+                    itemBuilder: (_, i) {
+                      final r = filtered[i];
+                      final rate = (r.total == 0) ? 0 : ((r.score * 100) / r.total).round();
+                      final dt = DateTime.fromMillisecondsSinceEpoch(r.timestamp);
+                      final when =
+                          '${dt.year}/${dt.month.toString().padLeft(2, "0")}/${dt.day.toString().padLeft(2, "0")} '
+                          '${dt.hour.toString().padLeft(2, "0")}:${dt.minute.toString().padLeft(2, "0")}';
 
-                          final Map<String, UnitStat> ubStat =
-                              (r.unitBreakdown ?? const <String, int>{})
-                                  .map((k, v) => MapEntry(k, UnitStat(asked: v, wrong: 0)));
+                      final Map<String, UnitStat> ubStat =
+                          (r.unitBreakdown ?? const <String, int>{}).map(
+                            (k, v) => MapEntry(k, UnitStat(asked: v, wrong: 0)),
+                          );
 
-                          return Card(
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                            elevation: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // ヘッダ（タップで履歴、長押しでアクション）
-                                  InkWell(
-                                    borderRadius: BorderRadius.circular(10),
-                                    onTap: () => _onTapRecord(context, r),
-                                    onLongPress: () => _showRecordActions(context, r),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                      return Card(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                        elevation: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // ヘッダ（タップで履歴、長押しでアクション）
+                              InkWell(
+                                borderRadius: BorderRadius.circular(10),
+                                onTap: () => _onTapRecord(context, r),
+                                onLongPress: () => _showRecordActions(context, r),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 4),
+                                      child: Icon(
+                                        Icons.assessment_outlined,
+                                        color: theme.colorScheme.primary,
+                                        size: 24,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            (r.deckTitle.isNotEmpty ? r.deckTitle : r.deckId),
+                                            style: theme.textTheme.titleMedium?.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 2),
+                                          Text(when, style: theme.textTheme.bodySmall),
+                                        ],
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 4),
-                                          child: Icon(Icons.assessment_outlined,
-                                              color: theme.colorScheme.primary, size: 24),
-                                        ),
-                                        const SizedBox(width: 12),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                (r.deckTitle.isNotEmpty ? r.deckTitle : r.deckId),
-                                                style: theme.textTheme.titleMedium
-                                                    ?.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                              const SizedBox(height: 2),
-                                              Text(
-                                                '$when',
-                                                style: theme.textTheme.bodySmall,
-                                              ),
-                                            ],
+                                        Text(
+                                          '$rate%',
+                                          style: theme.textTheme.titleMedium?.copyWith(
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              '$rate%',
-                                              style: theme.textTheme.titleMedium
-                                                  ?.copyWith(fontWeight: FontWeight.bold),
-                                            ),
-                                            const SizedBox(height: 2),
-                                            Text('${r.score} / ${r.total}',
-                                                style: theme.textTheme.bodySmall),
-                                            if (r.sessionId != null && r.sessionId!.isNotEmpty)
-                                              Padding(
-                                                padding: const EdgeInsets.only(top: 4),
-                                                child: Tooltip(
-                                                  message: '履歴を開く',
-                                                  child: InkResponse(
-                                                    radius: 18,
-                                                    onTap: () => _onTapRecord(context, r),
-                                                    child: const Icon(Icons.history, size: 18),
-                                                  ),
-                                                ),
-                                              ),
-                                          ],
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          '${r.score} / ${r.total}',
+                                          style: theme.textTheme.bodySmall,
                                         ),
+                                        if (r.sessionId != null && r.sessionId!.isNotEmpty)
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 4),
+                                            child: Tooltip(
+                                              message: '履歴を開く',
+                                              child: InkResponse(
+                                                radius: 18,
+                                                onTap: () => _onTapRecord(context, r),
+                                                child: const Icon(Icons.history, size: 18),
+                                              ),
+                                            ),
+                                          ),
                                       ],
                                     ),
-                                  ),
+                                  ],
+                                ),
+                              ),
 
-                                  // 主要ユニットチップ
-                                  if (ubStat.isNotEmpty) ...[
-                                    const SizedBox(height: 6),
-                                    Theme(
-                                      data: theme.copyWith(
-                                        chipTheme: theme.chipTheme.copyWith(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                          labelPadding: const EdgeInsets.symmetric(horizontal: 6),
-                                          side: BorderSide(color: theme.colorScheme.outline.withOpacity(0.25)),
-                                        ),
-                                        textTheme: theme.textTheme.copyWith(
-                                          bodySmall: theme.textTheme.bodySmall?.copyWith(height: 1.0),
-                                        ),
+                              // 主要ユニットチップ
+                              if (ubStat.isNotEmpty) ...[
+                                const SizedBox(height: 6),
+                                Theme(
+                                  data: theme.copyWith(
+                                    chipTheme: theme.chipTheme.copyWith(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 2,
                                       ),
-                                      child: UnitRatioChips(
-                                        unitBreakdown: ubStat,
-                                        unitTitleMap: _unitTitleMap,
-                                        topK: 3,
-                                        padding: const EdgeInsets.only(top: 0),
+                                      labelPadding: const EdgeInsets.symmetric(horizontal: 6),
+                                      side: BorderSide(
+                                        color: theme.colorScheme.outline.withOpacity(0.25),
                                       ),
                                     ),
-                                  ],
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                                    textTheme: theme.textTheme.copyWith(
+                                      bodySmall: theme.textTheme.bodySmall?.copyWith(height: 1.0),
+                                    ),
+                                  ),
+                                  child: UnitRatioChips(
+                                    unitBreakdown: ubStat,
+                                    unitTitleMap: _unitTitleMap,
+                                    topK: 3,
+                                    padding: const EdgeInsets.only(top: 0),
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
+              ],
+            ),
     );
   }
 
@@ -384,16 +413,14 @@ class _ScoresScreenState extends State<ScoresScreen> {
     if (record.sessionId != null && record.sessionId!.isNotEmpty) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => AttemptHistoryScreen(
-            sessionId: record.sessionId!,
-            unitTitleMap: _unitTitleMap,
-          ),
+          builder: (_) =>
+              AttemptHistoryScreen(sessionId: record.sessionId!, unitTitleMap: _unitTitleMap),
         ),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('この成績には履歴がありません（旧バージョン）')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('この成績には履歴がありません（旧バージョン）')));
     }
   }
 
@@ -464,19 +491,18 @@ class _ScoresScreenState extends State<ScoresScreen> {
       'sessionId': r.sessionId,
       'selectedUnitIds': r.selectedUnitIds,
       'unitBreakdown': r.unitBreakdown,
-      'tags': r.tags?.map((k, v) => MapEntry(k, {
-            'correct': v.correct,
-            'wrong': v.wrong,
-            'asked': v.correct + v.wrong,
-          })),
+      'tags': r.tags?.map(
+        (k, v) =>
+            MapEntry(k, {'correct': v.correct, 'wrong': v.wrong, 'asked': v.correct + v.wrong}),
+      ),
       'exportedAt': DateTime.now().toIso8601String(),
       'format': 'ScoreRecord.v2',
     };
     await Clipboard.setData(ClipboardData(text: jsonEncode(payload)));
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('成績データをクリップボードへコピーしました')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('成績データをクリップボードへコピーしました')));
   }
 
   Future<void> _deleteRecord(BuildContext context, ScoreRecord r) async {
@@ -522,9 +548,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
     if (sid.isNotEmpty) {
       if (deckByUnit.isNotEmpty) {
         try {
-          return deckByUnit.first.cards.firstWhere(
-            (c) => stableIdForOriginal(c) == sid,
-          );
+          return deckByUnit.first.cards.firstWhere((c) => stableIdForOriginal(c) == sid);
         } catch (_) {}
       }
       for (final d in decks) {
@@ -558,9 +582,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
 
     if (wrong.isEmpty) {
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('この回の誤答はありません')),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('この回の誤答はありません')));
       return;
     }
 
@@ -582,9 +604,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
 
     if (cards.isEmpty) {
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('カードの特定に失敗しました')),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('カードの特定に失敗しました')));
       return;
     }
 
@@ -594,8 +614,8 @@ class _ScoresScreenState extends State<ScoresScreen> {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => QuizScreen(
-          deck: decks.first,         // ダミー
-          overrideCards: cards,      // ← これが実際の出題セット
+          deck: decks.first, // ダミー
+          overrideCards: cards, // ← これが実際の出題セット
           type: 'retry_wrong',
         ),
       ),
