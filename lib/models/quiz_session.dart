@@ -3,25 +3,25 @@ import 'dart:convert';
 
 class QuizSession {
   // === 必須（従来） ===
-  final String sessionId;         // セッション一意ID
-  final String deckId;            // 'mixed' or 通常デッキID
-  final List<String> itemIds;     // 出題順に対応する安定ID列（唯一の復元根拠）
-  final int currentIndex;         // 次に解く位置（0-based）
-  final bool isFinished;          // 終了フラグ
+  final String sessionId; // セッション一意ID
+  final String deckId; // 'mixed' or 通常デッキID
+  final List<String> itemIds; // 出題順に対応する安定ID列（唯一の復元根拠）
+  final int currentIndex; // 次に解く位置（0-based）
+  final bool isFinished; // 終了フラグ
 
   // === ★追加 ===
   /// 'normal' | 'mix' | 'review_test' など
   final String type;
 
   // === 追加（後方互換のため null許容） ===
-  final String? unitId;                   // 単一ユニット用に残すなら
-  final List<String>? selectedUnitIds;    // ミックスの母集団特定用
-  final int? limit;                       // ミックスでの出題数
+  final String? unitId; // 単一ユニット用に残すなら
+  final List<String>? selectedUnitIds; // ミックスの母集団特定用
+  final int? limit; // ミックスでの出題数
   final Map<String, List<int>>? choiceOrders; // 安定ID -> 選択肢並び順（0-based）
 
   // === 既存オプション：null耐性を強化 ===
-  final Map<String, dynamic>? answers;    // 任意（未使用なら null/空でもOK）
-  final DateTime? updatedAt;              // null可（欠損時も落ちない）
+  final Map<String, dynamic>? answers; // 任意（未使用なら null/空でもOK）
+  final DateTime? updatedAt; // null可（欠損時も落ちない）
 
   const QuizSession({
     required this.sessionId,
@@ -82,8 +82,10 @@ class QuizSession {
         final out = <String, List<int>>{};
         v.forEach((key, value) {
           if (value is List) {
-            out[key.toString()] =
-                value.where((e) => e != null).map((e) => (e as num).toInt()).toList();
+            out[key.toString()] = value
+                .where((e) => e != null)
+                .map((e) => (e as num).toInt())
+                .toList();
           }
         });
         return out;
@@ -103,14 +105,20 @@ class QuizSession {
       sessionId: (json['sessionId'] ?? '').toString(),
       deckId: (json['deckId'] ?? '').toString(),
       itemIds: itemIds,
-      currentIndex: (json['currentIndex'] is num) ? (json['currentIndex'] as num).toInt() : 0,
-      isFinished: (json['isFinished'] is bool) ? json['isFinished'] as bool : false,
+      currentIndex: (json['currentIndex'] is num)
+          ? (json['currentIndex'] as num).toInt()
+          : 0,
+      isFinished: (json['isFinished'] is bool)
+          ? json['isFinished'] as bool
+          : false,
       type: (json['type'] ?? 'normal').toString(), // ★追加：未保存データは 'normal'
       unitId: (json['unitId'] as String?)?.toString(),
       selectedUnitIds: asStringList(json['selectedUnitIds']),
       limit: (json['limit'] is num) ? (json['limit'] as num).toInt() : null,
       choiceOrders: asChoiceOrders(json['choiceOrders']),
-      answers: (json['answers'] is Map<String, dynamic>) ? (json['answers'] as Map<String, dynamic>) : null,
+      answers: (json['answers'] is Map<String, dynamic>)
+          ? (json['answers'] as Map<String, dynamic>)
+          : null,
       updatedAt: asDate(json['updatedAt']),
     );
   }

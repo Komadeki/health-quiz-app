@@ -8,9 +8,9 @@ class TagStat {
   const TagStat({required this.correct, required this.wrong});
 
   factory TagStat.fromJson(Map<String, dynamic> json) => TagStat(
-        correct: (json['correct'] ?? 0) as int,
-        wrong: (json['wrong'] ?? 0) as int,
-      );
+    correct: (json['correct'] ?? 0) as int,
+    wrong: (json['wrong'] ?? 0) as int,
+  );
 
   Map<String, dynamic> toJson() => {'correct': correct, 'wrong': wrong};
 
@@ -91,18 +91,18 @@ class ScoreRecord {
 
   /// JSONへ変換（null項目は省略）
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'deckId': deckId,
-        'deckTitle': deckTitle,
-        'score': score,
-        'total': total,
-        'durationSec': durationSec,
-        'timestamp': timestamp,
-        if (tags != null) 'tags': tags!.map((k, v) => MapEntry(k, v.toJson())),
-        if (selectedUnitIds != null) 'selectedUnitIds': selectedUnitIds,
-        if (sessionId != null && sessionId!.isNotEmpty) 'sessionId': sessionId,
-        if (unitBreakdown != null) 'unitBreakdown': unitBreakdown,
-      };
+    'id': id,
+    'deckId': deckId,
+    'deckTitle': deckTitle,
+    'score': score,
+    'total': total,
+    'durationSec': durationSec,
+    'timestamp': timestamp,
+    if (tags != null) 'tags': tags!.map((k, v) => MapEntry(k, v.toJson())),
+    if (selectedUnitIds != null) 'selectedUnitIds': selectedUnitIds,
+    if (sessionId != null && sessionId!.isNotEmpty) 'sessionId': sessionId,
+    if (unitBreakdown != null) 'unitBreakdown': unitBreakdown,
+  };
 
   /// 便利: 精度（0.0〜1.0）
   double get accuracy => total == 0 ? 0 : score / total;
