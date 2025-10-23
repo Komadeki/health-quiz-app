@@ -10,21 +10,21 @@ class ReviewMenuScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     // 単元カードのような質感
-    BoxDecoration _unitLikeDecoration() => BoxDecoration(
-          color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: theme.colorScheme.outline.withOpacity(0.18),
-            width: 1,
-          ),
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 12,
-              offset: Offset(0, 2),
-              color: Color(0x14000000),
-            ),
-          ],
-        );
+    BoxDecoration unitLikeDecoration() => BoxDecoration(
+      color: theme.colorScheme.surface,
+      borderRadius: BorderRadius.circular(16),
+      border: Border.all(
+        color: theme.colorScheme.outline.withOpacity(0.18),
+        width: 1,
+      ),
+      boxShadow: const [
+        BoxShadow(
+          blurRadius: 12,
+          offset: Offset(0, 2),
+          color: Color(0x14000000),
+        ),
+      ],
+    );
 
     return Scaffold(
       appBar: AppBar(title: const Text('復習')),
@@ -50,15 +50,23 @@ class ReviewMenuScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => const ReviewCardsScreen()),
+                        MaterialPageRoute(
+                          builder: (_) => const ReviewCardsScreen(),
+                        ),
                       ),
                       child: Ink(
-                        decoration: _unitLikeDecoration(),
-                        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
+                        decoration: unitLikeDecoration(),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 22,
+                          vertical: 20,
+                        ),
                         child: Row(
                           children: [
-                            Icon(Icons.style_outlined,
-                                size: 40, color: theme.colorScheme.primary),
+                            Icon(
+                              Icons.style_outlined,
+                              size: 40,
+                              color: theme.colorScheme.primary,
+                            ),
                             const SizedBox(width: 18),
                             Expanded(
                               child: Column(
@@ -77,7 +85,8 @@ class ReviewMenuScreen extends StatelessWidget {
                                     '答えと解説を確認して復習します。',
                                     style: theme.textTheme.bodyLarge?.copyWith(
                                       height: 1.4,
-                                      color: theme.colorScheme.onSurface.withOpacity(0.9),
+                                      color: theme.colorScheme.onSurface
+                                          .withOpacity(0.9),
                                     ),
                                   ),
                                 ],
@@ -104,12 +113,18 @@ class ReviewMenuScreen extends StatelessWidget {
                         ),
                       ),
                       child: Ink(
-                        decoration: _unitLikeDecoration(),
-                        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
+                        decoration: unitLikeDecoration(),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 22,
+                          vertical: 20,
+                        ),
                         child: Row(
                           children: [
-                            Icon(Icons.quiz_outlined,
-                                size: 40, color: theme.colorScheme.primary),
+                            Icon(
+                              Icons.quiz_outlined,
+                              size: 40,
+                              color: theme.colorScheme.primary,
+                            ),
                             const SizedBox(width: 18),
                             Expanded(
                               child: Column(
@@ -129,7 +144,8 @@ class ReviewMenuScreen extends StatelessWidget {
                                     '苦手を集中的に確認したいときにおすすめです。',
                                     style: theme.textTheme.bodyLarge?.copyWith(
                                       height: 1.4,
-                                      color: theme.colorScheme.onSurface.withOpacity(0.9),
+                                      color: theme.colorScheme.onSurface
+                                          .withOpacity(0.9),
                                     ),
                                   ),
                                 ],

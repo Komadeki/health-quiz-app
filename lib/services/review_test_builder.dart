@@ -12,11 +12,8 @@ class ReviewTestBuilder {
   final DeckLoader loader;
   final Random rng;
 
-  ReviewTestBuilder({
-    required this.attempts,
-    required this.loader,
-    Random? rng,
-  }) : rng = rng ?? Random();
+  ReviewTestBuilder({required this.attempts, required this.loader, Random? rng})
+    : rng = rng ?? Random();
 
   /// 安定IDベースで上位N件のカードを返す（正式版）
   Future<List<QuizCard>> buildTopNWithScope({
@@ -47,7 +44,9 @@ class ReviewTestBuilder {
     }
 
     result.shuffle(rng);
-    AppLog.i('[REVIEW] review_test built=${result.length} topN=$topN scope=$scope');
+    AppLog.i(
+      '[REVIEW] review_test built=${result.length} topN=$topN scope=$scope',
+    );
     return result;
   }
 }
