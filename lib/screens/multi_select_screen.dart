@@ -330,8 +330,10 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
     for (int i = 0; i < pools.length; i++) {
       final assigned = perUnitPicked[i] + (picked.length > totalLimit ? 0 : 0);
       final extraFlag = remainderAssigned[i] ? ' (+1配分)' : '';
-      AppLog.d('  ${poolNames[i]}: ${perUnitPicked[i]}問$extraFlag '
-          '(pool=${pools[i].length})');
+      AppLog.d(
+        '  ${poolNames[i]}: ${perUnitPicked[i]}問$extraFlag '
+        '(pool=${pools[i].length})',
+      );
     }
     AppLog.d('  → total=${picked.length}');
 
@@ -424,7 +426,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
           selectedUnitIds: _selectedUnitIds, // ← これ！
           // limit は overrideCards に合わせておくと将来の仕様変更にも強い
           limit: all.length,
-          overrideCards: all,               // ★ これを必ず渡す
+          overrideCards: all, // ★ これを必ず渡す
         ),
       ),
     );

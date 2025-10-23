@@ -26,7 +26,9 @@ class AttemptHistoryScreen extends StatelessWidget {
       body: FutureBuilder<List<AttemptEntry>>(
         future: (() async {
           debugPrint('[HISTORY] query sid=$sessionId');
-          final r = await AttemptStore().bySession(sessionId); // ← bySession 名が違えば合わせて
+          final r = await AttemptStore().bySession(
+            sessionId,
+          ); // ← bySession 名が違えば合わせて
           debugPrint('[HISTORY] hits=${r.length}');
           return r;
         })(),
@@ -51,7 +53,7 @@ class AttemptHistoryScreen extends StatelessWidget {
           final avgMs = total == 0
               ? 0
               : (items.fold<int>(0, (sum, e) => sum + e.durationMs) / total)
-                  .round();
+                    .round();
 
           // ユニット別の件数・誤答数を同時に集計
           final Map<String, int> unitCounts = {};
@@ -74,8 +76,9 @@ class AttemptHistoryScreen extends StatelessWidget {
 
           return StatefulBuilder(
             builder: (context, setState) {
-              final visible =
-                  showOnlyWrong ? items.where((e) => !e.isCorrect).toList() : items;
+              final visible = showOnlyWrong
+                  ? items.where((e) => !e.isCorrect).toList()
+                  : items;
 
               return ListView.builder(
                 padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
@@ -126,9 +129,8 @@ class AttemptHistoryScreen extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
                       child: Text(
                         '履歴一覧（今回）',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                     );
                   }
@@ -140,10 +142,12 @@ class AttemptHistoryScreen extends StatelessWidget {
                   // 表示用に 1-based 保証（旧データ救済）
                   final looksZeroBased =
                       (a.selectedIndex == 0) || (a.correctIndex == 0);
-                  final sel =
-                      looksZeroBased ? (a.selectedIndex + 1) : a.selectedIndex;
-                  final ans =
-                      looksZeroBased ? (a.correctIndex + 1) : a.correctIndex;
+                  final sel = looksZeroBased
+                      ? (a.selectedIndex + 1)
+                      : a.selectedIndex;
+                  final ans = looksZeroBased
+                      ? (a.correctIndex + 1)
+                      : a.correctIndex;
 
                   return _AttemptTile(
                     attempt: a,
@@ -202,8 +206,10 @@ class AttemptHistoryScreen extends StatelessWidget {
             Expanded(
               child: Text(
                 '正解 $correct ・ 不正解 $wrong ・ 平均 ${_formatSec(avgMs)} ・ 正答率 $rate%',
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ],
@@ -221,7 +227,7 @@ class AttemptHistoryScreen extends StatelessWidget {
     final loader = await DeckLoader.instance();
     final decks = await loader.loadAll();
 
-    QuizCard? _find() {
+    QuizCard? find() {
       final sid = (a.stableId ?? '').trim();
       if (sid.isNotEmpty) {
         for (final d in decks) {
@@ -241,12 +247,12 @@ class AttemptHistoryScreen extends StatelessWidget {
       return null;
     }
 
-    final found = _find();
+    final found = find();
     if (found == null) {
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('カードの特定に失敗しました')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('カードの特定に失敗しました')));
       return;
     }
 
@@ -258,22 +264,24 @@ class AttemptHistoryScreen extends StatelessWidget {
     );
   }
 
-
   // 誤答だけ再挑戦
   // 先頭の import 群に追加が必要なものはありません（既にあります）
   /* 置き換え開始 */
-  Future<void> _replayWrong(BuildContext context, List<AttemptEntry> items) async {
+  Future<void> _replayWrong(
+    BuildContext context,
+    List<AttemptEntry> items,
+  ) async {
     // 1) 誤答だけを抽出
     final wrong = items.where((e) => !e.isCorrect).toList();
     if (wrong.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('今回の誤答はありません')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('今回の誤答はありません')));
       return;
     }
 
     // 2) 重複除去キー（stableId 優先、なければ質問文正規化）
-    String _keyOf(AttemptEntry a) {
+    String keyOf(AttemptEntry a) {
       final sid = (a.stableId ?? '').trim();
       if (sid.isNotEmpty) return 'S::$sid';
       return 'Q::${a.question.replaceAll(RegExp(r'\s+'), ' ').trim()}';
@@ -284,7 +292,7 @@ class AttemptHistoryScreen extends StatelessWidget {
     final decks = await loader.loadAll();
 
     // 3) 1件ずつ “全デッキ横断” でカード同定
-    QuizCard? _findCard(AttemptEntry a) {
+    QuizCard? findCard(AttemptEntry a) {
       final sid = (a.stableId ?? '').trim();
       if (sid.isNotEmpty) {
         for (final d in decks) {
@@ -306,16 +314,16 @@ class AttemptHistoryScreen extends StatelessWidget {
 
     final list = <QuizCard>[];
     for (final a in wrong) {
-      if (!seen.add(_keyOf(a))) continue; // 同一問題は1度だけ
-      final c = _findCard(a);
+      if (!seen.add(keyOf(a))) continue; // 同一問題は1度だけ
+      final c = findCard(a);
       if (c != null) list.add(c);
     }
 
     if (list.isEmpty) {
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('カードの特定に失敗しました')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('カードの特定に失敗しました')));
       return;
     }
 
@@ -324,8 +332,8 @@ class AttemptHistoryScreen extends StatelessWidget {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => QuizScreen(
-          deck: decks.first,        // ダミー
-          overrideCards: list,      // ← 実際の出題セット
+          deck: decks.first, // ダミー
+          overrideCards: list, // ← 実際の出題セット
           type: 'retry_wrong', // ← 追加：誤答リトライを明示
         ),
       ),
@@ -340,14 +348,13 @@ class _UnitBreakdownCard extends StatefulWidget {
   final int totalQuestions;
   final Map<String, String>? unitTitleMap;
   // ignore: unused_element_parameter
-  final int maxCollapsedCount; // 折りたたみ時の表示件数（既定=5）
+  final int maxCollapsedCount = 5; // 折りたたみ時の表示件数（既定=5）
 
   const _UnitBreakdownCard({
     required this.unitCounts,
     required this.totalQuestions,
     required this.unitWrongs,
-    this.unitTitleMap,
-    this.maxCollapsedCount = 5, // ★ デフォルトを与えて初期化（required にしてもOK）
+    this.unitTitleMap, // ★ デフォルトを与えて初期化（required にしてもOK）
   });
 
   @override
@@ -397,7 +404,9 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
             ...visibleEntries.map((e) {
               final asked = e.value;
               final wrong = widget.unitWrongs[e.key] ?? 0;
-              final ratio = widget.totalQuestions == 0 ? 0.0 : asked / widget.totalQuestions;
+              final ratio = widget.totalQuestions == 0
+                  ? 0.0
+                  : asked / widget.totalQuestions;
               final pct = (ratio * 100).toStringAsFixed(0);
               final title = widget.unitTitleMap?[e.key] ?? e.key;
 
@@ -433,7 +442,10 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Text('$asked問（$pct%）', style: const TextStyle(fontSize: 13)),
+                        Text(
+                          '$asked問（$pct%）',
+                          style: const TextStyle(fontSize: 13),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -469,9 +481,7 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
                   GestureDetector(
                     onTap: () => setState(() => _expanded = !_expanded),
                     child: Text(
-                      _expanded
-                          ? '閉じる'
-                          : 'もっと見る（全${entries.length}件）',
+                      _expanded ? '閉じる' : 'もっと見る（全${entries.length}件）',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w500,
@@ -480,14 +490,13 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
                   ),
                 ],
               ),
-            ]
+            ],
           ],
         ),
       ),
     );
   }
 }
-
 
 /// ==== 個別タイル ====
 class _AttemptTile extends StatelessWidget {
@@ -507,8 +516,9 @@ class _AttemptTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bg =
-        isCorrect ? Colors.green.withValues(alpha: 0.05) : Colors.red.withValues(alpha: 0.06);
+    final bg = isCorrect
+        ? Colors.green.withValues(alpha: 0.05)
+        : Colors.red.withValues(alpha: 0.06);
     final bar = isCorrect ? Colors.green : Colors.red;
     return Container(
       margin: const EdgeInsets.only(bottom: 8),

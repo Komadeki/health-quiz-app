@@ -39,9 +39,11 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
 
   // ⚙️ 改善点① migrateIfNeededをmicrotaskで非同期遅延実行（UIブロック防止）
-  unawaited(Future.microtask(() async {
-    await QuizSessionLocalRepository(prefs).migrateIfNeeded();
-  }));
+  unawaited(
+    Future.microtask(() async {
+      await QuizSessionLocalRepository(prefs).migrateIfNeeded();
+    }),
+  );
 
   // ⚙️ 改善点② DeckLoaderの初期化を遅延バックグラウンド実行（compute負荷を分散）
   Future.delayed(const Duration(milliseconds: 500), () {
@@ -49,12 +51,7 @@ void main() async {
   });
 
   // ここからrunApp（UI優先）
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => settings,
-      child: const MyApp(),
-    ),
-  );
+  runApp(ChangeNotifierProvider(create: (_) => settings, child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -80,23 +77,25 @@ class MyApp extends StatelessWidget {
         final mq = MediaQuery.of(context);
         // AppSettings の textScaleFactor を適用
         return MediaQuery(
-          data: mq.copyWith(
-            textScaler: TextScaler.linear(s.textScaleFactor),
-          ),
+          data: mq.copyWith(textScaler: TextScaler.linear(s.textScaleFactor)),
           child: child!,
         );
       },
 
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Colors.green, brightness: Brightness.light),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green,
+          brightness: Brightness.light,
+        ),
         fontFamily: 'NotoSansJP',
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Colors.green, brightness: Brightness.dark),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green,
+          brightness: Brightness.dark,
+        ),
         fontFamily: 'NotoSansJP',
       ),
       routes: {
@@ -125,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // 続きから制御
   bool _isResuming = false; // 多重タップ防止
-  bool _canResume = false;  // ボタン表示制御
+  bool _canResume = false; // ボタン表示制御
 
   @override
   void initState() {
@@ -196,9 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!ok && mounted) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('一部無料で体験できます。全カード解放は「購入」から。'),
-        ),
+        const SnackBar(content: Text('一部無料で体験できます。全カード解放は「購入」から。')),
       );
     }
     _openUnitSelect(deck); // 既存の遷移関数をそのまま利用
@@ -217,8 +214,9 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.pushNamed(context, '/settings');
       return;
     }
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('$title は今後実装予定です')));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('$title は今後実装予定です')));
   }
 
   // 起動／復帰時に「続きから」可能かチェック
@@ -244,16 +242,18 @@ class _HomeScreenState extends State<HomeScreen> {
       final repo = QuizSessionLocalRepository(prefs);
       final active = await repo.loadActive();
 
-      AppLog.d('[RESUME/PROBE] deck=${active?.deckId} '
-          'idx=${active?.currentIndex} len=${active?.itemIds.length} '
-          'units=${active?.selectedUnitIds} limit=${active?.limit} '
-          'choiceOrders=${active?.choiceOrders?.length}');
+      AppLog.d(
+        '[RESUME/PROBE] deck=${active?.deckId} '
+        'idx=${active?.currentIndex} len=${active?.itemIds.length} '
+        'units=${active?.selectedUnitIds} limit=${active?.limit} '
+        'choiceOrders=${active?.choiceOrders?.length}',
+      );
 
       if (active == null) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('再開できるセッションはありません')),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text('再開できるセッションはありません')));
         }
         setState(() => _isResuming = false);
         return;
@@ -275,7 +275,12 @@ class _HomeScreenState extends State<HomeScreen> {
       if (active.deckId == 'mixed') {
         deck = (list.isNotEmpty)
             ? list.first
-            : Deck(id: 'mixed', title: 'ミックス練習', units: const [], isPurchased: true);
+            : Deck(
+                id: 'mixed',
+                title: 'ミックス練習',
+                units: const [],
+                isPurchased: true,
+              );
       } else {
         try {
           deck = list.firstWhere((d) => d.id == active.deckId);
@@ -291,7 +296,9 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() => _isResuming = false);
           return;
         }
-        AppLog.d('[RESUME] navigate deck=${deck.id} len=${active.itemIds.length}');
+        AppLog.d(
+          '[RESUME] navigate deck=${deck.id} len=${active.itemIds.length}',
+        );
       }
 
       await Navigator.push(
@@ -353,170 +360,168 @@ class _HomeScreenState extends State<HomeScreen> {
       body: loading
           ? const Center(child: CircularProgressIndicator())
           : error != null
-              ? Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Text(
-                      '読み込みエラー: $error',
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  ),
-                )
-              : RefreshIndicator(
-                  onRefresh: () async {
-                    await _loadDecks();
-                    await _checkResume();
-                  },
-                  child: ListView(
-                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+          ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  '読み込みエラー: $error',
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
+            )
+          : RefreshIndicator(
+              onRefresh: () async {
+                await _loadDecks();
+                await _checkResume();
+              },
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Icon(Icons.menu_book_outlined,
-                              color: theme.colorScheme.primary),
-                          const SizedBox(width: 8),
-                          Text(
-                            '単元を選ぶ',
-                            style: theme.textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
+                      Icon(
+                        Icons.menu_book_outlined,
+                        color: theme.colorScheme.primary,
                       ),
-                      const SizedBox(height: 12),
-
-                      // デッキ一覧
-                      SizedBox(
-                        height: 140,
-                        child: decks.isEmpty
-                            ? Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16),
-                                  child: Text(
-                                    'デッキが見つかりません（assets/decks を確認）',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium,
-                                  ),
-                                ),
-                              )
-                            : PageView.builder(
-                                controller:
-                                    PageController(viewportFraction: 1.0),
-                                padEnds: false,
-                                itemCount: (decks.length + 1) ~/ 2,
-                                itemBuilder: (context, pageIndex) {
-                                  const spacing = 12.0;
-                                  final left = pageIndex * 2;
-                                  final right = left + 1;
-
-                                  final leftDeck = decks[left];
-                                  final rightDeck =
-                                      (right < decks.length) ? decks[right] : null;
-
-                                  return Row(
-                                    children: [
-                                      Expanded(
-                                        child: _DeckTile(
-                                          title: leftDeck.title,
-                                          isPurchased: leftDeck.isPurchased,
-                                          onTap: () => _openUnitSelectSoft(leftDeck),
-                                        ),
-                                      ),
-                                      const SizedBox(width: spacing),
-                                      Expanded(
-                                        child: rightDeck == null
-                                            ? const SizedBox.shrink()
-                                            : _DeckTile(
-                                                title: rightDeck.title,
-                                                isPurchased:
-                                                    rightDeck.isPurchased,
-                                                onTap: () =>
-                                                    _openUnitSelectSoft(rightDeck),
-                                              ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      // ミックス練習（＝単元カードと同じ見た目）
-                      _DeckLikeButton(
-                        leadingIcon: Icons.shuffle_outlined,
-                        title: 'ミックス練習（複数単元・横断）',
-                        subtitle: '選んだ単元をランダム出題',
-                        onTap: _openMultiSelect,
-                        style: DeckButtonStyle.normal,
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      // 続きから再開（形は同じカード、色だけ淡グリーン）
-                      if (_canResume)
-                        _DeckLikeButton(
-                          leadingIcon: Icons.play_circle_fill,
-                          title: _isResuming ? '開いています…' : '続きから再開',
-                          subtitle: '前回の続きからクイズを再開',
-                          onTap: _isResuming ? null : _resumeIfExists,
-                          trailing: _isResuming
-                              ? const SizedBox(
-                                  width: 18, height: 18,
-                                  child: CircularProgressIndicator(strokeWidth: 2),
-                                )
-                              : null,
-                          style: DeckButtonStyle.tonal,
-                        ),
-
-                      if (_canResume) const SizedBox(height: 16),
-
-                      // 復習（＝単元カードと同じ見た目）
-                      _DeckLikeButton(
-                        leadingIcon: Icons.refresh,
-                        title: '復習',
-                        subtitle: '間違えた問題の見直し・復習テスト',
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => const ReviewMenuScreen()),
-                          );
-                        },
-                        style: DeckButtonStyle.normal,
-                      ),
-
-                      const Divider(height: 32),
-
-
-
-
-                      _MenuTile(
-                        icon: Icons.query_stats_outlined,
-                        label: '成績を見る',
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const ScoresScreen(),
-                          ),
-                        ),
-                      ),
-                      _MenuTile(
-                        icon: Icons.settings_outlined,
-                        label: '設定',
-                        onTap: () => _notImplemented('設定'),
-                      ),
-                      _MenuTile(
-                        icon: Icons.shopping_bag_outlined,
-                        label: '購入',
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => PurchaseScreen()),
+                      const SizedBox(width: 8),
+                      Text(
+                        '単元を選ぶ',
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ],
                   ),
-                ),
+                  const SizedBox(height: 12),
+
+                  // デッキ一覧
+                  SizedBox(
+                    height: 140,
+                    child: decks.isEmpty
+                        ? Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Text(
+                                'デッキが見つかりません（assets/decks を確認）',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                          )
+                        : PageView.builder(
+                            controller: PageController(viewportFraction: 1.0),
+                            padEnds: false,
+                            itemCount: (decks.length + 1) ~/ 2,
+                            itemBuilder: (context, pageIndex) {
+                              const spacing = 12.0;
+                              final left = pageIndex * 2;
+                              final right = left + 1;
+
+                              final leftDeck = decks[left];
+                              final rightDeck = (right < decks.length)
+                                  ? decks[right]
+                                  : null;
+
+                              return Row(
+                                children: [
+                                  Expanded(
+                                    child: _DeckTile(
+                                      title: leftDeck.title,
+                                      isPurchased: leftDeck.isPurchased,
+                                      onTap: () =>
+                                          _openUnitSelectSoft(leftDeck),
+                                    ),
+                                  ),
+                                  const SizedBox(width: spacing),
+                                  Expanded(
+                                    child: rightDeck == null
+                                        ? const SizedBox.shrink()
+                                        : _DeckTile(
+                                            title: rightDeck.title,
+                                            isPurchased: rightDeck.isPurchased,
+                                            onTap: () =>
+                                                _openUnitSelectSoft(rightDeck),
+                                          ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ミックス練習（＝単元カードと同じ見た目）
+                  _DeckLikeButton(
+                    leadingIcon: Icons.shuffle_outlined,
+                    title: 'ミックス練習（複数単元・横断）',
+                    subtitle: '選んだ単元をランダム出題',
+                    onTap: _openMultiSelect,
+                    style: DeckButtonStyle.normal,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // 続きから再開（形は同じカード、色だけ淡グリーン）
+                  if (_canResume)
+                    _DeckLikeButton(
+                      leadingIcon: Icons.play_circle_fill,
+                      title: _isResuming ? '開いています…' : '続きから再開',
+                      subtitle: '前回の続きからクイズを再開',
+                      onTap: _isResuming ? null : _resumeIfExists,
+                      trailing: _isResuming
+                          ? const SizedBox(
+                              width: 18,
+                              height: 18,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : null,
+                      style: DeckButtonStyle.tonal,
+                    ),
+
+                  if (_canResume) const SizedBox(height: 16),
+
+                  // 復習（＝単元カードと同じ見た目）
+                  _DeckLikeButton(
+                    leadingIcon: Icons.refresh,
+                    title: '復習',
+                    subtitle: '間違えた問題の見直し・復習テスト',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ReviewMenuScreen(),
+                        ),
+                      );
+                    },
+                    style: DeckButtonStyle.normal,
+                  ),
+
+                  const Divider(height: 32),
+
+                  _MenuTile(
+                    icon: Icons.query_stats_outlined,
+                    label: '成績を見る',
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ScoresScreen()),
+                    ),
+                  ),
+                  _MenuTile(
+                    icon: Icons.settings_outlined,
+                    label: '設定',
+                    onTap: () => _notImplemented('設定'),
+                  ),
+                  _MenuTile(
+                    icon: Icons.shopping_bag_outlined,
+                    label: '購入',
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => PurchaseScreen()),
+                    ),
+                  ),
+                ],
+              ),
+            ),
     );
   }
 }
@@ -562,8 +567,11 @@ class _DeckTile extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(Icons.menu_book_outlined,
-                      size: 22, color: theme.colorScheme.primary),
+                  Icon(
+                    Icons.menu_book_outlined,
+                    size: 22,
+                    color: theme.colorScheme.primary,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -585,8 +593,11 @@ class _DeckTile extends StatelessWidget {
                   if (isPurchased)
                     Row(
                       children: [
-                        Icon(Icons.lock_open_rounded,
-                            size: 18, color: theme.colorScheme.primary),
+                        Icon(
+                          Icons.lock_open_rounded,
+                          size: 18,
+                          color: theme.colorScheme.primary,
+                        ),
                         const SizedBox(width: 6),
                         Text(
                           '購入済み',
@@ -600,8 +611,11 @@ class _DeckTile extends StatelessWidget {
                   else
                     Row(
                       children: [
-                        Icon(Icons.lock_outline_rounded,
-                            size: 18, color: theme.colorScheme.outline),
+                        Icon(
+                          Icons.lock_outline_rounded,
+                          size: 18,
+                          color: theme.colorScheme.outline,
+                        ),
                         const SizedBox(width: 6),
                         Text(
                           '一部無料',
@@ -633,7 +647,6 @@ class _DeckLikeButton extends StatelessWidget {
   final DeckButtonStyle style;
 
   const _DeckLikeButton({
-    super.key,
     required this.leadingIcon,
     required this.title,
     this.subtitle,
@@ -682,14 +695,17 @@ class _DeckLikeButton extends StatelessWidget {
 
     final decoration = isTonal ? tonalDecoration : normalDecoration;
 
-    final Color iconColor =
-        isTonal ? theme.colorScheme.onPrimaryContainer : theme.colorScheme.primary;
+    final Color iconColor = isTonal
+        ? theme.colorScheme.onPrimaryContainer
+        : theme.colorScheme.primary;
     final titleStyle = theme.textTheme.titleMedium?.copyWith(
       fontWeight: FontWeight.w600,
       color: isTonal ? theme.colorScheme.onPrimaryContainer : null,
     );
     final subtitleStyle = theme.textTheme.bodySmall?.copyWith(
-      color: isTonal ? theme.colorScheme.onPrimaryContainer.withOpacity(0.8) : null,
+      color: isTonal
+          ? theme.colorScheme.onPrimaryContainer.withOpacity(0.8)
+          : null,
     );
 
     return InkWell(
@@ -715,10 +731,7 @@ class _DeckLikeButton extends StatelessWidget {
                   ],
                 ),
               ),
-              if (trailing != null) ...[
-                const SizedBox(width: 8),
-                trailing!,
-              ],
+              if (trailing != null) ...[const SizedBox(width: 8), trailing!],
             ],
           ),
         ),
@@ -726,8 +739,6 @@ class _DeckLikeButton extends StatelessWidget {
     );
   }
 }
-
-
 
 class _MenuTile extends StatelessWidget {
   final IconData icon;

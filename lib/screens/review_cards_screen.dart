@@ -16,7 +16,14 @@ class ReviewCardsScreen extends StatefulWidget {
   State<ReviewCardsScreen> createState() => _ReviewCardsScreenState();
 }
 
-enum MenuAction { sortOriginal, sortRandom, sortByFreq, sortByRecent, toggleRepeatedOnly }
+enum MenuAction {
+  sortOriginal,
+  sortRandom,
+  sortByFreq,
+  sortByRecent,
+  toggleRepeatedOnly,
+}
+
 enum _SortState { original, random, freq, recent }
 
 class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
@@ -36,8 +43,8 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
   final Map<QuizCard, String> _unitTitleCache = {};
 
   // スコープ（UI は現状固定：直近30日・全タイプ。必要ならこの2つを外部から受け取るよう拡張可）
-  int? _days = 30;    // null で全期間
-  String? _type;      // 'unit' | 'mixed' | 'review_test' | null
+  final int _days = 30; // null で全期間
+  String? _type; // 'unit' | 'mixed' | 'review_test' | null
   List<String>? _scopedSessionIds;
 
   @override
@@ -82,10 +89,12 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
 
       // 0件なら質問文ベースでフォールバック（古い Attempt で stableId が無い場合の救済）
       if (outCards.isEmpty) {
-        final qs = await store.getAllWrongCardIdsFiltered(onlySessionIds: sessionIds);
+        final qs = await store.getAllWrongCardIdsFiltered(
+          onlySessionIds: sessionIds,
+        );
         String norm(String s) => s.replaceAll(RegExp(r'\s+'), ' ').trim();
 
-        QuizCard? _findByQuestion(String qnorm) {
+        QuizCard? findByQuestion(String qnorm) {
           // 完全一致 → 先頭一致(最大16文字) → 部分一致の順で走査
           for (final c in bySid.values) {
             if (norm(c.question) == qnorm) return c;
@@ -103,7 +112,7 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
 
         final seen = <QuizCard>{};
         for (final q in qs.map(norm).toSet()) {
-          final hit = _findByQuestion(q);
+          final hit = findByQuestion(q);
           if (hit != null && seen.add(hit)) outCards.add(hit);
         }
         AppLog.d('[REVIEW] fallback by question -> ${outCards.length}');
@@ -117,9 +126,9 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       if (!mounted) return;
       if (outCards.isEmpty) {
         setState(() => _loading = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('復習対象がありません')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('復習対象がありません')));
         Navigator.of(context).maybePop();
         return;
       }
@@ -132,7 +141,9 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
         _loading = false;
       });
 
-      AppLog.d('[REVIEW] loaded ${_cards.length} cards (stableId-based, scoped=${sessionIds.length})');
+      AppLog.d(
+        '[REVIEW] loaded ${_cards.length} cards (stableId-based, scoped=${sessionIds.length})',
+      );
     } catch (e, st) {
       AppLog.e('[REVIEW] loadCards failed: $e\n$st');
       if (mounted) setState(() => _loading = false);
@@ -221,7 +232,8 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     } catch (_) {}
 
     // freq が空 or 全部0ならフォールバック判定（必ず _sidOf(c) で照合）
-    final allZero = freq.isEmpty || _base.every((c) => (freq[_sidOf(c)] ?? 0) == 0);
+    final allZero =
+        freq.isEmpty || _base.every((c) => (freq[_sidOf(c)] ?? 0) == 0);
     if (!allZero) return freq;
 
     // 2) Attempt を直接なめて、isCorrect==false をカウント
@@ -240,7 +252,9 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
           } catch (_) {}
         }
       }
-      AppLog.d('[REVIEW] freq fallback scan -> matched=${fb.length}/${_base.length}');
+      AppLog.d(
+        '[REVIEW] freq fallback scan -> matched=${fb.length}/${_base.length}',
+      );
     } catch (_) {}
     return fb;
   }
@@ -258,15 +272,40 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
 
     final epoch0 = DateTime.fromMillisecondsSinceEpoch(0);
     final emptyOrEpoch =
-        latest.isEmpty || _base.every((c) => (latest[_sidOf(c)] ?? epoch0) == epoch0);
+        latest.isEmpty ||
+        _base.every((c) => (latest[_sidOf(c)] ?? epoch0) == epoch0);
     if (!emptyOrEpoch) return latest;
 
     // 2) Attempt を直接なめて、直近の×時刻を採用
     final Map<String, DateTime> fb = {};
-    DateTime? _ts(dynamic e) {
-      try { final v = (e as dynamic).timestamp;  if (v is DateTime) return v; if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); if (v is String) return DateTime.tryParse(v); } catch (_) {}
-      try { final v = (e as dynamic).answeredAt; if (v is DateTime) return v; if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); if (v is String) return DateTime.tryParse(v); } catch (_) {}
-      try { final v = (e as dynamic).createdAt;  if (v is DateTime) return v; if (v is num) return DateTime.fromMillisecondsSinceEpoch(v > 2000000000 ? v.toInt() : (v * 1000).toInt()); if (v is String) return DateTime.tryParse(v); } catch (_) {}
+    DateTime? ts(dynamic e) {
+      try {
+        final v = (e as dynamic).timestamp;
+        if (v is DateTime) return v;
+        if (v is num)
+          return DateTime.fromMillisecondsSinceEpoch(
+            v > 2000000000 ? v.toInt() : (v * 1000).toInt(),
+          );
+        if (v is String) return DateTime.tryParse(v);
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).answeredAt;
+        if (v is DateTime) return v;
+        if (v is num)
+          return DateTime.fromMillisecondsSinceEpoch(
+            v > 2000000000 ? v.toInt() : (v * 1000).toInt(),
+          );
+        if (v is String) return DateTime.tryParse(v);
+      } catch (_) {}
+      try {
+        final v = (e as dynamic).createdAt;
+        if (v is DateTime) return v;
+        if (v is num)
+          return DateTime.fromMillisecondsSinceEpoch(
+            v > 2000000000 ? v.toInt() : (v * 1000).toInt(),
+          );
+        if (v is String) return DateTime.tryParse(v);
+      } catch (_) {}
       return null;
     }
 
@@ -280,14 +319,16 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
             final st = (dyn.stableId ?? '').toString().trim();
             final ok = (dyn.isCorrect == true);
             if (st.isEmpty || ok) continue;
-            final t = _ts(a);
+            final t = ts(a);
             if (t == null) continue;
             final cur = fb[st];
             if (cur == null || t.isAfter(cur)) fb[st] = t;
           } catch (_) {}
         }
       }
-      AppLog.d('[REVIEW] latest fallback scan -> matched=${fb.length}/${_base.length}');
+      AppLog.d(
+        '[REVIEW] latest fallback scan -> matched=${fb.length}/${_base.length}',
+      );
     } catch (_) {}
     return fb;
   }
@@ -333,7 +374,10 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
       _sortState = _SortState.recent;
     });
 
-    final top3 = _cards.take(3).map((c) => timeOf(c).toIso8601String()).toList();
+    final top3 = _cards
+        .take(3)
+        .map((c) => timeOf(c).toIso8601String())
+        .toList();
     AppLog.d('[REVIEW] sort=recent top3=$top3');
     _announce('並び替え：最新誤答が新しい順');
   }
@@ -364,9 +408,9 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
     _announce('重複誤答のみ：${filtered.length}/${_base.length}件');
 
     if (filtered.isEmpty && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('重複して誤答した問題はありません')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('重複して誤答した問題はありません')));
     }
   }
 
@@ -465,10 +509,19 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
               PopupMenuItem(value: MenuAction.sortOriginal, child: Text('元の順')),
               PopupMenuItem(value: MenuAction.sortRandom, child: Text('ランダム')),
               PopupMenuDivider(),
-              PopupMenuItem(value: MenuAction.sortByFreq, child: Text('誤答頻度の高い順')),
-              PopupMenuItem(value: MenuAction.sortByRecent, child: Text('最新誤答が新しい順')),
+              PopupMenuItem(
+                value: MenuAction.sortByFreq,
+                child: Text('誤答頻度の高い順'),
+              ),
+              PopupMenuItem(
+                value: MenuAction.sortByRecent,
+                child: Text('最新誤答が新しい順'),
+              ),
               PopupMenuDivider(),
-              PopupMenuItem(value: MenuAction.toggleRepeatedOnly, child: Text('重複誤答のみ')),
+              PopupMenuItem(
+                value: MenuAction.toggleRepeatedOnly,
+                child: Text('重複誤答のみ'),
+              ),
             ],
           ),
         ],
@@ -486,12 +539,17 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
           children: [
             if (deckTitle.isNotEmpty || unitTitle.isNotEmpty) ...[
-              Text('・単元　$deckTitle', style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                '・単元　$deckTitle',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               if (unitTitle.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(top: 4),
-                  child: Text('・ユニット　$unitTitle',
-                      style: Theme.of(context).textTheme.labelMedium),
+                  child: Text(
+                    '・ユニット　$unitTitle',
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
                 ),
               const SizedBox(height: 10),
             ],
@@ -499,7 +557,11 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
               elevation: 2,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
-                side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant.withOpacity(0.4)),
+                side: BorderSide(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.outlineVariant.withOpacity(0.4),
+                ),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -542,7 +604,11 @@ class _ReviewCardsScreenState extends State<ReviewCardsScreen> {
 class _AnswerCard extends StatelessWidget {
   final String answer;
   final String explanation;
-  const _AnswerCard({required this.answer, required this.explanation, super.key});
+  const _AnswerCard({
+    required this.answer,
+    required this.explanation,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -552,7 +618,8 @@ class _AnswerCard extends StatelessWidget {
 
     final labelS = tt.labelMedium ?? const TextStyle(fontSize: 12);
     final titleS =
-        tt.titleMedium ?? const TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
+        tt.titleMedium ??
+        const TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
 
     return Card(
       elevation: 2,
@@ -573,7 +640,10 @@ class _AnswerCard extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 answer,
-                style: titleS.copyWith(color: onBg, fontWeight: FontWeight.w800),
+                style: titleS.copyWith(
+                  color: onBg,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               if (explanation.isNotEmpty) ...[
                 const SizedBox(height: 12),
@@ -598,7 +668,6 @@ class _BottomBar extends StatelessWidget {
   final VoidCallback onPrev;
   final VoidCallback onNext;
   const _BottomBar({
-    super.key,
     required this.index,
     required this.total,
     required this.onPrev,
@@ -617,7 +686,9 @@ class _BottomBar extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.9),
-          border: Border(top: BorderSide(color: cs.outlineVariant.withOpacity(0.6))),
+          border: Border(
+            top: BorderSide(color: cs.outlineVariant.withOpacity(0.6)),
+          ),
         ),
         child: Row(
           children: [
@@ -627,7 +698,10 @@ class _BottomBar extends StatelessWidget {
               tooltip: '前へ',
             ),
             const Spacer(),
-            Text('${index + 1} / $total', style: caption.copyWith(color: cs.onSurface)),
+            Text(
+              '${index + 1} / $total',
+              style: caption.copyWith(color: cs.onSurface),
+            ),
             const Spacer(),
             IconButton(
               onPressed: index < total - 1 ? onNext : null,

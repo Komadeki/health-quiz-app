@@ -94,9 +94,9 @@ class _ResultScreenState extends State<ResultScreen> {
       await ScoreSaver.save(record);
       if (!mounted) return;
       setState(() => _saved = true);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('結果を保存しました')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('結果を保存しました')));
     } catch (_) {
       // 失敗は致命的でないので握りつぶす
     }
@@ -122,7 +122,9 @@ class _ResultScreenState extends State<ResultScreen> {
     // デバッグ用：不一致があれば検知
     if (cards.isEmpty) {
       // ignore: avoid_print
-      print('[WRONG-RETRY] no cards were resolved from stableIds=${ids.take(5).toList()}');
+      print(
+        '[WRONG-RETRY] no cards were resolved from stableIds=${ids.take(5).toList()}',
+      );
     }
     return cards;
   }
@@ -136,7 +138,9 @@ class _ResultScreenState extends State<ResultScreen> {
 
     // サマリバー用に Map<String,int> -> Map<String,UnitStat>(wrong=0) へ変換
     final ub = widget.unitBreakdown ?? const <String, int>{};
-    final breakdownForBar = ub.map((k, v) => MapEntry(k, UnitStat(asked: v, wrong: 0)));
+    final breakdownForBar = ub.map(
+      (k, v) => MapEntry(k, UnitStat(asked: v, wrong: 0)),
+    );
     final top = computeTopUnits(
       unitBreakdown: breakdownForBar,
       unitTitleMap: widget.unitTitleMap,
@@ -197,9 +201,9 @@ class _ResultScreenState extends State<ResultScreen> {
                   minimumSize: const Size(double.infinity, 48),
                   textStyle: const TextStyle(fontSize: 18),
                 ),
-                
+
                 onPressed: () {
-                  debugPrint('[HISTORY/NAV] open sid=${widget.sessionId}'); 
+                  debugPrint('[HISTORY/NAV] open sid=${widget.sessionId}');
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => AttemptHistoryScreen(
@@ -238,7 +242,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                 builder: (_) => QuizScreen(
                                   deck: fakeDeck,
                                   overrideCards: cards,
-                                  type: 'retry_wrong', 
+                                  type: 'retry_wrong',
                                 ),
                               ),
                             );
@@ -247,7 +251,9 @@ class _ResultScreenState extends State<ResultScreen> {
                     icon: const Icon(Icons.refresh),
                     label: Text(
                       ready
-                          ? (hasWrong ? '誤答だけもう一度（${list.length}問）' : '今回の誤答はありません')
+                          ? (hasWrong
+                                ? '誤答だけもう一度（${list.length}問）'
+                                : '今回の誤答はありません')
                           : '誤答を抽出中…',
                     ),
                     style: FilledButton.styleFrom(
@@ -262,7 +268,9 @@ class _ResultScreenState extends State<ResultScreen> {
 
             FilledButton.icon(
               onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+                Navigator.of(
+                  context,
+                ).pushNamedAndRemoveUntil('/', (route) => false);
               },
               icon: const Icon(Icons.home),
               label: const Text('ホームへ'),
@@ -296,24 +304,33 @@ class _ResultScreenState extends State<ResultScreen> {
     }
     return Row(
       children: [
-        Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        Text(
+          title,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(width: 8),
-        if (badgeColor != null)
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: badgeColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(999),
-              border: Border.all(color: badgeColor),
-            ),
-            child: Text('type: $type', style: TextStyle(color: badgeColor, fontSize: 12)),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: badgeColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(color: badgeColor),
           ),
+          child: Text(
+            'type: $type',
+            style: TextStyle(color: badgeColor, fontSize: 12),
+          ),
+        ),
       ],
     );
   }
 
-  Widget _scoreHeader(BuildContext context,
-      {required int total, required int correct, required int wrong}) {
+  Widget _scoreHeader(
+    BuildContext context, {
+    required int total,
+    required int correct,
+    required int wrong,
+  }) {
     final rate = total > 0 ? (correct / total) : 0.0;
     return Card(
       child: Padding(
@@ -379,8 +396,9 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
 
     final total = widget.totalQuestions;
     final showToggle = entries.length > widget.initialMax;
-    final visibleCount =
-        _expanded ? entries.length : entries.length.clamp(0, widget.initialMax);
+    final visibleCount = _expanded
+        ? entries.length
+        : entries.length.clamp(0, widget.initialMax);
 
     return Card(
       elevation: 1,
@@ -414,9 +432,7 @@ class _UnitBreakdownCardState extends State<_UnitBreakdownCard> {
                 child: TextButton.icon(
                   onPressed: () => setState(() => _expanded = !_expanded),
                   icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
-                  label: Text(
-                    _expanded ? '閉じる' : 'もっと見る（全${entries.length}件）',
-                  ),
+                  label: Text(_expanded ? '閉じる' : 'もっと見る（全${entries.length}件）'),
                 ),
               ),
             ],

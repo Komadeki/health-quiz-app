@@ -255,7 +255,9 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
     AppLog.d('🎲 UnitSelect build summary (limit=$limit):');
     for (int i = 0; i < pools.length; i++) {
       final extraFlag = remainderAssigned[i] ? ' (+1配分)' : '';
-      AppLog.d('  ${poolNames[i]}: ${perUnitPicked[i]}問$extraFlag (pool=${pools[i].length})');
+      AppLog.d(
+        '  ${poolNames[i]}: ${perUnitPicked[i]}問$extraFlag (pool=${pools[i].length})',
+      );
     }
     AppLog.d('  → total=${picked.length}');
 
@@ -296,7 +298,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) =>QuizScreen(
+        builder: (_) => QuizScreen(
           deck: widget.deck,
           overrideCards: cards,
           selectedUnitIds: _selectedUnitIds.toList(),
@@ -445,10 +447,13 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                             context: context,
                             builder: (_) => AlertDialog(
                               title: const Text('有料カードが含まれています'),
-                              content: const Text('購入すると全カードが解放されます。無料カードのみで続けることもできます。'),
+                              content: const Text(
+                                '購入すると全カードが解放されます。無料カードのみで続けることもできます。',
+                              ),
                               actions: [
                                 TextButton(
-                                  onPressed: () => Navigator.pop(context, false),
+                                  onPressed: () =>
+                                      Navigator.pop(context, false),
                                   child: const Text('無料だけで続ける'),
                                 ),
                                 TextButton(
@@ -463,7 +468,9 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                             if (!context.mounted) return;
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (_) => PurchaseScreen()), // ← const を付けない
+                              MaterialPageRoute(
+                                builder: (_) => PurchaseScreen(),
+                              ), // ← const を付けない
                             );
                             return;
                           }
@@ -483,7 +490,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
