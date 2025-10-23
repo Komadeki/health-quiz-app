@@ -29,10 +29,10 @@ class ProductCatalog {
   static const specials = [pro];
 
   static Set<String> allProductIds() => {
-        ...deckIds.map((d) => '${d}_unlock'),
-        ...bundles,
-        ...specials,
-      };
+    ...deckIds.map((d) => '${d}_unlock'),
+    ...bundles,
+    ...specials,
+  };
 }
 
 class IapService {
@@ -64,19 +64,26 @@ class IapService {
       debugPrint('❌ queryProductDetails error: ${resp.error}');
     }
     if (resp.notFoundIDs.isNotEmpty) {
-      debugPrint('❗ notFoundIDs: ${resp.notFoundIDs} '
-          '(productId不一致/未公開/テスター外の可能性)');
+      debugPrint(
+        '❗ notFoundIDs: ${resp.notFoundIDs} '
+        '(productId不一致/未公開/テスター外の可能性)',
+      );
     }
 
     products
       ..clear()
       ..addEntries(resp.productDetails.map((p) => MapEntry(p.id, p)));
-    debugPrint('✅ Loaded products: ${products.keys.toList()} (count=${products.length})');
+    debugPrint(
+      '✅ Loaded products: ${products.keys.toList()} (count=${products.length})',
+    );
 
     _sub?.cancel();
-    _sub = _iap.purchaseStream.listen(_onUpdated, onError: (e) {
-      debugPrint('purchaseStream error: $e');
-    });
+    _sub = _iap.purchaseStream.listen(
+      _onUpdated,
+      onError: (e) {
+        debugPrint('purchaseStream error: $e');
+      },
+    );
   }
 
   void dispose() => _sub?.cancel();
@@ -90,7 +97,9 @@ class IapService {
     if (p == null) {
       throw StateError('Product not loaded: $productId');
     }
-    await _iap.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: p));
+    await _iap.buyNonConsumable(
+      purchaseParam: PurchaseParam(productDetails: p),
+    );
   }
 
   Future<void> restore() async => _iap.restorePurchases();
@@ -153,7 +162,10 @@ class IapService {
 
     // 個別デッキ: deck_Xxx_unlock -> deck_Xxx
     if (productId.endsWith('_unlock')) {
-      final deckId = productId.substring(0, productId.length - '_unlock'.length);
+      final deckId = productId.substring(
+        0,
+        productId.length - '_unlock'.length,
+      );
       await PurchaseStore.addOwnedDecks([deckId]);
       debugPrint('✔ grant: single deck -> $deckId');
     }

@@ -12,7 +12,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
   final iap = IapService();
 
   bool loading = true; // 価格などProductDetailsロード中
-  bool busy = false;   // 購入/復元の進行中
+  bool busy = false; // 購入/復元の進行中
   bool isPro = false;
   Set<String> owned = {};
 
@@ -29,9 +29,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       owned = (await PurchaseStore.ownedDeckIds()).toSet();
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('購入情報の初期化に失敗しました: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('購入情報の初期化に失敗しました: $e')));
       }
     } finally {
       if (mounted) setState(() => loading = false);
@@ -60,14 +60,14 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       await iap.buy(productId);
       await _refreshOwned();
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('購入が反映されました')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('購入が反映されました')));
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('購入に失敗しました: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('購入に失敗しました: $e')));
     } finally {
       if (mounted) setState(() => busy = false);
     }
@@ -79,14 +79,14 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       await iap.restore();
       await _refreshOwned();
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('購入を復元しました')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('購入を復元しました')));
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('復元に失敗しました: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('復元に失敗しました: $e')));
     } finally {
       if (mounted) setState(() => busy = false);
     }
@@ -113,9 +113,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
   @override
   Widget build(BuildContext context) {
     if (loading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
@@ -135,10 +133,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               _deckTile(deckId: 'deck_M06', title: '生涯を通じる健康（後半）'),
               _deckTile(deckId: 'deck_M07', title: '健康を支える環境づくり（前半）'),
               _deckTile(deckId: 'deck_M08', title: '健康を支える環境づくり（後半）'),
+
               // _deckTile(deckId: 'deck_M09', title: 'スポーツの発祥と発展'),
               // _deckTile(deckId: 'deck_M10', title: '運動・スポーツの学び方'),
               // _deckTile(deckId: 'deck_M11', title: '豊かなスポーツライフの設計'),
-
               const Divider(),
 
               // セット／全体
@@ -170,7 +168,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               // Pro
               ListTile(
                 leading: Icon(
-                  isPro ? Icons.workspace_premium : Icons.workspace_premium_outlined,
+                  isPro
+                      ? Icons.workspace_premium
+                      : Icons.workspace_premium_outlined,
                 ),
                 title: Text(isPro ? 'Pro（購入済）' : 'Proアップグレード'),
                 subtitle: Text(_priceOf('pro_upgrade')),
