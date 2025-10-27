@@ -29,9 +29,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       owned = (await PurchaseStore.ownedDeckIds()).toSet();
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('購入情報の初期化に失敗しました: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('購入情報の初期化に失敗しました: $e')));
       }
     } finally {
       if (mounted) setState(() => loading = false);
@@ -60,14 +58,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       await iap.buy(productId);
       await _refreshOwned();
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('購入が反映されました')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('購入が反映されました')));
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('購入に失敗しました: $e')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('購入に失敗しました: $e')));
     } finally {
       if (mounted) setState(() => busy = false);
     }
@@ -79,14 +73,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       await iap.restore();
       await _refreshOwned();
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('購入を復元しました')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('購入を復元しました')));
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('復元に失敗しました: $e')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('復元に失敗しました: $e')));
     } finally {
       if (mounted) setState(() => busy = false);
     }
@@ -103,10 +93,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       subtitle: Text(bought ? '購入済' : (price.isEmpty ? '' : price)),
       trailing: bought || busy
           ? null
-          : TextButton(
-              onPressed: () => _buy(productId),
-              child: const Text('購入'),
-            ),
+          : TextButton(onPressed: () => _buy(productId), child: const Text('購入')),
     );
   }
 
@@ -125,18 +112,18 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               const ListTile(title: Text('アプリ内購入')),
 
               // 単元（必要に応じて増やす／DeckLoaderから動的生成にしてもOK）
-              _deckTile(deckId: 'deck_M01', title: '現代社会と健康（上）'),
-              _deckTile(deckId: 'deck_M02', title: '現代社会と健康（中）'),
-              _deckTile(deckId: 'deck_M03', title: '現代社会と健康（下）'),
-              _deckTile(deckId: 'deck_M04', title: '安全な社会生活'),
-              _deckTile(deckId: 'deck_M05', title: '生涯を通じる健康（前半）'),
-              _deckTile(deckId: 'deck_M06', title: '生涯を通じる健康（後半）'),
-              _deckTile(deckId: 'deck_M07', title: '健康を支える環境づくり（前半）'),
-              _deckTile(deckId: 'deck_M08', title: '健康を支える環境づくり（後半）'),
+              _deckTile(deckId: 'deck_m01', title: '現代社会と健康（上）'),
+              _deckTile(deckId: 'deck_m02', title: '現代社会と健康（中）'),
+              _deckTile(deckId: 'deck_m03', title: '現代社会と健康（下）'),
+              _deckTile(deckId: 'deck_m04', title: '安全な社会生活'),
+              _deckTile(deckId: 'deck_m05', title: '生涯を通じる健康（前半）'),
+              _deckTile(deckId: 'deck_m06', title: '生涯を通じる健康（後半）'),
+              _deckTile(deckId: 'deck_m07', title: '健康を支える環境づくり（前半）'),
+              _deckTile(deckId: 'deck_m08', title: '健康を支える環境づくり（後半）'),
 
-              // _deckTile(deckId: 'deck_M09', title: 'スポーツの発祥と発展'),
-              // _deckTile(deckId: 'deck_M10', title: '運動・スポーツの学び方'),
-              // _deckTile(deckId: 'deck_M11', title: '豊かなスポーツライフの設計'),
+              // _deckTile(deckId: 'deck_m09', title: 'スポーツの発祥と発展'),
+              // _deckTile(deckId: 'deck_m10', title: '運動・スポーツの学び方'),
+              // _deckTile(deckId: 'deck_m11', title: '豊かなスポーツライフの設計'),
               const Divider(),
 
               // セット／全体
@@ -167,19 +154,12 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
               // Pro
               ListTile(
-                leading: Icon(
-                  isPro
-                      ? Icons.workspace_premium
-                      : Icons.workspace_premium_outlined,
-                ),
+                leading: Icon(isPro ? Icons.workspace_premium : Icons.workspace_premium_outlined),
                 title: Text(isPro ? 'Pro（購入済）' : 'Proアップグレード'),
                 subtitle: Text(_priceOf('pro_upgrade')),
                 trailing: isPro || busy
                     ? null
-                    : TextButton(
-                        onPressed: () => _buy('pro_upgrade'),
-                        child: const Text('購入'),
-                      ),
+                    : TextButton(onPressed: () => _buy('pro_upgrade'), child: const Text('購入')),
               ),
 
               const SizedBox(height: 8),

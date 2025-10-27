@@ -1,11 +1,20 @@
+import java.util.Properties
+
+val keystoreProps = Properties().apply {
+    val f = file("key.properties") // ← app/ 直下を見る
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
 android {
-    namespace = "com.example.health_quiz_app"
+    namespace = "jp.mokeke.healthquiz"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -16,49 +25,85 @@ android {
     kotlinOptions { jvmTarget = JavaVersion.VERSION_11.toString() }
 
     defaultConfig {
-        // ← 実アプリでは本番IDに変える
-        applicationId = "com.example.health_quiz_app"
+        // ★ 本番用のベース applicationId（prod は suffix なし）
+        applicationId = "jp.mokeke.healthquiz"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
-    // ★ 追加：flavor 定義
+    // ===== signing =====
+    signingConfigs {
+        create("release") {
+            if (keystoreProps.isNotEmpty()) {
+                // key.properties の値をそのまま使う
+                storeFile = file(keystoreProps["storeFile"] as String)      // 例: ../upload-keystore.jks
+                storePassword = keystoreProps["storePassword"] as String?
+                keyAlias = keystoreProps["keyAlias"] as String?
+                keyPassword = keystoreProps["keyPassword"] as String?
+            }
+        }
+    }
+
+    buildTypes {
+        getByName("release") {
+            // keystore が無い環境では debug 署名でビルド可（内部検証用）
+            signingConfig = if (keystoreProps.isNotEmpty())
+                signingConfigs.getByName("release")
+            else
+                signingConfigs.getByName("debug")
+
+            // まずは無効でOK（必要に応じて有効化）
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+    }
+
+    // ===== flavors =====
     flavorDimensions += "env"
     productFlavors {
         create("dev") {
             dimension = "env"
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
-            // アプリアイコン名などを分けたい場合は resValue で
-            resValue("string", "app_name", "健康クイズ（DEV）")
+            // ランチャー名（AndroidManifest.xml の android:label="@string/app_name"）
         }
         create("qa") {
             dimension = "env"
             applicationIdSuffix = ".qa"
             versionNameSuffix = "-qa"
-            resValue("string", "app_name", "健康クイズ（QA）")
         }
         create("prod") {
             dimension = "env"
-            // suffix なし＝本番
-            resValue("string", "app_name", "高校保健 一問一答")
-        }
-    }
-
-    buildTypes {
-        release {
-            // 署名は後で本番キーに差し替え
-            signingConfig = signingConfigs.getByName("debug")
-            // minify/obfuscate を使う場合:
-            // isMinifyEnabled = true
-            // proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-        debug {
-            // 必要に応じて
+            // prod は suffix なし
         }
     }
 }
 
-flutter { source = "../.." }
+// prod のリリース系を“実行する時”だけ key.properties を必須化
+listOf(
+    "bundleProdRelease",
+    "assembleProdRelease",
+    "publishProdBundle" // Play Publisher使う場合
+).forEach { taskName ->
+    tasks.matching { it.name.equals(taskName, ignoreCase = true) }
+        .configureEach {
+            doFirst {
+                if (keystoreProps.isEmpty) {
+                    throw GradleException("prodRelease には android/app/key.properties が必要です。")
+                }
+            }
+        }
+}
+
+println("🧩 CWD(app module): " + project.projectDir)
+println("🧩 key.properties exists? " + file("key.properties").exists())
+println("🧩 keystore at ../upload-keystore.jks exists? " + file("../upload-keystore.jks").exists())
+
+
+
+// ===== Flutter =====
+flutter {
+    source = "../.."
+}

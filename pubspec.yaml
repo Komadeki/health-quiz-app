@@ -1,8 +1,8 @@
 name: health_quiz_app
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 
-version: 0.7.0+70
+version: 0.7.9+79
 
 environment:
   sdk: ^3.9.2
@@ -11,20 +11,20 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
-    sdk: flutter   # ← これを追加
-  intl: ^0.20.2    # （任意。日付/数値の整形に便利）
+    sdk: flutter # ← これを追加
+  intl: ^0.20.2 # （任意。日付/数値の整形に便利）
   provider: ^6.1.2
   sqflite: ^2.3.0
   path_provider: ^2.1.2
   csv: ^6.0.0
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.5.3
-  crypto: ^3.0.3   # ←★これを追加
+  crypto: ^3.0.3 # ←★これを追加
   uuid: ^4.4.0
   package_info_plus: ^9.0.0
   url_launcher: ^6.3.0
   in_app_purchase: ^3.2.3
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -35,7 +35,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/decks/
-    - assets/images/ 
+    - assets/images/
   fonts:
     - family: NotoSansJP
       fonts:
@@ -44,8 +44,8 @@ flutter:
           weight: 700
 
 flutter_native_splash:
-  color: "#F7FAF4"             # 背景色（今の淡いアイボリー等に合わせて）
-  color_dark: "#0b0f0c"        # ダーク時（任意）
+  color: "#F7FAF4" # 背景色（今の淡いアイボリー等に合わせて）
+  color_dark: "#0b0f0c" # ダーク時（任意）
   image: assets/images/splash_logo.png
   image_dark: assets/images/splash_logo.png
   android_12:

@@ -51,6 +51,13 @@ void main() async {
     DeckLoader.instance();
   });
 
+  // ★ 実行時の環境を確認するログを追加
+  debugPrint(
+    'APP_ENV=${AppConfig.env} '
+    'title="${AppConfig.appTitle}" '
+    'kReleaseMode=$kReleaseMode',
+  );
+
   // ここからrunApp（UI優先）
   runApp(ChangeNotifierProvider(create: (_) => settings, child: const MyApp()));
 }

@@ -1,5 +1,4 @@
 // lib/services/purchase_store.dart
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PurchaseStore {
@@ -20,18 +19,25 @@ class PurchaseStore {
   // ---- Decks ----
   static Future<List<String>> ownedDeckIds() async {
     final sp = await SharedPreferences.getInstance();
-    return sp.getStringList(_kDecks) ?? <String>[];
+    final list = sp.getStringList(_kDecks) ?? <String>[];
+    // 旧データに大文字があれば小文字へ移行
+    final lower = list.map((e) => e.toLowerCase()).toSet().toList();
+    if (lower.length != list.length || list.any((e) => e != e.toLowerCase())) {
+      await sp.setStringList(_kDecks, lower);
+    }
+    return lower;
   }
 
   static Future<void> addOwnedDecks(Iterable<String> deckIds) async {
     final sp = await SharedPreferences.getInstance();
     final cur = {...(sp.getStringList(_kDecks) ?? <String>[])};
-    cur.addAll(deckIds);
+    // 新たに追加するものも小文字化
+    cur.addAll(deckIds.map((e) => e.toLowerCase()));
     await sp.setStringList(_kDecks, cur.toList());
   }
 
   static Future<bool> isDeckOwned(String deckId) async {
     final ids = await ownedDeckIds();
-    return ids.contains(deckId);
+    return ids.contains(deckId.toLowerCase()); // ← 小文字比較
   }
 }

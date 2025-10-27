@@ -7,16 +7,17 @@ import 'purchase_store.dart';
 
 /// ストアに登録した productId と**完全一致**させること
 class ProductCatalog {
-  // 個別単元（必要に応じて増減）
+  // Play Console の productId（deck_xxx_unlock）と対になる“デッキID本体”
+  // ※ 小文字に統一（例: deck_m01）
   static const deckIds = [
-    'deck_M01',
-    'deck_M02',
-    'deck_M03',
-    'deck_M04',
-    'deck_M05',
-    'deck_M06',
-    'deck_M07',
-    'deck_M08',
+    'deck_m01',
+    'deck_m02',
+    'deck_m03',
+    'deck_m04',
+    'deck_m05',
+    'deck_m06',
+    'deck_m07',
+    'deck_m08',
   ];
 
   // セット/全体/Pro
@@ -73,9 +74,7 @@ class IapService {
     products
       ..clear()
       ..addEntries(resp.productDetails.map((p) => MapEntry(p.id, p)));
-    debugPrint(
-      '✅ Loaded products: ${products.keys.toList()} (count=${products.length})',
-    );
+    debugPrint('✅ Loaded products: ${products.keys.toList()} (count=${products.length})');
 
     _sub?.cancel();
     _sub = _iap.purchaseStream.listen(
@@ -97,9 +96,7 @@ class IapService {
     if (p == null) {
       throw StateError('Product not loaded: $productId');
     }
-    await _iap.buyNonConsumable(
-      purchaseParam: PurchaseParam(productDetails: p),
-    );
+    await _iap.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: p));
   }
 
   Future<void> restore() async => _iap.restorePurchases();
@@ -162,10 +159,9 @@ class IapService {
 
     // 個別デッキ: deck_Xxx_unlock -> deck_Xxx
     if (productId.endsWith('_unlock')) {
-      final deckId = productId.substring(
-        0,
-        productId.length - '_unlock'.length,
-      );
+      final deckId = productId
+          .substring(0, productId.length - '_unlock'.length)
+          .toLowerCase(); // ← 念のため小文字正規化
       await PurchaseStore.addOwnedDecks([deckId]);
       debugPrint('✔ grant: single deck -> $deckId');
     }
