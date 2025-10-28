@@ -137,13 +137,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadDecks() async {
     try {
-      // 🔸 修正版：DeckLoader.instance() を await で取得（UIブロックしない）
       final loader = await DeckLoader.instance();
       final all = await loader.loadAll();
 
+      // 🔸 購入状態反映（Pro or 個別）
+      final updated = await _applyPurchaseState(all);
+
       if (!mounted) return;
       setState(() {
-        decks = all;
+        decks = updated;
         loading = false;
         error = null;
       });
@@ -154,6 +156,20 @@ class _HomeScreenState extends State<HomeScreen> {
         loading = false;
       });
     }
+  }
+
+  Future<List<Deck>> _applyPurchaseState(List<Deck> src) async {
+    final prefs = await SharedPreferences.getInstance();
+    final ownedIds = prefs.getStringList('ownedDeckIds') ?? [];
+    final isPro = prefs.getBool('proUpgrade') ?? false;
+
+    // デッキIDを小文字統一で照合
+    final owned = ownedIds.map((e) => e.toLowerCase()).toSet();
+
+    return src.map((d) {
+      final ownedFlag = isPro || owned.contains(d.id.toLowerCase());
+      return d.copyWith(isPurchased: ownedFlag);
+    }).toList();
   }
 
   // ===== デバッグ用：購入フラグ切り替え =====
@@ -487,10 +503,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   _MenuTile(
                     icon: Icons.shopping_bag_outlined,
                     label: '購入',
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => PurchaseScreen()),
-                    ),
+                    onTap: () async {
+                      final updated = await Navigator.push<bool>(
+                        context,
+                        MaterialPageRoute(builder: (_) => const PurchaseScreen()),
+                      );
+                      if (updated == true && mounted) {
+                        await _loadDecks(); // ← 購入状態を再反映
+                      }
+                    },
                   ),
                 ],
               ),

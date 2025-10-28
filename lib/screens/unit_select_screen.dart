@@ -29,6 +29,14 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
   final Set<String> _selectedUnitIds = {}; // 選択中 unit.id
   int? _limit; // null=制限なし／数値=出題上限
 
+  // ★ 追加：この画面が参照する“最新の所有状態”
+  bool _deckOwned = false;
+
+  Future<void> _reloadDeckOwned() async {
+    _deckOwned = await Gate.canAccessDeck(widget.deck.id);
+    if (mounted) setState(() {});
+  }
+
   // 直近の設定値を記録（ON→OFF切替時の検知用）
   bool _lastSaveUnitsOn = true;
 
@@ -36,6 +44,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
   void initState() {
     super.initState();
     _restorePrefs();
+    _reloadDeckOwned(); // ★追加：初期表示時に所有状態を取得
   }
 
   // 設定が変わったら即時反映（特に ON→OFF でリセット）
@@ -66,9 +75,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
         _selectedUnitIds.clear();
         _limit = null;
       });
-      AppLog.d(
-        '⏭️ UnitSelect: load skipped (OFF) → cleared selections & limit=null',
-      );
+      AppLog.d('⏭️ UnitSelect: load skipped (OFF) → cleared selections & limit=null');
       return;
     }
 
@@ -78,38 +85,26 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
     setState(() {
       _selectedUnitIds
         ..clear()
-        ..addAll(
-          savedUnits.where((id) => widget.deck.units.any((u) => u.id == id)),
-        );
+        ..addAll(savedUnits.where((id) => widget.deck.units.any((u) => u.id == id)));
       _limit = savedLimit; // null なら制限なし
     });
 
-    AppLog.d(
-      '📥 UnitSelect: load units=$_selectedUnitIds, limit=$_limit (deck=${widget.deck.id})',
-    );
+    AppLog.d('📥 UnitSelect: load units=$_selectedUnitIds, limit=$_limit (deck=${widget.deck.id})');
   }
 
   Future<void> _saveSelectedUnits() async {
-    final saveOn = Provider.of<AppSettings>(
-      context,
-      listen: false,
-    ).saveUnitSelection;
+    final saveOn = Provider.of<AppSettings>(context, listen: false).saveUnitSelection;
     if (!saveOn) {
       AppLog.d('⏭️ UnitSelect: save skipped (OFF)');
       return;
     }
     final sp = await SharedPreferences.getInstance();
     await sp.setStringList(_prefsKeySelectedUnits, _selectedUnitIds.toList());
-    AppLog.d(
-      '📤 UnitSelect: saved units=$_selectedUnitIds (deck=${widget.deck.id})',
-    );
+    AppLog.d('📤 UnitSelect: saved units=$_selectedUnitIds (deck=${widget.deck.id})');
   }
 
   Future<void> _saveQuestionLimit() async {
-    final saveOn = Provider.of<AppSettings>(
-      context,
-      listen: false,
-    ).saveUnitSelection;
+    final saveOn = Provider.of<AppSettings>(context, listen: false).saveUnitSelection;
     if (!saveOn) {
       AppLog.d('⏭️ UnitSelect: limit save skipped (OFF)');
       return;
@@ -127,19 +122,15 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
 
   // 選択ユニットのカード（購入状況でフィルタ）を収集
   List<QuizCard> _collectSelectedCards() {
-    final selectedUnits = widget.deck.units.where(
-      (u) => _selectedUnitIds.contains(u.id),
-    );
+    final selectedUnits = widget.deck.units.where((u) => _selectedUnitIds.contains(u.id));
     final all = selectedUnits.expand((u) => u.cards).toList();
-    if (widget.deck.isPurchased) return all;
+    if (_deckOwned) return all;
     return all.where((c) => !c.isPremium).toList();
   }
 
   // 素の内訳（無料/有料）を数える
   ({int free, int premium}) _rawBreakdown() {
-    final selectedUnits = widget.deck.units.where(
-      (u) => _selectedUnitIds.contains(u.id),
-    );
+    final selectedUnits = widget.deck.units.where((u) => _selectedUnitIds.contains(u.id));
     final all = selectedUnits.expand((u) => u.cards);
     final free = all.where((c) => !c.isPremium).length;
     final premium = all.where((c) => c.isPremium).length;
@@ -149,7 +140,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
   // カウンタ表示文言
   String _counterLabel() {
     final b = _rawBreakdown();
-    if (widget.deck.isPurchased) {
+    if (_deckOwned) {
       return '選択中：${b.free + b.premium}問';
     } else {
       return '選択中：${b.free}問（無料 ${b.free} / 有料 ${b.premium}）';
@@ -159,7 +150,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
   // 実際に開始できる問題数（購入状態＋上限を考慮）
   int get _startCount {
     final b = _rawBreakdown();
-    final base = widget.deck.isPurchased ? (b.free + b.premium) : b.free;
+    final base = _deckOwned ? (b.free + b.premium) : b.free;
     if (_limit == null) return base;
     return base < _limit! ? base : _limit!;
   }
@@ -171,18 +162,14 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
     // ランダム設定を一度だけ取得
     final rnd = context.read<AppSettings>().randomize;
 
-    final selectedUnits = widget.deck.units
-        .where((u) => _selectedUnitIds.contains(u.id))
-        .toList();
+    final selectedUnits = widget.deck.units.where((u) => _selectedUnitIds.contains(u.id)).toList();
     if (selectedUnits.isEmpty) return [];
 
     // 各ユニットのカードを取得（購入状況で制限）
     final pools = <List<QuizCard>>[];
     final poolNames = <String>[];
     for (final u in selectedUnits) {
-      final pool = widget.deck.isPurchased
-          ? u.cards.toList()
-          : u.cards.where((c) => !c.isPremium).toList();
+      final pool = _deckOwned ? u.cards.toList() : u.cards.where((c) => !c.isPremium).toList();
       if (rnd) {
         pool.shuffle();
       }
@@ -255,9 +242,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
     AppLog.d('🎲 UnitSelect build summary (limit=$limit):');
     for (int i = 0; i < pools.length; i++) {
       final extraFlag = remainderAssigned[i] ? ' (+1配分)' : '';
-      AppLog.d(
-        '  ${poolNames[i]}: ${perUnitPicked[i]}問$extraFlag (pool=${pools[i].length})',
-      );
+      AppLog.d('  ${poolNames[i]}: ${perUnitPicked[i]}問$extraFlag (pool=${pools[i].length})');
     }
     AppLog.d('  → total=${picked.length}');
 
@@ -325,9 +310,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                   ? Icons.check_box_outline_blank
                   : Icons.select_all,
             ),
-            label: Text(
-              _selectedUnitIds.length == units.length ? 'すべて解除' : 'すべて選択',
-            ),
+            label: Text(_selectedUnitIds.length == units.length ? 'すべて解除' : 'すべて選択'),
           ),
         ],
       ),
@@ -336,10 +319,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
           const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              '出題したいユニットを選択してください（複数可）',
-              style: theme.textTheme.bodyMedium,
-            ),
+            child: Text('出題したいユニットを選択してください（複数可）', style: theme.textTheme.bodyMedium),
           ),
           const SizedBox(height: 8),
           const Divider(height: 1),
@@ -366,11 +346,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
             child: Row(
               children: [
                 if (_selectedUnitIds.isEmpty) ...[
-                  Icon(
-                    Icons.info_outline,
-                    size: 18,
-                    color: theme.colorScheme.outline,
-                  ),
+                  Icon(Icons.info_outline, size: 18, color: theme.colorScheme.outline),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -382,11 +358,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                     ),
                   ),
                 ] else ...[
-                  Icon(
-                    Icons.quiz_outlined,
-                    size: 18,
-                    color: theme.colorScheme.primary,
-                  ),
+                  Icon(Icons.quiz_outlined, size: 18, color: theme.colorScheme.primary),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -428,9 +400,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
               child: FilledButton(
                 onPressed: _canStart
                     ? () async {
-                        AppLog.d(
-                          'start quiz: selectedUnitIds=$_selectedUnitIds, limit=$_limit',
-                        );
+                        AppLog.d('start quiz: selectedUnitIds=$_selectedUnitIds, limit=$_limit');
 
                         // 🧩 Gate制御（フェイルセーフ）
                         final deckOk = await Gate.canAccessDeck(widget.deck.id);
@@ -447,13 +417,10 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                             context: context,
                             builder: (_) => AlertDialog(
                               title: const Text('有料カードが含まれています'),
-                              content: const Text(
-                                '購入すると全カードが解放されます。無料カードのみで続けることもできます。',
-                              ),
+                              content: const Text('購入すると全カードが解放されます。無料カードのみで続けることもできます。'),
                               actions: [
                                 TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(context, false),
+                                  onPressed: () => Navigator.pop(context, false),
                                   child: const Text('無料だけで続ける'),
                                 ),
                                 TextButton(
@@ -464,14 +431,16 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                             ),
                           );
 
+                          // 「購入へ進む」を押した時の分岐部分だけ差し替え
                           if (go == true) {
                             if (!context.mounted) return;
-                            Navigator.push(
+                            final updated = await Navigator.push<bool>(
                               context,
-                              MaterialPageRoute(
-                                builder: (_) => PurchaseScreen(),
-                              ), // ← const を付けない
+                              MaterialPageRoute(builder: (_) => const PurchaseScreen()),
                             );
+                            if (updated == true && mounted) {
+                              await _reloadDeckOwned(); // ← 購入画面から戻ったら最新状態を反映
+                            }
                             return;
                           }
 
@@ -483,11 +452,7 @@ class _UnitSelectScreenState extends State<UnitSelectScreen> {
                         _startQuiz();
                       }
                     : null,
-                child: Text(
-                  _selectedUnitIds.isEmpty
-                      ? 'この選択で開始'
-                      : 'この選択で開始（$_startCount問）',
-                ),
+                child: Text(_selectedUnitIds.isEmpty ? 'この選択で開始' : 'この選択で開始（$_startCount問）'),
               ),
             ),
           ),

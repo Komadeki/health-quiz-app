@@ -1,8 +1,9 @@
 // lib/services/iap_service.dart
-
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+
 import 'purchase_store.dart';
 
 /// ストアに登録した productId と**完全一致**させること
@@ -36,18 +37,26 @@ class ProductCatalog {
   };
 }
 
-class IapService {
+class IapService with ChangeNotifier {
   final InAppPurchase _iap = InAppPurchase.instance;
   StreamSubscription<List<PurchaseDetails>>? _sub;
 
   /// 価格表示用（ProductDetails.id -> ProductDetails）
-  Map<String, ProductDetails> products = {};
+  final Map<String, ProductDetails> products = {};
 
   /// ストア接続/製品取得の可否
   bool available = false;
   bool get isReady => available && products.isNotEmpty;
 
-  /// 初期化：可用性チェック→製品情報取得→購入ストリーム購読
+  // ===== 所有状態（メモリキャッシュ） =====
+  /// 例: {'deck_m01', 'deck_m02', ...}
+  final Set<String> _ownedDeckIds = <String>{};
+
+  /// Pro フラグ（機能フル解放等に使用）
+  bool _isPro = false;
+  bool get isPro => _isPro;
+
+  /// 初期化：products取得 → 所有状態ロード → purchaseStream購読 →（Androidのみ）restorePurchases()
   Future<void> init() async {
     available = await _iap.isAvailable();
     debugPrint('IAP available: $available');
@@ -76,18 +85,33 @@ class IapService {
       ..addEntries(resp.productDetails.map((p) => MapEntry(p.id, p)));
     debugPrint('✅ Loaded products: ${products.keys.toList()} (count=${products.length})');
 
+    // 所有状態をローカルストアからロード（=即時UI反映の基礎）
+    await _reloadOwnershipFromStore();
+
+    // 先に購読を開始（以降の restore で流れてくるイベントを受ける）
     _sub?.cancel();
     _sub = _iap.purchaseStream.listen(
       _onUpdated,
-      onError: (e) {
-        debugPrint('purchaseStream error: $e');
-      },
+      onError: (e) => debugPrint('purchaseStream error: $e'),
     );
+
+    // ▼ 過去購入の再送をトリガ（Androidは自動呼び出しOK / iOSはユーザー起点が望ましい）
+    try {
+      if (defaultTargetPlatform == TargetPlatform.android) {
+        await _iap.restorePurchases();
+      }
+    } catch (e) {
+      debugPrint('restorePurchases on init failed: $e');
+    }
   }
 
-  void dispose() => _sub?.cancel();
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
 
-  // ---- 購入API ----
+  // ---- API: 購入/復元 ----
   Future<void> buy(String productId) async {
     final p = products[productId];
     if (!isReady) {
@@ -99,7 +123,19 @@ class IapService {
     await _iap.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: p));
   }
 
-  Future<void> restore() async => _iap.restorePurchases();
+  Future<void> restore() async {
+    // Android/iOS 共通：過去購入の再送をトリガ
+    await _iap.restorePurchases();
+  }
+
+  // ---- 内部: ストアから所有状態をロード ----
+  Future<void> _reloadOwnershipFromStore() async {
+    _ownedDeckIds
+      ..clear()
+      ..addAll(await PurchaseStore.getOwnedDeckIds());
+    _isPro = await PurchaseStore.getPro();
+    notifyListeners();
+  }
 
   // ---- ストリーム処理 ----
   Future<void> _onUpdated(List<PurchaseDetails> list) async {
@@ -133,12 +169,14 @@ class IapService {
     }
   }
 
-  // 付与ロジック（将来サーバ検証に差し替え可）
+  // ---- 付与ロジック（将来サーバ検証に差し替え可） ----
   Future<void> _grantEntitlement(String productId) async {
     // Pro: 機能解放
     if (productId == ProductCatalog.pro) {
       await PurchaseStore.setPro(true);
       debugPrint('✔ grant: pro enabled');
+      _isPro = true;
+      notifyListeners(); // ← UI即時反映
       return;
     }
 
@@ -146,6 +184,10 @@ class IapService {
     if (productId == ProductCatalog.bundleAll) {
       await PurchaseStore.addOwnedDecks(ProductCatalog.deckIds);
       debugPrint('✔ grant: bundle_all -> all deckIds');
+      _ownedDeckIds
+        ..clear()
+        ..addAll(ProductCatalog.deckIds);
+      notifyListeners();
       return;
     }
 
@@ -154,6 +196,8 @@ class IapService {
       final five = ProductCatalog.deckIds.take(5);
       await PurchaseStore.addOwnedDecks(five);
       debugPrint('✔ grant: bundle_5 -> first 5 deckIds');
+      _ownedDeckIds.addAll(five);
+      notifyListeners();
       return;
     }
 
@@ -161,9 +205,51 @@ class IapService {
     if (productId.endsWith('_unlock')) {
       final deckId = productId
           .substring(0, productId.length - '_unlock'.length)
-          .toLowerCase(); // ← 念のため小文字正規化
+          .toLowerCase(); // 念のため小文字正規化
       await PurchaseStore.addOwnedDecks([deckId]);
       debugPrint('✔ grant: single deck -> $deckId');
+      _ownedDeckIds.add(deckId);
+      notifyListeners();
     }
+  }
+
+  // ---- 所有判定API（UI用）：この productId は購入済みか？ ----
+  bool isOwnedProduct(String productId) {
+    if (productId == ProductCatalog.pro) return _isPro;
+
+    if (productId == ProductCatalog.bundleAll) {
+      // 全デッキ所有で bundle_all を「購入済み」扱い
+      return ProductCatalog.deckIds.every(_ownedDeckIds.contains);
+    }
+
+    if (productId == ProductCatalog.bundle5) {
+      // 先頭5デッキ所有で bundle_5 を「購入済み」扱い
+      return ProductCatalog.deckIds.take(5).every(_ownedDeckIds.contains);
+    }
+
+    if (productId.endsWith('_unlock')) {
+      final deckId = productId.substring(0, productId.length - '_unlock'.length).toLowerCase();
+      return _ownedDeckIds.contains(deckId);
+    }
+
+    return false;
+  }
+
+  // ---- （任意）デバッグ/表示用：所有状況の要約 ----
+  String ownedSummaryFor(String productId) {
+    if (productId == ProductCatalog.pro) return _isPro ? 'Pro: 有効' : 'Pro: 無効';
+    if (productId == ProductCatalog.bundleAll) {
+      final owned = ProductCatalog.deckIds.where(_ownedDeckIds.contains).length;
+      return '全解放: $owned/${ProductCatalog.deckIds.length} 所有';
+    }
+    if (productId == ProductCatalog.bundle5) {
+      final owned = ProductCatalog.deckIds.take(5).where(_ownedDeckIds.contains).length;
+      return '5単元: $owned/5 所有';
+    }
+    if (productId.endsWith('_unlock')) {
+      final deckId = productId.substring(0, productId.length - '_unlock'.length).toLowerCase();
+      return _ownedDeckIds.contains(deckId) ? '$deckId: 所有' : '$deckId: 未所有';
+    }
+    return '不明';
   }
 }

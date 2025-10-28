@@ -33,6 +33,28 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
 
   bool get hasSelection => selected.values.any((set) => set.isNotEmpty);
 
+  // ★ デッキ所有状態（この画面に来た時点の最新）
+  final Map<String, bool> _owned = {}; // deckId -> owned
+
+  bool _isDeckOwned(Deck d) => _owned[d.id.toLowerCase()] ?? false;
+
+  Future<void> _reloadOwnership() async {
+    // 一括で高速に判定（Proなら全true）
+    final spOwned =
+        (await SharedPreferences.getInstance()).getStringList('ownedDeckIds') ?? <String>[];
+    final isPro = (await SharedPreferences.getInstance()).getBool('proUpgrade') ?? false;
+
+    final ownedSet = spOwned.map((e) => e.toLowerCase()).toSet();
+    _owned
+      ..clear()
+      ..addEntries(
+        widget.decks.map(
+          (d) => MapEntry(d.id.toLowerCase(), isPro || ownedSet.contains(d.id.toLowerCase())),
+        ),
+      );
+    if (mounted) setState(() {});
+  }
+
   // 設定の直近値（ON→OFFを検知して即リセットするため）
   bool _lastSaveUnitsOn = true;
 
@@ -40,6 +62,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
   void initState() {
     super.initState();
     _restorePrefs();
+    _reloadOwnership(); // ← ★追加：画面表示時に購入済み情報を読み込む
   }
 
   @override
@@ -52,9 +75,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
         selected.clear();
         _limit = null;
       });
-      AppLog.d(
-        '🛑 MultiSelect: saveUnitSelection OFF → reset local selections & limit',
-      );
+      AppLog.d('🛑 MultiSelect: saveUnitSelection OFF → reset local selections & limit');
     }
     _lastSaveUnitsOn = saveOn;
   }
@@ -72,9 +93,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
       setState(() {
         _limit = null;
       });
-      AppLog.d(
-        '⏭️ MultiSelect: load skipped (OFF) → selections cleared, limit=null',
-      );
+      AppLog.d('⏭️ MultiSelect: load skipped (OFF) → selections cleared, limit=null');
       return;
     }
 
@@ -89,9 +108,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
         final unitIds = List<String>.from(entry.value as List);
         final deck = widget.decks.where((d) => d.id == deckId);
         if (deck.isEmpty) continue;
-        final valid = unitIds.where(
-          (u) => deck.first.units.any((x) => x.id == u),
-        );
+        final valid = unitIds.where((u) => deck.first.units.any((x) => x.id == u));
         selected[deckId] = {...valid};
       }
     }
@@ -104,10 +121,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
   }
 
   Future<void> _savePrefs() async {
-    final saveOn = Provider.of<AppSettings>(
-      context,
-      listen: false,
-    ).saveUnitSelection;
+    final saveOn = Provider.of<AppSettings>(context, listen: false).saveUnitSelection;
     if (!saveOn) {
       AppLog.d('⏭️ MultiSelect: save skipped (OFF)');
       return;
@@ -136,9 +150,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
 
       final units = deck.units.where((u) => unitIds.contains(u.id));
       for (final u in units) {
-        count += deck.isPurchased
-            ? u.cards.length
-            : u.cards.where((c) => !c.isPremium).length;
+        count += _isDeckOwned(deck) ? u.cards.length : u.cards.where((c) => !c.isPremium).length;
       }
     }
     return count;
@@ -173,11 +185,9 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
       final unitIds = selected[deck.id];
       if (unitIds == null || unitIds.isEmpty) continue;
 
-      final cards = deck.units
-          .where((u) => unitIds.contains(u.id))
-          .expand((u) => u.cards);
+      final cards = deck.units.where((u) => unitIds.contains(u.id)).expand((u) => u.cards);
 
-      if (deck.isPurchased) {
+      if (_isDeckOwned(deck)) {
         hasPurchased = true;
         purchasedTotal += cards.length;
       } else {
@@ -230,6 +240,11 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
     // 1) 選択されたユニットを列挙
     final selectedUnits = <({Deck deck, Unit unit})>[];
     for (final deck in widget.decks) {
+      if (!_isDeckOwned(deck)) {
+        // 未購入デッキは「無料だけ許可」なら今のままでOK、
+        // 完全除外したいなら continue;
+      }
+
       final unitIds = selected[deck.id] ?? {};
       if (unitIds.isEmpty) continue;
       for (final u in deck.units.where((u) => unitIds.contains(u.id))) {
@@ -245,7 +260,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
     for (final entry in selectedUnits) {
       final deck = entry.deck;
       final unit = entry.unit;
-      final pool = deck.isPurchased
+      final pool = _isDeckOwned(deck)
           ? unit.cards.toList()
           : unit.cards.where((c) => !c.isPremium).toList();
       if (rnd) {
@@ -467,14 +482,12 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
                   Expanded(
                     child: Text(
                       deck.title,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Chip(
-                    label: Text(deck.isPurchased ? '購入済み' : '一部無料'),
+                    label: Text(_isDeckOwned(deck) ? '購入済み' : '一部無料'),
                     visualDensity: VisualDensity.compact,
                   ),
                 ],
@@ -497,7 +510,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
 
                   // 出題可能件数の簡易表示（購入状況による）
                   final total = u.cards.length;
-                  final available = deck.isPurchased
+                  final available = _isDeckOwned(deck)
                       ? total
                       : u.cards.where((c) => !c.isPremium).length;
 
@@ -527,21 +540,15 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
                 Icon(
                   Icons.quiz_outlined,
                   size: 20,
-                  color: hasSelection
-                      ? theme.colorScheme.primary
-                      : theme.colorScheme.outline,
+                  color: hasSelection ? theme.colorScheme.primary : theme.colorScheme.outline,
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     hasSelection ? _counterLabel() : 'ユニットを選択してください',
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: hasSelection
-                          ? theme.colorScheme.primary
-                          : theme.colorScheme.outline,
-                      fontWeight: hasSelection
-                          ? FontWeight.w600
-                          : FontWeight.w500,
+                      color: hasSelection ? theme.colorScheme.primary : theme.colorScheme.outline,
+                      fontWeight: hasSelection ? FontWeight.w600 : FontWeight.w500,
                     ),
                   ),
                 ),
@@ -572,9 +579,7 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
               width: double.infinity,
               child: FilledButton(
                 onPressed: canStart ? _startQuiz : null,
-                child: Text(
-                  hasSelection ? 'この選択で開始（$_startCount問）' : 'ユニットを選択してください',
-                ),
+                child: Text(hasSelection ? 'この選択で開始（$_startCount問）' : 'ユニットを選択してください'),
               ),
             ),
           ],
