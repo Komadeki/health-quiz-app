@@ -93,40 +93,55 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       busy = true;
       _pendingProductId = productId;
     });
+
     try {
+      // 1) 購入フロー開始（IapService 側で purchaseStream を購読/完了処理）
       await iap.buy(productId);
+
+      // 2) 旧ローカル互換の表示だけ更新（不要なら削除可）
       await _refreshOwnedLegacy();
 
       if (!mounted) return;
 
-      // 解放内容の文言
-      String unlocked;
-      if (productId == 'bundle_all_unlock') {
-        unlocked = '全単元が解放されました';
-      } else if (productId == 'bundle_5decks_unlock') {
-        unlocked = '5単元パックが解放されました';
-      } else if (productId == 'pro_upgrade') {
-        unlocked = 'Pro機能が有効になりました';
-      } else if (productId.endsWith('_unlock')) {
-        unlocked = '対象の単元が解放されました';
-      } else {
-        unlocked = '購入が反映されました';
-      }
+      // 3) 成功判定：本当に「所有状態になっているか」を確認
+      final purchasedNow =
+          iap.isOwnedProduct(productId) || _ownedDeckLegacy(productId.replaceAll('_unlock', ''));
 
-      await showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text('購入が完了しました'),
-          content: Text(unlocked),
-          actions: [
-            TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('OK')),
-          ],
-        ),
-      );
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('購入に失敗しました: $e')));
+      if (purchasedNow) {
+        // ✅ ここで初めて成功ダイアログを出す（＝キャンセル時は出ない）
+        String unlocked;
+        if (productId == 'bundle_all_unlock') {
+          unlocked = '全単元が解放されました';
+        } else if (productId == 'bundle_5decks_unlock') {
+          unlocked = '5単元パックが解放されました';
+        } else if (productId == 'pro_upgrade') {
+          unlocked = 'Pro機能が有効になりました';
+        } else if (productId.endsWith('_unlock')) {
+          unlocked = '対象の単元が解放されました';
+        } else {
+          unlocked = '購入が反映されました';
+        }
+
+        await showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: const Text('購入が完了しました'),
+            content: Text(unlocked),
+            actions: [
+              TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('OK')),
+            ],
+          ),
+        );
+      } else {
+        // ❌ 所有状態でなければ「キャンセル or 失敗 or ペンディング」扱い
+        // → 仕様どおりポップアップは出さない（静かに無視）
+        // もしユーザー通知したければ、軽いトーストにする：
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('購入はキャンセルされました')));
       }
+    } catch (e) {
+      if (!mounted) return;
+      // 例外＝明確なエラーのみ通知（キャンセル時は IAP 側で例外を投げない前提）
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('購入に失敗しました: $e')));
     } finally {
       if (mounted) {
         setState(() {

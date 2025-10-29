@@ -11,6 +11,9 @@ import 'models/deck.dart';
 import 'services/deck_loader.dart';
 import 'services/app_settings.dart';
 import 'services/gate.dart';
+// ← 先頭の import 群に追加（IAPと旧Pro互換）
+import 'services/iap_service.dart';
+import 'services/purchase_store.dart';
 
 import 'screens/multi_select_screen.dart';
 import 'screens/unit_select_screen.dart';
@@ -128,11 +131,26 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isResuming = false; // 多重タップ防止
   bool _canResume = false; // ボタン表示制御
 
+  // --- Proゲート用(IAP監視) 追加フィールド ---
+  final iap = IapService();
+  late final VoidCallback _iapListener;
+  bool _ownedPro = false; // Pro所有（IAP or 旧フラグ）
+
   @override
   void initState() {
     super.initState();
     _loadDecks();
     _checkResume(); // 起動時に一度チェック
+
+    // --- IAP状態変化を購読してUI反映 ---
+    _iapListener = () {
+      if (!mounted) return;
+      _refreshProOwned();
+    };
+    iap.addListener(_iapListener);
+
+    // 起動時に一度判定
+    _refreshProOwned();
   }
 
   Future<void> _loadDecks() async {
@@ -172,6 +190,20 @@ class _HomeScreenState extends State<HomeScreen> {
     }).toList();
   }
 
+  // --- Pro所有の再判定（IAP + 旧ローカル互換）---
+  Future<void> _refreshProOwned() async {
+    bool legacy = false;
+    try {
+      legacy = await PurchaseStore.getPro();
+    } catch (_) {
+      legacy = false; // フォールバック
+    }
+    if (!mounted) return;
+    setState(() {
+      _ownedPro = iap.isOwnedProduct('pro_upgrade') || legacy;
+    });
+  }
+
   // ===== デバッグ用：購入フラグ切り替え =====
   void _setAllPurchased(bool value) {
     setState(() {
@@ -194,6 +226,19 @@ class _HomeScreenState extends State<HomeScreen> {
       decks = [for (int i = 0; i < decks.length; i++) decks[i].copyWith(isPurchased: i.isEven)];
     });
   }
+
+  void _debugSetPro(bool value) {
+    setState(() {
+      _ownedPro = value; // UI即時反映
+    });
+    // 視覚的フィードバック
+    if (mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('DEV: Proを${value ? 'ON' : 'OFF'}にしました')));
+    }
+  }
+
   // ===================================
 
   Future<void> _openMultiSelect() async {
@@ -322,6 +367,12 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  @override
+  void dispose() {
+    iap.removeListener(_iapListener);
+    super.dispose();
+  }
+
   // ======= build 以下は変更なし =======
   @override
   Widget build(BuildContext context) {
@@ -348,13 +399,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   case 'alt':
                     _setAlternatePurchased();
                     break;
+
+                  // ★ 追加：DEV用 Pro トグル
+                  case 'pro_on':
+                    _debugSetPro(true);
+                    break;
+                  case 'pro_off':
+                    _debugSetPro(false);
+                    break;
                 }
               },
+
               itemBuilder: (context) => const [
                 PopupMenuItem(value: 'all_on', child: Text('すべて購入にする')),
                 PopupMenuItem(value: 'all_off', child: Text('すべて未購入にする')),
                 PopupMenuItem(value: 'first_on', child: Text('先頭だけ購入にする（混在）')),
                 PopupMenuItem(value: 'alt', child: Text('交互に購入にする（混在）')),
+                PopupMenuDivider(),
+                // ★ 追加：DEV用 Pro トグル
+                PopupMenuItem(value: 'pro_on', child: Text('ProをONにする（DEV）')),
+                PopupMenuItem(value: 'pro_off', child: Text('ProをOFFにする（DEV）')),
               ],
             ),
         ],
@@ -471,17 +535,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   if (_canResume) const SizedBox(height: 16),
 
-                  // 復習（＝単元カードと同じ見た目）
+                  // 復習（Proゲート）
                   _DeckLikeButton(
-                    leadingIcon: Icons.refresh,
+                    leadingIcon: _ownedPro ? Icons.refresh : Icons.lock_outline,
                     title: '復習',
-                    subtitle: '間違えた問題の見直し・復習テスト',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const ReviewMenuScreen()),
-                      );
-                    },
+                    subtitle: _ownedPro ? '間違えた問題の見直し・復習テスト' : 'Proで利用可能（購入画面からアップグレード）',
+                    onTap: _ownedPro
+                        ? () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => const ReviewMenuScreen()),
+                            );
+                          }
+                        : null, // 未購入は非活性
                     style: DeckButtonStyle.normal,
                   ),
 
@@ -508,9 +574,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(builder: (_) => const PurchaseScreen()),
                       );
-                      if (updated == true && mounted) {
-                        await _loadDecks(); // ← 購入状態を再反映
+                      if (!mounted) return;
+
+                      if (updated == true) {
+                        await _loadDecks(); // ← 既存：デッキの購入状態再反映
                       }
+                      await _refreshProOwned(); // ← 追加：Pro所有の再判定でUI即反映
                     },
                   ),
                 ],
@@ -639,56 +708,57 @@ class _DeckLikeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final bool isTonal = style == DeckButtonStyle.tonal;
+    final bool disabled = onTap == null;
 
-    // ✅ “単元カード”と同じ質感（surface色＋薄い枠＋やわらかい影）
+    // ベース装飾
     final BoxDecoration normalDecoration = BoxDecoration(
       color: theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(16),
       border: Border.all(color: theme.colorScheme.outline.withOpacity(0.12)),
-      boxShadow: const [
-        BoxShadow(
-          blurRadius: 12,
-          offset: Offset(0, 2),
-          color: Color(0x1A000000), // ~6% (0x1A) 黒のごく薄い影
-        ),
-      ],
+      boxShadow: const [BoxShadow(blurRadius: 12, offset: Offset(0, 2), color: Color(0x1A000000))],
     );
 
-    // ✅ “続きから再開”用（淡いグリーンのトーナル、薄め＋軽い枠）
     final BoxDecoration tonalDecoration = BoxDecoration(
-      // ← 色味を少し淡くするため、withOpacity(0.85)
       color: theme.colorScheme.primaryContainer.withOpacity(0.5),
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        // ← ごく淡いグリーンの枠線（彩度控えめ）
-        color: theme.colorScheme.primary.withOpacity(0.07),
-        width: 1.0,
-      ),
-      boxShadow: const [
-        BoxShadow(
-          blurRadius: 10,
-          offset: Offset(0, 2),
-          color: Color(0x12000000), // 透明度約7%のやわらかい影
-        ),
-      ],
+      border: Border.all(color: theme.colorScheme.primary.withOpacity(0.07), width: 1.0),
+      boxShadow: const [BoxShadow(blurRadius: 10, offset: Offset(0, 2), color: Color(0x12000000))],
     );
 
-    final decoration = isTonal ? tonalDecoration : normalDecoration;
+    // 非活性時は “面を薄く/無彩色寄り” に
+    BoxDecoration decoration;
+    if (disabled) {
+      decoration = (isTonal ? tonalDecoration : normalDecoration).copyWith(
+        color: isTonal
+            ? theme.colorScheme.primaryContainer.withOpacity(0.22)
+            : theme.colorScheme.surfaceVariant, // 少しグレー
+        border: Border.all(color: theme.colorScheme.outlineVariant.withOpacity(0.6)),
+        boxShadow: const [], // 影を弱める/なし
+      );
+    } else {
+      decoration = isTonal ? tonalDecoration : normalDecoration;
+    }
 
-    final Color iconColor = isTonal
-        ? theme.colorScheme.onPrimaryContainer
-        : theme.colorScheme.primary;
+    final Color iconColor = disabled
+        ? theme.colorScheme.outline
+        : (isTonal ? theme.colorScheme.onPrimaryContainer : theme.colorScheme.primary);
+
     final titleStyle = theme.textTheme.titleMedium?.copyWith(
       fontWeight: FontWeight.w600,
-      color: isTonal ? theme.colorScheme.onPrimaryContainer : null,
+      color: disabled
+          ? theme.colorScheme.onSurface.withOpacity(0.38) // Materialの無効色
+          : (isTonal ? theme.colorScheme.onPrimaryContainer : null),
     );
+
     final subtitleStyle = theme.textTheme.bodySmall?.copyWith(
-      color: isTonal ? theme.colorScheme.onPrimaryContainer.withOpacity(0.8) : null,
+      color: disabled
+          ? theme.colorScheme.onSurface.withOpacity(0.38)
+          : (isTonal ? theme.colorScheme.onPrimaryContainer.withOpacity(0.8) : null),
     );
 
     return InkWell(
       borderRadius: BorderRadius.circular(16),
-      onTap: onTap,
+      onTap: onTap, // nullなら自動で非活性
       child: Ink(
         decoration: decoration,
         child: Padding(
