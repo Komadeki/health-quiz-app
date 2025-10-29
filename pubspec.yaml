@@ -25,6 +25,7 @@ dependencies:
   url_launcher: ^6.3.0
   in_app_purchase: ^3.2.3
   device_info_plus: ^12.2.0
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -56,3 +57,11 @@ flutter_native_splash:
   android: true
   ios: true
   web: false
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/foreground.png"
+  adaptive_icon_background: "assets/images/background.png"
+  adaptive_icon_foreground: "assets/images/foreground.png"
+  adaptive_icon_monochrome: "assets/images/monochrome.png"
