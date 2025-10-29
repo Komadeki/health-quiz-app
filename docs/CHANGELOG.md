@@ -76,3 +76,32 @@
 - ブランチ: main
 - タグ: v0.7.0
 - 状態: 安定版（IAP基盤リリース）
+
+===========================================================
+v0.8.1 – Licenses & Contact Form (2025-10-29)
+✨ 新機能
+- ライセンス／クレジット画面を追加（licenses_and_credits_screen.dart）
+- お問い合わせフォームを実装：Googleフォームに version / build / 機種 / OS を自動プリフィル
+🧩 改善
+- keystore・flavor設定の整理（prod/dev ビルド動作確認済み）
+🔖 バージョン
+- ブランチ: feature/licenses-credits-v0810
+- 例：version: 0.8.1+81
+
+===========================================================
+v0.8.2 – Pro UI制御・IAPキャンセル抑止・新アイコン (2025-10-29)
+✨ 新機能
+- Pro機能制御：未購入時は「復習」メニューをロック表示＆タップ不可に（Pro購入/復元後は即時アンロック）
+- DEVトグル：右上メニューから Pro ON/OFF（DEV） 切替を追加
+- アプリアイコン刷新：Adaptive Icon 対応（foreground/background/monochrome）
+- assets/images/foreground.png（白シンボル, 透過）
+- assets/images/background.png（#3E6040 塗りつぶし）
+- assets/images/monochrome.png（黒シルエット, 透過）
+🧩 改善
+- 「復習」カードの非活性スタイルを追加（淡色・枠線・アイコン/文字グレー）
+- 「購入」から戻った際に Pro所有を即時再判定しUIへ反映
+🐞 修正
+- 購入キャンセル時のポップアップ抑止：PurchaseStatus.error / canceled では成功ダイアログを出さない
+🔖 バージョン
+- ブランチ: feature/licenses-credits-v0810
+- 例：version: 0.8.2+82
