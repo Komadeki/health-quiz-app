@@ -5,7 +5,7 @@ publish_to: "none"
 version: 0.8.0+80
 
 environment:
-  sdk: ^3.9.2
+  sdk: ">=3.4.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -25,13 +25,15 @@ dependencies:
   url_launcher: ^6.3.0
   in_app_purchase: ^3.2.3
   device_info_plus: ^12.2.0
-  flutter_launcher_icons: ^0.13.1
+  flutter_local_notifications: ^19.0.0
+  timezone: ^0.10.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
   flutter_native_splash: ^2.4.1
+  flutter_launcher_icons: ^0.14.4
 
 flutter:
   uses-material-design: true
@@ -59,9 +61,23 @@ flutter_native_splash:
   web: false
 
 flutter_launcher_icons:
+  # Android / iOS は従来どおり
   android: true
   ios: true
+
+  # 共通のベース画像
   image_path: "assets/images/foreground.png"
+
+  # Android のアダプティブ用（そのまま維持）
   adaptive_icon_background: "assets/images/background.png"
   adaptive_icon_foreground: "assets/images/foreground.png"
   adaptive_icon_monochrome: "assets/images/monochrome.png"
+
+  # iOSの透過維持
+  remove_alpha_ios: false
+
+  # ★ macOS は Map 形式にする（必須）
+  macos:
+    generate: true
+    image_path: "assets/images/foreground.png"
+    remove_alpha: false

@@ -12,41 +12,45 @@ class ReviewTestBuilder {
   final DeckLoader loader;
   final Random rng;
 
-  ReviewTestBuilder({required this.attempts, required this.loader, Random? rng})
-    : rng = rng ?? Random();
+  ReviewTestBuilder({
+    required this.attempts,
+    required this.loader,
+    Random? rng,
+  }) : rng = rng ?? Random();
 
-  /// 安定IDベースで上位N件のカードを返す（正式版）
+  /// スコープに基づいて誤答頻度上位N件を抽出し、QuizCardリストを返す
   Future<List<QuizCard>> buildTopNWithScope({
     required int topN,
     required ScoreScope scope,
   }) async {
-    // ★ シグネチャ統一：scope をそのまま渡す
-    final freq = await attempts.getWrongFrequencyMapScoped(scope);
-    if (freq.isEmpty) {
-      AppLog.w('[REVIEW] empty freq (scope=$scope)');
+    // ① 誤答頻度マップを取得（Map<stableId, count>）
+    final Map<String, int> freqMap = await attempts.getWrongFrequencyMapScoped(scope);
+
+    if (freqMap.isEmpty) {
+      AppLog.w('[REVIEW] empty frequency map (scope=$scope)');
       return [];
     }
 
-    // 頻度降順で上位N件の stableId を抽出
-    final ordered = freq.entries.toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
-    final ids = ordered.take(topN).map((e) => e.key).toList();
+    // ② 頻度降順で並べ替えて上位N件を抽出
+    final entries = freqMap.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
 
-    // stableId → QuizCard へ写像（欠落はスキップしログ）
+    final stableIds = entries.take(topN).map((e) => e.key).toList();
+
+    // ③ stableId → QuizCard へ変換（存在しない場合はスキップ）
     final result = <QuizCard>[];
-    for (final id in ids) {
-      final c = loader.getByStableId(id);
-      if (c != null) {
-        result.add(c);
+    for (final stableId in stableIds) {
+      final card = loader.getByStableId(stableId);
+      if (card != null) {
+        result.add(card);
       } else {
-        AppLog.w('[REVIEW/MAP] missing card for stableId=$id');
+        AppLog.w('[REVIEW/MAP] missing card for stableId=$stableId');
       }
     }
 
+    // ④ シャッフルして返す
     result.shuffle(rng);
-    AppLog.i(
-      '[REVIEW] review_test built=${result.length} topN=$topN scope=$scope',
-    );
+    AppLog.i('[REVIEW] built review_test cards=${result.length} topN=$topN scope=$scope');
+
     return result;
   }
 }
