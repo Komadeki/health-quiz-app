@@ -258,6 +258,27 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
             ],
           ),
 
+          // 🧠 科学的スケジュールの説明（ここを追加）
+          if (frequency == '科学的スケジュール') ...[
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primaryContainer.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                '🧠 科学的スケジュールとは：\n'
+                '心理学者エビングハウスの忘却曲線に基づき、\n'
+                '1日後・3日後・7日後・14日後・30日後に復習通知を行います。',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  height: 1.5,
+                  color: theme.colorScheme.onSurface.withOpacity(0.8),
+                ),
+              ),
+            ),
+          ],
+
           // 次回の通知予定
           const SizedBox(height: 8),
           Text(

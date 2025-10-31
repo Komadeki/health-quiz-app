@@ -12,6 +12,7 @@ import '../utils/stable_id.dart';
 /// - QuizCard を「内容から計算した stableId」で引けるインデックスを構築
 /// - JSON デコードは compute で別 Isolate、インデックス構築はメインで安全に
 /// - 既存 API(loadAll, loadAllCardsFlatten) は互換維持
+/// - 追加 API(unitTitlesFor)：小単元タイトル一覧を取得（購入画面などで使用）
 class DeckLoader {
   DeckLoader._internal();
 
@@ -21,7 +22,7 @@ class DeckLoader {
   /// シングルトン取得。forceReload=true で再構築
   static Future<DeckLoader> instance({bool forceReload = false}) {
     if (!forceReload && _instance != null && _instance!._loaded) {
-      return Future.value(_instance);
+      return Future.value(_instance!);
     }
     if (!forceReload && _pending != null) return _pending!;
 
@@ -72,6 +73,33 @@ class DeckLoader {
 
   // ========= フォールバック用（既存 id 群でも可） =========
   QuizCard? getByAnyId(String anyId) => _byStableId[anyId] ?? _byAnyId[anyId];
+
+  // ========= 新規API：小単元タイトル一覧（購入画面など） =========
+
+  /// 指定デッキID群に対応する小単元タイトル一覧を返す
+  /// - デッキ未ロードの場合は自動的にロード
+  /// - cardsまでは展開しない軽量処理
+  Future<Map<String, List<String>>> unitTitlesFor(List<String> deckIds) async {
+    if (!_loaded) {
+      await _reload();
+    }
+    final result = <String, List<String>>{};
+    for (final id in deckIds) {
+      final deck = _decks.firstWhere(
+        (d) => (d as dynamic).id?.toString() == id,
+        orElse: () => null as dynamic,
+      );
+      if (deck == null) continue;
+      final units = (deck as dynamic).units as List<dynamic>? ?? [];
+      final titles = <String>[];
+      for (final u in units) {
+        final t = (u as dynamic).title?.toString();
+        if (t != null && t.isNotEmpty) titles.add(t);
+      }
+      result[id] = titles;
+    }
+    return result;
+  }
 
   // ========= 内部処理 =========
 
@@ -138,12 +166,11 @@ class DeckLoader {
     final manifestJson = await rootBundle.loadString('AssetManifest.json');
     final Map<String, dynamic> manifest = jsonDecode(manifestJson);
 
-    final deckFiles =
-        manifest.keys
-            .where((p) => p.startsWith('assets/decks/') && p.endsWith('.json'))
-            .where((p) => RegExp(r'assets/decks/deck_.*\.json$').hasMatch(p))
-            .toList()
-          ..sort();
+    final deckFiles = manifest.keys
+        .where((p) => p.startsWith('assets/decks/') && p.endsWith('.json'))
+        .where((p) => RegExp(r'assets/decks/deck_.*\.json$').hasMatch(p))
+        .toList()
+      ..sort();
 
     // 各ファイルを compute 経由で並列デコード
     final futures = deckFiles.map(_decodeDeckAsync).toList();
@@ -167,9 +194,7 @@ class DeckLoader {
         for (final u in units) {
           if (u is Map<String, dynamic>) {
             final uid = (u['id'] ?? u['unitId'] ?? u['unit_id'])?.toString();
-            final ut =
-                (u['title'] ?? u['unit_title'] ?? u['name'] ?? u['unitTitle'])
-                    ?.toString();
+            final ut = (u['title'] ?? u['unit_title'] ?? u['name'] ?? u['unitTitle'])?.toString();
             if (uid != null && uid.isNotEmpty && ut != null && ut.isNotEmpty) {
               unitTitleMap[uid] = ut.trim();
             }
@@ -199,6 +224,5 @@ class DeckLoader {
   }
 
   /// isolate 側で JSON decode
-  static Map<String, dynamic> _parseJsonToMap(String s) =>
-      jsonDecode(s) as Map<String, dynamic>;
+  static Map<String, dynamic> _parseJsonToMap(String s) => jsonDecode(s) as Map<String, dynamic>;
 }

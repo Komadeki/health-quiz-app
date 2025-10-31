@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import '../services/iap_service.dart';
 import '../services/purchase_store.dart';
+import '../services/deck_loader.dart';
 
 class PurchaseScreen extends StatefulWidget {
   const PurchaseScreen({super.key});
@@ -21,6 +22,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
   String? _pendingProductId; // 購入中の商品ID
   late final VoidCallback _iapListener;
 
+  /// JSONから動的に読み込むための表示用キャッシュ（productId側=小文字キー）
+  Map<String, List<String>> _deckUnitTitles = {};
+
   // ---- helpers ----
   String _priceOf(String productId) => iap.products[productId]?.price ?? '';
   bool _ownedDeckLegacy(String deckId) => isProLegacy || ownedLegacy.contains(deckId);
@@ -32,9 +36,19 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
   }
 
   Widget _purchasedChip() => const Chip(
-    avatar: Icon(Icons.check_circle, size: 18, color: Colors.green),
-    label: Text('購入済み', style: TextStyle(fontWeight: FontWeight.w600)),
-  );
+        avatar: Icon(Icons.check_circle, size: 18, color: Colors.green),
+        label: Text('購入済み', style: TextStyle(fontWeight: FontWeight.w600)),
+      );
+
+  // 追加: 小単元プレビューを1行に整形（最大4件 + 「+N件」）
+  String? _unitPreview(List<String> units) {
+    if (units.isEmpty) return null;
+    const max = 5;
+    final shown = units.take(max).toList();
+    final rest = units.length - shown.length;
+    final base = shown.join('／');
+    return rest > 0 ? '$base／+${rest}件' : base;
+  }
 
   // 購入ボタン（商品ごとに状態反映）
   Widget _buyButton(String productId) {
@@ -65,6 +79,24 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       // 後方互換のためにローカルStoreも参照（いずれ削除可）
       isProLegacy = await PurchaseStore.getPro();
       ownedLegacy = (await PurchaseStore.getOwnedDeckIds()).toSet();
+      // ✅ 追加：assets/decks/deck_M01.json 等から小単元名を動的取得
+      // DeckLoaderはJSON上のID（例：deck_M01 / deck_M02 ...）。IAPのproductIdは deck_m01（小文字）。
+      // 読み取り後に小文字キーへ正規化して `_deckUnitTitles` に格納する。
+      final loader = await DeckLoader.instance();
+      const assetDeckIds = [
+        'deck_M01',
+        'deck_M02',
+        'deck_M03',
+        'deck_M04',
+        'deck_M05',
+        'deck_M06',
+        'deck_M07',
+        'deck_M08',
+      ];
+      final metaMap = await loader.unitTitlesFor(assetDeckIds);
+      _deckUnitTitles = {
+        for (final e in metaMap.entries) e.key.toLowerCase(): e.value,
+      };
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('購入情報の初期化に失敗しました: $e')));
@@ -133,10 +165,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
           ),
         );
       } else {
-        // ❌ 所有状態でなければ「キャンセル or 失敗 or ペンディング」扱い
-        // → 仕様どおりポップアップは出さない（静かに無視）
-        // もしユーザー通知したければ、軽いトーストにする：
-        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('購入はキャンセルされました')));
+        // ❌ 所有状態でなければ「キャンセル or 失敗 or ペンディング」扱い（通知しない）
       }
     } catch (e) {
       if (!mounted) return;
@@ -153,7 +182,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
   }
 
   Future<void> _restore() async {
-    // 復元時のみ全体オーバーレイを表示（購入中は対象ボタンだけスピナー）
+    // 復元時のみ全体オーバーレイを表示（_pendingProductId == null）
     setState(() {
       busy = true;
       _pendingProductId = null;
@@ -196,10 +225,37 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
     final isBusyThis = busy && _pendingProductId == productId;
 
+    // --- 変更点: subtitle を Column にして「含まれる小単元」を追記 ---
+    final unitLine = _unitPreview(_deckUnitTitles[deckId] ?? const []);
+    final subtitle = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(bought ? '購入済' : price),
+        if (unitLine != null) ...[
+          const SizedBox(height: 2),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 2, right: 4),
+                child: Icon(Icons.menu_book, size: 14),
+              ),
+              Expanded(
+                child: Text(
+                  '単元構成：$unitLine',
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ],
+    );
+
     return ListTile(
       leading: Icon(bought ? Icons.lock_open : Icons.lock_outline),
       title: titleRow,
-      subtitle: Text(bought ? '購入済' : price),
+      subtitle: subtitle,
       trailing: (bought || isBusyThis) ? null : _buyButton(productId),
     );
   }
@@ -235,7 +291,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
               const Divider(),
 
-              // 5単元パック（Chipはタイトル右、trailingはボタンのみ）
+              // 5単元パック（文言は現状維持＋既存サブを残す）
               ListTile(
                 leading: const Icon(Icons.inventory_2_outlined),
                 title: Row(
@@ -257,16 +313,31 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                     : _buyButton('bundle_5decks_unlock'),
               ),
 
-              // 全単元フル解放
+              // 全単元フル解放（ポジティブ表現を追加）
               ListTile(
                 leading: const Icon(Icons.school_outlined),
                 title: Row(
                   children: [
-                    const Expanded(child: Text('全単元フル解放')),
+                    const Expanded(child: Text('全単元フル解放（学び放題）')),
                     if (ownedAll) _purchasedChip(),
                   ],
                 ),
-                subtitle: Text(ownedAll ? '購入済' : _safePrice('bundle_all_unlock')),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(ownedAll ? '購入済' : _safePrice('bundle_all_unlock')),
+                    const SizedBox(height: 2),
+                    const Text(
+                      'すべてのデッキ・小単元が勉強し放題。ミックス練習・見直し・復習テストも範囲の制限なし。',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                    const SizedBox(height: 2),
+                    const Text(
+                      '進捗・履歴の学習データも一元管理できます。',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
                 trailing: (ownedAll || (busy && _pendingProductId == 'bundle_all_unlock'))
                     ? null
                     : _buyButton('bundle_all_unlock'),
@@ -274,18 +345,28 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
               const Divider(),
 
-              // Pro アップグレード
+              // Pro アップグレード（何ができるかを明示）
               ListTile(
                 leading: Icon(
                   ownedPro ? Icons.workspace_premium : Icons.workspace_premium_outlined,
                 ),
                 title: Row(
                   children: [
-                    Expanded(child: Text(ownedPro ? 'Pro' : 'Proアップグレード')),
+                    Expanded(child: Text(ownedPro ? 'Pro' : 'Proアップグレード（学習サポート強化）')),
                     if (ownedPro) _purchasedChip(),
                   ],
                 ),
-                subtitle: Text(ownedPro ? '購入済' : _safePrice('pro_upgrade')),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(ownedPro ? '購入済' : _safePrice('pro_upgrade')),
+                    const SizedBox(height: 2),
+                    const Text('・復習リマインダー（1/3/7/14/30日など）', style: TextStyle(fontSize: 12)),
+                    const Text('・見直し／復習テストの詳細設定（範囲・期間・頻度）', style: TextStyle(fontSize: 12)),
+                    const Text('・スコア／履歴の高度なフィルタ', style: TextStyle(fontSize: 12)),
+                    // 実装済みの追加要素があればここに行を足す
+                  ],
+                ),
                 trailing: (ownedPro || (busy && _pendingProductId == 'pro_upgrade'))
                     ? null
                     : _buyButton('pro_upgrade'),
