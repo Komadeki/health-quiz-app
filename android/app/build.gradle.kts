@@ -19,6 +19,8 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -102,8 +104,13 @@ println("🧩 key.properties exists? " + file("key.properties").exists())
 println("🧩 keystore at ../upload-keystore.jks exists? " + file("../upload-keystore.jks").exists())
 
 
-
 // ===== Flutter =====
 flutter {
     source = "../.."
+}
+
+// ===== Dependencies =====
+dependencies {
+    // flutter_local_notifications 等の Java 8 API に必要
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }

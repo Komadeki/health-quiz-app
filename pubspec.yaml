@@ -2,7 +2,7 @@ name: health_quiz_app
 description: "A new Flutter project."
 publish_to: "none"
 
-version: 0.8.0+80
+version: 0.8.3+83
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -61,22 +61,18 @@ flutter_native_splash:
   web: false
 
 flutter_launcher_icons:
-  # Android / iOS は従来どおり
   android: true
   ios: true
 
-  # 共通のベース画像
-  image_path: "assets/images/foreground.png"
+  image_path_android: "assets/images/foreground.png"
+  image_path_ios: "assets/images/foreground.png" # ← ここを変更
 
-  # Android のアダプティブ用（そのまま維持）
-  adaptive_icon_background: "assets/images/background.png"
   adaptive_icon_foreground: "assets/images/foreground.png"
+  adaptive_icon_background: "#3F5E44"
   adaptive_icon_monochrome: "assets/images/monochrome.png"
 
-  # iOSの透過維持
   remove_alpha_ios: false
 
-  # ★ macOS は Map 形式にする（必須）
   macos:
     generate: true
     image_path: "assets/images/foreground.png"
