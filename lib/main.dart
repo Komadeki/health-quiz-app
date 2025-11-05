@@ -192,18 +192,15 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // Gate.canAccessDeck 準拠で「購入済み」を判定（単発 ∨ 5パック ∨ Pro）
   Future<List<Deck>> _applyPurchaseState(List<Deck> src) async {
-    final prefs = await SharedPreferences.getInstance();
-    final ownedIds = prefs.getStringList('ownedDeckIds') ?? [];
-    final isPro = prefs.getBool('proUpgrade') ?? false;
+    // canAccessDeck を並列評価して高速化
+    final results = await Future.wait(src.map((d) async {
+      final ok = await Gate.canAccessDeck(d.id);
+      return d.copyWith(isPurchased: ok);
+    }));
 
-    // デッキIDを小文字統一で照合
-    final owned = ownedIds.map((e) => e.toLowerCase()).toSet();
-
-    return src.map((d) {
-      final ownedFlag = isPro || owned.contains(d.id.toLowerCase());
-      return d.copyWith(isPurchased: ownedFlag);
-    }).toList();
+    return results;
   }
 
   // --- Pro所有の再判定（IAP + 旧ローカル互換）---
@@ -553,7 +550,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       // 復習（Proゲート）
                       _DeckLikeButton(
                         leadingIcon: _ownedPro ? Icons.refresh : Icons.lock_outline,
-                        title: '復習',
+                        title: '復習モード',
                         subtitle: _ownedPro ? '間違えた問題の見直し・復習テスト' : 'Proで利用可能（購入画面からアップグレード）',
                         onTap: _ownedPro
                             ? () {

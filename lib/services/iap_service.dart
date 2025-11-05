@@ -22,7 +22,7 @@ class ProductCatalog {
   ];
 
   // セット/全体/Pro
-  static const bundle5 = 'bundle_5decks_unlock';
+  static const bundle5 = 'bundle_5decks_unlock'; // ← SKU名は既存どおり
   static const bundleAll = 'bundle_all_unlock';
   static const pro = 'pro_upgrade';
 
@@ -31,10 +31,10 @@ class ProductCatalog {
   static const specials = [pro];
 
   static Set<String> allProductIds() => {
-    ...deckIds.map((d) => '${d}_unlock'),
-    ...bundles,
-    ...specials,
-  };
+        ...deckIds.map((d) => '${d}_unlock'),
+        ...bundles,
+        ...specials,
+      };
 }
 
 class IapService with ChangeNotifier {
@@ -49,12 +49,16 @@ class IapService with ChangeNotifier {
   bool get isReady => available && products.isNotEmpty;
 
   // ===== 所有状態（メモリキャッシュ） =====
-  /// 例: {'deck_m01', 'deck_m02', ...}
+  /// 例: {'deck_m01', 'deck_m02', ...}  ※単体デッキ購入の所有状況
   final Set<String> _ownedDeckIds = <String>{};
 
-  /// Pro フラグ（機能フル解放等に使用）
+  /// Pro フラグ
   bool _isPro = false;
   bool get isPro => _isPro;
+
+  /// ★選べる5単元パックの所有フラグ（権利そのもの）
+  bool _hasFivePack = false;
+  bool get hasFivePack => _hasFivePack;
 
   /// 初期化：products取得 → 所有状態ロード → purchaseStream購読 →（Androidのみ）restorePurchases()
   Future<void> init() async {
@@ -134,6 +138,7 @@ class IapService with ChangeNotifier {
       ..clear()
       ..addAll(await PurchaseStore.getOwnedDeckIds());
     _isPro = await PurchaseStore.getPro();
+    _hasFivePack = await PurchaseStore.isFivePackOwned(); // ← UI即時反映用
     notifyListeners();
   }
 
@@ -180,7 +185,7 @@ class IapService with ChangeNotifier {
       return;
     }
 
-    // 全体パック
+    // 全体パック（＝全デッキの単体所有に寄せる互換運用）
     if (productId == ProductCatalog.bundleAll) {
       await PurchaseStore.addOwnedDecks(ProductCatalog.deckIds);
       debugPrint('✔ grant: bundle_all -> all deckIds');
@@ -191,21 +196,21 @@ class IapService with ChangeNotifier {
       return;
     }
 
-    // 5単元パック（必要に応じて構成を変更）
+    // ★ 5単元パック（選べる方式）
+    // ここでは「権利の付与」のみを行う（選択はUI側）。
+    // ※ Restore時（新端末等）にも権利を復元できるよう、ここで永続化する。
     if (productId == ProductCatalog.bundle5) {
-      final five = ProductCatalog.deckIds.take(5);
-      await PurchaseStore.addOwnedDecks(five);
-      debugPrint('✔ grant: bundle_5 -> first 5 deckIds');
-      _ownedDeckIds.addAll(five);
+      await PurchaseStore.setFivePackOwned(true);
+      debugPrint('✔ grant: five-pack entitlement only (no auto assignment)');
+      _hasFivePack = true;
       notifyListeners();
       return;
     }
 
     // 個別デッキ: deck_Xxx_unlock -> deck_Xxx
     if (productId.endsWith('_unlock')) {
-      final deckId = productId
-          .substring(0, productId.length - '_unlock'.length)
-          .toLowerCase(); // 念のため小文字正規化
+      final deckId =
+          productId.substring(0, productId.length - '_unlock'.length).toLowerCase(); // 念のため小文字正規化
       await PurchaseStore.addOwnedDecks([deckId]);
       debugPrint('✔ grant: single deck -> $deckId');
       _ownedDeckIds.add(deckId);
@@ -223,8 +228,10 @@ class IapService with ChangeNotifier {
     }
 
     if (productId == ProductCatalog.bundle5) {
-      // 先頭5デッキ所有で bundle_5 を「購入済み」扱い
-      return ProductCatalog.deckIds.take(5).every(_ownedDeckIds.contains);
+      // 新方式：5パックの「権利」を持っているかで判定
+      // 互換：旧「先頭5デッキ所有」ユーザーにも配慮
+      final legacyOwnedFirst5 = ProductCatalog.deckIds.take(5).every(_ownedDeckIds.contains);
+      return _hasFivePack || legacyOwnedFirst5;
     }
 
     if (productId.endsWith('_unlock')) {
@@ -243,8 +250,7 @@ class IapService with ChangeNotifier {
       return '全解放: $owned/${ProductCatalog.deckIds.length} 所有';
     }
     if (productId == ProductCatalog.bundle5) {
-      final owned = ProductCatalog.deckIds.take(5).where(_ownedDeckIds.contains).length;
-      return '5単元: $owned/5 所有';
+      return _hasFivePack ? '5単元パック: 権利あり' : '5単元パック: 未所有';
     }
     if (productId.endsWith('_unlock')) {
       final deckId = productId.substring(0, productId.length - '_unlock'.length).toLowerCase();

@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../services/reminder_service.dart';
 
 class ReviewReminderCard extends StatefulWidget {
@@ -13,20 +12,12 @@ class ReviewReminderCard extends StatefulWidget {
 }
 
 class _ReviewReminderCardState extends State<ReviewReminderCard> {
-  /// 有効/無効
   bool enabled = false;
-
-  /// 通知時刻
   TimeOfDay time = const TimeOfDay(hour: 20, minute: 0);
-
-  /// 周期（UIの選択肢）
   static const List<String> _freqOptions = ['毎日', '3日ごと', '科学的スケジュール'];
   String frequency = _freqOptions.first;
 
-  /// アンカー日（有効化/変更した日）— 周期計算の起点
   DateTime? _anchorDate;
-
-  /// 次回通知日時（UI表示用）
   DateTime? nextDate;
 
   @override
@@ -49,7 +40,6 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
     final iso = p.getString('reminder_anchor');
     if (iso != null) _anchorDate = DateTime.tryParse(iso);
 
-    // 表示更新
     nextDate = _calcNextDate(anchor: _anchorDate, frequency: frequency, time: time);
     if (mounted) setState(() {});
   }
@@ -66,7 +56,6 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
   }
 
   // ---------------- 次回日時計算 ----------------
-
   DateTime? _calcNextDate({
     required DateTime? anchor,
     required String frequency,
@@ -80,15 +69,18 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
       return (today.isAfter(now)) ? today : today.add(const Duration(days: 1));
     }
 
-    // 起点が無ければ今日を起点に
+    // ★ 起点（アンカー）。なければ今。
     final base = anchor ?? now;
 
     if (frequency == '3日ごと') {
-      var d = DateTime(base.year, base.month, base.day, time.hour, time.minute);
-      while (!d.isAfter(now)) {
-        d = d.add(const Duration(days: 3));
+      // ★ B) 常に「アンカー＋3日」からスタート（今日の時刻を過ぎていなくても＋3日）
+      var first = DateTime(base.year, base.month, base.day, time.hour, time.minute)
+          .add(const Duration(days: 3));
+      // 万が一期日変更等で過去になっていたら先に進める
+      while (!first.isAfter(now)) {
+        first = first.add(const Duration(days: 3));
       }
-      return d;
+      return first;
     }
 
     if (frequency == '科学的スケジュール') {
@@ -102,20 +94,20 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
       final restart = todayAt(time).add(const Duration(days: 1));
       return restart.isAfter(now) ? restart : restart.add(const Duration(days: 1));
     }
-
     return null;
   }
 
   // ---------------- スケジュール実行 ----------------
-
   Future<void> _applySchedule() async {
-    // いったん全削除してから再登録
+    // 既存スケジュールを全解除
     await ReminderService.instance.cancelAll();
-
     if (!enabled) return;
 
     final h = time.hour, m = time.minute;
     const payload = 'review_test';
+
+    // ★ アンカーが無ければ今を入れて保存
+    _anchorDate ??= DateTime.now();
 
     if (frequency == '毎日') {
       await ReminderService.instance.scheduleReviewDaily(
@@ -124,7 +116,9 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
         payload: payload,
       );
     } else if (frequency == '3日ごと') {
-      await ReminderService.instance.scheduleReviewPeriodic(
+      // ★ 「アンカー＋3日」から開始（今日の時刻を過ぎてなくても＋3日）
+      await ReminderService.instance.scheduleReviewPeriodicFrom(
+        anchorLocal: _anchorDate!,
         daysInterval: 3,
         hour: h,
         minute: m,
@@ -137,6 +131,11 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
         payload: payload,
       );
     }
+
+    // 表示用の次回日時も更新して保存
+    nextDate = _calcNextDate(anchor: _anchorDate, frequency: frequency, time: time);
+    await _savePrefs();
+    if (mounted) setState(() {});
   }
 
   // ---------------- UIハンドラ ----------------
@@ -144,7 +143,6 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
   Future<void> _onToggle(bool v) async {
     setState(() => enabled = v);
     if (enabled) {
-      // 有効化のタイミングを起点に
       _anchorDate = DateTime.now();
       nextDate = _calcNextDate(anchor: _anchorDate, frequency: frequency, time: time);
       await _applySchedule();
@@ -159,9 +157,7 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
   Future<void> _pickTime() async {
     final picked = await showTimePicker(context: context, initialTime: time);
     if (picked == null) return;
-
     setState(() => time = picked);
-    // 時刻変更＝新しい起点にするのが自然
     _anchorDate = DateTime.now();
     nextDate = _calcNextDate(anchor: _anchorDate, frequency: frequency, time: time);
     await _applySchedule();
@@ -183,13 +179,13 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final df = DateFormat('M/d（E）', 'ja');
+    final df = DateFormat('M/d（E） HH:mm', 'ja');
 
     return Container(
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: theme.colorScheme.outline.withOpacity(0.18), width: 1),
+        border: Border.all(color: theme.colorScheme.outline.withOpacity(0.18)),
         boxShadow: const [
           BoxShadow(blurRadius: 12, offset: Offset(0, 2), color: Color(0x14000000)),
         ],
@@ -198,7 +194,7 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // タイトル行
+          // タイトル
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -223,10 +219,7 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
           const SizedBox(height: 10),
           Text(
             '毎日の決まった時間に通知を送り、復習の習慣化をサポートします。',
-            style: theme.textTheme.bodyLarge?.copyWith(
-              height: 1.4,
-              color: theme.colorScheme.onSurface.withOpacity(0.9),
-            ),
+            style: theme.textTheme.bodyLarge?.copyWith(height: 1.4),
           ),
 
           const SizedBox(height: 16),
@@ -246,7 +239,7 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
 
           const SizedBox(height: 12),
 
-          // 周期
+          // 周期選択
           Row(
             children: [
               const Text('通知頻度:  '),
@@ -258,7 +251,6 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
             ],
           ),
 
-          // 🧠 科学的スケジュールの説明（ここを追加）
           if (frequency == '科学的スケジュール') ...[
             const SizedBox(height: 8),
             Container(
@@ -269,17 +261,12 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
               ),
               child: Text(
                 '🧠 科学的スケジュールとは：\n'
-                '心理学者エビングハウスの忘却曲線に基づき、\n'
-                '1日後・3日後・7日後・14日後・30日後に復習通知を行います。',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  height: 1.5,
-                  color: theme.colorScheme.onSurface.withOpacity(0.8),
-                ),
+                '忘却曲線に基づき、1日後・3日後・7日後・14日後・30日後に通知します。',
+                style: theme.textTheme.bodySmall?.copyWith(height: 1.5),
               ),
             ),
           ],
 
-          // 次回の通知予定
           const SizedBox(height: 8),
           Text(
             enabled && nextDate != null ? '次回の通知予定: ${df.format(nextDate!)}' : '次回の通知予定: —',

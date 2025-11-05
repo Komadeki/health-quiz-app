@@ -11,8 +11,12 @@ import '../utils/stable_id.dart';
 /// - 初回ロード時に assets/decks/deck_*.json を全読込
 /// - QuizCard を「内容から計算した stableId」で引けるインデックスを構築
 /// - JSON デコードは compute で別 Isolate、インデックス構築はメインで安全に
-/// - 既存 API(loadAll, loadAllCardsFlatten) は互換維持
-/// - 追加 API(unitTitlesFor)：小単元タイトル一覧を取得（購入画面などで使用）
+/// - 既存 API(loadAll, getByStableId...) は互換維持
+/// - 追加 API:
+///   - unitTitlesFor(deckIds)
+///   - deckIdOfUnit(unitId)  … unit→deck 逆引き（静的）
+///   - unitIdsOfDecks(deckIds)
+///   - allDecksSync()
 class DeckLoader {
   DeckLoader._internal();
 
@@ -41,6 +45,7 @@ class DeckLoader {
   List<Deck> _decks = [];
   final Map<String, QuizCard> _byStableId = {}; // 内容ベース stableId -> card
   final Map<String, QuizCard> _byAnyId = {}; // 既存の id 等 -> card（フォールバック）
+  final Map<String, String> _unitToDeck = {}; // 🔵 unitId -> deckId 逆引き
 
   // ========= 公開API：互換維持 =========
 
@@ -101,6 +106,35 @@ class DeckLoader {
     return result;
   }
 
+  // ========= 追加API：unit→deck 逆引き（静的） =========
+
+  /// unitId から所属 deckId を返す（見つからなければ空文字）
+  static String deckIdOfUnit(String unitId) {
+    final inst = _instance;
+    if (inst == null || !inst._loaded) return '';
+    return inst._unitToDeck[unitId] ?? '';
+  }
+
+  /// deckId 群に含まれる unitId を列挙（見つかった分のみ）
+  static List<String> unitIdsOfDecks(List<String> deckIds) {
+    final inst = _instance;
+    if (inst == null || !inst._loaded) return const [];
+    final wanted = deckIds.toSet();
+    final out = <String>[];
+    inst._unitToDeck.forEach((unitId, deckId) {
+      if (wanted.contains(deckId)) out.add(unitId);
+    });
+    out.sort();
+    return out;
+  }
+
+  /// デッキ一覧（同期アクセス）。未ロードなら空配列。
+  static List<Deck> allDecksSync() {
+    final inst = _instance;
+    if (inst == null || !inst._loaded) return const [];
+    return inst._decks;
+  }
+
   // ========= 内部処理 =========
 
   Future<void> _reload() async {
@@ -112,8 +146,25 @@ class DeckLoader {
     // ▼ インデックス構築（メインアイソレートで安全に）
     _byStableId.clear();
     _byAnyId.clear();
+    _unitToDeck.clear(); // 逆引きをリセット
 
     for (final d in _decks) {
+      final deckId = (d as dynamic).id?.toString() ?? '';
+
+      // 🔵 unitId -> deckId を構築
+      try {
+        final units = (d as dynamic).units as List<dynamic>?;
+        if (units != null && deckId.isNotEmpty) {
+          for (final u in units) {
+            final uid = (u as dynamic).id?.toString();
+            if (uid != null && uid.isNotEmpty) {
+              _unitToDeck[uid] = deckId;
+            }
+          }
+        }
+      } catch (_) {}
+
+      // ▼ カードの索引
       final cards = <QuizCard>[];
       try {
         if ((d as dynamic).cards != null) {

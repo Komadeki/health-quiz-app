@@ -4,6 +4,24 @@ import '../services/iap_service.dart';
 import '../services/purchase_store.dart';
 import '../services/deck_loader.dart';
 
+// ★ DEV向け Fake IAP フラグ（起動時に --dart-define=USE_FAKE_IAP=true）
+const bool kUseFakeIap = bool.fromEnvironment('USE_FAKE_IAP', defaultValue: false);
+
+// ★ Fake価格（検証用）
+const Map<String, String> _kFakePrices = {
+  'pro_upgrade': '¥300',
+  'bundle_all_unlock': '¥980',
+  'bundle_5decks_unlock': '¥600',
+  'deck_m01_unlock': '¥160',
+  'deck_m02_unlock': '¥160',
+  'deck_m03_unlock': '¥160',
+  'deck_m04_unlock': '¥160',
+  'deck_m05_unlock': '¥160',
+  'deck_m06_unlock': '¥160',
+  'deck_m07_unlock': '¥160',
+  'deck_m08_unlock': '¥160',
+};
+
 class PurchaseScreen extends StatefulWidget {
   const PurchaseScreen({super.key});
   @override
@@ -11,28 +29,38 @@ class PurchaseScreen extends StatefulWidget {
 }
 
 class _PurchaseScreenState extends State<PurchaseScreen> {
-  // 画面内インスタンス（Provider化は任意）
   final iap = IapService();
 
-  bool loading = true; // ProductDetailsロード中
-  bool busy = false; // 購入/復元 進行中（復元時は全体オーバーレイ、購入時は対象ボタンのみスピナー）
-  bool isProLegacy = false; // 旧フラグ（後方互換用）
-  Set<String> ownedLegacy = {}; // 旧デッキ所有（後方互換用）
+  bool loading = true;
+  bool busy = false;
+  bool isProLegacy = false;
+  Set<String> ownedLegacy = {};
 
-  String? _pendingProductId; // 購入中の商品ID
+  String? _pendingProductId;
   late final VoidCallback _iapListener;
 
-  /// JSONから動的に読み込むための表示用キャッシュ（productId側=小文字キー）
   Map<String, List<String>> _deckUnitTitles = {};
 
+  // ★ 追加：5パック選択デッキ（アクセス判定に使用）
+  Set<String> _fivePackDecks = {};
+
   // ---- helpers ----
-  String _priceOf(String productId) => iap.products[productId]?.price ?? '';
+  String _priceOf(String productId) {
+    if (kUseFakeIap) return _kFakePrices[productId] ?? '¥---';
+    return iap.products[productId]?.price ?? '';
+  }
+
   bool _ownedDeckLegacy(String deckId) => isProLegacy || ownedLegacy.contains(deckId);
+
+  // ★ 追加：アクセス可能＝（個別所有/Pro）∨（5パック選択）
+  bool _isDeckAccessible(String deckId) {
+    final id = deckId.toLowerCase();
+    return _ownedDeckLegacy(id) || _fivePackDecks.contains(id);
+  }
 
   String _safePrice(String productId) {
     final p = _priceOf(productId);
     return p.isEmpty ? '…' : p;
-    // 価格未取得は “…” を表示し、ボタンは無効にする（_buyButton内で制御）
   }
 
   Widget _purchasedChip() => const Chip(
@@ -40,17 +68,15 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         label: Text('購入済み', style: TextStyle(fontWeight: FontWeight.w600)),
       );
 
-  // 追加: 小単元プレビューを1行に整形（最大4件 + 「+N件」）
   String? _unitPreview(List<String> units) {
     if (units.isEmpty) return null;
     const max = 5;
     final shown = units.take(max).toList();
     final rest = units.length - shown.length;
     final base = shown.join('／');
-    return rest > 0 ? '$base／+${rest}件' : base;
+    return rest > 0 ? '$base／+$rest件' : base;
   }
 
-  // 購入ボタン（商品ごとに状態反映）
   Widget _buyButton(String productId) {
     final busyThis = busy && _pendingProductId == productId;
     final hasPrice = _priceOf(productId).isNotEmpty;
@@ -65,7 +91,6 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
   @override
   void initState() {
     super.initState();
-    // ChangeNotifier を購読して UI を即時更新（restore/purchase による所有変化を反映）
     _iapListener = () {
       if (mounted) setState(() {});
     };
@@ -75,23 +100,23 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
   Future<void> _boot() async {
     try {
-      await iap.init(); // ProductDetails取得 &（IapService側で）過去購入反映
-      // 後方互換のためにローカルStoreも参照（いずれ削除可）
+      if (!kUseFakeIap) {
+        await iap.init();
+      }
       isProLegacy = await PurchaseStore.getPro();
       ownedLegacy = (await PurchaseStore.getOwnedDeckIds()).toSet();
-      // ✅ 追加：assets/decks/deck_M01.json 等から小単元名を動的取得
-      // DeckLoaderはJSON上のID（例：deck_M01 / deck_M02 ...）。IAPのproductIdは deck_m01（小文字）。
-      // 読み取り後に小文字キーへ正規化して `_deckUnitTitles` に格納する。
+      _fivePackDecks = await PurchaseStore.getFivePackDecks(); // ★ 追加：初期ロード
+
       final loader = await DeckLoader.instance();
       const assetDeckIds = [
-        'deck_M01',
-        'deck_M02',
-        'deck_M03',
-        'deck_M04',
-        'deck_M05',
-        'deck_M06',
-        'deck_M07',
-        'deck_M08',
+        'deck_m01',
+        'deck_m02',
+        'deck_m03',
+        'deck_m04',
+        'deck_m05',
+        'deck_m06',
+        'deck_m07',
+        'deck_m08',
       ];
       final metaMap = await loader.unitTitlesFor(assetDeckIds);
       _deckUnitTitles = {
@@ -99,7 +124,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       };
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('購入情報の初期化に失敗しました: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('購入情報の初期化に失敗しました: $e')),
+        );
       }
     } finally {
       if (mounted) setState(() => loading = false);
@@ -114,12 +141,64 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
   }
 
   Future<void> _refreshOwnedLegacy() async {
-    // 旧ローカルの後方互換表示用のみ更新（新ロジックは ChangeNotifier で反映済み）
     isProLegacy = await PurchaseStore.getPro();
     ownedLegacy = (await PurchaseStore.getOwnedDeckIds()).toSet();
+    _fivePackDecks = await PurchaseStore.getFivePackDecks(); // ★ 追加：状態更新時にも取得
     if (mounted) setState(() {});
   }
 
+  // ▼▼▼ 実ストア or Fake を吸収する共通ヘルパー ▼▼▼
+  Future<bool> _buySkuAndVerify(String sku) async {
+    setState(() {
+      busy = true;
+      _pendingProductId = sku;
+    });
+    try {
+      if (kUseFakeIap) {
+        // —— Fake 決済UI ——
+        final ok = await _showFakeCheckout(sku);
+        if (!ok) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('購入は完了していません（キャンセルまたは未確定）')),
+            );
+          }
+          return false;
+        }
+        // Fake: 付与（権利/所有）をローカルで確定
+        await _grantLocally(sku);
+        await _refreshOwnedLegacy();
+        return true;
+      } else {
+        await iap.buy(sku);
+        await _refreshOwnedLegacy();
+        final ok = iap.isOwnedProduct(sku);
+        if (!ok && mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('購入は完了していません（キャンセルまたは未確定）')),
+          );
+        }
+        return ok;
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('購入に失敗しました: $e')),
+        );
+      }
+      return false;
+    } finally {
+      if (mounted) {
+        setState(() {
+          busy = false;
+          _pendingProductId = null;
+        });
+      }
+    }
+  }
+  // ▲▲▲ 共通ヘルパーここまで ▲▲▲
+
+  // 通常商品の購入（Pro/全解放/単体）
   Future<void> _buy(String productId) async {
     setState(() {
       busy = true;
@@ -127,49 +206,30 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
     });
 
     try {
-      // 1) 購入フロー開始（IapService 側で purchaseStream を購読/完了処理）
-      await iap.buy(productId);
+      if (kUseFakeIap) {
+        final ok = await _showFakeCheckout(productId);
+        if (!ok) return;
+        await _grantLocally(productId);
+        await _refreshOwnedLegacy();
 
-      // 2) 旧ローカル互換の表示だけ更新（不要なら削除可）
-      await _refreshOwnedLegacy();
-
-      if (!mounted) return;
-
-      // 3) 成功判定：本当に「所有状態になっているか」を確認
-      final purchasedNow =
-          iap.isOwnedProduct(productId) || _ownedDeckLegacy(productId.replaceAll('_unlock', ''));
-
-      if (purchasedNow) {
-        // ✅ ここで初めて成功ダイアログを出す（＝キャンセル時は出ない）
-        String unlocked;
-        if (productId == 'bundle_all_unlock') {
-          unlocked = '全単元が解放されました';
-        } else if (productId == 'bundle_5decks_unlock') {
-          unlocked = '5単元パックが解放されました';
-        } else if (productId == 'pro_upgrade') {
-          unlocked = 'Pro機能が有効になりました';
-        } else if (productId.endsWith('_unlock')) {
-          unlocked = '対象の単元が解放されました';
-        } else {
-          unlocked = '購入が反映されました';
-        }
-
-        await showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: const Text('購入が完了しました'),
-            content: Text(unlocked),
-            actions: [
-              TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('OK')),
-            ],
-          ),
-        );
+        if (!mounted) return;
+        final unlocked = _successText(productId);
+        await _showSuccessDialog(unlocked);
       } else {
-        // ❌ 所有状態でなければ「キャンセル or 失敗 or ペンディング」扱い（通知しない）
+        await iap.buy(productId);
+        await _refreshOwnedLegacy();
+
+        if (!mounted) return;
+
+        final purchasedNow =
+            iap.isOwnedProduct(productId) || _ownedDeckLegacy(productId.replaceAll('_unlock', ''));
+        if (purchasedNow) {
+          final unlocked = _successText(productId);
+          await _showSuccessDialog(unlocked);
+        }
       }
     } catch (e) {
       if (!mounted) return;
-      // 例外＝明確なエラーのみ通知（キャンセル時は IAP 側で例外を投げない前提）
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('購入に失敗しました: $e')));
     } finally {
       if (mounted) {
@@ -181,15 +241,87 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
     }
   }
 
+  String _successText(String productId) {
+    if (productId == 'bundle_all_unlock') return '全単元が解放されました';
+    if (productId == 'bundle_5decks_unlock') return '5単元パックが解放されました';
+    if (productId == 'pro_upgrade') return 'Pro機能が有効になりました';
+    if (productId.endsWith('_unlock')) return '対象の単元が解放されました';
+    return '購入が反映されました';
+  }
+
+  Future<void> _showSuccessDialog(String message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('購入が完了しました'),
+        content: Text(message),
+        actions: [
+          TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('OK')),
+        ],
+      ),
+    );
+  }
+
+  // —— Fake 決済ダイアログ —— //
+  Future<bool> _showFakeCheckout(String sku) async {
+    final price = _safePrice(sku);
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('テスト決済（Fake）'),
+        content: Text('商品: $sku\n金額: $price\n\nこの内容で決済を完了しますか？'),
+        actions: [
+          TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('キャンセル')),
+          ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(true), child: const Text('決済完了する')),
+        ],
+      ),
+    );
+    return ok == true;
+  }
+
+  // —— Fake: ローカル付与ロジック —— //
+  Future<void> _grantLocally(String productId) async {
+    if (productId == 'pro_upgrade') {
+      await PurchaseStore.setPro(true);
+      return;
+    }
+    if (productId == 'bundle_all_unlock') {
+      await PurchaseStore.addOwnedDecks([
+        'deck_m01',
+        'deck_m02',
+        'deck_m03',
+        'deck_m04',
+        'deck_m05',
+        'deck_m06',
+        'deck_m07',
+        'deck_m08',
+      ]);
+      return;
+    }
+    if (productId == 'bundle_5decks_unlock') {
+      await PurchaseStore.setFivePackOwned(true);
+      return;
+    }
+    if (productId.endsWith('_unlock')) {
+      final deckId = productId.substring(0, productId.length - '_unlock'.length).toLowerCase();
+      await PurchaseStore.addOwnedDecks([deckId]);
+      return;
+    }
+  }
+
   Future<void> _restore() async {
-    // 復元時のみ全体オーバーレイを表示（_pendingProductId == null）
     setState(() {
       busy = true;
       _pendingProductId = null;
     });
     try {
-      await iap.restore();
-      await _refreshOwnedLegacy();
+      if (kUseFakeIap) {
+        await _refreshOwnedLegacy();
+      } else {
+        await iap.restore();
+        await _refreshOwnedLegacy();
+      }
       if (!mounted) return;
       await showDialog(
         context: context,
@@ -209,23 +341,140 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
     }
   }
 
+  // ─────────────────────────────────────────────────────────────
+  // デッキ選択ダイアログ（候補＝未購入デッキのみ／確定条件＝選択数==max）
+  // ─────────────────────────────────────────────────────────────
+  Future<Set<String>?> _openFiveDeckSelectorFiltered() async {
+    final loader = await DeckLoader.instance();
+    final decks = await loader.loadAll();
+    final owned = (await PurchaseStore.getOwnedDeckIds()).map((e) => e.toLowerCase()).toSet();
+
+    final available = <Map<String, String>>[];
+    for (final d in decks) {
+      final dyn = d as dynamic;
+      final id = (dyn.id as String).toLowerCase();
+      if (!owned.contains(id)) {
+        available.add({'id': id, 'title': (dyn.title as String? ?? id.toUpperCase())});
+      }
+    }
+
+    if (available.isEmpty || !mounted) return null;
+
+    final ownedCount = owned.length;
+    if (ownedCount >= 4 && ownedCount <= 7) {
+      final ok = await showDialog<bool>(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text('ご確認'),
+          content: const Text('すでに複数の単元を購入済みのため、5単元パックを最大限に利用できません。よろしいですか？'),
+          actions: [
+            TextButton(
+                onPressed: () => Navigator.of(context).pop(false), child: const Text('キャンセル')),
+            TextButton(onPressed: () => Navigator.of(context).pop(true), child: const Text('OK')),
+          ],
+        ),
+      );
+      if (ok != true) return null;
+    }
+
+    final int maxSelect = available.length < 5 ? available.length : 5;
+    final working = <String>{};
+    return showDialog<Set<String>>(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(builder: (context, setSt) {
+          final remain = (maxSelect - working.length).clamp(0, 999);
+          final canConfirm = working.length == maxSelect; // ★ 0件/1〜2件は確定不可
+          return AlertDialog(
+            title: Text('単元を選択（${working.length}/$maxSelect）'),
+            content: SizedBox(
+              width: double.maxFinite,
+              height: 420,
+              child: ListView.builder(
+                itemCount: available.length,
+                itemBuilder: (_, i) {
+                  final id = available[i]['id']!;
+                  final title = available[i]['title']!;
+                  final checked = working.contains(id);
+                  final disabled = !checked && remain <= 0;
+                  return CheckboxListTile(
+                    value: checked,
+                    onChanged: disabled
+                        ? null
+                        : (v) {
+                            setSt(() {
+                              if (checked) {
+                                working.remove(id);
+                              } else if (working.length < maxSelect) {
+                                working.add(id);
+                              }
+                            });
+                          },
+                    title: Text(title),
+                    subtitle: _deckUnitTitles[id] != null
+                        ? Text(
+                            '単元構成：${_unitPreview(_deckUnitTitles[id]!) ?? ''}',
+                            style: const TextStyle(fontSize: 12),
+                          )
+                        : null,
+                  );
+                },
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, null),
+                child: const Text('キャンセル'),
+              ),
+              TextButton(
+                onPressed: canConfirm ? () => Navigator.pop(context, working) : null,
+                child: const Text('確定'),
+              ),
+            ],
+          );
+        });
+      },
+    );
+  }
+
+  // 5単元パックの購入フロー（選択→IAP→保存）※キャンセル時は保存しない
+  Future<void> _buyFivePackWithSelection() async {
+    // 1) 候補から選ばせる（未購入のみ／選択数==maxで確定可）
+    final picked = await _openFiveDeckSelectorFiltered();
+    if (picked == null || picked.isEmpty) return;
+
+    // 2) 課金実行
+    final ok = await _buySkuAndVerify('bundle_5decks_unlock');
+    if (!ok) return;
+
+    // 3) IAP成功時のみ保存・権利付与（Fake/Real共通の整合点）
+    await PurchaseStore.setFivePackDecks(picked);
+    await PurchaseStore.setFivePackOwned(true);
+
+    // ★ 5パック選択デッキを最新化してUI反映
+    _fivePackDecks = await PurchaseStore.getFivePackDecks();
+
+    if (!mounted) return;
+    await _showSuccessDialog('選択した単元が解放されました。');
+    setState(() {}); // UI更新
+  }
+
   // 単元タイル（個別デッキ）
   ListTile _deckTile({required String deckId, required String title}) {
     final productId = '${deckId}_unlock';
-    // 新ロジック（IapService）を最優先。念のため旧ロジックもORで併用（後方互換）。
-    final bought = iap.isOwnedProduct(productId) || _ownedDeckLegacy(deckId);
+    // ★ アクセス可否で「購入済み」を判定（個別所有/Pro ∪ 5パック選択）
+    final bought = _isDeckAccessible(deckId);
     final price = _safePrice(productId);
 
     final titleRow = Row(
       children: [
         Expanded(child: Text(title)),
-        if (bought) _purchasedChip(), // Chipはタイトル側のみ（trailingには出さない）
+        if (bought) _purchasedChip(),
       ],
     );
 
     final isBusyThis = busy && _pendingProductId == productId;
 
-    // --- 変更点: subtitle を Column にして「含まれる小単元」を追記 ---
     final unitLine = _unitPreview(_deckUnitTitles[deckId] ?? const []);
     final subtitle = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,10 +490,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 child: Icon(Icons.menu_book, size: 14),
               ),
               Expanded(
-                child: Text(
-                  '単元構成：$unitLine',
-                  style: const TextStyle(fontSize: 12),
-                ),
+                child: Text('単元構成：$unitLine', style: const TextStyle(fontSize: 12)),
               ),
             ],
           ),
@@ -256,6 +502,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       leading: Icon(bought ? Icons.lock_open : Icons.lock_outline),
       title: titleRow,
       subtitle: subtitle,
+      // ★ アクセス可能なら購入ボタンは出さない
       trailing: (bought || isBusyThis) ? null : _buyButton(productId),
     );
   }
@@ -266,20 +513,33 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    // バンドル/Pro 所有判定は IapService で一本化（旧ロジックは後方互換でOR可能）
     final owned5 = iap.isOwnedProduct('bundle_5decks_unlock');
     final ownedAll = iap.isOwnedProduct('bundle_all_unlock');
-    final ownedPro = iap.isOwnedProduct('pro_upgrade') || isProLegacy; // 後方互換込み
+    final ownedPro = iap.isOwnedProduct('pro_upgrade') || isProLegacy;
+
+    // ★ 全デッキのアクセシビリティを算出（個別所有/Pro ∪ 5パック選択）
+    const allDeckIds = [
+      'deck_m01',
+      'deck_m02',
+      'deck_m03',
+      'deck_m04',
+      'deck_m05',
+      'deck_m06',
+      'deck_m07',
+      'deck_m08',
+    ];
+    final accessibleCount = allDeckIds.where(_isDeckAccessible).length;
+    final allAccessible = accessibleCount == allDeckIds.length;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('購入')),
+      appBar: AppBar(title: Text('購入${kUseFakeIap ? '（テストモード）' : ''}')),
       body: Stack(
         children: [
           ListView(
             children: [
               const ListTile(title: Text('アプリ内購入')),
 
-              // 単元（必要に応じて動的生成に変更可）
+              // 単元（デッキ）
               _deckTile(deckId: 'deck_m01', title: '現代社会と健康（上）'),
               _deckTile(deckId: 'deck_m02', title: '現代社会と健康（中）'),
               _deckTile(deckId: 'deck_m03', title: '現代社会と健康（下）'),
@@ -291,61 +551,143 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
               const Divider(),
 
-              // 5単元パック（文言は現状維持＋既存サブを残す）
-              ListTile(
-                leading: const Icon(Icons.inventory_2_outlined),
-                title: Row(
-                  children: [
-                    const Expanded(child: Text('5単元パック')),
-                    if (owned5) _purchasedChip(),
-                  ],
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(owned5 ? '購入済' : _safePrice('bundle_5decks_unlock')),
-                    const SizedBox(height: 2),
-                    const Text('人気の入門パック。まずはここから', style: TextStyle(fontSize: 12)),
-                  ],
-                ),
-                trailing: (owned5 || (busy && _pendingProductId == 'bundle_5decks_unlock'))
-                    ? null
-                    : _buyButton('bundle_5decks_unlock'),
+              // 5単元パック（状態付き表示）
+              FutureBuilder<bool>(
+                future: PurchaseStore.isFivePackOwned(),
+                builder: (context, snap) {
+                  final fiveOwned = (snap.data ?? false) || owned5;
+                  return ListTile(
+                    leading: const Icon(Icons.inventory_2_outlined),
+                    title: Row(
+                      children: [
+                        const Expanded(child: Text('選べる5単元パック')),
+                        if (fiveOwned) _purchasedChip(),
+                      ],
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(fiveOwned ? '購入済' : _safePrice('bundle_5decks_unlock')),
+                        const SizedBox(height: 2),
+                        if (!fiveOwned)
+                          const Text(
+                            '未解放単元から5つを選んでお得に購入できます。',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                      ],
+                    ),
+                    onTap: null,
+                  );
+                },
               ),
 
-              // 全単元フル解放（ポジティブ表現を追加）
-              ListTile(
-                leading: const Icon(Icons.school_outlined),
-                title: Row(
-                  children: [
-                    const Expanded(child: Text('全単元フル解放（学び放題）')),
-                    if (ownedAll) _purchasedChip(),
-                  ],
+              // 未所有時：1ボタン（選択して購入）。未購入デッキが0なら無効化。
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: FutureBuilder<bool>(
+                  future: PurchaseStore.isFivePackOwned(),
+                  builder: (context, snap) {
+                    final fiveOwned = (snap.data ?? false) || owned5;
+                    if (fiveOwned) {
+                      return const SizedBox.shrink();
+                    }
+
+                    return FutureBuilder<Set<String>>(
+                      future: PurchaseStore.getOwnedDeckIds(),
+                      builder: (context, ownedSnap) {
+                        final ownedDecks =
+                            (ownedSnap.data ?? {}).map((e) => e.toLowerCase()).toSet();
+                        return FutureBuilder<List<dynamic>>(
+                          future: DeckLoader.instance().then((l) => l.loadAll()),
+                          builder: (context, decksSnap) {
+                            final allDecks = (decksSnap.data ?? []);
+                            final total = allDecks.length;
+                            final available = total - ownedDecks.length; // 未購入数
+                            final hasPrice = _priceOf('bundle_5decks_unlock').isNotEmpty;
+                            final enabled = !busy && hasPrice && available > 0;
+
+                            return SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: enabled ? _buyFivePackWithSelection : null,
+                                child: const Text('選択して購入'),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
                 ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(ownedAll ? '購入済' : _safePrice('bundle_all_unlock')),
-                    const SizedBox(height: 2),
-                    const Text(
-                      'すべてのデッキ・小単元が勉強し放題。ミックス練習・見直し・復習テストも範囲の制限なし。',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                    const SizedBox(height: 2),
-                    const Text(
-                      '進捗・履歴の学習データも一元管理できます。',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-                trailing: (ownedAll || (busy && _pendingProductId == 'bundle_all_unlock'))
-                    ? null
-                    : _buyButton('bundle_all_unlock'),
               ),
 
               const Divider(),
 
-              // Pro アップグレード（何ができるかを明示）
+              // 全単元フル解放（表示判定は「全解放SKU購入」or「個別/5パックで全デッキ解放済」）
+              Builder(
+                builder: (context) {
+                  const allDeckIds = [
+                    'deck_m01',
+                    'deck_m02',
+                    'deck_m03',
+                    'deck_m04',
+                    'deck_m05',
+                    'deck_m06',
+                    'deck_m07',
+                    'deck_m08',
+                  ];
+
+                  // 個別購入 ∪ 5パック選択で全デッキをカバーしているか（Proは含めない）
+                  final combined = {...ownedLegacy, ..._fivePackDecks};
+                  final allCoveredByDecks = allDeckIds.every(combined.contains);
+
+                  // SKUとしての全解放購入
+                  final ownedAllSku = ownedAll;
+
+                  return ListTile(
+                    leading: const Icon(Icons.school_outlined),
+                    title: Row(
+                      children: [
+                        const Expanded(child: Text('全単元フル解放（学び放題）')),
+                        // ✅ チップは「SKU購入済み」のときだけ出す
+                        if (ownedAllSku) _purchasedChip(),
+                      ],
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(ownedAll
+                            ? '購入済'
+                            : (allCoveredByDecks
+                                ? 'すべて解放済（購入不要）'
+                                : _safePrice('bundle_all_unlock'))),
+                        const SizedBox(height: 2),
+                        const Text(
+                          'すべての単元が勉強し放題。',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        const SizedBox(height: 2),
+                        // ★ 買いたくなる1行コピー（お好みで調整OK）
+                        const Text(
+                          '制限ゼロ。迷わず最短で力がつく“学び放題”。',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+
+                    // ボタンは SKU購入済 or 積み上げで全解放済 なら非表示
+                    trailing: (ownedAllSku ||
+                            allCoveredByDecks ||
+                            (busy && _pendingProductId == 'bundle_all_unlock'))
+                        ? null
+                        : _buyButton('bundle_all_unlock'),
+                  );
+                },
+              ),
+
+              const Divider(),
+
+              // Pro アップグレード
               ListTile(
                 leading: Icon(
                   ownedPro ? Icons.workspace_premium : Icons.workspace_premium_outlined,
@@ -361,10 +703,18 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                   children: [
                     Text(ownedPro ? '購入済' : _safePrice('pro_upgrade')),
                     const SizedBox(height: 2),
-                    const Text('・復習リマインダー（1/3/7/14/30日など）', style: TextStyle(fontSize: 12)),
-                    const Text('・見直し／復習テストの詳細設定（範囲・期間・頻度）', style: TextStyle(fontSize: 12)),
-                    const Text('・スコア／履歴の高度なフィルタ', style: TextStyle(fontSize: 12)),
-                    // 実装済みの追加要素があればここに行を足す
+                    const Text(
+                      '復習モードの全開放',
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                    ),
+                    const Text(
+                      '・復習リマインダーで自動通知（1日後／3日後など）',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                    const Text(
+                      '・見直し／復習テストで苦手を重点練習',
+                      style: TextStyle(fontSize: 12),
+                    ),
                   ],
                 ),
                 trailing: (ownedPro || (busy && _pendingProductId == 'pro_upgrade'))
@@ -384,8 +734,6 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               const SizedBox(height: 8),
             ],
           ),
-
-          // 全体オーバーレイは「復元」時のみ（_pendingProductId == null）
           if (busy && _pendingProductId == null)
             Container(
               color: Colors.black.withOpacity(0.04),

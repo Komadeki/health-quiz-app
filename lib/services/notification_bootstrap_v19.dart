@@ -4,16 +4,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter/services.dart';
 
-/// Flutter Local Notifications v19 対応版
-/// macOS / Android 両対応。UILocalNotificationDateInterpretation 等は削除済み。
+/// Flutter Local Notifications v19 対応版（安定化済み）
+/// - Android/iOS/macOS共通
+/// - 背景タップ/初期化失敗対策を追加
 class NotificationBootstrapV19 {
   NotificationBootstrapV19._internal();
   static final NotificationBootstrapV19 instance = NotificationBootstrapV19._internal();
 
   final FlutterLocalNotificationsPlugin _plugin = FlutterLocalNotificationsPlugin();
 
-  /// Android通知チャンネル（共通設定）
   static const AndroidNotificationChannel _defaultChannel = AndroidNotificationChannel(
     'review_reminder_channel',
     '復習リマインダー',
@@ -27,52 +28,61 @@ class NotificationBootstrapV19 {
 
   /// 初期化処理
   Future<void> initialize({
-    void Function(String? payload)? onTap, // ← payload だけ渡す
+    void Function(String? payload)? onTap,
     bool requestAlertPermission = true,
     bool requestSoundPermission = true,
     bool requestBadgePermission = true,
   }) async {
     if (_initialized) return;
 
-    // Timezone 初期化
-    tz.initializeTimeZones();
-    tz.setLocalLocation(tz.local);
+    try {
+      // 🔹 TimeZone 初期化
+      tz.initializeTimeZones();
+      tz.setLocalLocation(tz.local);
 
-    // Android
-    const AndroidInitializationSettings androidInit =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+      // 🔹 Android / iOS 初期設定
+      const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
+      final darwinInit = DarwinInitializationSettings(
+        requestAlertPermission: requestAlertPermission,
+        requestBadgePermission: requestBadgePermission,
+        requestSoundPermission: requestSoundPermission,
+      );
+      final initSettings = InitializationSettings(
+        android: androidInit,
+        iOS: darwinInit,
+        macOS: darwinInit,
+      );
 
-    // iOS/macOS 共通
-    final DarwinInitializationSettings darwinInit = DarwinInitializationSettings(
-      requestAlertPermission: requestAlertPermission,
-      requestBadgePermission: requestBadgePermission,
-      requestSoundPermission: requestSoundPermission,
-    );
+      await _plugin.initialize(
+        initSettings,
+        // フォアグラウンドタップ
+        onDidReceiveNotificationResponse: (resp) {
+          onTap?.call(resp.payload);
+        },
+        // バックグラウンド/終了時タップ
+        onDidReceiveBackgroundNotificationResponse: _onBackgroundTap,
+      );
 
-    final InitializationSettings initSettings = InitializationSettings(
-      android: androidInit,
-      iOS: darwinInit,
-      macOS: darwinInit,
-    );
+      // Android通知チャンネル作成
+      if (!kIsWeb && Platform.isAndroid) {
+        final androidImpl =
+            _plugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+        await androidImpl?.createNotificationChannel(_defaultChannel);
 
-    await _plugin.initialize(
-      initSettings,
-      onDidReceiveNotificationResponse: (resp) {
-        onTap?.call(resp.payload); // ← payloadを渡す
-      },
-      onDidReceiveBackgroundNotificationResponse: (resp) {
-        onTap?.call(resp.payload);
-      },
-    );
+        // 🔸 Android 13+ の通知パーミッション
+        // v19 では requestNotificationsPermission() に名称変更
+        final enabled = await androidImpl?.areNotificationsEnabled() ?? true;
+        if (!enabled) {
+          await androidImpl?.requestNotificationsPermission();
+        }
+      }
 
-    // Android通知チャンネルの作成
-    if (!kIsWeb && Platform.isAndroid) {
-      final androidImpl =
-          _plugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
-      await androidImpl?.createNotificationChannel(_defaultChannel);
+      _initialized = true;
+      debugPrint('[NOTI] initialized successfully');
+    } catch (e, st) {
+      debugPrint('[NOTI] initialization failed: $e\n$st');
+      _initialized = true; // 起動阻害を避けるためtrue扱い
     }
-
-    _initialized = true;
   }
 
   /// 即時通知
@@ -96,9 +106,9 @@ class NotificationBootstrapV19 {
     await _plugin.show(id, title, body, details, payload: payload);
   }
 
+  /// 指定日時に単発通知
   /// 指定日時に単発通知（ローカル時刻）
-  /// 指定日時に単発通知（ローカル時刻）
-  /// macOS/iOSの上書き対策：短時間に複数登録しても全件有効
+  /// exact が許可されていない端末では inexact にフォールバック
   Future<void> scheduleOnce({
     required int id,
     required String title,
@@ -109,9 +119,8 @@ class NotificationBootstrapV19 {
   }) async {
     final tzTime = tz.TZDateTime.from(whenLocal, tz.local);
 
-    // 🔹 チャンネルを個別化（上書き回避）
+    // 🔹 上書き回避のため id ごとにチャンネル分離
     final channelId = 'review_reminder_channel_$id';
-
     final details = NotificationDetails(
       android: AndroidNotificationDetails(
         channelId,
@@ -124,26 +133,49 @@ class NotificationBootstrapV19 {
       macOS: const DarwinNotificationDetails(),
     );
 
-    // 🔹 各スケジュールを少し遅延登録（OSに負荷をかけない）
+    // 🔹 短い遅延で連続登録時の負荷を軽減
     await Future.delayed(Duration(milliseconds: 150 * (id % 5)));
 
-    await _plugin.zonedSchedule(
-      id,
-      title,
-      body,
-      tzTime,
-      details,
-      androidScheduleMode: androidScheduleMode,
-      matchDateTimeComponents: null,
-      payload: payload,
-    );
+    try {
+      await _plugin.zonedSchedule(
+        id,
+        title,
+        body,
+        tzTime,
+        details,
+        androidScheduleMode: androidScheduleMode, // 既定: exactAllowWhileIdle
+        matchDateTimeComponents: null,
+        payload: payload,
+      );
+    } on PlatformException catch (e) {
+      if (e.code == 'exact_alarms_not_permitted') {
+        // ✅ フォールバック（近似アラーム）
+        await _plugin.zonedSchedule(
+          id,
+          title,
+          body,
+          tzTime,
+          details,
+          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+          matchDateTimeComponents: null,
+          payload: payload,
+        );
+        if (kDebugMode) {
+          debugPrint('[NOTI] fallback→inexactAllowWhileIdle (once) id=$id');
+        }
+      } else {
+        rethrow;
+      }
+    }
 
     if (kDebugMode) {
       debugPrint('[NOTI] scheduled #$id → ${tzTime.toLocal()}');
     }
   }
 
-  /// 毎日同時刻に通知
+  /// 毎日同時刻通知
+  /// 毎日同時刻通知
+  /// exact が許可されていない端末では inexact にフォールバック
   Future<void> scheduleDaily({
     required int id,
     required String title,
@@ -171,16 +203,37 @@ class NotificationBootstrapV19 {
       macOS: const DarwinNotificationDetails(),
     );
 
-    await _plugin.zonedSchedule(
-      id,
-      title,
-      body,
-      scheduled,
-      details,
-      androidScheduleMode: androidScheduleMode,
-      matchDateTimeComponents: DateTimeComponents.time, // 毎日
-      payload: payload,
-    );
+    try {
+      await _plugin.zonedSchedule(
+        id,
+        title,
+        body,
+        scheduled,
+        details,
+        androidScheduleMode: androidScheduleMode, // 既定: exactAllowWhileIdle
+        matchDateTimeComponents: DateTimeComponents.time, // 毎日
+        payload: payload,
+      );
+    } on PlatformException catch (e) {
+      if (e.code == 'exact_alarms_not_permitted') {
+        // ✅ フォールバック（近似アラーム）
+        await _plugin.zonedSchedule(
+          id,
+          title,
+          body,
+          scheduled,
+          details,
+          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+          matchDateTimeComponents: DateTimeComponents.time,
+          payload: payload,
+        );
+        if (kDebugMode) {
+          debugPrint('[NOTI] fallback→inexactAllowWhileIdle (daily) id=$id');
+        }
+      } else {
+        rethrow;
+      }
+    }
   }
 
   /// キャンセル
@@ -188,8 +241,12 @@ class NotificationBootstrapV19 {
   Future<void> cancelAll() => _plugin.cancelAll();
 }
 
-/// バックグラウンド通知タップ処理（必要に応じて実装）
+/// 🔹 バックグラウンド通知タップ時のハンドラ（Null防止用）
 @pragma('vm:entry-point')
 void _onBackgroundTap(NotificationResponse response) {
-  // TODO: 必要ならpayloadを使ってルーティングを行う
+  try {
+    debugPrint('[NOTI] background tap: ${response.payload}');
+  } catch (_) {
+    // no-op
+  }
 }
