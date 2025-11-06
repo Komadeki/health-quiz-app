@@ -47,3 +47,7 @@ app.*.map.json
 # Keystore and signing config
 android/app/key.properties
 android/upload-keystore.jks
+
+# Android build artifacts
+*.apk
+*.aab
