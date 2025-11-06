@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'; // kDebugMode
 import 'package:health_quiz_app/services/notification_bootstrap_v19.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/nav_service.dart';
 import '../services/review_test_builder.dart';
@@ -53,6 +54,92 @@ class ReminderService {
       WidgetsBinding.instance.addPostFrameCallback((_) => _openReviewTest());
     }
   }
+
+  // =========================================================
+  // ✅ テスト用：即時通知 / 30秒後通知
+  // =========================================================
+
+  /// 即時通知（表示系テスト）
+  /// - NotificationBootstrapV19 側に showNow がある前提。
+  /// - 無い場合は、Bootstrapに実装を追加してください（同じシグネチャでOK）。
+  Future<void> showNow({
+    String title = 'テスト通知（即時）',
+    String body = 'show() による即時表示の確認',
+    String? payload,
+  }) async {
+    try {
+      await NotificationBootstrapV19.instance.showNow(
+        id: 900001, // テスト用ID帯
+        title: title,
+        body: body,
+        payload: payload,
+      );
+      AppLog.i('[REMINDER] showNow() dispatched');
+    } catch (e, st) {
+      AppLog.e('[REMINDER] showNow() failed: $e\n$st');
+      rethrow;
+    }
+  }
+
+  // =========================================================
+  // 起動時の再登録（Prefsから復元）
+  // =========================================================
+  Future<void> ensureScheduledFromPrefsOnLaunch() async {
+    final p = await SharedPreferences.getInstance();
+    final isEnabled = p.getBool('reminder_enabled') ?? false;
+    if (!isEnabled) return;
+
+    final hour = p.getInt('reminder_hour') ?? 20;
+    final minute = p.getInt('reminder_minute') ?? 0;
+    final freq = p.getString('reminder_freq') ?? '毎日';
+    final anchorIso = p.getString('reminder_anchor');
+    final anchor = anchorIso != null ? DateTime.tryParse(anchorIso) : null;
+
+    const payload = 'review_test';
+
+    // 念のため重複防止
+    await cancelAll();
+
+    if (freq == '毎日') {
+      await scheduleReviewDaily(hour: hour, minute: minute, payload: payload);
+    } else if (freq == '3日ごと' && anchor != null) {
+      await scheduleReviewPeriodicFrom(
+        anchorLocal: anchor,
+        daysInterval: 3,
+        hour: hour,
+        minute: minute,
+        payload: payload,
+      );
+    } else if (freq == '科学的スケジュール') {
+      await scheduleSpacedReview(hour: hour, minute: minute, payload: payload);
+    }
+  }
+
+  /// 30秒後に一回だけ通知（スケジュール経路テスト）
+  Future<void> scheduleOnce30sec({String? payload}) async {
+    final when = DateTime.now().add(const Duration(seconds: 30));
+    try {
+      await NotificationBootstrapV19.instance.scheduleOnce(
+        id: 910001, // 30秒テスト用ID帯
+        title: 'テスト通知（30秒後）',
+        body: 'zonedSchedule + exactAllowWhileIdle 経路の確認',
+        whenLocal: when,
+        payload: payload,
+      );
+      AppLog.i('[REMINDER] scheduleOnce30sec() scheduled at $when');
+    } catch (e, st) {
+      AppLog.e('[REMINDER] scheduleOnce30sec() failed: $e\n$st');
+      rethrow;
+    }
+  }
+
+  // （任意）開発向けのワンタップ関数
+  Future<void> debugShowNowTest() => showNow(payload: 'review_test');
+  Future<void> debugScheduleOnce30secTest() => scheduleOnce30sec(payload: 'review_test');
+
+  // =========================================================
+  // 本番系スケジューラ
+  // =========================================================
 
   /// 単発リマインダー（例：10秒後に1回通知）
   Future<void> scheduleReviewOnce({

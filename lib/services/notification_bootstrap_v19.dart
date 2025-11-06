@@ -143,7 +143,8 @@ class NotificationBootstrapV19 {
         body,
         tzTime,
         details,
-        androidScheduleMode: androidScheduleMode, // 既定: exactAllowWhileIdle
+        androidScheduleMode: androidScheduleMode, // exactAllowWhileIdle / inexact フォールバック可
+        // uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,  // ← 削除
         matchDateTimeComponents: null,
         payload: payload,
       );
@@ -173,9 +174,8 @@ class NotificationBootstrapV19 {
     }
   }
 
-  /// 毎日同時刻通知
-  /// 毎日同時刻通知
-  /// exact が許可されていない端末では inexact にフォールバック
+  /// 毎日同時刻通知（Exact単発の連鎖：Doze/OEM対策）
+  /// 呼び出し元はそのままでOK。内部で N 日分を単発 Exact で先取り予約します。
   Future<void> scheduleDaily({
     required int id,
     required String title,
@@ -183,56 +183,35 @@ class NotificationBootstrapV19 {
     required int hour,
     required int minute,
     String? payload,
-    AndroidScheduleMode androidScheduleMode = AndroidScheduleMode.exactAllowWhileIdle,
+    AndroidScheduleMode androidScheduleMode =
+        AndroidScheduleMode.exactAllowWhileIdle, // 互換のため残すが未使用
+    int daysAhead = 7, // 先取り予約する日数。必要に応じて14などに増やせます
   }) async {
-    final now = tz.TZDateTime.now(tz.local);
-    var scheduled = tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
-    if (scheduled.isBefore(now)) {
-      scheduled = scheduled.add(const Duration(days: 1));
-    }
+    // “繰り返し（matchDateTimeComponents）”は使わず、単発Exactを連続で入れる
+    final now = DateTime.now();
 
-    final details = NotificationDetails(
-      android: AndroidNotificationDetails(
-        _defaultChannel.id,
-        _defaultChannel.name,
-        channelDescription: _defaultChannel.description,
-        importance: Importance.high,
-        priority: Priority.high,
-      ),
-      iOS: const DarwinNotificationDetails(),
-      macOS: const DarwinNotificationDetails(),
-    );
+    DateTime dayAt(int addDays) =>
+        DateTime(now.year, now.month, now.day, hour, minute).add(Duration(days: addDays));
 
-    try {
-      await _plugin.zonedSchedule(
-        id,
-        title,
-        body,
-        scheduled,
-        details,
-        androidScheduleMode: androidScheduleMode, // 既定: exactAllowWhileIdle
-        matchDateTimeComponents: DateTimeComponents.time, // 毎日
+    // 直近の次回（今日のその時刻が過ぎていたら翌日）
+    var first = dayAt(0);
+    if (!first.isAfter(now)) first = dayAt(1);
+
+    for (int i = 0; i < daysAhead; i++) {
+      final when = first.add(Duration(days: i));
+
+      // 既存の単発APIを利用（内部で tz 変換＆ exactAllowWhileIdle を使う実装）
+      await scheduleOnce(
+        id: id + i, // 連番で衝突回避（例：1002,1003,...）
+        title: title,
+        body: body,
+        whenLocal: when, // ローカルDateTimeを渡す
         payload: payload,
       );
-    } on PlatformException catch (e) {
-      if (e.code == 'exact_alarms_not_permitted') {
-        // ✅ フォールバック（近似アラーム）
-        await _plugin.zonedSchedule(
-          id,
-          title,
-          body,
-          scheduled,
-          details,
-          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-          matchDateTimeComponents: DateTimeComponents.time,
-          payload: payload,
-        );
-        if (kDebugMode) {
-          debugPrint('[NOTI] fallback→inexactAllowWhileIdle (daily) id=$id');
-        }
-      } else {
-        rethrow;
-      }
+
+      // logcat で確認しやすいログ
+      // ignore: avoid_print
+      print('[NOTI19] scheduleDaily as exact: id=${id + i} at=$when');
     }
   }
 

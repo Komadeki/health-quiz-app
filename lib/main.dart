@@ -38,6 +38,9 @@ void main() async {
   // ✅ Reminder初期化（通知タップのonTap登録）
   await ReminderService.instance.init();
 
+  // ✅ 起動時に保存された設定から再スケジュール（Exact連鎖で再登録）
+  await ReminderService.instance.ensureScheduledFromPrefsOnLaunch();
+
   // ✅ AppSettings 読み込み
   final settings = AppSettings();
   await settings.load();
@@ -59,13 +62,6 @@ void main() async {
       create: (_) => settings,
       child: const MyApp(),
     ),
-  );
-
-  // ✅ テスト用：10秒後に復習通知を送信
-  ReminderService.instance.cancelAll();
-  ReminderService.instance.scheduleReviewOnce(
-    whenLocal: DateTime.now().add(const Duration(seconds: 10)),
-    payload: 'review_test',
   );
 
   // ✅ ログ出力
