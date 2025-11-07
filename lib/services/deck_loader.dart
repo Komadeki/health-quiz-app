@@ -43,9 +43,19 @@ class DeckLoader {
   // ========= 内部状態（キャッシュ） =========
   bool _loaded = false;
   List<Deck> _decks = [];
-  final Map<String, QuizCard> _byStableId = {}; // 内容ベース stableId -> card
-  final Map<String, QuizCard> _byAnyId = {}; // 既存の id 等 -> card（フォールバック）
-  final Map<String, String> _unitToDeck = {}; // 🔵 unitId -> deckId 逆引き
+
+  // 内容ベース stableId -> card
+  final Map<String, QuizCard> _byStableId = {};
+
+  // 既存の id 等 -> card（フォールバック）
+  final Map<String, QuizCard> _byAnyId = {};
+
+  // 🔵 unitId -> deckId(小文字) 逆引き
+  final Map<String, String> _unitToDeck = {};
+
+  // 🔵 追加：deckId(小文字) -> Deck
+  //   - デッキIDの大小文字ゆらぎ（例：JSON側 deck_M01 / 画面側 deck_m01）に対応
+  final Map<String, Deck> _deckByIdLower = {};
 
   // ========= 公開API：互換維持 =========
 
@@ -81,7 +91,7 @@ class DeckLoader {
 
   // ========= 新規API：小単元タイトル一覧（購入画面など） =========
 
-  /// 指定デッキID群に対応する小単元タイトル一覧を返す
+  /// 指定デッキID群に対応する小単元タイトル一覧を返す（ケース非依存）
   /// - デッキ未ロードの場合は自動的にロード
   /// - cardsまでは展開しない軽量処理
   Future<Map<String, List<String>>> unitTitlesFor(List<String> deckIds) async {
@@ -90,39 +100,41 @@ class DeckLoader {
     }
     final result = <String, List<String>>{};
     for (final id in deckIds) {
-      final deck = _decks.firstWhere(
-        (d) => (d as dynamic).id?.toString() == id,
-        orElse: () => null as dynamic,
-      );
-      if (deck == null) continue;
+      final key = id.toLowerCase();
+      final deck = _deckByIdLower[key];
+      if (deck == null) {
+        // 見つからなくてもキーは返す（UI側フォールバック用に空配列）
+        result[key] = const [];
+        continue;
+      }
       final units = (deck as dynamic).units as List<dynamic>? ?? [];
       final titles = <String>[];
       for (final u in units) {
         final t = (u as dynamic).title?.toString();
         if (t != null && t.isNotEmpty) titles.add(t);
       }
-      result[id] = titles;
+      result[key] = titles;
     }
     return result;
   }
 
   // ========= 追加API：unit→deck 逆引き（静的） =========
 
-  /// unitId から所属 deckId を返す（見つからなければ空文字）
+  /// unitId から所属 deckId(小文字) を返す（見つからなければ空文字）
   static String deckIdOfUnit(String unitId) {
     final inst = _instance;
     if (inst == null || !inst._loaded) return '';
-    return inst._unitToDeck[unitId] ?? '';
+    return (inst._unitToDeck[unitId] ?? '').toLowerCase();
   }
 
-  /// deckId 群に含まれる unitId を列挙（見つかった分のみ）
+  /// deckId 群に含まれる unitId を列挙（見つかった分のみ・ケース非依存）
   static List<String> unitIdsOfDecks(List<String> deckIds) {
     final inst = _instance;
     if (inst == null || !inst._loaded) return const [];
-    final wanted = deckIds.toSet();
+    final wanted = deckIds.map((e) => e.toLowerCase()).toSet();
     final out = <String>[];
-    inst._unitToDeck.forEach((unitId, deckId) {
-      if (wanted.contains(deckId)) out.add(unitId);
+    inst._unitToDeck.forEach((unitId, deckIdLower) {
+      if (wanted.contains(deckIdLower)) out.add(unitId);
     });
     out.sort();
     return out;
@@ -147,18 +159,25 @@ class DeckLoader {
     _byStableId.clear();
     _byAnyId.clear();
     _unitToDeck.clear(); // 逆引きをリセット
+    _deckByIdLower.clear(); // 小文字索引をリセット
 
     for (final d in _decks) {
-      final deckId = (d as dynamic).id?.toString() ?? '';
+      final deckIdRaw = (d as dynamic).id?.toString() ?? '';
+      final deckIdLower = deckIdRaw.toLowerCase();
 
-      // 🔵 unitId -> deckId を構築
+      // 🔵 deckId(小) -> Deck
+      if (deckIdLower.isNotEmpty) {
+        _deckByIdLower[deckIdLower] = d;
+      }
+
+      // 🔵 unitId -> deckId(小) を構築（小文字で統一）
       try {
         final units = (d as dynamic).units as List<dynamic>?;
-        if (units != null && deckId.isNotEmpty) {
+        if (units != null && deckIdLower.isNotEmpty) {
           for (final u in units) {
             final uid = (u as dynamic).id?.toString();
             if (uid != null && uid.isNotEmpty) {
-              _unitToDeck[uid] = deckId;
+              _unitToDeck[uid] = deckIdLower;
             }
           }
         }

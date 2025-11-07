@@ -2,7 +2,7 @@ name: health_quiz_app
 description: "A new Flutter project."
 publish_to: "none"
 
-version: 0.8.5+85
+version: 0.8.14+94
 
 environment:
   sdk: ">=3.4.0 <4.0.0"

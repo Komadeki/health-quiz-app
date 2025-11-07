@@ -50,12 +50,13 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
     return iap.products[productId]?.price ?? '';
   }
 
-  bool _ownedDeckLegacy(String deckId) => isProLegacy || ownedLegacy.contains(deckId);
+  // ★ 単元の所有判定：Proは含めず、個別購入デッキのみ
+  //bool _ownedDeckLegacy(String deckId) => ownedLegacy.contains(deckId);
 
-  // ★ 追加：アクセス可能＝（個別所有/Pro）∨（5パック選択）
+  // ★ アクセス可能：個別購入 ∨ 5単元パック選択デッキ（Proは含めない）
   bool _isDeckAccessible(String deckId) {
     final id = deckId.toLowerCase();
-    return _ownedDeckLegacy(id) || _fivePackDecks.contains(id);
+    return ownedLegacy.contains(id) || _fivePackDecks.contains(id);
   }
 
   String _safePrice(String productId) {
@@ -103,6 +104,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       if (!kUseFakeIap) {
         await iap.init();
       }
+      // ★ 所有済みなのに未選択が空なら自動で埋める（サイレント）
+      await PurchaseStore.autoAssignFivePackIfOwnedAndEmpty();
+
       isProLegacy = await PurchaseStore.getPro();
       ownedLegacy = (await PurchaseStore.getOwnedDeckIds()).toSet();
       _fivePackDecks = await PurchaseStore.getFivePackDecks(); // ★ 追加：初期ロード
@@ -123,11 +127,8 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         for (final e in metaMap.entries) e.key.toLowerCase(): e.value,
       };
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('購入情報の初期化に失敗しました: $e')),
-        );
-      }
+      // 起動時の一時的な失敗は“静音化”し、ログのみにする
+      debugPrint('IAP init (boot) warning: $e');
     } finally {
       if (mounted) setState(() => loading = false);
     }
@@ -136,7 +137,6 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
   @override
   void dispose() {
     iap.removeListener(_iapListener);
-    iap.dispose();
     super.dispose();
   }
 
@@ -171,8 +171,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         return true;
       } else {
         await iap.buy(sku);
+        // ★ ストリーム反映を確実に待つ
+        final ok = await iap.waitUntilOwned(sku);
         await _refreshOwnedLegacy();
-        final ok = iap.isOwnedProduct(sku);
         if (!ok && mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('購入は完了していません（キャンセルまたは未確定）')),
@@ -215,17 +216,20 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         if (!mounted) return;
         final unlocked = _successText(productId);
         await _showSuccessDialog(unlocked);
+        Navigator.of(context).pop(true);
       } else {
         await iap.buy(productId);
+        // ★ 実ストアでも反映を待つ
+        final ok = await iap.waitUntilOwned(productId);
         await _refreshOwnedLegacy();
 
         if (!mounted) return;
 
-        final purchasedNow =
-            iap.isOwnedProduct(productId) || _ownedDeckLegacy(productId.replaceAll('_unlock', ''));
-        if (purchasedNow) {
+        if (ok || iap.isOwnedProduct(productId)) {
           final unlocked = _successText(productId);
           await _showSuccessDialog(unlocked);
+          // ★ 成功時は Home に更新を伝える
+          Navigator.of(context).pop(true);
         }
       }
     } catch (e) {
@@ -444,8 +448,34 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
     if (picked == null || picked.isEmpty) return;
 
     // 2) 課金実行
-    final ok = await _buySkuAndVerify('bundle_5decks_unlock');
-    if (!ok) return;
+    setState(() {
+      busy = true;
+      _pendingProductId = 'bundle_5decks_unlock';
+    });
+    bool ok = false;
+    try {
+      if (kUseFakeIap) {
+        await PurchaseStore.setFivePackOwned(true);
+        ok = true;
+      } else {
+        await iap.buy('bundle_5decks_unlock');
+        ok = await iap.waitUntilOwned('bundle_5decks_unlock');
+      }
+    } finally {
+      // busy は最後に解除
+    }
+    if (!ok) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('購入の反映を確認できませんでした')),
+        );
+      }
+      setState(() {
+        busy = false;
+        _pendingProductId = null;
+      });
+      return;
+    }
 
     // 3) IAP成功時のみ保存・権利付与（Fake/Real共通の整合点）
     await PurchaseStore.setFivePackDecks(picked);
@@ -456,7 +486,13 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
 
     if (!mounted) return;
     await _showSuccessDialog('選択した単元が解放されました。');
-    setState(() {}); // UI更新
+    // ★ Home に更新を伝える（購入画面を閉じる）
+    Navigator.of(context).pop(true);
+    setState(() {}); // 念のため（戻らずに残った場合にも表示更新）
+    setState(() {
+      busy = false;
+      _pendingProductId = null;
+    });
   }
 
   // 単元タイル（個別デッキ）
@@ -596,7 +632,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                       future: PurchaseStore.getOwnedDeckIds(),
                       builder: (context, ownedSnap) {
                         final ownedDecks =
-                            (ownedSnap.data ?? {}).map((e) => e.toLowerCase()).toSet();
+                            (ownedSnap.data ?? <String>{}).map((e) => e.toLowerCase()).toSet();
                         return FutureBuilder<List<dynamic>>(
                           future: DeckLoader.instance().then((l) => l.loadAll()),
                           builder: (context, decksSnap) {

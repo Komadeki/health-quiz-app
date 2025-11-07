@@ -38,8 +38,13 @@ class ProductCatalog {
 }
 
 class IapService with ChangeNotifier {
+  IapService._internal();
+  static final IapService _instance = IapService._internal();
+  factory IapService() => _instance;
+
   final InAppPurchase _iap = InAppPurchase.instance;
   StreamSubscription<List<PurchaseDetails>>? _sub;
+  static bool _initialized = false;
 
   /// 価格表示用（ProductDetails.id -> ProductDetails）
   final Map<String, ProductDetails> products = {};
@@ -62,10 +67,17 @@ class IapService with ChangeNotifier {
 
   /// 初期化：products取得 → 所有状態ロード → purchaseStream購読 →（Androidのみ）restorePurchases()
   Future<void> init() async {
+    // すでに初期化済みでも、products が空 or 購買ストリーム未購読なら再初期化
+    if (_initialized && products.isNotEmpty && _sub != null) {
+      debugPrint('IAP init: reuse existing (already initialized)');
+      return;
+    }
     available = await _iap.isAvailable();
     debugPrint('IAP available: $available');
     if (!available) {
       debugPrint('❌ IAP not available (Play Store無効/端末非対応 or 非Playビルド)');
+      // 利用不可でも“初期化済み扱い”にして以降の再初期化を抑制
+      _initialized = true;
       return;
     }
 
@@ -107,12 +119,37 @@ class IapService with ChangeNotifier {
     } catch (e) {
       debugPrint('restorePurchases on init failed: $e');
     }
+    _initialized = true; // ← ★これを正常系の最後に追加！
   }
 
   @override
   void dispose() {
     _sub?.cancel();
     super.dispose();
+  }
+
+  /// 指定 productId が isOwnedProduct=true になるまで待機（購買ストリーム反映を待つ）
+  Future<bool> waitUntilOwned(String productId,
+      {Duration timeout = const Duration(seconds: 8)}) async {
+    // 即時チェック
+    if (isOwnedProduct(productId)) return true;
+    final completer = Completer<bool>();
+    late VoidCallback listener;
+    listener = () {
+      if (isOwnedProduct(productId) && !completer.isCompleted) {
+        removeListener(listener);
+        completer.complete(true);
+      }
+    };
+    addListener(listener);
+    // タイムアウト監視
+    Future.delayed(timeout, () {
+      if (!completer.isCompleted) {
+        removeListener(listener);
+        completer.complete(false);
+      }
+    });
+    return completer.future;
   }
 
   // ---- API: 購入/復元 ----
@@ -139,6 +176,8 @@ class IapService with ChangeNotifier {
       ..addAll(await PurchaseStore.getOwnedDeckIds());
     _isPro = await PurchaseStore.getPro();
     _hasFivePack = await PurchaseStore.isFivePackOwned(); // ← UI即時反映用
+    // ★ ここで未選択なら自動割り当てを実施（サイレント修復）
+    await PurchaseStore.autoAssignFivePackIfOwnedAndEmpty();
     notifyListeners();
   }
 

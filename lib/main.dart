@@ -56,6 +56,11 @@ void main() async {
     DeckLoader.instance();
   });
 
+  // ★ 起動後にサイレント自動是正：所有済みなのに未選択なら自動割当→確定
+  unawaited(Future.microtask(() async {
+    await PurchaseStore.autoAssignFivePackIfOwnedAndEmpty();
+  }));
+
   // ✅ runAppは1回だけ呼び出す
   runApp(
     ChangeNotifierProvider(

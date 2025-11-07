@@ -272,56 +272,6 @@ class _ReviewReminderCardState extends State<ReviewReminderCard> {
             enabled && nextDate != null ? '次回の通知予定: ${df.format(nextDate!)}' : '次回の通知予定: —',
             style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.outline),
           ),
-
-          // ------------------------------------------------------------
-          // 🧪 DEBUG（開発用ボタン）— リリース前に削除してください
-          // ------------------------------------------------------------
-          const SizedBox(height: 16),
-          const Divider(height: 24),
-          Text(
-            'デバッグツール（開発用）',
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: theme.colorScheme.primary,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 12,
-            runSpacing: 8,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  await ReminderService.instance.debugShowNowTest();
-                  if (!mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('showNow() を実行しました')),
-                  );
-                },
-                child: const Text('🔔 即時通知テスト（showNow）'),
-              ),
-              OutlinedButton(
-                onPressed: () async {
-                  await ReminderService.instance.debugScheduleOnce30secTest();
-                  if (!mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('30秒後通知を予約しました')),
-                  );
-                },
-                child: const Text('⏱ 30秒後通知テスト'),
-              ),
-              TextButton(
-                onPressed: () async {
-                  await ReminderService.instance.cancelAll();
-                  if (!mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('すべての通知をキャンセルしました')),
-                  );
-                },
-                child: const Text('🧹 予約の全解除'),
-              ),
-            ],
-          ),
         ],
       ),
     );

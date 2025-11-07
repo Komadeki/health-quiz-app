@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart'; // ← 追加
 import '../services/app_settings.dart'; // ← 追加
+import '../services/gate.dart';
+import '../services/purchase_store.dart';
 import '../models/deck.dart';
 import '../models/unit.dart';
 import '../models/card.dart';
@@ -39,19 +41,15 @@ class _MultiSelectScreenState extends State<MultiSelectScreen> {
   bool _isDeckOwned(Deck d) => _owned[d.id.toLowerCase()] ?? false;
 
   Future<void> _reloadOwnership() async {
-    // 一括で高速に判定（Proなら全true）
-    final spOwned =
-        (await SharedPreferences.getInstance()).getStringList('ownedDeckIds') ?? <String>[];
-    final isPro = (await SharedPreferences.getInstance()).getBool('proUpgrade') ?? false;
+    _owned.clear();
+    // Pro は“機能”だけ。コンテンツの所有には含めない。
+    final ownedDecks = (await PurchaseStore.getOwnedDeckIds()).map((e) => e.toLowerCase()).toSet();
+    final fiveSelected = await PurchaseStore.getFivePackDecks(); // 既に小文字前提
+    final accessible = ownedDecks.union(fiveSelected); // 個別購入 ∪ 5パック選択
 
-    final ownedSet = spOwned.map((e) => e.toLowerCase()).toSet();
-    _owned
-      ..clear()
-      ..addEntries(
-        widget.decks.map(
-          (d) => MapEntry(d.id.toLowerCase(), isPro || ownedSet.contains(d.id.toLowerCase())),
-        ),
-      );
+    for (final d in widget.decks) {
+      _owned[d.id.toLowerCase()] = accessible.contains(d.id.toLowerCase());
+    }
     if (mounted) setState(() {});
   }
 

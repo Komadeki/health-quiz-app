@@ -16,6 +16,8 @@ class PurchaseStore {
   // ---- 5単元パック（deck基準）----
   static const _kFivePackOwned = 'fivePack.owned'; // bool
   static const _kFivePackDecks = 'fivePack.selectedDecks'; // List<String>
+  // （任意）ステージングを使う場合のキー。未使用でも害はない
+  static const _kFivePackStaged = 'fivePack.stagedDecks'; // List<String>
 
   // ---- レガシー（unit基準）キー：読み取りのみ（自動移行のため）----
   static const _kFivePackUnitsLegacy = 'fivePack.selectedUnits'; // List<String>
@@ -120,6 +122,35 @@ class PurchaseStore {
   static Future<void> clearFivePackDecks() async {
     final sp = await SharedPreferences.getInstance();
     await sp.remove(_kFivePackDecks);
+    await sp.remove(_kFivePackStaged);
+  }
+
+  // ========== 自動是正（ここが肝） ==========
+  /// 5パックを所有しているのに選択済みが空なら、未購入デッキから自動で5つ割り当てて確定。
+  /// - レガシー(unit)→deck移行も試みる（getFivePackDecks() 内で実施）
+  static Future<void> autoAssignFivePackIfOwnedAndEmpty() async {
+    final owned = await isFivePackOwned();
+    if (!owned) return;
+
+    // まずは（内部でレガシー移行を含む）現状を取得
+    final current = await getFivePackDecks();
+    if (current.isNotEmpty) return; // 既に確定済みなら何もしない
+
+    // 未選択のままなら自動割り当て：非同期インスタンスを取得して使う
+    final loader = await DeckLoader.instance();
+    final decks = await loader.loadAll();
+    final allDeckIds = <String>[];
+    for (final d in decks) {
+      final dyn = d as dynamic;
+      final id = (dyn.id as String).trim().toLowerCase();
+      if (id.isNotEmpty) allDeckIds.add(id);
+    }
+
+    final alreadyOwned = (await ownedDeckIds()).toSet().map((e) => e.toLowerCase()).toSet();
+    final candidates =
+        allDeckIds.where((id) => !alreadyOwned.contains(id)).take(fivePackLimit).toSet();
+    if (candidates.isEmpty) return; // 何も割り当てられない状況（全所有など）+
+    await setFivePackDecks(candidates);
   }
 
   // ========== レガシーAPI（互換）==========

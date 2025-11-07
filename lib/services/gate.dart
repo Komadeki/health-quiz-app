@@ -12,7 +12,6 @@ class Gate {
   /// - 5単元パック: 選択済みの deck が解放
   static Future<bool> canAccessDeck(String deckId) async {
     final id = deckId.toLowerCase();
-    if (await PurchaseStore.isPro()) return true;
 
     // 個別購入/全体解放
     if (await PurchaseStore.isDeckOwned(id)) return true;
@@ -27,7 +26,6 @@ class Gate {
   /// 複数デッキから「アクセス可能なものだけ」を返す（ミックス用）
   static Future<List<String>> filterAccessibleDecks(Iterable<String> deckIds) async {
     final ids = deckIds.map((e) => e.toLowerCase()).toList();
-    if (await PurchaseStore.isPro()) return ids;
 
     final owned = (await PurchaseStore.ownedDeckIds()).map((e) => e.toLowerCase()).toSet();
     final five = await PurchaseStore.getFivePackDecks(); // 既に小文字&正規化済み想定
@@ -39,7 +37,6 @@ class Gate {
   /// すべてのデッキが解放済みか（Pro または全所有 or 5パックで全網羅）
   static Future<bool> isAllUnlocked(Iterable<String> allDeckIds) async {
     final need = allDeckIds.map((e) => e.toLowerCase()).toList();
-    if (await PurchaseStore.isPro()) return true;
 
     final owned = (await PurchaseStore.ownedDeckIds()).map((e) => e.toLowerCase()).toSet();
     final five = await PurchaseStore.getFivePackDecks();
@@ -55,8 +52,6 @@ class Gate {
   /// - デッキ購入/全解放: その配下の小単元は全解放
   /// - 5単元パック: 選択済み「デッキ」に属する小単元は全解放
   static Future<bool> canAccessUnit(String unitId, {String? deckId}) async {
-    if (await PurchaseStore.isPro()) return true;
-
     // deckId が未指定なら DeckLoader から逆引き
     var did = deckId?.toLowerCase();
     if (did == null || did.isEmpty) {
@@ -80,8 +75,6 @@ class Gate {
     Iterable<String> unitIds, {
     Map<String, String>? unitToDeckId, // unitId -> deckId
   }) async {
-    if (await PurchaseStore.isPro()) return unitIds.toList();
-
     // 事前取得（I/O回数削減）
     final owned = (await PurchaseStore.ownedDeckIds()).map((e) => e.toLowerCase()).toSet();
     final five = await PurchaseStore.getFivePackDecks();
