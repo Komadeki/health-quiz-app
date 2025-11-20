@@ -23,8 +23,12 @@ class PurchaseStore {
   static const _kFivePackUnitsLegacy = 'fivePack.selectedUnits'; // List<String>
   static const int fivePackLimit = 5;
 
-  // ========== Pro ==========
+// ========== Pro ==========
   static Future<bool> isPro() async {
+    // ★ スクショ撮影用：ビルド時フラグで Pro 扱いにする
+    const screenshotMode = bool.fromEnvironment('SCREENSHOT_MODE', defaultValue: false);
+    if (screenshotMode) return true; // ← スクショ用フラグ時のみ Pro 扱い
+
     final sp = await SharedPreferences.getInstance();
     return sp.getBool(_kPro) ?? false;
   }
@@ -175,6 +179,34 @@ class PurchaseStore {
   @Deprecated('Use clearFivePackDecks() instead.')
   static Future<void> clearFivePackUnits() async {
     await clearFivePackDecks();
+  }
+
+  /// スクショ用：全デッキ（全単元）を所有扱いにする
+  /// - SCREENSHOT_MODE=true のときのみ動作
+  /// - SharedPreferences の ownedDeckIds に全 deckId を登録
+  static Future<void> screenshotUnlockAllIfNeeded() async {
+    const screenshotMode = bool.fromEnvironment('SCREENSHOT_MODE', defaultValue: false);
+    if (!screenshotMode) return;
+
+    // Deck 一覧を取得
+    final loader = await DeckLoader.instance();
+    final decks = await loader.loadAll();
+
+    // すべての deckId を収集
+    final allDeckIds = <String>{};
+    for (final d in decks) {
+      final dyn = d as dynamic;
+      final id = (dyn.id as String?)?.trim().toLowerCase();
+      if (id != null && id.isNotEmpty) {
+        allDeckIds.add(id);
+      }
+    }
+
+    if (allDeckIds.isEmpty) return;
+
+    // 既存所有とマージして保存（重複は内部で正規化）
+    await addOwnedDecks(allDeckIds);
+    // Proは isPro() が SCREENSHOT_MODE で true を返すので setPro(true) は不要
   }
 
   // ========== デバッグ用：全消去 ==========

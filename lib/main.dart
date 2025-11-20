@@ -61,6 +61,9 @@ void main() async {
     await PurchaseStore.autoAssignFivePackIfOwnedAndEmpty();
   }));
 
+  // ★ スクショ用：全単元解放
+  await PurchaseStore.screenshotUnlockAllIfNeeded();
+
   // ✅ runAppは1回だけ呼び出す
   runApp(
     ChangeNotifierProvider(
