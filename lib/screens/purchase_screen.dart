@@ -549,6 +549,36 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
+    // ★★★ ここから追加 ★★★
+    // 実ストアが利用できない or 商品一覧が取れていない場合は
+    // 購入ボタンを一切出さず、説明メッセージだけを表示する。
+    final bool storeAvailable = kUseFakeIap || iap.available;
+    final bool hasProducts = kUseFakeIap || iap.products.isNotEmpty;
+
+    if (!storeAvailable || !hasProducts) {
+      return Scaffold(
+        appBar: AppBar(title: Text('購入${kUseFakeIap ? '（テストモード）' : ''}')),
+        body: const Center(
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.info_outline, size: 40),
+                SizedBox(height: 12),
+                Text(
+                  '現在、App Store からアプリ内課金の情報を取得できませんでした。\n'
+                  '通信環境を確認のうえ、時間をおいて再度お試しください。',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+    // ★★★ 追加ここまで ★★★
+
     final owned5 = iap.isOwnedProduct('bundle_5decks_unlock');
     final ownedAll = iap.isOwnedProduct('bundle_all_unlock');
     final ownedPro = iap.isOwnedProduct('pro_upgrade') || isProLegacy;
