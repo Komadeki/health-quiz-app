@@ -1,5 +1,12 @@
 import java.util.Properties
 
+val appManifestProps = Properties().apply {
+    file("app-manifest.properties").inputStream().use { load(it) }
+}
+val manifestApplicationId = requireNotNull(
+    appManifestProps.getProperty("APP_APPLICATION_ID")
+) { "Generated app-manifest.properties is missing APP_APPLICATION_ID." }
+
 val keystoreProps = Properties().apply {
     val f = file("key.properties") // ← app/ 直下を見る
     if (f.exists()) f.inputStream().use { load(it) }
@@ -28,7 +35,7 @@ android {
 
     defaultConfig {
         // ★ 本番用のベース applicationId（prod は suffix なし）
-        applicationId = "jp.mokeke.healthquiz"
+        applicationId = manifestApplicationId
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/services.dart'; // クリップボード
 import 'package:package_info_plus/package_info_plus.dart'; // ← 追加：version自動取得
 import 'package:url_launcher/url_launcher.dart'; // ← 追加：フォーム/メール起動
+import '../generated/app_manifest.g.dart';
 import '../services/app_settings.dart';
 import '../services/attempt_store.dart';
 import 'dart:io' show Platform; // ← 追加
@@ -31,6 +32,7 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
     if (ok == true) {
+      // ignore: use_build_context_synchronously
       await context.read<AppSettings>().resetToDefaults();
       if (!context.mounted) return;
       messenger.showSnackBar(const SnackBar(content: Text('設定をデフォルトに戻しました')));
@@ -150,18 +152,19 @@ class SettingsScreen extends StatelessWidget {
         final deviceInfo = DeviceInfoPlugin();
         if (Platform.isAndroid) {
           final a = await deviceInfo.androidInfo;
+          // ignore: dead_null_aware_expression
           model = a.model ?? '';
           os = 'Android ${a.version.release}';
         } else if (Platform.isIOS) {
           final i = await deviceInfo.iosInfo;
+          // ignore: dead_null_aware_expression
           model = i.utsname.machine ?? '';
           os = 'iOS ${i.systemVersion}';
         }
       } catch (_) {}
 
       // ★ あなたのフォーム（/e/.../viewform?usp=pp_url）
-      const base =
-          'https://docs.google.com/forms/d/e/1FAIpQLScnTXDqyc_usBF4tsAvJSuU4GolMPn30iWceCGOwdno9g0Z1w/viewform?usp=pp_url';
+      const base = GeneratedAppManifest.supportUrl;
 
       // ★ entry 番号の対応：version=1462985917, build=1437804280, model=1596802257, os=1457215898
       final url = Uri.parse(
