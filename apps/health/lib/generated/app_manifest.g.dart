@@ -25,8 +25,8 @@ abstract final class GeneratedAppManifest {
   static const String? marketingUrl = null;
 
   static const String questionBankFormat = "legacy_assets_v1";
-  static const String questionBankRuntimePath = "assets/decks";
-  static const String questionBankManifestPath = "test/fixtures/health_question_bank_contract.json";
+  static const String questionBankRuntimePath = "apps/health/assets/decks";
+  static const String questionBankManifestPath = "apps/health/test/fixtures/health_question_bank_contract.json";
   static const String? questionBankAssetPath = null;
 
   static const ProductCatalog productCatalog = ProductCatalog(

@@ -29,7 +29,7 @@ question_bank:
   format: qualification_runtime_v2
   runtime_path: question_banks/qualification_fixture/generated/qualification_fixture_bank.json
   manifest_path: question_banks/qualification_fixture/generated/bank_manifest.json
-  asset_output: reference_apps/_single_unlock_fixture/assets/question_bank/qualification_fixture_bank.json
+  asset_output: apps/_single_unlock_fixture/assets/question_bank/qualification_fixture_bank.json
 
 monetization:
   architecture: singleFullUnlock

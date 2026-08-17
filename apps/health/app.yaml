@@ -27,8 +27,8 @@ question_identity:
 
 question_bank:
   format: legacy_assets_v1
-  runtime_path: assets/decks
-  manifest_path: test/fixtures/health_question_bank_contract.json
+  runtime_path: apps/health/assets/decks
+  manifest_path: apps/health/test/fixtures/health_question_bank_contract.json
   asset_output: null
 
 monetization:

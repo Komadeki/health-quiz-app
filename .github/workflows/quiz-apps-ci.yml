@@ -1,0 +1,168 @@
+name: Quiz Apps CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scope:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      shared: ${{ steps.scope.outputs.shared }}
+      health: ${{ steps.scope.outputs.health }}
+      fixture: ${{ steps.scope.outputs.fixture }}
+      docs_only: ${{ steps.scope.outputs.docs_only }}
+      reason: ${{ steps.scope.outputs.reason }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect change scope
+        id: scope
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [[ "$EVENT_NAME" != "pull_request" ]]; then
+            python3 tooling/ci/detect_scope.py \
+              --force-all \
+              --github-output "$GITHUB_OUTPUT" </dev/null
+          else
+            git diff --name-only "$BASE_SHA" "$HEAD_SHA" \
+              > "$RUNNER_TEMP/changed-files.txt"
+            python3 tooling/ci/detect_scope.py \
+              --github-output "$GITHUB_OUTPUT" \
+              < "$RUNNER_TEMP/changed-files.txt"
+          fi
+
+  shared-checks:
+    needs: scope
+    if: needs.scope.outputs.shared == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Flutter stable
+        run: |
+          git clone --depth 1 --branch stable \
+            https://github.com/flutter/flutter.git "$HOME/flutter"
+          echo "$HOME/flutter/bin" >> "$GITHUB_PATH"
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Run shared checks
+        run: tooling/ci/check_shared.sh
+
+  health-checks:
+    needs: scope
+    if: needs.scope.outputs.health == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Flutter stable
+        run: |
+          git clone --depth 1 --branch stable \
+            https://github.com/flutter/flutter.git "$HOME/flutter"
+          echo "$HOME/flutter/bin" >> "$GITHUB_PATH"
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Validate manifests for app-only change
+        if: needs.scope.outputs.shared != 'true'
+        run: tooling/ci/check_manifest.sh
+
+      - name: Run health checks
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: tooling/ci/check_health.sh
+
+  fixture-checks:
+    needs: scope
+    if: needs.scope.outputs.fixture == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Flutter stable
+        run: |
+          git clone --depth 1 --branch stable \
+            https://github.com/flutter/flutter.git "$HOME/flutter"
+          echo "$HOME/flutter/bin" >> "$GITHUB_PATH"
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Validate manifests for app-only change
+        if: needs.scope.outputs.shared != 'true'
+        run: tooling/ci/check_manifest.sh
+
+      - name: Run fixture checks
+        run: tooling/ci/check_fixture.sh
+
+  ci-gate:
+    needs: [scope, shared-checks, health-checks, fixture-checks]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Verify required job results
+        shell: bash
+        env:
+          SCOPE_RESULT: ${{ needs.scope.result }}
+          EXPECT_SHARED: ${{ needs.scope.outputs.shared }}
+          SHARED_RESULT: ${{ needs.shared-checks.result }}
+          EXPECT_HEALTH: ${{ needs.scope.outputs.health }}
+          HEALTH_RESULT: ${{ needs.health-checks.result }}
+          EXPECT_FIXTURE: ${{ needs.scope.outputs.fixture }}
+          FIXTURE_RESULT: ${{ needs.fixture-checks.result }}
+        run: |
+          if [[ "$SCOPE_RESULT" != "success" ]]; then
+            echo "scope failed: $SCOPE_RESULT" >&2
+            exit 1
+          fi
+
+          verify_result() {
+            local expected="$1"
+            local actual="$2"
+            local label="$3"
+            if [[ "$expected" == "true" && "$actual" != "success" ]]; then
+              echo "$label required success, got $actual" >&2
+              exit 1
+            fi
+            if [[ "$expected" != "true" && \
+                  "$actual" != "skipped" && "$actual" != "success" ]]; then
+              echo "$label was not required but got $actual" >&2
+              exit 1
+            fi
+          }
+
+          verify_result "$EXPECT_SHARED" "$SHARED_RESULT" shared-checks
+          verify_result "$EXPECT_HEALTH" "$HEALTH_RESULT" health-checks
+          verify_result "$EXPECT_FIXTURE" "$FIXTURE_RESULT" fixture-checks
+          echo "All required CI scopes passed."

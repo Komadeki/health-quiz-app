@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
+import 'dependency_validation.dart';
 import 'generator.dart';
 import 'manifest.dart';
 import 'native_validation.dart';
@@ -16,6 +17,7 @@ ManifestValidationResult validateRepository(
   bool checkGenerated = false,
 }) {
   final result = ManifestValidationResult();
+  _validateRepositoryLayout(repositoryRoot, result);
   final manifests = <AppManifest>[];
   final manifestFiles = discoverManifestFiles(repositoryRoot);
   if (manifestFiles.isEmpty) {
@@ -38,9 +40,8 @@ ManifestValidationResult validateRepository(
   for (final manifest in manifests) {
     validateQuestionBank(repositoryRoot, manifest, result, checkGenerated);
     validateNativeWiring(repositoryRoot, manifest, result);
-    validateDependencyBoundary(repositoryRoot, manifest, result);
   }
-  validateQuizEngineBoundary(repositoryRoot, result);
+  validateDependencyBoundaries(repositoryRoot, manifests, result);
 
   if (checkGenerated && result.isValid) {
     try {
@@ -58,6 +59,47 @@ ManifestValidationResult validateRepository(
   }
 
   return result;
+}
+
+void _validateRepositoryLayout(
+  Directory repositoryRoot,
+  ManifestValidationResult result,
+) {
+  if (File(p.join(repositoryRoot.path, 'app.yaml')).existsSync()) {
+    result.error(
+      'legacy_root_manifest',
+      'Root app.yaml is not a monorepo manifest source.',
+      'app.yaml',
+    );
+  }
+  if (Directory(p.join(repositoryRoot.path, 'reference_apps')).existsSync()) {
+    result.error(
+      'legacy_reference_apps',
+      'reference_apps/ must not remain after the apps/ migration.',
+      'reference_apps',
+    );
+  }
+
+  final apps = Directory(p.join(repositoryRoot.path, 'apps'));
+  if (!apps.existsSync()) {
+    result.error(
+      'missing_apps_directory',
+      'Repository root must contain apps/.',
+      'apps',
+    );
+    return;
+  }
+  for (final entity in apps.listSync(recursive: true, followLinks: false)) {
+    if (entity is! File || p.basename(entity.path) != 'app.yaml') continue;
+    final relativePath = p.relative(entity.path, from: repositoryRoot.path);
+    if (p.split(relativePath).length != 3) {
+      result.error(
+        'nested_app_manifest',
+        'Only apps/<app>/app.yaml is a manifest source.',
+        relativePath,
+      );
+    }
+  }
 }
 
 void validateManifestSemantics(

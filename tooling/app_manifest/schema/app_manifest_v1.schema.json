@@ -60,9 +60,20 @@
         "format": {
           "enum": ["legacy_assets_v1", "qualification_runtime_v2"]
         },
-        "runtime_path": {"minLength": 1, "type": "string"},
-        "manifest_path": {"minLength": 1, "type": "string"},
-        "asset_output": {"type": ["string", "null"]}
+        "runtime_path": {
+          "description": "Repository-root-relative runtime bank path.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "manifest_path": {
+          "description": "Repository-root-relative bank contract or manifest path.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "asset_output": {
+          "description": "Repository-root-relative generated Flutter asset path, or null.",
+          "type": ["string", "null"]
+        }
       },
       "required": ["format", "runtime_path", "manifest_path", "asset_output"],
       "type": "object"

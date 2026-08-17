@@ -30,6 +30,113 @@ void main() {
     expect(result.issues, isEmpty);
   });
 
+  test('discovers only direct child app manifests', () {
+    final temporaryDirectory = Directory.systemTemp.createTempSync(
+      'app_manifest_discovery_test.',
+    );
+    addTearDown(() => temporaryDirectory.deleteSync(recursive: true));
+    File('${temporaryDirectory.path}/apps/health/app.yaml')
+      ..createSync(recursive: true)
+      ..writeAsStringSync('app_key: health\n');
+    File('${temporaryDirectory.path}/apps/nested/child/app.yaml')
+      ..createSync(recursive: true)
+      ..writeAsStringSync('app_key: nested\n');
+
+    final discovered = discoverManifestFiles(temporaryDirectory);
+
+    expect(discovered, hasLength(1));
+    expect(
+      discovered.single.path,
+      endsWith('/apps/health/app.yaml'),
+    );
+  });
+
+  test('repository question-bank paths are root-relative', () {
+    final manifests = {
+      for (final manifest in loadAppManifests(repositoryRoot))
+        manifest.appKey: manifest,
+    };
+
+    expect(
+      manifests['health']!.questionBank.runtimePath,
+      'apps/health/assets/decks',
+    );
+    expect(
+      manifests['health']!.questionBank.manifestPath,
+      'apps/health/test/fixtures/health_question_bank_contract.json',
+    );
+    expect(
+      manifests['qualification_fixture']!.questionBank.assetOutput,
+      'apps/_single_unlock_fixture/assets/question_bank/'
+      'qualification_fixture_bank.json',
+    );
+  });
+
+  test('legacy manifest source locations are rejected', () {
+    final temporaryDirectory = Directory.systemTemp.createTempSync(
+      'legacy_manifest_layout_test.',
+    );
+    addTearDown(() => temporaryDirectory.deleteSync(recursive: true));
+    Directory('${temporaryDirectory.path}/apps').createSync();
+    Directory('${temporaryDirectory.path}/reference_apps').createSync();
+    File('${temporaryDirectory.path}/app.yaml').writeAsStringSync('legacy');
+
+    final result = validateRepository(temporaryDirectory);
+
+    expect(
+      result.issues.map((issue) => issue.code),
+      containsAll(['legacy_root_manifest', 'legacy_reference_apps']),
+    );
+  });
+
+  test('dependency validator rejects app-to-app imports', () {
+    final temporaryDirectory = Directory.systemTemp.createTempSync(
+      'app_dependency_test.',
+    );
+    addTearDown(() => temporaryDirectory.deleteSync(recursive: true));
+    final manifests = loadAppManifests(repositoryRoot);
+    for (final manifest in manifests) {
+      final packageName = manifest.appKey == 'health'
+          ? 'health_quiz_app'
+          : 'single_unlock_fixture';
+      File('${temporaryDirectory.path}/${manifest.appDirectory}/pubspec.yaml')
+        ..createSync(recursive: true)
+        ..writeAsStringSync('''
+name: $packageName
+dependencies:
+  quiz_engine:
+    path: ../../packages/quiz_engine
+''');
+      Directory('${temporaryDirectory.path}/${manifest.appDirectory}/lib')
+          .createSync(recursive: true);
+    }
+    File('${temporaryDirectory.path}/packages/quiz_engine/pubspec.yaml')
+      ..createSync(recursive: true)
+      ..writeAsStringSync('name: quiz_engine\n');
+    Directory('${temporaryDirectory.path}/packages/quiz_engine/lib')
+        .createSync(recursive: true);
+    File('${temporaryDirectory.path}/apps/health/lib/leak.dart')
+        .writeAsStringSync(
+      "import 'package:single_unlock_fixture/main.dart';\n",
+    );
+    File('${temporaryDirectory.path}/packages/quiz_engine/lib/leak.dart')
+        .writeAsStringSync(
+      "import 'package:health_quiz_app/main.dart';\n",
+    );
+    final result = ManifestValidationResult();
+
+    validateDependencyBoundaries(
+      temporaryDirectory,
+      manifests,
+      result,
+    );
+
+    expect(
+      result.issues.map((issue) => issue.code),
+      containsAll(['app_to_app_import', 'quiz_engine_app_import']),
+    );
+  });
+
   test('duplicate app and native identities are rejected', () {
     final manifest = loadAppManifests(repositoryRoot).first;
     final result = ManifestValidationResult();
@@ -48,7 +155,7 @@ void main() {
 
   test('single full unlock rejects legacy products', () {
     final source = File(
-      '${repositoryRoot.path}/reference_apps/_single_unlock_fixture/app.yaml',
+      '${repositoryRoot.path}/apps/_single_unlock_fixture/app.yaml',
     ).readAsStringSync();
     final temporaryDirectory = Directory.systemTemp.createTempSync(
       'app_manifest_test.',
@@ -75,7 +182,7 @@ void main() {
 
   test('invalid IDs, URLs, policies, and architectures are rejected', () {
     final source = File(
-      '${repositoryRoot.path}/reference_apps/_single_unlock_fixture/app.yaml',
+      '${repositoryRoot.path}/apps/_single_unlock_fixture/app.yaml',
     ).readAsStringSync();
     final temporaryDirectory = Directory.systemTemp.createTempSync(
       'app_manifest_invalid_test.',
@@ -118,7 +225,7 @@ void main() {
 
   test('missing full unlock product is rejected', () {
     final source = File(
-      '${repositoryRoot.path}/reference_apps/_single_unlock_fixture/app.yaml',
+      '${repositoryRoot.path}/apps/_single_unlock_fixture/app.yaml',
     ).readAsStringSync();
     final temporaryDirectory = Directory.systemTemp.createTempSync(
       'app_manifest_product_test.',

@@ -504,7 +504,7 @@ packages:
   quiz_engine:
     dependency: "direct main"
     description:
-      path: "packages/quiz_engine"
+      path: "../../packages/quiz_engine"
       relative: true
     source: path
     version: "0.1.0"

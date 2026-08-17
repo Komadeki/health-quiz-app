@@ -1,16 +1,38 @@
-# health_quiz_app
+# KOMADEKI quiz apps monorepo
 
-A new Flutter project.
+This repository contains independent Flutter quiz applications and the small
+set of contracts and tools they intentionally share. The repository name
+`health-quiz-app` is historical and may be changed in a separate operation.
 
-## Getting Started
+## Layout
 
-This project is a starting point for a Flutter application.
+```text
+apps/
+  health/                    Published health Flutter app
+  _single_unlock_fixture/    Non-production qualification shell fixture
+packages/
+  quiz_engine/               Shared models and pure quiz logic
+question_banks/
+  qualification_fixture/     Authored and generated fixture bank
+tooling/
+  app_manifest/              Manifest generation and contract validation
+  question_bank/             Question-bank generation and validation
+  ci/                        Local and CI check entry points
+docs/                        Monorepo, app-addition, and CI contracts
+```
 
-A few resources to get you started if this is your first Flutter project:
+Each app is a standalone Flutter project. There is intentionally no root
+Flutter package or root workspace package.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Main checks
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+From the repository root:
+
+```bash
+tooling/ci/check_all.sh
+```
+
+Focused commands and CI scope behavior are documented in [docs/CI.md](docs/CI.md).
+See [docs/ADDING_QUALIFICATION_APP.md](docs/ADDING_QUALIFICATION_APP.md) before
+adding a qualification product. The complete layout contract is in
+[docs/MONOREPO.md](docs/MONOREPO.md).
