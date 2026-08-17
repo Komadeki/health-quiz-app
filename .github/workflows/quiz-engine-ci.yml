@@ -30,6 +30,18 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
+      - name: Get quiz_engine dependencies
+        working-directory: packages/quiz_engine
+        run: dart pub get
+
+      - name: Analyze quiz_engine strictly
+        working-directory: packages/quiz_engine
+        run: dart analyze --fatal-infos
+
+      - name: Test quiz_engine
+        working-directory: packages/quiz_engine
+        run: dart test
+
       - name: Analyze project errors
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
 
