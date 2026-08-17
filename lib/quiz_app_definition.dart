@@ -64,7 +64,7 @@ const currentQuizApp = QuizAppDefinition(
   appName: GeneratedAppManifest.displayName,
   devAppName: GeneratedAppManifest.devDisplayName,
   qaAppName: GeneratedAppManifest.qaDisplayName,
-  publisherName: GeneratedAppManifest.publisher,
+  publisherName: GeneratedAppManifest.brandName,
   brandName: GeneratedAppManifest.brandName,
   legalese: GeneratedAppManifest.legalese,
   monetization: healthMonetizationDefinition,

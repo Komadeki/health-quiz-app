@@ -33,7 +33,7 @@ void main() {
     expect(currentQuizApp.appName, GeneratedAppManifest.displayName);
     expect(currentQuizApp.devAppName, GeneratedAppManifest.devDisplayName);
     expect(currentQuizApp.qaAppName, GeneratedAppManifest.qaDisplayName);
-    expect(currentQuizApp.publisherName, GeneratedAppManifest.publisher);
+    expect(currentQuizApp.publisherName, GeneratedAppManifest.brandName);
     expect(currentQuizApp.brandName, GeneratedAppManifest.brandName);
     expect(currentQuizApp.legalese, GeneratedAppManifest.legalese);
     expect(currentQuizApp.preferExplicitStableIds, isFalse);
@@ -54,5 +54,13 @@ void main() {
       File('android/app/src/prod/res/values/strings.xml').readAsStringSync(),
       contains('<string name="app_name">高校保健 一問一答</string>'),
     );
+  });
+
+  test('settings support URL comes only from the generated manifest', () {
+    final settingsSource =
+        File('lib/screens/settings_screen.dart').readAsStringSync();
+
+    expect(settingsSource, contains('GeneratedAppManifest.supportUrl'));
+    expect(settingsSource, isNot(contains(GeneratedAppManifest.supportUrl)));
   });
 }
