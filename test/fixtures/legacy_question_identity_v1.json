@@ -1,0 +1,47 @@
+{
+  "cases": [
+    {
+      "name": "deck M01 representative question",
+      "question": "WHO憲章で定義されている健康の意味はどれか？",
+      "choices": [
+        "病気でない状態",
+        "心身ともに良好な状態",
+        "体だけが丈夫な状態",
+        "社会的に孤立していない状態"
+      ],
+      "answerIndex": 1,
+      "expectedStableId": "7e15c4eadaac46dc91dd259e08704a9f"
+    },
+    {
+      "name": "deck M04 representative question",
+      "question": "事故とはどのような出来事を指すか？",
+      "choices": [
+        "意図せずに起こる不慮の外傷や損傷",
+        "犯罪や暴力によるけが",
+        "自然災害による被害",
+        "病気による体調不良"
+      ],
+      "answerIndex": 0,
+      "expectedStableId": "de6009e05a4245df5fd1ce59645205b9"
+    },
+    {
+      "name": "deck M08 representative question",
+      "question": "保健行政の主な目的はどれか？",
+      "choices": [
+        "人々の健康を保持増進すること",
+        "医療費を削減すること",
+        "人口を増やすこと",
+        "新しい病院を建設すること"
+      ],
+      "answerIndex": 0,
+      "expectedStableId": "5194ea1f429bc222a7a603ff1a02791c"
+    },
+    {
+      "name": "whitespace normalization",
+      "question": "  空白\nを\t正規化  ",
+      "choices": [" 選択肢  A ", "選択肢\tB", "選択肢\nC "],
+      "answerIndex": 0,
+      "expectedStableId": "b4add65e0ee1767648d5ff4ce009a273"
+    }
+  ]
+}

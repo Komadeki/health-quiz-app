@@ -1,0 +1,80 @@
+{
+  "session": {
+    "sessionId": "session-legacy-001",
+    "deckId": "deck_M01",
+    "itemIds": [
+      "7e15c4eadaac46dc91dd259e08704a9f",
+      "de6009e05a4245df5fd1ce59645205b9"
+    ],
+    "currentIndex": 1,
+    "isFinished": false,
+    "unitId": "unit_health_concepts",
+    "answers": {
+      "7e15c4eadaac46dc91dd259e08704a9f": 1
+    },
+    "updatedAt": "2026-01-02T03:04:05.000Z"
+  },
+  "attempts": [
+    {
+      "attemptId": "attempt-legacy-001",
+      "sessionId": "session-legacy-001",
+      "qNo": "1",
+      "unit_id": "unit_health_concepts",
+      "card_id": "legacy-card-001",
+      "question": "WHO憲章で定義されている健康の意味はどれか？",
+      "selected_index": "0",
+      "correct_index": "1",
+      "isCorrect": false,
+      "duration_ms": "1250",
+      "answeredAt": "2026-01-02T03:04:06.000Z",
+      "cardStableId": "7e15c4eadaac46dc91dd259e08704a9f"
+    },
+    {
+      "attemptId": "attempt-legacy-002",
+      "sessionId": "session-legacy-001",
+      "questionNumber": 2,
+      "unitId": "unit_accident_overview_and_factors",
+      "cardId": "legacy-card-002",
+      "question": "事故とはどのような出来事を指すか？",
+      "selectedIndex": 0,
+      "correctIndex": 0,
+      "isCorrect": true,
+      "durationMs": 900,
+      "timestamp": "2026-01-02T03:04:08.000Z",
+      "stableId": "de6009e05a4245df5fd1ce59645205b9"
+    }
+  ],
+  "scoresV2": [
+    {
+      "id": "score-current-001",
+      "deckId": "deck_M01",
+      "deckTitle": "現代社会と健康（上）",
+      "score": 1,
+      "total": 2,
+      "durationSec": 18,
+      "timestamp": 1767323050000,
+      "selectedUnitIds": ["unit_health_concepts"],
+      "sessionId": "session-legacy-001",
+      "unitBreakdown": {"unit_health_concepts": 2}
+    }
+  ],
+  "scoresLegacyV2": [
+    {
+      "id": "score-legacy-v2-001",
+      "deckId": "deck_M02",
+      "deckTitle": "現代社会と健康（中）",
+      "score": 8,
+      "total": 10,
+      "timestamp": 1767409450000
+    }
+  ],
+  "scoresLegacyV1": [
+    {
+      "deckId": "deck_M03",
+      "total": 10,
+      "correct": 7,
+      "timestamp": "2026-01-04T03:04:10.000Z",
+      "mode": "single"
+    }
+  ]
+}
