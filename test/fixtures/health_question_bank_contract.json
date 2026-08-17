@@ -1,0 +1,54 @@
+{
+  "baselineQuestionCount": 1380,
+  "minimumQuestionCount": 1242,
+  "decks": [
+    {
+      "asset": "assets/decks/deck_M01.json",
+      "id": "deck_M01",
+      "baselineQuestionCount": 180,
+      "minimumQuestionCount": 162
+    },
+    {
+      "asset": "assets/decks/deck_M02.json",
+      "id": "deck_M02",
+      "baselineQuestionCount": 180,
+      "minimumQuestionCount": 162
+    },
+    {
+      "asset": "assets/decks/deck_M03.json",
+      "id": "deck_M03",
+      "baselineQuestionCount": 210,
+      "minimumQuestionCount": 189
+    },
+    {
+      "asset": "assets/decks/deck_M04.json",
+      "id": "deck_M04",
+      "baselineQuestionCount": 180,
+      "minimumQuestionCount": 162
+    },
+    {
+      "asset": "assets/decks/deck_M05.json",
+      "id": "deck_M05",
+      "baselineQuestionCount": 150,
+      "minimumQuestionCount": 135
+    },
+    {
+      "asset": "assets/decks/deck_M06.json",
+      "id": "deck_M06",
+      "baselineQuestionCount": 150,
+      "minimumQuestionCount": 135
+    },
+    {
+      "asset": "assets/decks/deck_M07.json",
+      "id": "deck_M07",
+      "baselineQuestionCount": 180,
+      "minimumQuestionCount": 162
+    },
+    {
+      "asset": "assets/decks/deck_M08.json",
+      "id": "deck_M08",
+      "baselineQuestionCount": 150,
+      "minimumQuestionCount": 135
+    }
+  ]
+}

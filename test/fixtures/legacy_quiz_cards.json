@@ -1,0 +1,20 @@
+[
+  {
+    "question": "感染症を予防する基本的な方法はどれか？",
+    "choices": ["手洗いをする", "睡眠を減らす", "水分を控える"],
+    "answerIndex": 0,
+    "explanation": "手洗いは感染経路を断つ基本的な予防行動である。",
+    "isPremium": false,
+    "tags": ["感染症", "予防"],
+    "unitId": "unit_legacy_three_choices"
+  },
+  {
+    "question": "生活習慣病の予防として適切なものはどれか？",
+    "choices": ["運動を避ける", "食事を抜く", "定期的に運動する", "睡眠時間を削る"],
+    "answerIndex": 2,
+    "explanation": "適度な運動は生活習慣病の予防に役立つ。",
+    "isPremium": true,
+    "unitTags": ["生活習慣", "運動"],
+    "unitId": "unit_legacy_four_choices"
+  }
+]

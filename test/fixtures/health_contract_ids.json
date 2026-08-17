@@ -1,0 +1,94 @@
+{
+  "deckIds": [
+    "deck_m01",
+    "deck_m02",
+    "deck_m03",
+    "deck_m04",
+    "deck_m05",
+    "deck_m06",
+    "deck_m07",
+    "deck_m08"
+  ],
+  "productIds": [
+    "deck_m01_unlock",
+    "deck_m02_unlock",
+    "deck_m03_unlock",
+    "deck_m04_unlock",
+    "deck_m05_unlock",
+    "deck_m06_unlock",
+    "deck_m07_unlock",
+    "deck_m08_unlock",
+    "bundle_5decks_unlock",
+    "bundle_all_unlock",
+    "pro_upgrade"
+  ],
+  "productIdConsumerFiles": [
+    "lib/screens/purchase_screen.dart"
+  ],
+  "storageLiteralsByFile": {
+    "lib/services/purchase_store.dart": [
+      "proUpgrade",
+      "ownedDeckIds",
+      "fivePack.owned",
+      "fivePack.selectedDecks",
+      "fivePack.stagedDecks",
+      "fivePack.selectedUnits"
+    ],
+    "lib/data/quiz_session_local_repository.dart": [
+      "active_quiz_session_v1",
+      "stable_id_version"
+    ],
+    "lib/services/score_saver.dart": [
+      "active_quiz_session_v1__$type"
+    ],
+    "lib/services/attempt_store.dart": [
+      "attempts_v1",
+      "attempts.v1",
+      "scores_v2"
+    ],
+    "lib/services/score_store.dart": [
+      "scores.v2",
+      "scores.v1"
+    ],
+    "lib/services/scores_store.dart": [
+      "scores.v1"
+    ],
+    "lib/services/app_settings.dart": [
+      "settings.isDark",
+      "settings.tapMode",
+      "settings.textSize",
+      "settings.randomize",
+      "settings.saveUnitSelection",
+      "selected_units",
+      "mixed_selected_units"
+    ],
+    "lib/screens/unit_select_screen.dart": [
+      "selectedUnits.${widget.deck.id}",
+      "questionLimit.${widget.deck.id}"
+    ],
+    "lib/screens/multi_select_screen.dart": [
+      "multi.selected.v1",
+      "multi.limit.v1"
+    ],
+    "lib/widgets/review_reminder_card.dart": [
+      "reminder_enabled",
+      "reminder_hour",
+      "reminder_minute",
+      "reminder_freq",
+      "reminder_anchor"
+    ],
+    "lib/services/reminder_service.dart": [
+      "reminder_enabled",
+      "reminder_hour",
+      "reminder_minute",
+      "reminder_freq",
+      "reminder_anchor"
+    ],
+    "lib/screens/review_menu_screen.dart": [
+      "reminderEnabled",
+      "reminderHour",
+      "reminderMinute",
+      "reminderFrequency"
+    ]
+  }
+}
