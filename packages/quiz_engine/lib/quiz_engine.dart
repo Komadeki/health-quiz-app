@@ -1,4 +1,9 @@
 export 'src/identity/question_identity_policy.dart';
+export 'src/monetization/entitlement.dart';
+export 'src/monetization/monetization_definition.dart';
+export 'src/monetization/product_catalog.dart';
+export 'src/monetization/purchase_entitlement_coordinator.dart';
+export 'src/monetization/purchase_gateway.dart';
 export 'src/models/attempt_entry.dart';
 export 'src/models/card.dart';
 export 'src/models/deck.dart';

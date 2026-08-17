@@ -1,40 +1,26 @@
 // lib/services/iap_service.dart
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:quiz_engine/quiz_engine.dart' as engine;
 
+import '../quiz_app_definition.dart';
+import 'in_app_purchase_gateway.dart';
 import 'purchase_store.dart';
+import 'shared_preferences_entitlement_cache.dart';
 
 /// ストアに登録した productId と**完全一致**させること
 class ProductCatalog {
-  // Play Console の productId（deck_xxx_unlock）と対になる“デッキID本体”
-  // ※ 小文字に統一（例: deck_m01）
-  static const deckIds = [
-    'deck_m01',
-    'deck_m02',
-    'deck_m03',
-    'deck_m04',
-    'deck_m05',
-    'deck_m06',
-    'deck_m07',
-    'deck_m08',
-  ];
+  static engine.ProductCatalog get _catalog =>
+      currentQuizApp.monetization.productCatalog;
 
-  // セット/全体/Pro
-  static const bundle5 = 'bundle_5decks_unlock'; // ← SKU名は既存どおり
-  static const bundleAll = 'bundle_all_unlock';
-  static const pro = 'pro_upgrade';
-
-  // まとめ
-  static const bundles = [bundle5, bundleAll];
-  static const specials = [pro];
-
-  static Set<String> allProductIds() => {
-        ...deckIds.map((d) => '${d}_unlock'),
-        ...bundles,
-        ...specials,
-      };
+  static List<String> get deckIds => _catalog.deckIds;
+  static String get bundle5 => _catalog.bundle5ProductId!;
+  static String get bundleAll => _catalog.bundleAllProductId!;
+  static String get pro => _catalog.proProductId!;
+  static List<String> get bundles => [bundle5, bundleAll];
+  static List<String> get specials => [pro];
+  static Set<String> allProductIds() => _catalog.productIds;
 }
 
 class IapService with ChangeNotifier {
@@ -42,12 +28,22 @@ class IapService with ChangeNotifier {
   static final IapService _instance = IapService._internal();
   factory IapService() => _instance;
 
-  final InAppPurchase _iap = InAppPurchase.instance;
-  StreamSubscription<List<PurchaseDetails>>? _sub;
+  final InAppPurchaseGateway _gateway = InAppPurchaseGateway();
+  late final SharedPreferencesEntitlementCache _cache =
+      SharedPreferencesEntitlementCache(
+    catalog: currentQuizApp.monetization.productCatalog,
+  );
+  late final engine.PurchaseEntitlementCoordinator _coordinator =
+      engine.PurchaseEntitlementCoordinator(
+    gateway: _gateway,
+    definition: currentQuizApp.monetization,
+    cache: _cache,
+  );
+  StreamSubscription<engine.PurchaseResult>? _sub;
   static bool _initialized = false;
 
   /// 価格表示用（ProductDetails.id -> ProductDetails）
-  final Map<String, ProductDetails> products = {};
+  Map<String, ProductDetails> get products => _gateway.products;
 
   /// ストア接続/製品取得の可否
   bool available = false;
@@ -72,7 +68,11 @@ class IapService with ChangeNotifier {
       debugPrint('IAP init: reuse existing (already initialized)');
       return;
     }
-    available = await _iap.isAvailable();
+    // Existing SharedPreferences remain the offline entitlement cache.
+    await _reloadOwnershipFromStore();
+
+    final response = await _coordinator.queryProducts();
+    available = response.storeAvailable;
     debugPrint('IAP available: $available');
     if (!available) {
       debugPrint('❌ IAP not available (Play Store無効/端末非対応 or 非Playビルド)');
@@ -84,37 +84,31 @@ class IapService with ChangeNotifier {
     final ids = ProductCatalog.allProductIds();
     debugPrint('Querying products: $ids');
 
-    final resp = await _iap.queryProductDetails(ids);
-
-    if (resp.error != null) {
-      debugPrint('❌ queryProductDetails error: ${resp.error}');
+    if (response.errorMessage != null) {
+      debugPrint('❌ queryProductDetails error: ${response.errorMessage}');
     }
-    if (resp.notFoundIDs.isNotEmpty) {
+    if (response.notFoundProductIds.isNotEmpty) {
       debugPrint(
-        '❗ notFoundIDs: ${resp.notFoundIDs} '
+        '❗ notFoundIDs: ${response.notFoundProductIds} '
         '(productId不一致/未公開/テスター外の可能性)',
       );
     }
 
-    products
-      ..clear()
-      ..addEntries(resp.productDetails.map((p) => MapEntry(p.id, p)));
-    debugPrint('✅ Loaded products: ${products.keys.toList()} (count=${products.length})');
-
-    // 所有状態をローカルストアからロード（=即時UI反映の基礎）
-    await _reloadOwnershipFromStore();
+    debugPrint(
+        '✅ Loaded products: ${products.keys.toList()} (count=${products.length})');
 
     // 先に購読を開始（以降の restore で流れてくるイベントを受ける）
-    _sub?.cancel();
-    _sub = _iap.purchaseStream.listen(
+    await _sub?.cancel();
+    _sub = _gateway.purchaseResults.listen(
       _onUpdated,
       onError: (e) => debugPrint('purchaseStream error: $e'),
     );
+    _gateway.startListening();
 
     // ▼ 過去購入の再送をトリガ（Androidは自動呼び出しOK / iOSはユーザー起点が望ましい）
     try {
       if (defaultTargetPlatform == TargetPlatform.android) {
-        await _iap.restorePurchases();
+        await _coordinator.restore();
       }
     } catch (e) {
       debugPrint('restorePurchases on init failed: $e');
@@ -124,7 +118,8 @@ class IapService with ChangeNotifier {
 
   @override
   void dispose() {
-    _sub?.cancel();
+    unawaited(_sub?.cancel());
+    unawaited(_gateway.dispose());
     super.dispose();
   }
 
@@ -154,107 +149,59 @@ class IapService with ChangeNotifier {
 
   // ---- API: 購入/復元 ----
   Future<void> buy(String productId) async {
-    final p = products[productId];
     if (!isReady) {
       throw StateError('Store not ready (isReady=false)');
     }
-    if (p == null) {
-      throw StateError('Product not loaded: $productId');
-    }
-    await _iap.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: p));
+    await _coordinator.purchase(productId);
   }
 
   Future<void> restore() async {
     // Android/iOS 共通：過去購入の再送をトリガ
-    await _iap.restorePurchases();
+    await _coordinator.restore();
   }
 
   // ---- 内部: ストアから所有状態をロード ----
   Future<void> _reloadOwnershipFromStore() async {
-    _ownedDeckIds
-      ..clear()
-      ..addAll(await PurchaseStore.getOwnedDeckIds());
-    _isPro = await PurchaseStore.getPro();
-    _hasFivePack = await PurchaseStore.isFivePackOwned(); // ← UI即時反映用
     // ★ ここで未選択なら自動割り当てを実施（サイレント修復）
     await PurchaseStore.autoAssignFivePackIfOwnedAndEmpty();
+    final snapshot = await _coordinator.loadCachedEntitlements();
+    _applySnapshot(snapshot);
     notifyListeners();
   }
 
   // ---- ストリーム処理 ----
-  Future<void> _onUpdated(List<PurchaseDetails> list) async {
-    for (final p in list) {
-      debugPrint('purchase updated: id=${p.productID}, status=${p.status}');
-      switch (p.status) {
-        case PurchaseStatus.purchased:
-        case PurchaseStatus.restored:
-          try {
-            await _grantEntitlement(p.productID);
-          } catch (e) {
-            debugPrint('grantEntitlement failed: $e');
-          } finally {
-            if (p.pendingCompletePurchase) {
-              await _iap.completePurchase(p);
-            }
-          }
-          break;
-
-        case PurchaseStatus.error:
-        case PurchaseStatus.canceled:
-          if (p.pendingCompletePurchase) {
-            await _iap.completePurchase(p);
-          }
-          break;
-
-        case PurchaseStatus.pending:
-          // UI 側でスピナー等を表示するなら busy を使う
-          break;
+  Future<void> _onUpdated(engine.PurchaseResult result) async {
+    debugPrint(
+      'purchase updated: id=${result.productId}, status=${result.status}',
+    );
+    try {
+      final snapshot = await _coordinator.handlePurchaseResult(result);
+      final granted = result.status == engine.PurchaseResultStatus.purchased ||
+          result.status == engine.PurchaseResultStatus.restored;
+      if (granted &&
+          currentQuizApp.monetization.productCatalog
+              .recognizes(result.productId)) {
+        _applySnapshot(snapshot);
+        notifyListeners();
       }
+    } catch (error) {
+      debugPrint('purchase result handling failed: $error');
     }
   }
 
-  // ---- 付与ロジック（将来サーバ検証に差し替え可） ----
-  Future<void> _grantEntitlement(String productId) async {
-    // Pro: 機能解放
-    if (productId == ProductCatalog.pro) {
-      await PurchaseStore.setPro(true);
-      debugPrint('✔ grant: pro enabled');
-      _isPro = true;
-      notifyListeners(); // ← UI即時反映
-      return;
-    }
-
-    // 全体パック（＝全デッキの単体所有に寄せる互換運用）
-    if (productId == ProductCatalog.bundleAll) {
-      await PurchaseStore.addOwnedDecks(ProductCatalog.deckIds);
-      debugPrint('✔ grant: bundle_all -> all deckIds');
-      _ownedDeckIds
-        ..clear()
-        ..addAll(ProductCatalog.deckIds);
-      notifyListeners();
-      return;
-    }
-
-    // ★ 5単元パック（選べる方式）
-    // ここでは「権利の付与」のみを行う（選択はUI側）。
-    // ※ Restore時（新端末等）にも権利を復元できるよう、ここで永続化する。
-    if (productId == ProductCatalog.bundle5) {
-      await PurchaseStore.setFivePackOwned(true);
-      debugPrint('✔ grant: five-pack entitlement only (no auto assignment)');
-      _hasFivePack = true;
-      notifyListeners();
-      return;
-    }
-
-    // 個別デッキ: deck_Xxx_unlock -> deck_Xxx
-    if (productId.endsWith('_unlock')) {
-      final deckId =
-          productId.substring(0, productId.length - '_unlock'.length).toLowerCase(); // 念のため小文字正規化
-      await PurchaseStore.addOwnedDecks([deckId]);
-      debugPrint('✔ grant: single deck -> $deckId');
-      _ownedDeckIds.add(deckId);
-      notifyListeners();
-    }
+  void _applySnapshot(engine.EntitlementSnapshot snapshot) {
+    final catalog = currentQuizApp.monetization.productCatalog;
+    _ownedDeckIds
+      ..clear()
+      ..addAll(
+        snapshot.ownedProductIds
+            .map(catalog.deckIdForProduct)
+            .whereType<String>(),
+      );
+    _isPro = catalog.proProductId != null &&
+        snapshot.ownedProductIds.contains(catalog.proProductId);
+    _hasFivePack = catalog.bundle5ProductId != null &&
+        snapshot.ownedProductIds.contains(catalog.bundle5ProductId);
   }
 
   // ---- 所有判定API（UI用）：この productId は購入済みか？ ----
@@ -269,12 +216,15 @@ class IapService with ChangeNotifier {
     if (productId == ProductCatalog.bundle5) {
       // 新方式：5パックの「権利」を持っているかで判定
       // 互換：旧「先頭5デッキ所有」ユーザーにも配慮
-      final legacyOwnedFirst5 = ProductCatalog.deckIds.take(5).every(_ownedDeckIds.contains);
+      final legacyOwnedFirst5 =
+          ProductCatalog.deckIds.take(5).every(_ownedDeckIds.contains);
       return _hasFivePack || legacyOwnedFirst5;
     }
 
     if (productId.endsWith('_unlock')) {
-      final deckId = productId.substring(0, productId.length - '_unlock'.length).toLowerCase();
+      final deckId = productId
+          .substring(0, productId.length - '_unlock'.length)
+          .toLowerCase();
       return _ownedDeckIds.contains(deckId);
     }
 
@@ -292,7 +242,9 @@ class IapService with ChangeNotifier {
       return _hasFivePack ? '5単元パック: 権利あり' : '5単元パック: 未所有';
     }
     if (productId.endsWith('_unlock')) {
-      final deckId = productId.substring(0, productId.length - '_unlock'.length).toLowerCase();
+      final deckId = productId
+          .substring(0, productId.length - '_unlock'.length)
+          .toLowerCase();
       return _ownedDeckIds.contains(deckId) ? '$deckId: 所有' : '$deckId: 未所有';
     }
     return '不明';
