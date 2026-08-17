@@ -34,7 +34,8 @@ unit, difficulty, law name, or source version.
 
 `question_id_registry.csv` is the permanent allocation ledger. A `retired`
 row is a tombstone. `released_questions.json` freezes released answer contracts
-so that changing `correct_choice` under the same ID fails validation.
+and choice snapshots. Changing `correct_choice` under the same ID fails;
+changing choice text warns and requires a `question_version` increment.
 
 ## Authoring schema v2
 
@@ -55,7 +56,8 @@ or `retired`, and only `active` rows enter the runtime bank.
 
 Dates are explicit `YYYY-MM-DD` inputs. Expiration and review-age checks use
 the bank's committed `content_as_of`, never the machine clock. This keeps
-generation and validation deterministic.
+generation and validation deterministic. An `active` question whose
+`valid_from` is after `content_as_of` is rejected as not yet effective.
 
 ## Source registry
 

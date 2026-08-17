@@ -343,6 +343,12 @@ def _validate_dates(
             "Active questions require last_reviewed_at.",
             location,
         )
+    if valid_from and valid_from > as_of:
+        result.error(
+            "active_question_not_yet_valid",
+            f"Active question starts after content_as_of: {valid_from}",
+            location,
+        )
     if valid_until and valid_until < as_of:
         result.error(
             "expired_active_question",
@@ -448,6 +454,17 @@ def _validate_released_contract(
                     location,
                 )
             changed_fields.append("question")
+
+        released_choices = released.get("choices")
+        if isinstance(released_choices, list):
+            old_choices = [str(choice) for choice in released_choices]
+            if old_choices != question_choices(current):
+                result.warning(
+                    "released_choices_changed",
+                    f"Released choices changed for {question_id}.",
+                    location,
+                )
+                changed_fields.append("choices")
 
         warning_codes = {
             "source_id": "source_changed",

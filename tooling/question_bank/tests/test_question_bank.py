@@ -116,6 +116,10 @@ class QuestionBankContractTest(unittest.TestCase):
         self._mutate_question(0, valid_until="2026-08-16")
         self.assertIn("expired_active_question", self._error_codes())
 
+    def test_future_valid_from_active_question_fails(self) -> None:
+        self._mutate_question(0, valid_from="2026-10-01")
+        self.assertIn("active_question_not_yet_valid", self._error_codes())
+
     def test_generated_drift_fails(self) -> None:
         write_generated_files(self.bank)
         generated = self.bank / "generated" / "qualification_fixture_bank.json"
@@ -144,6 +148,16 @@ class QuestionBankContractTest(unittest.TestCase):
     def test_released_correct_choice_change_fails(self) -> None:
         self._mutate_question(1, correct_choice="A", question_version="3")
         self.assertIn("released_correct_choice_changed", self._error_codes())
+
+    def test_released_choice_text_change_warns_without_version_increment(self) -> None:
+        self._mutate_question(1, choice2="所定の電子様式に残す")
+        result = validate_bank(self.bank)
+        warning_codes = {issue.code for issue in result.warnings}
+        error_codes = {issue.code for issue in result.errors}
+
+        self.assertIn("released_choices_changed", warning_codes)
+        self.assertIn("question_version_not_incremented", warning_codes)
+        self.assertNotIn("released_correct_choice_changed", error_codes)
 
     def test_released_metadata_change_warns(self) -> None:
         self._mutate_question(0, difficulty="2")

@@ -1,6 +1,11 @@
 {
   "released_questions": [
     {
+      "choices": [
+        "手順書を確認する",
+        "直ちに作業を始める",
+        "記録を削除する"
+      ],
       "correct_choice": "A",
       "difficulty": "1",
       "importance": "3",
@@ -11,6 +16,12 @@
       "source_id": "FIXTURE-SRC-001"
     },
     {
+      "choices": [
+        "口頭だけで伝える",
+        "所定の様式に残す",
+        "翌年にまとめて作る",
+        "点検せず完了扱いにする"
+      ],
       "correct_choice": "B",
       "difficulty": "2",
       "importance": "2",
