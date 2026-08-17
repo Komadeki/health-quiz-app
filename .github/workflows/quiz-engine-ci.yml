@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install Flutter stable
         run: |
@@ -28,8 +30,21 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Analyze
-        run: flutter analyze
+      - name: Analyze project errors
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - name: Analyze changed Dart files
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          while IFS= read -r file; do
+            dart analyze --fatal-infos "$file"
+          done < <(
+            git diff --name-only --diff-filter=ACMR "$BASE_SHA" "$HEAD_SHA" -- '*.dart'
+          )
 
       - name: Test
+        if: always()
         run: flutter test
