@@ -2,6 +2,7 @@
 
 本メモは、保健一問一答アプリ用の **CSV → JSON変換コマンド** 一覧です。  
 各デッキ（M01〜M08）を `tools/convert_csv_to_json.py` で変換する際に使用します。
+すべてのcommandはrepository rootの`apps/health`directoryから実行してください。
 
 ---
 

@@ -10,7 +10,8 @@
 
 ## 0. 前提
 - Android 実機 or エミュレータが起動済み（`flutter devices` で確認）
-- `pubspec.yaml` がリポジトリ直下にあること
+- repository rootの`apps/health/pubspec.yaml`が存在すること
+- commandは`apps/health`から実行すること
 - ネットワーク接続（依存取得のため）
 
 ---

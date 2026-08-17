@@ -13,7 +13,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter # ← これを追加
   quiz_engine:
-    path: packages/quiz_engine
+    path: ../../packages/quiz_engine
   intl: ^0.20.2 # （任意。日付/数値の整形に便利）
   provider: ^6.1.2
   sqflite: ^2.3.0

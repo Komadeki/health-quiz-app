@@ -1,6 +1,7 @@
 # デッキデータ作成フロー
 
-本アプリの問題データ（デッキ）は **CSVで作成 → JSONに変換** して `assets/decks` に配置します。  
+本アプリの問題データ（デッキ）は **CSVで作成 → JSONに変換** して `assets/decks` に配置します。
+以下のcommandはrepository rootの`apps/health`へ移動して実行します。
 この仕組みにより、問題の追加・修正が簡単に行えます。
 
 ---

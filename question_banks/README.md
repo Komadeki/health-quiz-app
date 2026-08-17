@@ -1,6 +1,7 @@
 # Qualification question bank contract
 
-Phase 2C keeps the published health bank in `assets/decks/` unchanged. New
+Phase 2C keeps the published health bank in `apps/health/assets/decks/`
+unchanged. New
 qualification banks use a separate authoring and generation contract:
 
 ```text

@@ -1,0 +1,42 @@
+name: Quiz Apps iOS Smoke
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 18 * * *'
+  push:
+    tags:
+      - 'quiz-apps-v*'
+
+permissions:
+  contents: read
+
+jobs:
+  ios-smoke:
+    runs-on: macos-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [health, _single_unlock_fixture]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Flutter stable
+        run: |
+          git clone --depth 1 --branch stable \
+            https://github.com/flutter/flutter.git "$HOME/flutter"
+          echo "$HOME/flutter/bin" >> "$GITHUB_PATH"
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Get dependencies
+        working-directory: apps/${{ matrix.app }}
+        run: flutter pub get
+
+      - name: Build iOS without signing
+        working-directory: apps/${{ matrix.app }}
+        run: flutter build ios --no-codesign

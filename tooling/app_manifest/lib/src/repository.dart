@@ -6,14 +6,18 @@ import 'manifest.dart';
 
 Directory findRepositoryRoot({String? explicitPath}) {
   if (explicitPath != null) {
-    return Directory(p.normalize(p.absolute(explicitPath)));
+    final directory = Directory(p.normalize(p.absolute(explicitPath)));
+    if (!_isRepositoryRoot(directory)) {
+      throw StateError(
+        'Not a quiz apps repository root: ${directory.path}',
+      );
+    }
+    return directory;
   }
 
   var directory = Directory.current.absolute;
   while (true) {
-    if (File(p.join(directory.path, 'app.yaml')).existsSync() &&
-        Directory(p.join(directory.path, 'packages', 'quiz_engine'))
-            .existsSync()) {
+    if (_isRepositoryRoot(directory)) {
       return directory;
     }
     final parent = directory.parent;
@@ -26,16 +30,13 @@ Directory findRepositoryRoot({String? explicitPath}) {
 
 List<File> discoverManifestFiles(Directory repositoryRoot) {
   final files = <File>[];
-  final rootManifest = File(p.join(repositoryRoot.path, 'app.yaml'));
-  if (rootManifest.existsSync()) files.add(rootManifest);
-
-  final referenceApps = Directory(
-    p.join(repositoryRoot.path, 'reference_apps'),
-  );
-  if (referenceApps.existsSync()) {
-    for (final entity in referenceApps.listSync(recursive: true)) {
-      if (entity is File && p.basename(entity.path) == 'app.yaml') {
-        files.add(entity);
+  final apps = Directory(p.join(repositoryRoot.path, 'apps'));
+  if (apps.existsSync()) {
+    for (final entity in apps.listSync(followLinks: false)) {
+      if (entity is! Directory) continue;
+      final manifest = File(p.join(entity.path, 'app.yaml'));
+      if (manifest.existsSync()) {
+        files.add(manifest);
       }
     }
   }
@@ -57,3 +58,8 @@ String? optionValue(List<String> arguments, String name) {
   }
   return arguments[index + 1];
 }
+
+bool _isRepositoryRoot(Directory directory) =>
+    Directory(p.join(directory.path, 'apps')).existsSync() &&
+    Directory(p.join(directory.path, 'packages', 'quiz_engine')).existsSync() &&
+    Directory(p.join(directory.path, 'tooling', 'app_manifest')).existsSync();
