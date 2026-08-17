@@ -2,13 +2,22 @@
 import 'dart:math';
 
 class QuizCard {
-  final String question; // 問題文
-  final List<String> choices; // 選択肢（4択想定）
-  final int answerIndex; // 正解のindex（0-based）
-  final String? explanation; // 解説（任意）
-  final bool isPremium; // 有料かどうか
-  final List<String> unitTags; // 分野タグ（複数可）
-  final String? unitId; // ★追加：所属ユニットID（任意・後方互換）
+  final String question;
+  final List<String> choices;
+  final int answerIndex;
+  final String? explanation;
+  final bool isPremium;
+  final List<String> unitTags;
+  final String? unitId;
+
+  /// 新規資格アプリ向けの永久問題ID。既存高校保健では読み込むだけで、
+  /// stableIdForOriginal() は従来方式を維持する。
+  final String? stableId;
+  final String? sourceTitle;
+  final String? sourceSection;
+  final int? difficulty;
+  final int? importance;
+  final String? revisionTag;
 
   const QuizCard({
     required this.question,
@@ -17,7 +26,13 @@ class QuizCard {
     this.explanation,
     this.isPremium = false,
     this.unitTags = const [],
-    this.unitId, // ★追加
+    this.unitId,
+    this.stableId,
+    this.sourceTitle,
+    this.sourceSection,
+    this.difficulty,
+    this.importance,
+    this.revisionTag,
   });
 
   QuizCard copyWith({
@@ -28,6 +43,12 @@ class QuizCard {
     bool? isPremium,
     List<String>? unitTags,
     String? unitId,
+    String? stableId,
+    String? sourceTitle,
+    String? sourceSection,
+    int? difficulty,
+    int? importance,
+    String? revisionTag,
   }) {
     return QuizCard(
       question: question ?? this.question,
@@ -37,12 +58,17 @@ class QuizCard {
       isPremium: isPremium ?? this.isPremium,
       unitTags: unitTags ?? this.unitTags,
       unitId: unitId ?? this.unitId,
+      stableId: stableId ?? this.stableId,
+      sourceTitle: sourceTitle ?? this.sourceTitle,
+      sourceSection: sourceSection ?? this.sourceSection,
+      difficulty: difficulty ?? this.difficulty,
+      importance: importance ?? this.importance,
+      revisionTag: revisionTag ?? this.revisionTag,
     );
   }
 
   List<String> get tags => unitTags;
 
-  /// JSON読み込み用
   factory QuizCard.fromJson(Map<String, dynamic> json) {
     List<String> readTags(Map<String, dynamic> j) {
       final raw = j['unitTags'] ?? j['tags'] ?? j['tag'] ?? j['tag_list'];
@@ -62,12 +88,25 @@ class QuizCard {
       return const <String>[];
     }
 
-    // ❗ final を外して通常のローカル関数に
-    String? readUnitId(Map<String, dynamic> j) {
-      final u = j['unitId'] ?? j['unit_id'];
-      if (u == null) return null;
-      final s = u.toString().trim();
-      return s.isEmpty ? null : s;
+    String? readString(List<String> keys) {
+      for (final key in keys) {
+        final raw = json[key];
+        if (raw == null) continue;
+        final value = raw.toString().trim();
+        if (value.isNotEmpty) return value;
+      }
+      return null;
+    }
+
+    int? readInt(List<String> keys) {
+      for (final key in keys) {
+        final raw = json[key];
+        if (raw == null) continue;
+        if (raw is int) return raw;
+        final value = int.tryParse(raw.toString().trim());
+        if (value != null) return value;
+      }
+      return null;
     }
 
     return QuizCard(
@@ -77,45 +116,77 @@ class QuizCard {
       explanation: json['explanation'] as String?,
       isPremium: json['isPremium'] as bool? ?? false,
       unitTags: readTags(json),
-      unitId: readUnitId(json), // ← ここはそのままでOK
+      unitId: readString(const ['unitId', 'unit_id']),
+      stableId: readString(const [
+        'stableId',
+        'stable_id',
+        'questionId',
+        'question_id',
+      ]),
+      sourceTitle: readString(const ['sourceTitle', 'source_title']),
+      sourceSection: readString(const ['sourceSection', 'source_section']),
+      difficulty: readInt(const ['difficulty']),
+      importance: readInt(const ['importance']),
+      revisionTag: readString(const ['revisionTag', 'revision_tag']),
     );
   }
 
-  /// CSV読み込み用
   factory QuizCard.fromRowWithHeader(Map<String, int> idx, List<dynamic> row) {
     String s(String key) {
       final i = idx[key];
-      if (i == null) return '';
+      if (i == null || i < 0 || i >= row.length) return '';
       final v = row[i];
-      return (v == null) ? '' : v.toString().trim();
+      return v == null ? '' : v.toString().trim();
     }
 
-    final c1 = s('choice1');
-    final c2 = s('choice2');
-    final c3 = s('choice3');
-    final c4 = s('choice4');
-    final ansRaw = s('answer_index');
-    final exp = idx.containsKey('explanation') ? s('explanation') : null;
+    String first(List<String> keys) {
+      for (final key in keys) {
+        final value = s(key);
+        if (value.isNotEmpty) return value;
+      }
+      return '';
+    }
 
-    final list = [c1, c2, c3, c4].where((e) => e.isNotEmpty).toList();
+    int? optionalInt(String key) {
+      final value = s(key);
+      return value.isEmpty ? null : int.tryParse(value);
+    }
 
-    var ans = int.tryParse(ansRaw) ?? 1;
-    ans = (ans - 1).clamp(0, list.length - 1); // 1→0, 4→3 など
+    final list = [s('choice1'), s('choice2'), s('choice3'), s('choice4')]
+        .where((e) => e.isNotEmpty)
+        .toList();
 
-    // ★ テンプレ列に合わせて unit_id を拾う（無ければ null）
-    final uid = idx.containsKey('unit_id') ? s('unit_id') : null;
+    var ans = int.tryParse(s('answer_index')) ?? 1;
+    ans = (ans - 1).clamp(0, list.length - 1);
+
+    final exp = s('explanation');
+    final uid = first(const ['unit_id', 'unitId']);
+    final sid = first(const [
+      'stable_id',
+      'stableId',
+      'question_id',
+      'questionId',
+    ]);
+    final sourceTitle = first(const ['source_title', 'sourceTitle']);
+    final sourceSection = first(const ['source_section', 'sourceSection']);
+    final revisionTag = first(const ['revision_tag', 'revisionTag']);
 
     return QuizCard(
       question: s('question'),
       choices: list,
       answerIndex: ans,
-      explanation: (exp != null && exp.isEmpty) ? null : exp,
-      unitId: (uid != null && uid.isEmpty) ? null : uid, // ★追加
+      explanation: exp.isEmpty ? null : exp,
+      unitId: uid.isEmpty ? null : uid,
+      stableId: sid.isEmpty ? null : sid,
+      sourceTitle: sourceTitle.isEmpty ? null : sourceTitle,
+      sourceSection: sourceSection.isEmpty ? null : sourceSection,
+      difficulty: optionalInt('difficulty'),
+      importance: optionalInt('importance'),
+      revisionTag: revisionTag.isEmpty ? null : revisionTag,
     );
   }
 }
 
-/// 選択肢をシャッフルして answerIndex を再計算した新しいカードを返す
 extension QuizCardShuffle on QuizCard {
   QuizCard shuffled({Random? rnd, bool randomize = true}) {
     final pairs = List.generate(choices.length, (i) => MapEntry(i, choices[i]));
@@ -131,7 +202,13 @@ extension QuizCardShuffle on QuizCard {
       explanation: explanation,
       isPremium: isPremium,
       unitTags: unitTags,
-      unitId: unitId, // ★維持
+      unitId: unitId,
+      stableId: stableId,
+      sourceTitle: sourceTitle,
+      sourceSection: sourceSection,
+      difficulty: difficulty,
+      importance: importance,
+      revisionTag: revisionTag,
     );
   }
 }

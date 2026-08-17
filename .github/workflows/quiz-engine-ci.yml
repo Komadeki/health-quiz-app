@@ -1,0 +1,50 @@
+name: Quiz Engine CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  flutter-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Flutter stable
+        run: |
+          git clone --depth 1 --branch stable https://github.com/flutter/flutter.git "$HOME/flutter"
+          echo "$HOME/flutter/bin" >> "$GITHUB_PATH"
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Analyze project errors
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - name: Analyze changed Dart files
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          while IFS= read -r file; do
+            dart analyze --fatal-infos "$file"
+          done < <(
+            git diff --name-only --diff-filter=ACMR "$BASE_SHA" "$HEAD_SHA" -- '*.dart'
+          )
+
+      - name: Test
+        if: always()
+        run: flutter test
