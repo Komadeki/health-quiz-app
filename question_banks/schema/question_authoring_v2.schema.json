@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://komadeki.example/schema/question-authoring-v2",
+  "additionalProperties": false,
+  "description": "Logical schema for each Questions CSV row. CSV values are strings and are normalized to these types by the validator.",
+  "properties": {
+    "choice1": {"minLength": 1, "type": "string"},
+    "choice2": {"minLength": 1, "type": "string"},
+    "choice3": {"minLength": 1, "type": "string"},
+    "choice4": {"type": "string"},
+    "correct_choice": {"enum": ["A", "B", "C", "D"]},
+    "deck_id": {"minLength": 1, "type": "string"},
+    "difficulty": {"enum": [1, 2, 3]},
+    "explanation": {"minLength": 1, "type": "string"},
+    "importance": {"enum": [1, 2, 3]},
+    "is_free": {"type": "boolean"},
+    "last_reviewed_at": {"format": "date", "type": ["string", "null"]},
+    "notes_internal": {"type": "string"},
+    "question": {"minLength": 1, "type": "string"},
+    "question_id": {"pattern": "^[A-Z][A-Z0-9]*-Q-[0-9]{6}$", "type": "string"},
+    "question_version": {"minimum": 1, "type": "integer"},
+    "source_id": {"minLength": 1, "type": "string"},
+    "source_locator": {"minLength": 1, "type": "string"},
+    "status": {"enum": ["draft", "active", "retired"]},
+    "supersedes_id": {"type": "string"},
+    "tags": {"items": {"type": "string"}, "type": "array"},
+    "unit_id": {"minLength": 1, "type": "string"},
+    "valid_from": {"format": "date", "type": ["string", "null"]},
+    "valid_until": {"format": "date", "type": ["string", "null"]}
+  },
+  "required": [
+    "question_id", "question_version", "status", "deck_id", "unit_id",
+    "question", "choice1", "choice2", "choice3", "choice4",
+    "correct_choice", "explanation", "source_id", "source_locator",
+    "difficulty", "importance", "is_free", "valid_from", "valid_until",
+    "last_reviewed_at", "supersedes_id", "tags", "notes_internal"
+  ],
+  "title": "Qualification Question Authoring Schema v2",
+  "type": "object"
+}

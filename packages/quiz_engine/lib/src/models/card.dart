@@ -13,8 +13,11 @@ class QuizCard {
   /// 新規資格アプリ向けの永久問題ID。既存高校保健では読み込むだけで、
   /// stableIdForOriginal() は従来方式を維持する。
   final String? stableId;
+  final int? questionVersion;
+  final String? sourceId;
   final String? sourceTitle;
   final String? sourceSection;
+  final String? sourceVersion;
   final int? difficulty;
   final int? importance;
   final String? revisionTag;
@@ -28,8 +31,11 @@ class QuizCard {
     this.unitTags = const [],
     this.unitId,
     this.stableId,
+    this.questionVersion,
+    this.sourceId,
     this.sourceTitle,
     this.sourceSection,
+    this.sourceVersion,
     this.difficulty,
     this.importance,
     this.revisionTag,
@@ -44,8 +50,11 @@ class QuizCard {
     List<String>? unitTags,
     String? unitId,
     String? stableId,
+    int? questionVersion,
+    String? sourceId,
     String? sourceTitle,
     String? sourceSection,
+    String? sourceVersion,
     int? difficulty,
     int? importance,
     String? revisionTag,
@@ -59,8 +68,11 @@ class QuizCard {
       unitTags: unitTags ?? this.unitTags,
       unitId: unitId ?? this.unitId,
       stableId: stableId ?? this.stableId,
+      questionVersion: questionVersion ?? this.questionVersion,
+      sourceId: sourceId ?? this.sourceId,
       sourceTitle: sourceTitle ?? this.sourceTitle,
       sourceSection: sourceSection ?? this.sourceSection,
+      sourceVersion: sourceVersion ?? this.sourceVersion,
       difficulty: difficulty ?? this.difficulty,
       importance: importance ?? this.importance,
       revisionTag: revisionTag ?? this.revisionTag,
@@ -123,8 +135,14 @@ class QuizCard {
         'questionId',
         'question_id',
       ]),
+      questionVersion: readInt(const [
+        'questionVersion',
+        'question_version',
+      ]),
+      sourceId: readString(const ['sourceId', 'source_id']),
       sourceTitle: readString(const ['sourceTitle', 'source_title']),
       sourceSection: readString(const ['sourceSection', 'source_section']),
+      sourceVersion: readString(const ['sourceVersion', 'source_version']),
       difficulty: readInt(const ['difficulty']),
       importance: readInt(const ['importance']),
       revisionTag: readString(const ['revisionTag', 'revision_tag']),
@@ -168,7 +186,9 @@ class QuizCard {
       'questionId',
     ]);
     final sourceTitle = first(const ['source_title', 'sourceTitle']);
+    final sourceId = first(const ['source_id', 'sourceId']);
     final sourceSection = first(const ['source_section', 'sourceSection']);
+    final sourceVersion = first(const ['source_version', 'sourceVersion']);
     final revisionTag = first(const ['revision_tag', 'revisionTag']);
 
     return QuizCard(
@@ -178,8 +198,11 @@ class QuizCard {
       explanation: exp.isEmpty ? null : exp,
       unitId: uid.isEmpty ? null : uid,
       stableId: sid.isEmpty ? null : sid,
+      questionVersion: optionalInt('question_version'),
+      sourceId: sourceId.isEmpty ? null : sourceId,
       sourceTitle: sourceTitle.isEmpty ? null : sourceTitle,
       sourceSection: sourceSection.isEmpty ? null : sourceSection,
+      sourceVersion: sourceVersion.isEmpty ? null : sourceVersion,
       difficulty: optionalInt('difficulty'),
       importance: optionalInt('importance'),
       revisionTag: revisionTag.isEmpty ? null : revisionTag,
@@ -204,8 +227,11 @@ extension QuizCardShuffle on QuizCard {
       unitTags: unitTags,
       unitId: unitId,
       stableId: stableId,
+      questionVersion: questionVersion,
+      sourceId: sourceId,
       sourceTitle: sourceTitle,
       sourceSection: sourceSection,
+      sourceVersion: sourceVersion,
       difficulty: difficulty,
       importance: importance,
       revisionTag: revisionTag,

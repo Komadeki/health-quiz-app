@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "edition": "架空初版",
+      "effective_from": "2026-01-01",
+      "issuer": "KOMADEKI Fixture Lab",
+      "published_at": "2025-12-01",
+      "retrieved_at": "2026-08-01",
+      "source_id": "FIXTURE-SRC-001",
+      "source_version": "2026.1",
+      "title": "架空資格のための独自作成資料",
+      "url": "https://example.invalid/qualification-fixture",
+      "usage_basis": "originally_authored"
+    }
+  ]
+}

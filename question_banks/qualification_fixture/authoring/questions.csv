@@ -1,0 +1,4 @@
+question_id,question_version,status,deck_id,unit_id,question,choice1,choice2,choice3,choice4,correct_choice,explanation,source_id,source_locator,difficulty,importance,is_free,valid_from,valid_until,last_reviewed_at,supersedes_id,tags,notes_internal
+FIXTURE-Q-000001,1,active,fixture_basics,fixture_safety,架空施設で作業前に最初に行うことはどれか？,手順書を確認する,直ちに作業を始める,記録を削除する,,A,架空の手順では作業前確認を最初に行います。,FIXTURE-SRC-001,第1章 1.1,1,3,true,2026-01-01,2027-12-31,2026-08-01,,安全;手順,3択・無料の生成確認用
+FIXTURE-Q-000002,2,active,fixture_basics,fixture_operations,架空装置の点検記録として適切なものはどれか？,口頭だけで伝える,所定の様式に残す,翌年にまとめて作る,点検せず完了扱いにする,B,架空の運用規程では所定様式への記録が必要です。,FIXTURE-SRC-001,第2章 2.3,2,2,false,2026-04-01,2028-03-31,2026-07-15,,運用;記録,4択・有料・version 2の生成確認用
+FIXTURE-Q-000003,1,retired,fixture_basics,fixture_operations,廃止済みの架空手順を確認する問題はどれか？,旧手順A,旧手順B,旧手順C,旧手順D,C,この問題は架空規程の改訂により出題対象外です。,FIXTURE-SRC-001,旧版 第3章,2,1,false,2025-01-01,2026-06-30,2026-05-01,,廃止,retired ID再利用防止の確認用

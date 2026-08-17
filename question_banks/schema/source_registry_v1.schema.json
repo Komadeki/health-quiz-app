@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://komadeki.example/schema/source-registry-v1",
+  "properties": {
+    "schema_version": {"const": 1},
+    "sources": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "edition": {"type": "string"},
+          "effective_from": {"format": "date", "type": "string"},
+          "issuer": {"type": "string"},
+          "published_at": {"format": "date", "type": "string"},
+          "retrieved_at": {"format": "date", "type": "string"},
+          "source_id": {"minLength": 1, "type": "string"},
+          "source_version": {"minLength": 1, "type": "string"},
+          "title": {"minLength": 1, "type": "string"},
+          "url": {"type": "string"},
+          "usage_basis": {
+            "enum": [
+              "originally_authored", "public_legal_text", "licensed",
+              "quotation", "permission_confirmed",
+              "facts_only_independently_authored"
+            ]
+          }
+        },
+        "required": ["source_id", "title", "source_version", "usage_basis"],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": ["schema_version", "sources"],
+  "title": "Question Source Registry v1",
+  "type": "object"
+}

@@ -37,8 +37,11 @@ void main() {
 
     for (final card in cards) {
       expect(card.stableId, isNull);
+      expect(card.questionVersion, isNull);
+      expect(card.sourceId, isNull);
       expect(card.sourceTitle, isNull);
       expect(card.sourceSection, isNull);
+      expect(card.sourceVersion, isNull);
       expect(card.difficulty, isNull);
       expect(card.importance, isNull);
       expect(card.revisionTag, isNull);

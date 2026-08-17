@@ -1,9 +1,50 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:quiz_engine/quiz_engine.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group('question identity policies', () {
+    test('legacy v1 preserves the published health hashes', () {
+      const policy = LegacyHashQuestionIdentityV1();
+      const card = QuizCard(
+        stableId: 'EXPLICIT-ID-MUST-NOT-WIN',
+        question: 'WHO憲章で定義されている健康の意味はどれか？',
+        choices: [
+          '病気でない状態',
+          '心身ともに良好な状態',
+          '体だけが丈夫な状態',
+          '社会的に孤立していない状態',
+        ],
+        answerIndex: 1,
+      );
+
+      expect(policy.stableIdFor(card), '7e15c4eadaac46dc91dd259e08704a9f');
+    });
+
+    test('explicit v1 requires an authored ID without hash fallback', () {
+      const policy = ExplicitQuestionIdentityV1();
+      const identified = QuizCard(
+        stableId: ' FIXTURE-Q-000001 ',
+        question: 'Question',
+        choices: ['A', 'B', 'C'],
+        answerIndex: 0,
+      );
+      const missing = QuizCard(
+        question: 'Question',
+        choices: ['A', 'B', 'C'],
+        answerIndex: 0,
+      );
+
+      expect(policy.stableIdFor(identified), 'FIXTURE-Q-000001');
+      expect(
+        () => policy.stableIdFor(missing),
+        throwsA(isA<QuestionIdentityException>()),
+      );
+    });
+  });
+
   test('decodes nested decks and quiz cards', () {
     final deck = Deck.fromJson({
       'id': 'deck_sample',
@@ -28,6 +69,32 @@ void main() {
     expect(deck.cards.single.choices, hasLength(3));
     expect(deck.cards.single.tags, ['tag']);
     expect(deck.cardsFromUnits(['unit_sample']), deck.cards);
+  });
+
+  test('qualification fixture runtime decodes with explicit identity', () {
+    final runtime = jsonDecode(
+      File(
+        '../../question_banks/qualification_fixture/generated/'
+        'qualification_fixture_bank.json',
+      ).readAsStringSync(),
+    ) as Map<String, dynamic>;
+    final deck = Deck.fromJson(
+      Map<String, dynamic>.from(
+          (runtime['decks'] as List<dynamic>).single as Map),
+    );
+    const identity = ExplicitQuestionIdentityV1();
+
+    expect(deck.cards, hasLength(2));
+    expect(
+      deck.cards.map(identity.stableIdFor),
+      containsAll(['FIXTURE-Q-000001', 'FIXTURE-Q-000002']),
+    );
+    final versioned = deck.cards.singleWhere(
+      (card) => card.stableId == 'FIXTURE-Q-000002',
+    );
+    expect(versioned.questionVersion, 2);
+    expect(versioned.sourceId, 'FIXTURE-SRC-001');
+    expect(versioned.sourceVersion, '2026.1');
   });
 
   test('reorders choices without changing the correct answer', () {
@@ -79,12 +146,41 @@ void main() {
       total: 1,
       timestamp: 1,
       sessionId: attempt.sessionId,
+      bankRevision: 'fixture-bank-v1',
+      examProfileVersion: 'fixture-exam-v1',
     );
 
     expect(attempt.stableId, 'question-001');
+    expect(attempt.questionVersion, isNull);
+    expect(attempt.bankRevision, isNull);
     expect(AttemptEntry.fromJson(attempt.toJson()).cardId, attempt.cardId);
-    expect(ScoreRecord.decodeList(ScoreRecord.encodeList([score])).single.id,
-        score.id);
+    final decodedScore =
+        ScoreRecord.decodeList(ScoreRecord.encodeList([score])).single;
+    expect(decodedScore.id, score.id);
+    expect(decodedScore.bankRevision, 'fixture-bank-v1');
+    expect(decodedScore.examProfileVersion, 'fixture-exam-v1');
+  });
+
+  test('round-trips nullable question provenance', () {
+    final attempt = AttemptEntry.fromMap({
+      'sessionId': 'session-002',
+      'questionNumber': 1,
+      'unitId': 'unit_sample',
+      'cardId': 'FIXTURE-Q-000001',
+      'question': 'Question',
+      'selectedIndex': 0,
+      'correctIndex': 0,
+      'isCorrect': true,
+      'durationMs': 100,
+      'timestamp': '2026-01-01T00:00:00.000Z',
+      'stableId': 'FIXTURE-Q-000001',
+      'questionVersion': 2,
+      'bankRevision': 'fixture-bank-v2',
+    });
+
+    final decoded = AttemptEntry.fromJson(attempt.toJson());
+    expect(decoded.questionVersion, 2);
+    expect(decoded.bankRevision, 'fixture-bank-v2');
   });
 
   test('does not depend on the health app package', () {

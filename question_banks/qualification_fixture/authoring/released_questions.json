@@ -1,0 +1,36 @@
+{
+  "released_questions": [
+    {
+      "choices": [
+        "手順書を確認する",
+        "直ちに作業を始める",
+        "記録を削除する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "1",
+      "importance": "3",
+      "is_free": "true",
+      "question": "架空施設で作業前に最初に行うことはどれか？",
+      "question_id": "FIXTURE-Q-000001",
+      "question_version": 1,
+      "source_id": "FIXTURE-SRC-001"
+    },
+    {
+      "choices": [
+        "口頭だけで伝える",
+        "所定の様式に残す",
+        "翌年にまとめて作る",
+        "点検せず完了扱いにする"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "架空装置の点検記録として適切なものはどれか？",
+      "question_id": "FIXTURE-Q-000002",
+      "question_version": 2,
+      "source_id": "FIXTURE-SRC-001"
+    }
+  ],
+  "schema_version": 1
+}

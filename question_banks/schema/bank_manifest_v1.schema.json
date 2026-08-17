@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://komadeki.example/schema/bank-manifest-v1",
+  "additionalProperties": false,
+  "properties": {
+    "app_key": {"type": "string"},
+    "bank_revision": {"type": "string"},
+    "content_as_of": {"format": "date", "type": "string"},
+    "content_hash": {"pattern": "^sha256:[0-9a-f]{64}$", "type": "string"},
+    "exam_profile_version": {"type": "string"},
+    "free_question_count": {"minimum": 0, "type": "integer"},
+    "generated_file_notice": {"const": "GENERATED FILE - DO NOT EDIT"},
+    "question_count": {"minimum": 0, "type": "integer"},
+    "schema_version": {"const": 1},
+    "source_versions": {
+      "additionalProperties": {"type": "string"},
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version", "app_key", "bank_revision", "content_as_of",
+    "question_count", "free_question_count", "source_versions",
+    "exam_profile_version", "content_hash", "generated_file_notice"
+  ],
+  "title": "Question Bank Manifest v1",
+  "type": "object"
+}

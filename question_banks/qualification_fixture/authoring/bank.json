@@ -1,0 +1,27 @@
+{
+  "app_key": "qualification_fixture",
+  "bank_revision": "fixture-bank-2026-08-17",
+  "content_as_of": "2026-08-17",
+  "decks": [
+    {
+      "deck_id": "fixture_basics",
+      "title": "架空資格 基礎",
+      "units": [
+        {
+          "title": "架空の安全原則",
+          "unit_id": "fixture_safety"
+        },
+        {
+          "title": "架空の運用原則",
+          "unit_id": "fixture_operations"
+        }
+      ]
+    }
+  ],
+  "exam_profile_version": "fixture-exam-v1",
+  "manifest_output": "generated/bank_manifest.json",
+  "question_identity_policy": "explicit_v1",
+  "review_due_days": 365,
+  "runtime_output": "generated/qualification_fixture_bank.json",
+  "schema_version": 2
+}

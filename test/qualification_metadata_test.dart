@@ -6,21 +6,27 @@ import 'package:health_quiz_app/utils/stable_id.dart';
 void main() {
   test('QuizCard preserves qualification metadata', () {
     final card = QuizCard.fromJson({
-      'stableId': 'DRONE-LAW-0001',
+      'stableId': 'DRONE-Q-000001',
+      'questionVersion': 2,
       'question': 'テスト問題',
       'choices': ['A', 'B', 'C'],
       'answerIndex': 1,
       'explanation': '解説',
       'unitId': 'law',
+      'sourceId': 'DRONE-SRC-001',
       'sourceTitle': '教則第5版',
       'sourceSection': '3.1.2',
+      'sourceVersion': '5.0',
       'difficulty': 3,
       'importance': 2,
       'revisionTag': 'v5_changed',
     });
 
-    expect(card.stableId, 'DRONE-LAW-0001');
+    expect(card.stableId, 'DRONE-Q-000001');
+    expect(card.questionVersion, 2);
+    expect(card.sourceId, 'DRONE-SRC-001');
     expect(card.sourceSection, '3.1.2');
+    expect(card.sourceVersion, '5.0');
     expect(card.difficulty, 3);
     expect(card.importance, 2);
     expect(card.revisionTag, 'v5_changed');
@@ -50,8 +56,11 @@ void main() {
     expect(card.unitTags, ['tag-a', 'tag-b']);
     expect(card.unitId, 'health-unit');
     expect(card.stableId, isNull);
+    expect(card.questionVersion, isNull);
+    expect(card.sourceId, isNull);
     expect(card.sourceTitle, isNull);
     expect(card.sourceSection, isNull);
+    expect(card.sourceVersion, isNull);
     expect(card.difficulty, isNull);
     expect(card.importance, isNull);
     expect(card.revisionTag, isNull);

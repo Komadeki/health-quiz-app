@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://komadeki.example/schema/runtime-bank-v2",
+  "description": "Generated runtime bank. Authoring-only fields such as status, notes_internal, and usage_basis are intentionally absent.",
+  "properties": {
+    "appKey": {"type": "string"},
+    "bankRevision": {"type": "string"},
+    "contentAsOf": {"format": "date", "type": "string"},
+    "decks": {"type": "array"},
+    "examProfileVersion": {"type": "string"},
+    "generatedFileNotice": {"const": "GENERATED FILE - DO NOT EDIT"},
+    "schemaVersion": {"const": 2}
+  },
+  "required": [
+    "schemaVersion", "appKey", "bankRevision", "contentAsOf",
+    "examProfileVersion", "decks", "generatedFileNotice"
+  ],
+  "title": "Qualification Runtime Bank v2",
+  "type": "object"
+}

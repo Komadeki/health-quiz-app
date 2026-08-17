@@ -1,3 +1,5 @@
+import 'package:quiz_engine/quiz_engine.dart';
+
 enum PurchaseArchitecture {
   legacyDeckBundles,
   singleFullUnlock,
@@ -17,7 +19,7 @@ class QuizAppDefinition {
     required this.bundleAllProductId,
     required this.proProductId,
     required this.fullUnlockProductId,
-    required this.preferExplicitStableIds,
+    required this.questionIdentityPolicy,
   });
 
   final String appKey;
@@ -32,7 +34,12 @@ class QuizAppDefinition {
   final String bundleAllProductId;
   final String proProductId;
   final String fullUnlockProductId;
-  final bool preferExplicitStableIds;
+  final QuestionIdentityPolicy questionIdentityPolicy;
+
+  /// Compatibility view for pre-Phase 2C callers. Identity selection is made
+  /// by [questionIdentityPolicy], not by this boolean.
+  bool get preferExplicitStableIds =>
+      questionIdentityPolicy is ExplicitQuestionIdentityV1;
 
   bool get usesLegacyDeckBundles =>
       purchaseArchitecture == PurchaseArchitecture.legacyDeckBundles;
@@ -82,5 +89,5 @@ const currentQuizApp = QuizAppDefinition(
   bundleAllProductId: 'bundle_all_unlock',
   proProductId: 'pro_upgrade',
   fullUnlockProductId: '',
-  preferExplicitStableIds: false,
+  questionIdentityPolicy: LegacyHashQuestionIdentityV1(),
 );
