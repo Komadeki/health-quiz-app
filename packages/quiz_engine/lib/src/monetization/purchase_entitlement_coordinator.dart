@@ -58,22 +58,27 @@ class PurchaseEntitlementCoordinator {
     PurchaseResult result,
   ) async {
     var current = _snapshot ?? await _cache.load();
-    try {
-      final grantsEntitlement =
-          result.status == PurchaseResultStatus.purchased ||
-              result.status == PurchaseResultStatus.restored;
-      if (grantsEntitlement &&
-          _definition.productCatalog.recognizes(result.productId)) {
-        current = await _cache.merge(
-          EntitlementSnapshot(ownedProductIds: {result.productId}),
-        );
-      }
-      return _snapshot = current;
-    } finally {
-      if (result.pendingCompletePurchase &&
-          result.status != PurchaseResultStatus.pending) {
+    final grantsEntitlement = result.status == PurchaseResultStatus.purchased ||
+        result.status == PurchaseResultStatus.restored;
+    final recognizedProduct =
+        _definition.productCatalog.recognizes(result.productId);
+
+    if (grantsEntitlement && recognizedProduct) {
+      current = await _cache.merge(
+        EntitlementSnapshot(ownedProductIds: {result.productId}),
+      );
+      _snapshot = current;
+      if (result.pendingCompletePurchase) {
         await _gateway.complete(result);
       }
+      return current;
     }
+
+    _snapshot = current;
+    if (result.pendingCompletePurchase &&
+        result.status != PurchaseResultStatus.pending) {
+      await _gateway.complete(result);
+    }
+    return current;
   }
 }

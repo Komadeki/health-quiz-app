@@ -202,12 +202,45 @@ void main() {
           eventId: 'restore-1',
           productId: 'fixture_full_unlock',
           status: PurchaseResultStatus.restored,
+          pendingCompletePurchase: true,
         ),
       );
 
       expect(snapshot.ownedProductIds, {'fixture_full_unlock'});
       expect(cache.mergeCount, 1);
+      expect(gateway.completedEventIds, ['restore-1']);
     });
+
+    for (final status in [
+      PurchaseResultStatus.purchased,
+      PurchaseResultStatus.restored,
+    ]) {
+      test('$status merge failure is not completed', () async {
+        cache.snapshot = EntitlementSnapshot(
+          ownedProductIds: {'previously_cached_product'},
+        );
+        cache.mergeError = StateError('cache write failed');
+
+        await expectLater(
+          coordinator.handlePurchaseResult(
+            PurchaseResult(
+              eventId: '$status-cache-error',
+              productId: 'fixture_full_unlock',
+              status: status,
+              pendingCompletePurchase: true,
+            ),
+          ),
+          throwsStateError,
+        );
+
+        expect(gateway.completedEventIds, isEmpty);
+        expect(cache.mergeCount, 1);
+        expect(
+          (await cache.load()).ownedProductIds,
+          {'previously_cached_product'},
+        );
+      });
+    }
 
     for (final status in [
       PurchaseResultStatus.pending,
@@ -223,11 +256,16 @@ void main() {
             eventId: '$status-1',
             productId: 'fixture_full_unlock',
             status: status,
+            pendingCompletePurchase: true,
           ),
         );
 
         expect(snapshot.ownedProductIds, {'previously_cached_product'});
         expect(cache.mergeCount, 0);
+        expect(
+          gateway.completedEventIds,
+          status == PurchaseResultStatus.pending ? isEmpty : ['$status-1'],
+        );
       });
     }
 
@@ -296,11 +334,13 @@ void main() {
           eventId: 'unknown-1',
           productId: 'unknown_product',
           status: PurchaseResultStatus.restored,
+          pendingCompletePurchase: true,
         ),
       );
 
       expect(snapshot.ownedProductIds, isEmpty);
       expect(cache.mergeCount, 0);
+      expect(gateway.completedEventIds, ['unknown-1']);
     });
   });
 }
@@ -339,6 +379,7 @@ class _FakePurchaseGateway implements PurchaseGateway {
 class _FakeEntitlementCache implements EntitlementCache {
   EntitlementSnapshot snapshot = EntitlementSnapshot();
   var mergeCount = 0;
+  Object? mergeError;
 
   @override
   Future<EntitlementSnapshot> load() async => snapshot;
@@ -346,6 +387,8 @@ class _FakeEntitlementCache implements EntitlementCache {
   @override
   Future<EntitlementSnapshot> merge(EntitlementSnapshot additions) async {
     mergeCount++;
+    final error = mergeError;
+    if (error != null) throw error;
     return snapshot = snapshot.mergedWith(additions);
   }
 }
