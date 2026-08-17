@@ -27,3 +27,4 @@ python3 tooling/question_bank/validate.py \
 python3 -m unittest discover \
   -s tooling/ci \
   -p 'test_*.py'
+tooling/ci/test_check_changed_health_dart.sh

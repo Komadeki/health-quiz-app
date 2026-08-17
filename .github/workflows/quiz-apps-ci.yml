@@ -76,6 +76,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install Flutter stable
         run: |
@@ -91,6 +93,9 @@ jobs:
         run: tooling/ci/check_manifest.sh
 
       - name: Run health checks
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: tooling/ci/check_health.sh
 
   fixture-checks:
