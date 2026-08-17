@@ -20,6 +20,8 @@ class AttemptEntry {
   /// 復習・集計用の安定キー（null可）
   /// JSONでは "stableId" を基本とし、互換として "cardStableId" / "card_stable_id" / "card_id" なども受け入れる。
   final String? stableId;
+  final int? questionVersion;
+  final String? bankRevision;
 
   const AttemptEntry({
     this.attemptId,
@@ -34,6 +36,8 @@ class AttemptEntry {
     required this.durationMs,
     required this.timestamp,
     this.stableId,
+    this.questionVersion,
+    this.bankRevision,
   });
 
   AttemptEntry copyWith({
@@ -49,6 +53,8 @@ class AttemptEntry {
     int? durationMs,
     DateTime? timestamp,
     String? stableId,
+    int? questionVersion,
+    String? bankRevision,
   }) {
     return AttemptEntry(
       attemptId: attemptId ?? this.attemptId,
@@ -63,6 +69,8 @@ class AttemptEntry {
       durationMs: durationMs ?? this.durationMs,
       timestamp: timestamp ?? this.timestamp,
       stableId: stableId ?? this.stableId,
+      questionVersion: questionVersion ?? this.questionVersion,
+      bankRevision: bankRevision ?? this.bankRevision,
     );
   }
 
@@ -117,26 +125,28 @@ class AttemptEntry {
   }
 
   Map<String, dynamic> toMap() => {
-    'attemptId': attemptId,
-    'sessionId': sessionId,
-    'questionNumber': questionNumber,
-    'unitId': unitId,
-    'cardId': cardId,
-    'question': question,
-    'selectedIndex': selectedIndex,
-    'correctIndex': correctIndex,
-    'isCorrect': isCorrect,
-    'durationMs': durationMs,
-    'timestamp': timestamp.toIso8601String(),
-    'stableId': stableId,
-  };
+        'attemptId': attemptId,
+        'sessionId': sessionId,
+        'questionNumber': questionNumber,
+        'unitId': unitId,
+        'cardId': cardId,
+        'question': question,
+        'selectedIndex': selectedIndex,
+        'correctIndex': correctIndex,
+        'isCorrect': isCorrect,
+        'durationMs': durationMs,
+        'timestamp': timestamp.toIso8601String(),
+        'stableId': stableId,
+        if (questionVersion != null) 'questionVersion': questionVersion,
+        if (bankRevision != null && bankRevision!.isNotEmpty)
+          'bankRevision': bankRevision,
+      };
 
   factory AttemptEntry.fromMap(Map<String, dynamic> map) {
     // 互換: key名の揺れを吸収
     final unitId = _asString(map['unitId'] ?? map['unit_id'] ?? map['unitID']);
     final cardId = _asString(map['cardId'] ?? map['card_id'] ?? map['cardID']);
-    final rawStable =
-        (map['stableId'] ??
+    final rawStable = (map['stableId'] ??
         map['cardStableId'] ??
         map['card_stable_id'] ??
         map['card_id']);
@@ -162,6 +172,16 @@ class AttemptEntry {
         map['timestamp'] ?? map['answeredAt'] ?? map['createdAt'],
       ),
       stableId: stableId.isEmpty ? null : stableId,
+      questionVersion:
+          map['questionVersion'] == null && map['question_version'] == null
+              ? null
+              : _asInt(map['questionVersion'] ?? map['question_version']),
+      bankRevision: _asString(
+        map['bankRevision'] ?? map['bank_revision'],
+        defaultValue: '',
+      ).isEmpty
+          ? null
+          : _asString(map['bankRevision'] ?? map['bank_revision']),
     );
   }
 

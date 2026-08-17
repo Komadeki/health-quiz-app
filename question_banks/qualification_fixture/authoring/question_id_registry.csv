@@ -1,0 +1,4 @@
+question_id,status,first_used_bank_revision,retired_at,replacement_id,notes
+FIXTURE-Q-000001,used,fixture-bank-2026-08-17,,,Permanent ID; keep across wording or taxonomy changes
+FIXTURE-Q-000002,used,fixture-bank-2026-08-17,,,Permanent ID; keep across deck or unit moves
+FIXTURE-Q-000003,retired,fixture-bank-2026-08-17,2026-07-01,,Tombstone; never reuse

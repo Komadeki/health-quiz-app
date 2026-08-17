@@ -114,6 +114,11 @@ void main() {
     final attempt = AttemptEntry.fromMap(fixtureList('attempts').first);
     final score = ScoreRecord.fromJson(fixtureList('scoresV2').first);
 
+    expect(attempt.questionVersion, isNull);
+    expect(attempt.bankRevision, isNull);
+    expect(score.bankRevision, isNull);
+    expect(score.examProfileVersion, isNull);
+
     await AttemptStore().add(attempt);
     await AttemptStore().addScore(score);
 

@@ -1,0 +1,78 @@
+{
+  "appKey": "qualification_fixture",
+  "bankRevision": "fixture-bank-2026-08-17",
+  "contentAsOf": "2026-08-17",
+  "decks": [
+    {
+      "id": "fixture_basics",
+      "isPurchased": false,
+      "title": "架空資格 基礎",
+      "units": [
+        {
+          "cards": [
+            {
+              "answerIndex": 1,
+              "choices": [
+                "口頭だけで伝える",
+                "所定の様式に残す",
+                "翌年にまとめて作る",
+                "点検せず完了扱いにする"
+              ],
+              "difficulty": 2,
+              "explanation": "架空の運用規程では所定様式への記録が必要です。",
+              "importance": 2,
+              "isPremium": true,
+              "question": "架空装置の点検記録として適切なものはどれか？",
+              "questionVersion": 2,
+              "sourceId": "FIXTURE-SRC-001",
+              "sourceSection": "第2章 2.3",
+              "sourceTitle": "架空資格のための独自作成資料",
+              "sourceVersion": "2026.1",
+              "stableId": "FIXTURE-Q-000002",
+              "unitId": "fixture_operations",
+              "unitTags": [
+                "運用",
+                "記録"
+              ]
+            }
+          ],
+          "id": "fixture_operations",
+          "title": "架空の運用原則"
+        },
+        {
+          "cards": [
+            {
+              "answerIndex": 0,
+              "choices": [
+                "手順書を確認する",
+                "直ちに作業を始める",
+                "記録を削除する"
+              ],
+              "difficulty": 1,
+              "explanation": "架空の手順では作業前確認を最初に行います。",
+              "importance": 3,
+              "isPremium": false,
+              "question": "架空施設で作業前に最初に行うことはどれか？",
+              "questionVersion": 1,
+              "sourceId": "FIXTURE-SRC-001",
+              "sourceSection": "第1章 1.1",
+              "sourceTitle": "架空資格のための独自作成資料",
+              "sourceVersion": "2026.1",
+              "stableId": "FIXTURE-Q-000001",
+              "unitId": "fixture_safety",
+              "unitTags": [
+                "安全",
+                "手順"
+              ]
+            }
+          ],
+          "id": "fixture_safety",
+          "title": "架空の安全原則"
+        }
+      ]
+    }
+  ],
+  "examProfileVersion": "fixture-exam-v1",
+  "generatedFileNotice": "GENERATED FILE - DO NOT EDIT",
+  "schemaVersion": 2
+}

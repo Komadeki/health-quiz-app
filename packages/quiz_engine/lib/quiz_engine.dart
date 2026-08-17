@@ -1,3 +1,4 @@
+export 'src/identity/question_identity_policy.dart';
 export 'src/models/attempt_entry.dart';
 export 'src/models/card.dart';
 export 'src/models/deck.dart';

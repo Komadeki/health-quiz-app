@@ -8,9 +8,9 @@ class TagStat {
   const TagStat({required this.correct, required this.wrong});
 
   factory TagStat.fromJson(Map<String, dynamic> json) => TagStat(
-    correct: (json['correct'] ?? 0) as int,
-    wrong: (json['wrong'] ?? 0) as int,
-  );
+        correct: (json['correct'] ?? 0) as int,
+        wrong: (json['wrong'] ?? 0) as int,
+      );
 
   Map<String, dynamic> toJson() => {'correct': correct, 'wrong': wrong};
 
@@ -34,6 +34,8 @@ class ScoreRecord {
   final List<String>? selectedUnitIds;
   final String? sessionId; // この成績のセッションID（AttemptHistoryへジャンプ）
   final Map<String, int>? unitBreakdown; // ★追加：出題内訳 {unitId: count}
+  final String? bankRevision;
+  final String? examProfileVersion;
 
   const ScoreRecord({
     required this.id,
@@ -47,6 +49,8 @@ class ScoreRecord {
     this.selectedUnitIds,
     this.sessionId,
     this.unitBreakdown,
+    this.bankRevision,
+    this.examProfileVersion,
   });
 
   /// JSONから生成（旧データ互換）
@@ -81,28 +85,33 @@ class ScoreRecord {
       timestamp:
           (json['timestamp'] ?? DateTime.now().millisecondsSinceEpoch) as int,
       tags: parsedTags,
-      selectedUnitIds: (json['selectedUnitIds'] as List?)
-          ?.map((e) => e.toString())
-          .toList(),
+      selectedUnitIds:
+          (json['selectedUnitIds'] as List?)?.map((e) => e.toString()).toList(),
       sessionId: json['sessionId'] as String?, // 旧データは null でOK
       unitBreakdown: parsedUnitBreakdown, // 旧データは null でOK
+      bankRevision: json['bankRevision'] as String?,
+      examProfileVersion: json['examProfileVersion'] as String?,
     );
   }
 
   /// JSONへ変換（null項目は省略）
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'deckId': deckId,
-    'deckTitle': deckTitle,
-    'score': score,
-    'total': total,
-    'durationSec': durationSec,
-    'timestamp': timestamp,
-    if (tags != null) 'tags': tags!.map((k, v) => MapEntry(k, v.toJson())),
-    if (selectedUnitIds != null) 'selectedUnitIds': selectedUnitIds,
-    if (sessionId != null && sessionId!.isNotEmpty) 'sessionId': sessionId,
-    if (unitBreakdown != null) 'unitBreakdown': unitBreakdown,
-  };
+        'id': id,
+        'deckId': deckId,
+        'deckTitle': deckTitle,
+        'score': score,
+        'total': total,
+        'durationSec': durationSec,
+        'timestamp': timestamp,
+        if (tags != null) 'tags': tags!.map((k, v) => MapEntry(k, v.toJson())),
+        if (selectedUnitIds != null) 'selectedUnitIds': selectedUnitIds,
+        if (sessionId != null && sessionId!.isNotEmpty) 'sessionId': sessionId,
+        if (unitBreakdown != null) 'unitBreakdown': unitBreakdown,
+        if (bankRevision != null && bankRevision!.isNotEmpty)
+          'bankRevision': bankRevision,
+        if (examProfileVersion != null && examProfileVersion!.isNotEmpty)
+          'examProfileVersion': examProfileVersion,
+      };
 
   /// 便利: 精度（0.0〜1.0）
   double get accuracy => total == 0 ? 0 : score / total;
@@ -136,6 +145,8 @@ class ScoreRecord {
     List<String>? selectedUnitIds,
     String? sessionId,
     Map<String, int>? unitBreakdown,
+    String? bankRevision,
+    String? examProfileVersion,
   }) {
     return ScoreRecord(
       id: id ?? this.id,
@@ -149,6 +160,8 @@ class ScoreRecord {
       selectedUnitIds: selectedUnitIds ?? this.selectedUnitIds,
       sessionId: sessionId ?? this.sessionId,
       unitBreakdown: unitBreakdown ?? this.unitBreakdown,
+      bankRevision: bankRevision ?? this.bankRevision,
+      examProfileVersion: examProfileVersion ?? this.examProfileVersion,
     );
   }
 }

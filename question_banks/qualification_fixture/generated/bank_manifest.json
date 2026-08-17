@@ -1,0 +1,14 @@
+{
+  "app_key": "qualification_fixture",
+  "bank_revision": "fixture-bank-2026-08-17",
+  "content_as_of": "2026-08-17",
+  "content_hash": "sha256:2059ba98b38e2611a3ab6daa7dd56a39cbca71632da315cd35e57b4f4aca965c",
+  "exam_profile_version": "fixture-exam-v1",
+  "free_question_count": 1,
+  "generated_file_notice": "GENERATED FILE - DO NOT EDIT",
+  "question_count": 2,
+  "schema_version": 1,
+  "source_versions": {
+    "FIXTURE-SRC-001": "2026.1"
+  }
+}
