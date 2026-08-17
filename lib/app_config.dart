@@ -1,4 +1,5 @@
 // lib/app_config.dart
+import 'quiz_app_definition.dart';
 
 /// アプリの実行環境フレーバー
 enum AppEnv { dev, qa, prod }
@@ -26,11 +27,11 @@ class AppConfig {
   static String get appTitle {
     switch (env) {
       case AppEnv.dev:
-        return '健康クイズ（DEV）';
+        return currentQuizApp.devAppName;
       case AppEnv.qa:
-        return '健康クイズ（QA）';
+        return currentQuizApp.qaAppName;
       case AppEnv.prod:
-        return '高校保健 一問一答';
+        return currentQuizApp.appName;
     }
   }
 
