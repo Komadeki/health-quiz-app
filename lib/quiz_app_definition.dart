@@ -1,4 +1,7 @@
 import 'package:quiz_engine/quiz_engine.dart';
+
+import 'generated/app_manifest.g.dart';
+
 export 'package:quiz_engine/quiz_engine.dart' show PurchaseArchitecture;
 
 class QuizAppDefinition {
@@ -8,6 +11,7 @@ class QuizAppDefinition {
     required this.devAppName,
     required this.qaAppName,
     required this.publisherName,
+    required this.brandName,
     required this.legalese,
     required this.monetization,
     required this.questionIdentityPolicy,
@@ -18,6 +22,7 @@ class QuizAppDefinition {
   final String devAppName;
   final String qaAppName;
   final String publisherName;
+  final String brandName;
   final String legalese;
   final MonetizationDefinition monetization;
   final QuestionIdentityPolicy questionIdentityPolicy;
@@ -47,37 +52,21 @@ class QuizAppDefinition {
   Set<String> get productIds => monetization.productCatalog.productIds;
 }
 
-const healthProductCatalog = ProductCatalog(
-  deckProducts: [
-    DeckProduct(deckId: 'deck_m01', productId: 'deck_m01_unlock'),
-    DeckProduct(deckId: 'deck_m02', productId: 'deck_m02_unlock'),
-    DeckProduct(deckId: 'deck_m03', productId: 'deck_m03_unlock'),
-    DeckProduct(deckId: 'deck_m04', productId: 'deck_m04_unlock'),
-    DeckProduct(deckId: 'deck_m05', productId: 'deck_m05_unlock'),
-    DeckProduct(deckId: 'deck_m06', productId: 'deck_m06_unlock'),
-    DeckProduct(deckId: 'deck_m07', productId: 'deck_m07_unlock'),
-    DeckProduct(deckId: 'deck_m08', productId: 'deck_m08_unlock'),
-  ],
-  bundle5ProductId: 'bundle_5decks_unlock',
-  bundleAllProductId: 'bundle_all_unlock',
-  proProductId: 'pro_upgrade',
-);
+const healthProductCatalog = GeneratedAppManifest.productCatalog;
 
-const healthMonetizationDefinition = MonetizationDefinition(
-  architecture: PurchaseArchitecture.legacyDeckBundles,
-  productCatalog: healthProductCatalog,
-  entitlementPolicy: LegacyDeckBundleEntitlementPolicy(),
-);
+const healthMonetizationDefinition =
+    GeneratedAppManifest.monetizationDefinition;
 
 /// 現行の高校保健アプリは既存の商品体系・問題ID方式をそのまま維持する。
 /// 新しい資格アプリを作るときだけ、この定義を資格固有値へ差し替える。
 const currentQuizApp = QuizAppDefinition(
-  appKey: 'health',
-  appName: '高校保健 一問一答',
-  devAppName: '健康クイズ（DEV）',
-  qaAppName: '健康クイズ（QA）',
-  publisherName: 'KOMADEKI',
-  legalese: '© 2026 KOMADEKI',
+  appKey: GeneratedAppManifest.appKey,
+  appName: GeneratedAppManifest.displayName,
+  devAppName: GeneratedAppManifest.devDisplayName,
+  qaAppName: GeneratedAppManifest.qaDisplayName,
+  publisherName: GeneratedAppManifest.publisher,
+  brandName: GeneratedAppManifest.brandName,
+  legalese: GeneratedAppManifest.legalese,
   monetization: healthMonetizationDefinition,
-  questionIdentityPolicy: LegacyHashQuestionIdentityV1(),
+  questionIdentityPolicy: GeneratedAppManifest.questionIdentityPolicy,
 );

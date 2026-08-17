@@ -1,0 +1,66 @@
+schema_version: 1
+
+app_key: health
+display_name: 高校保健 一問一答
+dev_display_name: 健康クイズ（DEV）
+qa_display_name: 健康クイズ（QA）
+
+publisher: KENTO MORI
+brand_name: KOMADEKI
+legalese: © 2025 もけけapp
+
+platforms:
+  ios:
+    bundle_id: jp.mokeke.healthquiz
+    display_name: Health Quiz App
+  android:
+    application_id: jp.mokeke.healthquiz
+    display_name: 高校保健 一問一答
+
+urls:
+  support: https://docs.google.com/forms/d/e/1FAIpQLScnTXDqyc_usBF4tsAvJSuU4GolMPn30iWceCGOwdno9g0Z1w/viewform?usp=pp_url
+  privacy: https://sites.google.com/view/mokeke-healthquiz-privacy/
+  marketing: null
+
+question_identity:
+  policy: legacy_hash_v1
+
+question_bank:
+  format: legacy_assets_v1
+  runtime_path: assets/decks
+  manifest_path: test/fixtures/health_question_bank_contract.json
+  asset_output: null
+
+monetization:
+  architecture: legacyDeckBundles
+  products:
+    decks:
+      - deck_id: deck_m01
+        product_id: deck_m01_unlock
+      - deck_id: deck_m02
+        product_id: deck_m02_unlock
+      - deck_id: deck_m03
+        product_id: deck_m03_unlock
+      - deck_id: deck_m04
+        product_id: deck_m04_unlock
+      - deck_id: deck_m05
+        product_id: deck_m05_unlock
+      - deck_id: deck_m06
+        product_id: deck_m06_unlock
+      - deck_id: deck_m07
+        product_id: deck_m07_unlock
+      - deck_id: deck_m08
+        product_id: deck_m08_unlock
+    bundle5_product_id: bundle_5decks_unlock
+    bundle_all_product_id: bundle_all_unlock
+    pro_product_id: pro_upgrade
+
+exam:
+  profile_version: null
+  question_count: null
+  time_limit_minutes: null
+  overall_pass_percent: null
+
+branding:
+  theme_key: material_green
+  seed_color: "#4CAF50"

@@ -1,0 +1,47 @@
+schema_version: 1
+
+app_key: qualification_fixture
+display_name: 資格アプリ Fixture
+dev_display_name: 資格アプリ Fixture DEV
+qa_display_name: 資格アプリ Fixture QA
+
+publisher: KOMADEKI Fixture
+brand_name: KOMADEKI Fixture
+legalese: Fixture only - not for distribution
+
+platforms:
+  ios:
+    bundle_id: com.komadeki.qualificationfixture
+    display_name: 資格アプリ Fixture
+  android:
+    application_id: com.komadeki.qualificationfixture
+    display_name: 資格アプリ Fixture
+
+urls:
+  support: https://example.invalid/qualification-fixture/support
+  privacy: https://example.invalid/qualification-fixture/privacy
+  marketing: null
+
+question_identity:
+  policy: explicit_v1
+
+question_bank:
+  format: qualification_runtime_v2
+  runtime_path: question_banks/qualification_fixture/generated/qualification_fixture_bank.json
+  manifest_path: question_banks/qualification_fixture/generated/bank_manifest.json
+  asset_output: reference_apps/_single_unlock_fixture/assets/question_bank/qualification_fixture_bank.json
+
+monetization:
+  architecture: singleFullUnlock
+  products:
+    full_unlock_product_id: fixture_full_unlock
+
+exam:
+  profile_version: fixture-exam-v1
+  question_count: 2
+  time_limit_minutes: null
+  overall_pass_percent: null
+
+branding:
+  theme_key: fixture_teal
+  seed_color: "#00695C"

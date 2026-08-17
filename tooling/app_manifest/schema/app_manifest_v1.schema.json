@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://komadeki.example/schema/app-manifest-v1",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "app_key": {"minLength": 1, "type": "string"},
+    "display_name": {"minLength": 1, "type": "string"},
+    "dev_display_name": {"minLength": 1, "type": "string"},
+    "qa_display_name": {"minLength": 1, "type": "string"},
+    "publisher": {"minLength": 1, "type": "string"},
+    "brand_name": {"minLength": 1, "type": "string"},
+    "legalese": {"minLength": 1, "type": "string"},
+    "platforms": {
+      "additionalProperties": false,
+      "properties": {
+        "ios": {
+          "additionalProperties": false,
+          "properties": {
+            "bundle_id": {"minLength": 1, "type": "string"},
+            "display_name": {"minLength": 1, "type": "string"}
+          },
+          "required": ["bundle_id", "display_name"],
+          "type": "object"
+        },
+        "android": {
+          "additionalProperties": false,
+          "properties": {
+            "application_id": {"minLength": 1, "type": "string"},
+            "display_name": {"minLength": 1, "type": "string"}
+          },
+          "required": ["application_id", "display_name"],
+          "type": "object"
+        }
+      },
+      "required": ["ios", "android"],
+      "type": "object"
+    },
+    "urls": {
+      "additionalProperties": false,
+      "properties": {
+        "support": {"format": "uri", "type": "string"},
+        "privacy": {"format": "uri", "type": "string"},
+        "marketing": {"type": ["string", "null"]}
+      },
+      "required": ["support", "privacy", "marketing"],
+      "type": "object"
+    },
+    "question_identity": {
+      "additionalProperties": false,
+      "properties": {
+        "policy": {"enum": ["legacy_hash_v1", "explicit_v1"]}
+      },
+      "required": ["policy"],
+      "type": "object"
+    },
+    "question_bank": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": ["legacy_assets_v1", "qualification_runtime_v2"]
+        },
+        "runtime_path": {"minLength": 1, "type": "string"},
+        "manifest_path": {"minLength": 1, "type": "string"},
+        "asset_output": {"type": ["string", "null"]}
+      },
+      "required": ["format", "runtime_path", "manifest_path", "asset_output"],
+      "type": "object"
+    },
+    "monetization": {
+      "additionalProperties": false,
+      "properties": {
+        "architecture": {
+          "enum": ["legacyDeckBundles", "singleFullUnlock"]
+        },
+        "products": {
+          "additionalProperties": false,
+          "properties": {
+            "decks": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "deck_id": {"minLength": 1, "type": "string"},
+                  "product_id": {"minLength": 1, "type": "string"}
+                },
+                "required": ["deck_id", "product_id"],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "bundle5_product_id": {"type": "string"},
+            "bundle_all_product_id": {"type": "string"},
+            "pro_product_id": {"type": "string"},
+            "full_unlock_product_id": {"type": "string"}
+          },
+          "type": "object"
+        }
+      },
+      "required": ["architecture", "products"],
+      "type": "object"
+    },
+    "exam": {
+      "additionalProperties": false,
+      "properties": {
+        "profile_version": {"type": ["string", "null"]},
+        "question_count": {"minimum": 1, "type": ["integer", "null"]},
+        "time_limit_minutes": {"minimum": 1, "type": ["integer", "null"]},
+        "overall_pass_percent": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": ["integer", "null"]
+        }
+      },
+      "required": [
+        "profile_version",
+        "question_count",
+        "time_limit_minutes",
+        "overall_pass_percent"
+      ],
+      "type": "object"
+    },
+    "branding": {
+      "additionalProperties": false,
+      "properties": {
+        "theme_key": {"minLength": 1, "type": "string"},
+        "seed_color": {"pattern": "^#[0-9A-Fa-f]{6}$", "type": "string"}
+      },
+      "required": ["theme_key", "seed_color"],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "app_key",
+    "display_name",
+    "dev_display_name",
+    "qa_display_name",
+    "publisher",
+    "brand_name",
+    "legalese",
+    "platforms",
+    "urls",
+    "question_identity",
+    "question_bank",
+    "monetization",
+    "exam",
+    "branding"
+  ],
+  "title": "Quiz App Manifest v1",
+  "type": "object"
+}
