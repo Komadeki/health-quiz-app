@@ -24,3 +24,11 @@ DRONE-Q-000022,used,,,,VS-012; B1C E1 primary; DEEP_OBSERVED; permanent ID; pre-
 DRONE-Q-000023,used,,,,VS-013; B1C E2; DEEP_OBSERVED; permanent ID; pre-release
 DRONE-Q-000024,used,,,,VS-014; B1C E1 alternate; DEEP_OBSERVED; permanent ID; pre-release
 DRONE-Q-000025,used,,,,VS-020; B1C E3; DEEP_HELDOUT; permanent ID; pre-release
+DRONE-Q-000026,used,,,,VS-023; B2A HB1 150m; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000027,used,,,,VS-030; B2A HB1 DID; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000028,used,,,,VS-024; B2A HB2 II-III; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000029,used,,,,VS-031; B2A HB2 IIA-IIB; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000030,used,,,,VS-025; B2A HB3 conditions; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000031,used,,,,VS-032; B2A HB3 towing; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000032,used,,,,VS-026; B2A HB4 storage; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000033,used,,,,VS-033; B2A HB4 replacement; BREADTH_HELDOUT; permanent ID; pre-release
