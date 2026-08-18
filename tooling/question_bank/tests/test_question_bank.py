@@ -186,6 +186,14 @@ class DroneQuestionBankTest(unittest.TestCase):
         "VS-008": "DRONE-Q-000015",
         "VS-009": "DRONE-Q-000016",
         "VS-017": "DRONE-Q-000017",
+        "VS-010": "DRONE-Q-000018",
+        "VS-011": "DRONE-Q-000019",
+        "VS-018": "DRONE-Q-000020",
+        "VS-019": "DRONE-Q-000021",
+        "VS-012": "DRONE-Q-000022",
+        "VS-013": "DRONE-Q-000023",
+        "VS-014": "DRONE-Q-000024",
+        "VS-020": "DRONE-Q-000025",
     }
     B1A_EXPECTATIONS = {
         "DRONE-Q-000006": {
@@ -348,6 +356,361 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "primary_role=DEEP_HELDOUT",
                 "kt_id=D2-T05-KT011",
                 "family=G3",
+            ),
+        },
+    }
+    B1C_EXPECTATIONS = {
+        "DRONE-Q-000018": {
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第5章 5.2.2(4)"
+                "（教則表示ページ60 / PDF viewer 66）"
+            ),
+            "notes": (
+                "slot_id=VS-010",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D3-T02-KT008",
+                "family=A1",
+                "construct=transition_trigger",
+            ),
+        },
+        "DRONE-Q-000019": {
+            "correct_choice": "A",
+            "source_locator": (
+                "教則 第5章 5.2.2(4)"
+                "（教則表示ページ60 / PDF viewer 66）"
+            ),
+            "notes": (
+                "slot_id=VS-011",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D3-T02-KT008",
+                "family=A4",
+                "construct=takeover_preparedness",
+            ),
+        },
+        "DRONE-Q-000020": {
+            "correct_choice": "C",
+            "source_locator": (
+                "教則 第5章 5.2.2(4)"
+                "（教則表示ページ60 / PDF viewer 66）"
+            ),
+            "notes": (
+                "slot_id=VS-018",
+                "primary_role=DEEP_HELDOUT",
+                "kt_id=D3-T02-KT008",
+                "family=A2",
+                "construct=immediate_flight_control_concern",
+            ),
+        },
+        "DRONE-Q-000021": {
+            "correct_choice": "A",
+            "source_locator": (
+                "教則 第5章 5.2.2(4)"
+                "（教則表示ページ60 / PDF viewer 66）; "
+                "supporting 4.1.4(1)"
+                "（教則表示ページ35 / PDF viewer 41）"
+            ),
+            "notes": (
+                "slot_id=VS-019",
+                "primary_role=DEEP_HELDOUT",
+                "kt_id=D3-T02-KT008",
+                "family=A3",
+                "construct=situational_verification",
+                "aircraft_scope=multirotor",
+            ),
+        },
+        "DRONE-Q-000022": {
+            "correct_choice": "A",
+            "source_locator": (
+                "教則 第5章 5.4.1"
+                "（教則表示ページ62 / PDF viewer 68）"
+            ),
+            "notes": (
+                "slot_id=VS-012",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D3-T04-KT002",
+                "family=E1",
+                "variant=primary",
+                "construct=stage_classification",
+            ),
+        },
+        "DRONE-Q-000023": {
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第5章 5.4.1"
+                "（教則表示ページ62 / PDF viewer 68）"
+            ),
+            "notes": (
+                "slot_id=VS-013",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D3-T04-KT002",
+                "family=E2",
+                "construct=early_threat_management",
+            ),
+        },
+        "DRONE-Q-000024": {
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第5章 5.4.1"
+                "（教則表示ページ62 / PDF viewer 68）"
+            ),
+            "notes": (
+                "slot_id=VS-014",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D3-T04-KT002",
+                "family=E1",
+                "alternate_of=VS-012",
+                "construct=stage_classification",
+            ),
+        },
+        "DRONE-Q-000025": {
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第5章 5.4.1"
+                "（教則表示ページ62 / PDF viewer 68）"
+            ),
+            "notes": (
+                "slot_id=VS-020",
+                "primary_role=DEEP_HELDOUT",
+                "kt_id=D3-T04-KT002",
+                "family=E3",
+                "construct=recovery_judgment",
+            ),
+        },
+    }
+    B1C_REGISTRY_NOTES = {
+        "DRONE-Q-000018": (
+            "VS-010; B1C A1; DEEP_OBSERVED; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000019": (
+            "VS-011; B1C A4; DEEP_OBSERVED; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000020": (
+            "VS-018; B1C A2; DEEP_HELDOUT; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000021": (
+            "VS-019; B1C A3; DEEP_HELDOUT; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000022": (
+            "VS-012; B1C E1 primary; DEEP_OBSERVED; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000023": (
+            "VS-013; B1C E2; DEEP_OBSERVED; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000024": (
+            "VS-014; B1C E1 alternate; DEEP_OBSERVED; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000025": (
+            "VS-020; B1C E3; DEEP_HELDOUT; permanent ID; pre-release"
+        ),
+    }
+    B1C_CONTENT_FREEZE_EXPECTATIONS = {
+        "DRONE-Q-000018": {
+            "question": (
+                "自動操縦で飛行している無人航空機について、飛行状態が次第に"
+                "不安定になり、操縦者も「安定した自動飛行を維持できていない」"
+                "と判断した。\n\n教則の考え方に最も合う判断はどれか。"
+            ),
+            "choice1": "自動操縦の設定を変更しながら、まず現在のmodeを維持する",
+            "choice2": (
+                "不安定な飛行と判断した状況として、手動操作への切り替えを"
+                "検討する"
+            ),
+            "choice3": (
+                "不安定となった原因を特定してから、操縦modeを変更するか決める"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "教則は、自動操縦中に何らかの原因で不安定な飛行と判断した"
+                "場合を、手動操作へ切り替える場合の一つとして示している。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.2.2(4)"
+                "（教則表示ページ60 / PDF viewer 66）"
+            ),
+        },
+        "DRONE-Q-000019": {
+            "question": (
+                "自動操縦を中心とする飛行を計画している。飛行中には状況変化に"
+                "よって手動操縦への切り替えが必要になる可能性もある。\n\n"
+                "事前の運航体制として教則の考え方に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "必要となった場合に速やかに手動操縦へ切り替えられる体制を"
+                "事前に整えておく"
+            ),
+            "choice2": (
+                "状況変化が起きた時点で、その場の状況に合わせて手動切替の"
+                "対応方法を組み立てる"
+            ),
+            "choice3": (
+                "自動操縦を継続できるかの判断方法を事前に決め、手動切替の体制は"
+                "必要になった後に整える"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "教則は、必要に応じて手動操縦への切り替えを速やかに行える"
+                "体制をあらかじめ整えておくとしている。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.2.2(4)"
+                "（教則表示ページ60 / PDF viewer 66）"
+            ),
+        },
+        "DRONE-Q-000020": {
+            "question": (
+                "自動操縦から手動操縦へ切り替えた直後である。切り替え自体は"
+                "正常に完了した。\n\nこの直後の操縦上の備えとして、教則が示す"
+                "内容に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "自動操縦中の設定値を確認し、手動操作の入力値をそれに合わせる"
+                "ことを優先する"
+            ),
+            "choice2": (
+                "現在位置と飛行計画上の予定位置との差を確認し、経路修正を"
+                "優先する"
+            ),
+            "choice3": "急な飛行速度の低下や失速に備えた操作準備を行う",
+            "correct_choice": "C",
+            "explanation": (
+                "教則は、手動操縦へ切り替えた後、急な飛行速度の低下や失速に"
+                "備えた操作準備が必要としている。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.2.2(4)"
+                "（教則表示ページ60 / PDF viewer 66）"
+            ),
+        },
+        "DRONE-Q-000021": {
+            "question": (
+                "ホバリングが可能な回転翼航空機（マルチローター）を、自動操縦"
+                "から手動操縦へ切り替えた。切り替えを終え、飛行速度についても"
+                "安定した状態を確認している。\n\nこの後の確認として、教則の内容に"
+                "最も合うものはどれか。"
+            ),
+            "choice1": (
+                "機体の向きと障害物への接近を確認し、ホバリングで機体の安定性と"
+                "周囲の安全を確認する"
+            ),
+            "choice2": (
+                "自動操縦時のroute設定と予定速度を確認し、自動操縦へ戻す条件を"
+                "整理する"
+            ),
+            "choice3": (
+                "送信機のflight logと作業進捗を確認し、予定経路との差を記録する"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "手動操縦への切り替え後は、障害物への接近を避けるための機体方向"
+                "確認に加え、ホバリングして機体の安定性や周囲の安全を確認する"
+                "必要がある。今回の機体はホバリング可能なマルチローターとして"
+                "stemで固定している。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.2.2(4)"
+                "（教則表示ページ60 / PDF viewer 66）; "
+                "supporting 4.1.4(1)"
+                "（教則表示ページ35 / PDF viewer 41）"
+            ),
+        },
+        "DRONE-Q-000022": {
+            "question": (
+                "飛行中、次の二つの状態が生じた。\n\n"
+                "① 周囲の気象状況が変化し、運航へ影響を及ぼし得る状況となった。"
+                "\n\n② その後、運航上の問題を経て、機体の安全マージンが低下した"
+                "状態に至った。\n\nTEMにおける①と②の分類として、最も適切な"
+                "ものはどれか。"
+            ),
+            "choice1": "① Threat ／ ② UAS",
+            "choice2": "① Threat ／ ② Error",
+            "choice3": "① Error ／ ② UAS",
+            "correct_choice": "A",
+            "explanation": (
+                "教則は気象の変化をErrorにつながり得るThreatの例として挙げて"
+                "いる。また、安全マージンが低下した航空機の状態をUASとしている。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.4.1"
+                "（教則表示ページ62 / PDF viewer 68）"
+            ),
+        },
+        "DRONE-Q-000023": {
+            "question": (
+                "飛行中、飛行空域周辺の最新情報から天候が変化しつつあることを"
+                "把握した。まだ操縦上のErrorやUASは生じていない。\n\n"
+                "TEMの考え方に最も合う対応はどれか。"
+            ),
+            "choice1": (
+                "実際の操縦Errorが確認されるまでは初期計画を基準とし、天候情報は"
+                "継続監視にとどめる"
+            ),
+            "choice2": (
+                "利用可能な最新情報等を使い、Errorにつながり得るThreatとして"
+                "早期に把握・管理する"
+            ),
+            "choice3": (
+                "機体がUASに入ったかどうかを確認してから、天候変化への対応を"
+                "開始する"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "TEMでは、利用可能なresourceを活用して、Errorにつながりかねない"
+                "Threatの発生状況を早期に把握・管理する。教則は周辺状況の最新情報"
+                "などをresourceの例としている。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.4.1"
+                "（教則表示ページ62 / PDF viewer 68）"
+            ),
+        },
+        "DRONE-Q-000024": {
+            "question": (
+                "ある飛行の運航記録に、次の二つの状態が記録されていた。\n\n"
+                "記録P：飛行中に機材不具合が発生した。\n\n"
+                "記録Q：その後、機体は安全マージンが低下した状態に至った。\n\n"
+                "TEMにおけるPとQの分類として、最も適切なものはどれか。"
+            ),
+            "choice1": "P = Error ／ Q = UAS",
+            "choice2": "P = Threat ／ Q = UAS",
+            "choice3": "P = Threat ／ Q = Error",
+            "correct_choice": "B",
+            "explanation": (
+                "教則は機材不具合をErrorにつながり得るThreatの例として挙げて"
+                "いる。また、安全マージンが低下した航空機の状態はUASに"
+                "位置付けられる。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.4.1"
+                "（教則表示ページ62 / PDF viewer 68）"
+            ),
+        },
+        "DRONE-Q-000025": {
+            "question": (
+                "運航中に操縦Errorが発生し、機体は安全マージンの低下したUASに"
+                "至った。ただし、まだ事故等は発生していない。\n\n"
+                "TEMの考え方に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "まず最初のThreatの原因分析を完了し、その後に機体状態への対応を"
+                "決める"
+            ),
+            "choice2": (
+                "ErrorやUASに至った後でも、事故等へ進ませないための適切な対応を"
+                "行う"
+            ),
+            "choice3": (
+                "UASに至った段階でTEMによるmanagementは終了し、その後は運航"
+                "終了後の分析を中心とする"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "TEMはThreatの早期管理だけでなく、万一ErrorやUASに至った場合でも"
+                "事故等へ至らないよう適切に対処する考え方を含む。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.4.1"
+                "（教則表示ページ62 / PDF viewer 68）"
             ),
         },
     }
@@ -545,6 +908,69 @@ class DroneQuestionBankTest(unittest.TestCase):
         )
         for forbidden in forbidden_terms:
             self.assertNotIn(forbidden, neighbor_content)
+
+    def test_b1c_measurement_bindings_and_content_freeze(self) -> None:
+        inputs = load_bank_inputs(self.bank)
+        question_by_id = {row["question_id"]: row for row in inputs.questions}
+        registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+
+        for question_id, expected in self.B1C_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["deck_id"], "drone_second_class_exam")
+            self.assertEqual(question["unit_id"], "drone_operations")
+            self.assertEqual(question["difficulty"], "2")
+            self.assertEqual(question["importance"], "2")
+            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(question["valid_from"], "2026-07-14")
+            self.assertEqual(question["valid_until"], "")
+            self.assertEqual(question["last_reviewed_at"], "2026-08-18")
+            self.assertEqual(question["supersedes_id"], "")
+            self.assertEqual(question["tags"], "")
+            self.assertEqual(question["choice4"], "")
+            self.assertEqual(question["correct_choice"], expected["correct_choice"])
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+            self.assertEqual(question["source_locator"], expected["source_locator"])
+            self.assertIn(
+                "verification_state=author_source_verified",
+                question["notes_internal"],
+            )
+            self.assertIn("independent_reviewed=false", question["notes_internal"])
+            self.assertIn(
+                "subject_matter_expert_reviewed=false",
+                question["notes_internal"],
+            )
+            self.assertIn("release_approved=false", question["notes_internal"])
+            for note in expected["notes"]:
+                self.assertIn(note, question["notes_internal"])
+
+            registry = registry_by_id[question_id]
+            self.assertEqual(registry["status"], "used")
+            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(registry["retired_at"], "")
+            self.assertEqual(registry["replacement_id"], "")
+            self.assertEqual(registry["notes"], self.B1C_REGISTRY_NOTES[question_id])
+
+        for question_id, fields in self.B1C_CONTENT_FREEZE_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            for field, expected_text in fields.items():
+                self.assertEqual(question[field], expected_text)
+
+        vs_019 = question_by_id["DRONE-Q-000021"]
+        self.assertIn(
+            "ホバリングが可能な回転翼航空機（マルチローター）",
+            vs_019["question"],
+        )
+        self.assertIn("5.2.2(4)", vs_019["source_locator"])
+        self.assertIn("4.1.4(1)", vs_019["source_locator"])
+
+        vs_012 = question_by_id["DRONE-Q-000022"]
+        self.assertNotIn("操作上のエラーが生じた", vs_012["question"])
+
+        vs_014 = question_by_id["DRONE-Q-000024"]
+        self.assertIn("機材不具合", vs_014["question"])
+        self.assertNotIn("操縦者の疲労という", vs_014["question"])
 
     def test_unregistered_drone_id_is_rejected(self) -> None:
         fieldnames, rows = self._read_csv(self.questions_path)

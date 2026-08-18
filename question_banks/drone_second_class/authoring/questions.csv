@@ -40,3 +40,35 @@ DRONE-Q-000016,1,draft,drone_second_class_exam,drone_systems,"同じ無人航空
 DRONE-Q-000017,1,draft,drone_second_class_exam,drone_systems,"あらかじめ地図上でWaypointを設定して自動飛行しているとき、GNSSの測位精度が悪化した。精度悪化の原因そのものは既に特定済みとする。
 
 このとき考慮すべき影響として最も適切なものはどれか。",実際の飛行経路は変わらず、記録される位置情報だけの誤差が大きくなる,操縦入力への応答だけが遅くなり、Waypointに対する位置誤差には影響しない,設定したWaypointに対する実際の飛行経路の誤差が大きくなり得る,,C,あらかじめ設定したWaypointはGNSSの測位精度の影響を受けるため、測位精度が悪化すると実際の飛行経路の誤差が大きくなり得る。,MLIT-UAS-SAFETY-GUIDE-5,教則 第4章 4.5.3(3)（教則表示ページ50 / PDF viewer 56）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-017; verification_state=author_source_verified; primary_role=DEEP_HELDOUT; kt_id=D2-T05-KT011; family=G3; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
+DRONE-Q-000018,1,draft,drone_second_class_exam,drone_operations,"自動操縦で飛行している無人航空機について、飛行状態が次第に不安定になり、操縦者も「安定した自動飛行を維持できていない」と判断した。
+
+教則の考え方に最も合う判断はどれか。",自動操縦の設定を変更しながら、まず現在のmodeを維持する,不安定な飛行と判断した状況として、手動操作への切り替えを検討する,不安定となった原因を特定してから、操縦modeを変更するか決める,,B,教則は、自動操縦中に何らかの原因で不安定な飛行と判断した場合を、手動操作へ切り替える場合の一つとして示している。,MLIT-UAS-SAFETY-GUIDE-5,教則 第5章 5.2.2(4)（教則表示ページ60 / PDF viewer 66）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-010; verification_state=author_source_verified; primary_role=DEEP_OBSERVED; kt_id=D3-T02-KT008; family=A1; construct=transition_trigger; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
+DRONE-Q-000019,1,draft,drone_second_class_exam,drone_operations,"自動操縦を中心とする飛行を計画している。飛行中には状況変化によって手動操縦への切り替えが必要になる可能性もある。
+
+事前の運航体制として教則の考え方に最も合うものはどれか。",必要となった場合に速やかに手動操縦へ切り替えられる体制を事前に整えておく,状況変化が起きた時点で、その場の状況に合わせて手動切替の対応方法を組み立てる,自動操縦を継続できるかの判断方法を事前に決め、手動切替の体制は必要になった後に整える,,A,教則は、必要に応じて手動操縦への切り替えを速やかに行える体制をあらかじめ整えておくとしている。,MLIT-UAS-SAFETY-GUIDE-5,教則 第5章 5.2.2(4)（教則表示ページ60 / PDF viewer 66）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-011; verification_state=author_source_verified; primary_role=DEEP_OBSERVED; kt_id=D3-T02-KT008; family=A4; construct=takeover_preparedness; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
+DRONE-Q-000020,1,draft,drone_second_class_exam,drone_operations,"自動操縦から手動操縦へ切り替えた直後である。切り替え自体は正常に完了した。
+
+この直後の操縦上の備えとして、教則が示す内容に最も合うものはどれか。",自動操縦中の設定値を確認し、手動操作の入力値をそれに合わせることを優先する,現在位置と飛行計画上の予定位置との差を確認し、経路修正を優先する,急な飛行速度の低下や失速に備えた操作準備を行う,,C,教則は、手動操縦へ切り替えた後、急な飛行速度の低下や失速に備えた操作準備が必要としている。,MLIT-UAS-SAFETY-GUIDE-5,教則 第5章 5.2.2(4)（教則表示ページ60 / PDF viewer 66）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-018; verification_state=author_source_verified; primary_role=DEEP_HELDOUT; kt_id=D3-T02-KT008; family=A2; construct=immediate_flight_control_concern; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
+DRONE-Q-000021,1,draft,drone_second_class_exam,drone_operations,"ホバリングが可能な回転翼航空機（マルチローター）を、自動操縦から手動操縦へ切り替えた。切り替えを終え、飛行速度についても安定した状態を確認している。
+
+この後の確認として、教則の内容に最も合うものはどれか。",機体の向きと障害物への接近を確認し、ホバリングで機体の安定性と周囲の安全を確認する,自動操縦時のroute設定と予定速度を確認し、自動操縦へ戻す条件を整理する,送信機のflight logと作業進捗を確認し、予定経路との差を記録する,,A,手動操縦への切り替え後は、障害物への接近を避けるための機体方向確認に加え、ホバリングして機体の安定性や周囲の安全を確認する必要がある。今回の機体はホバリング可能なマルチローターとしてstemで固定している。,MLIT-UAS-SAFETY-GUIDE-5,教則 第5章 5.2.2(4)（教則表示ページ60 / PDF viewer 66）; supporting 4.1.4(1)（教則表示ページ35 / PDF viewer 41）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-019; verification_state=author_source_verified; primary_role=DEEP_HELDOUT; kt_id=D3-T02-KT008; family=A3; construct=situational_verification; aircraft_scope=multirotor; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
+DRONE-Q-000022,1,draft,drone_second_class_exam,drone_operations,"飛行中、次の二つの状態が生じた。
+
+① 周囲の気象状況が変化し、運航へ影響を及ぼし得る状況となった。
+
+② その後、運航上の問題を経て、機体の安全マージンが低下した状態に至った。
+
+TEMにおける①と②の分類として、最も適切なものはどれか。",① Threat ／ ② UAS,① Threat ／ ② Error,① Error ／ ② UAS,,A,教則は気象の変化をErrorにつながり得るThreatの例として挙げている。また、安全マージンが低下した航空機の状態をUASとしている。,MLIT-UAS-SAFETY-GUIDE-5,教則 第5章 5.4.1（教則表示ページ62 / PDF viewer 68）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-012; verification_state=author_source_verified; primary_role=DEEP_OBSERVED; kt_id=D3-T04-KT002; family=E1; variant=primary; construct=stage_classification; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
+DRONE-Q-000023,1,draft,drone_second_class_exam,drone_operations,"飛行中、飛行空域周辺の最新情報から天候が変化しつつあることを把握した。まだ操縦上のErrorやUASは生じていない。
+
+TEMの考え方に最も合う対応はどれか。",実際の操縦Errorが確認されるまでは初期計画を基準とし、天候情報は継続監視にとどめる,利用可能な最新情報等を使い、Errorにつながり得るThreatとして早期に把握・管理する,機体がUASに入ったかどうかを確認してから、天候変化への対応を開始する,,B,TEMでは、利用可能なresourceを活用して、ErrorにつながりかねないThreatの発生状況を早期に把握・管理する。教則は周辺状況の最新情報などをresourceの例としている。,MLIT-UAS-SAFETY-GUIDE-5,教則 第5章 5.4.1（教則表示ページ62 / PDF viewer 68）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-013; verification_state=author_source_verified; primary_role=DEEP_OBSERVED; kt_id=D3-T04-KT002; family=E2; construct=early_threat_management; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
+DRONE-Q-000024,1,draft,drone_second_class_exam,drone_operations,"ある飛行の運航記録に、次の二つの状態が記録されていた。
+
+記録P：飛行中に機材不具合が発生した。
+
+記録Q：その後、機体は安全マージンが低下した状態に至った。
+
+TEMにおけるPとQの分類として、最も適切なものはどれか。",P = Error ／ Q = UAS,P = Threat ／ Q = UAS,P = Threat ／ Q = Error,,B,教則は機材不具合をErrorにつながり得るThreatの例として挙げている。また、安全マージンが低下した航空機の状態はUASに位置付けられる。,MLIT-UAS-SAFETY-GUIDE-5,教則 第5章 5.4.1（教則表示ページ62 / PDF viewer 68）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-014; verification_state=author_source_verified; primary_role=DEEP_OBSERVED; kt_id=D3-T04-KT002; family=E1; alternate_of=VS-012; construct=stage_classification; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
+DRONE-Q-000025,1,draft,drone_second_class_exam,drone_operations,"運航中に操縦Errorが発生し、機体は安全マージンの低下したUASに至った。ただし、まだ事故等は発生していない。
+
+TEMの考え方に最も合うものはどれか。",まず最初のThreatの原因分析を完了し、その後に機体状態への対応を決める,ErrorやUASに至った後でも、事故等へ進ませないための適切な対応を行う,UASに至った段階でTEMによるmanagementは終了し、その後は運航終了後の分析を中心とする,,B,TEMはThreatの早期管理だけでなく、万一ErrorやUASに至った場合でも事故等へ至らないよう適切に対処する考え方を含む。,MLIT-UAS-SAFETY-GUIDE-5,教則 第5章 5.4.1（教則表示ページ62 / PDF viewer 68）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-020; verification_state=author_source_verified; primary_role=DEEP_HELDOUT; kt_id=D3-T04-KT002; family=E3; construct=recovery_judgment; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
