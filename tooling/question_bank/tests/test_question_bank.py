@@ -19,6 +19,7 @@ from question_bank import (  # noqa: E402
     validate_bank,
     write_generated_files,
 )
+from contract import QUESTION_ID_PATTERN  # noqa: E402
 
 
 class QuestionBankContractTest(unittest.TestCase):
@@ -164,6 +165,155 @@ class QuestionBankContractTest(unittest.TestCase):
         warnings = {issue.code for issue in validate_bank(self.bank).warnings}
         self.assertIn("difficulty_changed", warnings)
         self.assertIn("question_version_not_incremented", warnings)
+
+
+class DroneQuestionBankBootstrapTest(unittest.TestCase):
+    DRONE_IDS = tuple(f"DRONE-Q-{number:06d}" for number in range(1, 6))
+
+    def setUp(self) -> None:
+        self.temporary_directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary_directory.cleanup)
+        source = REPOSITORY_ROOT / "question_banks" / "drone_second_class"
+        self.bank = Path(self.temporary_directory.name) / "drone_second_class"
+        shutil.copytree(source, self.bank)
+
+    @property
+    def questions_path(self) -> Path:
+        return self.bank / "authoring" / "questions.csv"
+
+    @property
+    def registry_path(self) -> Path:
+        return self.bank / "authoring" / "question_id_registry.csv"
+
+    def _read_csv(self, path: Path) -> tuple[list[str], list[dict[str, str]]]:
+        with path.open(newline="", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
+            return list(reader.fieldnames or []), list(reader)
+
+    def _write_csv(
+        self,
+        path: Path,
+        fieldnames: list[str],
+        rows: list[dict[str, str]],
+    ) -> None:
+        with path.open("w", newline="", encoding="utf-8") as file:
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(rows)
+
+    def _error_codes(self) -> set[str]:
+        return {issue.code for issue in validate_bank(self.bank).errors}
+
+    def test_drone_namespace_registers_exactly_five_draft_questions(self) -> None:
+        result = validate_bank(self.bank)
+        self.assertTrue(result.is_valid, [str(issue) for issue in result.issues])
+
+        inputs = load_bank_inputs(self.bank)
+        question_ids = [row["question_id"] for row in inputs.questions]
+        registry_ids = [row["question_id"] for row in inputs.id_registry]
+
+        self.assertEqual(question_ids, list(self.DRONE_IDS))
+        self.assertEqual(registry_ids, list(self.DRONE_IDS))
+        self.assertEqual(len(question_ids), len(set(question_ids)))
+        self.assertTrue(
+            all(
+                QUESTION_ID_PATTERN.fullmatch(question_id)
+                for question_id in question_ids
+            )
+        )
+        self.assertTrue(all(row["question_version"] == "1" for row in inputs.questions))
+        self.assertTrue(all(row["status"] == "draft" for row in inputs.questions))
+        self.assertTrue(
+            all(
+                "verification_state=author_source_verified" in row["notes_internal"]
+                for row in inputs.questions
+            )
+        )
+        self.assertTrue(all(row["status"] == "used" for row in inputs.id_registry))
+        self.assertTrue(
+            all(not row["first_used_bank_revision"] for row in inputs.id_registry)
+        )
+        self.assertEqual(inputs.metadata["app_key"], "drone_second_class")
+        self.assertEqual(inputs.metadata["question_identity_policy"], "explicit_v1")
+        self.assertEqual(inputs.released_questions, [])
+
+        sentinel = inputs.questions[3]
+        sentinel_neighbor = inputs.questions[4]
+        self.assertEqual(sentinel["question_id"], "DRONE-Q-000004")
+        self.assertEqual(sentinel_neighbor["question_id"], "DRONE-Q-000005")
+        neighbor_content = " ".join(
+            sentinel_neighbor[field]
+            for field in (
+                "question",
+                "choice1",
+                "choice2",
+                "choice3",
+                "choice4",
+                "explanation",
+            )
+        ).casefold()
+        forbidden_terms = (
+            "送信機",
+            "受信機",
+            "transmitter",
+            "receiver",
+            "remote command",
+        )
+        for forbidden in forbidden_terms:
+            self.assertNotIn(forbidden, neighbor_content)
+
+    def test_unregistered_drone_id_is_rejected(self) -> None:
+        fieldnames, rows = self._read_csv(self.questions_path)
+        rows[0]["question_id"] = "DRONE-Q-000006"
+        self._write_csv(self.questions_path, fieldnames, rows)
+
+        self.assertIn("unregistered_question_id", self._error_codes())
+
+    def test_retired_drone_id_reuse_is_rejected(self) -> None:
+        fieldnames, rows = self._read_csv(self.registry_path)
+        rows[0]["status"] = "retired"
+        rows[0]["retired_at"] = "2026-08-18"
+        self._write_csv(self.registry_path, fieldnames, rows)
+
+        self.assertIn("retired_id_reuse", self._error_codes())
+
+    def test_drone_bank_requires_explicit_identity(self) -> None:
+        metadata_path = self.bank / "authoring" / "bank.json"
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        metadata["question_identity_policy"] = "legacy_hash_v1"
+        metadata_path.write_text(
+            json.dumps(metadata, ensure_ascii=False, sort_keys=True, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+        self.assertIn("identity_policy_not_explicit", self._error_codes())
+
+    def test_drone_generation_is_deterministic_and_drafts_stay_out(self) -> None:
+        first = build_generated_files(load_bank_inputs(self.bank))
+        second = build_generated_files(load_bank_inputs(self.bank))
+        self.assertEqual(first, second)
+
+        write_generated_files(self.bank)
+        checked = validate_bank(self.bank, check_generated=True)
+        self.assertTrue(checked.is_valid, [str(issue) for issue in checked.issues])
+
+        runtime = json.loads(
+            (self.bank / "generated" / "drone_second_class_bank.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        manifest = json.loads(
+            (self.bank / "generated" / "bank_manifest.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(runtime["decks"], [])
+        self.assertEqual(manifest["question_count"], 0)
+
+    def test_qualification_fixture_remains_valid(self) -> None:
+        fixture = REPOSITORY_ROOT / "question_banks" / "qualification_fixture"
+        result = validate_bank(fixture, check_generated=True)
+        self.assertTrue(result.is_valid, [str(issue) for issue in result.issues])
 
 
 if __name__ == "__main__":

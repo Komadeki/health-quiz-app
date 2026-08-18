@@ -1,0 +1,12 @@
+{
+  "app_key": "drone_second_class",
+  "bank_revision": "unreleased-bootstrap-2026-08-18",
+  "content_as_of": "2026-08-18",
+  "content_hash": "sha256:6b1c754f0718e62bea5668104cdb8408cb2f0daa733f9891f1960e8448d6b3fe",
+  "exam_profile_version": "drone-second-class-unreleased",
+  "free_question_count": 0,
+  "generated_file_notice": "GENERATED FILE - DO NOT EDIT",
+  "question_count": 0,
+  "schema_version": 1,
+  "source_versions": {}
+}
