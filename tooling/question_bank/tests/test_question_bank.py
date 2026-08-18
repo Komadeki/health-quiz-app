@@ -179,6 +179,13 @@ class DroneQuestionBankTest(unittest.TestCase):
         "VS-015": "DRONE-Q-000008",
         "VS-021": "DRONE-Q-000009",
         "VS-022": "DRONE-Q-000010",
+        "VS-005": "DRONE-Q-000011",
+        "VS-006": "DRONE-Q-000012",
+        "VS-016": "DRONE-Q-000013",
+        "VS-007": "DRONE-Q-000014",
+        "VS-008": "DRONE-Q-000015",
+        "VS-009": "DRONE-Q-000016",
+        "VS-017": "DRONE-Q-000017",
     }
     B1A_EXPECTATIONS = {
         "DRONE-Q-000006": {
@@ -233,6 +240,148 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "kt_id=D4-T01-KT001",
                 "family=H4",
                 "form=B",
+            ),
+        },
+    }
+    B1B_EXPECTATIONS = {
+        "DRONE-Q-000011": {
+            "unit_id": "drone_rules",
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第3章 3.1.2(2)4)a(2)"
+                "（教則表示ページ19 / PDF viewer 25）"
+            ),
+            "notes": (
+                "slot_id=VS-005",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D1-T01-KT010",
+                "family=T2",
+                "variant=primary",
+            ),
+        },
+        "DRONE-Q-000012": {
+            "unit_id": "drone_rules",
+            "correct_choice": "C",
+            "source_locator": (
+                "教則 第3章 3.1.2(2)4)a(2)"
+                "（教則表示ページ19 / PDF viewer 25）"
+            ),
+            "notes": (
+                "slot_id=VS-006",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D1-T01-KT010",
+                "family=T2",
+                "alternate_of=VS-005",
+            ),
+        },
+        "DRONE-Q-000013": {
+            "unit_id": "drone_rules",
+            "correct_choice": "A",
+            "source_locator": (
+                "教則 第3章 3.1.2(2)4)a(2)①"
+                "（教則表示ページ19 / PDF viewer 25）"
+            ),
+            "notes": (
+                "slot_id=VS-016",
+                "primary_role=DEEP_HELDOUT",
+                "kt_id=D1-T01-KT010",
+                "family=T3",
+                "ordinary_shielding_exception=true",
+                "level_3_5=false",
+            ),
+        },
+        "DRONE-Q-000014": {
+            "unit_id": "drone_systems",
+            "correct_choice": "C",
+            "source_locator": (
+                "教則 第4章 4.5.3(3)（教則表示ページ50 / PDF viewer 56）; "
+                "supporting 4.5.1(1)2)"
+                "（教則表示ページ47 / PDF viewer 53）"
+            ),
+            "notes": (
+                "slot_id=VS-007",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D2-T05-KT011",
+                "family=G1",
+                "variant=primary",
+            ),
+        },
+        "DRONE-Q-000015": {
+            "unit_id": "drone_systems",
+            "correct_choice": "A",
+            "source_locator": (
+                "教則 第4章 4.5.3(3)"
+                "（教則表示ページ50 / PDF viewer 56）"
+            ),
+            "notes": (
+                "slot_id=VS-008",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D2-T05-KT011",
+                "family=G2",
+            ),
+        },
+        "DRONE-Q-000016": {
+            "unit_id": "drone_systems",
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第4章 4.5.3(3)（教則表示ページ50 / PDF viewer 56）; "
+                "supporting 4.5.1(1)2)"
+                "（教則表示ページ47 / PDF viewer 53）"
+            ),
+            "notes": (
+                "slot_id=VS-009",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D2-T05-KT011",
+                "family=G1",
+                "alternate_of=VS-007",
+            ),
+        },
+        "DRONE-Q-000017": {
+            "unit_id": "drone_systems",
+            "correct_choice": "C",
+            "source_locator": (
+                "教則 第4章 4.5.3(3)"
+                "（教則表示ページ50 / PDF viewer 56）"
+            ),
+            "notes": (
+                "slot_id=VS-017",
+                "primary_role=DEEP_HELDOUT",
+                "kt_id=D2-T05-KT011",
+                "family=G3",
+            ),
+        },
+    }
+    B1B_CONTENT_FREEZE_EXPECTATIONS = {
+        "DRONE-Q-000012": {
+            "question": (
+                "飛行範囲の外周からの保証された落下距離が6mである。\n\n"
+                "飛行に関与しない第三者Xは、飛行範囲の外周の最も近い点から"
+                "外側へ4m、第三者Yは、外側へ9m離れた位置にいる。どちらも"
+                "飛行経路の直下ではなく、遮蔽物については考慮しないものとする。"
+                "\n\n第三者上空の判定として適切なものはどれか。"
+            ),
+            "choice1": "XとYの両方について、第三者上空に該当する",
+            "choice2": "Yについてのみ、第三者上空に該当する",
+            "choice3": "Xについてのみ、第三者上空に該当する",
+        },
+        "DRONE-Q-000014": {
+            "question": (
+                "飛行中、GNSSの測位精度が不安定になった。捕捉している衛星数は"
+                "十分で、受信環境のノイズも大きくない。一方、周囲の建物で反射"
+                "した衛星信号が、複数の経路から受信機へ届いている。\n\n"
+                "この状況から直接読み取れる、測位精度へ影響している要因として"
+                "最も適切なものはどれか。"
+            ),
+        },
+        "DRONE-Q-000016": {
+            "question": (
+                "同じ無人航空機のGNSS受信状態を、同じ時間帯に2か所で確認した。"
+                "\n\n地点Pは上空が開け、周囲に大きな建物が少ない。地点Qは周囲"
+                "に建物が多く、建物で反射した衛星信号が複数の経路から受信機へ"
+                "届き得る環境である。捕捉している衛星数と受信環境のノイズには、"
+                "2地点で大きな差は確認されていない。\n\n地点QでGNSS測位精度が"
+                "悪化した場合、この状況から直接考えられる要因として最も適切な"
+                "ものはどれか。"
             ),
         },
     }
@@ -310,6 +459,41 @@ class DroneQuestionBankTest(unittest.TestCase):
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
             self.assertEqual(question["status"], "draft")
+            self.assertEqual(
+                question["correct_choice"], expected["correct_choice"]
+            )
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+            self.assertEqual(
+                question["source_locator"], expected["source_locator"]
+            )
+            self.assertIn(
+                "verification_state=author_source_verified",
+                question["notes_internal"],
+            )
+            self.assertIn(
+                "independent_reviewed=false", question["notes_internal"]
+            )
+            self.assertIn(
+                "subject_matter_expert_reviewed=false",
+                question["notes_internal"],
+            )
+            self.assertIn("release_approved=false", question["notes_internal"])
+            for note in expected["notes"]:
+                self.assertIn(note, question["notes_internal"])
+
+        for question_id, expected in self.B1B_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["deck_id"], "drone_second_class_exam")
+            self.assertEqual(question["unit_id"], expected["unit_id"])
+            self.assertEqual(question["difficulty"], "2")
+            self.assertEqual(question["importance"], "2")
+            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(question["valid_from"], "2026-07-14")
+            self.assertEqual(question["valid_until"], "")
+            self.assertEqual(question["last_reviewed_at"], "2026-08-18")
+            self.assertEqual(question["supersedes_id"], "")
             self.assertEqual(question["correct_choice"], expected["correct_choice"])
             self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
             self.assertEqual(question["source_locator"], expected["source_locator"])
@@ -325,6 +509,15 @@ class DroneQuestionBankTest(unittest.TestCase):
             self.assertIn("release_approved=false", question["notes_internal"])
             for note in expected["notes"]:
                 self.assertIn(note, question["notes_internal"])
+
+        held_out_t3 = question_by_id["DRONE-Q-000013"]
+        self.assertNotIn("level_3_5=true", held_out_t3["notes_internal"])
+        self.assertNotIn("moving_vehicle=", held_out_t3["notes_internal"])
+
+        for question_id, fields in self.B1B_CONTENT_FREEZE_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            for field, expected_text in fields.items():
+                self.assertEqual(question[field], expected_text)
 
         sentinel = question_by_id["DRONE-Q-000004"]
         sentinel_neighbor = question_by_id["DRONE-Q-000005"]
