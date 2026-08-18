@@ -202,6 +202,11 @@ class DroneQuestionBankTest(unittest.TestCase):
         "VS-032": "DRONE-Q-000031",
         "VS-026": "DRONE-Q-000032",
         "VS-033": "DRONE-Q-000033",
+        "VS-034": "DRONE-Q-000034",
+        "VS-028": "DRONE-Q-000035",
+        "VS-035": "DRONE-Q-000036",
+        "VS-029": "DRONE-Q-000037",
+        "VS-036": "DRONE-Q-000038",
     }
     B1A_EXPECTATIONS = {
         "DRONE-Q-000006": {
@@ -618,6 +623,301 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "counterbalance=YES",
             ),
         },
+    }
+    B2B_EXPECTATIONS = {
+        "DRONE-Q-000034": {
+            "unit_id": "drone_operations",
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第5章 5.3.1（教則表示ページ61 / PDF viewer 67）"
+            ),
+            "notes": (
+                "slot_id=VS-034",
+                "primary_role=BREADTH_HELDOUT",
+                "kt_id=D3-T03-KT001",
+                "family=Stress-management",
+                "construct=stress_management_plan",
+                "counterbalance=YES",
+            ),
+        },
+        "DRONE-Q-000035": {
+            "unit_id": "drone_risk_management",
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第6章 6.2.2(1)2)h"
+                "（教則表示ページ73 / PDF viewer 79）"
+            ),
+            "notes": (
+                "slot_id=VS-028",
+                "primary_role=BREADTH_OBSERVED",
+                "kt_id=D4-T02-KT005",
+                "family=Building-terrain-local-wind",
+                "construct=spatial_local_wind_interpretation",
+                "counterbalance=YES",
+            ),
+        },
+        "DRONE-Q-000036": {
+            "unit_id": "drone_risk_management",
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第6章 6.2.2(1)2)c–d"
+                "（教則表示ページ72 / PDF viewer 78）"
+            ),
+            "notes": (
+                "slot_id=VS-035",
+                "primary_role=BREADTH_HELDOUT",
+                "kt_id=D4-T02-KT005",
+                "family=Gust-rapid-change",
+                "construct=temporal_wind_variability_interpretation",
+                "counterbalance=YES",
+            ),
+        },
+        "DRONE-Q-000037": {
+            "unit_id": "drone_risk_management",
+            "correct_choice": "C",
+            "source_locator": (
+                "教則 第6章 6.4.2(1)1)"
+                "（教則表示ページ79 / PDF viewer 85）"
+            ),
+            "notes": (
+                "slot_id=VS-029",
+                "primary_role=BREADTH_OBSERVED",
+                "kt_id=D4-T04-KT002",
+                "family=Observer-external-monitoring",
+                "construct=external_monitoring_control",
+                "counterbalance=YES",
+            ),
+        },
+        "DRONE-Q-000038": {
+            "unit_id": "drone_risk_management",
+            "correct_choice": "C",
+            "source_locator": (
+                "教則 第6章 6.4.2(1)1)"
+                "（教則表示ページ79 / PDF viewer 85）"
+            ),
+            "notes": (
+                "slot_id=VS-036",
+                "primary_role=BREADTH_HELDOUT",
+                "kt_id=D4-T04-KT002",
+                "family=Aircraft-state-monitoring",
+                "construct=aircraft_state_monitoring",
+                "counterbalance=YES",
+            ),
+        },
+    }
+    B2B_REGISTRY_NOTES = {
+        "DRONE-Q-000034": (
+            "VS-034; B2B HB5 stress; BREADTH_HELDOUT; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000035": (
+            "VS-028; B2B HB6 building-terrain; BREADTH_OBSERVED; permanent ID; "
+            "pre-release"
+        ),
+        "DRONE-Q-000036": (
+            "VS-035; B2B HB6 gust; BREADTH_HELDOUT; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000037": (
+            "VS-029; B2B HB7 observer; BREADTH_OBSERVED; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000038": (
+            "VS-036; B2B HB7 state; BREADTH_HELDOUT; permanent ID; pre-release"
+        ),
+    }
+    B2B_PAIR_EXPECTATIONS = (
+        (
+            "DRONE-Q-000003",
+            "DRONE-Q-000034",
+            "D3-T03-KT001",
+            "Fatigue-management",
+            "Stress-management",
+        ),
+        (
+            "DRONE-Q-000035",
+            "DRONE-Q-000036",
+            "D4-T02-KT005",
+            "Building-terrain-local-wind",
+            "Gust-rapid-change",
+        ),
+        (
+            "DRONE-Q-000037",
+            "DRONE-Q-000038",
+            "D4-T04-KT002",
+            "Observer-external-monitoring",
+            "Aircraft-state-monitoring",
+        ),
+    )
+    B2B_CONTENT_FREEZE_EXPECTATIONS = {
+        "DRONE-Q-000034": {
+            "question": (
+                "操縦者が高いストレスを抱えている状態で運航を行うことになった。"
+                "\nストレス軽減を運航へ取り入れる方法として、教則の内容に"
+                "最も合うものはどれか。"
+            ),
+            "choice1": (
+                "操縦者との適切なコミュニケーションは飛行前の準備時に行い、"
+                "飛行中・飛行後は当初の運航計画を基準に対応する"
+            ),
+            "choice2": (
+                "操縦者との適切なコミュニケーションを一連の運航の計画に"
+                "組み込み、ストレス軽減を図る"
+            ),
+            "choice3": (
+                "操縦者との適切なコミュニケーションは飛行後の振り返りに重点を"
+                "置き、次回の運航計画でストレス軽減を図る"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "高いstressは安全な飛行を妨げる要因となるため、教則は操縦者との"
+                "適切なcommunicationを、飛行計画・運航体制・飛行前・飛行中・"
+                "飛行後などを含む一連の運航の計画に組み込む等によりstress軽減を"
+                "図るとしている。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.3.1（教則表示ページ61 / PDF viewer 67）"
+            ),
+        },
+        "DRONE-Q-000035": {
+            "question": (
+                "飛行予定地点から少し離れた開けた場所では風が穏やかである。"
+                "一方、実際の飛行予定地点は高層建物が複数近接している場所で"
+                "ある。\n飛行予定地点の風の捉え方として、教則の内容に最も合う"
+                "ものはどれか。"
+            ),
+            "choice1": (
+                "開けた場所の風向・風速を、建物周辺にもそのまま適用して評価する"
+            ),
+            "choice2": (
+                "建物群の配置によって周囲とは異なるビル風が生じ得るため、"
+                "建物周辺の風を別に考慮する"
+            ),
+            "choice3": (
+                "建物周辺の風は建物配置より広域の平均風速で決まるため、"
+                "局地的な差は考慮しない"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "教則は、高層ビル等が近接する場所・周辺ではビル風が発生し、"
+                "周囲より風速が速く継続して吹くことや、建物群の配置・構成により"
+                "風の特徴が異なるとしている。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.2.2(1)2)h"
+                "（教則表示ページ73 / PDF viewer 79）"
+            ),
+        },
+        "DRONE-Q-000036": {
+            "question": (
+                "ある地点の風について、観測時の前10分間の平均風速は4m/sだった"
+                "一方、最大瞬間風速は9m/sだった。\nこの観測結果の捉え方として、"
+                "教則の内容に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "平均風速が4m/sであれば、その観測時間中の風は概ね4m/sだった"
+                "ものとして瞬間値は分けて考えなくてよい"
+            ),
+            "choice2": (
+                "平均風速と瞬間風速は異なるため、平均値だけでは一時的に強くなる"
+                "風の変動を十分に表せない"
+            ),
+            "choice3": (
+                "最大瞬間風速9m/sを観測時間全体の風速として扱い、平均風速は"
+                "判断材料から外す"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "風は一定の強さで吹き続けるとは限らず、教則は10分間の平均風速と"
+                "最大瞬間風速を区別している。そのため、平均値だけでは時間内の"
+                "一時的な強い風まで表せない。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.2.2(1)2)c–d"
+                "（教則表示ページ72 / PDF viewer 78）"
+            ),
+        },
+        "DRONE-Q-000037": {
+            "question": (
+                "補助者を配置して目視外飛行を行う。操縦者からは飛行経路やその"
+                "周囲の障害物等を直接肉眼で確認できない。\nこの情報不足を補う"
+                "ための補助者の配置として、教則の内容に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "離着陸地点を重点的に確認できる位置に配置し、飛行中の経路は"
+                "事前確認の情報を用いる"
+            ),
+            "choice2": (
+                "操縦者付近から見える範囲を確認できる位置に配置し、それ以外の"
+                "経路は機体カメラを中心に確認する"
+            ),
+            "choice3": "飛行経路全体を把握し、安全を確認できる補助者を配置する",
+            "correct_choice": "C",
+            "explanation": (
+                "目視外飛行では、機体の状況や障害物等の周囲状況を直接肉眼で"
+                "確認できないため、教則は飛行経路全体を把握し、安全を確認できる"
+                "補助者の配置を推奨している。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.4.2(1)1)"
+                "（教則表示ページ79 / PDF viewer 85）"
+            ),
+        },
+        "DRONE-Q-000038": {
+            "question": (
+                "補助者を配置して目視外飛行を行う場合、機体について地上側で把握"
+                "できるようにする情報として、教則の内容に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "機体の位置を把握できればよく、異常の有無は飛行後に確認する"
+            ),
+            "choice2": (
+                "異常の有無を把握できればよく、機体の位置は飛行後の記録で確認する"
+            ),
+            "choice3": (
+                "機体の位置と異常の有無の双方を地上で把握できるようにする"
+            ),
+            "correct_choice": "C",
+            "explanation": (
+                "補助者を配置して行う目視外飛行について、教則は地上で無人航空機"
+                "の位置および異常の有無を把握できることを求めている。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.4.2(1)1)"
+                "（教則表示ページ79 / PDF viewer 85）"
+            ),
+        },
+    }
+    HB5_EXISTING_FREEZE_EXPECTATION = {
+        "question": (
+            "操縦者は同じ日に複数回の飛行を行い、疲労を感じ始めている。"
+            "これまで操作ミスはなく、機体・気象・飛行経路にも問題は確認されて"
+            "いない。教則に沿った対応として、最も適切なものはどれか。"
+        ),
+        "choice1": (
+            "本人がまだ安全に操縦できると判断しているため、当初の運航予定を"
+            "維持し、疲労は運航終了後に評価する"
+        ),
+        "choice2": (
+            "機体・気象・飛行経路に問題がないため、当初の飛行時間計画を維持し、"
+            "各飛行終了後に疲労を評価する"
+        ),
+        "choice3": (
+            "疲労時は飛行を続ける判断に偏りやすいことを踏まえ、当初計画に"
+            "固定せず飛行時間を管理する"
+        ),
+        "correct_choice": "C",
+        "explanation": (
+            "現行教則第5版は、操縦者には疲労を感じても飛行を継続してしまう傾向"
+            "があるため、適切な飛行時間管理が必要としている。Aは本人の主観的な"
+            "継続判断を、Bは当初計画をそれぞれ疲労管理より優先している。"
+        ),
+        "source_locator": (
+            "教則 第5章 5.3.1（教則表示ページ61 / PDF viewer 67）"
+        ),
+        "notes_internal": (
+            "slot_id=VS-027; verification_state=author_source_verified; "
+            "primary_role=BREADTH_OBSERVED; kt_id=D3-T03-KT001; "
+            "family=Fatigue-management; independent_reviewed=false; "
+            "subject_matter_expert_reviewed=false; release_approved=false"
+        ),
     }
     B2A_REGISTRY_NOTES = {
         "DRONE-Q-000026": (
@@ -1438,6 +1738,177 @@ class DroneQuestionBankTest(unittest.TestCase):
             vs_030_metadata["notice_promulgated"],
             vs_030_metadata["mlit_web_announcement"],
         )
+
+    def test_b2b_measurement_bindings_and_content_freeze(self) -> None:
+        inputs = load_bank_inputs(self.bank)
+        question_by_id = {row["question_id"]: row for row in inputs.questions}
+        registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+
+        for question_id, expected in self.B2B_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["deck_id"], "drone_second_class_exam")
+            self.assertEqual(question["unit_id"], expected["unit_id"])
+            self.assertEqual(question["difficulty"], "2")
+            self.assertEqual(question["importance"], "2")
+            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(question["valid_from"], "2026-07-14")
+            self.assertEqual(question["valid_until"], "")
+            self.assertEqual(question["last_reviewed_at"], "2026-08-18")
+            self.assertEqual(question["supersedes_id"], "")
+            self.assertEqual(question["tags"], "")
+            self.assertEqual(question["choice4"], "")
+            self.assertEqual(question["correct_choice"], expected["correct_choice"])
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+            self.assertEqual(question["source_locator"], expected["source_locator"])
+            self.assertIn(
+                "verification_state=author_source_verified",
+                question["notes_internal"],
+            )
+            self.assertIn("independent_reviewed=false", question["notes_internal"])
+            self.assertIn(
+                "subject_matter_expert_reviewed=false",
+                question["notes_internal"],
+            )
+            self.assertIn("release_approved=false", question["notes_internal"])
+            for note in expected["notes"]:
+                self.assertIn(note, question["notes_internal"])
+
+            registry = registry_by_id[question_id]
+            self.assertEqual(registry["status"], "used")
+            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(registry["retired_at"], "")
+            self.assertEqual(registry["replacement_id"], "")
+            self.assertEqual(registry["notes"], self.B2B_REGISTRY_NOTES[question_id])
+
+        for question_id, fields in self.B2B_CONTENT_FREEZE_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            for field, expected_text in fields.items():
+                self.assertEqual(question[field], expected_text)
+
+        existing_hb5 = question_by_id["DRONE-Q-000003"]
+        for field, expected_text in self.HB5_EXISTING_FREEZE_EXPECTATION.items():
+            self.assertEqual(existing_hb5[field], expected_text)
+        self.assertEqual(
+            registry_by_id["DRONE-Q-000003"]["notes"],
+            "VS-027; permanent ID; pre-release",
+        )
+        self.assertNotIn("counterbalance=", existing_hb5["notes_internal"])
+
+        for (
+            observed_id,
+            held_out_id,
+            kt_id,
+            observed_family,
+            held_out_family,
+        ) in self.B2B_PAIR_EXPECTATIONS:
+            observed_notes = question_by_id[observed_id]["notes_internal"]
+            held_out_notes = question_by_id[held_out_id]["notes_internal"]
+            self.assertIn("primary_role=BREADTH_OBSERVED", observed_notes)
+            self.assertIn("primary_role=BREADTH_HELDOUT", held_out_notes)
+            self.assertIn(f"kt_id={kt_id}", observed_notes)
+            self.assertIn(f"kt_id={kt_id}", held_out_notes)
+            self.assertIn(f"family={observed_family}", observed_notes)
+            self.assertIn(f"family={held_out_family}", held_out_notes)
+            self.assertIn("counterbalance=YES", held_out_notes)
+            if observed_id != "DRONE-Q-000003":
+                self.assertIn("counterbalance=YES", observed_notes)
+
+        def content(question_id: str) -> str:
+            question = question_by_id[question_id]
+            return " ".join(
+                question[field]
+                for field in (
+                    "question",
+                    "choice1",
+                    "choice2",
+                    "choice3",
+                    "explanation",
+                )
+            )
+
+        vs_034 = question_by_id["DRONE-Q-000034"]
+        for choice_field in ("choice1", "choice2", "choice3"):
+            self.assertIn(
+                "操縦者との適切なコミュニケーション",
+                vs_034[choice_field],
+            )
+        for forbidden in (
+            "アルコール",
+            "飲酒",
+            "残存アルコール",
+            "酒気",
+            "薬物",
+            "sleep",
+            "睡眠",
+            "TEM",
+            "CRM",
+        ):
+            self.assertNotIn(forbidden.casefold(), content("DRONE-Q-000034").casefold())
+
+        for question_id in ("DRONE-Q-000035", "DRONE-Q-000036"):
+            for forbidden in (
+                "温度",
+                "低温",
+                "高温",
+                "バッテリー",
+                "battery",
+                "thermal",
+                "熱環境",
+                "energy margin",
+            ):
+                self.assertNotIn(forbidden.casefold(), content(question_id).casefold())
+
+        for forbidden in ("最大瞬間風速", "10分間の平均風速"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000035"))
+        for forbidden in ("ビル風", "高層建物", "建物群", "地形"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000036"))
+
+        vs_029 = question_by_id["DRONE-Q-000037"]
+        self.assertEqual(
+            vs_029["choice3"],
+            "飛行経路全体を把握し、安全を確認できる補助者を配置する",
+        )
+        self.assertNotIn(
+            "安全を確認できる位置に補助者を配置する",
+            vs_029["choice3"],
+        )
+        for forbidden in ("機体の位置", "異常の有無", "telemetry", "GNSS"):
+            self.assertNotIn(
+                forbidden.casefold(),
+                content("DRONE-Q-000037").casefold(),
+            )
+        for forbidden in (
+            "飛行経路全体",
+            "障害物",
+            "補助者とのcommunication",
+        ):
+            self.assertNotIn(
+                forbidden.casefold(),
+                content("DRONE-Q-000038").casefold(),
+            )
+
+        for question_id in self.B2B_CONTENT_FREEZE_EXPECTATIONS:
+            for forbidden in ("〔一等〕", "[一等]"):
+                self.assertNotIn(forbidden, content(question_id))
+
+        for question_id in ("DRONE-Q-000037", "DRONE-Q-000038"):
+            for forbidden in (
+                "通信断",
+                "GNSS failure",
+                "battery failure",
+                "RTH",
+                "自動帰還",
+                "自動着陸",
+                "hover on failure",
+                "failsafe",
+                "フェイルセーフ",
+            ):
+                self.assertNotIn(
+                    forbidden.casefold(),
+                    content(question_id).casefold(),
+                )
 
     def test_unregistered_drone_id_is_rejected(self) -> None:
         fieldnames, rows = self._read_csv(self.questions_path)

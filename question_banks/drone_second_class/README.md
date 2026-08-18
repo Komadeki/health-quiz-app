@@ -2,15 +2,16 @@
 
 This bank instantiates the permanent `DRONE` question namespace. It contains
 the initial five Stage 9 calibration questions, five B1A questions, seven B1B
-questions, eight B1C questions, and eight B2A questions that passed the QID
-Gate and Human Author Verification. All 33 authored questions remain draft.
+questions, eight B1C questions, eight B2A questions, and five new B2B questions
+that passed the QID Gate and Human Author Verification. All 38 authored
+questions remain draft.
 
 ## Release state
 
 - `unreleased-bootstrap-2026-08-18` is a tooling-required working revision.
   It is not a formal release `bank_revision`.
 - All currently authored questions remain `draft`, so generated runtime output
-  intentionally contains zero active questions.
+  intentionally contains zero active questions and an empty deck list.
 - Formal release remains on hold until the 100/100 bank, Cross-Bank Audit, and
   V0-Core candidate gates pass.
 - Difficulty, importance, and free/paid fields contain neutral working values
@@ -54,10 +55,15 @@ Gate and Human Author Verification. All 33 authored questions remain draft.
 | VS-032 | DRONE-Q-000031 |
 | VS-026 | DRONE-Q-000032 |
 | VS-033 | DRONE-Q-000033 |
+| VS-034 | DRONE-Q-000034 |
+| VS-028 | DRONE-Q-000035 |
+| VS-035 | DRONE-Q-000036 |
+| VS-029 | DRONE-Q-000037 |
+| VS-036 | DRONE-Q-000038 |
 
 The registry uses the existing `used` status. Because none of the questions
 has entered a released bank, `first_used_bank_revision` remains empty. IDs
-beyond `DRONE-Q-000033` are not reserved.
+beyond `DRONE-Q-000038` are not reserved.
 
 The shared schema has no verification-state field. The existing
 `notes_internal` field records `author_source_verified` and the measurement
@@ -89,6 +95,15 @@ held-out with counterbalance `PARTIAL_ONLY`; HB-3 binds VS-025 observed to
 VS-032 held-out with counterbalance `YES`; and HB-4 binds VS-026 observed to
 VS-033 held-out with counterbalance `YES`. These bindings do not activate the
 questions or implement counterbalance routing.
+
+The B2B rows preserve three breadth pairs. HB-5 binds existing VS-027
+(`DRONE-Q-000003`) observed to VS-034 held-out with counterbalance `YES`; HB-6
+binds VS-028 observed to VS-035 held-out with counterbalance `YES` while
+keeping spatial and temporal wind variation separate; and HB-7 binds VS-029
+observed to VS-036 held-out with counterbalance `YES` while keeping external
+and aircraft-state monitoring separate. These bindings only record the
+measurement structure; they do not activate questions, execute
+counterbalancing, or issue a formal release `bank_revision`.
 
 VS-039 (`DRONE-Q-000004`) remains the US-C Sentinel. VS-069
 (`DRONE-Q-000005`) remains its COV-25 neighbor and does not expose the
