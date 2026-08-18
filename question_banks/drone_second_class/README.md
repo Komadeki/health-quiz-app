@@ -2,7 +2,8 @@
 
 This bank instantiates the permanent `DRONE` question namespace. It contains
 the initial five Stage 9 calibration questions, the five B1A questions, and the
-seven B1B questions that passed the QID Gate and Human Author Verification.
+seven B1B questions and eight B1C questions that passed the QID Gate and Human
+Author Verification. All 25 authored questions remain draft.
 
 ## Release state
 
@@ -37,10 +38,18 @@ seven B1B questions that passed the QID Gate and Human Author Verification.
 | VS-008 | DRONE-Q-000015 |
 | VS-009 | DRONE-Q-000016 |
 | VS-017 | DRONE-Q-000017 |
+| VS-010 | DRONE-Q-000018 |
+| VS-011 | DRONE-Q-000019 |
+| VS-018 | DRONE-Q-000020 |
+| VS-019 | DRONE-Q-000021 |
+| VS-012 | DRONE-Q-000022 |
+| VS-013 | DRONE-Q-000023 |
+| VS-014 | DRONE-Q-000024 |
+| VS-020 | DRONE-Q-000025 |
 
 The registry uses the existing `used` status. Because none of the questions
 has entered a released bank, `first_used_bank_revision` remains empty. IDs
-beyond `DRONE-Q-000017` are not reserved.
+beyond `DRONE-Q-000025` are not reserved.
 
 The shared schema has no verification-state field. The existing
 `notes_internal` field records `author_source_verified` and the measurement
@@ -58,6 +67,13 @@ held-out. VS-007 is the G1 primary and VS-009 is its alternate; VS-008 is G2
 observed and VS-017 is G3 held-out. These relationships are recorded for later
 administration logic without activating the questions or exposing held-out
 answer truth in existing observed questions.
+
+The B1C rows preserve the Auto-to-Manual A1/A2/A3/A4 and TEM E1/E2/E3
+measurement structures. VS-010 (A1) and VS-011 (A4) are observed; VS-018 (A2)
+and VS-019 (A3) are held-out and remain separate families. VS-012 is the E1
+primary, VS-014 is its E1 alternate, VS-013 is E2 observed, and VS-020 is E3
+held-out. These bindings do not activate the questions or expose held-out
+answer truth in existing observed explanations.
 
 VS-039 (`DRONE-Q-000004`) remains the US-C Sentinel. VS-069
 (`DRONE-Q-000005`) remains its COV-25 neighbor and does not expose the
