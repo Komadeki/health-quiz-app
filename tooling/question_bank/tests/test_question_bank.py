@@ -207,6 +207,93 @@ class DroneQuestionBankTest(unittest.TestCase):
         "VS-035": "DRONE-Q-000036",
         "VS-029": "DRONE-Q-000037",
         "VS-036": "DRONE-Q-000038",
+        "VS-041": "DRONE-Q-000039",
+        "VS-042": "DRONE-Q-000040",
+    }
+    B3A_EXPECTATIONS = {
+        "DRONE-Q-000039": {
+            "unit_id": "drone_operations",
+            "slot_id": "VS-041",
+            "primary_role": "UNKNOWN_SENTINEL",
+            "kt_id": "D3-T01-KT004",
+            "family": "US-E",
+            "notes_internal": (
+                "slot_id=VS-041; verification_state=author_source_verified; "
+                "primary_role=UNKNOWN_SENTINEL; kt_id=D3-T01-KT004; "
+                "family=US-E; independent_reviewed=false; "
+                "subject_matter_expert_reviewed=false; release_approved=false"
+            ),
+            "content": {
+                "question": (
+                    "当日の運航が終了したあとに行う「運航終了後の点検」の項目として、"
+                    "教則に例示されているものはどれか。"
+                ),
+                "choice1": "機体・バッテリー等の安全な保管状態の確認",
+                "choice2": "機体へのゴミ等の付着の確認",
+                "choice3": "各機器の異常な発熱の確認",
+                "correct_choice": "A",
+                "explanation": (
+                    "教則では、運航終了後の点検として、機体やバッテリー等を安全な"
+                    "状態で適切な場所に保管したかを確認する例を示している。\n"
+                    "BとCは、各飛行後に行う「飛行後の点検」の項目である。教則の表"
+                    "でも、ゴミ等の付着と異常な発熱は「飛行後の点検」、安全な保管は"
+                    "「運航終了後の点検」と明確に分けられている。"
+                ),
+                "source_locator": (
+                    "教則 第5章 5.1「運航時の点検及び確認事項」(1)4)・5) / (2)"
+                    "（教則表示ページ53–54 / PDF viewer 59–60）"
+                ),
+            },
+        },
+        "DRONE-Q-000040": {
+            "unit_id": "drone_operations",
+            "slot_id": "VS-042",
+            "primary_role": "UNKNOWN_SENTINEL",
+            "kt_id": "D3-T03-KT002",
+            "family": "US-F",
+            "notes_internal": (
+                "slot_id=VS-042; verification_state=author_source_verified; "
+                "primary_role=UNKNOWN_SENTINEL; kt_id=D3-T03-KT002; "
+                "family=US-F; independent_reviewed=false; "
+                "subject_matter_expert_reviewed=false; release_approved=false"
+            ),
+            "content": {
+                "question": (
+                    "前夜に飲酒した操縦者が、翌日に無人航空機を操縦する予定である。\n"
+                    "教則の注意として最も適切なものはどれか。"
+                ),
+                "choice1": (
+                    "前夜の飲酒から翌日の操縦時までに十分な時間が経過しているかを、"
+                    "影響判断の主な基準とする"
+                ),
+                "choice2": (
+                    "前夜の飲酒でも翌日の操縦時まで影響が残る可能性があることに"
+                    "注意する"
+                ),
+                "choice3": (
+                    "前夜の飲酒量と翌日の本人の体調を、影響判断の主な基準とする"
+                ),
+                "correct_choice": "B",
+                "explanation": (
+                    "教則は、前夜に飲酒した場合でも、翌日の操縦時までアルコールの"
+                    "影響を受けている可能性があることへの注意を求めている。\n"
+                    "また、アルコール検知器を活用することも有用としている。"
+                ),
+                "source_locator": (
+                    "教則 第5章 5.3.2（教則表示ページ61 / PDF viewer 67）"
+                ),
+            },
+        },
+    }
+    B3A_REGISTRY_NOTES = {
+        "DRONE-Q-000039": (
+            "VS-041; B3A US-E clean sentinel; UNKNOWN_SENTINEL; permanent ID; "
+            "pre-release"
+        ),
+        "DRONE-Q-000040": (
+            "VS-042; B3A US-F clean sentinel; UNKNOWN_SENTINEL; permanent ID; "
+            "pre-release"
+        ),
     }
     B1A_EXPECTATIONS = {
         "DRONE-Q-000006": {
@@ -1464,6 +1551,10 @@ class DroneQuestionBankTest(unittest.TestCase):
 
         self.assertEqual(len(question_ids), len(set(question_ids)))
         self.assertEqual(len(registry_ids), len(set(registry_ids)))
+        self.assertEqual(
+            set(question_ids),
+            set(self.PERMANENT_SLOT_TO_ID.values()),
+        )
         self.assertTrue(set(question_ids).issubset(registry_ids))
         self.assertTrue(
             all(
@@ -1909,6 +2000,102 @@ class DroneQuestionBankTest(unittest.TestCase):
                     forbidden.casefold(),
                     content(question_id).casefold(),
                 )
+
+    def test_b3a_clean_sentinel_metadata_content_and_regressions(self) -> None:
+        inputs = load_bank_inputs(self.bank)
+        question_by_id = {row["question_id"]: row for row in inputs.questions}
+        registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+
+        for question_id, expected in self.B3A_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["deck_id"], "drone_second_class_exam")
+            self.assertEqual(question["unit_id"], expected["unit_id"])
+            self.assertEqual(question["difficulty"], "2")
+            self.assertEqual(question["importance"], "2")
+            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(question["valid_from"], "2026-07-14")
+            self.assertEqual(question["valid_until"], "")
+            self.assertEqual(question["last_reviewed_at"], "2026-08-19")
+            self.assertEqual(question["supersedes_id"], "")
+            self.assertEqual(question["tags"], "")
+            self.assertEqual(question["choice4"], "")
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+            self.assertEqual(question["notes_internal"], expected["notes_internal"])
+            metadata = {
+                key: value
+                for item in question["notes_internal"].split(";")
+                if "=" in item
+                for key, value in (item.strip().split("=", 1),)
+            }
+            self.assertEqual(metadata["slot_id"], expected["slot_id"])
+            self.assertEqual(metadata["primary_role"], expected["primary_role"])
+            self.assertEqual(metadata["kt_id"], expected["kt_id"])
+            self.assertEqual(metadata["family"], expected["family"])
+            self.assertEqual(metadata["verification_state"], "author_source_verified")
+            self.assertEqual(metadata["independent_reviewed"], "false")
+            self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
+            self.assertEqual(metadata["release_approved"], "false")
+
+            for field, expected_text in expected["content"].items():
+                self.assertEqual(question[field], expected_text)
+
+            registry = registry_by_id[question_id]
+            self.assertEqual(registry["status"], "used")
+            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(registry["retired_at"], "")
+            self.assertEqual(registry["replacement_id"], "")
+            self.assertEqual(registry["notes"], self.B3A_REGISTRY_NOTES[question_id])
+
+        def content(question_id: str) -> str:
+            question = question_by_id[question_id]
+            return " ".join(
+                question[field]
+                for field in (
+                    "question",
+                    "choice1",
+                    "choice2",
+                    "choice3",
+                    "explanation",
+                )
+            )
+
+        for forbidden in (
+            "飛行日誌",
+            "日常点検記録",
+            "点検整備記録",
+            "充電60%",
+            "60%",
+            "膨ら",
+            "事故報告",
+        ):
+            self.assertNotIn(forbidden, content("DRONE-Q-000039"))
+
+        for forbidden in (
+            "罰則",
+            "行政処分",
+            "血中アルコール",
+            "呼気アルコール",
+            "依存症",
+            "必ず",
+            "義務",
+            "mandatory",
+        ):
+            self.assertNotIn(
+                forbidden.casefold(),
+                content("DRONE-Q-000040").casefold(),
+            )
+
+        for existing_id in ("DRONE-Q-000003", "DRONE-Q-000034"):
+            existing_notes = question_by_id[existing_id]["notes_internal"]
+            for forbidden in (
+                "slot_id=VS-042",
+                "primary_role=UNKNOWN_SENTINEL",
+                "kt_id=D3-T03-KT002",
+                "family=US-F",
+            ):
+                self.assertNotIn(forbidden, existing_notes)
 
     def test_unregistered_drone_id_is_rejected(self) -> None:
         fieldnames, rows = self._read_csv(self.questions_path)
