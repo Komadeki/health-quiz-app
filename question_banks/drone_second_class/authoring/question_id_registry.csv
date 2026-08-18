@@ -32,3 +32,8 @@ DRONE-Q-000030,used,,,,VS-025; B2A HB3 conditions; BREADTH_OBSERVED; permanent I
 DRONE-Q-000031,used,,,,VS-032; B2A HB3 towing; BREADTH_HELDOUT; permanent ID; pre-release
 DRONE-Q-000032,used,,,,VS-026; B2A HB4 storage; BREADTH_OBSERVED; permanent ID; pre-release
 DRONE-Q-000033,used,,,,VS-033; B2A HB4 replacement; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000034,used,,,,VS-034; B2B HB5 stress; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000035,used,,,,VS-028; B2B HB6 building-terrain; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000036,used,,,,VS-035; B2B HB6 gust; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000037,used,,,,VS-029; B2B HB7 observer; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000038,used,,,,VS-036; B2B HB7 state; BREADTH_HELDOUT; permanent ID; pre-release
