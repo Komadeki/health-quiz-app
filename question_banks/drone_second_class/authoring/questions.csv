@@ -83,8 +83,8 @@ DRONE-Q-000028,1,draft,drone_second_class_exam,drone_rules,"ある特定飛行�
 この飛行形態の分類として最も適切なものはどれか。",カテゴリーI,カテゴリーII,カテゴリーIII,,B,特定飛行のうち、飛行経路下への第三者の立入りを管理する措置を講じて行うものがCategory IIである。Category IIIは、そのような立入管理措置を講じず第三者上空で行う特定飛行である。,MLIT-UAS-SAFETY-GUIDE-5,教則 第3章 3.1 飛行形態の分類（教則表示ページ8–9 / PDF viewer 14–15）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-024; verification_state=author_source_verified; primary_role=BREADTH_OBSERVED; kt_id=D1-T01-KT009; family=HB2-II-III; construct=category_ii_vs_iii_classification; counterbalance=PARTIAL_ONLY; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
 DRONE-Q-000029,1,draft,drone_second_class_exam,drone_rules,"いずれも立入管理措置を講じ、最大離陸重量25kg未満の無人航空機で行う特定飛行とする。また、記載した条件以外にカテゴリーII-Aに該当する条件はないものとする。
 
-* 飛行X：危険物を輸送する
-* 飛行Y：夜間に飛行する
+- 飛行X：危険物を輸送する
+- 飛行Y：夜間に飛行する
 
 カテゴリーII-A / II-Bの分類として最も適切なものはどれか。",X = II-A、Y = II-B,X = II-B、Y = II-A,X = II-A、Y = II-A,,A,Category IIのうち危険物輸送はII-Aに含まれる。一方、25kg未満で、他のII-A条件に該当しない夜間飛行は「その他のCategory II」としてII-Bに分類される。,MLIT-UAS-SAFETY-GUIDE-5,教則 第3章 3.1 飛行形態の分類（教則表示ページ9 / PDF viewer 15）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-031; verification_state=author_source_verified; primary_role=BREADTH_HELDOUT; kt_id=D1-T01-KT009; family=HB2-IIA-IIB; construct=category_iia_vs_iib_classification; counterbalance=PARTIAL_ONLY; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
 DRONE-Q-000030,1,draft,drone_second_class_exam,drone_rules,係留飛行の例外に必要な条件の組合せとして、教則に最も合うものはどれか。,十分な強度の25mの紐で係留し、飛行可能範囲への第三者の立入管理措置を講じる,十分な強度の35mの紐で係留し、飛行可能範囲への第三者の立入管理措置を講じる,十分な強度の25mの紐で係留するが、飛行可能範囲への第三者の立入管理措置は講じない,,A,係留飛行の例外では、十分な強度を持つ30m以下の紐等による係留と、飛行可能範囲への第三者立入管理等が条件となる。,MLIT-UAS-SAFETY-GUIDE-5,教則 第3章 3.1.2(2)3)c（教則表示ページ18 / PDF viewer 24）,2,2,false,2026-07-14,,2026-08-18,,,slot_id=VS-025; verification_state=author_source_verified; primary_role=BREADTH_OBSERVED; kt_id=D1-T01-KT015; family=HB3-CONDITIONS; construct=tether_exception_qualification; counterbalance=YES; independent_reviewed=false; subject_matter_expert_reviewed=false; release_approved=false
