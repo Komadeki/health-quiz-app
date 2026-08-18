@@ -1,0 +1,6 @@
+question_id,status,first_used_bank_revision,retired_at,replacement_id,notes
+DRONE-Q-000001,used,,,,VS-001; permanent ID; pre-release
+DRONE-Q-000002,used,,,,VS-004; permanent ID; pre-release
+DRONE-Q-000003,used,,,,VS-027; permanent ID; pre-release
+DRONE-Q-000004,used,,,,VS-039; US-C Sentinel; permanent ID; pre-release
+DRONE-Q-000005,used,,,,VS-069; COV-25 Sentinel neighbor; permanent ID; pre-release

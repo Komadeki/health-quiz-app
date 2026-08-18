@@ -1,0 +1,35 @@
+{
+  "app_key": "drone_second_class",
+  "bank_revision": "unreleased-bootstrap-2026-08-18",
+  "content_as_of": "2026-08-18",
+  "decks": [
+    {
+      "deck_id": "drone_second_class_exam",
+      "title": "二等無人航空機操縦士 学科試験",
+      "units": [
+        {
+          "title": "無人航空機に関する規則",
+          "unit_id": "drone_rules"
+        },
+        {
+          "title": "無人航空機のシステム",
+          "unit_id": "drone_systems"
+        },
+        {
+          "title": "無人航空機の操縦者及び運航体制",
+          "unit_id": "drone_operations"
+        },
+        {
+          "title": "運航上のリスク管理",
+          "unit_id": "drone_risk_management"
+        }
+      ]
+    }
+  ],
+  "exam_profile_version": "drone-second-class-unreleased",
+  "manifest_output": "generated/bank_manifest.json",
+  "question_identity_policy": "explicit_v1",
+  "review_due_days": 365,
+  "runtime_output": "generated/drone_second_class_bank.json",
+  "schema_version": 2
+}
