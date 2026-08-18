@@ -1,9 +1,9 @@
 # Drone second-class question bank authoring
 
 This bank instantiates the permanent `DRONE` question namespace. It contains
-the initial five Stage 9 calibration questions, the five B1A questions, and the
-seven B1B questions and eight B1C questions that passed the QID Gate and Human
-Author Verification. All 25 authored questions remain draft.
+the initial five Stage 9 calibration questions, five B1A questions, seven B1B
+questions, eight B1C questions, and eight B2A questions that passed the QID
+Gate and Human Author Verification. All 33 authored questions remain draft.
 
 ## Release state
 
@@ -46,10 +46,18 @@ Author Verification. All 25 authored questions remain draft.
 | VS-013 | DRONE-Q-000023 |
 | VS-014 | DRONE-Q-000024 |
 | VS-020 | DRONE-Q-000025 |
+| VS-023 | DRONE-Q-000026 |
+| VS-030 | DRONE-Q-000027 |
+| VS-024 | DRONE-Q-000028 |
+| VS-031 | DRONE-Q-000029 |
+| VS-025 | DRONE-Q-000030 |
+| VS-032 | DRONE-Q-000031 |
+| VS-026 | DRONE-Q-000032 |
+| VS-033 | DRONE-Q-000033 |
 
 The registry uses the existing `used` status. Because none of the questions
 has entered a released bank, `first_used_bank_revision` remains empty. IDs
-beyond `DRONE-Q-000025` are not reserved.
+beyond `DRONE-Q-000033` are not reserved.
 
 The shared schema has no verification-state field. The existing
 `notes_internal` field records `author_source_verified` and the measurement
@@ -74,6 +82,13 @@ and VS-019 (A3) are held-out and remain separate families. VS-012 is the E1
 primary, VS-014 is its E1 alternate, VS-013 is E2 observed, and VS-020 is E3
 held-out. These bindings do not activate the questions or expose held-out
 answer truth in existing observed explanations.
+
+The B2A rows preserve four breadth pairs. HB-1 binds VS-023 observed to VS-030
+held-out with counterbalance `YES`; HB-2 binds VS-024 observed to VS-031
+held-out with counterbalance `PARTIAL_ONLY`; HB-3 binds VS-025 observed to
+VS-032 held-out with counterbalance `YES`; and HB-4 binds VS-026 observed to
+VS-033 held-out with counterbalance `YES`. These bindings do not activate the
+questions or implement counterbalance routing.
 
 VS-039 (`DRONE-Q-000004`) remains the US-C Sentinel. VS-069
 (`DRONE-Q-000005`) remains its COV-25 neighbor and does not expose the

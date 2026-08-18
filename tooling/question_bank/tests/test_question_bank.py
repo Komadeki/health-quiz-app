@@ -194,6 +194,14 @@ class DroneQuestionBankTest(unittest.TestCase):
         "VS-013": "DRONE-Q-000023",
         "VS-014": "DRONE-Q-000024",
         "VS-020": "DRONE-Q-000025",
+        "VS-023": "DRONE-Q-000026",
+        "VS-030": "DRONE-Q-000027",
+        "VS-024": "DRONE-Q-000028",
+        "VS-031": "DRONE-Q-000029",
+        "VS-025": "DRONE-Q-000030",
+        "VS-032": "DRONE-Q-000031",
+        "VS-026": "DRONE-Q-000032",
+        "VS-033": "DRONE-Q-000033",
     }
     B1A_EXPECTATIONS = {
         "DRONE-Q-000006": {
@@ -478,6 +486,178 @@ class DroneQuestionBankTest(unittest.TestCase):
             ),
         },
     }
+    B2A_EXPECTATIONS = {
+        "DRONE-Q-000026": {
+            "unit_id": "drone_rules",
+            "correct_choice": "A",
+            "source_locator": (
+                "教則 第3章 3.1.2(2)1)c"
+                "（教則表示ページ15 / PDF viewer 21）"
+            ),
+            "notes": (
+                "slot_id=VS-023",
+                "primary_role=BREADTH_OBSERVED",
+                "kt_id=D1-T01-KT006",
+                "family=HB1-150",
+                "construct=terrain_reference_airspace_classification",
+                "counterbalance=YES",
+            ),
+        },
+        "DRONE-Q-000027": {
+            "unit_id": "drone_rules",
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第3章 3.1.2(2)1)d"
+                "（教則表示ページ15 / PDF viewer 21）"
+            ),
+            "notes": (
+                "slot_id=VS-030",
+                "primary_role=BREADTH_HELDOUT",
+                "kt_id=D1-T01-KT006",
+                "family=HB1-DID",
+                "construct=did_industrial_only_zone_exception",
+                "counterbalance=YES",
+                "additional_authority=MLIT_NOTICE_435",
+                "notice_promulgated=2026-03-31",
+                "mlit_web_announcement=2026-06-30",
+            ),
+        },
+        "DRONE-Q-000028": {
+            "unit_id": "drone_rules",
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第3章 3.1 飛行形態の分類"
+                "（教則表示ページ8–9 / PDF viewer 14–15）"
+            ),
+            "notes": (
+                "slot_id=VS-024",
+                "primary_role=BREADTH_OBSERVED",
+                "kt_id=D1-T01-KT009",
+                "family=HB2-II-III",
+                "construct=category_ii_vs_iii_classification",
+                "counterbalance=PARTIAL_ONLY",
+            ),
+        },
+        "DRONE-Q-000029": {
+            "unit_id": "drone_rules",
+            "correct_choice": "A",
+            "source_locator": (
+                "教則 第3章 3.1 飛行形態の分類"
+                "（教則表示ページ9 / PDF viewer 15）"
+            ),
+            "notes": (
+                "slot_id=VS-031",
+                "primary_role=BREADTH_HELDOUT",
+                "kt_id=D1-T01-KT009",
+                "family=HB2-IIA-IIB",
+                "construct=category_iia_vs_iib_classification",
+                "counterbalance=PARTIAL_ONLY",
+            ),
+        },
+        "DRONE-Q-000030": {
+            "unit_id": "drone_rules",
+            "correct_choice": "A",
+            "source_locator": (
+                "教則 第3章 3.1.2(2)3)c"
+                "（教則表示ページ18 / PDF viewer 24）"
+            ),
+            "notes": (
+                "slot_id=VS-025",
+                "primary_role=BREADTH_OBSERVED",
+                "kt_id=D1-T01-KT015",
+                "family=HB3-CONDITIONS",
+                "construct=tether_exception_qualification",
+                "counterbalance=YES",
+            ),
+        },
+        "DRONE-Q-000031": {
+            "unit_id": "drone_rules",
+            "correct_choice": "C",
+            "source_locator": (
+                "教則 第3章 3.1.2(2)3)c"
+                "（教則表示ページ18 / PDF viewer 24）"
+            ),
+            "notes": (
+                "slot_id=VS-032",
+                "primary_role=BREADTH_HELDOUT",
+                "kt_id=D1-T01-KT015",
+                "family=HB3-TOWING",
+                "construct=towing_nonexample_boundary",
+                "counterbalance=YES",
+            ),
+        },
+        "DRONE-Q-000032": {
+            "unit_id": "drone_systems",
+            "correct_choice": "B",
+            "source_locator": (
+                "教則 第4章 4.6.1(2)"
+                "（教則表示ページ50 / PDF viewer 56）"
+            ),
+            "notes": (
+                "slot_id=VS-026",
+                "primary_role=BREADTH_OBSERVED",
+                "kt_id=D2-T06-KT002",
+                "family=HB4-STORAGE",
+                "construct=long_term_storage_charge",
+                "counterbalance=YES",
+            ),
+        },
+        "DRONE-Q-000033": {
+            "unit_id": "drone_systems",
+            "correct_choice": "C",
+            "source_locator": (
+                "教則 第4章 4.6.1(3)"
+                "（教則表示ページ51 / PDF viewer 57）"
+            ),
+            "notes": (
+                "slot_id=VS-033",
+                "primary_role=BREADTH_HELDOUT",
+                "kt_id=D2-T06-KT002",
+                "family=HB4-REPLACEMENT",
+                "construct=swelling_replacement_decision",
+                "counterbalance=YES",
+            ),
+        },
+    }
+    B2A_REGISTRY_NOTES = {
+        "DRONE-Q-000026": (
+            "VS-023; B2A HB1 150m; BREADTH_OBSERVED; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000027": (
+            "VS-030; B2A HB1 DID; BREADTH_HELDOUT; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000028": (
+            "VS-024; B2A HB2 II-III; BREADTH_OBSERVED; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000029": (
+            "VS-031; B2A HB2 IIA-IIB; BREADTH_HELDOUT; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000030": (
+            "VS-025; B2A HB3 conditions; BREADTH_OBSERVED; permanent ID; "
+            "pre-release"
+        ),
+        "DRONE-Q-000031": (
+            "VS-032; B2A HB3 towing; BREADTH_HELDOUT; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000032": (
+            "VS-026; B2A HB4 storage; BREADTH_OBSERVED; permanent ID; pre-release"
+        ),
+        "DRONE-Q-000033": (
+            "VS-033; B2A HB4 replacement; BREADTH_HELDOUT; permanent ID; "
+            "pre-release"
+        ),
+    }
+    B2A_PAIR_EXPECTATIONS = (
+        ("DRONE-Q-000026", "DRONE-Q-000027", "D1-T01-KT006", "YES"),
+        (
+            "DRONE-Q-000028",
+            "DRONE-Q-000029",
+            "D1-T01-KT009",
+            "PARTIAL_ONLY",
+        ),
+        ("DRONE-Q-000030", "DRONE-Q-000031", "D1-T01-KT015", "YES"),
+        ("DRONE-Q-000032", "DRONE-Q-000033", "D2-T06-KT002", "YES"),
+    )
     B1C_REGISTRY_NOTES = {
         "DRONE-Q-000018": (
             "VS-010; B1C A1; DEEP_OBSERVED; permanent ID; pre-release"
@@ -503,6 +683,195 @@ class DroneQuestionBankTest(unittest.TestCase):
         "DRONE-Q-000025": (
             "VS-020; B1C E3; DEEP_HELDOUT; permanent ID; pre-release"
         ),
+    }
+    B2A_CONTENT_FREEZE_EXPECTATIONS = {
+        "DRONE-Q-000026": {
+            "question": (
+                "離陸地点から130m上方を飛行している無人航空機がある。現在の"
+                "機体直下の地表は、離陸地点の地表より40m低い。\n\n"
+                "このとき「高度150m以上の空域」の判定として最も適切なものは"
+                "どれか。"
+            ),
+            "choice1": "高度150m以上の空域に該当する",
+            "choice2": "離陸地点からの高度差が130mなので該当しない",
+            "choice3": "海抜高度が示されていないため判定できない",
+            "correct_choice": "A",
+            "explanation": (
+                "150mの基準は離陸地点や海抜高度ではなく、飛行中の機体直下の"
+                "地表・水面との高度差である。この場合、その高度差は170mになる。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.2(2)1)c"
+                "（教則表示ページ15 / PDF viewer 21）"
+            ),
+        },
+        "DRONE-Q-000027": {
+            "question": (
+                "地図上では人口集中地区（DID）として表示されている区域で飛行を"
+                "計画している。確認したところ、その場所は都市計画法第8条第1項"
+                "第1号の工業専用地域内である。\n\n他の規制対象空域や飛行方法"
+                "には該当しないものとすると、DIDに係る扱いとして最も適切な"
+                "ものはどれか。"
+            ),
+            "choice1": (
+                "地図上でDIDと表示されているため、DIDに係る許可手続き等が"
+                "必要である"
+            ),
+            "choice2": (
+                "工業専用地域内の除外区域に該当するため、DIDに係る許可手続き等"
+                "は不要である"
+            ),
+            "choice3": (
+                "DIDに係る許可手続き等の要否は、操縦者が技能証明を保有して"
+                "いるかだけで決まる"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "現行制度では、都市計画法上の工業専用地域内の区域は「人又は"
+                "家屋の密集している地域」から除外され、DIDに係る飛行許可は"
+                "不要となる。その他の空域・飛行方法の規制は別途判定する。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.2(2)1)d"
+                "（教則表示ページ15 / PDF viewer 21）"
+            ),
+        },
+        "DRONE-Q-000028": {
+            "question": (
+                "ある特定飛行について、飛行経路下に第三者が立ち入らないよう"
+                "立入管理措置を講じたうえで飛行する。\n\nこの飛行形態の分類"
+                "として最も適切なものはどれか。"
+            ),
+            "choice1": "カテゴリーI",
+            "choice2": "カテゴリーII",
+            "choice3": "カテゴリーIII",
+            "correct_choice": "B",
+            "explanation": (
+                "特定飛行のうち、飛行経路下への第三者の立入りを管理する措置を"
+                "講じて行うものがCategory IIである。Category IIIは、そのような"
+                "立入管理措置を講じず第三者上空で行う特定飛行である。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1 飛行形態の分類"
+                "（教則表示ページ8–9 / PDF viewer 14–15）"
+            ),
+        },
+        "DRONE-Q-000029": {
+            "question": (
+                "いずれも立入管理措置を講じ、最大離陸重量25kg未満の無人航空機"
+                "で行う特定飛行とする。また、記載した条件以外にカテゴリーII-A"
+                "に該当する条件はないものとする。\n\n- 飛行X：危険物を輸送する"
+                "\n- 飛行Y：夜間に飛行する\n\nカテゴリーII-A / II-Bの分類"
+                "として最も適切なものはどれか。"
+            ),
+            "choice1": "X = II-A、Y = II-B",
+            "choice2": "X = II-B、Y = II-A",
+            "choice3": "X = II-A、Y = II-A",
+            "correct_choice": "A",
+            "explanation": (
+                "Category IIのうち危険物輸送はII-Aに含まれる。一方、25kg未満で、"
+                "他のII-A条件に該当しない夜間飛行は「その他のCategory II」"
+                "としてII-Bに分類される。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1 飛行形態の分類"
+                "（教則表示ページ9 / PDF viewer 15）"
+            ),
+        },
+        "DRONE-Q-000030": {
+            "question": (
+                "係留飛行の例外に必要な条件の組合せとして、教則に最も合うものは"
+                "どれか。"
+            ),
+            "choice1": (
+                "十分な強度の25mの紐で係留し、飛行可能範囲への第三者の"
+                "立入管理措置を講じる"
+            ),
+            "choice2": (
+                "十分な強度の35mの紐で係留し、飛行可能範囲への第三者の"
+                "立入管理措置を講じる"
+            ),
+            "choice3": (
+                "十分な強度の25mの紐で係留するが、飛行可能範囲への第三者の"
+                "立入管理措置は講じない"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "係留飛行の例外では、十分な強度を持つ30m以下の紐等による係留と、"
+                "飛行可能範囲への第三者立入管理等が条件となる。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.2(2)3)c"
+                "（教則表示ページ18 / PDF viewer 24）"
+            ),
+        },
+        "DRONE-Q-000031": {
+            "question": (
+                "無人航空機を紐につなぎ、その紐を操縦者が手に持って歩いて移動"
+                "しながら飛行させている。\n\nこの飛行の扱いとして、教則に"
+                "最も合うものはどれか。"
+            ),
+            "choice1": (
+                "無人航空機が紐につながっているため、係留飛行として扱う"
+            ),
+            "choice2": "操縦者が紐を直接管理しているため、係留飛行として扱う",
+            "choice3": (
+                "人が紐を持って移動しながら行う飛行はえい航であり、係留には"
+                "該当しない"
+            ),
+            "correct_choice": "C",
+            "explanation": (
+                "人が紐等を持って移動しながら無人航空機を飛行させる行為は"
+                "えい航であり、係留には該当しない。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.2(2)3)c"
+                "（教則表示ページ18 / PDF viewer 24）"
+            ),
+        },
+        "DRONE-Q-000032": {
+            "question": (
+                "LiPoバッテリーを長期間使用しない場合の保管方法として、教則に"
+                "最も合うものはどれか。"
+            ),
+            "choice1": "満充電にして保管する",
+            "choice2": "充電60%程度を目安にして保管する",
+            "choice3": "飛行終了後の放電状態のまま保管する",
+            "correct_choice": "B",
+            "explanation": (
+                "長期間使用しない場合は、劣化を遅らせるため充電60%程度を目安に"
+                "保管する。満充電状態や飛行後の放電状態での長期保管は避ける。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.6.1(2)"
+                "（教則表示ページ50 / PDF viewer 56）"
+            ),
+        },
+        "DRONE-Q-000033": {
+            "question": (
+                "飛行前点検でLiPoバッテリーが膨らんでいることに気付いた。充電"
+                "自体は可能で、直前の飛行でも大きな容量低下は感じていない。"
+                "\n\n教則に沿った対応として最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "充放電できる間は使用を続け、飛行時間を短くして経過を見る"
+            ),
+            "choice2": (
+                "膨張の程度を記録し、容量低下が明確になった時点で交換する"
+            ),
+            "choice3": (
+                "内部に可燃性ガスが発生している可能性を考慮し、早めに交換する"
+            ),
+            "correct_choice": "C",
+            "explanation": (
+                "教則では、LiPoが膨らんでいる場合は内部に可燃性ガスが発生して"
+                "いる可能性があるため、早めに交換するとしている。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.6.1(3)"
+                "（教則表示ページ51 / PDF viewer 57）"
+            ),
+        },
     }
     B1C_CONTENT_FREEZE_EXPECTATIONS = {
         "DRONE-Q-000018": {
@@ -971,6 +1340,104 @@ class DroneQuestionBankTest(unittest.TestCase):
         vs_014 = question_by_id["DRONE-Q-000024"]
         self.assertIn("機材不具合", vs_014["question"])
         self.assertNotIn("操縦者の疲労という", vs_014["question"])
+
+    def test_b2a_measurement_bindings_and_content_freeze(self) -> None:
+        inputs = load_bank_inputs(self.bank)
+        question_by_id = {row["question_id"]: row for row in inputs.questions}
+        registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+
+        for question_id, expected in self.B2A_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["deck_id"], "drone_second_class_exam")
+            self.assertEqual(question["unit_id"], expected["unit_id"])
+            self.assertEqual(question["difficulty"], "2")
+            self.assertEqual(question["importance"], "2")
+            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(question["valid_from"], "2026-07-14")
+            self.assertEqual(question["valid_until"], "")
+            self.assertEqual(question["last_reviewed_at"], "2026-08-18")
+            self.assertEqual(question["supersedes_id"], "")
+            self.assertEqual(question["tags"], "")
+            self.assertEqual(question["choice4"], "")
+            self.assertEqual(question["correct_choice"], expected["correct_choice"])
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+            self.assertEqual(question["source_locator"], expected["source_locator"])
+            self.assertIn(
+                "verification_state=author_source_verified",
+                question["notes_internal"],
+            )
+            self.assertIn("independent_reviewed=false", question["notes_internal"])
+            self.assertIn(
+                "subject_matter_expert_reviewed=false",
+                question["notes_internal"],
+            )
+            self.assertIn("release_approved=false", question["notes_internal"])
+            for note in expected["notes"]:
+                self.assertIn(note, question["notes_internal"])
+
+            registry = registry_by_id[question_id]
+            self.assertEqual(registry["status"], "used")
+            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(registry["retired_at"], "")
+            self.assertEqual(registry["replacement_id"], "")
+            self.assertEqual(registry["notes"], self.B2A_REGISTRY_NOTES[question_id])
+
+        for question_id, fields in self.B2A_CONTENT_FREEZE_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            for field, expected_text in fields.items():
+                self.assertEqual(question[field], expected_text)
+
+        for observed_id, held_out_id, kt_id, counterbalance in (
+            self.B2A_PAIR_EXPECTATIONS
+        ):
+            observed_notes = question_by_id[observed_id]["notes_internal"]
+            held_out_notes = question_by_id[held_out_id]["notes_internal"]
+            self.assertIn("primary_role=BREADTH_OBSERVED", observed_notes)
+            self.assertIn("primary_role=BREADTH_HELDOUT", held_out_notes)
+            for notes in (observed_notes, held_out_notes):
+                self.assertIn(f"kt_id={kt_id}", notes)
+                self.assertIn(f"counterbalance={counterbalance}", notes)
+
+        vs_032 = question_by_id["DRONE-Q-000031"]
+        vs_032_content = " ".join(
+            vs_032[field]
+            for field in (
+                "question",
+                "choice1",
+                "choice2",
+                "choice3",
+                "explanation",
+            )
+        )
+        for leaked_condition in ("第三者の立入管理", "30m", "十分な強度"):
+            self.assertNotIn(leaked_condition, vs_032_content)
+
+        vs_030 = question_by_id["DRONE-Q-000027"]
+        self.assertIn(
+            "他の規制対象空域や飛行方法には該当しないものとすると",
+            vs_030["question"],
+        )
+        self.assertIn(
+            "その他の空域・飛行方法の規制は別途判定する",
+            vs_030["explanation"],
+        )
+        vs_030_metadata = {
+            key: value
+            for item in vs_030["notes_internal"].split(";")
+            if "=" in item
+            for key, value in (item.strip().split("=", 1),)
+        }
+        self.assertEqual(
+            vs_030_metadata["additional_authority"], "MLIT_NOTICE_435"
+        )
+        self.assertEqual(vs_030_metadata["notice_promulgated"], "2026-03-31")
+        self.assertEqual(vs_030_metadata["mlit_web_announcement"], "2026-06-30")
+        self.assertNotEqual(
+            vs_030_metadata["notice_promulgated"],
+            vs_030_metadata["mlit_web_announcement"],
+        )
 
     def test_unregistered_drone_id_is_rejected(self) -> None:
         fieldnames, rows = self._read_csv(self.questions_path)
