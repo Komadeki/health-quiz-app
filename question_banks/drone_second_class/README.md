@@ -2,9 +2,9 @@
 
 This bank instantiates the permanent `DRONE` question namespace. It contains
 the initial five Stage 9 calibration questions, five B1A questions, seven B1B
-questions, eight B1C questions, eight B2A questions, and five new B2B questions
-that passed the QID Gate and Human Author Verification. All 38 authored
-questions remain draft.
+questions, eight B1C questions, eight B2A questions, five B2B questions, and
+two B3A Clean Sentinel questions that passed the QID Gate and Human Author
+Verification. All 40 authored questions remain draft.
 
 ## Release state
 
@@ -60,10 +60,12 @@ questions remain draft.
 | VS-035 | DRONE-Q-000036 |
 | VS-029 | DRONE-Q-000037 |
 | VS-036 | DRONE-Q-000038 |
+| VS-041 | DRONE-Q-000039 |
+| VS-042 | DRONE-Q-000040 |
 
 The registry uses the existing `used` status. Because none of the questions
 has entered a released bank, `first_used_bank_revision` remains empty. IDs
-beyond `DRONE-Q-000038` are not reserved.
+beyond `DRONE-Q-000040` are not reserved.
 
 The shared schema has no verification-state field. The existing
 `notes_internal` field records `author_source_verified` and the measurement
@@ -104,6 +106,11 @@ observed to VS-036 held-out with counterbalance `YES` while keeping external
 and aircraft-state monitoring separate. These bindings only record the
 measurement structure; they do not activate questions, execute
 counterbalancing, or issue a formal release `bank_revision`.
+
+The B3A Clean Sentinel rows add Human Author Verified VS-041 / US-E and
+VS-042 / US-F with permanent IDs allocated. Both remain draft; this allocation
+does not implement runtime Sentinel routing or issue a formal release
+`bank_revision`.
 
 VS-039 (`DRONE-Q-000004`) remains the US-C Sentinel. VS-069
 (`DRONE-Q-000005`) remains its COV-25 neighbor and does not expose the
