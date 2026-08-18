@@ -209,6 +209,11 @@ class DroneQuestionBankTest(unittest.TestCase):
         "VS-036": "DRONE-Q-000038",
         "VS-041": "DRONE-Q-000039",
         "VS-042": "DRONE-Q-000040",
+        "VS-037": "DRONE-Q-000041",
+        "VS-038": "DRONE-Q-000042",
+        "VS-040": "DRONE-Q-000043",
+        "VS-043": "DRONE-Q-000044",
+        "VS-044": "DRONE-Q-000045",
     }
     B3A_EXPECTATIONS = {
         "DRONE-Q-000039": {
@@ -292,6 +297,222 @@ class DroneQuestionBankTest(unittest.TestCase):
         ),
         "DRONE-Q-000040": (
             "VS-042; B3A US-F clean sentinel; UNKNOWN_SENTINEL; permanent ID; "
+            "pre-release"
+        ),
+    }
+    B3B_EXPECTATIONS = {
+        "DRONE-Q-000041": {
+            "unit_id": "drone_rules",
+            "slot_id": "VS-037",
+            "primary_role": "UNKNOWN_SENTINEL",
+            "kt_id": "D1-T01-KT020",
+            "family": "US-A",
+            "notes_internal": (
+                "slot_id=VS-037; verification_state=author_source_verified; "
+                "primary_role=UNKNOWN_SENTINEL; kt_id=D1-T01-KT020; "
+                "family=US-A; independent_reviewed=false; "
+                "subject_matter_expert_reviewed=false; release_approved=false"
+            ),
+            "content": {
+                "question": (
+                    "重量90gの遠隔操作可能な機体は、航空法上「模型航空機」に"
+                    "分類されるものとする。\nある空域が緊急用務空域に指定されて"
+                    "いる場合、この模型航空機の扱いとして、教則に最も合うものは"
+                    "どれか。"
+                ),
+                "choice1": (
+                    "100g未満の模型航空機なので、緊急用務空域の飛行禁止対象には"
+                    "ならない"
+                ),
+                "choice2": (
+                    "100g未満の模型航空機も、緊急用務空域の飛行禁止対象となる"
+                ),
+                "choice3": (
+                    "100g未満では、無人航空機として登録されている場合に限り"
+                    "飛行禁止対象となる"
+                ),
+                "correct_choice": "B",
+                "explanation": (
+                    "教則では、100g未満で航空法上「模型航空機」に分類される機体"
+                    "であっても、緊急用務空域の飛行禁止の対象となるとしている。"
+                ),
+                "source_locator": (
+                    "教則 第3章 3.1.2(2)1)b"
+                    "（教則表示ページ15 / PDF viewer 21）"
+                ),
+            },
+        },
+        "DRONE-Q-000042": {
+            "unit_id": "drone_rules",
+            "slot_id": "VS-038",
+            "primary_role": "UNKNOWN_SENTINEL",
+            "kt_id": "D1-T01-KT029",
+            "family": "US-B",
+            "notes_internal": (
+                "slot_id=VS-038; verification_state=author_source_verified; "
+                "primary_role=UNKNOWN_SENTINEL; kt_id=D1-T01-KT029; "
+                "family=US-B; independent_reviewed=false; "
+                "subject_matter_expert_reviewed=false; release_approved=false"
+            ),
+            "content": {
+                "question": (
+                    "特定飛行を行った場合、教則が「遅滞なく飛行日誌に記載する」"
+                    "としている記録の組合せはどれか。"
+                ),
+                "choice1": "飛行記録・日常点検記録・点検整備記録",
+                "choice2": "飛行記録・飛行計画記録・事故報告記録",
+                "choice3": "日常点検記録・飛行計画記録・事故報告記録",
+                "correct_choice": "A",
+                "explanation": (
+                    "教則では、特定飛行を行った場合、飛行記録、日常点検記録"
+                    "および点検整備記録を遅滞なく飛行日誌へ記載することとして"
+                    "いる。"
+                ),
+                "source_locator": (
+                    "教則 第2章 2.2.10(3)"
+                    "（教則表示ページ6 / PDF viewer 12）"
+                ),
+            },
+        },
+        "DRONE-Q-000043": {
+            "unit_id": "drone_systems",
+            "slot_id": "VS-040",
+            "primary_role": "UNKNOWN_SENTINEL",
+            "kt_id": "D2-T05-KT008",
+            "family": "US-D",
+            "notes_internal": (
+                "slot_id=VS-040; verification_state=author_source_verified; "
+                "primary_role=UNKNOWN_SENTINEL; kt_id=D2-T05-KT008; "
+                "family=US-D; independent_reviewed=false; "
+                "subject_matter_expert_reviewed=false; release_approved=false"
+            ),
+            "content": {
+                "question": (
+                    "無人航空機の磁気キャリブレーションについて、教則の説明に"
+                    "最も合うものはどれか。"
+                ),
+                "choice1": (
+                    "飛行場所の地磁気を検出して方位を取得し、その情報をGNSS機能"
+                    "やメインコントローラーに認識させる"
+                ),
+                "choice2": (
+                    "周囲の鉄材や電流による磁気干渉の強さを測定し、その強さを"
+                    "GNSS機能やメインコントローラーに認識させる"
+                ),
+                "choice3": (
+                    "磁北と地図上の北との差である偏角そのものを測定し、その値を"
+                    "GNSS機能やメインコントローラーに認識させる"
+                ),
+                "correct_choice": "A",
+                "explanation": (
+                    "教則では、無人航空機の磁気キャリブレーションとは、飛行前に"
+                    "その場所の地磁気を検出して方位を取得し、GNSS機能やメイン"
+                    "コントローラーに認識させることとしている。"
+                ),
+                "source_locator": (
+                    "教則 第4章 4.5.2(3)「無人航空機の磁気キャリブレーション」"
+                    "（教則表示ページ49 / PDF viewer 55）"
+                ),
+            },
+        },
+        "DRONE-Q-000044": {
+            "unit_id": "drone_risk_management",
+            "slot_id": "VS-043",
+            "primary_role": "UNKNOWN_SENTINEL",
+            "kt_id": "D4-T01-KT004",
+            "family": "US-G",
+            "notes_internal": (
+                "slot_id=VS-043; verification_state=author_source_verified; "
+                "primary_role=UNKNOWN_SENTINEL; kt_id=D4-T01-KT004; "
+                "family=US-G; independent_reviewed=false; "
+                "subject_matter_expert_reviewed=false; release_approved=false"
+            ),
+            "content": {
+                "question": (
+                    "飛行計画を立てている。着陸予定地点に着陸できなくなった場合、"
+                    "離陸地点まで戻るだけの飛行可能距離も確保できないリスクが"
+                    "ある。\nこのリスクへの事前の備えとして、教則に最も合うものは"
+                    "どれか。"
+                ),
+                "choice1": (
+                    "飛行領域に安全上の範囲を加え、第三者の立入管理を行う"
+                ),
+                "choice2": "別途、事前に緊急着陸地点を確保しておく",
+                "choice3": (
+                    "ジオフェンス機能を利用し、飛行禁止空域への逸脱を防止する"
+                ),
+                "correct_choice": "B",
+                "explanation": (
+                    "教則では、予定していた着陸地点に着陸できず、離陸地点まで"
+                    "戻る飛行可能距離も確保できない場合に備え、事前に緊急着陸"
+                    "地点を確保しておくことを示している。"
+                ),
+                "source_locator": (
+                    "教則 第6章 6.1.2(1)"
+                    "（教則表示ページ64 / PDF viewer 70）"
+                ),
+            },
+        },
+        "DRONE-Q-000045": {
+            "unit_id": "drone_risk_management",
+            "slot_id": "VS-044",
+            "primary_role": "UNKNOWN_SENTINEL",
+            "kt_id": "D4-T02-KT006",
+            "family": "US-H",
+            "notes_internal": (
+                "slot_id=VS-044; verification_state=author_source_verified; "
+                "primary_role=UNKNOWN_SENTINEL; kt_id=D4-T02-KT006; "
+                "family=US-H; independent_reviewed=false; "
+                "subject_matter_expert_reviewed=false; release_approved=false"
+            ),
+            "content": {
+                "question": (
+                    "低温環境で無人航空機を飛行させる場合、教則が特に注意を"
+                    "求めている影響として最も適切なものはどれか。"
+                ),
+                "choice1": (
+                    "バッテリーの持続時間、すなわち飛行可能時間が普段より短く"
+                    "なる可能性がある"
+                ),
+                "choice2": (
+                    "地表面が暖められることで上昇気流が発生する可能性がある"
+                ),
+                "choice3": (
+                    "高層建物群の配置によって周囲より速いビル風が継続する可能性"
+                    "がある"
+                ),
+                "correct_choice": "A",
+                "explanation": (
+                    "教則では、低温環境ではバッテリーの持続時間が短くなり、"
+                    "飛行可能時間が普段より短くなる可能性があることに注意を"
+                    "求めている。"
+                ),
+                "source_locator": (
+                    "教則 第6章 6.2.2(2)"
+                    "（教則表示ページ73 / PDF viewer 79）"
+                ),
+            },
+        },
+    }
+    B3B_REGISTRY_NOTES = {
+        "DRONE-Q-000041": (
+            "VS-037; B3B US-A routed sentinel; UNKNOWN_SENTINEL; permanent ID; "
+            "pre-release"
+        ),
+        "DRONE-Q-000042": (
+            "VS-038; B3B US-B routed sentinel; UNKNOWN_SENTINEL; permanent ID; "
+            "pre-release"
+        ),
+        "DRONE-Q-000043": (
+            "VS-040; B3B US-D routed sentinel; UNKNOWN_SENTINEL; permanent ID; "
+            "pre-release"
+        ),
+        "DRONE-Q-000044": (
+            "VS-043; B3B US-G routed sentinel; UNKNOWN_SENTINEL; permanent ID; "
+            "pre-release"
+        ),
+        "DRONE-Q-000045": (
+            "VS-044; B3B US-H routed sentinel; UNKNOWN_SENTINEL; permanent ID; "
             "pre-release"
         ),
     }
@@ -2096,6 +2317,92 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "family=US-F",
             ):
                 self.assertNotIn(forbidden, existing_notes)
+
+    def test_b3b_routed_sentinel_metadata_content_and_regressions(self) -> None:
+        inputs = load_bank_inputs(self.bank)
+        question_by_id = {row["question_id"]: row for row in inputs.questions}
+        registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+
+        for question_id, expected in self.B3B_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["deck_id"], "drone_second_class_exam")
+            self.assertEqual(question["unit_id"], expected["unit_id"])
+            self.assertEqual(question["difficulty"], "2")
+            self.assertEqual(question["importance"], "2")
+            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(question["valid_from"], "2026-07-14")
+            self.assertEqual(question["valid_until"], "")
+            self.assertEqual(question["last_reviewed_at"], "2026-08-19")
+            self.assertEqual(question["supersedes_id"], "")
+            self.assertEqual(question["tags"], "")
+            self.assertEqual(question["choice4"], "")
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+            self.assertEqual(question["notes_internal"], expected["notes_internal"])
+            metadata = {
+                key: value
+                for item in question["notes_internal"].split(";")
+                if "=" in item
+                for key, value in (item.strip().split("=", 1),)
+            }
+            self.assertEqual(metadata["slot_id"], expected["slot_id"])
+            self.assertEqual(metadata["primary_role"], expected["primary_role"])
+            self.assertEqual(metadata["kt_id"], expected["kt_id"])
+            self.assertEqual(metadata["family"], expected["family"])
+            self.assertEqual(metadata["verification_state"], "author_source_verified")
+            self.assertEqual(metadata["independent_reviewed"], "false")
+            self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
+            self.assertEqual(metadata["release_approved"], "false")
+
+            for field, expected_text in expected["content"].items():
+                self.assertEqual(question[field], expected_text)
+
+            registry = registry_by_id[question_id]
+            self.assertEqual(registry["status"], "used")
+            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(registry["retired_at"], "")
+            self.assertEqual(registry["replacement_id"], "")
+            self.assertEqual(registry["notes"], self.B3B_REGISTRY_NOTES[question_id])
+
+        magnetic = question_by_id["DRONE-Q-000043"]
+        magnetic_correct_proposition = " ".join(
+            magnetic[field] for field in ("choice1", "explanation")
+        )
+        for required in (
+            "地磁気を検出して方位を取得",
+            "GNSS機能やメインコントローラーに認識",
+        ):
+            self.assertIn(required, magnetic_correct_proposition)
+        for forbidden in (
+            "磁気干渉の強さを測定",
+            "再キャリブレーション",
+            "キャリブレーション失敗",
+            "方位誤差",
+            "メーカー",
+        ):
+            self.assertNotIn(forbidden, magnetic_correct_proposition)
+
+        def content(question_id: str) -> str:
+            question = question_by_id[question_id]
+            return " ".join(
+                question[field]
+                for field in (
+                    "question",
+                    "choice1",
+                    "choice2",
+                    "choice3",
+                    "explanation",
+                )
+            )
+
+        for forbidden in ("現在指定されている緊急用務空域", "dynamic snapshot"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000041"))
+        for forbidden in ("DIPS", "飛行計画通報"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000042"))
+        self.assertNotIn("事故発生後", content("DRONE-Q-000044"))
+        for forbidden in ("battery chemistry", "バッテリー化学"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000045"))
 
     def test_unregistered_drone_id_is_rejected(self) -> None:
         fieldnames, rows = self._read_csv(self.questions_path)

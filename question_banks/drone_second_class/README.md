@@ -2,9 +2,10 @@
 
 This bank instantiates the permanent `DRONE` question namespace. It contains
 the initial five Stage 9 calibration questions, five B1A questions, seven B1B
-questions, eight B1C questions, eight B2A questions, five B2B questions, and
-two B3A Clean Sentinel questions that passed the QID Gate and Human Author
-Verification. All 40 authored questions remain draft.
+questions, eight B1C questions, eight B2A questions, five B2B questions, two
+B3A Clean Sentinel questions, and five B3B Routed Sentinel questions. Both
+sentinel batches passed the QID Gate and Human Author Verification.
+All 45 authored questions remain draft.
 
 ## Release state
 
@@ -62,10 +63,15 @@ Verification. All 40 authored questions remain draft.
 | VS-036 | DRONE-Q-000038 |
 | VS-041 | DRONE-Q-000039 |
 | VS-042 | DRONE-Q-000040 |
+| VS-037 | DRONE-Q-000041 |
+| VS-038 | DRONE-Q-000042 |
+| VS-040 | DRONE-Q-000043 |
+| VS-043 | DRONE-Q-000044 |
+| VS-044 | DRONE-Q-000045 |
 
 The registry uses the existing `used` status. Because none of the questions
 has entered a released bank, `first_used_bank_revision` remains empty. IDs
-beyond `DRONE-Q-000040` are not reserved.
+beyond `DRONE-Q-000045` are not reserved.
 
 The shared schema has no verification-state field. The existing
 `notes_internal` field records `author_source_verified` and the measurement
@@ -111,6 +117,12 @@ The B3A Clean Sentinel rows add Human Author Verified VS-041 / US-E and
 VS-042 / US-F with permanent IDs allocated. Both remain draft; this allocation
 does not implement runtime Sentinel routing or issue a formal release
 `bank_revision`.
+
+The B3B Routed Sentinel rows add Human Author Verified VS-037 / US-A, VS-038 /
+US-B, VS-040 / US-D, VS-043 / US-G, and VS-044 / US-H after passing the QID
+Gate. All five remain draft; this allocation records their permanent identities
+without implementing the runtime Sentinel protocol, activating questions, or
+issuing a formal release `bank_revision`.
 
 VS-039 (`DRONE-Q-000004`) remains the US-C Sentinel. VS-069
 (`DRONE-Q-000005`) remains its COV-25 neighbor and does not expose the
