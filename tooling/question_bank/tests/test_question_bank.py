@@ -167,8 +167,75 @@ class QuestionBankContractTest(unittest.TestCase):
         self.assertIn("question_version_not_incremented", warnings)
 
 
-class DroneQuestionBankBootstrapTest(unittest.TestCase):
-    DRONE_IDS = tuple(f"DRONE-Q-{number:06d}" for number in range(1, 6))
+class DroneQuestionBankTest(unittest.TestCase):
+    PERMANENT_SLOT_TO_ID = {
+        "VS-001": "DRONE-Q-000001",
+        "VS-004": "DRONE-Q-000002",
+        "VS-027": "DRONE-Q-000003",
+        "VS-039": "DRONE-Q-000004",
+        "VS-069": "DRONE-Q-000005",
+        "VS-002": "DRONE-Q-000006",
+        "VS-003": "DRONE-Q-000007",
+        "VS-015": "DRONE-Q-000008",
+        "VS-021": "DRONE-Q-000009",
+        "VS-022": "DRONE-Q-000010",
+    }
+    B1A_EXPECTATIONS = {
+        "DRONE-Q-000006": {
+            "correct_choice": "B",
+            "source_locator": "教則 第6章 6.1.4（教則表示ページ65 / PDF viewer 71）",
+            "notes": (
+                "slot_id=VS-002",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D4-T01-KT001",
+                "family=H2",
+                "variant=primary",
+            ),
+        },
+        "DRONE-Q-000007": {
+            "correct_choice": "C",
+            "source_locator": "教則 第6章 6.1.4（教則表示ページ65 / PDF viewer 71）",
+            "notes": (
+                "slot_id=VS-003",
+                "primary_role=DEEP_OBSERVED",
+                "kt_id=D4-T01-KT001",
+                "family=H2",
+                "alternate_of=VS-002",
+            ),
+        },
+        "DRONE-Q-000008": {
+            "correct_choice": "A",
+            "source_locator": "教則 第6章 6.1.5（教則表示ページ65 / PDF viewer 71）",
+            "notes": (
+                "slot_id=VS-015",
+                "primary_role=DEEP_HELDOUT",
+                "kt_id=D4-T01-KT001",
+                "family=H5",
+            ),
+        },
+        "DRONE-Q-000009": {
+            "correct_choice": "C",
+            "source_locator": "教則 第6章 6.1.5（教則表示ページ65 / PDF viewer 71）",
+            "notes": (
+                "slot_id=VS-021",
+                "primary_role=DEEP_REPLICATION_A",
+                "kt_id=D4-T01-KT001",
+                "family=H3",
+                "form=A",
+            ),
+        },
+        "DRONE-Q-000010": {
+            "correct_choice": "B",
+            "source_locator": "教則 第6章 6.1.5（教則表示ページ65 / PDF viewer 71）",
+            "notes": (
+                "slot_id=VS-022",
+                "primary_role=DEEP_REPLICATION_B",
+                "kt_id=D4-T01-KT001",
+                "family=H4",
+                "form=B",
+            ),
+        },
+    }
 
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
@@ -204,29 +271,23 @@ class DroneQuestionBankBootstrapTest(unittest.TestCase):
     def _error_codes(self) -> set[str]:
         return {issue.code for issue in validate_bank(self.bank).errors}
 
-    def test_drone_namespace_registers_exactly_five_draft_questions(self) -> None:
+    def test_drone_namespace_preserves_permanent_mappings_and_invariants(self) -> None:
         result = validate_bank(self.bank)
         self.assertTrue(result.is_valid, [str(issue) for issue in result.issues])
 
         inputs = load_bank_inputs(self.bank)
         question_ids = [row["question_id"] for row in inputs.questions]
         registry_ids = [row["question_id"] for row in inputs.id_registry]
+        question_by_id = {row["question_id"]: row for row in inputs.questions}
+        registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
 
-        self.assertEqual(question_ids, list(self.DRONE_IDS))
-        self.assertEqual(registry_ids, list(self.DRONE_IDS))
         self.assertEqual(len(question_ids), len(set(question_ids)))
+        self.assertEqual(len(registry_ids), len(set(registry_ids)))
+        self.assertTrue(set(question_ids).issubset(registry_ids))
         self.assertTrue(
             all(
                 QUESTION_ID_PATTERN.fullmatch(question_id)
                 for question_id in question_ids
-            )
-        )
-        self.assertTrue(all(row["question_version"] == "1" for row in inputs.questions))
-        self.assertTrue(all(row["status"] == "draft" for row in inputs.questions))
-        self.assertTrue(
-            all(
-                "verification_state=author_source_verified" in row["notes_internal"]
-                for row in inputs.questions
             )
         )
         self.assertTrue(all(row["status"] == "used" for row in inputs.id_registry))
@@ -237,10 +298,40 @@ class DroneQuestionBankBootstrapTest(unittest.TestCase):
         self.assertEqual(inputs.metadata["question_identity_policy"], "explicit_v1")
         self.assertEqual(inputs.released_questions, [])
 
-        sentinel = inputs.questions[3]
-        sentinel_neighbor = inputs.questions[4]
-        self.assertEqual(sentinel["question_id"], "DRONE-Q-000004")
-        self.assertEqual(sentinel_neighbor["question_id"], "DRONE-Q-000005")
+        for slot_id, question_id in self.PERMANENT_SLOT_TO_ID.items():
+            self.assertIn(question_id, question_by_id)
+            self.assertIn(question_id, registry_by_id)
+            self.assertIn(
+                f"slot_id={slot_id}", question_by_id[question_id]["notes_internal"]
+            )
+            self.assertIn(slot_id, registry_by_id[question_id]["notes"])
+
+        for question_id, expected in self.B1A_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["correct_choice"], expected["correct_choice"])
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+            self.assertEqual(question["source_locator"], expected["source_locator"])
+            self.assertIn(
+                "verification_state=author_source_verified",
+                question["notes_internal"],
+            )
+            self.assertIn("independent_reviewed=false", question["notes_internal"])
+            self.assertIn(
+                "subject_matter_expert_reviewed=false",
+                question["notes_internal"],
+            )
+            self.assertIn("release_approved=false", question["notes_internal"])
+            for note in expected["notes"]:
+                self.assertIn(note, question["notes_internal"])
+
+        sentinel = question_by_id["DRONE-Q-000004"]
+        sentinel_neighbor = question_by_id["DRONE-Q-000005"]
+        self.assertIn("slot_id=VS-039", sentinel["notes_internal"])
+        self.assertIn("family=US-C", sentinel["notes_internal"])
+        self.assertIn("slot_id=VS-069", sentinel_neighbor["notes_internal"])
+        self.assertIn("coverage=COV-25", sentinel_neighbor["notes_internal"])
         neighbor_content = " ".join(
             sentinel_neighbor[field]
             for field in (
@@ -264,7 +355,7 @@ class DroneQuestionBankBootstrapTest(unittest.TestCase):
 
     def test_unregistered_drone_id_is_rejected(self) -> None:
         fieldnames, rows = self._read_csv(self.questions_path)
-        rows[0]["question_id"] = "DRONE-Q-000006"
+        rows[0]["question_id"] = "DRONE-Q-999999"
         self._write_csv(self.questions_path, fieldnames, rows)
 
         self.assertIn("unregistered_question_id", self._error_codes())
