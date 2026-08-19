@@ -1,0 +1,386 @@
+{
+  "bank_revision": "drone-second-class-v0-core-2026-08-19",
+  "breadth_measurements": [
+    {
+      "contamination_group": "HB-1",
+      "counterbalance": "YES",
+      "heldout_slot_id": "VS-030",
+      "observed_slot_id": "VS-023"
+    },
+    {
+      "contamination_group": "HB-2",
+      "counterbalance": "PARTIAL_ONLY",
+      "heldout_slot_id": "VS-031",
+      "observed_slot_id": "VS-024"
+    },
+    {
+      "contamination_group": "HB-3",
+      "counterbalance": "YES",
+      "heldout_slot_id": "VS-032",
+      "observed_slot_id": "VS-025"
+    },
+    {
+      "contamination_group": "HB-4",
+      "counterbalance": "YES",
+      "heldout_slot_id": "VS-033",
+      "observed_slot_id": "VS-026"
+    },
+    {
+      "contamination_group": "HB-5",
+      "counterbalance": "YES",
+      "heldout_slot_id": "VS-034",
+      "observed_slot_id": "VS-027"
+    },
+    {
+      "contamination_group": "HB-6",
+      "counterbalance": "YES",
+      "heldout_slot_id": "VS-035",
+      "observed_slot_id": "VS-028"
+    },
+    {
+      "contamination_group": "HB-7",
+      "counterbalance": "YES",
+      "heldout_slot_id": "VS-036",
+      "observed_slot_id": "VS-029"
+    }
+  ],
+  "bundle_output": "validation/generated/validation_bundle.json",
+  "content_as_of": "2026-08-19",
+  "coverage_mapping": {
+    "coverage_end": 56,
+    "coverage_start": 1,
+    "slot_end": 100,
+    "slot_start": 45
+  },
+  "coverage_routing_constraints": {
+    "COV-52": [
+      {
+        "constraint_type": "ROUTE_CLASS_REQUIRED",
+        "route_class": "NON_THERMAL_FOG"
+      }
+    ]
+  },
+  "deep_measurements": [
+    {
+      "contamination_group": "H1",
+      "meaning": "HAZARD_RISK_DISTINCTION",
+      "slot_id": "VS-001"
+    },
+    {
+      "contamination_group": "H2",
+      "meaning": "LIKELIHOOD_TIMES_CONSEQUENCE",
+      "slot_id": "VS-002"
+    },
+    {
+      "alternate_of": "VS-002",
+      "contamination_group": "H2",
+      "meaning": "LIKELIHOOD_TIMES_CONSEQUENCE",
+      "slot_id": "VS-003"
+    },
+    {
+      "contamination_group": "T1",
+      "meaning": "PARTICIPANT_THIRD_PARTY_CLASSIFICATION",
+      "slot_id": "VS-004"
+    },
+    {
+      "contamination_group": "T2",
+      "meaning": "THIRD_PARTY_OVERFLIGHT_SPATIAL_CLASSIFICATION",
+      "slot_id": "VS-005"
+    },
+    {
+      "alternate_of": "VS-005",
+      "contamination_group": "T2",
+      "meaning": "THIRD_PARTY_OVERFLIGHT_SPATIAL_CLASSIFICATION",
+      "slot_id": "VS-006"
+    },
+    {
+      "contamination_group": "G1",
+      "meaning": "DEGRADATION_CAUSE",
+      "slot_id": "VS-007"
+    },
+    {
+      "contamination_group": "G2",
+      "meaning": "AUTOMATIC_MANUAL_DEPENDENCE",
+      "slot_id": "VS-008"
+    },
+    {
+      "alternate_of": "VS-007",
+      "contamination_group": "G1",
+      "meaning": "DEGRADATION_CAUSE",
+      "slot_id": "VS-009"
+    },
+    {
+      "contamination_group": "A1",
+      "meaning": "TRANSITION_TRIGGER",
+      "slot_id": "VS-010"
+    },
+    {
+      "contamination_group": "A4",
+      "meaning": "TAKEOVER_PREPAREDNESS",
+      "slot_id": "VS-011"
+    },
+    {
+      "contamination_group": "E1",
+      "meaning": "THREAT_ERROR_UAS_CLASSIFICATION",
+      "slot_id": "VS-012"
+    },
+    {
+      "contamination_group": "E2",
+      "meaning": "EARLY_THREAT_MANAGEMENT",
+      "slot_id": "VS-013"
+    },
+    {
+      "alternate_of": "VS-012",
+      "contamination_group": "E1",
+      "meaning": "THREAT_ERROR_UAS_CLASSIFICATION",
+      "slot_id": "VS-014"
+    },
+    {
+      "contamination_group": "H5",
+      "meaning": "RESIDUAL_RISK_JUDGMENT",
+      "slot_id": "VS-015"
+    },
+    {
+      "contamination_group": "T3",
+      "meaning": "SHIELDING_EXCEPTION",
+      "slot_id": "VS-016"
+    },
+    {
+      "contamination_group": "G3",
+      "meaning": "POSITION_PATH_CONSEQUENCE",
+      "slot_id": "VS-017"
+    },
+    {
+      "contamination_group": "A2",
+      "meaning": "TAKEOVER_PRIORITY",
+      "slot_id": "VS-018"
+    },
+    {
+      "contamination_group": "A3",
+      "meaning": "DIRECTION_OBSTACLE_STABILITY",
+      "slot_id": "VS-019"
+    },
+    {
+      "contamination_group": "E3",
+      "meaning": "ERROR_UAS_RECOVERY",
+      "slot_id": "VS-020"
+    },
+    {
+      "contamination_group": "H3",
+      "meaning": "PROBABILITY_REDUCTION_MITIGATION",
+      "replication_form": "A",
+      "slot_id": "VS-021"
+    },
+    {
+      "contamination_group": "H4",
+      "meaning": "CONSEQUENCE_REDUCTION_MITIGATION",
+      "replication_form": "B",
+      "slot_id": "VS-022"
+    }
+  ],
+  "feedback_lock": {
+    "requires_all_bank_sentinels": false,
+    "sentinel_scope": "PARTICIPANT_ASSIGNED",
+    "unlock_condition": "ALL_ASSIGNED_SENTINEL_RESPONSES_DURABLY_COMMITTED"
+  },
+  "formal_snapshot_commit_sha": "61eb6962416e6cd91f22cbf96126244ff760fcc6",
+  "formal_snapshot_source_hash": "sha256:19e4ce34e479c6a2b4afda12a30ada0efb173cf7fbe0c360c9e7b88006a82f08",
+  "generated_file_notice": "GENERATED FILE - DO NOT EDIT",
+  "manifest_output": "validation/generated/validation_manifest.json",
+  "protected_file_byte_hashes": {
+    "authoring/bank.json": "sha256:59e2fe24c309f9cde120acea7331c019465e1ad5f359aa8e3bc2c2427f0e3981",
+    "authoring/question_id_registry.csv": "sha256:d3b16c769776749edf6c93f495b49be2e557f894ed20386c55d105245892198c",
+    "authoring/questions.csv": "sha256:fff7d05a16a640dd488caf63ca7605a0c44e1063f32ef97e61a7779e06406791",
+    "authoring/released_questions.json": "sha256:f82aa234354e8afade7b0f1aca27882d62bc8f2938b575e78d29ed34e2956947",
+    "authoring/sources.json": "sha256:e3c78b60e6b33c651b8ac349cd70184f8a1ffc135d3eb9e2e7c9c14edb706cea",
+    "generated/bank_manifest.json": "sha256:41e6702eb7144ad5212952bc188aeea0dd12846a07006f80ca0558b872f7635b",
+    "generated/drone_second_class_bank.json": "sha256:bbd6d6dd86774105021c990ee16f04fbdf9617f716f4e12135b4cce2c823bf5f"
+  },
+  "required_role_counts": {
+    "BREADTH_HELDOUT": 7,
+    "BREADTH_OBSERVED": 7,
+    "COVERAGE": 56,
+    "DEEP_HELDOUT": 6,
+    "DEEP_OBSERVED": 14,
+    "DEEP_REPLICATION_A": 1,
+    "DEEP_REPLICATION_B": 1,
+    "UNKNOWN_SENTINEL": 8
+  },
+  "schema_version": 1,
+  "sentinels": [
+    {
+      "question_id": "DRONE-Q-000041",
+      "routing_constraints": [
+        {
+          "constraint_type": "EXPOSURE_ALLOWED",
+          "phase": "PRE_S1",
+          "reference_id": "COV-01",
+          "reference_type": "COVERAGE"
+        },
+        {
+          "constraint_type": "TOPIC_EXPOSURE_FORBIDDEN",
+          "phase": "PRE_SENTINEL_RESPONSE",
+          "topic_id": "MODEL_AIRCRAFT_RESIDUAL_REGULATION_TRUTH"
+        }
+      ],
+      "sentinel_id": "US-A",
+      "slot_id": "VS-037"
+    },
+    {
+      "question_id": "DRONE-Q-000042",
+      "routing_constraints": [
+        {
+          "constraint_type": "EXPOSURE_ALLOWED",
+          "phase": "PRE_S1",
+          "reference_id": "COV-08",
+          "reference_type": "COVERAGE"
+        },
+        {
+          "constraint_type": "RESPONSE_ORDER_REQUIRED",
+          "order": "AFTER_SENTINEL_RESPONSE",
+          "reference_id": "COV-39",
+          "reference_slot_id": "VS-083"
+        }
+      ],
+      "sentinel_id": "US-B",
+      "slot_id": "VS-038"
+    },
+    {
+      "question_id": "DRONE-Q-000004",
+      "routing_constraints": [
+        {
+          "constraint_type": "CLEAN_NEIGHBOR_REQUIRED",
+          "reference_id": "COV-25",
+          "reference_slot_id": "VS-069"
+        },
+        {
+          "constraint_type": "TOPIC_EXPOSURE_FORBIDDEN",
+          "phase": "PRE_SENTINEL_RESPONSE",
+          "topic_id": "REMOTE_COMMAND_CHAIN_TRUTH"
+        }
+      ],
+      "sentinel_id": "US-C",
+      "slot_id": "VS-039"
+    },
+    {
+      "question_id": "DRONE-Q-000043",
+      "routing_constraints": [
+        {
+          "constraint_type": "EXPOSURE_ALLOWED",
+          "reference_id": "COV-32",
+          "reference_type": "MAGNETIC_INTERFERENCE"
+        },
+        {
+          "constraint_type": "TOPIC_EXPOSURE_FORBIDDEN",
+          "phase": "PRE_SENTINEL_RESPONSE",
+          "topic_id": "INTERFERENCE_IMPLIES_CALIBRATION"
+        },
+        {
+          "constraint_type": "MUST_NOT_EXPOSE_SENTINEL",
+          "reference_id": "COV-26",
+          "reference_type": "GENERIC_CALIBRATION_TRUTH"
+        }
+      ],
+      "sentinel_id": "US-D",
+      "slot_id": "VS-040"
+    },
+    {
+      "question_id": "DRONE-Q-000039",
+      "routing_constraints": [
+        {
+          "constraint_type": "CLEAN_NEIGHBOR_REQUIRED",
+          "phase": "PREFLIGHT",
+          "reference_id": "COV-37"
+        }
+      ],
+      "sentinel_id": "US-E",
+      "slot_id": "VS-041"
+    },
+    {
+      "question_id": "DRONE-Q-000040",
+      "routing_constraints": [
+        {
+          "constraint_type": "EXPOSURE_ALLOWED",
+          "phase": "PRE_SENTINEL_RESPONSE",
+          "reference_id": "HB-5",
+          "reference_type": "CONTAMINATION_GROUP"
+        },
+        {
+          "constraint_type": "TOPIC_EXPOSURE_FORBIDDEN",
+          "phase": "PRE_SENTINEL_RESPONSE",
+          "topic_id": "RESIDUAL_ALCOHOL_TRUTH"
+        }
+      ],
+      "sentinel_id": "US-F",
+      "slot_id": "VS-042"
+    },
+    {
+      "question_id": "DRONE-Q-000044",
+      "routing_constraints": [
+        {
+          "constraint_type": "EXPOSURE_ALLOWED",
+          "phase": "PRE_S1",
+          "reference_id": "COV-43",
+          "reference_type": "COVERAGE"
+        },
+        {
+          "constraint_type": "TOPIC_EXPOSURE_FORBIDDEN",
+          "phase": "PRE_SENTINEL_RESPONSE",
+          "topic_id": "ALTERNATE_LANDING_LOCATION"
+        },
+        {
+          "constraint_type": "TOPIC_EXPOSURE_FORBIDDEN",
+          "phase": "PRE_SENTINEL_RESPONSE",
+          "topic_id": "EMERGENCY_LANDING_OPTION_PREPLANNING"
+        },
+        {
+          "constraint_type": "TOPIC_EXPOSURE_FORBIDDEN",
+          "phase": "PRE_SENTINEL_RESPONSE",
+          "topic_id": "CONTINGENCY_ROUTE"
+        },
+        {
+          "constraint_type": "M3_SCENARIO_EXCLUSION",
+          "contamination_groups": [
+            "H3",
+            "H4"
+          ],
+          "scenario_topics": [
+            "CONTINGENCY_ROUTE",
+            "ALTERNATE_LANDING_LOCATION"
+          ]
+        }
+      ],
+      "sentinel_id": "US-G",
+      "slot_id": "VS-043"
+    },
+    {
+      "question_id": "DRONE-Q-000045",
+      "routing_constraints": [
+        {
+          "constraint_type": "EXPOSURE_ALLOWED",
+          "phase": "PRE_S1",
+          "reference_id": "HB-6",
+          "reference_type": "CONTAMINATION_GROUP"
+        },
+        {
+          "constraint_type": "TOPIC_EXPOSURE_FORBIDDEN",
+          "phase": "PRE_SENTINEL_RESPONSE",
+          "topic_id": "LOW_TEMPERATURE_BATTERY"
+        },
+        {
+          "constraint_type": "TOPIC_EXPOSURE_FORBIDDEN",
+          "phase": "PRE_SENTINEL_RESPONSE",
+          "topic_id": "TEMPERATURE_TO_ENDURANCE"
+        },
+        {
+          "constraint_type": "TOPIC_EXPOSURE_FORBIDDEN",
+          "phase": "PRE_SENTINEL_RESPONSE",
+          "topic_id": "THERMAL_ENVIRONMENT_TO_ENERGY_MARGIN"
+        }
+      ],
+      "sentinel_id": "US-H",
+      "slot_id": "VS-044"
+    }
+  ],
+  "validation_protocol_version": "drone-second-class-v0-panel-protocol-v1"
+}
