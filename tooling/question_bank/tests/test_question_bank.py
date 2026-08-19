@@ -248,6 +248,16 @@ class DroneQuestionBankTest(unittest.TestCase):
         "VS-077": "DRONE-Q-000077",
         "VS-078": "DRONE-Q-000078",
         "VS-079": "DRONE-Q-000079",
+        "VS-080": "DRONE-Q-000080",
+        "VS-081": "DRONE-Q-000081",
+        "VS-082": "DRONE-Q-000082",
+        "VS-083": "DRONE-Q-000083",
+        "VS-084": "DRONE-Q-000084",
+        "VS-085": "DRONE-Q-000085",
+        "VS-086": "DRONE-Q-000086",
+        "VS-087": "DRONE-Q-000087",
+        "VS-088": "DRONE-Q-000088",
+        "VS-089": "DRONE-Q-000089",
     }
     B3A_EXPECTATIONS = {
         "DRONE-Q-000039": {
@@ -1571,6 +1581,320 @@ class DroneQuestionBankTest(unittest.TestCase):
             ),
             "source_locator": (
                 "教則 第4章 4.6.2（教則表示ページ51 / PDF viewer 57）"
+            ),
+        },
+    }
+    B7_D3_EXPECTATIONS = {
+        "DRONE-Q-000080": {
+            "slot_id": "VS-080",
+            "kt_id": "D3-T01-KT001",
+            "coverage": "COV-36",
+            "question": (
+                "飛行に必要な許可・承認や機体登録はすでに取得済みであり、飛行計画や"
+                "気象等の確認も終えている。\n\n飛行開始前の最終的な準備として、"
+                "教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "必要な装置・設備が設置され、許可・承認や機体登録等の有効期間が"
+                "切れていないことを最終確認する"
+            ),
+            "choice2": (
+                "この飛行に許可・承認が必要かどうかを、航空法上の飛行形態から"
+                "もう一度判定し直す"
+            ),
+            "choice3": (
+                "飛行経路のリスクを改めて分析し、発生頻度と結果の重大性から飛行計画"
+                "を作り直す"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "教則では「飛行前の準備」として、必要な装置や設備を設置するとともに、"
+                "飛行に必要な許可・承認や機体登録等の有効期間が切れていないかを最終"
+                "確認するとしている。本問では法的要否やrisk評価そのものは既に済んで"
+                "おり、飛行開始条件の最終確認が対象である。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.1.2(1)1)「飛行前の準備」"
+                "（教則表示ページ52 / PDF viewer 58）"
+            ),
+        },
+        "DRONE-Q-000081": {
+            "slot_id": "VS-081",
+            "kt_id": "D3-T01-KT002",
+            "coverage": "COV-37",
+            "question": (
+                "飛行開始直前である。飛行前の準備や必要な手続は既に完了している。\n\n"
+                "機体が正常に飛行できる状態かを確認する飛行前点検として、教則に"
+                "最も合うものはどれか。"
+            ),
+            "choice1": "許可・承認の有効期間と飛行計画の通報状況を確認する",
+            "choice2": (
+                "機体の損傷やバッテリーの状態に加え、通信・推進・電源・自動制御系が"
+                "正常に作動するか確認する"
+            ),
+            "choice3": (
+                "一定期間や総飛行時間に基づく定期整備の実施時期だけを確認する"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "飛行前の点検は、機体を飛行させる前にその都度行う最終点検である。"
+                "教則では、機体の損傷やバッテリー等に加え、通信系、推進系、電源系、"
+                "自動制御系が正常に作動するかなどを確認し、正常に飛行できることを"
+                "確かめる。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.1.2(1)2)「飛行前の点検」"
+                "（教則表示ページ52 / PDF viewer 58）"
+            ),
+        },
+        "DRONE-Q-000082": {
+            "slot_id": "VS-082",
+            "kt_id": "D3-T01-KT006",
+            "coverage": "COV-38",
+            "question": (
+                "あるカテゴリーII飛行について、個別の飛行許可・承認が必要であることは"
+                "既に確認済みである。\n\n実際に飛行へ進むまでの手続として、最も"
+                "適切なものはどれか。"
+            ),
+            "choice1": (
+                "必要な機体・操縦者等の情報を整えて許可・承認申請を行い、審査後に"
+                "許可・承認を得てから対象飛行を行う"
+            ),
+            "choice2": (
+                "必要な情報を整えて申請を提出すれば、審査結果を待たず申請受付時点から"
+                "対象飛行を行う"
+            ),
+            "choice3": (
+                "飛行計画の通報を行えば、別途の許可・承認申請を行わず対象飛行を行う"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "個別の許可・承認が必要な飛行では、必要な情報を整えて飛行許可・承認"
+                "申請を行い、審査を経て許可・承認を取得してから飛行する。国土交通省"
+                "の現行公式案内でも、機体情報・操縦者情報の整備、申請、審査、許可・"
+                "承認発行というworkflowが示されている。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.1.3(1)「国土交通省への飛行申請」"
+                "（教則表示ページ54 / PDF viewer 60）"
+            ),
+        },
+        "DRONE-Q-000083": {
+            "slot_id": "VS-083",
+            "kt_id": "D3-T01-KT007",
+            "coverage": "COV-39",
+            "question": (
+                "特定飛行について飛行計画を既に通報しているが、飛行開始前に予定経路"
+                "を変更することになった。\n\n飛行計画の通報に関する実際の対応として、"
+                "最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "元の飛行計画はそのまま残し、変更した経路で飛行した後に通報内容を"
+                "更新する"
+            ),
+            "choice2": (
+                "通報済みの飛行計画を更新し、通報している飛行開始日時までに変更を"
+                "完了する"
+            ),
+            "choice3": (
+                "飛行計画の通報は変更せず、飛行許可・承認申請を改めて行うことで"
+                "経路変更に対応する"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "通報済みの飛行計画について、飛行開始前に内容を変更する場合は、通報"
+                "済みの計画を変更し、通報した飛行開始日時までに変更を行う。DIPS2.0"
+                "の公式案内でも、通報した飛行計画の変更・削除は通報済み飛行開始日時"
+                "までに行うとしている。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.1.2(2)⑦「飛行計画の策定及び通報」"
+                "（教則表示ページ53 / PDF viewer 59）"
+            ),
+        },
+        "DRONE-Q-000084": {
+            "slot_id": "VS-084",
+            "kt_id": "D3-T01-KT009",
+            "coverage": "COV-40",
+            "question": (
+                "無人航空機を使用しない時間帯に、盗難や不正利用を防ぐための機器管理"
+                "を行う。\n\n教則に示されたsecurity actionとして、最も適切なものは"
+                "どれか。"
+            ),
+            "choice1": (
+                "無人航空機本体と遠隔操縦に使用する機器の双方を適切に管理する"
+            ),
+            "choice2": (
+                "無人航空機本体を適切に管理すれば、遠隔操縦に使用する機器は通常の"
+                "場所に置いてよい"
+            ),
+            "choice3": (
+                "遠隔操縦に使用する機器を適切に管理すれば、無人航空機本体の管理は"
+                "特に行わなくてよい"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "無人航空機には、機体そのものの盗難だけでなく、犯罪等への悪用を目的"
+                "とした運航妨害やcontrol奪取のriskがある。教則はsecurity対策の例と"
+                "して、無人航空機本体と遠隔操縦のための機器を適切に管理し、盗難等を"
+                "防止することを挙げている。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.1「保険及びセキュリティ」(2) "
+                "無人航空機に係るセキュリティ確保"
+                "（教則表示ページ55 / PDF viewer 61）"
+            ),
+        },
+        "DRONE-Q-000085": {
+            "slot_id": "VS-085",
+            "kt_id": "D3-T02-KT001",
+            "coverage": "COV-41",
+            "question": (
+                "マルチローターを降下させている。\n\nボルテックス・リング・ステート"
+                "による急激な揚力低下への対策として、教則に最も合う操作はどれか。"
+            ),
+            "choice1": (
+                "機体を垂直方向に保ち、水平移動を加えずに降下を続ける"
+            ),
+            "choice2": (
+                "降下中は機体を一定位置に保ち、垂直方向の操作だけで降下速度を"
+                "調整する"
+            ),
+            "choice3": (
+                "揚力を徐々に減少させながら、水平方向の移動も合わせて操作する"
+            ),
+            "correct_choice": "C",
+            "explanation": (
+                "マルチローターを垂直降下させると、吹き下ろした空気を再び吸い込んで"
+                "気流が再循環し、急激に揚力を失うボルテックス・リング・ステートが"
+                "発生することがある。教則では、降下時に水平方向の移動を合わせて操作"
+                "することを墜落防止対策としている。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.2.1(1)3)「降下」"
+                "（教則表示ページ56 / PDF viewer 62）"
+            ),
+        },
+        "DRONE-Q-000086": {
+            "slot_id": "VS-086",
+            "kt_id": "D3-T02-KT005",
+            "coverage": "COV-42",
+            "question": (
+                "次の2つの作業を行う。\n\n"
+                "- 作業P: あらかじめ定めた同じ飛行経路を、繰り返し高い再現性で"
+                "飛行したい\n"
+                "- 作業Q: 複雑な構造物の近くで、状況に応じた細かな機体操作を"
+                "行いたい\n\n"
+                "教則に示されたmanual / automatic controlの特徴に最も合う組合せは"
+                "どれか。"
+            ),
+            "choice1": "Pは自動操縦、Qは熟練した操縦者による手動操縦",
+            "choice2": "Pは手動操縦、Qは自動操縦",
+            "choice3": "PもQも、再現性と細かな操作の双方に優れるため自動操縦",
+            "correct_choice": "A",
+            "explanation": (
+                "教則では、自動操縦は事前設定したwaypoint等を用いることで高い再現性"
+                "を求める飛行に適する。一方、熟練した操縦者によるmanual controlは、"
+                "複雑な構造物の点検など、状況の変化に応じた細かな操作に向く。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.2.2(1)「手動操縦・自動操縦の特徴とメリット」"
+                "（教則表示ページ59 / PDF viewer 65）"
+            ),
+        },
+        "DRONE-Q-000087": {
+            "slot_id": "VS-087",
+            "kt_id": "D3-T02-KT010",
+            "coverage": "COV-43",
+            "question": (
+                "無人航空機が墜落した。機体はまだ通電している可能性があり、プロペラ"
+                "も回転している可能性がある。\n\n事故直後の現場での対応順序として、"
+                "教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "まず機体へ近づいて電源やプロペラの状態を確認し、その後に周囲の人の"
+                "安全を確認する"
+            ),
+            "choice2": (
+                "まず人の安全を確認し、その後、必要に応じて機体の電源を切るなど周囲"
+                "への危険を抑え、回転中のプロペラには不用意に近づかない"
+            ),
+            "choice3": (
+                "まず機体の飛行logや損傷状態を確認して事故原因を整理し、その後に人と"
+                "機体の安全を確認する"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "事故を起こした場合、教則は人の安全確認を第一としている。その後、"
+                "墜落した機体が通電している場合は電源を切るなど周囲への危険を防止し、"
+                "プロペラがまだ回っている場合は不用意に機体へ接近しないよう求めて"
+                "いる。"
+            ),
+            "source_locator": (
+                "教則 第2章 2.3.1「事故を起こしたら」"
+                "（教則表示ページ6 / PDF viewer 12）"
+            ),
+        },
+        "DRONE-Q-000088": {
+            "slot_id": "VS-088",
+            "kt_id": "D3-T04-KT001",
+            "coverage": "COV-44",
+            "question": (
+                "操縦者のtechnical skillを高めていても、人間の特性や能力の限界から"
+                "human errorを完全になくすことはできない。\n\nCRMの考え方に最も合う"
+                "運航体制はどれか。"
+            ),
+            "choice1": (
+                "操縦者のtechnical skillを中心に運航し、他のresourceは問題が起きた"
+                "場合にだけ利用する"
+            ),
+            "choice2": (
+                "最新のinformationを中心に判断し、人的resourceやhardwareは判断材料"
+                "を増やしすぎないよう限定する"
+            ),
+            "choice3": (
+                "利用可能な人的resource、hardware、informationを総合的に活用する"
+            ),
+            "correct_choice": "C",
+            "explanation": (
+                "CRMでは、technical skillの向上だけではhuman errorを完全に排除でき"
+                "ないことを前提に、利用可能な人的resource、hardware、informationを"
+                "総合的に活用する。一つのresourceだけへ依存する考え方ではない。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.4.1 CRM（教則表示ページ62 / PDF viewer 68）"
+            ),
+        },
+        "DRONE-Q-000089": {
+            "slot_id": "VS-089",
+            "kt_id": "D3-T04-KT004",
+            "coverage": "COV-45",
+            "question": (
+                "複数の補助者を配置して運航を行うことになった。\n\n操縦者と補助者の"
+                "coordinationとして、教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "飛行前に補助者の人数・配置・担当範囲・役割・異常運航時の対応方法を"
+                "決め、操縦者との連絡方法もあらかじめ定める"
+            ),
+            "choice2": (
+                "飛行前は補助者の人数と配置だけを決め、担当範囲や連絡方法は飛行中の"
+                "状況に合わせてその都度決める"
+            ),
+            "choice3": (
+                "連絡方法だけを飛行前に決め、各補助者の担当範囲や役割は必要になった"
+                "段階で決める"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "補助者を使用する場合、教則は飛行経路や範囲に応じて補助者の人数、"
+                "配置、担当範囲、役割、異常運航時の対応方法をあらかじめ決めるととも"
+                "に、操縦者とのcommunicationも事前に定めた手段で行うとしている。"
+            ),
+            "source_locator": (
+                "教則 第5章 5.4.2"
+                "「安全な運航のための補助者の必要性、役割及び配置」"
+                "（教則表示ページ62 / PDF viewer 68）"
             ),
         },
     }
@@ -3993,6 +4317,245 @@ class DroneQuestionBankTest(unittest.TestCase):
             "すべてのエンジン整備は専門の整備業者に依頼する",
             cov_35,
         )
+
+    def test_b7_d3_coverage_metadata_content_and_semantic_regressions(
+        self,
+    ) -> None:
+        inputs = load_bank_inputs(self.bank)
+        question_by_id = {row["question_id"]: row for row in inputs.questions}
+        registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+
+        expected_mapping = {
+            expected["slot_id"]: question_id
+            for question_id, expected in self.B7_D3_EXPECTATIONS.items()
+        }
+        self.assertEqual(
+            expected_mapping,
+            {
+                "VS-080": "DRONE-Q-000080",
+                "VS-081": "DRONE-Q-000081",
+                "VS-082": "DRONE-Q-000082",
+                "VS-083": "DRONE-Q-000083",
+                "VS-084": "DRONE-Q-000084",
+                "VS-085": "DRONE-Q-000085",
+                "VS-086": "DRONE-Q-000086",
+                "VS-087": "DRONE-Q-000087",
+                "VS-088": "DRONE-Q-000088",
+                "VS-089": "DRONE-Q-000089",
+            },
+        )
+
+        for question_id, expected in self.B7_D3_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["deck_id"], "drone_second_class_exam")
+            self.assertEqual(question["unit_id"], "drone_operations")
+            self.assertEqual(question["difficulty"], "2")
+            self.assertEqual(question["importance"], "2")
+            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(question["valid_from"], "2026-07-14")
+            self.assertEqual(question["valid_until"], "")
+            self.assertEqual(question["last_reviewed_at"], "2026-08-19")
+            self.assertEqual(question["supersedes_id"], "")
+            self.assertEqual(question["tags"], "")
+            self.assertEqual(question["choice4"], "")
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+
+            for field in (
+                "question",
+                "choice1",
+                "choice2",
+                "choice3",
+                "correct_choice",
+                "explanation",
+                "source_locator",
+            ):
+                self.assertEqual(question[field], expected[field])
+
+            metadata = {
+                key: value
+                for item in question["notes_internal"].split(";")
+                if "=" in item
+                for key, value in (item.strip().split("=", 1),)
+            }
+            self.assertEqual(metadata["slot_id"], expected["slot_id"])
+            self.assertEqual(metadata["verification_state"], "author_source_verified")
+            self.assertEqual(metadata["primary_role"], "COVERAGE")
+            self.assertEqual(metadata["kt_id"], expected["kt_id"])
+            self.assertEqual(metadata["coverage"], expected["coverage"])
+            self.assertEqual(metadata["independent_reviewed"], "false")
+            self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
+            self.assertEqual(metadata["release_approved"], "false")
+
+            registry = registry_by_id[question_id]
+            self.assertEqual(registry["status"], "used")
+            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(registry["retired_at"], "")
+            self.assertEqual(registry["replacement_id"], "")
+            self.assertEqual(
+                registry["notes"],
+                f'{expected["slot_id"]}; B7 D3 {expected["coverage"]}; '
+                "COVERAGE; permanent ID; pre-release",
+            )
+
+        cov_39_metadata = {
+            key: value
+            for item in question_by_id["DRONE-Q-000083"]["notes_internal"].split(";")
+            if "=" in item
+            for key, value in (item.strip().split("=", 1),)
+        }
+        self.assertEqual(cov_39_metadata["sentinel_neighbor"], "US-B")
+        self.assertEqual(
+            cov_39_metadata["administration_route"],
+            "after_us_b_sentinel_response",
+        )
+
+        correct_distribution = {
+            answer: sum(
+                expected["correct_choice"] == answer
+                for expected in self.B7_D3_EXPECTATIONS.values()
+            )
+            for answer in ("A", "B", "C")
+        }
+        self.assertEqual(correct_distribution, {"A": 5, "B": 3, "C": 2})
+
+        def content(question_id: str) -> str:
+            question = question_by_id[question_id]
+            return " ".join(
+                question[field]
+                for field in (
+                    "question",
+                    "choice1",
+                    "choice2",
+                    "choice3",
+                    "explanation",
+                )
+            )
+
+        def correct_and_explanation(question_id: str) -> str:
+            question = question_by_id[question_id]
+            correct_field = f'choice{"ABC".index(question["correct_choice"]) + 1}'
+            return " ".join((question[correct_field], question["explanation"]))
+
+        cov_36 = content("DRONE-Q-000080")
+        for required in (
+            "必要な装置",
+            "許可・承認",
+            "機体登録",
+            "有効期間",
+            "最終確認",
+        ):
+            self.assertIn(required, cov_36)
+        cov_36_answer = correct_and_explanation("DRONE-Q-000080")
+        for forbidden in (
+            "緊急着陸地点",
+            "alternate landing",
+            "発生頻度",
+            "結果の重大性",
+        ):
+            self.assertNotIn(forbidden, cov_36_answer)
+
+        cov_37 = content("DRONE-Q-000081")
+        for required in (
+            "機体",
+            "バッテリー",
+            "通信",
+            "推進",
+            "電源",
+            "自動制御",
+            "正常",
+        ):
+            self.assertIn(required, cov_37)
+        cov_37_answer = correct_and_explanation("DRONE-Q-000081")
+        for forbidden in ("運航終了後", "安全な保管", "総飛行時間"):
+            self.assertNotIn(forbidden, cov_37_answer)
+
+        cov_38 = content("DRONE-Q-000082")
+        for required in (
+            "許可・承認が必要",
+            "申請",
+            "審査",
+            "許可・承認を得てから",
+        ):
+            self.assertIn(required, cov_38)
+        for forbidden in ("UI button name", "screen path"):
+            self.assertNotIn(forbidden.casefold(), cov_38.casefold())
+        self.assertIn("既に確認済み", question_by_id["DRONE-Q-000082"]["question"])
+
+        cov_39 = content("DRONE-Q-000083")
+        for required in ("飛行計画", "通報済み", "更新", "飛行開始日時まで"):
+            self.assertIn(required, cov_39)
+        for forbidden in ("飛行日誌", "飛行記録", "日常点検記録", "点検整備記録"):
+            self.assertNotIn(forbidden, cov_39)
+
+        cov_40 = content("DRONE-Q-000084")
+        for required in ("無人航空機本体", "遠隔操縦", "適切に管理", "盗難"):
+            self.assertIn(required, cov_40)
+        for forbidden in ("Red Zone", "Yellow Zone", "暗号化方式", "firmware"):
+            self.assertNotIn(forbidden.casefold(), cov_40.casefold())
+
+        cov_41 = content("DRONE-Q-000085")
+        for required in (
+            "マルチローター",
+            "降下",
+            "ボルテックス・リング・ステート",
+            "水平方向",
+        ):
+            self.assertIn(required, cov_41)
+        for forbidden in (
+            "自動操縦から手動操縦",
+            "切り替え直後",
+            "ホバリングで安定性",
+        ):
+            self.assertNotIn(forbidden, cov_41)
+
+        cov_42 = content("DRONE-Q-000086")
+        for required in ("高い再現性", "自動操縦", "細かな操作", "手動操縦"):
+            self.assertIn(required, cov_42)
+        for forbidden in ("手動操縦へ切り替える", "失速に備える", "切替直後"):
+            self.assertNotIn(forbidden, cov_42)
+
+        cov_43 = content("DRONE-Q-000087")
+        for required in ("人の安全", "電源を切る", "プロペラ", "不用意に近づかない"):
+            self.assertIn(required, cov_43)
+        for forbidden in ("国土交通大臣への報告", "緊急着陸地点", "alternate landing"):
+            self.assertNotIn(forbidden, cov_43)
+
+        cov_44 = content("DRONE-Q-000088")
+        for required in (
+            "technical skill",
+            "人的resource",
+            "hardware",
+            "information",
+            "総合的に活用",
+        ):
+            self.assertIn(required, cov_44)
+        for forbidden in ("Threat", "Error", "UAS"):
+            self.assertNotIn(forbidden, cov_44)
+
+        cov_45 = content("DRONE-Q-000089")
+        for required in (
+            "補助者",
+            "人数",
+            "配置",
+            "担当範囲",
+            "役割",
+            "異常運航時",
+            "連絡方法",
+            "あらかじめ",
+        ):
+            self.assertIn(required, cov_45)
+        for forbidden in (
+            "飛行経路全体を把握",
+            "位置と異常の有無",
+            "緊急着陸地点への誘導",
+            "alternate landing site",
+            "Threat",
+            "Error",
+            "UAS",
+        ):
+            self.assertNotIn(forbidden, cov_45)
 
     def test_unregistered_drone_id_is_rejected(self) -> None:
         fieldnames, rows = self._read_csv(self.questions_path)
