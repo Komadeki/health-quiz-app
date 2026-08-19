@@ -214,6 +214,20 @@ class DroneQuestionBankTest(unittest.TestCase):
         "VS-040": "DRONE-Q-000043",
         "VS-043": "DRONE-Q-000044",
         "VS-044": "DRONE-Q-000045",
+        "VS-045": "DRONE-Q-000046",
+        "VS-046": "DRONE-Q-000047",
+        "VS-047": "DRONE-Q-000048",
+        "VS-048": "DRONE-Q-000049",
+        "VS-049": "DRONE-Q-000050",
+        "VS-050": "DRONE-Q-000051",
+        "VS-051": "DRONE-Q-000052",
+        "VS-052": "DRONE-Q-000053",
+        "VS-053": "DRONE-Q-000054",
+        "VS-054": "DRONE-Q-000055",
+        "VS-055": "DRONE-Q-000056",
+        "VS-056": "DRONE-Q-000057",
+        "VS-057": "DRONE-Q-000058",
+        "VS-058": "DRONE-Q-000059",
     }
     B3A_EXPECTATIONS = {
         "DRONE-Q-000039": {
@@ -515,6 +529,431 @@ class DroneQuestionBankTest(unittest.TestCase):
             "VS-044; B3B US-H routed sentinel; UNKNOWN_SENTINEL; permanent ID; "
             "pre-release"
         ),
+    }
+    B4_D1_EXPECTATIONS = {
+        "DRONE-Q-000046": {
+            "slot_id": "VS-045",
+            "kt_id": "D1-T01-KT001",
+            "coverage": "COV-01",
+            "question": (
+                "遠隔操作が可能で、構造上人が乗ることができない機体がある。\n\n"
+                "重量は次のとおりである。\n\n"
+                "* 機体本体：75g\n"
+                "* バッテリー：30g\n"
+                "* 取り外し可能なカメラ：20g\n\n"
+                "航空法上の無人航空機の重量判定と分類として、教則に最も合うものは"
+                "どれか。"
+            ),
+            "choice1": "105gとして判定し、無人航空機に該当する",
+            "choice2": "125gとして判定し、無人航空機に該当する",
+            "choice3": "75gとして判定し、模型航空機に分類する",
+            "correct_choice": "A",
+            "explanation": (
+                "航空法上の重量は、機体本体とバッテリーの重量の合計で判定し、"
+                "バッテリー以外の取り外し可能な付属品は含めない。この機体は"
+                "75g＋30g＝105gとなるため、他の定義条件も満たしている本scenario"
+                "では無人航空機に該当する。100g未満は模型航空機として区別される。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.1(1)（教則表示ページ7 / PDF viewer 13）"
+            ),
+        },
+        "DRONE-Q-000047": {
+            "slot_id": "VS-046",
+            "kt_id": "D1-T01-KT005",
+            "coverage": "COV-02",
+            "question": (
+                "登録済みの無人航空機について、リモートID機能を搭載せずに飛行"
+                "することを検討している。\n\nリモートID機能の搭載免除に該当する"
+                "飛行として、教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "あらかじめ国に届け出たリモートID特定区域で、補助者の配置や区域"
+                "範囲の明示など必要な措置を講じて飛行する"
+            ),
+            "choice2": (
+                "リモートID特定区域を国に届け出ているが、区域の監視や範囲の明示"
+                "などの必要な措置を講じずに飛行する"
+            ),
+            "choice3": (
+                "私有地で所有者の同意を得て、区域の監視や範囲の明示を行うが、"
+                "リモートID特定区域として国には届け出ずに飛行する"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "教則では、Remote IDは原則として搭載が必要だが、あらかじめ国に"
+                "届け出たリモートID特定区域で、補助者配置や区域範囲の明示など必要な"
+                "措置を講じる飛行は搭載免除の対象としている。単に特定区域を届け出る"
+                "だけ、あるいは私有地で安全措置を講じるだけでは、この免除routeの"
+                "条件を満たさない。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.2(1)5)（教則表示ページ14 / PDF viewer 20）"
+            ),
+        },
+        "DRONE-Q-000048": {
+            "slot_id": "VS-047",
+            "kt_id": "D1-T01-KT008",
+            "coverage": "COV-03",
+            "question": (
+                "操縦者は飛行中、無人航空機を自分の目では直接監視せず、機体から"
+                "送られるモニター映像だけを見て操縦している。補助者は機体を直接"
+                "目視している。\n\n航空法上の飛行方法の扱いとして、教則に最も合う"
+                "ものはどれか。"
+            ),
+            "choice1": "補助者が直接目視しているため、目視内飛行として扱う",
+            "choice2": (
+                "操縦者自身が目視により常時監視していないため、目視外飛行に該当する"
+            ),
+            "choice3": (
+                "モニター映像で機体を継続監視しているため、目視内飛行として扱う"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "教則の「目視により常時監視」は、飛行させる者自身が自分の目で見る"
+                "ことを指す。モニターや双眼鏡による監視、補助者による監視はこれに"
+                "含まれないため、このscenarioは目視外飛行に該当する。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.2(2)2)b（教則表示ページ15 / PDF viewer 21）"
+            ),
+        },
+        "DRONE-Q-000049": {
+            "slot_id": "VS-048",
+            "kt_id": "D1-T01-KT012",
+            "coverage": "COV-04",
+            "question": (
+                "ある飛行はカテゴリーII-B飛行であることが確認済みで、必要な立入管理"
+                "措置も講じるものとする。\n\n個別の飛行許可・承認を不要にできるため"
+                "の条件の組合せとして、教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "飛行に必要な技能証明を有する操縦者が、機体認証を受けた無人航空機"
+                "を使用し、飛行マニュアルの作成・遵守など必要な安全確保措置を講じる"
+            ),
+            "choice2": (
+                "飛行に必要な技能証明を有する操縦者であれば、機体認証を受けていない"
+                "無人航空機でも、安全確保措置を講じれば個別手続は不要となる"
+            ),
+            "choice3": (
+                "機体認証を受けた無人航空機であれば、操縦者が技能証明を有していなく"
+                "ても、安全確保措置を講じれば個別手続は不要となる"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "Category II-Bでは、技能証明を受けた操縦者が機体認証を受けた"
+                "無人航空機を使用し、飛行マニュアルの作成・遵守など必要な安全確保"
+                "措置を講じる場合、個別の許可・承認を不要にできる。技能証明または"
+                "機体認証の一方を欠く場合は、この手続省略routeには該当しない。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.1(2)5)a（教則表示ページ10 / PDF viewer 16）"
+            ),
+        },
+        "DRONE-Q-000050": {
+            "slot_id": "VS-049",
+            "kt_id": "D1-T01-KT016",
+            "coverage": "COV-05",
+            "question": (
+                "航空法施行規則第236条の82第1項第2号および関係通達で定める必要な"
+                "要件をすべて満たして、無人航空機による農薬等の空中散布を行うもの"
+                "とする。\n\n飛行の承認手続が不要となる飛行方法だけで構成された組合せ"
+                "はどれか。"
+            ),
+            "choice1": "夜間飛行・目視外飛行・物件投下",
+            "choice2": "夜間飛行・催し場所上空の飛行・物件投下",
+            "choice3": "空港等の周辺の空域での飛行・目視外飛行・物件投下",
+            "correct_choice": "A",
+            "explanation": (
+                "所定の要件を満たす農薬等の空中散布では、夜間飛行、目視外飛行、"
+                "30m未満の飛行、危険物輸送、物件投下に係る承認手続が不要となる。"
+                "催し場所上空はこの特例の対象ではなく、空港等周辺は飛行方法の承認"
+                "ではなく空域に係る許可の論点である。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.2(2)3)d（教則表示ページ18 / PDF viewer 24）"
+            ),
+            "supporting_authority": (
+                "航空法施行規則 第236条の82第1項第2号 / 国空無機第338898号 / "
+                "令和8年3月23日 制定"
+            ),
+        },
+        "DRONE-Q-000051": {
+            "slot_id": "VS-050",
+            "kt_id": "D1-T01-KT023",
+            "coverage": "COV-06",
+            "question": (
+                "無人航空機を飛行させている最中に、航行中の航空機が近くを飛行して"
+                "いることを確認した。\n\n操縦者の対応として、教則に最も合うものは"
+                "どれか。"
+            ),
+            "choice1": (
+                "無人航空機を地上に降下させるなど、航空機との接近・衝突を避ける"
+                "ための適切な措置をとる"
+            ),
+            "choice2": (
+                "航空機側が無人航空機を確認して回避できるまで、現在の高度と飛行"
+                "経路を維持する"
+            ),
+            "choice3": (
+                "航空機との距離が30m以上確保できていれば、現在の飛行経路を維持する"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "飛行中に航行中の航空機を確認した場合、教則は無人航空機を地上へ"
+                "降下させるなど、接近・衝突を回避する適切な措置を求めている。"
+                "航空機との関係では無人航空機側が回避する考え方であり、第三者等との"
+                "30m距離ruleを航空機との優先関係へ転用するものではない。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.2(3)1)c（教則表示ページ22 / PDF viewer 28）"
+            ),
+        },
+        "DRONE-Q-000052": {
+            "slot_id": "VS-051",
+            "kt_id": "D1-T01-KT026",
+            "coverage": "COV-07",
+            "question": (
+                "無人航空機の飛行により、航空法上の「事故」に該当する事態が発生し、"
+                "負傷者もいることが確認された。\n\n操縦者に求められる措置として、"
+                "最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "直ちに飛行を中止し、負傷者の救護や状況に応じた危険防止措置を"
+                "行ったうえで、必要事項を国土交通大臣に報告する"
+            ),
+            "choice2": (
+                "直ちに飛行を中止し、負傷者の救護や危険防止措置を行うが、国土交通"
+                "大臣への報告は損害額が一定以上の場合に限る"
+            ),
+            "choice3": (
+                "直ちに飛行を中止して国土交通大臣へ報告し、負傷者の救護や危険防止"
+                "措置は関係機関の到着後に行う"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "航空法上の事故が発生した場合は、直ちに飛行を中止し、負傷者がいれば"
+                "救護・通報を行うなど必要な危険防止措置を講じ、事故の必要事項を"
+                "国土交通大臣へ報告する必要がある。事故後の原因究明を先行させて"
+                "これらの措置を遅らせるruleではない。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.2(3)1)f ア)（教則表示ページ22 / PDF viewer 28）"
+            ),
+        },
+        "DRONE-Q-000053": {
+            "slot_id": "VS-052",
+            "kt_id": "D1-T01-KT028",
+            "coverage": "COV-08",
+            "question": (
+                "特定飛行について、あらかじめ飛行計画を通報して飛行を開始した。\n\n"
+                "飛行中、撮影対象を変更したくなったため、安全確保上やむを得ない事情"
+                "はないが、通報した経路とは別の経路へ変更したい。\n\n教則の扱いと"
+                "して最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "飛行目的が変わらなければ、通報した経路から変更してもよい"
+            ),
+            "choice2": (
+                "原則として通報した飛行計画に従って飛行し、安全確保のためやむを"
+                "得ない場合でなければ任意に変更しない"
+            ),
+            "choice3": (
+                "経路は自由に変更でき、飛行終了後に変更内容だけを通報すればよい"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "特定飛行では、原則としてあらかじめ飛行計画を通報し、通報した計画に"
+                "従って飛行する必要がある。安全確保のためやむを得ない場合には例外が"
+                "あるが、このscenarioではその条件を満たしていない。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.1.2(3)2)a（教則表示ページ23 / PDF viewer 29）"
+            ),
+        },
+        "DRONE-Q-000054": {
+            "slot_id": "VS-053",
+            "kt_id": "D1-T02-KT001",
+            "coverage": "COV-09",
+            "question": (
+                "小型無人機等飛行禁止法における「特定航空用機器」に該当するものと"
+                "して、教則に最も合うものはどれか。"
+            ),
+            "choice1": "遠隔操作で飛行させる無人回転翼航空機",
+            "choice2": "人が使用して飛行するパラグライダー",
+            "choice3": "人が搭乗して飛行する通常の有人ヘリコプター",
+            "correct_choice": "B",
+            "explanation": (
+                "同法では、規制対象を「小型無人機」と「特定航空用機器」に分けて"
+                "いる。人が使用して飛行できる気球、ハンググライダー、パラグライダー"
+                "等は特定航空用機器に該当する。Aは同法上の「小型無人機」側の例で"
+                "あり、Bとはcategoryが異なる。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.2.1(2)2)（教則表示ページ30 / PDF viewer 36）"
+            ),
+        },
+        "DRONE-Q-000055": {
+            "slot_id": "VS-054",
+            "kt_id": "D1-T02-KT002",
+            "coverage": "COV-10",
+            "question": (
+                "ある施設が、小型無人機等飛行禁止法上の対象施設であることは確認済み"
+                "とする。\n\nレッド・ゾーンとイエロー・ゾーンの関係として、教則に"
+                "最も合うものはどれか。"
+            ),
+            "choice1": (
+                "対象施設の敷地・区域の上空がレッド・ゾーン、その周囲おおむね"
+                "1,000mの上空がイエロー・ゾーン"
+            ),
+            "choice2": (
+                "対象施設の敷地・区域の上空がイエロー・ゾーン、その周囲おおむね"
+                "1,000mの上空がレッド・ゾーン"
+            ),
+            "choice3": (
+                "対象施設の敷地・区域とその周囲おおむね1,000mの上空がすべて"
+                "レッド・ゾーンで、イエロー・ゾーンは設けない"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "小型無人機等飛行禁止法では、対象施設の敷地・区域上空をRed Zone、"
+                "その周囲おおむね1,000mの上空をYellow Zoneとして規制する。具体的"
+                "にどの施設が現在対象施設に指定されているかは変動し得るため、本問"
+                "では対象施設であることをinputとして固定している。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.2.1(3)（教則表示ページ30 / PDF viewer 36）"
+            ),
+        },
+        "DRONE-Q-000056": {
+            "slot_id": "VS-055",
+            "kt_id": "D1-T02-KT003",
+            "coverage": "COV-11",
+            "question": (
+                "小型無人機等飛行禁止法の対象施設周辺地域で、対象施設の管理者から"
+                "同意を得ており、飛行禁止の法定例外に該当するものとする。\n\n"
+                "この場合の通報について、教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "管理者の同意により例外が成立しているため、同法に基づく通報は"
+                "不要である"
+            ),
+            "choice2": (
+                "例外に該当する場合でも、対象施設周辺地域を飛行するには所定の通報"
+                "が必要である"
+            ),
+            "choice3": "例外に該当する場合、通報は飛行終了後に行えばよい",
+            "correct_choice": "B",
+            "explanation": (
+                "小型無人機等飛行禁止法では、管理者の同意等によって飛行禁止の例外に"
+                "該当しても、対象施設周辺地域で飛行する場合には都道府県公安委員会等"
+                "への所定の通報が必要である。「例外に該当すること」と「通報が不要"
+                "であること」は同義ではない。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.2.1(4)（教則表示ページ31 / PDF viewer 37）"
+            ),
+            "supporting_authority": "警察庁 小型無人機等飛行禁止法 通報手続",
+        },
+        "DRONE-Q-000057": {
+            "slot_id": "VS-056",
+            "kt_id": "D1-T02-KT005",
+            "coverage": "COV-12",
+            "question": (
+                "無人航空機で使用する次の2つの無線systemについて考える。\n\n"
+                "System P: 技術基準適合証明等を受けた、2.4GHz帯・10mW/MHzの"
+                "小電力データ通信system\n\n"
+                "System Q: 2.4GHz帯・1Wの無人移動体画像伝送system\n\n"
+                "教則に示された無線局免許等・無線従事者資格の組合せとして最も"
+                "適切なものはどれか。"
+            ),
+            "choice1": (
+                "Pは無線局免許等・無線従事者資格とも不要、Qは無線局免許を要し"
+                "第三級陸上特殊無線技士以上の資格を要する"
+            ),
+            "choice2": (
+                "Pは無線局免許を要するが資格は不要、Qは無線局免許は不要だが"
+                "第三級陸上特殊無線技士以上の資格を要する"
+            ),
+            "choice3": (
+                "Pは無線局免許等は不要だが第三級陸上特殊無線技士以上の資格を要し、"
+                "Qは無線局免許だけを要して資格は不要"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "必要な無線局免許・無線従事者資格は、単に「2.4GHzを使うか」では"
+                "なく使用する無線systemとその条件によって異なる。教則表では、条件を"
+                "満たす小電力systemは無線局免許等・資格とも不要。一方、2.4GHz帯1W"
+                "の無人移動体画像伝送systemは無線局免許を要し、第三級陸上特殊無線"
+                "技士以上の資格を要する。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.2.2(1)〜(2)（教則表示ページ31–32 / PDF viewer 37–38）"
+            ),
+        },
+        "DRONE-Q-000058": {
+            "slot_id": "VS-057",
+            "kt_id": "D1-T02-KT009",
+            "coverage": "COV-13",
+            "question": (
+                "ある場所で無人航空機を飛行する計画があり、航空法上必要となる許可・"
+                "承認等については確認済みである。\n\n飛行場所は地方公共団体が管理"
+                "する施設内である。\n\n飛行可否を判断するために次に確認すべきもの"
+                "として、教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "航空法上の確認が完了していれば、それ以外の規制確認は不要である"
+            ),
+            "choice2": (
+                "土地・施設の管理者から使用の了承が得られれば、地方公共団体の条例等"
+                "は確認しなくてよい"
+            ),
+            "choice3": (
+                "その場所に適用される地方公共団体の条例や施設の規則など、航空法以外"
+                "の規制も確認する"
+            ),
+            "correct_choice": "C",
+            "explanation": (
+                "飛行可否は航空法だけで完結するとは限らない。教則は、その他の法令や"
+                "地方公共団体の条例により、特定の場所で無人航空機の利用・飛行が制限"
+                "される場合があるとしており、最新の条例情報などを関係する地方公共"
+                "団体等へ確認する必要がある。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.2.3（教則表示ページ33 / PDF viewer 39）"
+            ),
+        },
+        "DRONE-Q-000059": {
+            "slot_id": "VS-058",
+            "kt_id": "D1-T02-KT010",
+            "coverage": "COV-14",
+            "question": (
+                "無人航空機の飛行自粛要請空域について、教則の説明に最も合うものは"
+                "どれか。"
+            ),
+            "choice1": (
+                "航空法に基づく飛行禁止空域であり、航空法上の飛行許可を取得している"
+                "かを確認する"
+            ),
+            "choice2": (
+                "法令等に基づく規制ではなく、飛行前に国土交通省の公示等で設定の有無"
+                "を確認し、要請内容に応じて対応する"
+            ),
+            "choice3": (
+                "地方公共団体の条例に基づいて設定される区域であり、その地方公共団体"
+                "の条例だけを確認する"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "飛行自粛要請空域は、法令等に基づく飛行禁止規制そのものではない。"
+                "警備上の観点等から関係機関の要請を受け、国土交通省が飛行自粛を要請"
+                "するもので、設定時には国土交通省の公式情報で公示される。そのため"
+                "操縦者は飛行前に設定の有無を確認し、要請内容に応じて対応する。"
+            ),
+            "source_locator": (
+                "教則 第3章 3.2.4（教則表示ページ33 / PDF viewer 39）"
+            ),
+        },
     }
     B1A_EXPECTATIONS = {
         "DRONE-Q-000006": {
@@ -2403,6 +2842,157 @@ class DroneQuestionBankTest(unittest.TestCase):
         self.assertNotIn("事故発生後", content("DRONE-Q-000044"))
         for forbidden in ("battery chemistry", "バッテリー化学"):
             self.assertNotIn(forbidden, content("DRONE-Q-000045"))
+
+    def test_b4_d1_coverage_metadata_content_and_semantic_regressions(self) -> None:
+        inputs = load_bank_inputs(self.bank)
+        question_by_id = {row["question_id"]: row for row in inputs.questions}
+        registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+
+        for question_id, expected in self.B4_D1_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["deck_id"], "drone_second_class_exam")
+            self.assertEqual(question["unit_id"], "drone_rules")
+            self.assertEqual(question["difficulty"], "2")
+            self.assertEqual(question["importance"], "2")
+            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(question["valid_from"], "2026-07-14")
+            self.assertEqual(question["valid_until"], "")
+            self.assertEqual(question["last_reviewed_at"], "2026-08-19")
+            self.assertEqual(question["supersedes_id"], "")
+            self.assertEqual(question["tags"], "")
+            self.assertEqual(question["choice4"], "")
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+
+            for field in (
+                "question",
+                "choice1",
+                "choice2",
+                "choice3",
+                "correct_choice",
+                "explanation",
+                "source_locator",
+            ):
+                self.assertEqual(question[field], expected[field])
+
+            metadata = {
+                key: value
+                for item in question["notes_internal"].split(";")
+                if "=" in item
+                for key, value in (item.strip().split("=", 1),)
+            }
+            self.assertEqual(metadata["slot_id"], expected["slot_id"])
+            self.assertEqual(metadata["verification_state"], "author_source_verified")
+            self.assertEqual(metadata["primary_role"], "COVERAGE")
+            self.assertEqual(metadata["kt_id"], expected["kt_id"])
+            self.assertEqual(metadata["coverage"], expected["coverage"])
+            self.assertEqual(metadata["independent_reviewed"], "false")
+            self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
+            self.assertEqual(metadata["release_approved"], "false")
+            if "supporting_authority" in expected:
+                self.assertEqual(
+                    metadata["supporting_authority"],
+                    expected["supporting_authority"],
+                )
+            else:
+                self.assertNotIn("supporting_authority", metadata)
+
+            registry = registry_by_id[question_id]
+            self.assertEqual(registry["status"], "used")
+            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(registry["retired_at"], "")
+            self.assertEqual(registry["replacement_id"], "")
+            self.assertEqual(
+                registry["notes"],
+                f'{expected["slot_id"]}; B4 D1 {expected["coverage"]}; '
+                "COVERAGE; permanent ID; pre-release",
+            )
+
+        correct_distribution = {
+            answer: sum(
+                expected["correct_choice"] == answer
+                for expected in self.B4_D1_EXPECTATIONS.values()
+            )
+            for answer in ("A", "B", "C")
+        }
+        self.assertEqual(correct_distribution, {"A": 8, "B": 5, "C": 1})
+
+        def content(question_id: str) -> str:
+            question = question_by_id[question_id]
+            return " ".join(
+                question[field]
+                for field in (
+                    "question",
+                    "choice1",
+                    "choice2",
+                    "choice3",
+                    "explanation",
+                )
+            )
+
+        cov_01_correct = " ".join(
+            question_by_id["DRONE-Q-000046"][field]
+            for field in ("choice1", "explanation")
+        )
+        for required in ("75g＋30g＝105g", "無人航空機に該当"):
+            self.assertIn(required, cov_01_correct)
+        self.assertNotIn("緊急用務空域", content("DRONE-Q-000046"))
+
+        self.assertIn(
+            "カテゴリーII-B飛行であることが確認済み",
+            question_by_id["DRONE-Q-000049"]["question"],
+        )
+
+        cov_05_correct = question_by_id["DRONE-Q-000050"]["choice1"]
+        for required in ("夜間", "目視外", "物件投下"):
+            self.assertIn(required, cov_05_correct)
+        for forbidden in ("飛行日誌", "飛行記録", "日常点検記録", "点検整備記録"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000050"))
+
+        cov_08_correct = " ".join(
+            question_by_id["DRONE-Q-000053"][field]
+            for field in ("choice2", "explanation")
+        )
+        for required in ("通報した飛行計画に従", "安全確保のためやむを得ない"):
+            self.assertIn(required, cov_08_correct)
+        for forbidden in ("飛行日誌", "飛行記録", "日常点検記録", "点検整備記録"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000053"))
+
+        cov_09_correct = " ".join(
+            question_by_id["DRONE-Q-000054"][field]
+            for field in ("question", "choice2", "explanation")
+        )
+        for required in ("特定航空用機器", "パラグライダー"):
+            self.assertIn(required, cov_09_correct)
+        for forbidden in ("100g未満", "緊急用務空域"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000054"))
+
+        for required in ("Red Zone", "Yellow Zone", "1,000m"):
+            self.assertIn(required, content("DRONE-Q-000055"))
+
+        cov_12_correct = question_by_id["DRONE-Q-000057"]["choice1"]
+        for required in (
+            "Pは無線局免許等・無線従事者資格とも不要",
+            "Qは無線局免許を要し",
+            "第三級陸上特殊無線技士以上",
+        ):
+            self.assertIn(required, cov_12_correct)
+
+        cov_13_correct = " ".join(
+            question_by_id["DRONE-Q-000058"][field]
+            for field in ("choice3", "explanation")
+        )
+        for required in ("航空法以外", "地方公共団体の条例"):
+            self.assertIn(required, cov_13_correct)
+
+        cov_14_correct = " ".join(
+            question_by_id["DRONE-Q-000059"][field]
+            for field in ("choice2", "explanation")
+        )
+        for required in ("法令等に基づく規制ではな", "飛行前"):
+            self.assertIn(required, cov_14_correct)
+        self.assertNotIn("緊急用務空域", content("DRONE-Q-000059"))
 
     def test_unregistered_drone_id_is_rejected(self) -> None:
         fieldnames, rows = self._read_csv(self.questions_path)
