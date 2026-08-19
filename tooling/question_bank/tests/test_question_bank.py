@@ -228,6 +228,16 @@ class DroneQuestionBankTest(unittest.TestCase):
         "VS-056": "DRONE-Q-000057",
         "VS-057": "DRONE-Q-000058",
         "VS-058": "DRONE-Q-000059",
+        "VS-059": "DRONE-Q-000060",
+        "VS-060": "DRONE-Q-000061",
+        "VS-061": "DRONE-Q-000062",
+        "VS-062": "DRONE-Q-000063",
+        "VS-063": "DRONE-Q-000064",
+        "VS-064": "DRONE-Q-000065",
+        "VS-065": "DRONE-Q-000066",
+        "VS-066": "DRONE-Q-000067",
+        "VS-067": "DRONE-Q-000068",
+        "VS-068": "DRONE-Q-000069",
     }
     B3A_EXPECTATIONS = {
         "DRONE-Q-000039": {
@@ -952,6 +962,318 @@ class DroneQuestionBankTest(unittest.TestCase):
             ),
             "source_locator": (
                 "教則 第3章 3.2.4（教則表示ページ33 / PDF viewer 39）"
+            ),
+        },
+    }
+    B5_D2A_EXPECTATIONS = {
+        "DRONE-Q-000060": {
+            "slot_id": "VS-059",
+            "kt_id": "D2-T01-KT001",
+            "coverage": "COV-15",
+            "question": (
+                "垂直離着陸やホバリングは必要なく、比較的高速で、エネルギー効率を"
+                "高くして長距離・長時間の前進飛行を行うことを重視する。\n\n"
+                "教則に示された機体種類の特徴に最も合う選択はどれか。"
+            ),
+            "choice1": (
+                "飛行機を選ぶ。回転翼航空機より飛行速度が速く、エネルギー効率が"
+                "高いため、長距離・長時間の飛行に適する"
+            ),
+            "choice2": (
+                "マルチローターを選ぶ。飛行機より飛行速度が速く、エネルギー効率が"
+                "高いため、長距離・長時間の飛行に適する"
+            ),
+            "choice3": (
+                "ヘリコプターを選ぶ。飛行機より飛行速度が速く、エネルギー効率が"
+                "高いため、長距離・長時間の飛行に適する"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "教則では、回転翼航空機は垂直離着陸やホバリングが可能である一方、"
+                "飛行機は回転翼航空機より飛行速度が速く、エネルギー効率が高いため、"
+                "長距離・長時間飛行が可能という特徴を示している。今回の任務条件は"
+                "飛行機側の特徴に合う。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.1.1「無人航空機の種類と特徴」（教則表示ページ34 / "
+                "PDF viewer 40）"
+            ),
+        },
+        "DRONE-Q-000061": {
+            "slot_id": "VS-060",
+            "kt_id": "D2-T01-KT003",
+            "coverage": "COV-16",
+            "question": (
+                "回転翼航空機（ヘリコプター）で、前後左右への移動のためにローターの"
+                "回転面を傾けたり、上昇・降下のためにローターピッチ角を変えたりする。"
+                "\n\n教則が、このために必要な機構として挙げているものはどれか。"
+            ),
+            "choice1": (
+                "スワッシュプレート等を用いて、ローター回転面の傾きやローターピッチ角"
+                "を変える"
+            ),
+            "choice2": (
+                "テールローターを用いて、ローター回転面の傾きやローターピッチ角を"
+                "変える"
+            ),
+            "choice3": (
+                "メインローターの反トルクを用いて、ローター回転面の傾きやローター"
+                "ピッチ角を変える"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "ヘリコプターでは、前後左右への移動のためのローター回転面の傾きや、"
+                "上昇・降下のためのローターピッチ角の変更に必要な機構として、教則は"
+                "スワッシュプレート等を挙げている。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.1.3(1)（教則表示ページ35 / PDF viewer 41）"
+            ),
+        },
+        "DRONE-Q-000062": {
+            "slot_id": "VS-061",
+            "kt_id": "D2-T01-KT004",
+            "coverage": "COV-17",
+            "question": (
+                "ホバリング中のマルチローターを右方向へ移動させる。\n\n教則に示された"
+                "基本的な機体の動きとして、最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "右側のローターの回転数を下げ、左側のローターの回転数を上げて、"
+                "機体を右へ傾ける"
+            ),
+            "choice2": (
+                "右側のローターの回転数を上げ、左側のローターの回転数を下げて、"
+                "機体を右へ傾ける"
+            ),
+            "choice3": (
+                "左右のローターの回転数を同じだけ上げ、機体を右へ傾ける"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "マルチローターの前後左右移動では、移動を指示した側のローター回転数を"
+                "下げ、反対側を上げる。これによって機体が指示方向へ傾き、ローター推力"
+                "の合力もその方向へ傾くため、機体が移動する。右移動なら右側を下げ、"
+                "左側を上げる。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.1.4(1)2)（教則表示ページ36 / PDF viewer 42）"
+            ),
+        },
+        "DRONE-Q-000063": {
+            "slot_id": "VS-062",
+            "kt_id": "D2-T02-KT001",
+            "coverage": "COV-18",
+            "question": (
+                "夜間飛行を予定している機体について確認したところ、衝突回避などに"
+                "利用するビジョンセンサーが夜間に対応していないことが分かった。\n\n"
+                "この場合に考慮すべき技術上の影響として、教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "ビジョンセンサーに依存する衝突回避や姿勢安定などの安全機能が使用"
+                "できない可能性がある"
+            ),
+            "choice2": (
+                "地上照明を設置すれば、ビジョンセンサーの夜間対応の有無は安全機能の"
+                "評価から外せる"
+            ),
+            "choice3": (
+                "送信機で位置や高度を確認できれば、ビジョンセンサーの夜間対応の有無"
+                "は安全機能の評価から外せる"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "教則は、機体に搭載されたビジョンセンサーが夜間に対応していない場合、"
+                "衝突回避・姿勢安定などの安全機能が使用できない可能性があることに注意"
+                "を求めている。地上照明や別の情報表示があることだけから、このsensor "
+                "limitationを除外するとはしていない。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.2「夜間飛行」(1)（教則表示ページ37 / PDF viewer 43）"
+            ),
+        },
+        "DRONE-Q-000064": {
+            "slot_id": "VS-063",
+            "kt_id": "D2-T02-KT003",
+            "coverage": "COV-19",
+            "question": (
+                "目視外飛行を行う機体で、搭載カメラから機外の映像は地上で確認できる。"
+                "一方、操縦装置には飛行中の機体速度が表示されない。\n\n教則の目視外"
+                "飛行に関する技術的な観点から、この状態の評価として最も適切なものは"
+                "どれか。"
+            ),
+            "choice1": (
+                "機外の映像を確認できるため、飛行中の速度を地上で把握できなくても"
+                "必要な情報は補えている"
+            ),
+            "choice2": (
+                "機外の映像とは別に、機体状態の情報として飛行中の速度も地上で把握"
+                "できるようにする必要がある"
+            ),
+            "choice3": (
+                "飛行前に予定速度を設定していれば、飛行中の実際の速度を地上で把握"
+                "できなくてもよい"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "目視外飛行では機体や周囲の状況を直接肉眼で確認できないため、教則は"
+                "機体カメラによる外部情報に加え、速度などの機体状態を把握することを"
+                "求めている。また、目視外飛行に必要な装備として、高度・速度・位置・"
+                "不具合状況等を地上で監視できる操縦装置が挙げられている。このため、"
+                "機外の映像を確認できても、飛行中の機体速度を地上で把握できない状態"
+                "では十分ではない。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.2「目視外飛行」(1)（教則表示ページ37 / PDF viewer 43）; "
+                "supporting 4.2「目視外飛行」(2)①（教則表示ページ37 / PDF viewer 43）"
+            ),
+        },
+        "DRONE-Q-000065": {
+            "slot_id": "VS-064",
+            "kt_id": "D2-T02-KT004",
+            "coverage": "COV-20",
+            "question": (
+                "目視外飛行中に、操縦者と機体との無線通信が断絶した。\n\n教則が"
+                "フェールセーフ機能の例として示している、この事象への対応として最も"
+                "適切なものはどれか。"
+            ),
+            "choice1": (
+                "離陸地点まで自動的に戻る、または通信が復帰するまで空中で位置を"
+                "維持する"
+            ),
+            "choice2": "GNSS以外の手段へ切り替えて、新たな位置情報を取得する",
+            "choice3": "電池の発煙・発火を防止し、安全な自動着陸を行う",
+            "correct_choice": "A",
+            "explanation": (
+                "教則は、目視外飛行のfailsafe例として、電波断絶時には離陸地点への"
+                "自動帰還、または電波が復帰するまで空中で位置を維持する機能を挙げて"
+                "いる。BはGNSS異常、Cは電池異常に対応する別のfailsafe exampleで"
+                "あり、radio-link lossへの対応とは異なる。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.2「目視外飛行」(2)①（教則表示ページ37–38 / "
+                "PDF viewer 43–44）"
+            ),
+        },
+        "DRONE-Q-000066": {
+            "slot_id": "VS-065",
+            "kt_id": "D2-T03-KT001",
+            "coverage": "COV-21",
+            "question": (
+                "飛行機が速度と姿勢を一定に保って定常飛行している。\n\n飛行機に働く"
+                "主な力の関係として、教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "主翼の揚力が重力に対抗し、プロペラ等の推力が抗力に対抗する"
+            ),
+            "choice2": (
+                "主翼の揚力が抗力に対抗し、プロペラ等の推力が重力に対抗する"
+            ),
+            "choice3": (
+                "抗力が重力に対抗し、プロペラ等の推力が主翼の揚力に対抗する"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "飛行機では主翼に生じる揚力が重力に対抗し、飛行方向と逆向きに働く"
+                "抗力に対してプロペラ等の推力が対抗する。これら機体に働く力が釣り"
+                "合うと、速度と姿勢を一定とする定常飛行になる。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.3.1「無人航空機の飛行原理」（教則表示ページ38 / "
+                "PDF viewer 44）"
+            ),
+        },
+        "DRONE-Q-000067": {
+            "slot_id": "VS-066",
+            "kt_id": "D2-T03-KT004",
+            "coverage": "COV-22",
+            "question": (
+                "飛行機の翼について、迎角を徐々に大きくし、過度に大きな迎角となった。"
+                "\n\n教則が示す変化として最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "翼面から流れが剥離し、揚力が減少して抗力が増大し、失速につながる"
+            ),
+            "choice2": (
+                "翼面から流れが剥離し、揚力が増加して抗力が減少し、失速につながる"
+            ),
+            "choice3": (
+                "翼面から流れが剥離せず、揚力と抗力がともに減少し、失速につながる"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "一般には迎角を増すと揚力と抗力は増加するが、迎角を大きくしすぎると"
+                "翼表面から流れが剥離し、揚力は減少、抗力は増大して失速を招く。単に"
+                "迎角を増しただけで直ちにstallになるという意味ではない。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.3.2「揚力発生の特徴」（教則表示ページ38 / "
+                "PDF viewer 44）"
+            ),
+        },
+        "DRONE-Q-000068": {
+            "slot_id": "VS-067",
+            "kt_id": "D2-T03-KT005",
+            "coverage": "COV-23",
+            "question": (
+                "一般的な回転翼航空機（ヘリコプター）について、メインローターの反"
+                "トルクへの対応とヨー方向の姿勢制御の説明として、教則に最も合うもの"
+                "はどれか。"
+            ),
+            "choice1": (
+                "テールローターの推力でメインローターの反トルクを相殺し、その推力を"
+                "変化させてヨーを制御する"
+            ),
+            "choice2": (
+                "テールローターの推力でメインローターの揚力を相殺し、その推力を変化"
+                "させてピッチを制御する"
+            ),
+            "choice3": (
+                "テールローターの推力でメインローターの抗力を相殺し、その推力を変化"
+                "させてロールを制御する"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "一般的なヘリコプターでは、メインローターの反トルクをテールローター"
+                "で相殺する。また、tail rotorの推力を変化させることでヨー方向の"
+                "姿勢制御を行う。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.3.2「揚力発生の特徴」（教則表示ページ38–39 / "
+                "PDF viewer 44–45）"
+            ),
+        },
+        "DRONE-Q-000069": {
+            "slot_id": "VS-068",
+            "kt_id": "D2-T03-KT006",
+            "coverage": "COV-24",
+            "question": (
+                "同じ重量のペイロードを、機体の元の重心に近い位置から、機体前方の"
+                "離れた位置へ付け替える。\n\n総重量は変わらないものとすると、飛行"
+                "特性への影響について教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "総重量が同じなら、搭載位置が変わっても飛行特性は基本的に同じと"
+                "考える"
+            ),
+            "choice2": (
+                "搭載位置によって重心位置が変わると、安定性・飛行性能・運動性能に"
+                "影響する可能性がある"
+            ),
+            "choice3": (
+                "搭載位置は空気抵抗には影響し得るが、重心位置による飛行特性への影響"
+                "は考えなくてよい"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "教則は、機体重量の変化によって安定性・飛行性能・運動性能などの飛行"
+                "特性が変化するとし、特に重心位置の変化は飛行特性へ大きな影響を及ぼす"
+                "としている。そのため、同じ重量のpayloadでも搭載位置によってCGが"
+                "変わる点を無視できない。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.3.4「無人航空機へのペイロード搭載」（教則表示ページ39 "
+                "/ PDF viewer 45）"
             ),
         },
     }
@@ -2993,6 +3315,181 @@ class DroneQuestionBankTest(unittest.TestCase):
         for required in ("法令等に基づく規制ではな", "飛行前"):
             self.assertIn(required, cov_14_correct)
         self.assertNotIn("緊急用務空域", content("DRONE-Q-000059"))
+
+    def test_b5_d2a_coverage_metadata_content_and_semantic_regressions(
+        self,
+    ) -> None:
+        inputs = load_bank_inputs(self.bank)
+        question_by_id = {row["question_id"]: row for row in inputs.questions}
+        registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+
+        expected_mapping = {
+            expected["slot_id"]: question_id
+            for question_id, expected in self.B5_D2A_EXPECTATIONS.items()
+        }
+        self.assertEqual(
+            expected_mapping,
+            {
+                "VS-059": "DRONE-Q-000060",
+                "VS-060": "DRONE-Q-000061",
+                "VS-061": "DRONE-Q-000062",
+                "VS-062": "DRONE-Q-000063",
+                "VS-063": "DRONE-Q-000064",
+                "VS-064": "DRONE-Q-000065",
+                "VS-065": "DRONE-Q-000066",
+                "VS-066": "DRONE-Q-000067",
+                "VS-067": "DRONE-Q-000068",
+                "VS-068": "DRONE-Q-000069",
+            },
+        )
+
+        for question_id, expected in self.B5_D2A_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["deck_id"], "drone_second_class_exam")
+            self.assertEqual(question["unit_id"], "drone_systems")
+            self.assertEqual(question["difficulty"], "2")
+            self.assertEqual(question["importance"], "2")
+            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(question["valid_from"], "2026-07-14")
+            self.assertEqual(question["valid_until"], "")
+            self.assertEqual(question["last_reviewed_at"], "2026-08-19")
+            self.assertEqual(question["supersedes_id"], "")
+            self.assertEqual(question["tags"], "")
+            self.assertEqual(question["choice4"], "")
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+
+            for field in (
+                "question",
+                "choice1",
+                "choice2",
+                "choice3",
+                "correct_choice",
+                "explanation",
+                "source_locator",
+            ):
+                self.assertEqual(question[field], expected[field])
+
+            metadata = {
+                key: value
+                for item in question["notes_internal"].split(";")
+                if "=" in item
+                for key, value in (item.strip().split("=", 1),)
+            }
+            self.assertEqual(metadata["slot_id"], expected["slot_id"])
+            self.assertEqual(metadata["verification_state"], "author_source_verified")
+            self.assertEqual(metadata["primary_role"], "COVERAGE")
+            self.assertEqual(metadata["kt_id"], expected["kt_id"])
+            self.assertEqual(metadata["coverage"], expected["coverage"])
+            self.assertEqual(metadata["independent_reviewed"], "false")
+            self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
+            self.assertEqual(metadata["release_approved"], "false")
+
+            registry = registry_by_id[question_id]
+            self.assertEqual(registry["status"], "used")
+            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(registry["retired_at"], "")
+            self.assertEqual(registry["replacement_id"], "")
+            self.assertEqual(
+                registry["notes"],
+                f'{expected["slot_id"]}; B5 D2-A {expected["coverage"]}; '
+                "COVERAGE; permanent ID; pre-release",
+            )
+
+        correct_distribution = {
+            answer: sum(
+                expected["correct_choice"] == answer
+                for expected in self.B5_D2A_EXPECTATIONS.values()
+            )
+            for answer in ("A", "B", "C")
+        }
+        self.assertEqual(correct_distribution, {"A": 8, "B": 2, "C": 0})
+
+        def content(question_id: str) -> str:
+            question = question_by_id[question_id]
+            return " ".join(
+                question[field]
+                for field in (
+                    "question",
+                    "choice1",
+                    "choice2",
+                    "choice3",
+                    "explanation",
+                )
+            )
+
+        def correct_and_explanation(question_id: str) -> str:
+            question = question_by_id[question_id]
+            correct_field = f'choice{"ABC".index(question["correct_choice"]) + 1}'
+            return " ".join((question[correct_field], question["explanation"]))
+
+        cov_16_correct = correct_and_explanation("DRONE-Q-000061")
+        for required in ("スワッシュプレート", "ローター回転面", "ローターピッチ角"):
+            self.assertIn(required, cov_16_correct)
+        for forbidden in ("ヨーを制御", "反トルクを相殺"):
+            self.assertNotIn(forbidden, cov_16_correct)
+
+        cov_17_correct = correct_and_explanation("DRONE-Q-000062")
+        for required in (
+            "右側のローターの回転数を下げ",
+            "左側のローターの回転数を上げ",
+        ):
+            self.assertIn(required, cov_17_correct)
+        for forbidden in ("受信機", "メインコントローラー", "ジャイロセンサ"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000062"))
+
+        for required in ("ビジョンセンサー", "夜間", "衝突回避"):
+            self.assertIn(required, content("DRONE-Q-000063"))
+        for forbidden in ("すべてのセンサー", "GNSSは夜間"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000063"))
+
+        cov_19_correct = correct_and_explanation("DRONE-Q-000064")
+        for required in ("搭載カメラ", "速度", "地上で把握"):
+            self.assertIn(required, content("DRONE-Q-000064"))
+        for forbidden in (
+            "既存itemと分離するため",
+            "primary state variable",
+            "最も重要",
+            "補助者",
+        ):
+            self.assertNotIn(forbidden, cov_19_correct)
+        self.assertNotIn("位置と異常の有無", cov_19_correct)
+        self.assertNotIn("failsafe", cov_19_correct)
+
+        for required in ("無線通信が断絶", "自動的に戻る", "位置を維持"):
+            self.assertIn(required, content("DRONE-Q-000065"))
+        for forbidden in (
+            "always RTH",
+            "必ず自動帰還",
+            "specific return altitude",
+        ):
+            self.assertNotIn(forbidden, content("DRONE-Q-000065"))
+
+        for required in ("揚力", "重力", "推力", "抗力"):
+            self.assertIn(required, content("DRONE-Q-000066"))
+        for forbidden in ("4.3.5", "計算式"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000066"))
+
+        for required in (
+            "過度に大きな迎角",
+            "流れが剥離",
+            "揚力が減少",
+            "抗力が増大",
+            "失速",
+        ):
+            self.assertIn(required, content("DRONE-Q-000067"))
+        self.assertNotIn("迎角を増やすと直ちに失速", content("DRONE-Q-000067"))
+
+        for required in ("一般的な回転翼航空機", "反トルク", "テールローター", "ヨー"):
+            self.assertIn(required, content("DRONE-Q-000068"))
+        self.assertNotIn("すべてのヘリコプター", content("DRONE-Q-000068"))
+        self.assertNotIn("スワッシュプレート", content("DRONE-Q-000068"))
+
+        for required in ("同じ重量", "重心位置", "安定性", "飛行性能", "運動性能"):
+            self.assertIn(required, content("DRONE-Q-000069"))
+        for forbidden in ("release mechanism", "numerical CG calculation"):
+            self.assertNotIn(forbidden, content("DRONE-Q-000069"))
 
     def test_unregistered_drone_id_is_rejected(self) -> None:
         fieldnames, rows = self._read_csv(self.questions_path)
