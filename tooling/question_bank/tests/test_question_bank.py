@@ -258,6 +258,17 @@ class DroneQuestionBankTest(unittest.TestCase):
         "VS-087": "DRONE-Q-000087",
         "VS-088": "DRONE-Q-000088",
         "VS-089": "DRONE-Q-000089",
+        "VS-090": "DRONE-Q-000090",
+        "VS-091": "DRONE-Q-000091",
+        "VS-092": "DRONE-Q-000092",
+        "VS-093": "DRONE-Q-000093",
+        "VS-094": "DRONE-Q-000094",
+        "VS-095": "DRONE-Q-000095",
+        "VS-096": "DRONE-Q-000096",
+        "VS-097": "DRONE-Q-000097",
+        "VS-098": "DRONE-Q-000098",
+        "VS-099": "DRONE-Q-000099",
+        "VS-100": "DRONE-Q-000100",
     }
     B3A_EXPECTATIONS = {
         "DRONE-Q-000039": {
@@ -1895,6 +1906,345 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "教則 第5章 5.4.2"
                 "「安全な運航のための補助者の必要性、役割及び配置」"
                 "（教則表示ページ62 / PDF viewer 68）"
+            ),
+        },
+    }
+    B8_D4_EXPECTATIONS = {
+        "DRONE-Q-000090": {
+            "slot_id": "VS-090",
+            "kt_id": "D4-T01-KT002",
+            "coverage": "COV-46",
+            "question": (
+                "予定している飛行領域は、あらかじめ明確に定められている。\n\n"
+                "この飛行領域に対する安全マージンの設定として、教則に最も合うものは"
+                "どれか。"
+            ),
+            "choice1": (
+                "安全マージンは飛行領域の内側に設け、管理範囲を予定飛行領域と"
+                "一致させる"
+            ),
+            "choice2": (
+                "予定飛行領域の外側にも安全マージンを加えた範囲で飛行を実施する"
+            ),
+            "choice3": (
+                "安全マージンは離着陸地点の周囲だけに設け、飛行領域の周囲には"
+                "設けない"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "教則では、飛行を行う際は原則として、飛行空域に安全マージンを加えた"
+                "範囲で実施するとしている。したがって、予定飛行領域の境界だけで管理"
+                "範囲を終わらせず、その周囲にも安全上の余裕を持たせる。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.1.1(1)1)「安全マージン」"
+                "（教則表示ページ63 / PDF viewer 69）"
+            ),
+        },
+        "DRONE-Q-000091": {
+            "slot_id": "VS-091",
+            "kt_id": "D4-T01-KT003",
+            "coverage": "COV-47",
+            "question": (
+                "飛行計画を検討しており、次の条件はすべて確認済みである。\n\n"
+                "- 離着陸地点Aは周囲の構造物の影響から使用しない\n"
+                "- 経路Xは高圧電線に近いため使用しない\n"
+                "- 予定時間帯には経路Yが一時的な飛行規制の対象となる\n"
+                "- これらを避ける別の離着陸地点・経路・時間帯は確保できる\n\n"
+                "飛行計画の策定として最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "離着陸地点・経路・時間帯を見直し、確認済みの制約をすべて反映した"
+                "飛行計画にする"
+            ),
+            "choice2": (
+                "現在の飛行計画を維持し、離陸直前の最終確認で各制約に対応する"
+            ),
+            "choice3": (
+                "現在の飛行計画は維持し、飛行計画の通報内容だけを変更する"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "教則では、飛行計画の策定時に、離着陸環境、高圧電線等の施設、航空機"
+                "の往来、一時的な飛行規制などを確認し、運航へ影響する条件を飛行計画"
+                "へ反映することを求めている。本問では各条件の意味は既に確定している"
+                "ため、それらを満たすよう計画内容を統合する。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.1.2(1)（教則表示ページ64 / PDF viewer 70）"
+            ),
+        },
+        "DRONE-Q-000092": {
+            "slot_id": "VS-092",
+            "kt_id": "D4-T01-KT005",
+            "coverage": "COV-48",
+            "question": (
+                "飛行経路案の途中に建物があり、この機体では建物付近を通過する場合、"
+                "機体性能に応じた安全な距離を保つ必要があることは確認済みである。"
+                "\n\n飛行前の経路設定として最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "現在の経路を維持し、建物へ接近してから補助者の指示で対応する"
+            ),
+            "choice2": (
+                "現在の経路を維持し、実際に建物へ接近した場合だけ操縦者が回避する"
+            ),
+            "choice3": (
+                "建物を避ける経路にするか、付近を通る場合は機体性能に応じた安全な"
+                "距離を確保する"
+            ),
+            "correct_choice": "C",
+            "explanation": (
+                "教則では、飛行経路は建物や鳥などの障害を避けられるよう設定し、"
+                "障害物付近を通らざるを得ない場合には、機体性能に応じた安全な距離を"
+                "保つとしている。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.1.3(1)（教則表示ページ64–65 / PDF viewer 70–71）"
+            ),
+        },
+        "DRONE-Q-000093": {
+            "slot_id": "VS-093",
+            "kt_id": "D4-T02-KT001",
+            "coverage": "COV-49",
+            "question": (
+                "屋外で無人航空機を使用する作業を予定している。\n\n"
+                "この作業では、風向・風速、降水、雲や視程の状態が運航へ影響し得る。"
+                "\n\n飛行前の気象情報の集め方として最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "広域の一般的な天気予報だけを確認し、作業条件に応じた情報は追加しない"
+            ),
+            "choice2": (
+                "作業内容・時間・環境に応じて必要な気象情報を選び、適切な情報源から"
+                "入手・分析する"
+            ),
+            "choice3": (
+                "飛行開始時の現地の空模様だけを確認し、事前の気象情報は取得しない"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "教則では、一般的な天気予報だけでなく、作業内容、時間、環境に応じて、"
+                "その飛行へ影響する雲、視程、風向・風速、降水等の情報を適切に入手・"
+                "分析する必要があるとしている。参考となる情報源としてAMeDAS、気象"
+                "レーダー、実況・予想天気図等が挙げられている。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.2.1(1)(2)（教則表示ページ69–70 / PDF viewer 75–76）"
+            ),
+        },
+        "DRONE-Q-000094": {
+            "slot_id": "VS-094",
+            "kt_id": "D4-T02-KT003",
+            "coverage": "COV-50",
+            "question": (
+                "寒冷前線が飛行予定地域へ接近していることは、既に確認済みである。"
+                "\n\nこの前線に伴って予想される天気の変化として最も適切なものは"
+                "どれか。"
+            ),
+            "choice1": (
+                "突風や雷を伴う短時間の強雨が生じ得て、通過後には風向が急変し気温が"
+                "下がる"
+            ),
+            "choice2": (
+                "急な風向変化や強雨は生じにくく、同じ風向と気温が長時間維持される"
+            ),
+            "choice3": (
+                "前線通過による風向や気温の変化はほぼなく、降水だけが徐々に弱くなる"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "寒冷前線では発達した積乱雲により、突風や雷を伴う短時間の断続的な"
+                "強雨が生じることがあり、通過後には風向が急変して気温が低下する。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.2.1(3)10)a)「寒冷前線」"
+                "（教則表示ページ71 / PDF viewer 77）"
+            ),
+        },
+        "DRONE-Q-000095": {
+            "slot_id": "VS-095",
+            "kt_id": "D4-T02-KT004",
+            "coverage": "COV-51",
+            "question": (
+                "飛行予定場所に濃い霧が発生し、近距離でも視界が大きく低下している。"
+                "\n\nこの状態が無人航空機の運航へ与える影響として最も適切なものは"
+                "どれか。"
+            ),
+            "choice1": (
+                "主にGNSSの測位精度だけへ影響し、機体や周囲の物件の目視確認には"
+                "影響しない"
+            ),
+            "choice2": (
+                "主に離着陸地点だけへ影響し、飛行中の機体や他の物件との距離確認には"
+                "影響しない"
+            ),
+            "choice3": (
+                "機体の飛行状況や、他の物件との安全な距離を目視で確認することが"
+                "困難になる"
+            ),
+            "correct_choice": "C",
+            "explanation": (
+                "教則では、雲中や濃霧等では、近距離であっても機体の飛行状況や他の"
+                "物件との安全な距離を目視で確認できない状態になり得るとしている。"
+                "ここでは、このweather conditionによるvisibilityへの影響を扱う。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.2.1(1)（教則表示ページ69 / PDF viewer 75）"
+            ),
+        },
+        "DRONE-Q-000096": {
+            "slot_id": "VS-096",
+            "kt_id": "D4-T02-KT007",
+            "coverage": "COV-52",
+            "question": (
+                "飛行開始予定時刻になったが、飛行場所では現在、霧が発生している。"
+                "\n\n作業は延期可能であり、霧が発生していること自体は既に確認済み"
+                "である。\n\n飛行実施の判断として最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "飛行範囲を予定より狭くして、霧が発生している間も予定どおり開始する"
+            ),
+            "choice2": (
+                "霧が発生している間は開始を延期し、気象状況が改善した後に改めて"
+                "実施可否を判断する"
+            ),
+            "choice3": (
+                "飛行時間を予定より短くして、霧が発生している間も開始する"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "教則では、気象条件を考慮して飛行実施を判断する場合、降雨、降雪、"
+                "霧の発生時や雷鳴が聞こえる時は、飛行の延期または中止が望ましいと"
+                "している。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.2.3(1)「気象状況の把握と飛行の実施の判断」"
+                "（教則表示ページ73–74 / PDF viewer 79–80）"
+            ),
+        },
+        "DRONE-Q-000097": {
+            "slot_id": "VS-097",
+            "kt_id": "D4-T03-KT001",
+            "coverage": "COV-53",
+            "question": (
+                "飛行機の運航上の空間的な制約について、教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "回転翼航空機より広い離着陸エリアが必要で、飛行中の最小旋回半径も"
+                "大きくなる"
+            ),
+            "choice2": (
+                "回転翼航空機より広い離着陸エリアが必要だが、飛行中の最小旋回半径は"
+                "回転翼航空機より小さくなる"
+            ),
+            "choice3": (
+                "離着陸エリアは回転翼航空機と同程度でよいが、飛行中の最小旋回半径"
+                "だけが大きくなる"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "教則では、滑走して離着陸する飛行機は、回転翼航空機より広い離着陸"
+                "エリアを必要とし、飛行中の最小旋回半径も大きくなるとしている。"
+                "これらは飛行機を運航する際の空間的な制約となる。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.3.1(1)「飛行機の運航の特徴」"
+                "（教則表示ページ74–75 / PDF viewer 80）"
+            ),
+        },
+        "DRONE-Q-000098": {
+            "slot_id": "VS-098",
+            "kt_id": "D4-T03-KT002",
+            "coverage": "COV-54",
+            "question": (
+                "使用する一般的な回転翼航空機（ヘリコプター）は、構造上プロペラ"
+                "ガードを備えていないものとする。\n\n離着陸時の安全な運航範囲の"
+                "考え方として最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "離着陸エリアはガード付きマルチローターと同程度とし、人との距離だけ"
+                "を広げる"
+            ),
+            "choice2": (
+                "離着陸エリアだけを広げればよく、操縦者・補助者との隔離距離は特に"
+                "確認しない"
+            ),
+            "choice3": (
+                "ガード付きマルチローターより広い離着陸エリアを確保し、操縦者・"
+                "補助者との必要隔離距離も十分確保する"
+            ),
+            "correct_choice": "C",
+            "explanation": (
+                "一般的なヘリコプターは構造上propeller guardがないため、教則はguard"
+                "付きmultirotorより広い離着陸areaが必要としている。また、離着陸時"
+                "には機体と操縦者・補助者との必要隔離距離も十分確保する。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.3.2(1)（教則表示ページ75 / PDF viewer 81）"
+            ),
+        },
+        "DRONE-Q-000099": {
+            "slot_id": "VS-099",
+            "kt_id": "D4-T03-KT003",
+            "coverage": "COV-55",
+            "question": (
+                "最大離陸重量25kg以上の大型無人航空機を使用する。この機体は慣性力が"
+                "大きいものとする。\n\n障害物回避を考える際、この特性から認識すべき"
+                "影響として最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "慣性力が大きいほど、加速・減速・上昇・降下に必要な時間と距離は"
+                "短くなる"
+            ),
+            "choice2": (
+                "加速・減速・上昇・降下に必要な時間と距離が長くなるため、障害物回避"
+                "には特に注意が必要になる"
+            ),
+            "choice3": (
+                "慣性力は主に騒音へ影響し、加減速等に必要な時間や距離には影響しない"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "教則では、25kg以上の大型機は慣性力が大きいため、加速・減速・上昇・"
+                "降下などに要する時間と距離が長くなり、障害物回避には特に注意が必要"
+                "としている。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.3.4(1)「大型機（最大離陸重量25kg以上）の運航の特徴」"
+                "（教則表示ページ77 / PDF viewer 83）"
+            ),
+        },
+        "DRONE-Q-000100": {
+            "slot_id": "VS-100",
+            "kt_id": "D4-T04-KT001",
+            "coverage": "COV-56",
+            "question": (
+                "夜間飛行を行う。\n\n暗さによって、昼間より機体の姿勢・方向や"
+                "周囲の障害物を視認しにくいことは確認済みである。\n\nこのvisibility "
+                "riskに対するbaseline controlとして最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "機体の向きを視認できる灯火を備え、離着陸地点や回避すべき障害物にも"
+                "必要な照明を用意する"
+            ),
+            "choice2": (
+                "離着陸地点だけを照明し、機体の向きを確認するための灯火は用意しない"
+            ),
+            "choice3": (
+                "機体の向きを確認できる灯火だけを用意し、離着陸地点や障害物への照明"
+                "は行わない"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "夜間は機体の姿勢・方向の視認や周囲の安全確認が昼間より困難になる。"
+                "教則ではbaseline controlとして、機体の向きを視認できる灯火を備えた"
+                "機体を使用し、離着陸地点や回避すべき障害物等にも照明を設けるとして"
+                "いる。"
+            ),
+            "source_locator": (
+                "教則 第6章 6.4.1(1)「夜間飛行の運航」"
+                "（教則表示ページ78 / PDF viewer 84）"
             ),
         },
     }
@@ -4556,6 +4906,240 @@ class DroneQuestionBankTest(unittest.TestCase):
             "UAS",
         ):
             self.assertNotIn(forbidden, cov_45)
+
+    def test_b8_d4_coverage_metadata_content_and_semantic_regressions(
+        self,
+    ) -> None:
+        inputs = load_bank_inputs(self.bank)
+        question_by_id = {row["question_id"]: row for row in inputs.questions}
+        registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+
+        expected_mapping = {
+            expected["slot_id"]: question_id
+            for question_id, expected in self.B8_D4_EXPECTATIONS.items()
+        }
+        self.assertEqual(
+            expected_mapping,
+            {
+                "VS-090": "DRONE-Q-000090",
+                "VS-091": "DRONE-Q-000091",
+                "VS-092": "DRONE-Q-000092",
+                "VS-093": "DRONE-Q-000093",
+                "VS-094": "DRONE-Q-000094",
+                "VS-095": "DRONE-Q-000095",
+                "VS-096": "DRONE-Q-000096",
+                "VS-097": "DRONE-Q-000097",
+                "VS-098": "DRONE-Q-000098",
+                "VS-099": "DRONE-Q-000099",
+                "VS-100": "DRONE-Q-000100",
+            },
+        )
+
+        for question_id, expected in self.B8_D4_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["deck_id"], "drone_second_class_exam")
+            self.assertEqual(question["unit_id"], "drone_risk_management")
+            self.assertEqual(question["difficulty"], "2")
+            self.assertEqual(question["importance"], "2")
+            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(question["valid_from"], "2026-07-14")
+            self.assertEqual(question["valid_until"], "")
+            self.assertEqual(question["last_reviewed_at"], "2026-08-19")
+            self.assertEqual(question["supersedes_id"], "")
+            self.assertEqual(question["tags"], "")
+            self.assertEqual(question["choice4"], "")
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+
+            for field in (
+                "question",
+                "choice1",
+                "choice2",
+                "choice3",
+                "correct_choice",
+                "explanation",
+                "source_locator",
+            ):
+                self.assertEqual(question[field], expected[field])
+
+            metadata = {
+                key: value
+                for item in question["notes_internal"].split(";")
+                if "=" in item
+                for key, value in (item.strip().split("=", 1),)
+            }
+            self.assertEqual(metadata["slot_id"], expected["slot_id"])
+            self.assertEqual(metadata["verification_state"], "author_source_verified")
+            self.assertEqual(metadata["primary_role"], "COVERAGE")
+            self.assertEqual(metadata["kt_id"], expected["kt_id"])
+            self.assertEqual(metadata["coverage"], expected["coverage"])
+            self.assertEqual(metadata["independent_reviewed"], "false")
+            self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
+            self.assertEqual(metadata["release_approved"], "false")
+
+            registry = registry_by_id[question_id]
+            self.assertEqual(registry["status"], "used")
+            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(registry["retired_at"], "")
+            self.assertEqual(registry["replacement_id"], "")
+            self.assertEqual(
+                registry["notes"],
+                f'{expected["slot_id"]}; B8 D4 {expected["coverage"]}; '
+                "COVERAGE; permanent ID; pre-release",
+            )
+
+        correct_distribution = {
+            answer: sum(
+                expected["correct_choice"] == answer
+                for expected in self.B8_D4_EXPECTATIONS.values()
+            )
+            for answer in ("A", "B", "C")
+        }
+        self.assertEqual(correct_distribution, {"A": 4, "B": 4, "C": 3})
+
+        def content(question_id: str) -> str:
+            question = question_by_id[question_id]
+            return " ".join(
+                question[field]
+                for field in (
+                    "question",
+                    "choice1",
+                    "choice2",
+                    "choice3",
+                    "explanation",
+                )
+            )
+
+        semantic_expectations = {
+            "DRONE-Q-000090": {
+                "required": ("安全マージン", "外側"),
+                "forbidden": (
+                    "緊急着陸",
+                    "alternate landing",
+                    "likelihood",
+                    "consequence",
+                ),
+            },
+            "DRONE-Q-000091": {
+                "required": ("離着陸地点", "経路", "時間帯", "制約", "飛行計画"),
+                "forbidden": (
+                    "emergency landing",
+                    "alternate landing",
+                    "contingency",
+                ),
+            },
+            "DRONE-Q-000092": {
+                "required": ("建物", "経路", "機体性能", "安全な距離"),
+                "forbidden": (),
+            },
+            "DRONE-Q-000093": {
+                "required": ("作業内容", "時間", "環境", "気象情報"),
+                "forbidden": ("dynamic snapshot",),
+            },
+            "DRONE-Q-000094": {
+                "required": ("寒冷前線", "突風", "雷", "強雨", "風向", "気温"),
+                "forbidden": ("go/no-go",),
+            },
+            "DRONE-Q-000095": {
+                "required": ("霧", "機体の飛行状況", "安全な距離", "目視"),
+                "forbidden": (
+                    "VLOS",
+                    "特定飛行",
+                    "延期",
+                    "中止",
+                    "night",
+                    "darkness",
+                ),
+            },
+            "DRONE-Q-000096": {
+                "required": ("霧", "延期", "改善", "実施可否"),
+                "forbidden": ("低温", "battery", "thermal"),
+            },
+            "DRONE-Q-000097": {
+                "required": ("広い離着陸エリア", "最小旋回半径"),
+                "forbidden": (
+                    "route planning",
+                    "bank angle",
+                    "speed planning",
+                    "emergency landing",
+                ),
+            },
+            "DRONE-Q-000098": {
+                "required": (
+                    "プロペラガード",
+                    "広い離着陸エリア",
+                    "操縦者",
+                    "補助者",
+                    "隔離距離",
+                ),
+                "forbidden": ("swashplate", "tail rotor", "anti-torque", "VRS"),
+            },
+            "DRONE-Q-000099": {
+                "required": (
+                    "25kg",
+                    "慣性",
+                    "加速",
+                    "減速",
+                    "上昇",
+                    "降下",
+                    "時間",
+                    "距離",
+                    "障害物回避",
+                ),
+                "forbidden": (
+                    "十分な時間的margin",
+                    "十分な距離margin",
+                    "speed planning",
+                    "emergency landing",
+                    "alternate landing",
+                ),
+            },
+            "DRONE-Q-000100": {
+                "required": (
+                    "夜間",
+                    "姿勢",
+                    "方向",
+                    "灯火",
+                    "離着陸地点",
+                    "障害物",
+                    "照明",
+                ),
+                "forbidden": (
+                    "night legal classification",
+                    "vision sensor limitation",
+                    "observer architecture",
+                ),
+            },
+        }
+        for question_id, expectations in semantic_expectations.items():
+            question_content = content(question_id)
+            for required in expectations["required"]:
+                self.assertIn(required, question_content)
+            for forbidden in expectations["forbidden"]:
+                self.assertNotIn(forbidden.casefold(), question_content.casefold())
+
+        cov_48 = question_by_id["DRONE-Q-000092"]
+        cov_48_answer = " ".join((cov_48["choice3"], cov_48["explanation"]))
+        for in_flight_reaction in ("接近してから", "実際に建物へ接近した場合だけ"):
+            self.assertNotIn(in_flight_reaction, cov_48_answer)
+
+        excluded_first_class_locators = (
+            "6.1.2(3)",
+            "6.3.1(2)",
+            "6.3.1(3)",
+            "6.3.2(2)",
+            "6.3.2(3)",
+            "6.3.4(2)",
+            "6.3.4(3)",
+            "6.4.1(2)",
+            "6.4.1(3)",
+        )
+        for question_id in self.B8_D4_EXPECTATIONS:
+            question = question_by_id[question_id]
+            self.assertNotIn("一等", content(question_id))
+            for excluded_locator in excluded_first_class_locators:
+                self.assertNotIn(excluded_locator, question["source_locator"])
 
     def test_unregistered_drone_id_is_rejected(self) -> None:
         fieldnames, rows = self._read_csv(self.questions_path)
