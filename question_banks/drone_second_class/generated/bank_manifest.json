@@ -1,8 +1,8 @@
 {
   "app_key": "drone_second_class",
-  "bank_revision": "unreleased-bootstrap-2026-08-18",
-  "content_as_of": "2026-08-18",
-  "content_hash": "sha256:6b1c754f0718e62bea5668104cdb8408cb2f0daa733f9891f1960e8448d6b3fe",
+  "bank_revision": "drone-second-class-v0-core-2026-08-19",
+  "content_as_of": "2026-08-19",
+  "content_hash": "sha256:775b91d2f76a5080c0a4462df473581f359c8088ff2353adb609a564c1427b6d",
   "exam_profile_version": "drone-second-class-unreleased",
   "free_question_count": 0,
   "generated_file_notice": "GENERATED FILE - DO NOT EDIT",

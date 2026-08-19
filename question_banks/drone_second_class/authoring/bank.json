@@ -1,7 +1,7 @@
 {
   "app_key": "drone_second_class",
-  "bank_revision": "unreleased-bootstrap-2026-08-18",
-  "content_as_of": "2026-08-18",
+  "bank_revision": "drone-second-class-v0-core-2026-08-19",
+  "content_as_of": "2026-08-19",
   "decks": [
     {
       "deck_id": "drone_second_class_exam",
