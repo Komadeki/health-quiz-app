@@ -5189,6 +5189,84 @@ class DroneQuestionBankTest(unittest.TestCase):
         self.assertEqual(runtime["decks"], [])
         self.assertEqual(manifest["question_count"], 0)
 
+    def test_drone_v0_core_formal_snapshot_contract(self) -> None:
+        inputs = load_bank_inputs(self.bank)
+        expected_ids = [
+            f"DRONE-Q-{sequence:06d}" for sequence in range(1, 101)
+        ]
+        question_ids = [question["question_id"] for question in inputs.questions]
+        registry_ids = [entry["question_id"] for entry in inputs.id_registry]
+
+        self.assertEqual(
+            inputs.metadata["bank_revision"],
+            "drone-second-class-v0-core-2026-08-19",
+        )
+        self.assertEqual(inputs.metadata["content_as_of"], "2026-08-19")
+        self.assertEqual(
+            inputs.metadata["exam_profile_version"],
+            "drone-second-class-unreleased",
+        )
+        self.assertEqual(len(inputs.questions), 100)
+        self.assertEqual(set(question_ids), set(expected_ids))
+        self.assertTrue(
+            all(
+                question["question_version"] == "1"
+                for question in inputs.questions
+            )
+        )
+        self.assertTrue(
+            all(question["status"] == "draft" for question in inputs.questions)
+        )
+        self.assertTrue(
+            all(
+                "verification_state=author_source_verified"
+                in question["notes_internal"]
+                for question in inputs.questions
+            )
+        )
+        self.assertTrue(
+            all(
+                "release_approved=false" in question["notes_internal"]
+                for question in inputs.questions
+            )
+        )
+        self.assertEqual(registry_ids, expected_ids)
+        self.assertTrue(
+            all(entry["status"] == "used" for entry in inputs.id_registry)
+        )
+        self.assertTrue(
+            all(
+                not entry["first_used_bank_revision"]
+                for entry in inputs.id_registry
+            )
+        )
+        self.assertNotIn("DRONE-Q-000101", question_ids)
+        self.assertNotIn("DRONE-Q-000101", registry_ids)
+        self.assertEqual(inputs.released_questions, [])
+
+        runtime = json.loads(
+            (self.bank / "generated" / "drone_second_class_bank.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        manifest = json.loads(
+            (self.bank / "generated" / "bank_manifest.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(
+            runtime["bankRevision"], "drone-second-class-v0-core-2026-08-19"
+        )
+        self.assertEqual(runtime["contentAsOf"], "2026-08-19")
+        self.assertEqual(runtime["decks"], [])
+        self.assertEqual(
+            manifest["bank_revision"],
+            "drone-second-class-v0-core-2026-08-19",
+        )
+        self.assertEqual(manifest["content_as_of"], "2026-08-19")
+        self.assertEqual(manifest["question_count"], 0)
+        self.assertEqual(manifest["free_question_count"], 0)
+
     def test_qualification_fixture_remains_valid(self) -> None:
         fixture = REPOSITORY_ROOT / "question_banks" / "qualification_fixture"
         result = validate_bank(fixture, check_generated=True)

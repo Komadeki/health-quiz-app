@@ -12,15 +12,33 @@ All 100 authored questions remain draft.
 
 ## Release state
 
-- `unreleased-bootstrap-2026-08-18` is a tooling-required working revision.
-  It is not a formal release `bank_revision`.
+- 100 / 100 authored questions are complete.
+- Cross-Bank Audit passed with non-blocking observations.
+- V0-Core Bank Readiness is `GO`.
+- The formal validation snapshot `bank_revision` is
+  `drone-second-class-v0-core-2026-08-19`, with `content_as_of=2026-08-19`.
 - All currently authored questions remain `draft`, so generated runtime output
   intentionally contains zero active questions and an empty deck list.
-- Formal release remains on hold until the 100/100 bank, Cross-Bank Audit, and
-  V0-Core candidate gates pass.
+- Runtime remains inactive, V0-Panel has not started, and release approval has
+  not been granted.
+- `unreleased-bootstrap-2026-08-18` was the preceding tooling working revision.
 - Difficulty, importance, and free/paid fields contain neutral working values
   required by authoring schema v2. They are not product decisions while the
   rows remain draft.
+
+## Validation snapshot identity
+
+`drone-second-class-v0-core-2026-08-19` identifies the 100-question V0-Core
+validation snapshot. It does not indicate an App Store or production release,
+release approval, runtime activation, `Question status=active`, V0-Panel PASS,
+or Product Validation PASS.
+
+Once a formal `bank_revision` identifies a merged validation snapshot, that
+revision value must not be reused for materially different validation content.
+Changes to question content, version, or status; source binding; bank structure;
+or validation-relevant metadata require a new `bank_revision`. This bank-level
+reproducibility rule is independent of the question-level
+`question_id` / `question_version` identity contract.
 
 ## Permanent allocation
 
@@ -211,9 +229,9 @@ protocol.
 The B8 D4 Coverage rows add Human Author Verified VS-090 through VS-100 /
 COV-46 through COV-56 after passing the Source-first Gate, Question Authoring
 Content Gate, Human Author Verification, and QID Gate. All 11 remain draft.
-Reaching 100 authored questions does not declare the Cross-Bank Audit passed,
-activate runtime, grant release approval, or issue a formal release
-`bank_revision`; IDs beyond `DRONE-Q-000100` remain unreserved.
+Reaching 100 authored questions alone did not declare the Cross-Bank Audit
+passed, activate runtime, grant release approval, or issue a formal validation
+snapshot; IDs beyond `DRONE-Q-000100` remain unreserved.
 
 VS-039 (`DRONE-Q-000004`) remains the US-C Sentinel. VS-069
 (`DRONE-Q-000005`) remains its COV-25 neighbor and does not expose the
