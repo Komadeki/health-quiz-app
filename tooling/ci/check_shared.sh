@@ -24,6 +24,15 @@ python3 -m unittest discover \
 python3 tooling/question_bank/validate.py \
   --bank question_banks/qualification_fixture \
   --check-generated
+python3 tooling/question_bank/validate.py \
+  --bank question_banks/drone_second_class \
+  --check-generated
+python3 -m unittest discover \
+  -s tooling/v0_panel_validation/tests \
+  -p 'test_*.py'
+python3 tooling/v0_panel_validation/validate.py \
+  --bank question_banks/drone_second_class \
+  --check-generated
 python3 -m unittest discover \
   -s tooling/ci \
   -p 'test_*.py'

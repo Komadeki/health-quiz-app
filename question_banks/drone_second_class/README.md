@@ -237,3 +237,27 @@ VS-039 (`DRONE-Q-000004`) remains the US-C Sentinel. VS-069
 (`DRONE-Q-000005`) remains its COV-25 neighbor and does not expose the
 transmitter, receiver, or remote-command sequence in its stem, choices, or
 explanation.
+
+## V0-Panel validation bundle
+
+The independent `validation/` path compiles the fixed 100-question formal
+snapshot into a deterministic, validation-only Research Bank. It does not
+activate draft questions, change the production generator, or create a
+participant route. `validation/protocol.json` contains the typed V0-Panel
+blueprint and the fixed formal snapshot identity. Generated artifacts live in
+`validation/generated/`; they never replace the production files in
+`generated/`.
+
+Generate and verify the validation artifacts from the repository root:
+
+```sh
+python3 tooling/v0_panel_validation/generate.py \
+  --bank question_banks/drone_second_class
+python3 tooling/v0_panel_validation/validate.py \
+  --bank question_banks/drone_second_class \
+  --check-generated
+```
+
+The generator parses `notes_internal` only as authoring control metadata. Raw
+`notes_internal` is not emitted to the validation bundle; Panel consumers use
+the materialized `validation_metadata` fields instead.
