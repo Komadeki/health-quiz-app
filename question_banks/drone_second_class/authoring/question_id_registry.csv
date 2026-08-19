@@ -39,3 +39,8 @@ DRONE-Q-000037,used,,,,VS-029; B2B HB7 observer; BREADTH_OBSERVED; permanent ID;
 DRONE-Q-000038,used,,,,VS-036; B2B HB7 state; BREADTH_HELDOUT; permanent ID; pre-release
 DRONE-Q-000039,used,,,,VS-041; B3A US-E clean sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
 DRONE-Q-000040,used,,,,VS-042; B3A US-F clean sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000041,used,,,,VS-037; B3B US-A routed sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000042,used,,,,VS-038; B3B US-B routed sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000043,used,,,,VS-040; B3B US-D routed sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000044,used,,,,VS-043; B3B US-G routed sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000045,used,,,,VS-044; B3B US-H routed sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
