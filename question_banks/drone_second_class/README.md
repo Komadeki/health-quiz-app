@@ -4,9 +4,10 @@ This bank instantiates the permanent `DRONE` question namespace. It contains
 the initial five Stage 9 calibration questions, five B1A questions, seven B1B
 questions, eight B1C questions, eight B2A questions, five B2B questions, two
 B3A Clean Sentinel questions, five B3B Routed Sentinel questions, and 14 B4 D1
-Coverage questions, and ten B5 D2-A Coverage questions. The B4 D1 and B5 D2-A
-questions passed the Source-first Gate, Question Authoring Content Gate, Human
-Author Verification, and QID Gate. All 69 authored questions remain draft.
+Coverage questions, ten B5 D2-A Coverage questions, and ten B6 D2-B Coverage
+questions. The B4 D1, B5 D2-A, and B6 D2-B questions passed the Source-first
+Gate, Question Authoring Content Gate, Human Author Verification, and QID Gate.
+All 79 authored questions remain draft.
 
 ## Release state
 
@@ -93,10 +94,20 @@ Author Verification, and QID Gate. All 69 authored questions remain draft.
 | VS-066 | DRONE-Q-000067 |
 | VS-067 | DRONE-Q-000068 |
 | VS-068 | DRONE-Q-000069 |
+| VS-070 | DRONE-Q-000070 |
+| VS-071 | DRONE-Q-000071 |
+| VS-072 | DRONE-Q-000072 |
+| VS-073 | DRONE-Q-000073 |
+| VS-074 | DRONE-Q-000074 |
+| VS-075 | DRONE-Q-000075 |
+| VS-076 | DRONE-Q-000076 |
+| VS-077 | DRONE-Q-000077 |
+| VS-078 | DRONE-Q-000078 |
+| VS-079 | DRONE-Q-000079 |
 
 The registry uses the existing `used` status. Because none of the questions
 has entered a released bank, `first_used_bank_revision` remains empty. IDs
-beyond `DRONE-Q-000069` are not reserved.
+beyond `DRONE-Q-000079` are not reserved.
 
 The shared schema has no verification-state field. The existing
 `notes_internal` field records `author_source_verified` and the measurement
@@ -158,8 +169,14 @@ release `bank_revision`.
 The B5 D2-A Coverage rows add Human Author Verified VS-059 through VS-068 /
 COV-15 through COV-24 after passing the Source-first Gate, Question Authoring
 Content Gate, Human Author Verification, and QID Gate. All ten remain draft;
-this allocation does not complete B6, activate questions, reserve IDs beyond
-`DRONE-Q-000069`, or issue a formal release `bank_revision`.
+this allocation does not activate questions or issue a formal release
+`bank_revision`.
+
+The B6 D2-B Coverage rows add Human Author Verified VS-070 through VS-079 /
+COV-26 through COV-35 after passing the Source-first Gate, Question Authoring
+Content Gate, Human Author Verification, and QID Gate. All ten remain draft;
+this allocation does not author B7, activate questions, reserve IDs beyond
+`DRONE-Q-000079`, or issue a formal release `bank_revision`.
 
 VS-039 (`DRONE-Q-000004`) remains the US-C Sentinel. VS-069
 (`DRONE-Q-000005`) remains its COV-25 neighbor and does not expose the

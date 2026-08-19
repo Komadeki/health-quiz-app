@@ -238,6 +238,16 @@ class DroneQuestionBankTest(unittest.TestCase):
         "VS-066": "DRONE-Q-000067",
         "VS-067": "DRONE-Q-000068",
         "VS-068": "DRONE-Q-000069",
+        "VS-070": "DRONE-Q-000070",
+        "VS-071": "DRONE-Q-000071",
+        "VS-072": "DRONE-Q-000072",
+        "VS-073": "DRONE-Q-000073",
+        "VS-074": "DRONE-Q-000074",
+        "VS-075": "DRONE-Q-000075",
+        "VS-076": "DRONE-Q-000076",
+        "VS-077": "DRONE-Q-000077",
+        "VS-078": "DRONE-Q-000078",
+        "VS-079": "DRONE-Q-000079",
     }
     B3A_EXPECTATIONS = {
         "DRONE-Q-000039": {
@@ -1274,6 +1284,293 @@ class DroneQuestionBankTest(unittest.TestCase):
             "source_locator": (
                 "教則 第4章 4.3.4「無人航空機へのペイロード搭載」（教則表示ページ39 "
                 "/ PDF viewer 45）"
+            ),
+        },
+    }
+    B6_D2B_EXPECTATIONS = {
+        "DRONE-Q-000070": {
+            "slot_id": "VS-070",
+            "kt_id": "D2-T04-KT002",
+            "coverage": "COV-26",
+            "question": (
+                "無人航空機に搭載されるIMU（慣性計測装置）の構成と、検出する情報の"
+                "組合せとして、教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "3軸のジャイロセンサと3方向の加速度センサ等を用い、3次元の角速度と"
+                "加速度を検出する"
+            ),
+            "choice2": (
+                "3軸のジャイロセンサとGNSS受信機を用い、3次元の角速度と地球上の"
+                "位置を一体として検出する"
+            ),
+            "choice3": (
+                "3方向の加速度センサと地磁気センサを用い、3次元の加速度と機体方位を"
+                "一体として検出する"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "教則では、IMUを3軸のジャイロセンサと3方向の加速度センサ等によって、"
+                "3次元の角速度と加速度を検出する装置としている。GNSSによる位置取得や"
+                "地磁気センサによる方位取得とは役割が異なる。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.4.1(1)〜(2)（教則表示ページ42 / PDF viewer 48）"
+            ),
+        },
+        "DRONE-Q-000071": {
+            "slot_id": "VS-071",
+            "kt_id": "D2-T04-KT005",
+            "coverage": "COV-27",
+            "question": (
+                "電動の無人航空機で、ローターの回転数を変化させて揚力や推力を調整"
+                "する。\n\nこのとき、モーターの回転数を制御するcomponentとして教則に"
+                "示されているものはどれか。"
+            ),
+            "choice1": "バッテリー",
+            "choice2": "ESC（エレクトロニック・スピード・コントローラー）",
+            "choice3": "ローター（プロペラ）",
+            "correct_choice": "B",
+            "explanation": (
+                "教則では、モーターの回転数はESCによって制御され、モーターで駆動"
+                "されるローターの回転数を増減させることで揚力や推力を変化させると"
+                "している。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.4.2(2)〜(3)（教則表示ページ43 / PDF viewer 49）"
+            ),
+        },
+        "DRONE-Q-000072": {
+            "slot_id": "VS-072",
+            "kt_id": "D2-T04-KT010",
+            "coverage": "COV-28",
+            "question": (
+                "LiPoバッテリーの端子が誤って接触し、短絡した。\n\n教則がこの状態に"
+                "ついて直接示している危険として、最も適切なものはどれか。"
+            ),
+            "choice1": "急速な劣化が進み、寿命が短くなることが主な危険となる",
+            "choice2": (
+                "内部に通常より多くのガスが発生し、膨張することが主な危険となる"
+            ),
+            "choice3": "発火する可能性がある",
+            "correct_choice": "C",
+            "explanation": (
+                "教則は、LiPoバッテリーが短絡した場合には発火する可能性があるとして"
+                "いる。したがって、端子の短絡は火災につながり得る電気的な危険として"
+                "扱う必要がある。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.4.4(2)（教則表示ページ45 / PDF viewer 51）"
+            ),
+        },
+        "DRONE-Q-000073": {
+            "slot_id": "VS-073",
+            "kt_id": "D2-T04-KT012",
+            "coverage": "COV-29",
+            "question": (
+                "無人航空機に物件投下装置を取り付けて使用する。\n\n物件投下装置の"
+                "technical characteristicと取扱いとして、教則に最も合うものは"
+                "どれか。"
+            ),
+            "choice1": (
+                "意図せず物件が落下しない構造とし、装置ごとに定められた搭載方法や"
+                "投下手順を理解して使用する"
+            ),
+            "choice2": (
+                "投下のタイミングを操縦者が監視できれば、装置側で意図しない落下を"
+                "防止する構造は必要としない"
+            ),
+            "choice3": (
+                "物件を確実に保持できれば、装置ごとに定められた搭載方法や投下手順を"
+                "確認せず使用できる"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "教則では、物件投下装置は意図せず物件が落下しない構造となっており、"
+                "さらに搭載方法や投下手順が定められているため、装置の特性と機能を"
+                "理解して使用する必要があるとしている。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.4.5（教則表示ページ46 / PDF viewer 52）"
+            ),
+        },
+        "DRONE-Q-000074": {
+            "slot_id": "VS-074",
+            "kt_id": "D2-T05-KT001",
+            "coverage": "COV-30",
+            "question": (
+                "無人航空機の通信に用いる電波について、周波数と障害物への回り込み"
+                "やすさの関係として、教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "周波数が高く波長が短いほど回折しやすくなり、障害物の背後へ回り込み"
+                "やすくなる"
+            ),
+            "choice2": (
+                "周波数が低く波長が長いほど回折しやすくなり、障害物の背後へ回り込み"
+                "やすくなる"
+            ),
+            "choice3": (
+                "回折のしやすさは周波数や波長とは関係せず、送信出力だけで決まる"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "教則では、電波は周波数が低く、波長が長いほど障害物の後ろへ回り込み"
+                "やすいとしている。一方、2.4GHz帯の電波は比較的回折しにくく直進性が"
+                "高いため、障害物の影響を受けやすい。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.5.1(1)1)（教則表示ページ47 / PDF viewer 53）"
+            ),
+        },
+        "DRONE-Q-000075": {
+            "slot_id": "VS-075",
+            "kt_id": "D2-T05-KT002",
+            "coverage": "COV-31",
+            "question": (
+                "無人航空機の制御用電波が、周囲の建物などで反射・屈折し、複数の経路"
+                "を通って受信側へ届いている。経路によってわずかな到達時間の差も生じて"
+                "いる。\n\nこの状態が無線通信へ及ぼす影響として、教則に最も合うものは"
+                "どれか。"
+            ),
+            "choice1": "電波が弱くなり、一時的に操縦不能となる要因になり得る",
+            "choice2": (
+                "複数経路から届くことで受信電波が安定して強くなり、通信距離が伸びる"
+                "方向に働く"
+            ),
+            "choice3": (
+                "送信機の出力が自動的に増加し、経路差による通信への影響が打ち消される"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "建物などによる反射・屈折で電波が複数の経路を通る現象をmultipathと"
+                "いう。教則では、反射・屈折した電波にはわずかな到達遅れが生じ、電波が"
+                "弱くなって一時的に操縦不能となる要因の一つになり得るとしている。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.5.1(1)2)（教則表示ページ47 / PDF viewer 53）"
+            ),
+        },
+        "DRONE-Q-000076": {
+            "slot_id": "VS-076",
+            "kt_id": "D2-T05-KT007",
+            "coverage": "COV-32",
+            "question": (
+                "高圧線や変電所、鉄材を多く使用した建物などの近くで無人航空機を飛行"
+                "させる。\n\nこのような環境が機体へ及ぼし得る影響について、教則に最も"
+                "合うものはどれか。"
+            ),
+            "choice1": (
+                "鉄や電流が主に気圧センサの検出へ影響し、高度の測定だけに影響する"
+                "可能性がある"
+            ),
+            "choice2": (
+                "鉄や電流が地磁気の検出へ影響し、機体の姿勢や進行方向へ影響する"
+                "可能性がある"
+            ),
+            "choice3": (
+                "鉄や電流が主に加速度センサの検出へ影響し、速度変化の測定だけに影響"
+                "する可能性がある"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "教則では、鉄や電流が地磁気の検出へ影響を与えるとしており、高圧線、"
+                "変電所、鉄材を多く使用した建物などを例示している。この影響によって、"
+                "機体の姿勢や進行方向へ影響が生じる場合がある。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.5.2(2)（教則表示ページ49 / PDF viewer 55）"
+            ),
+        },
+        "DRONE-Q-000077": {
+            "slot_id": "VS-077",
+            "kt_id": "D2-T05-KT009",
+            "coverage": "COV-33",
+            "question": (
+                "GNSSによって無人航空機の位置を求める基本原理として、教則に最も合う"
+                "ものはどれか。"
+            ),
+            "choice1": (
+                "最低4個以上の人工衛星から信号を同時に受信し、それぞれの人工衛星まで"
+                "の距離を用いて位置を求める"
+            ),
+            "choice2": (
+                "最低3個の人工衛星から信号を同時に受信し、それぞれの人工衛星までの"
+                "距離を用いて位置を求める"
+            ),
+            "choice3": (
+                "最低4個以上の人工衛星から信号を受信し、各衛星からの電波強度だけを"
+                "比較して位置を求める"
+            ),
+            "correct_choice": "A",
+            "explanation": (
+                "教則では、GNSSは最低4個以上の人工衛星からの信号を同時に受信し、機体"
+                "のreceiverがそれぞれの人工衛星までの距離を求めることで機体位置を"
+                "特定するとしている。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.5.3(1)（教則表示ページ50 / PDF viewer 56）"
+            ),
+        },
+        "DRONE-Q-000078": {
+            "slot_id": "VS-078",
+            "kt_id": "D2-T06-KT001",
+            "coverage": "COV-34",
+            "question": (
+                "電動機を用いる無人航空機について、飛行前後の点検では異常が確認されて"
+                "いない。\n\n一方、その機体で定められている定期整備の総飛行時間に達した。"
+                "\n\n整備・点検の扱いとして、教則に最も合うものはどれか。"
+            ),
+            "choice1": (
+                "飛行前後に異常がなければ、一定期間や総飛行時間による定期整備点検は"
+                "行わない"
+            ),
+            "choice2": (
+                "機体ごとに定められた一定期間や総飛行時間に従い、メーカーが設定する"
+                "内容で整備点検を行う"
+            ),
+            "choice3": (
+                "一定期間だけを基準に整備点検を行い、総飛行時間による整備時期は考慮"
+                "しない"
+            ),
+            "correct_choice": "B",
+            "explanation": (
+                "電動機を用いる無人航空機では、飛行前後の点検だけでなく、機体ごとに"
+                "定められた一定期間や一定の総飛行時間ごとにも整備点検を行う必要が"
+                "ある。その際は、機体メーカーが設定する整備内容を踏まえ、必要な時期"
+                "に修理等の整備を行う。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.6.1(1)（教則表示ページ50 / PDF viewer 56）"
+            ),
+        },
+        "DRONE-Q-000079": {
+            "slot_id": "VS-079",
+            "kt_id": "D2-T06-KT004",
+            "coverage": "COV-35",
+            "question": (
+                "エンジン機について、機体メーカーが定めた整備を行う必要がある。\n\n"
+                "しかし運航者には、エンジン整備に関する十分な知識と技能がない。\n\n"
+                "教則に沿った対応として最も適切なものはどれか。"
+            ),
+            "choice1": (
+                "メーカーの整備手順書があれば、知識や技能が不足していても運航者自身"
+                "で整備を行う"
+            ),
+            "choice2": (
+                "整備を次の定期時期まで延期し、その間は飛行前後の点検だけで運航を"
+                "継続する"
+            ),
+            "choice3": "専門の整備業者に依頼する",
+            "correct_choice": "C",
+            "explanation": (
+                "教則は、エンジン機の整備について、運航者のエンジン整備に関する知識"
+                "や技能が不足している場合には、専門の整備業者へ依頼するとしている。"
+                "整備手順が存在することだけで、知識・技能不足を補えるという扱いでは"
+                "ない。"
+            ),
+            "source_locator": (
+                "教則 第4章 4.6.2（教則表示ページ51 / PDF viewer 57）"
             ),
         },
     }
@@ -3490,6 +3787,212 @@ class DroneQuestionBankTest(unittest.TestCase):
             self.assertIn(required, content("DRONE-Q-000069"))
         for forbidden in ("release mechanism", "numerical CG calculation"):
             self.assertNotIn(forbidden, content("DRONE-Q-000069"))
+
+    def test_b6_d2b_coverage_metadata_content_and_semantic_regressions(
+        self,
+    ) -> None:
+        inputs = load_bank_inputs(self.bank)
+        question_by_id = {row["question_id"]: row for row in inputs.questions}
+        registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+
+        expected_mapping = {
+            expected["slot_id"]: question_id
+            for question_id, expected in self.B6_D2B_EXPECTATIONS.items()
+        }
+        self.assertEqual(
+            expected_mapping,
+            {
+                "VS-070": "DRONE-Q-000070",
+                "VS-071": "DRONE-Q-000071",
+                "VS-072": "DRONE-Q-000072",
+                "VS-073": "DRONE-Q-000073",
+                "VS-074": "DRONE-Q-000074",
+                "VS-075": "DRONE-Q-000075",
+                "VS-076": "DRONE-Q-000076",
+                "VS-077": "DRONE-Q-000077",
+                "VS-078": "DRONE-Q-000078",
+                "VS-079": "DRONE-Q-000079",
+            },
+        )
+
+        for question_id, expected in self.B6_D2B_EXPECTATIONS.items():
+            question = question_by_id[question_id]
+            self.assertEqual(question["question_version"], "1")
+            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["deck_id"], "drone_second_class_exam")
+            self.assertEqual(question["unit_id"], "drone_systems")
+            self.assertEqual(question["difficulty"], "2")
+            self.assertEqual(question["importance"], "2")
+            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(question["valid_from"], "2026-07-14")
+            self.assertEqual(question["valid_until"], "")
+            self.assertEqual(question["last_reviewed_at"], "2026-08-19")
+            self.assertEqual(question["supersedes_id"], "")
+            self.assertEqual(question["tags"], "")
+            self.assertEqual(question["choice4"], "")
+            self.assertEqual(question["source_id"], "MLIT-UAS-SAFETY-GUIDE-5")
+
+            for field in (
+                "question",
+                "choice1",
+                "choice2",
+                "choice3",
+                "correct_choice",
+                "explanation",
+                "source_locator",
+            ):
+                self.assertEqual(question[field], expected[field])
+
+            metadata = {
+                key: value
+                for item in question["notes_internal"].split(";")
+                if "=" in item
+                for key, value in (item.strip().split("=", 1),)
+            }
+            self.assertEqual(metadata["slot_id"], expected["slot_id"])
+            self.assertEqual(metadata["verification_state"], "author_source_verified")
+            self.assertEqual(metadata["primary_role"], "COVERAGE")
+            self.assertEqual(metadata["kt_id"], expected["kt_id"])
+            self.assertEqual(metadata["coverage"], expected["coverage"])
+            self.assertEqual(metadata["independent_reviewed"], "false")
+            self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
+            self.assertEqual(metadata["release_approved"], "false")
+
+            registry = registry_by_id[question_id]
+            self.assertEqual(registry["status"], "used")
+            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(registry["retired_at"], "")
+            self.assertEqual(registry["replacement_id"], "")
+            self.assertEqual(
+                registry["notes"],
+                f'{expected["slot_id"]}; B6 D2-B {expected["coverage"]}; '
+                "COVERAGE; permanent ID; pre-release",
+            )
+
+        correct_distribution = {
+            answer: sum(
+                expected["correct_choice"] == answer
+                for expected in self.B6_D2B_EXPECTATIONS.values()
+            )
+            for answer in ("A", "B", "C")
+        }
+        self.assertEqual(correct_distribution, {"A": 4, "B": 4, "C": 2})
+
+        def content(question_id: str) -> str:
+            question = question_by_id[question_id]
+            return " ".join(
+                question[field]
+                for field in (
+                    "question",
+                    "choice1",
+                    "choice2",
+                    "choice3",
+                    "explanation",
+                )
+            )
+
+        def correct_and_explanation(question_id: str) -> str:
+            question = question_by_id[question_id]
+            correct_field = f'choice{"ABC".index(question["correct_choice"]) + 1}'
+            return " ".join((question[correct_field], question["explanation"]))
+
+        cov_26 = content("DRONE-Q-000070")
+        for required in (
+            "IMU",
+            "3軸",
+            "ジャイロセンサ",
+            "加速度センサ",
+            "角速度",
+            "加速度",
+        ):
+            self.assertIn(required, cov_26)
+        for forbidden in (
+            "フライトコントロールシステムが姿勢制御",
+            "磁気キャリブレーション",
+        ):
+            self.assertNotIn(forbidden, cov_26)
+
+        cov_27 = content("DRONE-Q-000071")
+        for required in ("ESC", "モーター", "回転数", "ローター", "揚力", "推力"):
+            self.assertIn(required, cov_27)
+        for forbidden in ("送信機", "受信機", "メインコントローラー", "ジャイロセンサ"):
+            self.assertNotIn(forbidden, cov_27)
+
+        cov_28 = content("DRONE-Q-000072")
+        for required in ("LiPo", "短絡", "発火する可能性"):
+            self.assertIn(required, cov_28)
+        for forbidden in ("60%程度", "低温環境", "飛行可能時間"):
+            self.assertNotIn(forbidden, cov_28)
+        self.assertNotIn(
+            "膨張したら交換",
+            correct_and_explanation("DRONE-Q-000072"),
+        )
+
+        cov_29 = content("DRONE-Q-000073")
+        for required in ("意図せず", "落下しない構造", "搭載方法", "投下手順"):
+            self.assertIn(required, cov_29)
+        for forbidden in ("重心位置", "安定性", "飛行性能", "運動性能"):
+            self.assertNotIn(forbidden, cov_29)
+
+        cov_30 = content("DRONE-Q-000074")
+        for required in ("周波数が低く", "波長が長い", "回折", "障害物"):
+            self.assertIn(required, cov_30)
+        for forbidden in ("マルチパス", "無線局免許", "無線従事者"):
+            self.assertNotIn(forbidden, cov_30)
+
+        cov_31 = content("DRONE-Q-000075")
+        for required in (
+            "反射",
+            "屈折",
+            "複数の経路",
+            "到達時間",
+            "電波が弱く",
+            "一時的に操縦不能",
+        ):
+            self.assertIn(required, cov_31)
+        cov_31_answer = correct_and_explanation("DRONE-Q-000075")
+        for required in ("電波が弱く", "一時的に操縦不能"):
+            self.assertIn(required, cov_31_answer)
+        for forbidden in ("GNSS測位精度", "Waypoint"):
+            self.assertNotIn(forbidden, cov_31)
+
+        cov_32 = content("DRONE-Q-000076")
+        for required in ("鉄", "電流", "地磁気", "姿勢", "進行方向"):
+            self.assertIn(required, cov_32)
+        for forbidden in (
+            "磁気キャリブレーション",
+            "再キャリブレーション",
+            "飛行場所の地磁気を検出して方位を取得",
+            "GNSS機能やメインコントローラーに認識",
+        ):
+            self.assertNotIn(forbidden, cov_32)
+
+        cov_33 = content("DRONE-Q-000077")
+        for required in ("最低4個以上", "人工衛星", "同時", "距離", "位置"):
+            self.assertIn(required, cov_33)
+        for forbidden in ("マルチパス", "Waypoint"):
+            self.assertNotIn(forbidden, cov_33)
+
+        cov_34 = content("DRONE-Q-000078")
+        for required in (
+            "電動機",
+            "飛行前後",
+            "一定期間",
+            "総飛行時間",
+            "メーカー",
+            "整備点検",
+        ):
+            self.assertIn(required, cov_34)
+        for forbidden in ("専門の整備業者", "60%程度", "膨張", "運航終了後点検"):
+            self.assertNotIn(forbidden, cov_34)
+
+        cov_35 = content("DRONE-Q-000079")
+        for required in ("エンジン", "十分な知識と技能がない", "専門の整備業者"):
+            self.assertIn(required, cov_35)
+        self.assertNotIn(
+            "すべてのエンジン整備は専門の整備業者に依頼する",
+            cov_35,
+        )
 
     def test_unregistered_drone_id_is_rejected(self) -> None:
         fieldnames, rows = self._read_csv(self.questions_path)
