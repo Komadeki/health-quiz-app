@@ -1,0 +1,28 @@
+name: drone_second_class
+description: Validation-only V0 Panel runner for the drone second-class bank.
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  crypto: ^3.0.6
+  flutter:
+    sdk: flutter
+  path_provider: ^2.1.5
+  quiz_engine:
+    path: ../../packages/quiz_engine
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/question_bank/drone_second_class_bank.json
+    - assets/validation/protocol.json
+    - assets/validation/validation_bundle.json
+    - assets/validation/validation_manifest.json
