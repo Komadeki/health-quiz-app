@@ -7,6 +7,7 @@ import '../domain/validation_provenance.dart';
 import 'session_models.dart';
 import 'session_storage.dart';
 import 'research_prediction_provider.dart';
+import 'pilot_prediction.dart';
 
 const requiredValidationEventTypes = <String>{
   'session_started',
@@ -21,10 +22,8 @@ const requiredValidationEventTypes = <String>{
 };
 
 class ValidationSessionRepository {
-  ValidationSessionRepository({
-    required this.store,
-    DateTime Function()? clock,
-  }) : _clock = clock ?? DateTime.now;
+  ValidationSessionRepository({required this.store, DateTime Function()? clock})
+      : _clock = clock ?? DateTime.now;
 
   final ValidationSessionStore store;
   final DateTime Function() _clock;
@@ -35,6 +34,15 @@ class ValidationSessionRepository {
     required PanelRoute route,
     required ValidationProvenance provenance,
   }) async {
+    if (await store.loadActive() != null) {
+      throw StateError('An active unarchived session blocks a new start.');
+    }
+    if (assignment.participantId.startsWith('V0P3-E') &&
+        await store.hasParticipant(assignment.participantId)) {
+      throw StateError(
+        'A fresh second external session for this participant is rejected.',
+      );
+    }
     final now = _clock().toUtc();
     final session = ValidationSession(
       sessionId: sessionId,
@@ -98,11 +106,15 @@ class ValidationSessionRepository {
       snapshots: <ValidationSnapshot>[s0],
       researchPrediction: null,
       baselineCandidateOutputs: null,
+      preRegisteredSimpleBaseline: null,
     );
     return _persist(document);
   }
 
   Future<ValidationSessionDocument?> loadActive() => store.loadActive();
+
+  Future<void> archiveCompleted(ValidationSessionDocument document) =>
+      store.archive(document);
 
   ValidationEvent? pendingShownEvent(ValidationSessionDocument document) {
     if (document.responses.length >= document.route.entries.length) return null;
@@ -208,6 +220,7 @@ class ValidationSessionRepository {
     var snapshots = document.snapshots;
     var session = document.session;
     var baseline = document.baselineCandidateOutputs;
+    var preRegisteredBaseline = document.preRegisteredSimpleBaseline;
 
     final nextEntry = presentationIndex + 1 < document.route.entries.length
         ? document.route.entries[presentationIndex + 1]
@@ -239,6 +252,16 @@ class ValidationSessionRepository {
             events: events,
             eventSeqCutoff: result.snapshot.eventSeqCutoff,
           );
+          if (document.assignment.pilotContractVersion != null) {
+            preRegisteredBaseline = buildPreRegisteredSimpleBaseline(
+              document: document.copyWith(
+                session: session,
+                responses: responses,
+                events: events,
+                snapshots: snapshots,
+              ),
+            );
+          }
           session = session.withPhase(PanelPhase.predictionGate);
           events = _appendEvent(
             events,
@@ -332,7 +355,8 @@ class ValidationSessionRepository {
               PanelPhase.explanation ||
               PanelPhase.complete:
           throw StateError(
-              'Responses are not accepted in ${entry.phase.wireName}.');
+            'Responses are not accepted in ${entry.phase.wireName}.',
+          );
       }
     }
 
@@ -343,6 +367,7 @@ class ValidationSessionRepository {
         events: events,
         snapshots: snapshots,
         baselineCandidateOutputs: baseline,
+        preRegisteredSimpleBaseline: preRegisteredBaseline,
       ),
     );
   }
@@ -382,12 +407,24 @@ class ValidationSessionRepository {
     final observedIds = evidence.observedResponses
         .map((response) => response.responseId)
         .toList(growable: false);
+    final isPilot = document.assignment.pilotContractVersion != null;
+    final normalizedPayload = isPilot
+        ? const PilotPredictionContract().validate(
+            document: document,
+            payload: payload,
+          )
+        : payload;
+    if (isPilot && algorithmVersion.trim() != pilotPredictionMethodVersion) {
+      throw const FormatException(
+        'Pilot prediction method_version is invalid.',
+      );
+    }
     final prediction = ResearchPrediction(
       predictionId: '${document.session.sessionId}-P-1',
       sessionId: document.session.sessionId,
       snapshotId: s1.snapshotId,
       predictionAlgorithmVersion: algorithmVersion.trim(),
-      predictionPayload: Map<String, Object?>.unmodifiable(payload),
+      predictionPayload: Map<String, Object?>.unmodifiable(normalizedPayload),
       observedResponseIds: observedIds,
       bestSimpleBaseline: baseline,
       committedAt: now,
@@ -452,8 +489,10 @@ class ValidationSessionRepository {
         now: now,
       );
     } else {
-      session =
-          document.session.withPhase(PanelPhase.complete, completedAt: now);
+      session = document.session.withPhase(
+        PanelPhase.complete,
+        completedAt: now,
+      );
       events = _appendEvent(
         events,
         session,
@@ -651,10 +690,7 @@ Map<String, Object?> buildBaselineCandidateOutputs({
       unanswered.add(item.value.questionId);
     } else {
       stats
-          .putIfAbsent(
-            item.value.analysisGroup,
-            () => <ValidationResponse>[],
-          )
+          .putIfAbsent(item.value.analysisGroup, () => <ValidationResponse>[])
           .add(response);
     }
   }
@@ -757,6 +793,7 @@ String buildValidationExport(ValidationSessionDocument document) {
         document.snapshots.map((item) => item.toJson()).toList(growable: false),
     'research_prediction': document.researchPrediction?.toJson(),
     'baseline_candidate_outputs': document.baselineCandidateOutputs,
+    'pre_registered_simple_baseline': document.preRegisteredSimpleBaseline,
   };
   return const JsonEncoder.withIndent('  ').convert(export);
 }

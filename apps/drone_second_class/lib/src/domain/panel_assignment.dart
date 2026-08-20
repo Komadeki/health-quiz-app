@@ -16,6 +16,9 @@ class PanelAssignmentV1 {
     required this.replicationForm,
     required this.alternateSlotSelections,
     required this.coverageRouteClasses,
+    this.assignmentSlotId,
+    this.pilotContractVersion,
+    this.rotationId,
   });
 
   final String assignmentId;
@@ -30,6 +33,9 @@ class PanelAssignmentV1 {
   final ReplicationForm? replicationForm;
   final Map<String, String> alternateSlotSelections;
   final Map<String, String> coverageRouteClasses;
+  final String? assignmentSlotId;
+  final String? pilotContractVersion;
+  final String? rotationId;
 
   factory PanelAssignmentV1.fromJson(Map<String, Object?> json) {
     String requiredString(String key) {
@@ -88,25 +94,31 @@ class PanelAssignmentV1 {
       },
       alternateSlotSelections: stringMap('alternate_slot_selections'),
       coverageRouteClasses: stringMap('coverage_route_classes'),
+      assignmentSlotId: json['assignment_slot_id'] as String?,
+      pilotContractVersion: json['pilot_contract_version'] as String?,
+      rotationId: json['rotation_id'] as String?,
     );
   }
 
   Map<String, Object?> toJson() => <String, Object?>{
-        'assignment_id': assignmentId,
-        'participant_id': participantId,
-        'assignment_group': assignmentGroup == AssignmentGroup.a ? 'A' : 'B',
-        'route_version': routeVersion,
-        'deep_target_ids': deepTargetIds,
-        'breadth_group_ids': breadthGroupIds,
-        'sentinel_ids': sentinelIds,
-        'coverage_ids': coverageIds,
-        'pre_s1_coverage_ids': preS1CoverageIds,
-        'replication_form': switch (replicationForm) {
-          ReplicationForm.a => 'A',
-          ReplicationForm.b => 'B',
-          null => null,
-        },
-        'alternate_slot_selections': alternateSlotSelections,
-        'coverage_route_classes': coverageRouteClasses,
-      };
+    'assignment_id': assignmentId,
+    'participant_id': participantId,
+    'assignment_group': assignmentGroup == AssignmentGroup.a ? 'A' : 'B',
+    'route_version': routeVersion,
+    'deep_target_ids': deepTargetIds,
+    'breadth_group_ids': breadthGroupIds,
+    'sentinel_ids': sentinelIds,
+    'coverage_ids': coverageIds,
+    'pre_s1_coverage_ids': preS1CoverageIds,
+    'replication_form': switch (replicationForm) {
+      ReplicationForm.a => 'A',
+      ReplicationForm.b => 'B',
+      null => null,
+    },
+    'alternate_slot_selections': alternateSlotSelections,
+    'coverage_route_classes': coverageRouteClasses,
+    'assignment_slot_id': assignmentSlotId,
+    'pilot_contract_version': pilotContractVersion,
+    'rotation_id': rotationId,
+  };
 }

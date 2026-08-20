@@ -12,11 +12,22 @@ The iOS bundle ID and Android application ID are
 participant assignment policy, prediction algorithm, or production learning UX
 in this app.
 
-Assignments are explicit JSON inputs. The compiler supports the protocol target
-IDs `HAZARD_RISK_M3`, `THIRD_PARTY`, `GNSS`, `AUTO_MANUAL`, and `TEM`; breadth
-IDs `HB-1` through `HB-7`; participant-assigned Sentinel IDs; explicit coverage
-IDs; and explicit alternate-slot selections. No assignment is sampled or
-randomly completed by the runner.
+The generic compiler still accepts explicit assignments and is not a random
+allocation engine. V0P-3 Pilot mode adds a separate validator around ten fixed
+assignment slots (`EXT-S01` through `EXT-S10`) and keeps the pseudonymous
+participant ID separate from the slot ID.
+
+Pilot execution fails closed unless a non-empty Researcher PIN is supplied at
+build/run time. Never store the PIN in the repository:
+
+```bash
+flutter run --dart-define=V0P3_RESEARCHER_PIN=<operator-selected-value>
+```
+
+Completed Pilot sessions must be saved as deterministic JSON before they can
+be archived and closed. The app displays the filename, SHA-256, and local saved
+path. External transfer is intentionally left to the approved operator-managed
+workflow; the app does not upload or automatically send session data.
 
 To verify validation asset copies from the repository root:
 

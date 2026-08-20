@@ -318,6 +318,7 @@ class ValidationSessionDocument {
     required this.snapshots,
     required this.researchPrediction,
     required this.baselineCandidateOutputs,
+    required this.preRegisteredSimpleBaseline,
   });
 
   final ValidationSession session;
@@ -328,6 +329,7 @@ class ValidationSessionDocument {
   final List<ValidationSnapshot> snapshots;
   final ResearchPrediction? researchPrediction;
   final Map<String, Object?>? baselineCandidateOutputs;
+  final Map<String, Object?>? preRegisteredSimpleBaseline;
 
   int get nextEventSeq => events.isEmpty ? 1 : events.last.eventSeq + 1;
 
@@ -343,6 +345,7 @@ class ValidationSessionDocument {
             snapshots.map((item) => item.toJson()).toList(growable: false),
         'research_prediction': researchPrediction?.toJson(),
         'baseline_candidate_outputs': baselineCandidateOutputs,
+        'pre_registered_simple_baseline': preRegisteredSimpleBaseline,
       };
 
   factory ValidationSessionDocument.fromJson(Map<String, Object?> json) {
@@ -386,6 +389,11 @@ class ValidationSessionDocument {
           ? null
           : (json['baseline_candidate_outputs']! as Map)
               .cast<String, Object?>(),
+      preRegisteredSimpleBaseline:
+          json['pre_registered_simple_baseline'] == null
+              ? null
+              : (json['pre_registered_simple_baseline']! as Map)
+                  .cast<String, Object?>(),
     );
     document.validate();
     return document;
@@ -398,6 +406,7 @@ class ValidationSessionDocument {
     List<ValidationSnapshot>? snapshots,
     ResearchPrediction? researchPrediction,
     Map<String, Object?>? baselineCandidateOutputs,
+    Map<String, Object?>? preRegisteredSimpleBaseline,
   }) {
     return ValidationSessionDocument(
       session: session ?? this.session,
@@ -409,11 +418,20 @@ class ValidationSessionDocument {
       researchPrediction: researchPrediction ?? this.researchPrediction,
       baselineCandidateOutputs:
           baselineCandidateOutputs ?? this.baselineCandidateOutputs,
+      preRegisteredSimpleBaseline:
+          preRegisteredSimpleBaseline ?? this.preRegisteredSimpleBaseline,
     );
   }
 
   void validate() {
     session.provenance.requireExpected();
+    if (session.participantId != assignment.participantId ||
+        session.assignmentId != assignment.assignmentId ||
+        session.assignmentGroup != assignment.assignmentGroup ||
+        session.replicationForm != assignment.replicationForm ||
+        session.routeVersion != assignment.routeVersion) {
+      throw const FormatException('Session assignment provenance mismatch.');
+    }
     if (session.routeHash != route.routeHash ||
         !_sameStrings(session.routeQuestionIds, route.questionIds)) {
       throw const FormatException('Session route provenance mismatch.');
@@ -429,7 +447,8 @@ class ValidationSessionDocument {
           response.questionId != route.entries[index].questionId ||
           response.sessionId != session.sessionId) {
         throw const FormatException(
-            'Response append-only ordering is invalid.');
+          'Response append-only ordering is invalid.',
+        );
       }
     }
     if (researchPrediction != null &&

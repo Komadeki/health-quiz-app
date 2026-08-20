@@ -13,6 +13,7 @@ dependencies:
   path_provider: ^2.1.5
   quiz_engine:
     path: ../../packages/quiz_engine
+  share_plus: ^11.1.0
 
 dev_dependencies:
   flutter_lints: ^6.0.0
