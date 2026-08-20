@@ -16,6 +16,7 @@ jobs:
       shared: ${{ steps.scope.outputs.shared }}
       health: ${{ steps.scope.outputs.health }}
       fixture: ${{ steps.scope.outputs.fixture }}
+      drone: ${{ steps.scope.outputs.drone }}
       docs_only: ${{ steps.scope.outputs.docs_only }}
       reason: ${{ steps.scope.outputs.reason }}
 
@@ -124,8 +125,34 @@ jobs:
       - name: Run fixture checks
         run: tooling/ci/check_fixture.sh
 
+  drone-checks:
+    needs: scope
+    if: needs.scope.outputs.drone == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Flutter stable
+        run: |
+          git clone --depth 1 --branch stable \
+            https://github.com/flutter/flutter.git "$HOME/flutter"
+          echo "$HOME/flutter/bin" >> "$GITHUB_PATH"
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Validate manifests for app-only change
+        if: needs.scope.outputs.shared != 'true'
+        run: tooling/ci/check_manifest.sh
+
+      - name: Run drone V0 Panel checks
+        run: tooling/ci/check_drone.sh
+
   ci-gate:
-    needs: [scope, shared-checks, health-checks, fixture-checks]
+    needs: [scope, shared-checks, health-checks, fixture-checks, drone-checks]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -141,6 +168,8 @@ jobs:
           HEALTH_RESULT: ${{ needs.health-checks.result }}
           EXPECT_FIXTURE: ${{ needs.scope.outputs.fixture }}
           FIXTURE_RESULT: ${{ needs.fixture-checks.result }}
+          EXPECT_DRONE: ${{ needs.scope.outputs.drone }}
+          DRONE_RESULT: ${{ needs.drone-checks.result }}
         run: |
           if [[ "$SCOPE_RESULT" != "success" ]]; then
             echo "scope failed: $SCOPE_RESULT" >&2
@@ -165,4 +194,5 @@ jobs:
           verify_result "$EXPECT_SHARED" "$SHARED_RESULT" shared-checks
           verify_result "$EXPECT_HEALTH" "$HEALTH_RESULT" health-checks
           verify_result "$EXPECT_FIXTURE" "$FIXTURE_RESULT" fixture-checks
+          verify_result "$EXPECT_DRONE" "$DRONE_RESULT" drone-checks
           echo "All required CI scopes passed."

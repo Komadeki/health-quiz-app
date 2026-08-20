@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app: [health, _single_unlock_fixture]
+        app: [health, _single_unlock_fixture, drone_second_class]
 
     steps:
       - name: Checkout

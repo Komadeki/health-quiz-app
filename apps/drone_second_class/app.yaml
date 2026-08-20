@@ -1,0 +1,47 @@
+schema_version: 1
+
+app_key: drone_second_class
+display_name: 二等無人航空機 V0 Panel
+dev_display_name: 二等無人航空機 V0 Panel DEV
+qa_display_name: 二等無人航空機 V0 Panel QA
+
+publisher: KOMADEKI Validation
+brand_name: KOMADEKI V0 Panel
+legalese: VALIDATION ONLY - MUST NOT BE USED FOR APP STORE RELEASE
+
+platforms:
+  ios:
+    bundle_id: com.komadeki.dronesecondclass.v0panel
+    display_name: 二等無人航空機 V0 Panel
+  android:
+    application_id: com.komadeki.dronesecondclass.v0panel
+    display_name: 二等無人航空機 V0 Panel
+
+urls:
+  support: https://example.invalid/drone-second-class-v0-panel/support
+  privacy: https://example.invalid/drone-second-class-v0-panel/privacy
+  marketing: null
+
+question_identity:
+  policy: explicit_v1
+
+question_bank:
+  format: qualification_runtime_v2
+  runtime_path: question_banks/drone_second_class/generated/drone_second_class_bank.json
+  manifest_path: question_banks/drone_second_class/generated/bank_manifest.json
+  asset_output: apps/drone_second_class/assets/question_bank/drone_second_class_bank.json
+
+monetization:
+  architecture: singleFullUnlock
+  products:
+    full_unlock_product_id: validation_only_not_for_sale
+
+exam:
+  profile_version: drone-second-class-unreleased
+  question_count: null
+  time_limit_minutes: null
+  overall_pass_percent: null
+
+branding:
+  theme_key: validation_amber
+  seed_color: "#8A4B00"
