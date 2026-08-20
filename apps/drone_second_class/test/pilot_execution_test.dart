@@ -7,6 +7,7 @@ import 'package:drone_second_class/src/domain/panel_route.dart';
 import 'package:drone_second_class/src/domain/pilot_profile.dart';
 import 'package:drone_second_class/src/domain/validation_provenance.dart';
 import 'package:drone_second_class/src/presentation/panel_runner_controller.dart';
+import 'package:drone_second_class/src/presentation/pilot_export_transfer.dart';
 import 'package:drone_second_class/src/session/pilot_export.dart';
 import 'package:drone_second_class/src/session/pilot_prediction.dart';
 import 'package:drone_second_class/src/session/session_models.dart';
@@ -602,6 +603,130 @@ void main() {
     }
   });
 
+  testWidgets('AT-47..51 saved JSON file transfer preserves exact custody',
+      (tester) async {
+    final bundle = (await tester.runAsync(loadValidationBundle))!;
+    final temporary = (await tester.runAsync(
+      () => Directory.systemTemp.createTemp('v0p3-share-'),
+    ))!;
+    try {
+      final store = InMemoryValidationSessionStore();
+      var tick = DateTime.utc(2026, 8, 20, 8);
+      final repository = ValidationSessionRepository(
+        store: store,
+        clock: () {
+          tick = tick.add(const Duration(seconds: 1));
+          return tick;
+        },
+      );
+      final assignment = profile.assignment(
+        slotId: 'EXT-S09',
+        participantId: 'V0P3-E009',
+      );
+      final completed = (await tester.runAsync(() async {
+        final started = await repository.start(
+          sessionId: 'v0p3-share-session',
+          assignment: assignment,
+          route: PanelRouteCompiler(bundle).compile(assignment),
+          provenance: bundle.provenance,
+        );
+        return completePilot(
+          repository: repository,
+          document: started,
+          bundle: bundle,
+        );
+      }))!;
+      final transfer = _RecordingPilotExportTransfer();
+      final controller = PanelRunnerController(
+        bundle: bundle,
+        repository: repository,
+        exportWriter: PilotExportWriter(
+          supportDirectory: () async => temporary,
+        ),
+        exportTransfer: transfer,
+        researcherPin: '4921',
+      )..document = completed;
+      await tester.runAsync(controller.savePilotExport);
+      final firstArtifact = controller.exportArtifact!;
+      final firstFile = controller.savedExportFile!;
+      final sessionBefore = canonicalJson(completed.toJson());
+
+      await tester.pumpWidget(DroneV0PanelApp(controller: controller));
+      await tester.pump();
+      expect(find.text('Save JSON file'), findsOneWidget);
+      expect(find.byKey(const Key('export-filename')), findsOneWidget);
+      expect(find.byKey(const Key('export-sha256')), findsOneWidget);
+      expect(find.text('Share saved JSON file'), findsOneWidget);
+      expect(find.byKey(const Key('export-path')), findsNothing);
+
+      final shareButton = tester.widget<OutlinedButton>(
+        find.ancestor(
+          of: find.text('Share saved JSON file'),
+          matching: find.byWidgetPredicate(
+            (widget) => widget is OutlinedButton,
+          ),
+        ),
+      );
+      expect(shareButton.onPressed, isNotNull);
+      await tester.runAsync(
+        () async {
+          shareButton.onPressed!();
+          for (var wait = 0; wait < 1000 && controller.busy; wait += 1) {
+            await Future<void>.delayed(const Duration(milliseconds: 1));
+          }
+        },
+      );
+      await tester.pump();
+
+      expect(controller.busy, isFalse);
+      expect(controller.errorMessage, isNull);
+      expect(transfer.requests, hasLength(1));
+      expect(transfer.requests.single.file, same(firstFile));
+      expect(transfer.requests.single.artifact, same(firstArtifact));
+      expect(transfer.sharedBytes.single, firstArtifact.bytes);
+      expect(
+          transfer.requests.single.sharePositionOrigin.width, greaterThan(0));
+      expect(
+        transfer.requests.single.sharePositionOrigin.height,
+        greaterThan(0),
+      );
+      expect(
+        transfer.requests.single.file.uri.pathSegments.last,
+        firstArtifact.filename,
+      );
+      expect(controller.document, same(completed));
+      expect(canonicalJson(controller.document!.toJson()), sessionBefore);
+      expect(controller.exportArtifact, same(firstArtifact));
+      expect(controller.savedExportFile, same(firstFile));
+      expect(controller.exportArtifact!.bytes, firstArtifact.bytes);
+      expect(controller.exportArtifact!.filename, firstArtifact.filename);
+      expect(
+        controller.exportArtifact!.sha256Digest,
+        firstArtifact.sha256Digest,
+      );
+
+      await tester.runAsync(controller.savePilotExport);
+      final secondArtifact = controller.exportArtifact!;
+      final secondFile = controller.savedExportFile!;
+      await tester.runAsync(
+        () => controller.shareSavedPilotExport(
+          const Rect.fromLTWH(0, 0, 1, 1),
+        ),
+      );
+
+      expect(controller.errorMessage, isNull);
+      expect(transfer.requests, hasLength(2));
+      expect(secondFile.path, firstFile.path);
+      expect(secondArtifact.filename, firstArtifact.filename);
+      expect(secondArtifact.bytes, firstArtifact.bytes);
+      expect(secondArtifact.sha256Digest, firstArtifact.sha256Digest);
+      expect(transfer.sharedBytes[1], firstArtifact.bytes);
+      expect(canonicalJson(controller.document!.toJson()), sessionBefore);
+    } finally {
+      await tester.runAsync(() => temporary.delete(recursive: true));
+    }
+  });
+
   test('AT-43/44 production runtime stays empty and IDs stay <= 100', () async {
     final runtime = (jsonDecode(
       await File('assets/question_bank/drone_second_class_bank.json')
@@ -639,4 +764,16 @@ class _StaticStore implements ValidationSessionStore {
   @override
   Future<void> write(ValidationSessionDocument document) async =>
       throw UnsupportedError('read only');
+}
+
+class _RecordingPilotExportTransfer implements PilotExportTransfer {
+  final List<PilotExportTransferRequest> requests =
+      <PilotExportTransferRequest>[];
+  final List<List<int>> sharedBytes = <List<int>>[];
+
+  @override
+  Future<void> share(PilotExportTransferRequest request) async {
+    requests.add(request);
+    sharedBytes.add(await request.file.readAsBytes());
+  }
 }

@@ -630,6 +630,17 @@ class SessionCompleteView extends StatefulWidget {
 
 class _SessionCompleteViewState extends State<SessionCompleteView> {
   final _legacyExport = TextEditingController();
+  final _shareButtonKey = GlobalKey();
+
+  Future<void> _shareSavedExport() async {
+    final renderObject = _shareButtonKey.currentContext?.findRenderObject();
+    if (renderObject is! RenderBox || !renderObject.hasSize) {
+      throw StateError('Share button position is unavailable.');
+    }
+    await widget.controller.shareSavedPilotExport(
+      renderObject.localToGlobal(Offset.zero) & renderObject.size,
+    );
+  }
 
   @override
   void dispose() {
@@ -672,32 +683,15 @@ class _SessionCompleteViewState extends State<SessionCompleteView> {
               'SHA-256: ${artifact.sha256Digest}',
               key: const Key('export-sha256'),
             ),
-            SelectableText(
-              'saved_path: ${widget.controller.savedExportFile!.path}',
-              key: const Key('export-path'),
-            ),
             const SizedBox(height: 12),
-            OutlinedButton.icon(
+            KeyedSubtree(
               key: const Key('share-export'),
-              onPressed: () => showDialog<void>(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('Share saved export'),
-                  content: SelectableText(
-                    'Local-only safety boundary: share the saved file through '
-                    'the approved operator workflow.\n\n'
-                    '${widget.controller.savedExportFile!.path}',
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: Navigator.of(context).pop,
-                      child: const Text('Close'),
-                    ),
-                  ],
-                ),
+              child: OutlinedButton.icon(
+                key: _shareButtonKey,
+                onPressed: widget.controller.busy ? null : _shareSavedExport,
+                icon: const Icon(Icons.share),
+                label: const Text('Share saved JSON file'),
               ),
-              icon: const Icon(Icons.share),
-              label: const Text('Share'),
             ),
             FilledButton.tonal(
               key: const Key('archive-session'),

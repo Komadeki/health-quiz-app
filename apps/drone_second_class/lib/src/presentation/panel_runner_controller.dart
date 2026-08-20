@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 
@@ -13,6 +14,7 @@ import '../session/session_repository.dart';
 import '../session/research_prediction_provider.dart';
 import '../session/pilot_export.dart';
 import '../session/pilot_prediction.dart';
+import 'pilot_export_transfer.dart';
 
 class PilotPreflight {
   const PilotPreflight({required this.assignment, required this.route});
@@ -27,6 +29,7 @@ class PanelRunnerController extends ChangeNotifier {
     required this.repository,
     this.predictionProvider = const ResearcherCommitGatePredictionProvider(),
     PilotExportWriter? exportWriter,
+    this.exportTransfer = const NativePilotExportTransfer(),
     String? researcherPin,
   })  : exportWriter = exportWriter ?? PilotExportWriter(),
         _researcherPin = researcherPin ??
@@ -36,6 +39,7 @@ class PanelRunnerController extends ChangeNotifier {
   final ValidationSessionRepository repository;
   final ResearchPredictionProvider predictionProvider;
   final PilotExportWriter exportWriter;
+  final PilotExportTransfer exportTransfer;
   final String _researcherPin;
   final DroneV0P3PilotProfile pilotProfile = const DroneV0P3PilotProfile();
 
@@ -280,6 +284,74 @@ class PanelRunnerController extends ChangeNotifier {
       result = file;
     });
     return result;
+  }
+
+  Future<void> shareSavedPilotExport(Rect sharePositionOrigin) async {
+    await _run(() async {
+      final active = document;
+      final artifact = exportArtifact;
+      final file = savedExportFile;
+      if (active == null || artifact == null || file == null) {
+        throw StateError('Save the durable export before sharing.');
+      }
+      final sessionBefore = canonicalJson(active.toJson());
+      final artifactBytesBefore = List<int>.of(artifact.bytes);
+      final fileBytesBefore = await file.readAsBytes();
+      _requireMatchingSavedExport(
+        document: active,
+        artifact: artifact,
+        file: file,
+        fileBytes: fileBytesBefore,
+      );
+
+      await exportTransfer.share(
+        PilotExportTransferRequest(
+          file: file,
+          artifact: artifact,
+          sharePositionOrigin: sharePositionOrigin,
+        ),
+      );
+
+      final fileBytesAfter = await file.readAsBytes();
+      _requireMatchingSavedExport(
+        document: active,
+        artifact: artifact,
+        file: file,
+        fileBytes: fileBytesAfter,
+      );
+      if (!identical(document, active) ||
+          canonicalJson(active.toJson()) != sessionBefore ||
+          !identical(exportArtifact, artifact) ||
+          !identical(savedExportFile, file) ||
+          !_samePilotExportBytes(artifact.bytes, artifactBytesBefore) ||
+          !_samePilotExportBytes(fileBytesAfter, fileBytesBefore)) {
+        throw StateError('Sharing modified the completed Pilot export.');
+      }
+    });
+  }
+
+  void _requireMatchingSavedExport({
+    required ValidationSessionDocument document,
+    required PilotExportArtifact artifact,
+    required File file,
+    required List<int> fileBytes,
+  }) {
+    final rebuilt = buildPilotExportArtifact(document);
+    if (file.uri.pathSegments.last != artifact.filename ||
+        rebuilt.filename != artifact.filename ||
+        rebuilt.sha256Digest != artifact.sha256Digest ||
+        !_samePilotExportBytes(rebuilt.bytes, artifact.bytes) ||
+        !_samePilotExportBytes(fileBytes, artifact.bytes)) {
+      throw StateError('Saved Pilot export does not match its artifact.');
+    }
+  }
+
+  bool _samePilotExportBytes(List<int> left, List<int> right) {
+    if (left.length != right.length) return false;
+    for (var index = 0; index < left.length; index += 1) {
+      if (left[index] != right[index]) return false;
+    }
+    return true;
   }
 
   Future<void> archiveAndClose() async {
