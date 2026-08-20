@@ -95,6 +95,35 @@ void main() {
     return current;
   }
 
+  Future<PanelRunnerController> pumpPilotAtPredictionGate(
+    WidgetTester tester, {
+    required InMemoryValidationSessionStore store,
+    required String participantId,
+    required String researcherPin,
+  }) async {
+    final bundle = (await tester.runAsync(loadValidationBundle))!;
+    final controller = PanelRunnerController(
+      bundle: bundle,
+      repository: ValidationSessionRepository(store: store),
+      researcherPin: researcherPin,
+    );
+    await controller.compilePilot(
+      assignmentSlotId: 'EXT-S01',
+      participantId: participantId,
+    );
+    await controller.confirmPilotPreflight();
+    for (var index = 0;
+        index < 40 && controller.phase == PanelPhase.observed;
+        index += 1) {
+      await controller.commitChoice(0);
+      expect(controller.errorMessage, isNull);
+    }
+    expect(controller.phase, PanelPhase.predictionGate);
+    await tester.pumpWidget(DroneV0PanelApp(controller: controller));
+    await tester.pump();
+    return controller;
+  }
+
   test('AT-18/19 Preflight is non-durable until operator Confirm', () async {
     final bundle = await loadValidationBundle();
     final store = InMemoryValidationSessionStore();
@@ -122,29 +151,16 @@ void main() {
     expect(events[0].eventSeq, lessThan(events[3].eventSeq));
   });
 
-  testWidgets('AT-20..23 PIN gate and researcher view stay blinded',
+  testWidgets(
+      'AT-20..23 / AT-PIN-01 correct PIN dialog unlocks without exception',
       (tester) async {
-    final bundle = (await tester.runAsync(loadValidationBundle))!;
     final store = InMemoryValidationSessionStore();
-    final controller = PanelRunnerController(
-      bundle: bundle,
-      repository: ValidationSessionRepository(store: store),
+    final controller = await pumpPilotAtPredictionGate(
+      tester,
+      store: store,
+      participantId: 'V0P3-I002',
       researcherPin: '4921',
     );
-    await controller.compilePilot(
-      assignmentSlotId: 'EXT-S01',
-      participantId: 'V0P3-I002',
-    );
-    await controller.confirmPilotPreflight();
-    for (var index = 0;
-        index < 40 && controller.phase == PanelPhase.observed;
-        index += 1) {
-      await controller.commitChoice(0);
-      expect(controller.errorMessage, isNull);
-    }
-    expect(controller.phase, PanelPhase.predictionGate);
-    await tester.pumpWidget(DroneV0PanelApp(controller: controller));
-    await tester.pump();
 
     expect(find.byKey(const Key('participant-handoff')), findsOneWidget);
     expect(
@@ -158,11 +174,19 @@ void main() {
         .commitPilotPrediction(validPrediction(controller.document!));
     expect(controller.document!.researchPrediction, isNull);
 
-    controller.unlockResearcher('4921');
-    await tester.pump();
+    await tester.longPress(find.byKey(const Key('participant-handoff')));
+    await tester.pumpAndSettle();
+    expect(find.text('Researcher PIN'), findsOneWidget);
+    await tester.enterText(find.byKey(const Key('researcher-pin')), '4921');
+    await tester.tap(find.byKey(const Key('unlock-researcher')));
+    await tester.pumpAndSettle();
+
+    expect(tester.takeException(), isNull);
+    expect(controller.researcherUnlocked, isTrue);
     expect(
         find.byKey(const Key('pilot-researcher-prediction')), findsOneWidget);
 
+    final bundle = controller.bundle;
     final document = controller.document!;
     final heldOut = document.route.entries.firstWhere(
       (entry) => entry.phase == PanelPhase.heldOut,
@@ -183,6 +207,73 @@ void main() {
     }
     final durableJson = jsonEncode(document.toJson());
     expect(durableJson, isNot(contains('4921')));
+  });
+
+  testWidgets('AT-PIN-02 wrong PIN closes safely and keeps handoff',
+      (tester) async {
+    final controller = await pumpPilotAtPredictionGate(
+      tester,
+      store: InMemoryValidationSessionStore(),
+      participantId: 'V0P3-I003',
+      researcherPin: '4921',
+    );
+
+    await tester.longPress(find.byKey(const Key('participant-handoff')));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const Key('researcher-pin')), 'wrong');
+    await tester.tap(find.byKey(const Key('unlock-researcher')));
+    await tester.pumpAndSettle();
+
+    expect(tester.takeException(), isNull);
+    expect(controller.researcherUnlocked, isFalse);
+    expect(controller.errorMessage, 'Researcher PIN rejected.');
+    expect(find.byKey(const Key('participant-handoff')), findsOneWidget);
+    expect(find.byKey(const Key('pilot-researcher-prediction')), findsNothing);
+  });
+
+  testWidgets('AT-PIN-03 Cancel closes safely and keeps handoff',
+      (tester) async {
+    final controller = await pumpPilotAtPredictionGate(
+      tester,
+      store: InMemoryValidationSessionStore(),
+      participantId: 'V0P3-I004',
+      researcherPin: '4921',
+    );
+
+    await tester.longPress(find.byKey(const Key('participant-handoff')));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const Key('researcher-pin')), '4921');
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+
+    expect(tester.takeException(), isNull);
+    expect(controller.researcherUnlocked, isFalse);
+    expect(controller.errorMessage, isNull);
+    expect(find.byKey(const Key('participant-handoff')), findsOneWidget);
+    expect(find.byKey(const Key('pilot-researcher-prediction')), findsNothing);
+  });
+
+  testWidgets('AT-PIN-04 PIN is absent from durable session and export',
+      (tester) async {
+    const pin = 'pin-value-must-not-persist-92841';
+    final store = InMemoryValidationSessionStore();
+    final controller = await pumpPilotAtPredictionGate(
+      tester,
+      store: store,
+      participantId: 'V0P3-I005',
+      researcherPin: pin,
+    );
+
+    await tester.longPress(find.byKey(const Key('participant-handoff')));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const Key('researcher-pin')), pin);
+    await tester.tap(find.byKey(const Key('unlock-researcher')));
+    await tester.pumpAndSettle();
+
+    expect(tester.takeException(), isNull);
+    expect(controller.researcherUnlocked, isTrue);
+    expect(jsonEncode(store.document!.toJson()), isNot(contains(pin)));
+    expect(controller.exportJson(), isNot(contains(pin)));
   });
 
   test('AT-20/21 empty or wrong PIN fails closed without persistence',
