@@ -1,6 +1,6 @@
 {
   "app_key": "drone_second_class",
-  "bank_revision": "drone-second-class-v1-release-2026-08-20",
+  "bank_revision": "drone-second-class-v0-core-2026-08-19",
   "content_as_of": "2026-08-19",
   "decks": [
     {
@@ -26,7 +26,7 @@
       ]
     }
   ],
-  "exam_profile_version": "drone-second-class-v1",
+  "exam_profile_version": "drone-second-class-unreleased",
   "manifest_output": "generated/bank_manifest.json",
   "question_identity_policy": "explicit_v1",
   "review_due_days": 365,

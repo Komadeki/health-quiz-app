@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'production/production_app.dart';
+import 'src/app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const DroneProductionBootstrap());
+  runApp(const DroneV0PanelBootstrap());
 }

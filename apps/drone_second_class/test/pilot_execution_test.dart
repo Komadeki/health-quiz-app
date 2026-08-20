@@ -818,10 +818,13 @@ void main() {
     }
   });
 
-  test('AT-43/44 production runtime stays empty and IDs stay <= 100', () async {
+  test('AT-43/44 formal V0 runtime snapshot stays empty and IDs stay <= 100',
+      () async {
     final runtime = (jsonDecode(
-      await File('assets/question_bank/drone_second_class_bank.json')
-          .readAsString(),
+      await File(
+        '../../question_banks/drone_second_class/validation/'
+        'formal_snapshot/generated/drone_second_class_bank.json',
+      ).readAsString(),
     )! as Map)
         .cast<String, Object?>();
     expect(runtime['decks'], isEmpty);

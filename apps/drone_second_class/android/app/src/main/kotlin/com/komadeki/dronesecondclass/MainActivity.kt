@@ -1,4 +1,4 @@
-package com.komadeki.dronesecondclass.v0panel
+package com.komadeki.dronesecondclass
 
 import io.flutter.embedding.android.FlutterActivity
 

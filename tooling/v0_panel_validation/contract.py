@@ -23,6 +23,7 @@ AUTHORING_FILES = (
 @dataclass(frozen=True)
 class ValidationInputs:
     bank_root: Path
+    source_root: Path
     protocol: dict[str, Any]
     bank: dict[str, Any]
     questions: list[dict[str, str]]
@@ -48,9 +49,11 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 
 
 def load_validation_inputs(bank_root: Path) -> ValidationInputs:
-    authoring = bank_root / "authoring"
+    source_root = bank_root / "validation" / "formal_snapshot"
+    authoring = source_root / "authoring"
     return ValidationInputs(
         bank_root=bank_root,
+        source_root=source_root,
         protocol=read_json(bank_root / "validation" / "protocol.json"),
         bank=read_json(authoring / "bank.json"),
         questions=read_csv(authoring / "questions.csv"),

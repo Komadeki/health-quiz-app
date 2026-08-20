@@ -1,7 +1,7 @@
 name: drone_second_class
-description: Validation-only V0 Panel runner for the drone second-class bank.
+description: Production study app for the drone second-class knowledge exam.
 publish_to: 'none'
-version: 0.1.0+1
+version: 1.0.0+1
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -14,6 +14,8 @@ dependencies:
   quiz_engine:
     path: ../../packages/quiz_engine
   share_plus: ^11.1.0
+  shared_preferences: ^2.5.3
+  in_app_purchase: ^3.2.3
 
 dev_dependencies:
   flutter_lints: ^6.0.0

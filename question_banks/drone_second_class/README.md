@@ -8,30 +8,30 @@ Coverage questions, ten B5 D2-A Coverage questions, ten B6 D2-B Coverage
 questions, ten B7 D3 Coverage questions, and 11 B8 D4 Coverage questions. The
 B4 D1, B5 D2-A, B6 D2-B, B7 D3, and B8 D4 questions passed the Source-first
 Gate, Question Authoring Content Gate, Human Author Verification, and QID Gate.
-All 100 authored questions remain draft.
+Production release v1 activates the existing 100 questions without changing
+their question content or permanent identities.
 
 ## Release state
 
 - 100 / 100 authored questions are complete.
 - Cross-Bank Audit passed with non-blocking observations.
-- V0-Core Bank Readiness is `GO`.
-- The formal validation snapshot `bank_revision` is
+- Production bank revision:
+  `drone-second-class-v1-release-2026-08-20`.
+- Production runtime: 100 active questions, 20 free, and 80 premium.
+- Free selection: the first five permanent IDs in each of the four existing
+  units.
+- All 100 registry rows record their first use in the production revision.
+- `DRONE-Q-000101` and later IDs remain unreserved.
+- The historical V0-Core revision remains
   `drone-second-class-v0-core-2026-08-19`, with `content_as_of=2026-08-19`.
-- All currently authored questions remain `draft`, so generated runtime output
-  intentionally contains zero active questions and an empty deck list.
-- Runtime remains inactive, V0-Panel has not started, and release approval has
-  not been granted.
-- `unreleased-bootstrap-2026-08-18` was the preceding tooling working revision.
-- Difficulty, importance, and free/paid fields contain neutral working values
-  required by authoring schema v2. They are not product decisions while the
-  rows remain draft.
 
 ## Validation snapshot identity
 
 `drone-second-class-v0-core-2026-08-19` identifies the 100-question V0-Core
-validation snapshot. It does not indicate an App Store or production release,
-release approval, runtime activation, `Question status=active`, V0-Panel PASS,
-or Product Validation PASS.
+validation snapshot. Its byte-identical authoring and generated inputs are
+frozen under `validation/formal_snapshot/`. V0 tooling reads that path rather
+than live production authoring. The V0 revision does not indicate an App Store
+release, V0-Panel PASS, or Product Validation PASS.
 
 Once a formal `bank_revision` identifies a merged validation snapshot, that
 revision value must not be reused for materially different validation content.
@@ -145,93 +145,20 @@ reproducibility rule is independent of the question-level
 | VS-099 | DRONE-Q-000099 |
 | VS-100 | DRONE-Q-000100 |
 
-The registry uses the existing `used` status. Because none of the questions
-has entered a released bank, `first_used_bank_revision` remains empty. IDs
-beyond `DRONE-Q-000100` are not reserved.
+The registry uses the existing `used` status. Every current ID records
+`drone-second-class-v1-release-2026-08-20` in
+`first_used_bank_revision`. IDs beyond `DRONE-Q-000100` are not reserved.
 
 The shared schema has no verification-state field. The existing
 `notes_internal` field records `author_source_verified` and the measurement
-role, KT, and family/coverage binding. It does not grant `independent_reviewed`,
-`subject_matter_expert_reviewed`, or `release_approved`.
+role, KT, and family/coverage binding. Independent and subject-matter-expert
+review flags remain unchanged; release approval is true for production v1.
 
-The B1A rows preserve the M3 measurement structure: VS-002 is the H2 primary,
-VS-003 is its alternate, VS-015 is H5 held-out, VS-021 is H3 Form A, and
-VS-022 is H4 Form B. The H2 relationship is recorded for later administration
-logic; this bank does not activate or co-administer the pair.
-
-The B1B rows preserve the third-party T1/T2/T3 and GNSS G1/G2/G3 measurement
-structures. VS-005 is the T2 primary and VS-006 is its alternate; VS-016 is T3
-held-out. VS-007 is the G1 primary and VS-009 is its alternate; VS-008 is G2
-observed and VS-017 is G3 held-out. These relationships are recorded for later
-administration logic without activating the questions or exposing held-out
-answer truth in existing observed questions.
-
-The B1C rows preserve the Auto-to-Manual A1/A2/A3/A4 and TEM E1/E2/E3
-measurement structures. VS-010 (A1) and VS-011 (A4) are observed; VS-018 (A2)
-and VS-019 (A3) are held-out and remain separate families. VS-012 is the E1
-primary, VS-014 is its E1 alternate, VS-013 is E2 observed, and VS-020 is E3
-held-out. These bindings do not activate the questions or expose held-out
-answer truth in existing observed explanations.
-
-The B2A rows preserve four breadth pairs. HB-1 binds VS-023 observed to VS-030
-held-out with counterbalance `YES`; HB-2 binds VS-024 observed to VS-031
-held-out with counterbalance `PARTIAL_ONLY`; HB-3 binds VS-025 observed to
-VS-032 held-out with counterbalance `YES`; and HB-4 binds VS-026 observed to
-VS-033 held-out with counterbalance `YES`. These bindings do not activate the
-questions or implement counterbalance routing.
-
-The B2B rows preserve three breadth pairs. HB-5 binds existing VS-027
-(`DRONE-Q-000003`) observed to VS-034 held-out with counterbalance `YES`; HB-6
-binds VS-028 observed to VS-035 held-out with counterbalance `YES` while
-keeping spatial and temporal wind variation separate; and HB-7 binds VS-029
-observed to VS-036 held-out with counterbalance `YES` while keeping external
-and aircraft-state monitoring separate. These bindings only record the
-measurement structure; they do not activate questions, execute
-counterbalancing, or issue a formal release `bank_revision`.
-
-The B3A Clean Sentinel rows add Human Author Verified VS-041 / US-E and
-VS-042 / US-F with permanent IDs allocated. Both remain draft; this allocation
-does not implement runtime Sentinel routing or issue a formal release
-`bank_revision`.
-
-The B3B Routed Sentinel rows add Human Author Verified VS-037 / US-A, VS-038 /
-US-B, VS-040 / US-D, VS-043 / US-G, and VS-044 / US-H after passing the QID
-Gate. All five remain draft; this allocation records their permanent identities
-without implementing the runtime Sentinel protocol, activating questions, or
-issuing a formal release `bank_revision`.
-
-The B4 D1 Coverage rows add Human Author Verified VS-045 through VS-058 /
-COV-01 through COV-14 after passing the Source-first Gate, Question Authoring
-Content Gate, Human Author Verification, and QID Gate. All 14 remain draft;
-this allocation does not author B4 D2, activate questions, or issue a formal
-release `bank_revision`.
-
-The B5 D2-A Coverage rows add Human Author Verified VS-059 through VS-068 /
-COV-15 through COV-24 after passing the Source-first Gate, Question Authoring
-Content Gate, Human Author Verification, and QID Gate. All ten remain draft;
-this allocation does not activate questions or issue a formal release
-`bank_revision`.
-
-The B6 D2-B Coverage rows add Human Author Verified VS-070 through VS-079 /
-COV-26 through COV-35 after passing the Source-first Gate, Question Authoring
-Content Gate, Human Author Verification, and QID Gate. All ten remain draft;
-the B6 allocation itself did not author B7, activate questions, or issue a
-formal release `bank_revision`.
-
-The B7 D3 Coverage rows add Human Author Verified VS-080 through VS-089 /
-COV-36 through COV-45 after passing the Source-first Gate, Question Authoring
-Content Gate, Human Author Verification, and QID Gate. All ten remain draft;
-this allocation does not author B8, activate questions, reserve IDs beyond
-`DRONE-Q-000089`, or issue a formal release `bank_revision`. COV-39 records
-AFTER-US-B administration routing without implementing the runtime Sentinel
-protocol.
-
-The B8 D4 Coverage rows add Human Author Verified VS-090 through VS-100 /
-COV-46 through COV-56 after passing the Source-first Gate, Question Authoring
-Content Gate, Human Author Verification, and QID Gate. All 11 remain draft.
-Reaching 100 authored questions alone did not declare the Cross-Bank Audit
-passed, activate runtime, grant release approval, or issue a formal validation
-snapshot; IDs beyond `DRONE-Q-000100` remain unreserved.
+The existing M3, breadth, Sentinel, and coverage mappings remain unchanged.
+They continue to support the frozen V0 evidence, while production sessions use
+only the four unit mappings and permanent question IDs. Production does not
+execute validation counterbalancing, Sentinel routing, researcher handoff, or
+Prediction. No question IDs beyond `DRONE-Q-000100` are allocated or reserved.
 
 VS-039 (`DRONE-Q-000004`) remains the US-C Sentinel. VS-069
 (`DRONE-Q-000005`) remains its COV-25 neighbor and does not expose the
@@ -241,12 +168,11 @@ explanation.
 ## V0-Panel validation bundle
 
 The independent `validation/` path compiles the fixed 100-question formal
-snapshot into a deterministic, validation-only Research Bank. It does not
-activate draft questions, change the production generator, or create a
-participant route. `validation/protocol.json` contains the typed V0-Panel
-blueprint and the fixed formal snapshot identity. Generated artifacts live in
-`validation/generated/`; they never replace the production files in
-`generated/`.
+snapshot into a deterministic, validation-only Research Bank. Source inputs
+live in `validation/formal_snapshot/`, while `validation/protocol.json` retains
+the typed V0-Panel blueprint and fixed formal snapshot identity. Generated
+validation artifacts remain in `validation/generated/`; they never replace the
+live production files in `generated/`.
 
 Generate and verify the validation artifacts from the repository root:
 

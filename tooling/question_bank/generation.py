@@ -114,6 +114,45 @@ def build_generated_files(inputs: BankInputs) -> dict[Path, bytes]:
     }
 
 
+def build_released_questions_document(inputs: BankInputs) -> dict[str, Any]:
+    """Build the immutable first-release identity snapshot from active rows."""
+    released_questions = []
+    for row in sorted(inputs.questions, key=lambda item: item["question_id"]):
+        if row.get("status") != "active":
+            continue
+        released_questions.append(
+            {
+                "choices": question_choices(row),
+                "correct_choice": row["correct_choice"],
+                "difficulty": row["difficulty"],
+                "importance": row["importance"],
+                "is_free": row["is_free"],
+                "question": row["question"],
+                "question_id": row["question_id"],
+                "question_version": int(row["question_version"]),
+                "source_id": row["source_id"],
+            }
+        )
+    return {
+        "released_questions": released_questions,
+        "schema_version": 1,
+    }
+
+
+def write_initial_released_questions_snapshot(bank_root: Path) -> Path:
+    """Write a deterministic initial snapshot without permitting replacement."""
+    inputs = load_bank_inputs(bank_root)
+    path = bank_root / "authoring" / "released_questions.json"
+    expected = pretty_json_bytes(build_released_questions_document(inputs))
+    current = read_json(path).get("released_questions", [])
+    if current and path.read_bytes() != expected:
+        raise ValueError(
+            "released_questions.json already contains a different release snapshot."
+        )
+    path.write_bytes(expected)
+    return path
+
+
 def validate_generated_files(
     inputs: BankInputs, result: ValidationResult
 ) -> None:
