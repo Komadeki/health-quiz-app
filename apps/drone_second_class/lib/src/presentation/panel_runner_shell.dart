@@ -347,33 +347,11 @@ class ParticipantResearcherHandoff extends StatelessWidget {
   final PanelRunnerController controller;
 
   Future<void> _showPinDialog(BuildContext context) async {
-    final pin = TextEditingController();
-    await showDialog<void>(
+    final pin = await showDialog<String>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Researcher PIN'),
-        content: TextField(
-          key: const Key('researcher-pin'),
-          controller: pin,
-          obscureText: true,
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: Navigator.of(context).pop,
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            key: const Key('unlock-researcher'),
-            onPressed: () {
-              Navigator.of(context).pop();
-              controller.unlockResearcher(pin.text);
-            },
-            child: const Text('Unlock'),
-          ),
-        ],
-      ),
+      builder: (context) => const _ResearcherPinDialog(),
     );
-    pin.dispose();
+    if (pin != null) controller.unlockResearcher(pin);
   }
 
   @override
@@ -392,6 +370,49 @@ class ParticipantResearcherHandoff extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ResearcherPinDialog extends StatefulWidget {
+  const _ResearcherPinDialog();
+
+  @override
+  State<_ResearcherPinDialog> createState() => _ResearcherPinDialogState();
+}
+
+class _ResearcherPinDialogState extends State<_ResearcherPinDialog> {
+  final _pin = TextEditingController();
+
+  @override
+  void dispose() {
+    _pin.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Researcher PIN'),
+      content: TextField(
+        key: const Key('researcher-pin'),
+        controller: _pin,
+        obscureText: true,
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: Navigator.of(context).pop,
+          child: const Text('Cancel'),
+        ),
+        FilledButton(
+          key: const Key('unlock-researcher'),
+          onPressed: () {
+            final pin = _pin.text;
+            Navigator.of(context).pop(pin);
+          },
+          child: const Text('Unlock'),
+        ),
+      ],
     );
   }
 }
