@@ -1,0 +1,642 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:drone_second_class/src/app.dart';
+import 'package:drone_second_class/src/domain/panel_assignment.dart';
+import 'package:drone_second_class/src/domain/panel_route.dart';
+import 'package:drone_second_class/src/domain/pilot_profile.dart';
+import 'package:drone_second_class/src/domain/validation_provenance.dart';
+import 'package:drone_second_class/src/presentation/panel_runner_controller.dart';
+import 'package:drone_second_class/src/session/pilot_export.dart';
+import 'package:drone_second_class/src/session/pilot_prediction.dart';
+import 'package:drone_second_class/src/session/session_models.dart';
+import 'package:drone_second_class/src/session/session_repository.dart';
+import 'package:drone_second_class/src/session/session_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'test_support.dart';
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  const profile = DroneV0P3PilotProfile();
+
+  Map<String, Object?> validPrediction(ValidationSessionDocument document) {
+    final plan = PilotPredictionPlan.fromDocument(document);
+    return <String, Object?>{
+      'schema_version': 1,
+      'method_version': pilotPredictionMethodVersion,
+      's1_snapshot_id': plan.s1SnapshotId,
+      'predictions': plan.targets
+          .map(
+            (target) => <String, Object?>{
+              'prediction_key': target.predictionKey,
+              'target_id': target.targetId,
+              'predicted_outcome': 'CORRECT',
+              'confidence': 2,
+              'evidence_response_ids': target.evidenceResponseIds,
+            },
+          )
+          .toList(growable: false),
+    };
+  }
+
+  Future<ValidationSessionDocument> reachS1({
+    required ValidationSessionRepository repository,
+    required ValidationSessionDocument document,
+    required dynamic bundle,
+  }) async {
+    var current = document;
+    while (current.session.currentPhase == PanelPhase.observed) {
+      current = await answerCurrent(
+        repository: repository,
+        document: current,
+        bundle: bundle,
+      );
+    }
+    return current;
+  }
+
+  Future<ValidationSessionDocument> completePilot({
+    required ValidationSessionRepository repository,
+    required ValidationSessionDocument document,
+    required dynamic bundle,
+  }) async {
+    var current = await reachS1(
+      repository: repository,
+      document: document,
+      bundle: bundle,
+    );
+    current = await repository.commitPrediction(
+      document: current,
+      algorithmVersion: pilotPredictionMethodVersion,
+      payload: validPrediction(current),
+    );
+    while (current.session.currentPhase == PanelPhase.heldOut ||
+        current.session.currentPhase == PanelPhase.replication ||
+        current.session.currentPhase == PanelPhase.sentinel) {
+      current = await answerCurrent(
+        repository: repository,
+        document: current,
+        bundle: bundle,
+      );
+    }
+    expect(current.session.currentPhase, PanelPhase.explanation);
+    current = await repository.continueAfterExplanation(current);
+    while (current.session.currentPhase == PanelPhase.remainingCoverage) {
+      current = await answerCurrent(
+        repository: repository,
+        document: current,
+        bundle: bundle,
+      );
+    }
+    expect(current.session.currentPhase, PanelPhase.complete);
+    return current;
+  }
+
+  test('AT-18/19 Preflight is non-durable until operator Confirm', () async {
+    final bundle = await loadValidationBundle();
+    final store = InMemoryValidationSessionStore();
+    final controller = PanelRunnerController(
+      bundle: bundle,
+      repository: ValidationSessionRepository(store: store),
+      researcherPin: '4921',
+    );
+
+    await controller.compilePilot(
+      assignmentSlotId: 'EXT-S01',
+      participantId: 'V0P3-I001',
+    );
+    expect(controller.pilotPreflight, isNotNull);
+    expect(store.document, isNull);
+    expect(controller.document, isNull);
+
+    await controller.confirmPilotPreflight();
+    final events = controller.document!.events;
+    expect(events[0].eventType, 'session_started');
+    expect(events[1].eventType, 'snapshot_saved');
+    expect(events[1].payload['label'], 'S0');
+    expect(events[2].eventType, 'phase_started');
+    expect(events[3].eventType, 'question_shown');
+    expect(events[0].eventSeq, lessThan(events[3].eventSeq));
+  });
+
+  testWidgets('AT-20..23 PIN gate and researcher view stay blinded',
+      (tester) async {
+    final bundle = (await tester.runAsync(loadValidationBundle))!;
+    final store = InMemoryValidationSessionStore();
+    final controller = PanelRunnerController(
+      bundle: bundle,
+      repository: ValidationSessionRepository(store: store),
+      researcherPin: '4921',
+    );
+    await controller.compilePilot(
+      assignmentSlotId: 'EXT-S01',
+      participantId: 'V0P3-I002',
+    );
+    await controller.confirmPilotPreflight();
+    for (var index = 0;
+        index < 40 && controller.phase == PanelPhase.observed;
+        index += 1) {
+      await controller.commitChoice(0);
+      expect(controller.errorMessage, isNull);
+    }
+    expect(controller.phase, PanelPhase.predictionGate);
+    await tester.pumpWidget(DroneV0PanelApp(controller: controller));
+    await tester.pump();
+
+    expect(find.byKey(const Key('participant-handoff')), findsOneWidget);
+    expect(
+      find.text(
+        'ここで端末を担当者へ渡してください。\n'
+        '端末には触れず、そのままお待ちください。',
+      ),
+      findsOneWidget,
+    );
+    await controller
+        .commitPilotPrediction(validPrediction(controller.document!));
+    expect(controller.document!.researchPrediction, isNull);
+
+    controller.unlockResearcher('4921');
+    await tester.pump();
+    expect(
+        find.byKey(const Key('pilot-researcher-prediction')), findsOneWidget);
+
+    final document = controller.document!;
+    final heldOut = document.route.entries.firstWhere(
+      (entry) => entry.phase == PanelPhase.heldOut,
+    );
+    final sentinel = document.route.entries.firstWhere(
+      (entry) => entry.phase == PanelPhase.sentinel,
+    );
+    final remaining = document.route.entries.firstWhere(
+      (entry) => entry.phase == PanelPhase.remainingCoverage,
+    );
+    for (final entry in <PanelRouteEntry>[heldOut, sentinel, remaining]) {
+      final question = bundle.questionsById[entry.questionId]!;
+      expect(find.text(question.prompt), findsNothing);
+      expect(find.text(question.explanation), findsNothing);
+      for (final choice in question.choices) {
+        expect(find.textContaining(choice), findsNothing);
+      }
+    }
+    final durableJson = jsonEncode(document.toJson());
+    expect(durableJson, isNot(contains('4921')));
+  });
+
+  test('AT-20/21 empty or wrong PIN fails closed without persistence',
+      () async {
+    final bundle = await loadValidationBundle();
+    final emptyStore = InMemoryValidationSessionStore();
+    final emptyPinController = PanelRunnerController(
+      bundle: bundle,
+      repository: ValidationSessionRepository(store: emptyStore),
+      researcherPin: '',
+    );
+    await emptyPinController.compilePilot(
+      assignmentSlotId: 'EXT-S01',
+      participantId: 'V0P3-I010',
+    );
+    await emptyPinController.confirmPilotPreflight();
+    expect(emptyPinController.document, isNull);
+    expect(emptyStore.document, isNull);
+    expect(emptyPinController.errorMessage, contains('not configured'));
+
+    for (final configuredPin in <String>['', '4921']) {
+      final controller = PanelRunnerController(
+        bundle: bundle,
+        repository: ValidationSessionRepository(
+          store: InMemoryValidationSessionStore(),
+        ),
+        researcherPin: configuredPin,
+      );
+      controller.unlockResearcher('wrong');
+      expect(controller.researcherUnlocked, isFalse);
+      expect(controller.errorMessage, isNotNull);
+    }
+  });
+
+  test('AT-24..28 Structured Prediction is exact and immutable', () async {
+    final bundle = await loadValidationBundle();
+    final repository = ValidationSessionRepository(
+      store: InMemoryValidationSessionStore(),
+    );
+    final assignment = profile.assignment(
+      slotId: 'EXT-S02',
+      participantId: 'V0P3-E001',
+    );
+    var document = await repository.start(
+      sessionId: 'v0p3-prediction-contract',
+      assignment: assignment,
+      route: PanelRouteCompiler(bundle).compile(assignment),
+      provenance: bundle.provenance,
+    );
+    document = await reachS1(
+      repository: repository,
+      document: document,
+      bundle: bundle,
+    );
+    final valid = validPrediction(document);
+    final predictions = (valid['predictions']! as List)
+        .map((item) => Map<String, Object?>.from(item! as Map))
+        .toList();
+
+    await expectLater(
+      repository.commitPrediction(
+        document: document,
+        algorithmVersion: pilotPredictionMethodVersion,
+        payload: <String, Object?>{
+          ...valid,
+          'predictions': predictions.sublist(1),
+        },
+      ),
+      throwsFormatException,
+    );
+    await expectLater(
+      repository.commitPrediction(
+        document: document,
+        algorithmVersion: pilotPredictionMethodVersion,
+        payload: <String, Object?>{
+          ...valid,
+          'predictions': <Object?>[
+            ...predictions,
+            <String, Object?>{
+              ...predictions.first,
+              'prediction_key': 'HP-999',
+            },
+          ],
+        },
+      ),
+      throwsFormatException,
+    );
+    final invalidEvidence =
+        predictions.map((item) => Map<String, Object?>.from(item)).toList();
+    invalidEvidence.first['evidence_response_ids'] = <String>['outside-S1'];
+    await expectLater(
+      repository.commitPrediction(
+        document: document,
+        algorithmVersion: pilotPredictionMethodVersion,
+        payload: <String, Object?>{
+          ...valid,
+          'predictions': invalidEvidence,
+        },
+      ),
+      throwsFormatException,
+    );
+
+    document = await repository.commitPrediction(
+      document: document,
+      algorithmVersion: pilotPredictionMethodVersion,
+      payload: valid,
+    );
+    expect(
+      (document.researchPrediction!.predictionPayload['predictions']! as List),
+      hasLength(PilotPredictionPlan.fromDocument(document).targets.length),
+    );
+    await expectLater(
+      repository.commitPrediction(
+        document: document,
+        algorithmVersion: pilotPredictionMethodVersion,
+        payload: valid,
+      ),
+      throwsStateError,
+    );
+  });
+
+  test('AT-29..31 Simple Baseline freezes at S1 and stays researcher-blind',
+      () async {
+    final bundle = await loadValidationBundle();
+    final repository = ValidationSessionRepository(
+      store: InMemoryValidationSessionStore(),
+    );
+    final assignment = profile.assignment(
+      slotId: 'EXT-S03',
+      participantId: 'V0P3-I003',
+    );
+    var document = await repository.start(
+      sessionId: 'v0p3-baseline-freeze',
+      assignment: assignment,
+      route: PanelRouteCompiler(bundle).compile(assignment),
+      provenance: bundle.provenance,
+    );
+    document = await reachS1(
+      repository: repository,
+      document: document,
+      bundle: bundle,
+    );
+    final frozen = canonicalJson(document.preRegisteredSimpleBaseline);
+    expect(frozen, contains(preRegisteredSimpleBaselineVersion));
+    expect(frozen, contains(sameTargetAllCorrectRuleVersion));
+    expect(
+      PilotPredictionPlan.fromDocument(document)
+          .targets
+          .expand((target) => target.evidenceResponseIds),
+      everyElement(
+        isIn(
+          document.responses
+              .where((response) => response.phase == PanelPhase.observed)
+              .map((response) => response.responseId),
+        ),
+      ),
+    );
+    document = await repository.commitPrediction(
+      document: document,
+      algorithmVersion: pilotPredictionMethodVersion,
+      payload: validPrediction(document),
+    );
+    document = await answerCurrent(
+      repository: repository,
+      document: document,
+      bundle: bundle,
+      selectedIndex: 1,
+    );
+    expect(canonicalJson(document.preRegisteredSimpleBaseline), frozen);
+  });
+
+  test('AT-32..35 resume recompiles exact route and preserves crash boundary',
+      () async {
+    final bundle = await loadValidationBundle();
+    final store = InMemoryValidationSessionStore();
+    final repository = ValidationSessionRepository(store: store);
+    final assignment = profile.assignment(
+      slotId: 'EXT-S04',
+      participantId: 'V0P3-I004',
+    );
+    var document = await repository.start(
+      sessionId: 'v0p3-resume',
+      assignment: assignment,
+      route: PanelRouteCompiler(bundle).compile(assignment),
+      provenance: bundle.provenance,
+    );
+    document = await repository.ensureQuestionShown(document);
+    final firstQuestion = document.route.entries.first.questionId;
+
+    final resumed = PanelRunnerController(
+      bundle: bundle,
+      repository: repository,
+      researcherPin: '4921',
+    );
+    await resumed.initialize();
+    await resumed.resume();
+    expect(resumed.visibleQuestion!.questionId, firstQuestion);
+    expect(
+      resumed.document!.events
+          .where((event) => event.eventType == 'question_shown'),
+      hasLength(1),
+    );
+    await resumed.commitChoice(0);
+    final responseCount = resumed.document!.responses.length;
+    final committedId = resumed.document!.responses.single.responseId;
+
+    final afterCommit = PanelRunnerController(
+      bundle: bundle,
+      repository: repository,
+      researcherPin: '4921',
+    );
+    await afterCommit.initialize();
+    await afterCommit.resume();
+    expect(afterCommit.document!.responses, hasLength(responseCount));
+    expect(afterCommit.document!.responses.single.responseId, committedId);
+
+    final alteredAssignment = PanelAssignmentV1.fromJson(<String, Object?>{
+      ...afterCommit.document!.assignment.toJson(),
+      'coverage_ids': <String>[
+        ...afterCommit.document!.assignment.coverageIds.take(9),
+        'COV-55',
+      ],
+    });
+    final tampered = ValidationSessionDocument(
+      session: afterCommit.document!.session,
+      assignment: alteredAssignment,
+      route: afterCommit.document!.route,
+      responses: afterCommit.document!.responses,
+      events: afterCommit.document!.events,
+      snapshots: afterCommit.document!.snapshots,
+      researchPrediction: afterCommit.document!.researchPrediction,
+      baselineCandidateOutputs: afterCommit.document!.baselineCandidateOutputs,
+      preRegisteredSimpleBaseline:
+          afterCommit.document!.preRegisteredSimpleBaseline,
+    );
+    final rejected = PanelRunnerController(
+      bundle: bundle,
+      repository: ValidationSessionRepository(store: _StaticStore(tampered)),
+      researcherPin: '4921',
+    );
+    await rejected.initialize();
+    expect(rejected.canResume, isFalse);
+    expect(rejected.errorMessage, contains('Resume data rejected'));
+  });
+
+  test('AT-36..40 archive turnover and export are byte deterministic',
+      () async {
+    final bundle = await loadValidationBundle();
+    final store = InMemoryValidationSessionStore();
+    var tick = DateTime.utc(2026, 8, 20, 3);
+    final repository = ValidationSessionRepository(
+      store: store,
+      clock: () {
+        tick = tick.add(const Duration(seconds: 1));
+        return tick;
+      },
+    );
+    final assignmentA = profile.assignment(
+      slotId: 'EXT-S06',
+      participantId: 'V0P3-E006',
+    );
+    var sessionA = await repository.start(
+      sessionId: 'v0p3-session-a',
+      assignment: assignmentA,
+      route: PanelRouteCompiler(bundle).compile(assignmentA),
+      provenance: bundle.provenance,
+    );
+    await expectLater(
+      repository.start(
+        sessionId: 'blocked-active',
+        assignment: profile.assignment(
+          slotId: 'EXT-S07',
+          participantId: 'V0P3-E007',
+        ),
+        route: PanelRouteCompiler(bundle).compile(
+          profile.assignment(
+            slotId: 'EXT-S07',
+            participantId: 'V0P3-E007',
+          ),
+        ),
+        provenance: bundle.provenance,
+      ),
+      throwsStateError,
+    );
+    sessionA = await completePilot(
+      repository: repository,
+      document: sessionA,
+      bundle: bundle,
+    );
+    final usBQuestionId = sessionA.route.entries
+        .singleWhere((entry) => entry.analysisGroup == 'US-B')
+        .questionId;
+    final cov39QuestionId = sessionA.route.entries
+        .singleWhere((entry) => entry.analysisGroup == 'COV-39')
+        .questionId;
+    final usBResponseId = sessionA.responses
+        .singleWhere((response) => response.questionId == usBQuestionId)
+        .responseId;
+    final usBCommitted = sessionA.events.singleWhere(
+      (event) =>
+          event.eventType == 'response_committed' &&
+          event.payload['response_id'] == usBResponseId,
+    );
+    final cov39Shown = sessionA.events.singleWhere(
+      (event) =>
+          event.eventType == 'question_shown' &&
+          event.questionId == cov39QuestionId,
+    );
+    expect(usBCommitted.eventSeq, lessThan(cov39Shown.eventSeq));
+    final beforeArchive = canonicalJson(sessionA.toJson());
+    final artifact1 = buildPilotExportArtifact(sessionA);
+    final artifact2 = buildPilotExportArtifact(sessionA);
+    expect(artifact2.filename, artifact1.filename);
+    expect(artifact2.sha256Digest, artifact1.sha256Digest);
+    expect(artifact2.bytes, artifact1.bytes);
+    expect(
+      artifact1.filename,
+      startsWith('v0p3_V0P3-E006_v0p3-session-a_EXT-S06_'),
+    );
+    final exported = (jsonDecode(utf8.decode(artifact1.bytes))! as Map)
+        .cast<String, Object?>();
+    for (final key in const <String>[
+      'provenance',
+      'assignment',
+      'exact_route',
+      'responses',
+      'events',
+      'snapshots',
+      'research_prediction',
+      'pre_registered_simple_baseline',
+    ]) {
+      expect(exported, contains(key));
+    }
+    final temporary = await Directory.systemTemp.createTemp('v0p3-export-');
+    try {
+      final writer = PilotExportWriter(
+        supportDirectory: () async => temporary,
+      );
+      final firstFile = await writer.save(artifact1);
+      final firstBytes = await firstFile.readAsBytes();
+      final secondFile = await writer.save(artifact2);
+      expect(secondFile.path, firstFile.path);
+      expect(await secondFile.readAsBytes(), firstBytes);
+    } finally {
+      await temporary.delete(recursive: true);
+    }
+
+    await repository.archiveCompleted(sessionA);
+    expect(store.document, isNull);
+    expect(canonicalJson(store.archived['v0p3-session-a']!.toJson()),
+        beforeArchive);
+    await expectLater(
+      repository.start(
+        sessionId: 'duplicate-external',
+        assignment: assignmentA,
+        route: PanelRouteCompiler(bundle).compile(assignmentA),
+        provenance: bundle.provenance,
+      ),
+      throwsStateError,
+    );
+
+    final assignmentB = profile.assignment(
+      slotId: 'EXT-S07',
+      participantId: 'V0P3-E007',
+    );
+    await repository.start(
+      sessionId: 'v0p3-session-b',
+      assignment: assignmentB,
+      route: PanelRouteCompiler(bundle).compile(assignmentB),
+      provenance: bundle.provenance,
+    );
+    expect(canonicalJson(store.archived['v0p3-session-a']!.toJson()),
+        beforeArchive);
+  });
+
+  test('AT-36 file store archive preserves completed session bytes', () async {
+    final bundle = await loadValidationBundle();
+    final temporary = await Directory.systemTemp.createTemp('v0p3-archive-');
+    try {
+      final store = FileValidationSessionStore(
+        supportDirectory: () async => temporary,
+      );
+      final repository = ValidationSessionRepository(store: store);
+      final assignment = profile.assignment(
+        slotId: 'EXT-S10',
+        participantId: 'V0P3-E010',
+      );
+      var document = await repository.start(
+        sessionId: 'v0p3-file-session-a',
+        assignment: assignment,
+        route: PanelRouteCompiler(bundle).compile(assignment),
+        provenance: bundle.provenance,
+      );
+      document = await completePilot(
+        repository: repository,
+        document: document,
+        bundle: bundle,
+      );
+      final active = File(
+        '${temporary.path}/drone_v0_panel/sessions/'
+        'v0p3-file-session-a.json',
+      );
+      final completedBytes = await active.readAsBytes();
+      await repository.archiveCompleted(document);
+      final archived = File(
+        '${temporary.path}/drone_v0_panel/archive/'
+        'v0p3-file-session-a.json',
+      );
+      expect(await archived.readAsBytes(), completedBytes);
+      expect(active.existsSync(), isFalse);
+      expect(
+        File('${temporary.path}/drone_v0_panel/active_session_id.txt')
+            .existsSync(),
+        isFalse,
+      );
+    } finally {
+      await temporary.delete(recursive: true);
+    }
+  });
+
+  test('AT-43/44 production runtime stays empty and IDs stay <= 100', () async {
+    final runtime = (jsonDecode(
+      await File('assets/question_bank/drone_second_class_bank.json')
+          .readAsString(),
+    )! as Map)
+        .cast<String, Object?>();
+    expect(runtime['decks'], isEmpty);
+    expect(runtime['examProfileVersion'], 'drone-second-class-unreleased');
+    final bundle = await loadValidationBundle();
+    expect(bundle.questions, hasLength(100));
+    expect(
+      bundle.questions
+          .map((question) => int.parse(question.questionId.split('-').last))
+          .reduce((left, right) => left > right ? left : right),
+      100,
+    );
+  });
+}
+
+class _StaticStore implements ValidationSessionStore {
+  _StaticStore(this.document);
+
+  final ValidationSessionDocument document;
+
+  @override
+  Future<void> archive(ValidationSessionDocument document) async =>
+      throw UnsupportedError('read only');
+
+  @override
+  Future<bool> hasParticipant(String participantId) async => false;
+
+  @override
+  Future<ValidationSessionDocument?> loadActive() async => document;
+
+  @override
+  Future<void> write(ValidationSessionDocument document) async =>
+      throw UnsupportedError('read only');
+}

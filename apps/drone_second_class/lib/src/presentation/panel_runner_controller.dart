@@ -1,35 +1,70 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
 import '../domain/panel_assignment.dart';
 import '../domain/panel_route.dart';
+import '../domain/pilot_profile.dart';
 import '../domain/validation_bundle.dart';
 import '../domain/validation_provenance.dart';
 import '../session/session_models.dart';
 import '../session/session_repository.dart';
 import '../session/research_prediction_provider.dart';
+import '../session/pilot_export.dart';
+import '../session/pilot_prediction.dart';
+
+class PilotPreflight {
+  const PilotPreflight({required this.assignment, required this.route});
+
+  final PanelAssignmentV1 assignment;
+  final PanelRoute route;
+}
 
 class PanelRunnerController extends ChangeNotifier {
   PanelRunnerController({
     required this.bundle,
     required this.repository,
     this.predictionProvider = const ResearcherCommitGatePredictionProvider(),
-  });
+    PilotExportWriter? exportWriter,
+    String? researcherPin,
+  })  : exportWriter = exportWriter ?? PilotExportWriter(),
+        _researcherPin = researcherPin ??
+            const String.fromEnvironment('V0P3_RESEARCHER_PIN');
 
   final ValidationBundle bundle;
   final ValidationSessionRepository repository;
   final ResearchPredictionProvider predictionProvider;
+  final PilotExportWriter exportWriter;
+  final String _researcherPin;
+  final DroneV0P3PilotProfile pilotProfile = const DroneV0P3PilotProfile();
 
   ValidationSessionDocument? document;
   ValidationSessionDocument? resumableDocument;
   ValidationQuestion? visibleQuestion;
+  PilotPreflight? pilotPreflight;
+  PilotExportArtifact? exportArtifact;
+  File? savedExportFile;
+  bool researcherUnlocked = false;
   bool busy = false;
   String? errorMessage;
 
   PanelPhase? get phase => document?.session.currentPhase;
 
   bool get canResume => resumableDocument != null;
+
+  bool get isPilotSession =>
+      document?.assignment.pilotContractVersion == pilotContractVersion;
+
+  PilotPredictionPlan? get pilotPredictionPlan {
+    final active = document;
+    if (active == null ||
+        !isPilotSession ||
+        active.session.currentPhase != PanelPhase.predictionGate) {
+      return null;
+    }
+    return PilotPredictionPlan.fromDocument(active);
+  }
 
   Future<void> initialize() async {
     try {
@@ -67,6 +102,57 @@ class PanelRunnerController extends ChangeNotifier {
     });
   }
 
+  Future<void> compilePilot({
+    required String assignmentSlotId,
+    required String participantId,
+  }) async {
+    await _run(() async {
+      pilotProfile.validateFixedSlots();
+      final assignment = pilotProfile.assignment(
+        slotId: assignmentSlotId,
+        participantId: participantId,
+      );
+      final route = PanelRouteCompiler(bundle).compile(assignment);
+      pilotPreflight = PilotPreflight(assignment: assignment, route: route);
+      exportArtifact = null;
+      savedExportFile = null;
+    });
+  }
+
+  Future<void> confirmPilotPreflight() async {
+    await _run(() async {
+      final preflight = pilotPreflight;
+      if (preflight == null) {
+        throw StateError('Pilot Preflight has not been compiled.');
+      }
+      if (_researcherPin.isEmpty) {
+        throw StateError(
+          'Pilot execution rejected: Researcher PIN is not configured.',
+        );
+      }
+      pilotProfile.validateAssignment(preflight.assignment);
+      final sessionId = 'V0P3-${DateTime.now().toUtc().microsecondsSinceEpoch}';
+      document = await repository.start(
+        sessionId: sessionId,
+        assignment: preflight.assignment,
+        route: preflight.route,
+        provenance: bundle.provenance,
+      );
+      pilotPreflight = null;
+      resumableDocument = document;
+      visibleQuestion = null;
+      researcherUnlocked = false;
+      await _prepareCurrentQuestion();
+    });
+  }
+
+  void cancelPilotPreflight() {
+    if (busy) return;
+    pilotPreflight = null;
+    errorMessage = null;
+    notifyListeners();
+  }
+
   Future<void> resume() async {
     await _run(() async {
       final loaded = resumableDocument;
@@ -74,6 +160,7 @@ class PanelRunnerController extends ChangeNotifier {
       _validateLoaded(loaded);
       document = loaded;
       visibleQuestion = null;
+      researcherUnlocked = false;
       await _prepareCurrentQuestion();
     });
   }
@@ -106,7 +193,8 @@ class PanelRunnerController extends ChangeNotifier {
       final decoded = jsonDecode(payloadSource);
       if (decoded is! Map) {
         throw const FormatException(
-            'Prediction payload must be a JSON object.');
+          'Prediction payload must be a JSON object.',
+        );
       }
       final committed = await repository.commitPrediction(
         document: activeDocument,
@@ -121,12 +209,49 @@ class PanelRunnerController extends ChangeNotifier {
     });
   }
 
+  void unlockResearcher(String pin) {
+    errorMessage = null;
+    if (_researcherPin.isEmpty) {
+      errorMessage =
+          'Pilot execution rejected: Researcher PIN is not configured.';
+      researcherUnlocked = false;
+    } else if (pin != _researcherPin) {
+      errorMessage = 'Researcher PIN rejected.';
+      researcherUnlocked = false;
+    } else {
+      researcherUnlocked = true;
+    }
+    notifyListeners();
+  }
+
+  Future<void> commitPilotPrediction(Map<String, Object?> payload) async {
+    final activeDocument = document;
+    if (activeDocument == null) return;
+    await _run(() async {
+      if (!isPilotSession || !researcherUnlocked) {
+        throw StateError('Researcher PIN gate is locked.');
+      }
+      final committed = await repository.commitPrediction(
+        document: activeDocument,
+        algorithmVersion: pilotPredictionMethodVersion,
+        payload: payload,
+      );
+      document = committed;
+      resumableDocument = committed;
+      visibleQuestion = null;
+      researcherUnlocked = false;
+      notifyListeners();
+      await _prepareCurrentQuestion();
+    });
+  }
+
   Future<void> continueAfterExplanation() async {
     final activeDocument = document;
     if (activeDocument == null) return;
     await _run(() async {
-      final committed =
-          await repository.continueAfterExplanation(activeDocument);
+      final committed = await repository.continueAfterExplanation(
+        activeDocument,
+      );
       document = committed;
       resumableDocument = committed;
       visibleQuestion = null;
@@ -141,6 +266,38 @@ class PanelRunnerController extends ChangeNotifier {
       throw StateError('No validation session is loaded.');
     }
     return buildValidationExport(activeDocument);
+  }
+
+  Future<File?> savePilotExport() async {
+    File? result;
+    await _run(() async {
+      final active = document;
+      if (active == null) throw StateError('No Pilot session is loaded.');
+      final artifact = buildPilotExportArtifact(active);
+      final file = await exportWriter.save(artifact);
+      exportArtifact = artifact;
+      savedExportFile = file;
+      result = file;
+    });
+    return result;
+  }
+
+  Future<void> archiveAndClose() async {
+    await _run(() async {
+      final active = document;
+      if (active == null) throw StateError('No Pilot session is loaded.');
+      if (savedExportFile == null || exportArtifact == null) {
+        throw StateError('Save the durable export before archiving.');
+      }
+      await repository.archiveCompleted(active);
+      document = null;
+      resumableDocument = null;
+      visibleQuestion = null;
+      pilotPreflight = null;
+      researcherUnlocked = false;
+      exportArtifact = null;
+      savedExportFile = null;
+    });
   }
 
   Future<void> _prepareCurrentQuestion() async {
@@ -173,10 +330,24 @@ class PanelRunnerController extends ChangeNotifier {
         canonicalJson(bundle.provenance.toJson())) {
       throw const FormatException('Stored session provenance is stale.');
     }
+    if (loaded.assignment.pilotContractVersion != null) {
+      pilotProfile.validateAssignment(loaded.assignment);
+    }
+    final recompiled = PanelRouteCompiler(bundle).compile(loaded.assignment);
+    if (canonicalJson(recompiled.toJson()) !=
+            canonicalJson(loaded.route.toJson()) ||
+        canonicalJson(recompiled.questionIds) !=
+            canonicalJson(loaded.session.routeQuestionIds) ||
+        recompiled.routeHash != loaded.session.routeHash) {
+      throw const FormatException(
+        'RESUME REJECT: recompiled assignment route does not match exactly.',
+      );
+    }
     for (final entry in loaded.route.entries) {
       if (!bundle.questionsById.containsKey(entry.questionId)) {
         throw FormatException(
-            'Stored route question ${entry.questionId} is absent.');
+          'Stored route question ${entry.questionId} is absent.',
+        );
       }
     }
   }
