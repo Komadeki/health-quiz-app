@@ -15,9 +15,11 @@ sys.path.insert(0, str(TOOL_DIR))
 
 from question_bank import (  # noqa: E402
     build_generated_files,
+    build_released_questions_document,
     load_bank_inputs,
     validate_bank,
     write_generated_files,
+    write_initial_released_questions_snapshot,
 )
 from contract import QUESTION_ID_PATTERN  # noqa: E402
 
@@ -81,6 +83,29 @@ class QuestionBankContractTest(unittest.TestCase):
         first = build_generated_files(inputs)
         second = build_generated_files(load_bank_inputs(self.bank))
         self.assertEqual(first, second)
+
+    def test_initial_release_snapshot_generation_is_deterministic(self) -> None:
+        inputs = load_bank_inputs(self.bank)
+        first = build_released_questions_document(inputs)
+        second = build_released_questions_document(load_bank_inputs(self.bank))
+        self.assertEqual(first, second)
+        self.assertEqual(len(first["released_questions"]), 2)
+        self.assertEqual(
+            write_initial_released_questions_snapshot(self.bank),
+            self.bank / "authoring" / "released_questions.json",
+        )
+
+    def test_existing_different_release_snapshot_is_not_replaced(self) -> None:
+        released_path = self.bank / "authoring" / "released_questions.json"
+        released = json.loads(released_path.read_text(encoding="utf-8"))
+        released["released_questions"][0]["question"] = "changed"
+        released_path.write_text(
+            json.dumps(released, ensure_ascii=False, sort_keys=True, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+        with self.assertRaisesRegex(ValueError, "different release snapshot"):
+            write_initial_released_questions_snapshot(self.bank)
 
     def test_duplicate_question_id_fails(self) -> None:
         self._mutate_question(1, question_id="FIXTURE-Q-000001")
@@ -168,6 +193,30 @@ class QuestionBankContractTest(unittest.TestCase):
 
 
 class DroneQuestionBankTest(unittest.TestCase):
+    PRODUCTION_REVISION = "drone-second-class-v1-release-2026-08-20"
+    FREE_QUESTION_IDS = {
+        "DRONE-Q-000001",
+        "DRONE-Q-000002",
+        "DRONE-Q-000003",
+        "DRONE-Q-000004",
+        "DRONE-Q-000005",
+        "DRONE-Q-000006",
+        "DRONE-Q-000007",
+        "DRONE-Q-000008",
+        "DRONE-Q-000009",
+        "DRONE-Q-000011",
+        "DRONE-Q-000012",
+        "DRONE-Q-000013",
+        "DRONE-Q-000014",
+        "DRONE-Q-000015",
+        "DRONE-Q-000016",
+        "DRONE-Q-000018",
+        "DRONE-Q-000019",
+        "DRONE-Q-000020",
+        "DRONE-Q-000021",
+        "DRONE-Q-000026",
+    }
+
     PERMANENT_SLOT_TO_ID = {
         "VS-001": "DRONE-Q-000001",
         "VS-004": "DRONE-Q-000002",
@@ -281,7 +330,7 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "slot_id=VS-041; verification_state=author_source_verified; "
                 "primary_role=UNKNOWN_SENTINEL; kt_id=D3-T01-KT004; "
                 "family=US-E; independent_reviewed=false; "
-                "subject_matter_expert_reviewed=false; release_approved=false"
+                "subject_matter_expert_reviewed=false; release_approved=true"
             ),
             "content": {
                 "question": (
@@ -315,7 +364,7 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "slot_id=VS-042; verification_state=author_source_verified; "
                 "primary_role=UNKNOWN_SENTINEL; kt_id=D3-T03-KT002; "
                 "family=US-F; independent_reviewed=false; "
-                "subject_matter_expert_reviewed=false; release_approved=false"
+                "subject_matter_expert_reviewed=false; release_approved=true"
             ),
             "content": {
                 "question": (
@@ -366,7 +415,7 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "slot_id=VS-037; verification_state=author_source_verified; "
                 "primary_role=UNKNOWN_SENTINEL; kt_id=D1-T01-KT020; "
                 "family=US-A; independent_reviewed=false; "
-                "subject_matter_expert_reviewed=false; release_approved=false"
+                "subject_matter_expert_reviewed=false; release_approved=true"
             ),
             "content": {
                 "question": (
@@ -407,7 +456,7 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "slot_id=VS-038; verification_state=author_source_verified; "
                 "primary_role=UNKNOWN_SENTINEL; kt_id=D1-T01-KT029; "
                 "family=US-B; independent_reviewed=false; "
-                "subject_matter_expert_reviewed=false; release_approved=false"
+                "subject_matter_expert_reviewed=false; release_approved=true"
             ),
             "content": {
                 "question": (
@@ -439,7 +488,7 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "slot_id=VS-040; verification_state=author_source_verified; "
                 "primary_role=UNKNOWN_SENTINEL; kt_id=D2-T05-KT008; "
                 "family=US-D; independent_reviewed=false; "
-                "subject_matter_expert_reviewed=false; release_approved=false"
+                "subject_matter_expert_reviewed=false; release_approved=true"
             ),
             "content": {
                 "question": (
@@ -480,7 +529,7 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "slot_id=VS-043; verification_state=author_source_verified; "
                 "primary_role=UNKNOWN_SENTINEL; kt_id=D4-T01-KT004; "
                 "family=US-G; independent_reviewed=false; "
-                "subject_matter_expert_reviewed=false; release_approved=false"
+                "subject_matter_expert_reviewed=false; release_approved=true"
             ),
             "content": {
                 "question": (
@@ -518,7 +567,7 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "slot_id=VS-044; verification_state=author_source_verified; "
                 "primary_role=UNKNOWN_SENTINEL; kt_id=D4-T02-KT006; "
                 "family=US-H; independent_reviewed=false; "
-                "subject_matter_expert_reviewed=false; release_approved=false"
+                "subject_matter_expert_reviewed=false; release_approved=true"
             ),
             "content": {
                 "question": (
@@ -2956,7 +3005,7 @@ class DroneQuestionBankTest(unittest.TestCase):
             "slot_id=VS-027; verification_state=author_source_verified; "
             "primary_role=BREADTH_OBSERVED; kt_id=D3-T03-KT001; "
             "family=Fatigue-management; independent_reviewed=false; "
-            "subject_matter_expert_reviewed=false; release_approved=false"
+            "subject_matter_expert_reviewed=false; release_approved=true"
         ),
     }
     B2A_REGISTRY_NOTES = {
@@ -3517,11 +3566,14 @@ class DroneQuestionBankTest(unittest.TestCase):
         )
         self.assertTrue(all(row["status"] == "used" for row in inputs.id_registry))
         self.assertTrue(
-            all(not row["first_used_bank_revision"] for row in inputs.id_registry)
+            all(
+                row["first_used_bank_revision"] == self.PRODUCTION_REVISION
+                for row in inputs.id_registry
+            )
         )
         self.assertEqual(inputs.metadata["app_key"], "drone_second_class")
         self.assertEqual(inputs.metadata["question_identity_policy"], "explicit_v1")
-        self.assertEqual(inputs.released_questions, [])
+        self.assertEqual(len(inputs.released_questions), 100)
 
         for slot_id, question_id in self.PERMANENT_SLOT_TO_ID.items():
             self.assertIn(question_id, question_by_id)
@@ -3534,7 +3586,7 @@ class DroneQuestionBankTest(unittest.TestCase):
         for question_id, expected in self.B1A_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(
                 question["correct_choice"], expected["correct_choice"]
             )
@@ -3553,19 +3605,22 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "subject_matter_expert_reviewed=false",
                 question["notes_internal"],
             )
-            self.assertIn("release_approved=false", question["notes_internal"])
+            self.assertIn("release_approved=true", question["notes_internal"])
             for note in expected["notes"]:
                 self.assertIn(note, question["notes_internal"])
 
         for question_id, expected in self.B1B_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(question["deck_id"], "drone_second_class_exam")
             self.assertEqual(question["unit_id"], expected["unit_id"])
             self.assertEqual(question["difficulty"], "2")
             self.assertEqual(question["importance"], "2")
-            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(
+                question["is_free"],
+                "true" if question_id in self.FREE_QUESTION_IDS else "false",
+            )
             self.assertEqual(question["valid_from"], "2026-07-14")
             self.assertEqual(question["valid_until"], "")
             self.assertEqual(question["last_reviewed_at"], "2026-08-18")
@@ -3582,7 +3637,7 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "subject_matter_expert_reviewed=false",
                 question["notes_internal"],
             )
-            self.assertIn("release_approved=false", question["notes_internal"])
+            self.assertIn("release_approved=true", question["notes_internal"])
             for note in expected["notes"]:
                 self.assertIn(note, question["notes_internal"])
 
@@ -3630,12 +3685,15 @@ class DroneQuestionBankTest(unittest.TestCase):
         for question_id, expected in self.B1C_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(question["deck_id"], "drone_second_class_exam")
             self.assertEqual(question["unit_id"], "drone_operations")
             self.assertEqual(question["difficulty"], "2")
             self.assertEqual(question["importance"], "2")
-            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(
+                question["is_free"],
+                "true" if question_id in self.FREE_QUESTION_IDS else "false",
+            )
             self.assertEqual(question["valid_from"], "2026-07-14")
             self.assertEqual(question["valid_until"], "")
             self.assertEqual(question["last_reviewed_at"], "2026-08-18")
@@ -3654,13 +3712,15 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "subject_matter_expert_reviewed=false",
                 question["notes_internal"],
             )
-            self.assertIn("release_approved=false", question["notes_internal"])
+            self.assertIn("release_approved=true", question["notes_internal"])
             for note in expected["notes"]:
                 self.assertIn(note, question["notes_internal"])
 
             registry = registry_by_id[question_id]
             self.assertEqual(registry["status"], "used")
-            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(
+                registry["first_used_bank_revision"], self.PRODUCTION_REVISION
+            )
             self.assertEqual(registry["retired_at"], "")
             self.assertEqual(registry["replacement_id"], "")
             self.assertEqual(registry["notes"], self.B1C_REGISTRY_NOTES[question_id])
@@ -3693,12 +3753,15 @@ class DroneQuestionBankTest(unittest.TestCase):
         for question_id, expected in self.B2A_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(question["deck_id"], "drone_second_class_exam")
             self.assertEqual(question["unit_id"], expected["unit_id"])
             self.assertEqual(question["difficulty"], "2")
             self.assertEqual(question["importance"], "2")
-            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(
+                question["is_free"],
+                "true" if question_id in self.FREE_QUESTION_IDS else "false",
+            )
             self.assertEqual(question["valid_from"], "2026-07-14")
             self.assertEqual(question["valid_until"], "")
             self.assertEqual(question["last_reviewed_at"], "2026-08-18")
@@ -3717,13 +3780,15 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "subject_matter_expert_reviewed=false",
                 question["notes_internal"],
             )
-            self.assertIn("release_approved=false", question["notes_internal"])
+            self.assertIn("release_approved=true", question["notes_internal"])
             for note in expected["notes"]:
                 self.assertIn(note, question["notes_internal"])
 
             registry = registry_by_id[question_id]
             self.assertEqual(registry["status"], "used")
-            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(
+                registry["first_used_bank_revision"], self.PRODUCTION_REVISION
+            )
             self.assertEqual(registry["retired_at"], "")
             self.assertEqual(registry["replacement_id"], "")
             self.assertEqual(registry["notes"], self.B2A_REGISTRY_NOTES[question_id])
@@ -3791,12 +3856,15 @@ class DroneQuestionBankTest(unittest.TestCase):
         for question_id, expected in self.B2B_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(question["deck_id"], "drone_second_class_exam")
             self.assertEqual(question["unit_id"], expected["unit_id"])
             self.assertEqual(question["difficulty"], "2")
             self.assertEqual(question["importance"], "2")
-            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(
+                question["is_free"],
+                "true" if question_id in self.FREE_QUESTION_IDS else "false",
+            )
             self.assertEqual(question["valid_from"], "2026-07-14")
             self.assertEqual(question["valid_until"], "")
             self.assertEqual(question["last_reviewed_at"], "2026-08-18")
@@ -3815,13 +3883,15 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "subject_matter_expert_reviewed=false",
                 question["notes_internal"],
             )
-            self.assertIn("release_approved=false", question["notes_internal"])
+            self.assertIn("release_approved=true", question["notes_internal"])
             for note in expected["notes"]:
                 self.assertIn(note, question["notes_internal"])
 
             registry = registry_by_id[question_id]
             self.assertEqual(registry["status"], "used")
-            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(
+                registry["first_used_bank_revision"], self.PRODUCTION_REVISION
+            )
             self.assertEqual(registry["retired_at"], "")
             self.assertEqual(registry["replacement_id"], "")
             self.assertEqual(registry["notes"], self.B2B_REGISTRY_NOTES[question_id])
@@ -3962,12 +4032,15 @@ class DroneQuestionBankTest(unittest.TestCase):
         for question_id, expected in self.B3A_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(question["deck_id"], "drone_second_class_exam")
             self.assertEqual(question["unit_id"], expected["unit_id"])
             self.assertEqual(question["difficulty"], "2")
             self.assertEqual(question["importance"], "2")
-            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(
+                question["is_free"],
+                "true" if question_id in self.FREE_QUESTION_IDS else "false",
+            )
             self.assertEqual(question["valid_from"], "2026-07-14")
             self.assertEqual(question["valid_until"], "")
             self.assertEqual(question["last_reviewed_at"], "2026-08-19")
@@ -3989,14 +4062,16 @@ class DroneQuestionBankTest(unittest.TestCase):
             self.assertEqual(metadata["verification_state"], "author_source_verified")
             self.assertEqual(metadata["independent_reviewed"], "false")
             self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
-            self.assertEqual(metadata["release_approved"], "false")
+            self.assertEqual(metadata["release_approved"], "true")
 
             for field, expected_text in expected["content"].items():
                 self.assertEqual(question[field], expected_text)
 
             registry = registry_by_id[question_id]
             self.assertEqual(registry["status"], "used")
-            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(
+                registry["first_used_bank_revision"], self.PRODUCTION_REVISION
+            )
             self.assertEqual(registry["retired_at"], "")
             self.assertEqual(registry["replacement_id"], "")
             self.assertEqual(registry["notes"], self.B3A_REGISTRY_NOTES[question_id])
@@ -4058,12 +4133,15 @@ class DroneQuestionBankTest(unittest.TestCase):
         for question_id, expected in self.B3B_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(question["deck_id"], "drone_second_class_exam")
             self.assertEqual(question["unit_id"], expected["unit_id"])
             self.assertEqual(question["difficulty"], "2")
             self.assertEqual(question["importance"], "2")
-            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(
+                question["is_free"],
+                "true" if question_id in self.FREE_QUESTION_IDS else "false",
+            )
             self.assertEqual(question["valid_from"], "2026-07-14")
             self.assertEqual(question["valid_until"], "")
             self.assertEqual(question["last_reviewed_at"], "2026-08-19")
@@ -4085,14 +4163,16 @@ class DroneQuestionBankTest(unittest.TestCase):
             self.assertEqual(metadata["verification_state"], "author_source_verified")
             self.assertEqual(metadata["independent_reviewed"], "false")
             self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
-            self.assertEqual(metadata["release_approved"], "false")
+            self.assertEqual(metadata["release_approved"], "true")
 
             for field, expected_text in expected["content"].items():
                 self.assertEqual(question[field], expected_text)
 
             registry = registry_by_id[question_id]
             self.assertEqual(registry["status"], "used")
-            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(
+                registry["first_used_bank_revision"], self.PRODUCTION_REVISION
+            )
             self.assertEqual(registry["retired_at"], "")
             self.assertEqual(registry["replacement_id"], "")
             self.assertEqual(registry["notes"], self.B3B_REGISTRY_NOTES[question_id])
@@ -4144,12 +4224,15 @@ class DroneQuestionBankTest(unittest.TestCase):
         for question_id, expected in self.B4_D1_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(question["deck_id"], "drone_second_class_exam")
             self.assertEqual(question["unit_id"], "drone_rules")
             self.assertEqual(question["difficulty"], "2")
             self.assertEqual(question["importance"], "2")
-            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(
+                question["is_free"],
+                "true" if question_id in self.FREE_QUESTION_IDS else "false",
+            )
             self.assertEqual(question["valid_from"], "2026-07-14")
             self.assertEqual(question["valid_until"], "")
             self.assertEqual(question["last_reviewed_at"], "2026-08-19")
@@ -4182,7 +4265,7 @@ class DroneQuestionBankTest(unittest.TestCase):
             self.assertEqual(metadata["coverage"], expected["coverage"])
             self.assertEqual(metadata["independent_reviewed"], "false")
             self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
-            self.assertEqual(metadata["release_approved"], "false")
+            self.assertEqual(metadata["release_approved"], "true")
             if "supporting_authority" in expected:
                 self.assertEqual(
                     metadata["supporting_authority"],
@@ -4193,7 +4276,9 @@ class DroneQuestionBankTest(unittest.TestCase):
 
             registry = registry_by_id[question_id]
             self.assertEqual(registry["status"], "used")
-            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(
+                registry["first_used_bank_revision"], self.PRODUCTION_REVISION
+            )
             self.assertEqual(registry["retired_at"], "")
             self.assertEqual(registry["replacement_id"], "")
             self.assertEqual(
@@ -4317,12 +4402,15 @@ class DroneQuestionBankTest(unittest.TestCase):
         for question_id, expected in self.B5_D2A_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(question["deck_id"], "drone_second_class_exam")
             self.assertEqual(question["unit_id"], "drone_systems")
             self.assertEqual(question["difficulty"], "2")
             self.assertEqual(question["importance"], "2")
-            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(
+                question["is_free"],
+                "true" if question_id in self.FREE_QUESTION_IDS else "false",
+            )
             self.assertEqual(question["valid_from"], "2026-07-14")
             self.assertEqual(question["valid_until"], "")
             self.assertEqual(question["last_reviewed_at"], "2026-08-19")
@@ -4355,11 +4443,13 @@ class DroneQuestionBankTest(unittest.TestCase):
             self.assertEqual(metadata["coverage"], expected["coverage"])
             self.assertEqual(metadata["independent_reviewed"], "false")
             self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
-            self.assertEqual(metadata["release_approved"], "false")
+            self.assertEqual(metadata["release_approved"], "true")
 
             registry = registry_by_id[question_id]
             self.assertEqual(registry["status"], "used")
-            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(
+                registry["first_used_bank_revision"], self.PRODUCTION_REVISION
+            )
             self.assertEqual(registry["retired_at"], "")
             self.assertEqual(registry["replacement_id"], "")
             self.assertEqual(
@@ -4492,12 +4582,15 @@ class DroneQuestionBankTest(unittest.TestCase):
         for question_id, expected in self.B6_D2B_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(question["deck_id"], "drone_second_class_exam")
             self.assertEqual(question["unit_id"], "drone_systems")
             self.assertEqual(question["difficulty"], "2")
             self.assertEqual(question["importance"], "2")
-            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(
+                question["is_free"],
+                "true" if question_id in self.FREE_QUESTION_IDS else "false",
+            )
             self.assertEqual(question["valid_from"], "2026-07-14")
             self.assertEqual(question["valid_until"], "")
             self.assertEqual(question["last_reviewed_at"], "2026-08-19")
@@ -4530,11 +4623,13 @@ class DroneQuestionBankTest(unittest.TestCase):
             self.assertEqual(metadata["coverage"], expected["coverage"])
             self.assertEqual(metadata["independent_reviewed"], "false")
             self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
-            self.assertEqual(metadata["release_approved"], "false")
+            self.assertEqual(metadata["release_approved"], "true")
 
             registry = registry_by_id[question_id]
             self.assertEqual(registry["status"], "used")
-            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(
+                registry["first_used_bank_revision"], self.PRODUCTION_REVISION
+            )
             self.assertEqual(registry["retired_at"], "")
             self.assertEqual(registry["replacement_id"], "")
             self.assertEqual(
@@ -4698,12 +4793,15 @@ class DroneQuestionBankTest(unittest.TestCase):
         for question_id, expected in self.B7_D3_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(question["deck_id"], "drone_second_class_exam")
             self.assertEqual(question["unit_id"], "drone_operations")
             self.assertEqual(question["difficulty"], "2")
             self.assertEqual(question["importance"], "2")
-            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(
+                question["is_free"],
+                "true" if question_id in self.FREE_QUESTION_IDS else "false",
+            )
             self.assertEqual(question["valid_from"], "2026-07-14")
             self.assertEqual(question["valid_until"], "")
             self.assertEqual(question["last_reviewed_at"], "2026-08-19")
@@ -4736,11 +4834,13 @@ class DroneQuestionBankTest(unittest.TestCase):
             self.assertEqual(metadata["coverage"], expected["coverage"])
             self.assertEqual(metadata["independent_reviewed"], "false")
             self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
-            self.assertEqual(metadata["release_approved"], "false")
+            self.assertEqual(metadata["release_approved"], "true")
 
             registry = registry_by_id[question_id]
             self.assertEqual(registry["status"], "used")
-            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(
+                registry["first_used_bank_revision"], self.PRODUCTION_REVISION
+            )
             self.assertEqual(registry["retired_at"], "")
             self.assertEqual(registry["replacement_id"], "")
             self.assertEqual(
@@ -4938,12 +5038,15 @@ class DroneQuestionBankTest(unittest.TestCase):
         for question_id, expected in self.B8_D4_EXPECTATIONS.items():
             question = question_by_id[question_id]
             self.assertEqual(question["question_version"], "1")
-            self.assertEqual(question["status"], "draft")
+            self.assertEqual(question["status"], "active")
             self.assertEqual(question["deck_id"], "drone_second_class_exam")
             self.assertEqual(question["unit_id"], "drone_risk_management")
             self.assertEqual(question["difficulty"], "2")
             self.assertEqual(question["importance"], "2")
-            self.assertEqual(question["is_free"], "false")
+            self.assertEqual(
+                question["is_free"],
+                "true" if question_id in self.FREE_QUESTION_IDS else "false",
+            )
             self.assertEqual(question["valid_from"], "2026-07-14")
             self.assertEqual(question["valid_until"], "")
             self.assertEqual(question["last_reviewed_at"], "2026-08-19")
@@ -4976,11 +5079,13 @@ class DroneQuestionBankTest(unittest.TestCase):
             self.assertEqual(metadata["coverage"], expected["coverage"])
             self.assertEqual(metadata["independent_reviewed"], "false")
             self.assertEqual(metadata["subject_matter_expert_reviewed"], "false")
-            self.assertEqual(metadata["release_approved"], "false")
+            self.assertEqual(metadata["release_approved"], "true")
 
             registry = registry_by_id[question_id]
             self.assertEqual(registry["status"], "used")
-            self.assertEqual(registry["first_used_bank_revision"], "")
+            self.assertEqual(
+                registry["first_used_bank_revision"], self.PRODUCTION_REVISION
+            )
             self.assertEqual(registry["retired_at"], "")
             self.assertEqual(registry["replacement_id"], "")
             self.assertEqual(
@@ -5167,7 +5272,7 @@ class DroneQuestionBankTest(unittest.TestCase):
 
         self.assertIn("identity_policy_not_explicit", self._error_codes())
 
-    def test_drone_generation_is_deterministic_and_drafts_stay_out(self) -> None:
+    def test_drone_generation_is_deterministic_and_releases_all_questions(self) -> None:
         first = build_generated_files(load_bank_inputs(self.bank))
         second = build_generated_files(load_bank_inputs(self.bank))
         self.assertEqual(first, second)
@@ -5186,10 +5291,19 @@ class DroneQuestionBankTest(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        self.assertEqual(runtime["decks"], [])
-        self.assertEqual(manifest["question_count"], 0)
+        cards = [
+            card
+            for deck in runtime["decks"]
+            for unit in deck["units"]
+            for card in unit["cards"]
+        ]
+        self.assertEqual(len(cards), 100)
+        self.assertEqual(len({card["stableId"] for card in cards}), 100)
+        self.assertEqual(sum(not card["isPremium"] for card in cards), 20)
+        self.assertEqual(manifest["question_count"], 100)
+        self.assertEqual(manifest["free_question_count"], 20)
 
-    def test_drone_v0_core_formal_snapshot_contract(self) -> None:
+    def test_drone_production_release_contract(self) -> None:
         inputs = load_bank_inputs(self.bank)
         expected_ids = [
             f"DRONE-Q-{sequence:06d}" for sequence in range(1, 101)
@@ -5199,12 +5313,12 @@ class DroneQuestionBankTest(unittest.TestCase):
 
         self.assertEqual(
             inputs.metadata["bank_revision"],
-            "drone-second-class-v0-core-2026-08-19",
+            self.PRODUCTION_REVISION,
         )
         self.assertEqual(inputs.metadata["content_as_of"], "2026-08-19")
         self.assertEqual(
             inputs.metadata["exam_profile_version"],
-            "drone-second-class-unreleased",
+            "drone-second-class-v1",
         )
         self.assertEqual(len(inputs.questions), 100)
         self.assertEqual(set(question_ids), set(expected_ids))
@@ -5215,7 +5329,7 @@ class DroneQuestionBankTest(unittest.TestCase):
             )
         )
         self.assertTrue(
-            all(question["status"] == "draft" for question in inputs.questions)
+            all(question["status"] == "active" for question in inputs.questions)
         )
         self.assertTrue(
             all(
@@ -5226,7 +5340,7 @@ class DroneQuestionBankTest(unittest.TestCase):
         )
         self.assertTrue(
             all(
-                "release_approved=false" in question["notes_internal"]
+                "release_approved=true" in question["notes_internal"]
                 for question in inputs.questions
             )
         )
@@ -5236,13 +5350,66 @@ class DroneQuestionBankTest(unittest.TestCase):
         )
         self.assertTrue(
             all(
-                not entry["first_used_bank_revision"]
+                entry["first_used_bank_revision"] == self.PRODUCTION_REVISION
                 for entry in inputs.id_registry
             )
         )
         self.assertNotIn("DRONE-Q-000101", question_ids)
         self.assertNotIn("DRONE-Q-000101", registry_ids)
-        self.assertEqual(inputs.released_questions, [])
+        self.assertEqual(len(inputs.released_questions), 100)
+        released_by_id = {
+            question["question_id"]: question
+            for question in inputs.released_questions
+        }
+        question_by_id = {
+            question["question_id"]: question for question in inputs.questions
+        }
+        self.assertEqual(set(released_by_id), set(expected_ids))
+        for question_id in expected_ids:
+            question = question_by_id[question_id]
+            released = released_by_id[question_id]
+            self.assertEqual(released["question_version"], 1)
+            self.assertEqual(released["question"], question["question"])
+            self.assertEqual(
+                released["choices"],
+                [
+                    question[f"choice{number}"]
+                    for number in range(1, 5)
+                    if question[f"choice{number}"]
+                ],
+            )
+            for field in (
+                "correct_choice",
+                "source_id",
+                "difficulty",
+                "importance",
+                "is_free",
+            ):
+                self.assertEqual(str(released[field]), question[field])
+
+        self.assertEqual(
+            {
+                question["question_id"]
+                for question in inputs.questions
+                if question["is_free"] == "true"
+            },
+            self.FREE_QUESTION_IDS,
+        )
+        free_by_unit = {}
+        for question in inputs.questions:
+            if question["is_free"] == "true":
+                free_by_unit[question["unit_id"]] = (
+                    free_by_unit.get(question["unit_id"], 0) + 1
+                )
+        self.assertEqual(
+            free_by_unit,
+            {
+                "drone_rules": 5,
+                "drone_systems": 5,
+                "drone_operations": 5,
+                "drone_risk_management": 5,
+            },
+        )
 
         runtime = json.loads(
             (self.bank / "generated" / "drone_second_class_bank.json").read_text(
@@ -5255,17 +5422,58 @@ class DroneQuestionBankTest(unittest.TestCase):
             )
         )
         self.assertEqual(
-            runtime["bankRevision"], "drone-second-class-v0-core-2026-08-19"
+            runtime["bankRevision"], self.PRODUCTION_REVISION
         )
         self.assertEqual(runtime["contentAsOf"], "2026-08-19")
-        self.assertEqual(runtime["decks"], [])
+        runtime_cards = [
+            card
+            for deck in runtime["decks"]
+            for unit in deck["units"]
+            for card in unit["cards"]
+        ]
+        self.assertEqual(len(runtime_cards), 100)
+        self.assertEqual(len({card["stableId"] for card in runtime_cards}), 100)
         self.assertEqual(
             manifest["bank_revision"],
-            "drone-second-class-v0-core-2026-08-19",
+            self.PRODUCTION_REVISION,
         )
         self.assertEqual(manifest["content_as_of"], "2026-08-19")
-        self.assertEqual(manifest["question_count"], 0)
-        self.assertEqual(manifest["free_question_count"], 0)
+        self.assertEqual(manifest["question_count"], 100)
+        self.assertEqual(manifest["free_question_count"], 20)
+
+    def test_production_release_preserves_all_protected_question_content(self) -> None:
+        _, live_rows = self._read_csv(self.questions_path)
+        _, snapshot_rows = self._read_csv(
+            self.bank
+            / "validation"
+            / "formal_snapshot"
+            / "authoring"
+            / "questions.csv"
+        )
+        live_by_id = {row["question_id"]: row for row in live_rows}
+        snapshot_by_id = {row["question_id"]: row for row in snapshot_rows}
+        self.assertEqual(set(live_by_id), set(snapshot_by_id))
+        protected_fields = (
+            "question_id",
+            "question_version",
+            "question",
+            "choice1",
+            "choice2",
+            "choice3",
+            "choice4",
+            "correct_choice",
+            "explanation",
+            "source_id",
+            "source_locator",
+            "supersedes_id",
+        )
+        for question_id in sorted(live_by_id):
+            for field in protected_fields:
+                self.assertEqual(
+                    live_by_id[question_id][field],
+                    snapshot_by_id[question_id][field],
+                    f"{question_id} changed {field}",
+                )
 
     def test_qualification_fixture_remains_valid(self) -> None:
         fixture = REPOSITORY_ROOT / "question_banks" / "qualification_fixture"

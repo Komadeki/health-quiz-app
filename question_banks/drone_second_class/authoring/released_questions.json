@@ -1,4 +1,1505 @@
 {
-  "released_questions": [],
+  "released_questions": [
+    {
+      "choices": [
+        "事故等につながる可能性のある危険要素",
+        "運航の安全に影響する事象が発生する可能性",
+        "事故が起きた後に実際に生じた被害そのもの"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "無人航空機の運航における「ハザード」に該当するものはどれか。",
+      "question_id": "DRONE-Q-000001",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "飛行目的に関与しているため、本人による参加決定がなくても間接関与者として第三者に該当しない",
+        "本人が参加するか決められる条件を満たさないため、間接関与者とは扱えず第三者に該当する",
+        "指示と安全上の注意を理解しているため、本人による参加決定がなくても間接関与者として第三者に該当しない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "学校行事の空撮で、ある生徒が撮影に参加している。生徒は飛行目的の一部に関与し、操縦者から計画外の挙動があった場合の指示と安全上の注意を受け、内容も理解している。ただし、撮影への参加は学校側が割り当てており、生徒自身が参加するかどうかを決める機会はなかった。この生徒の扱いとして、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000002",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "本人がまだ安全に操縦できると判断しているため、当初の運航予定を維持し、疲労は運航終了後に評価する",
+        "機体・気象・飛行経路に問題がないため、当初の飛行時間計画を維持し、各飛行終了後に疲労を評価する",
+        "疲労時は飛行を続ける判断に偏りやすいことを踏まえ、当初計画に固定せず飛行時間を管理する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "操縦者は同じ日に複数回の飛行を行い、疲労を感じ始めている。これまで操作ミスはなく、機体・気象・飛行経路にも問題は確認されていない。教則に沿った対応として、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000003",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "送信機 → 受信機 → メインコントローラー → モーターまたはサーボ",
+        "送信機 → メインコントローラー → 受信機 → モーターまたはサーボ",
+        "送信機 → GNSS → メインコントローラー → モーターまたはサーボ"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "操縦者が送信機を操作したとき、その指令が機体の駆動系へ伝わる基本的な流れとして適切なものはどれか。",
+      "question_id": "DRONE-Q-000004",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "GNSSが機体の回転角速度を検出し、その情報だけで姿勢を制御する",
+        "ジャイロセンサが機体の傾きや向きの変化を検出し、その情報をフライトコントロールシステムが姿勢制御に利用する",
+        "高度センサが機体の向きを検出し、単独で姿勢を制御する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "飛行中に風の影響で無人航空機の機体が傾いた。フライトコントロールシステムによる姿勢制御の説明として適切なものはどれか。",
+      "question_id": "DRONE-Q-000005",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "発生頻度を中心にリスクを評価し、結果の重大性は対策を選ぶ段階で考慮する",
+        "予測される頻度と結果の重大性の双方を考慮してリスクを評価する",
+        "結果の重大性を中心にリスクを評価し、発生頻度はハザード特定の段階で扱う"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "あるハザードについて、発生する頻度は低いと予測されている一方、発生した場合には大きな被害が想定されている。担当者は、発生頻度が低いことを理由にリスクも低いと評価した。\n\n教則の考え方に沿った見直しとして、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000006",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "被害の大きさが評価されていれば、リスクの計量に必要な情報は満たされている",
+        "発生頻度は対策実施後の確認に用いる情報なので、最初のリスク評価には含めなくてよい",
+        "予測される発生頻度も評価し、結果の重大性と合わせてリスクを捉える必要がある"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "無人航空機の運航リスクを評価する記録で、ある事象について「発生した場合の被害の大きさ」は評価されているが、「どの程度の頻度で発生すると予測されるか」は評価されていなかった。\n\nこの評価の扱いとして最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000007",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "対策後のリスクが許容可能な程度まで低減されているかを確認し、必要であればさらに対策を検討する",
+        "対策を1つ実施した時点で、そのリスクは許容可能になったものとして扱う",
+        "対策の実施状況だけを確認し、リスクの評価は対策前の状態をそのまま維持する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "あるハザードによるリスクを低減するため、安全対策を1つ実施した。担当者は「対策を実施したので、このリスクへの対応は完了した」として、それ以上リスクの状態を確認しなかった。\n\n教則のリスク管理の考え方に沿うものはどれか。",
+      "question_id": "DRONE-Q-000008",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "同型の予備機を現場に準備し、不具合時にも運航を継続できるようにする",
+        "不具合が発生した場合の連絡・報告手順を事前に整理する",
+        "信頼性の高い機材を使用する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "機材不具合をハザードとする運航について、機材不具合が発生する可能性そのものを低くすることを目的とした対策として、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000009",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "墜落後の原因確認を行いやすくするため、飛行ログの保存項目を増やす",
+        "墜落時にパラシュートを使用し、地上への被害を低減する",
+        "事故発生後の初動を早めるため、関係者への連絡手順を詳細に定める"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "機材不具合による墜落リスクについて、対策の目的を「墜落が発生した場合の地上への被害を軽減すること」に置く。\n\nこの目的に最も合う対策はどれか。",
+      "question_id": "DRONE-Q-000010",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "第三者上空には該当しない。第三者が飛行範囲の外側にいるため",
+        "第三者上空に該当する。第三者が機体の落下可能領域内にいるため",
+        "第三者上空には該当しない。飛行経路が第三者の直上を通らないため"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "ある飛行では、飛行範囲の外周からの保証された落下距離が8mである。この飛行に関与しない第三者が、飛行範囲の外周の最も近い点から外側へ5m離れた位置にいる。飛行経路はその第三者の直上を通らず、遮蔽物については考慮しないものとする。\n\n第三者上空の扱いとして最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000011",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "XとYの両方について、第三者上空に該当する",
+        "Yについてのみ、第三者上空に該当する",
+        "Xについてのみ、第三者上空に該当する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "飛行範囲の外周からの保証された落下距離が6mである。\n\n飛行に関与しない第三者Xは、飛行範囲の外周の最も近い点から外側へ4m、第三者Yは、外側へ9m離れた位置にいる。どちらも飛行経路の直下ではなく、遮蔽物については考慮しないものとする。\n\n第三者上空の判定として適切なものはどれか。",
+      "question_id": "DRONE-Q-000012",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "第三者上空とはみなさない。遮蔽物に覆われ、衝突時にも第三者が保護される状況だから",
+        "第三者上空とみなす。落下可能領域内に第三者がいるという条件だけで判定するから",
+        "第三者上空とみなす。遮蔽物による扱いは建物内部に限られ、停止中の車両内部は含まれないから"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "飛行に関与しない第三者が、無人航空機の落下可能領域内にある停止中の車両の内部にいる。この車両は、無人航空機が衝突した場合にも内部の第三者を保護できる状態にある。\n\n第三者上空の扱いとして最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000013",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "GNSS衛星の時計の精度",
+        "受信環境のノイズ",
+        "障害物等によるマルチパス"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "飛行中、GNSSの測位精度が不安定になった。捕捉している衛星数は十分で、受信環境のノイズも大きくない。一方、周囲の建物で反射した衛星信号が、複数の経路から受信機へ届いている。\n\nこの状況から直接読み取れる、測位精度へ影響している要因として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000014",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "自動操縦では、手動操作より高精度なGNSS測位が必要になる",
+        "手動操作では、自動操縦より高精度なGNSS測位が必要になる",
+        "自動操縦と手動操作で、必要なGNSS測位精度に違いはない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "同じ無人航空機を使用する場合、GNSS測位の精度について教則の説明に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000015",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "捕捉しているGNSS衛星数の違い",
+        "障害物等によるマルチパス",
+        "受信環境のノイズの違い"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "同じ無人航空機のGNSS受信状態を、同じ時間帯に2か所で確認した。\n\n地点Pは上空が開け、周囲に大きな建物が少ない。地点Qは周囲に建物が多く、建物で反射した衛星信号が複数の経路から受信機へ届き得る環境である。捕捉している衛星数と受信環境のノイズには、2地点で大きな差は確認されていない。\n\n地点QでGNSS測位精度が悪化した場合、この状況から直接考えられる要因として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000016",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "実際の飛行経路は変わらず、記録される位置情報だけの誤差が大きくなる",
+        "操縦入力への応答だけが遅くなり、Waypointに対する位置誤差には影響しない",
+        "設定したWaypointに対する実際の飛行経路の誤差が大きくなり得る"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "あらかじめ地図上でWaypointを設定して自動飛行しているとき、GNSSの測位精度が悪化した。精度悪化の原因そのものは既に特定済みとする。\n\nこのとき考慮すべき影響として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000017",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "自動操縦の設定を変更しながら、まず現在のmodeを維持する",
+        "不安定な飛行と判断した状況として、手動操作への切り替えを検討する",
+        "不安定となった原因を特定してから、操縦modeを変更するか決める"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "自動操縦で飛行している無人航空機について、飛行状態が次第に不安定になり、操縦者も「安定した自動飛行を維持できていない」と判断した。\n\n教則の考え方に最も合う判断はどれか。",
+      "question_id": "DRONE-Q-000018",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "必要となった場合に速やかに手動操縦へ切り替えられる体制を事前に整えておく",
+        "状況変化が起きた時点で、その場の状況に合わせて手動切替の対応方法を組み立てる",
+        "自動操縦を継続できるかの判断方法を事前に決め、手動切替の体制は必要になった後に整える"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "自動操縦を中心とする飛行を計画している。飛行中には状況変化によって手動操縦への切り替えが必要になる可能性もある。\n\n事前の運航体制として教則の考え方に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000019",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "自動操縦中の設定値を確認し、手動操作の入力値をそれに合わせることを優先する",
+        "現在位置と飛行計画上の予定位置との差を確認し、経路修正を優先する",
+        "急な飛行速度の低下や失速に備えた操作準備を行う"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "自動操縦から手動操縦へ切り替えた直後である。切り替え自体は正常に完了した。\n\nこの直後の操縦上の備えとして、教則が示す内容に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000020",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "機体の向きと障害物への接近を確認し、ホバリングで機体の安定性と周囲の安全を確認する",
+        "自動操縦時のroute設定と予定速度を確認し、自動操縦へ戻す条件を整理する",
+        "送信機のflight logと作業進捗を確認し、予定経路との差を記録する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "ホバリングが可能な回転翼航空機（マルチローター）を、自動操縦から手動操縦へ切り替えた。切り替えを終え、飛行速度についても安定した状態を確認している。\n\nこの後の確認として、教則の内容に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000021",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "① Threat ／ ② UAS",
+        "① Threat ／ ② Error",
+        "① Error ／ ② UAS"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行中、次の二つの状態が生じた。\n\n① 周囲の気象状況が変化し、運航へ影響を及ぼし得る状況となった。\n\n② その後、運航上の問題を経て、機体の安全マージンが低下した状態に至った。\n\nTEMにおける①と②の分類として、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000022",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "実際の操縦Errorが確認されるまでは初期計画を基準とし、天候情報は継続監視にとどめる",
+        "利用可能な最新情報等を使い、Errorにつながり得るThreatとして早期に把握・管理する",
+        "機体がUASに入ったかどうかを確認してから、天候変化への対応を開始する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行中、飛行空域周辺の最新情報から天候が変化しつつあることを把握した。まだ操縦上のErrorやUASは生じていない。\n\nTEMの考え方に最も合う対応はどれか。",
+      "question_id": "DRONE-Q-000023",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "P = Error ／ Q = UAS",
+        "P = Threat ／ Q = UAS",
+        "P = Threat ／ Q = Error"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "ある飛行の運航記録に、次の二つの状態が記録されていた。\n\n記録P：飛行中に機材不具合が発生した。\n\n記録Q：その後、機体は安全マージンが低下した状態に至った。\n\nTEMにおけるPとQの分類として、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000024",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "まず最初のThreatの原因分析を完了し、その後に機体状態への対応を決める",
+        "ErrorやUASに至った後でも、事故等へ進ませないための適切な対応を行う",
+        "UASに至った段階でTEMによるmanagementは終了し、その後は運航終了後の分析を中心とする"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "運航中に操縦Errorが発生し、機体は安全マージンの低下したUASに至った。ただし、まだ事故等は発生していない。\n\nTEMの考え方に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000025",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "高度150m以上の空域に該当する",
+        "離陸地点からの高度差が130mなので該当しない",
+        "海抜高度が示されていないため判定できない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "true",
+      "question": "離陸地点から130m上方を飛行している無人航空機がある。現在の機体直下の地表は、離陸地点の地表より40m低い。\n\nこのとき「高度150m以上の空域」の判定として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000026",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "地図上でDIDと表示されているため、DIDに係る許可手続き等が必要である",
+        "工業専用地域内の除外区域に該当するため、DIDに係る許可手続き等は不要である",
+        "DIDに係る許可手続き等の要否は、操縦者が技能証明を保有しているかだけで決まる"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "地図上では人口集中地区（DID）として表示されている区域で飛行を計画している。確認したところ、その場所は都市計画法第8条第1項第1号の工業専用地域内である。\n\n他の規制対象空域や飛行方法には該当しないものとすると、DIDに係る扱いとして最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000027",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "カテゴリーI",
+        "カテゴリーII",
+        "カテゴリーIII"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "ある特定飛行について、飛行経路下に第三者が立ち入らないよう立入管理措置を講じたうえで飛行する。\n\nこの飛行形態の分類として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000028",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "X = II-A、Y = II-B",
+        "X = II-B、Y = II-A",
+        "X = II-A、Y = II-A"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "いずれも立入管理措置を講じ、最大離陸重量25kg未満の無人航空機で行う特定飛行とする。また、記載した条件以外にカテゴリーII-Aに該当する条件はないものとする。\n\n- 飛行X：危険物を輸送する\n- 飛行Y：夜間に飛行する\n\nカテゴリーII-A / II-Bの分類として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000029",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "十分な強度の25mの紐で係留し、飛行可能範囲への第三者の立入管理措置を講じる",
+        "十分な強度の35mの紐で係留し、飛行可能範囲への第三者の立入管理措置を講じる",
+        "十分な強度の25mの紐で係留するが、飛行可能範囲への第三者の立入管理措置は講じない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "係留飛行の例外に必要な条件の組合せとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000030",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "無人航空機が紐につながっているため、係留飛行として扱う",
+        "操縦者が紐を直接管理しているため、係留飛行として扱う",
+        "人が紐を持って移動しながら行う飛行はえい航であり、係留には該当しない"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機を紐につなぎ、その紐を操縦者が手に持って歩いて移動しながら飛行させている。\n\nこの飛行の扱いとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000031",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "満充電にして保管する",
+        "充電60%程度を目安にして保管する",
+        "飛行終了後の放電状態のまま保管する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "LiPoバッテリーを長期間使用しない場合の保管方法として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000032",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "充放電できる間は使用を続け、飛行時間を短くして経過を見る",
+        "膨張の程度を記録し、容量低下が明確になった時点で交換する",
+        "内部に可燃性ガスが発生している可能性を考慮し、早めに交換する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行前点検でLiPoバッテリーが膨らんでいることに気付いた。充電自体は可能で、直前の飛行でも大きな容量低下は感じていない。\n\n教則に沿った対応として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000033",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "操縦者との適切なコミュニケーションは飛行前の準備時に行い、飛行中・飛行後は当初の運航計画を基準に対応する",
+        "操縦者との適切なコミュニケーションを一連の運航の計画に組み込み、ストレス軽減を図る",
+        "操縦者との適切なコミュニケーションは飛行後の振り返りに重点を置き、次回の運航計画でストレス軽減を図る"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "操縦者が高いストレスを抱えている状態で運航を行うことになった。\nストレス軽減を運航へ取り入れる方法として、教則の内容に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000034",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "開けた場所の風向・風速を、建物周辺にもそのまま適用して評価する",
+        "建物群の配置によって周囲とは異なるビル風が生じ得るため、建物周辺の風を別に考慮する",
+        "建物周辺の風は建物配置より広域の平均風速で決まるため、局地的な差は考慮しない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行予定地点から少し離れた開けた場所では風が穏やかである。一方、実際の飛行予定地点は高層建物が複数近接している場所である。\n飛行予定地点の風の捉え方として、教則の内容に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000035",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "平均風速が4m/sであれば、その観測時間中の風は概ね4m/sだったものとして瞬間値は分けて考えなくてよい",
+        "平均風速と瞬間風速は異なるため、平均値だけでは一時的に強くなる風の変動を十分に表せない",
+        "最大瞬間風速9m/sを観測時間全体の風速として扱い、平均風速は判断材料から外す"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "ある地点の風について、観測時の前10分間の平均風速は4m/sだった一方、最大瞬間風速は9m/sだった。\nこの観測結果の捉え方として、教則の内容に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000036",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "離着陸地点を重点的に確認できる位置に配置し、飛行中の経路は事前確認の情報を用いる",
+        "操縦者付近から見える範囲を確認できる位置に配置し、それ以外の経路は機体カメラを中心に確認する",
+        "飛行経路全体を把握し、安全を確認できる補助者を配置する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "補助者を配置して目視外飛行を行う。操縦者からは飛行経路やその周囲の障害物等を直接肉眼で確認できない。\nこの情報不足を補うための補助者の配置として、教則の内容に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000037",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "機体の位置を把握できればよく、異常の有無は飛行後に確認する",
+        "異常の有無を把握できればよく、機体の位置は飛行後の記録で確認する",
+        "機体の位置と異常の有無の双方を地上で把握できるようにする"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "補助者を配置して目視外飛行を行う場合、機体について地上側で把握できるようにする情報として、教則の内容に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000038",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "機体・バッテリー等の安全な保管状態の確認",
+        "機体へのゴミ等の付着の確認",
+        "各機器の異常な発熱の確認"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "当日の運航が終了したあとに行う「運航終了後の点検」の項目として、教則に例示されているものはどれか。",
+      "question_id": "DRONE-Q-000039",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "前夜の飲酒から翌日の操縦時までに十分な時間が経過しているかを、影響判断の主な基準とする",
+        "前夜の飲酒でも翌日の操縦時まで影響が残る可能性があることに注意する",
+        "前夜の飲酒量と翌日の本人の体調を、影響判断の主な基準とする"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "前夜に飲酒した操縦者が、翌日に無人航空機を操縦する予定である。\n教則の注意として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000040",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "100g未満の模型航空機なので、緊急用務空域の飛行禁止対象にはならない",
+        "100g未満の模型航空機も、緊急用務空域の飛行禁止対象となる",
+        "100g未満では、無人航空機として登録されている場合に限り飛行禁止対象となる"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "重量90gの遠隔操作可能な機体は、航空法上「模型航空機」に分類されるものとする。\nある空域が緊急用務空域に指定されている場合、この模型航空機の扱いとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000041",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "飛行記録・日常点検記録・点検整備記録",
+        "飛行記録・飛行計画記録・事故報告記録",
+        "日常点検記録・飛行計画記録・事故報告記録"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "特定飛行を行った場合、教則が「遅滞なく飛行日誌に記載する」としている記録の組合せはどれか。",
+      "question_id": "DRONE-Q-000042",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "飛行場所の地磁気を検出して方位を取得し、その情報をGNSS機能やメインコントローラーに認識させる",
+        "周囲の鉄材や電流による磁気干渉の強さを測定し、その強さをGNSS機能やメインコントローラーに認識させる",
+        "磁北と地図上の北との差である偏角そのものを測定し、その値をGNSS機能やメインコントローラーに認識させる"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機の磁気キャリブレーションについて、教則の説明に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000043",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "飛行領域に安全上の範囲を加え、第三者の立入管理を行う",
+        "別途、事前に緊急着陸地点を確保しておく",
+        "ジオフェンス機能を利用し、飛行禁止空域への逸脱を防止する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行計画を立てている。着陸予定地点に着陸できなくなった場合、離陸地点まで戻るだけの飛行可能距離も確保できないリスクがある。\nこのリスクへの事前の備えとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000044",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "バッテリーの持続時間、すなわち飛行可能時間が普段より短くなる可能性がある",
+        "地表面が暖められることで上昇気流が発生する可能性がある",
+        "高層建物群の配置によって周囲より速いビル風が継続する可能性がある"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "低温環境で無人航空機を飛行させる場合、教則が特に注意を求めている影響として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000045",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "105gとして判定し、無人航空機に該当する",
+        "125gとして判定し、無人航空機に該当する",
+        "75gとして判定し、模型航空機に分類する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "遠隔操作が可能で、構造上人が乗ることができない機体がある。\n\n重量は次のとおりである。\n\n* 機体本体：75g\n* バッテリー：30g\n* 取り外し可能なカメラ：20g\n\n航空法上の無人航空機の重量判定と分類として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000046",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "あらかじめ国に届け出たリモートID特定区域で、補助者の配置や区域範囲の明示など必要な措置を講じて飛行する",
+        "リモートID特定区域を国に届け出ているが、区域の監視や範囲の明示などの必要な措置を講じずに飛行する",
+        "私有地で所有者の同意を得て、区域の監視や範囲の明示を行うが、リモートID特定区域として国には届け出ずに飛行する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "登録済みの無人航空機について、リモートID機能を搭載せずに飛行することを検討している。\n\nリモートID機能の搭載免除に該当する飛行として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000047",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "補助者が直接目視しているため、目視内飛行として扱う",
+        "操縦者自身が目視により常時監視していないため、目視外飛行に該当する",
+        "モニター映像で機体を継続監視しているため、目視内飛行として扱う"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "操縦者は飛行中、無人航空機を自分の目では直接監視せず、機体から送られるモニター映像だけを見て操縦している。補助者は機体を直接目視している。\n\n航空法上の飛行方法の扱いとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000048",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "飛行に必要な技能証明を有する操縦者が、機体認証を受けた無人航空機を使用し、飛行マニュアルの作成・遵守など必要な安全確保措置を講じる",
+        "飛行に必要な技能証明を有する操縦者であれば、機体認証を受けていない無人航空機でも、安全確保措置を講じれば個別手続は不要となる",
+        "機体認証を受けた無人航空機であれば、操縦者が技能証明を有していなくても、安全確保措置を講じれば個別手続は不要となる"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "ある飛行はカテゴリーII-B飛行であることが確認済みで、必要な立入管理措置も講じるものとする。\n\n個別の飛行許可・承認を不要にできるための条件の組合せとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000049",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "夜間飛行・目視外飛行・物件投下",
+        "夜間飛行・催し場所上空の飛行・物件投下",
+        "空港等の周辺の空域での飛行・目視外飛行・物件投下"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "航空法施行規則第236条の82第1項第2号および関係通達で定める必要な要件をすべて満たして、無人航空機による農薬等の空中散布を行うものとする。\n\n飛行の承認手続が不要となる飛行方法だけで構成された組合せはどれか。",
+      "question_id": "DRONE-Q-000050",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "無人航空機を地上に降下させるなど、航空機との接近・衝突を避けるための適切な措置をとる",
+        "航空機側が無人航空機を確認して回避できるまで、現在の高度と飛行経路を維持する",
+        "航空機との距離が30m以上確保できていれば、現在の飛行経路を維持する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機を飛行させている最中に、航行中の航空機が近くを飛行していることを確認した。\n\n操縦者の対応として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000051",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "直ちに飛行を中止し、負傷者の救護や状況に応じた危険防止措置を行ったうえで、必要事項を国土交通大臣に報告する",
+        "直ちに飛行を中止し、負傷者の救護や危険防止措置を行うが、国土交通大臣への報告は損害額が一定以上の場合に限る",
+        "直ちに飛行を中止して国土交通大臣へ報告し、負傷者の救護や危険防止措置は関係機関の到着後に行う"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機の飛行により、航空法上の「事故」に該当する事態が発生し、負傷者もいることが確認された。\n\n操縦者に求められる措置として、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000052",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "飛行目的が変わらなければ、通報した経路から変更してもよい",
+        "原則として通報した飛行計画に従って飛行し、安全確保のためやむを得ない場合でなければ任意に変更しない",
+        "経路は自由に変更でき、飛行終了後に変更内容だけを通報すればよい"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "特定飛行について、あらかじめ飛行計画を通報して飛行を開始した。\n\n飛行中、撮影対象を変更したくなったため、安全確保上やむを得ない事情はないが、通報した経路とは別の経路へ変更したい。\n\n教則の扱いとして最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000053",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "遠隔操作で飛行させる無人回転翼航空機",
+        "人が使用して飛行するパラグライダー",
+        "人が搭乗して飛行する通常の有人ヘリコプター"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "小型無人機等飛行禁止法における「特定航空用機器」に該当するものとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000054",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "対象施設の敷地・区域の上空がレッド・ゾーン、その周囲おおむね1,000mの上空がイエロー・ゾーン",
+        "対象施設の敷地・区域の上空がイエロー・ゾーン、その周囲おおむね1,000mの上空がレッド・ゾーン",
+        "対象施設の敷地・区域とその周囲おおむね1,000mの上空がすべてレッド・ゾーンで、イエロー・ゾーンは設けない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "ある施設が、小型無人機等飛行禁止法上の対象施設であることは確認済みとする。\n\nレッド・ゾーンとイエロー・ゾーンの関係として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000055",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "管理者の同意により例外が成立しているため、同法に基づく通報は不要である",
+        "例外に該当する場合でも、対象施設周辺地域を飛行するには所定の通報が必要である",
+        "例外に該当する場合、通報は飛行終了後に行えばよい"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "小型無人機等飛行禁止法の対象施設周辺地域で、対象施設の管理者から同意を得ており、飛行禁止の法定例外に該当するものとする。\n\nこの場合の通報について、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000056",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "Pは無線局免許等・無線従事者資格とも不要、Qは無線局免許を要し第三級陸上特殊無線技士以上の資格を要する",
+        "Pは無線局免許を要するが資格は不要、Qは無線局免許は不要だが第三級陸上特殊無線技士以上の資格を要する",
+        "Pは無線局免許等は不要だが第三級陸上特殊無線技士以上の資格を要し、Qは無線局免許だけを要して資格は不要"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機で使用する次の2つの無線systemについて考える。\n\nSystem P: 技術基準適合証明等を受けた、2.4GHz帯・10mW/MHzの小電力データ通信system\n\nSystem Q: 2.4GHz帯・1Wの無人移動体画像伝送system\n\n教則に示された無線局免許等・無線従事者資格の組合せとして最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000057",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "航空法上の確認が完了していれば、それ以外の規制確認は不要である",
+        "土地・施設の管理者から使用の了承が得られれば、地方公共団体の条例等は確認しなくてよい",
+        "その場所に適用される地方公共団体の条例や施設の規則など、航空法以外の規制も確認する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "ある場所で無人航空機を飛行する計画があり、航空法上必要となる許可・承認等については確認済みである。\n\n飛行場所は地方公共団体が管理する施設内である。\n\n飛行可否を判断するために次に確認すべきものとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000058",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "航空法に基づく飛行禁止空域であり、航空法上の飛行許可を取得しているかを確認する",
+        "法令等に基づく規制ではなく、飛行前に国土交通省の公示等で設定の有無を確認し、要請内容に応じて対応する",
+        "地方公共団体の条例に基づいて設定される区域であり、その地方公共団体の条例だけを確認する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機の飛行自粛要請空域について、教則の説明に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000059",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "飛行機を選ぶ。回転翼航空機より飛行速度が速く、エネルギー効率が高いため、長距離・長時間の飛行に適する",
+        "マルチローターを選ぶ。飛行機より飛行速度が速く、エネルギー効率が高いため、長距離・長時間の飛行に適する",
+        "ヘリコプターを選ぶ。飛行機より飛行速度が速く、エネルギー効率が高いため、長距離・長時間の飛行に適する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "垂直離着陸やホバリングは必要なく、比較的高速で、エネルギー効率を高くして長距離・長時間の前進飛行を行うことを重視する。\n\n教則に示された機体種類の特徴に最も合う選択はどれか。",
+      "question_id": "DRONE-Q-000060",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "スワッシュプレート等を用いて、ローター回転面の傾きやローターピッチ角を変える",
+        "テールローターを用いて、ローター回転面の傾きやローターピッチ角を変える",
+        "メインローターの反トルクを用いて、ローター回転面の傾きやローターピッチ角を変える"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "回転翼航空機（ヘリコプター）で、前後左右への移動のためにローターの回転面を傾けたり、上昇・降下のためにローターピッチ角を変えたりする。\n\n教則が、このために必要な機構として挙げているものはどれか。",
+      "question_id": "DRONE-Q-000061",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "右側のローターの回転数を下げ、左側のローターの回転数を上げて、機体を右へ傾ける",
+        "右側のローターの回転数を上げ、左側のローターの回転数を下げて、機体を右へ傾ける",
+        "左右のローターの回転数を同じだけ上げ、機体を右へ傾ける"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "ホバリング中のマルチローターを右方向へ移動させる。\n\n教則に示された基本的な機体の動きとして、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000062",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "ビジョンセンサーに依存する衝突回避や姿勢安定などの安全機能が使用できない可能性がある",
+        "地上照明を設置すれば、ビジョンセンサーの夜間対応の有無は安全機能の評価から外せる",
+        "送信機で位置や高度を確認できれば、ビジョンセンサーの夜間対応の有無は安全機能の評価から外せる"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "夜間飛行を予定している機体について確認したところ、衝突回避などに利用するビジョンセンサーが夜間に対応していないことが分かった。\n\nこの場合に考慮すべき技術上の影響として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000063",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "機外の映像を確認できるため、飛行中の速度を地上で把握できなくても必要な情報は補えている",
+        "機外の映像とは別に、機体状態の情報として飛行中の速度も地上で把握できるようにする必要がある",
+        "飛行前に予定速度を設定していれば、飛行中の実際の速度を地上で把握できなくてもよい"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "目視外飛行を行う機体で、搭載カメラから機外の映像は地上で確認できる。一方、操縦装置には飛行中の機体速度が表示されない。\n\n教則の目視外飛行に関する技術的な観点から、この状態の評価として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000064",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "離陸地点まで自動的に戻る、または通信が復帰するまで空中で位置を維持する",
+        "GNSS以外の手段へ切り替えて、新たな位置情報を取得する",
+        "電池の発煙・発火を防止し、安全な自動着陸を行う"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "目視外飛行中に、操縦者と機体との無線通信が断絶した。\n\n教則がフェールセーフ機能の例として示している、この事象への対応として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000065",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "主翼の揚力が重力に対抗し、プロペラ等の推力が抗力に対抗する",
+        "主翼の揚力が抗力に対抗し、プロペラ等の推力が重力に対抗する",
+        "抗力が重力に対抗し、プロペラ等の推力が主翼の揚力に対抗する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行機が速度と姿勢を一定に保って定常飛行している。\n\n飛行機に働く主な力の関係として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000066",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "翼面から流れが剥離し、揚力が減少して抗力が増大し、失速につながる",
+        "翼面から流れが剥離し、揚力が増加して抗力が減少し、失速につながる",
+        "翼面から流れが剥離せず、揚力と抗力がともに減少し、失速につながる"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行機の翼について、迎角を徐々に大きくし、過度に大きな迎角となった。\n\n教則が示す変化として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000067",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "テールローターの推力でメインローターの反トルクを相殺し、その推力を変化させてヨーを制御する",
+        "テールローターの推力でメインローターの揚力を相殺し、その推力を変化させてピッチを制御する",
+        "テールローターの推力でメインローターの抗力を相殺し、その推力を変化させてロールを制御する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "一般的な回転翼航空機（ヘリコプター）について、メインローターの反トルクへの対応とヨー方向の姿勢制御の説明として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000068",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "総重量が同じなら、搭載位置が変わっても飛行特性は基本的に同じと考える",
+        "搭載位置によって重心位置が変わると、安定性・飛行性能・運動性能に影響する可能性がある",
+        "搭載位置は空気抵抗には影響し得るが、重心位置による飛行特性への影響は考えなくてよい"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "同じ重量のペイロードを、機体の元の重心に近い位置から、機体前方の離れた位置へ付け替える。\n\n総重量は変わらないものとすると、飛行特性への影響について教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000069",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "3軸のジャイロセンサと3方向の加速度センサ等を用い、3次元の角速度と加速度を検出する",
+        "3軸のジャイロセンサとGNSS受信機を用い、3次元の角速度と地球上の位置を一体として検出する",
+        "3方向の加速度センサと地磁気センサを用い、3次元の加速度と機体方位を一体として検出する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機に搭載されるIMU（慣性計測装置）の構成と、検出する情報の組合せとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000070",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "バッテリー",
+        "ESC（エレクトロニック・スピード・コントローラー）",
+        "ローター（プロペラ）"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "電動の無人航空機で、ローターの回転数を変化させて揚力や推力を調整する。\n\nこのとき、モーターの回転数を制御するcomponentとして教則に示されているものはどれか。",
+      "question_id": "DRONE-Q-000071",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "急速な劣化が進み、寿命が短くなることが主な危険となる",
+        "内部に通常より多くのガスが発生し、膨張することが主な危険となる",
+        "発火する可能性がある"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "LiPoバッテリーの端子が誤って接触し、短絡した。\n\n教則がこの状態について直接示している危険として、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000072",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "意図せず物件が落下しない構造とし、装置ごとに定められた搭載方法や投下手順を理解して使用する",
+        "投下のタイミングを操縦者が監視できれば、装置側で意図しない落下を防止する構造は必要としない",
+        "物件を確実に保持できれば、装置ごとに定められた搭載方法や投下手順を確認せず使用できる"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機に物件投下装置を取り付けて使用する。\n\n物件投下装置のtechnical characteristicと取扱いとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000073",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "周波数が高く波長が短いほど回折しやすくなり、障害物の背後へ回り込みやすくなる",
+        "周波数が低く波長が長いほど回折しやすくなり、障害物の背後へ回り込みやすくなる",
+        "回折のしやすさは周波数や波長とは関係せず、送信出力だけで決まる"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機の通信に用いる電波について、周波数と障害物への回り込みやすさの関係として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000074",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "電波が弱くなり、一時的に操縦不能となる要因になり得る",
+        "複数経路から届くことで受信電波が安定して強くなり、通信距離が伸びる方向に働く",
+        "送信機の出力が自動的に増加し、経路差による通信への影響が打ち消される"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機の制御用電波が、周囲の建物などで反射・屈折し、複数の経路を通って受信側へ届いている。経路によってわずかな到達時間の差も生じている。\n\nこの状態が無線通信へ及ぼす影響として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000075",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "鉄や電流が主に気圧センサの検出へ影響し、高度の測定だけに影響する可能性がある",
+        "鉄や電流が地磁気の検出へ影響し、機体の姿勢や進行方向へ影響する可能性がある",
+        "鉄や電流が主に加速度センサの検出へ影響し、速度変化の測定だけに影響する可能性がある"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "高圧線や変電所、鉄材を多く使用した建物などの近くで無人航空機を飛行させる。\n\nこのような環境が機体へ及ぼし得る影響について、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000076",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "最低4個以上の人工衛星から信号を同時に受信し、それぞれの人工衛星までの距離を用いて位置を求める",
+        "最低3個の人工衛星から信号を同時に受信し、それぞれの人工衛星までの距離を用いて位置を求める",
+        "最低4個以上の人工衛星から信号を受信し、各衛星からの電波強度だけを比較して位置を求める"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "GNSSによって無人航空機の位置を求める基本原理として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000077",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "飛行前後に異常がなければ、一定期間や総飛行時間による定期整備点検は行わない",
+        "機体ごとに定められた一定期間や総飛行時間に従い、メーカーが設定する内容で整備点検を行う",
+        "一定期間だけを基準に整備点検を行い、総飛行時間による整備時期は考慮しない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "電動機を用いる無人航空機について、飛行前後の点検では異常が確認されていない。\n\n一方、その機体で定められている定期整備の総飛行時間に達した。\n\n整備・点検の扱いとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000078",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "メーカーの整備手順書があれば、知識や技能が不足していても運航者自身で整備を行う",
+        "整備を次の定期時期まで延期し、その間は飛行前後の点検だけで運航を継続する",
+        "専門の整備業者に依頼する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "エンジン機について、機体メーカーが定めた整備を行う必要がある。\n\nしかし運航者には、エンジン整備に関する十分な知識と技能がない。\n\n教則に沿った対応として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000079",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "必要な装置・設備が設置され、許可・承認や機体登録等の有効期間が切れていないことを最終確認する",
+        "この飛行に許可・承認が必要かどうかを、航空法上の飛行形態からもう一度判定し直す",
+        "飛行経路のリスクを改めて分析し、発生頻度と結果の重大性から飛行計画を作り直す"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行に必要な許可・承認や機体登録はすでに取得済みであり、飛行計画や気象等の確認も終えている。\n\n飛行開始前の最終的な準備として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000080",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "許可・承認の有効期間と飛行計画の通報状況を確認する",
+        "機体の損傷やバッテリーの状態に加え、通信・推進・電源・自動制御系が正常に作動するか確認する",
+        "一定期間や総飛行時間に基づく定期整備の実施時期だけを確認する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行開始直前である。飛行前の準備や必要な手続は既に完了している。\n\n機体が正常に飛行できる状態かを確認する飛行前点検として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000081",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "必要な機体・操縦者等の情報を整えて許可・承認申請を行い、審査後に許可・承認を得てから対象飛行を行う",
+        "必要な情報を整えて申請を提出すれば、審査結果を待たず申請受付時点から対象飛行を行う",
+        "飛行計画の通報を行えば、別途の許可・承認申請を行わず対象飛行を行う"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "あるカテゴリーII飛行について、個別の飛行許可・承認が必要であることは既に確認済みである。\n\n実際に飛行へ進むまでの手続として、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000082",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "元の飛行計画はそのまま残し、変更した経路で飛行した後に通報内容を更新する",
+        "通報済みの飛行計画を更新し、通報している飛行開始日時までに変更を完了する",
+        "飛行計画の通報は変更せず、飛行許可・承認申請を改めて行うことで経路変更に対応する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "特定飛行について飛行計画を既に通報しているが、飛行開始前に予定経路を変更することになった。\n\n飛行計画の通報に関する実際の対応として、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000083",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "無人航空機本体と遠隔操縦に使用する機器の双方を適切に管理する",
+        "無人航空機本体を適切に管理すれば、遠隔操縦に使用する機器は通常の場所に置いてよい",
+        "遠隔操縦に使用する機器を適切に管理すれば、無人航空機本体の管理は特に行わなくてよい"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機を使用しない時間帯に、盗難や不正利用を防ぐための機器管理を行う。\n\n教則に示されたsecurity actionとして、最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000084",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "機体を垂直方向に保ち、水平移動を加えずに降下を続ける",
+        "降下中は機体を一定位置に保ち、垂直方向の操作だけで降下速度を調整する",
+        "揚力を徐々に減少させながら、水平方向の移動も合わせて操作する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "マルチローターを降下させている。\n\nボルテックス・リング・ステートによる急激な揚力低下への対策として、教則に最も合う操作はどれか。",
+      "question_id": "DRONE-Q-000085",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "Pは自動操縦、Qは熟練した操縦者による手動操縦",
+        "Pは手動操縦、Qは自動操縦",
+        "PもQも、再現性と細かな操作の双方に優れるため自動操縦"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "次の2つの作業を行う。\n\n- 作業P: あらかじめ定めた同じ飛行経路を、繰り返し高い再現性で飛行したい\n- 作業Q: 複雑な構造物の近くで、状況に応じた細かな機体操作を行いたい\n\n教則に示されたmanual / automatic controlの特徴に最も合う組合せはどれか。",
+      "question_id": "DRONE-Q-000086",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "まず機体へ近づいて電源やプロペラの状態を確認し、その後に周囲の人の安全を確認する",
+        "まず人の安全を確認し、その後、必要に応じて機体の電源を切るなど周囲への危険を抑え、回転中のプロペラには不用意に近づかない",
+        "まず機体の飛行logや損傷状態を確認して事故原因を整理し、その後に人と機体の安全を確認する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "無人航空機が墜落した。機体はまだ通電している可能性があり、プロペラも回転している可能性がある。\n\n事故直後の現場での対応順序として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000087",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "操縦者のtechnical skillを中心に運航し、他のresourceは問題が起きた場合にだけ利用する",
+        "最新のinformationを中心に判断し、人的resourceやhardwareは判断材料を増やしすぎないよう限定する",
+        "利用可能な人的resource、hardware、informationを総合的に活用する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "操縦者のtechnical skillを高めていても、人間の特性や能力の限界からhuman errorを完全になくすことはできない。\n\nCRMの考え方に最も合う運航体制はどれか。",
+      "question_id": "DRONE-Q-000088",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "飛行前に補助者の人数・配置・担当範囲・役割・異常運航時の対応方法を決め、操縦者との連絡方法もあらかじめ定める",
+        "飛行前は補助者の人数と配置だけを決め、担当範囲や連絡方法は飛行中の状況に合わせてその都度決める",
+        "連絡方法だけを飛行前に決め、各補助者の担当範囲や役割は必要になった段階で決める"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "複数の補助者を配置して運航を行うことになった。\n\n操縦者と補助者のcoordinationとして、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000089",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "安全マージンは飛行領域の内側に設け、管理範囲を予定飛行領域と一致させる",
+        "予定飛行領域の外側にも安全マージンを加えた範囲で飛行を実施する",
+        "安全マージンは離着陸地点の周囲だけに設け、飛行領域の周囲には設けない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "予定している飛行領域は、あらかじめ明確に定められている。\n\nこの飛行領域に対する安全マージンの設定として、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000090",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "離着陸地点・経路・時間帯を見直し、確認済みの制約をすべて反映した飛行計画にする",
+        "現在の飛行計画を維持し、離陸直前の最終確認で各制約に対応する",
+        "現在の飛行計画は維持し、飛行計画の通報内容だけを変更する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行計画を検討しており、次の条件はすべて確認済みである。\n\n- 離着陸地点Aは周囲の構造物の影響から使用しない\n- 経路Xは高圧電線に近いため使用しない\n- 予定時間帯には経路Yが一時的な飛行規制の対象となる\n- これらを避ける別の離着陸地点・経路・時間帯は確保できる\n\n飛行計画の策定として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000091",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "現在の経路を維持し、建物へ接近してから補助者の指示で対応する",
+        "現在の経路を維持し、実際に建物へ接近した場合だけ操縦者が回避する",
+        "建物を避ける経路にするか、付近を通る場合は機体性能に応じた安全な距離を確保する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行経路案の途中に建物があり、この機体では建物付近を通過する場合、機体性能に応じた安全な距離を保つ必要があることは確認済みである。\n\n飛行前の経路設定として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000092",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "広域の一般的な天気予報だけを確認し、作業条件に応じた情報は追加しない",
+        "作業内容・時間・環境に応じて必要な気象情報を選び、適切な情報源から入手・分析する",
+        "飛行開始時の現地の空模様だけを確認し、事前の気象情報は取得しない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "屋外で無人航空機を使用する作業を予定している。\n\nこの作業では、風向・風速、降水、雲や視程の状態が運航へ影響し得る。\n\n飛行前の気象情報の集め方として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000093",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "突風や雷を伴う短時間の強雨が生じ得て、通過後には風向が急変し気温が下がる",
+        "急な風向変化や強雨は生じにくく、同じ風向と気温が長時間維持される",
+        "前線通過による風向や気温の変化はほぼなく、降水だけが徐々に弱くなる"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "寒冷前線が飛行予定地域へ接近していることは、既に確認済みである。\n\nこの前線に伴って予想される天気の変化として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000094",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "主にGNSSの測位精度だけへ影響し、機体や周囲の物件の目視確認には影響しない",
+        "主に離着陸地点だけへ影響し、飛行中の機体や他の物件との距離確認には影響しない",
+        "機体の飛行状況や、他の物件との安全な距離を目視で確認することが困難になる"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行予定場所に濃い霧が発生し、近距離でも視界が大きく低下している。\n\nこの状態が無人航空機の運航へ与える影響として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000095",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "飛行範囲を予定より狭くして、霧が発生している間も予定どおり開始する",
+        "霧が発生している間は開始を延期し、気象状況が改善した後に改めて実施可否を判断する",
+        "飛行時間を予定より短くして、霧が発生している間も開始する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行開始予定時刻になったが、飛行場所では現在、霧が発生している。\n\n作業は延期可能であり、霧が発生していること自体は既に確認済みである。\n\n飛行実施の判断として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000096",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "回転翼航空機より広い離着陸エリアが必要で、飛行中の最小旋回半径も大きくなる",
+        "回転翼航空機より広い離着陸エリアが必要だが、飛行中の最小旋回半径は回転翼航空機より小さくなる",
+        "離着陸エリアは回転翼航空機と同程度でよいが、飛行中の最小旋回半径だけが大きくなる"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "飛行機の運航上の空間的な制約について、教則に最も合うものはどれか。",
+      "question_id": "DRONE-Q-000097",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "離着陸エリアはガード付きマルチローターと同程度とし、人との距離だけを広げる",
+        "離着陸エリアだけを広げればよく、操縦者・補助者との隔離距離は特に確認しない",
+        "ガード付きマルチローターより広い離着陸エリアを確保し、操縦者・補助者との必要隔離距離も十分確保する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "使用する一般的な回転翼航空機（ヘリコプター）は、構造上プロペラガードを備えていないものとする。\n\n離着陸時の安全な運航範囲の考え方として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000098",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "慣性力が大きいほど、加速・減速・上昇・降下に必要な時間と距離は短くなる",
+        "加速・減速・上昇・降下に必要な時間と距離が長くなるため、障害物回避には特に注意が必要になる",
+        "慣性力は主に騒音へ影響し、加減速等に必要な時間や距離には影響しない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "最大離陸重量25kg以上の大型無人航空機を使用する。この機体は慣性力が大きいものとする。\n\n障害物回避を考える際、この特性から認識すべき影響として最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000099",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    },
+    {
+      "choices": [
+        "機体の向きを視認できる灯火を備え、離着陸地点や回避すべき障害物にも必要な照明を用意する",
+        "離着陸地点だけを照明し、機体の向きを確認するための灯火は用意しない",
+        "機体の向きを確認できる灯火だけを用意し、離着陸地点や障害物への照明は行わない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "2",
+      "is_free": "false",
+      "question": "夜間飛行を行う。\n\n暗さによって、昼間より機体の姿勢・方向や周囲の障害物を視認しにくいことは確認済みである。\n\nこのvisibility riskに対するbaseline controlとして最も適切なものはどれか。",
+      "question_id": "DRONE-Q-000100",
+      "question_version": 1,
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5"
+    }
+  ],
   "schema_version": 1
 }

@@ -253,14 +253,14 @@ def _validate_source_state(inputs: Any, errors: list[str]) -> dict[str, dict[str
 def _validate_protected_files(inputs: Any, errors: list[str]) -> None:
     hashes = inputs.protocol.get("protected_file_byte_hashes", {})
     for relative_path, expected_hash in hashes.items():
-        path = inputs.bank_root / relative_path
+        path = inputs.source_root / relative_path
         if not path.exists() or file_sha256(path) != expected_hash:
             _error(errors, "protected_file_drift", f"Protected file changed: {relative_path}.")
 
 
 def _validate_production_runtime(inputs: Any, errors: list[str]) -> None:
-    runtime_path = inputs.bank_root / "generated" / "drone_second_class_bank.json"
-    manifest_path = inputs.bank_root / "generated" / "bank_manifest.json"
+    runtime_path = inputs.source_root / "generated" / "drone_second_class_bank.json"
+    manifest_path = inputs.source_root / "generated" / "bank_manifest.json"
     runtime = json.loads(runtime_path.read_text(encoding="utf-8"))
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if runtime.get("decks") != []:

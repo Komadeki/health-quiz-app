@@ -252,7 +252,13 @@ class DroneV0PanelValidationContractTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary_directory:
             bank = Path(temporary_directory) / "drone_second_class"
             shutil.copytree(self.BANK_ROOT, bank)
-            questions_path = bank / "authoring" / "questions.csv"
+            questions_path = (
+                bank
+                / "validation"
+                / "formal_snapshot"
+                / "authoring"
+                / "questions.csv"
+            )
             with questions_path.open(newline="", encoding="utf-8-sig") as file:
                 reader = csv.DictReader(file)
                 fieldnames = list(reader.fieldnames or [])
@@ -282,7 +288,24 @@ class DroneV0PanelValidationContractTest(unittest.TestCase):
         for relative_path, expected_hash in self.inputs.protocol[
             "protected_file_byte_hashes"
         ].items():
-            self.assertEqual(file_sha256(self.BANK_ROOT / relative_path), expected_hash)
+            self.assertEqual(
+                file_sha256(self.inputs.source_root / relative_path),
+                expected_hash,
+            )
+
+    def test_live_production_authoring_is_not_a_validation_input(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            bank = Path(temporary_directory) / "drone_second_class"
+            shutil.copytree(self.BANK_ROOT, bank)
+            live_questions = bank / "authoring" / "questions.csv"
+            live_questions.write_text("production state\n", encoding="utf-8")
+
+            inputs = load_validation_inputs(bank)
+            bundle, manifest = build_validation_documents(inputs)
+
+            self.assertEqual(bundle, self.bundle)
+            self.assertEqual(manifest, self.manifest)
+            self.assertEqual(validate_contract(bank, check_generated=True), [])
 
     def test_source_release_and_production_runtime_remain_inactive(self) -> None:
         self.assertEqual({row["status"] for row in self.inputs.questions}, {"draft"})
@@ -291,12 +314,12 @@ class DroneV0PanelValidationContractTest(unittest.TestCase):
             any(row["first_used_bank_revision"] for row in self.inputs.registry)
         )
         runtime = json.loads(
-            (self.BANK_ROOT / "generated" / "drone_second_class_bank.json").read_text(
+            (self.inputs.source_root / "generated" / "drone_second_class_bank.json").read_text(
                 encoding="utf-8"
             )
         )
         production_manifest = json.loads(
-            (self.BANK_ROOT / "generated" / "bank_manifest.json").read_text(
+            (self.inputs.source_root / "generated" / "bank_manifest.json").read_text(
                 encoding="utf-8"
             )
         )

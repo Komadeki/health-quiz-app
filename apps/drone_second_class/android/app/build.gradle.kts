@@ -15,7 +15,7 @@ plugins {
 }
 
 android {
-    namespace = "com.komadeki.dronesecondclass.v0panel"
+    namespace = "com.komadeki.dronesecondclass"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 

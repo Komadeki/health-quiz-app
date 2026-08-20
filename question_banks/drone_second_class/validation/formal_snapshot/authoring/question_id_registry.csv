@@ -1,0 +1,101 @@
+question_id,status,first_used_bank_revision,retired_at,replacement_id,notes
+DRONE-Q-000001,used,,,,VS-001; permanent ID; pre-release
+DRONE-Q-000002,used,,,,VS-004; permanent ID; pre-release
+DRONE-Q-000003,used,,,,VS-027; permanent ID; pre-release
+DRONE-Q-000004,used,,,,VS-039; US-C Sentinel; permanent ID; pre-release
+DRONE-Q-000005,used,,,,VS-069; COV-25 Sentinel neighbor; permanent ID; pre-release
+DRONE-Q-000006,used,,,,VS-002; B1A H2 primary; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000007,used,,,,VS-003; B1A H2 alternate; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000008,used,,,,VS-015; B1A H5; DEEP_HELDOUT; permanent ID; pre-release
+DRONE-Q-000009,used,,,,VS-021; B1A H3 Form A; DEEP_REPLICATION_A; permanent ID; pre-release
+DRONE-Q-000010,used,,,,VS-022; B1A H4 Form B; DEEP_REPLICATION_B; permanent ID; pre-release
+DRONE-Q-000011,used,,,,VS-005; B1B T2 primary; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000012,used,,,,VS-006; B1B T2 alternate; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000013,used,,,,VS-016; B1B T3; DEEP_HELDOUT; permanent ID; pre-release
+DRONE-Q-000014,used,,,,VS-007; B1B G1 primary; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000015,used,,,,VS-008; B1B G2; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000016,used,,,,VS-009; B1B G1 alternate; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000017,used,,,,VS-017; B1B G3; DEEP_HELDOUT; permanent ID; pre-release
+DRONE-Q-000018,used,,,,VS-010; B1C A1; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000019,used,,,,VS-011; B1C A4; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000020,used,,,,VS-018; B1C A2; DEEP_HELDOUT; permanent ID; pre-release
+DRONE-Q-000021,used,,,,VS-019; B1C A3; DEEP_HELDOUT; permanent ID; pre-release
+DRONE-Q-000022,used,,,,VS-012; B1C E1 primary; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000023,used,,,,VS-013; B1C E2; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000024,used,,,,VS-014; B1C E1 alternate; DEEP_OBSERVED; permanent ID; pre-release
+DRONE-Q-000025,used,,,,VS-020; B1C E3; DEEP_HELDOUT; permanent ID; pre-release
+DRONE-Q-000026,used,,,,VS-023; B2A HB1 150m; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000027,used,,,,VS-030; B2A HB1 DID; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000028,used,,,,VS-024; B2A HB2 II-III; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000029,used,,,,VS-031; B2A HB2 IIA-IIB; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000030,used,,,,VS-025; B2A HB3 conditions; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000031,used,,,,VS-032; B2A HB3 towing; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000032,used,,,,VS-026; B2A HB4 storage; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000033,used,,,,VS-033; B2A HB4 replacement; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000034,used,,,,VS-034; B2B HB5 stress; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000035,used,,,,VS-028; B2B HB6 building-terrain; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000036,used,,,,VS-035; B2B HB6 gust; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000037,used,,,,VS-029; B2B HB7 observer; BREADTH_OBSERVED; permanent ID; pre-release
+DRONE-Q-000038,used,,,,VS-036; B2B HB7 state; BREADTH_HELDOUT; permanent ID; pre-release
+DRONE-Q-000039,used,,,,VS-041; B3A US-E clean sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000040,used,,,,VS-042; B3A US-F clean sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000041,used,,,,VS-037; B3B US-A routed sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000042,used,,,,VS-038; B3B US-B routed sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000043,used,,,,VS-040; B3B US-D routed sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000044,used,,,,VS-043; B3B US-G routed sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000045,used,,,,VS-044; B3B US-H routed sentinel; UNKNOWN_SENTINEL; permanent ID; pre-release
+DRONE-Q-000046,used,,,,VS-045; B4 D1 COV-01; COVERAGE; permanent ID; pre-release
+DRONE-Q-000047,used,,,,VS-046; B4 D1 COV-02; COVERAGE; permanent ID; pre-release
+DRONE-Q-000048,used,,,,VS-047; B4 D1 COV-03; COVERAGE; permanent ID; pre-release
+DRONE-Q-000049,used,,,,VS-048; B4 D1 COV-04; COVERAGE; permanent ID; pre-release
+DRONE-Q-000050,used,,,,VS-049; B4 D1 COV-05; COVERAGE; permanent ID; pre-release
+DRONE-Q-000051,used,,,,VS-050; B4 D1 COV-06; COVERAGE; permanent ID; pre-release
+DRONE-Q-000052,used,,,,VS-051; B4 D1 COV-07; COVERAGE; permanent ID; pre-release
+DRONE-Q-000053,used,,,,VS-052; B4 D1 COV-08; COVERAGE; permanent ID; pre-release
+DRONE-Q-000054,used,,,,VS-053; B4 D1 COV-09; COVERAGE; permanent ID; pre-release
+DRONE-Q-000055,used,,,,VS-054; B4 D1 COV-10; COVERAGE; permanent ID; pre-release
+DRONE-Q-000056,used,,,,VS-055; B4 D1 COV-11; COVERAGE; permanent ID; pre-release
+DRONE-Q-000057,used,,,,VS-056; B4 D1 COV-12; COVERAGE; permanent ID; pre-release
+DRONE-Q-000058,used,,,,VS-057; B4 D1 COV-13; COVERAGE; permanent ID; pre-release
+DRONE-Q-000059,used,,,,VS-058; B4 D1 COV-14; COVERAGE; permanent ID; pre-release
+DRONE-Q-000060,used,,,,VS-059; B5 D2-A COV-15; COVERAGE; permanent ID; pre-release
+DRONE-Q-000061,used,,,,VS-060; B5 D2-A COV-16; COVERAGE; permanent ID; pre-release
+DRONE-Q-000062,used,,,,VS-061; B5 D2-A COV-17; COVERAGE; permanent ID; pre-release
+DRONE-Q-000063,used,,,,VS-062; B5 D2-A COV-18; COVERAGE; permanent ID; pre-release
+DRONE-Q-000064,used,,,,VS-063; B5 D2-A COV-19; COVERAGE; permanent ID; pre-release
+DRONE-Q-000065,used,,,,VS-064; B5 D2-A COV-20; COVERAGE; permanent ID; pre-release
+DRONE-Q-000066,used,,,,VS-065; B5 D2-A COV-21; COVERAGE; permanent ID; pre-release
+DRONE-Q-000067,used,,,,VS-066; B5 D2-A COV-22; COVERAGE; permanent ID; pre-release
+DRONE-Q-000068,used,,,,VS-067; B5 D2-A COV-23; COVERAGE; permanent ID; pre-release
+DRONE-Q-000069,used,,,,VS-068; B5 D2-A COV-24; COVERAGE; permanent ID; pre-release
+DRONE-Q-000070,used,,,,VS-070; B6 D2-B COV-26; COVERAGE; permanent ID; pre-release
+DRONE-Q-000071,used,,,,VS-071; B6 D2-B COV-27; COVERAGE; permanent ID; pre-release
+DRONE-Q-000072,used,,,,VS-072; B6 D2-B COV-28; COVERAGE; permanent ID; pre-release
+DRONE-Q-000073,used,,,,VS-073; B6 D2-B COV-29; COVERAGE; permanent ID; pre-release
+DRONE-Q-000074,used,,,,VS-074; B6 D2-B COV-30; COVERAGE; permanent ID; pre-release
+DRONE-Q-000075,used,,,,VS-075; B6 D2-B COV-31; COVERAGE; permanent ID; pre-release
+DRONE-Q-000076,used,,,,VS-076; B6 D2-B COV-32; COVERAGE; permanent ID; pre-release
+DRONE-Q-000077,used,,,,VS-077; B6 D2-B COV-33; COVERAGE; permanent ID; pre-release
+DRONE-Q-000078,used,,,,VS-078; B6 D2-B COV-34; COVERAGE; permanent ID; pre-release
+DRONE-Q-000079,used,,,,VS-079; B6 D2-B COV-35; COVERAGE; permanent ID; pre-release
+DRONE-Q-000080,used,,,,VS-080; B7 D3 COV-36; COVERAGE; permanent ID; pre-release
+DRONE-Q-000081,used,,,,VS-081; B7 D3 COV-37; COVERAGE; permanent ID; pre-release
+DRONE-Q-000082,used,,,,VS-082; B7 D3 COV-38; COVERAGE; permanent ID; pre-release
+DRONE-Q-000083,used,,,,VS-083; B7 D3 COV-39; COVERAGE; permanent ID; pre-release
+DRONE-Q-000084,used,,,,VS-084; B7 D3 COV-40; COVERAGE; permanent ID; pre-release
+DRONE-Q-000085,used,,,,VS-085; B7 D3 COV-41; COVERAGE; permanent ID; pre-release
+DRONE-Q-000086,used,,,,VS-086; B7 D3 COV-42; COVERAGE; permanent ID; pre-release
+DRONE-Q-000087,used,,,,VS-087; B7 D3 COV-43; COVERAGE; permanent ID; pre-release
+DRONE-Q-000088,used,,,,VS-088; B7 D3 COV-44; COVERAGE; permanent ID; pre-release
+DRONE-Q-000089,used,,,,VS-089; B7 D3 COV-45; COVERAGE; permanent ID; pre-release
+DRONE-Q-000090,used,,,,VS-090; B8 D4 COV-46; COVERAGE; permanent ID; pre-release
+DRONE-Q-000091,used,,,,VS-091; B8 D4 COV-47; COVERAGE; permanent ID; pre-release
+DRONE-Q-000092,used,,,,VS-092; B8 D4 COV-48; COVERAGE; permanent ID; pre-release
+DRONE-Q-000093,used,,,,VS-093; B8 D4 COV-49; COVERAGE; permanent ID; pre-release
+DRONE-Q-000094,used,,,,VS-094; B8 D4 COV-50; COVERAGE; permanent ID; pre-release
+DRONE-Q-000095,used,,,,VS-095; B8 D4 COV-51; COVERAGE; permanent ID; pre-release
+DRONE-Q-000096,used,,,,VS-096; B8 D4 COV-52; COVERAGE; permanent ID; pre-release
+DRONE-Q-000097,used,,,,VS-097; B8 D4 COV-53; COVERAGE; permanent ID; pre-release
+DRONE-Q-000098,used,,,,VS-098; B8 D4 COV-54; COVERAGE; permanent ID; pre-release
+DRONE-Q-000099,used,,,,VS-099; B8 D4 COV-55; COVERAGE; permanent ID; pre-release
+DRONE-Q-000100,used,,,,VS-100; B8 D4 COV-56; COVERAGE; permanent ID; pre-release

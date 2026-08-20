@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "edition": "第5版",
+      "effective_from": "2026-07-14",
+      "issuer": "国土交通省",
+      "published_at": "2026-07-07",
+      "retrieved_at": "2026-08-18",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "title": "無人航空機の飛行の安全に関する教則",
+      "url": "https://www.mlit.go.jp/common/002010810.pdf",
+      "usage_basis": "facts_only_independently_authored"
+    }
+  ]
+}
