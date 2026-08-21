@@ -30,6 +30,31 @@ void main() {
     expect(result.issues, isEmpty);
   });
 
+  test('Factory definitions are generated only for opted-in qualification apps',
+      () {
+    final generated = buildGeneratedFiles(
+      repositoryRoot,
+      loadAppManifests(repositoryRoot),
+    );
+    String sourceFor(String path) => String.fromCharCodes(
+          generated.singleWhere((file) => file.relativePath == path).bytes,
+        );
+
+    expect(
+      sourceFor('apps/drone_second_class/lib/generated/app_manifest.g.dart'),
+      contains('QualificationAppDefinition definition'),
+    );
+    expect(
+      sourceFor(
+          'apps/_single_unlock_fixture/lib/generated/app_manifest.g.dart'),
+      contains('LearningModeV1.mockExam'),
+    );
+    expect(
+      sourceFor('apps/health/lib/generated/app_manifest.g.dart'),
+      isNot(contains('QualificationAppDefinition definition')),
+    );
+  });
+
   test('discovers only direct child app manifests', () {
     final temporaryDirectory = Directory.systemTemp.createTempSync(
       'app_manifest_discovery_test.',
@@ -246,6 +271,35 @@ dependencies:
     expect(
       result.issues.map((issue) => issue.code),
       contains('missing_full_unlock_product'),
+    );
+  });
+
+  test('invalid Factory mode/profile and learning windows are rejected', () {
+    final source = File(
+      '${repositoryRoot.path}/apps/_single_unlock_fixture/app.yaml',
+    ).readAsStringSync();
+    final temporaryDirectory = Directory.systemTemp.createTempSync(
+      'app_manifest_factory_test.',
+    );
+    addTearDown(() => temporaryDirectory.deleteSync(recursive: true));
+    final manifestFile = File('${temporaryDirectory.path}/app.yaml');
+    manifestFile.writeAsStringSync(
+      source
+          .replaceFirst(
+              '  profile_version: fixture-exam-v1', '  profile_version: null')
+          .replaceFirst('  recent_window_size: 5', '  recent_window_size: 0'),
+    );
+    final manifest = AppManifest.fromFile(manifestFile, temporaryDirectory);
+    final result = ManifestValidationResult();
+
+    validateManifestSemantics(manifest, result);
+
+    expect(
+      result.issues.map((issue) => issue.code),
+      containsAll([
+        'mock_exam_profile_missing',
+        'invalid_factory_learning_window',
+      ]),
     );
   });
 

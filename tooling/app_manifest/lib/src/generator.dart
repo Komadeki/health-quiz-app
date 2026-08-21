@@ -64,8 +64,9 @@ List<GeneratedFile> buildGeneratedFiles(
       );
     }
   }
-  generated
-      .sort((left, right) => left.relativePath.compareTo(right.relativePath));
+  generated.sort(
+    (left, right) => left.relativePath.compareTo(right.relativePath),
+  );
   return List.unmodifiable(generated);
 }
 
@@ -130,6 +131,10 @@ String _renderDart(AppManifest manifest) {
           manifest.questionBank.assetOutput!,
           from: manifest.appDirectory,
         );
+  final factory = manifest.factory;
+  final factoryDefinition = factory == null
+      ? ''
+      : _renderFactoryDefinition(manifest, factory, assetPath!);
 
   return '''// $generatedNotice.
 // Generated from app.yaml by tooling/app_manifest.
@@ -186,10 +191,89 @@ abstract final class GeneratedAppManifest {
   static const int? examOverallPassPercent = ${manifest.exam.overallPassPercent ?? 'null'};
 
   static const String themeKey = ${_dartString(manifest.branding.themeKey)};
-  static const String seedColor = ${_dartString(manifest.branding.seedColor)};
+  static const String seedColor = ${_dartString(manifest.branding.seedColor)};$factoryDefinition
 }
 ''';
 }
+
+String _renderFactoryDefinition(
+  AppManifest manifest,
+  FactoryManifest factory,
+  String assetPath,
+) {
+  final modes = factory.enabledModes
+      .map((mode) => 'LearningModeV1.${_learningModeName(mode)}')
+      .join(', ');
+  final allocations = manifest.exam.allocations
+      .map(
+        (allocation) =>
+            'ExamUnitAllocationV1(unitId: ${_dartString(allocation.unitId)}, '
+            'questionCount: ${allocation.questionCount})',
+      )
+      .join(', ');
+  final sectionRules = manifest.exam.sectionPassRules
+      .map(
+        (rule) => 'ExamSectionPassRuleV1(unitId: ${_dartString(rule.unitId)}, '
+            'minimumPercent: ${rule.minimumPercent})',
+      )
+      .join(', ');
+  final examProfile = manifest.exam.profileVersion == null
+      ? 'null'
+      : '''MockExamProfileV1(
+        profileVersion: ${_dartString(manifest.exam.profileVersion!)},
+        questionCount: ${manifest.exam.questionCount},
+        timeLimitMinutes: ${manifest.exam.timeLimitMinutes ?? 'null'},
+        allocations: [$allocations],
+        overallPassPercent: ${manifest.exam.overallPassPercent ?? 'null'},
+        sectionPassRules: [$sectionRules],
+        shuffleQuestions: ${manifest.exam.shuffleQuestions},
+      )''';
+  return '''
+
+  static final QualificationAppDefinition definition =
+      QualificationAppDefinition(
+        appKey: appKey,
+        displayName: displayName,
+        publisher: publisher,
+        brandName: brandName,
+        legalese: legalese,
+        urls: const QualificationUrls(
+          support: supportUrl,
+          privacy: privacyUrl,
+          marketing: marketingUrl,
+        ),
+        questionBankAsset: ${_dartString(assetPath)},
+        questionIdentityPolicy: questionIdentityPolicy,
+        monetization: monetizationDefinition,
+        examProfile: $examProfile,
+        branding: const QualificationBranding(
+          themeKey: themeKey,
+          seedColorHex: seedColor,
+        ),
+        learningProduct: const LearningProductProfileV1(
+          appVersion: ${_dartString(factory.appVersion)},
+          homeHeadline: ${_dartString(factory.homeHeadline)},
+          sourceLabel: ${_dartString(factory.sourceLabel)},
+          enabledModes: {$modes},
+          practiceQuestionCount: ${factory.practiceQuestionCount},
+          recentWindowSize: ${factory.recentWindowSize},
+          progressEnabled: ${factory.progressEnabled},
+          historyEnabled: ${factory.historyEnabled},
+          weaknessEnabled: ${factory.weaknessEnabled},
+          recommendationEnabled: ${factory.recommendationEnabled},
+        ),
+      );''';
+}
+
+String _learningModeName(String wireName) => switch (wireName) {
+      'unit_practice' => 'unitPractice',
+      'random_practice' => 'randomPractice',
+      'unanswered_practice' => 'unansweredPractice',
+      'incorrect_practice' => 'incorrectPractice',
+      'retry' => 'retry',
+      'mock_exam' => 'mockExam',
+      _ => throw StateError('Unsupported Factory learning mode: $wireName'),
+    };
 
 String _renderXcconfig(AppManifest manifest) => '''// $generatedNotice.
 // Generated from app.yaml by tooling/app_manifest.

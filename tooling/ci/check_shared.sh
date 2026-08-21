@@ -8,6 +8,11 @@ dart pub get
 dart analyze --fatal-infos
 dart test
 
+cd "$REPOSITORY_ROOT/packages/qualification_app"
+flutter pub get
+flutter analyze
+flutter test
+
 cd "$REPOSITORY_ROOT/tooling/app_manifest"
 dart pub get
 dart analyze --fatal-infos
@@ -21,12 +26,13 @@ cd "$REPOSITORY_ROOT"
 python3 -m unittest discover \
   -s tooling/question_bank/tests \
   -p 'test_*.py'
-python3 tooling/question_bank/validate.py \
-  --bank question_banks/qualification_fixture \
-  --check-generated
-python3 tooling/question_bank/validate.py \
-  --bank question_banks/drone_second_class \
-  --check-generated
+for bank in "$REPOSITORY_ROOT"/question_banks/*; do
+  if [[ -f "$bank/authoring/bank.json" ]]; then
+    python3 tooling/question_bank/validate.py \
+      --bank "$bank" \
+      --check-generated
+  fi
+done
 python3 -m unittest discover \
   -s tooling/v0_panel_validation/tests \
   -p 'test_*.py'

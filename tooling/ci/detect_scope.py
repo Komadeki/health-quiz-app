@@ -13,8 +13,7 @@ import sys
 class Scope:
     shared: bool
     health: bool
-    fixture: bool
-    drone: bool
+    qualification_apps: bool
     docs_only: bool
     reason: str
 
@@ -22,8 +21,7 @@ class Scope:
         return [
             f"shared={str(self.shared).lower()}",
             f"health={str(self.health).lower()}",
-            f"fixture={str(self.fixture).lower()}",
-            f"drone={str(self.drone).lower()}",
+            f"qualification_apps={str(self.qualification_apps).lower()}",
             f"docs_only={str(self.docs_only).lower()}",
             f"reason={self.reason}",
         ]
@@ -36,12 +34,11 @@ def classify(paths: list[str], *, force_all: bool = False) -> Scope:
     if not normalized:
         return _all("empty_change_list")
     if all(_is_documentation(path) for path in normalized):
-        return Scope(False, False, False, False, True, "documentation_only")
+        return Scope(False, False, False, True, "documentation_only")
 
     shared = False
     health = False
-    fixture = False
-    drone = False
+    qualification_apps = False
     unknown = False
     for path in normalized:
         if _is_documentation(path):
@@ -50,10 +47,8 @@ def classify(paths: list[str], *, force_all: bool = False) -> Scope:
             shared = True
         elif path.startswith("apps/health/"):
             health = True
-        elif path.startswith("apps/_single_unlock_fixture/"):
-            fixture = True
-        elif path.startswith("apps/drone_second_class/"):
-            drone = True
+        elif path.startswith("apps/"):
+            qualification_apps = True
         else:
             unknown = True
 
@@ -61,7 +56,7 @@ def classify(paths: list[str], *, force_all: bool = False) -> Scope:
         return _all("shared_change")
     if unknown:
         return _all("unknown_path")
-    return Scope(False, health, fixture, drone, False, "app_change")
+    return Scope(False, health, qualification_apps, False, "app_change")
 
 
 def _normalize(path: str) -> str:
@@ -84,7 +79,7 @@ def _is_shared(path: str) -> bool:
 
 
 def _all(reason: str) -> Scope:
-    return Scope(True, True, True, True, False, reason)
+    return Scope(True, True, True, False, reason)
 
 
 def main() -> int:

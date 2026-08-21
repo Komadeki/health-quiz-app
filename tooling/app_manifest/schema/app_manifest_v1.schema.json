@@ -120,7 +120,36 @@
           "maximum": 100,
           "minimum": 1,
           "type": ["integer", "null"]
-        }
+        },
+        "allocations": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "unit_id": {"minLength": 1, "type": "string"},
+              "question_count": {"minimum": 1, "type": "integer"}
+            },
+            "required": ["unit_id", "question_count"],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "section_pass_rules": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "unit_id": {"minLength": 1, "type": "string"},
+              "minimum_percent": {
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": ["unit_id", "minimum_percent"],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "shuffle_questions": {"type": "boolean"}
       },
       "required": [
         "profile_version",
@@ -137,6 +166,48 @@
         "seed_color": {"pattern": "^#[0-9A-Fa-f]{6}$", "type": "string"}
       },
       "required": ["theme_key", "seed_color"],
+      "type": "object"
+    },
+    "factory": {
+      "additionalProperties": false,
+      "properties": {
+        "app_version": {"minLength": 1, "type": "string"},
+        "home_headline": {"minLength": 1, "type": "string"},
+        "source_label": {"minLength": 1, "type": "string"},
+        "enabled_modes": {
+          "items": {
+            "enum": [
+              "unit_practice",
+              "random_practice",
+              "unanswered_practice",
+              "incorrect_practice",
+              "retry",
+              "mock_exam"
+            ]
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "practice_question_count": {"minimum": 1, "type": "integer"},
+        "recent_window_size": {"minimum": 1, "type": "integer"},
+        "progress_enabled": {"type": "boolean"},
+        "history_enabled": {"type": "boolean"},
+        "weakness_enabled": {"type": "boolean"},
+        "recommendation_enabled": {"type": "boolean"}
+      },
+      "required": [
+        "app_version",
+        "home_headline",
+        "source_label",
+        "enabled_modes",
+        "practice_question_count",
+        "recent_window_size",
+        "progress_enabled",
+        "history_enabled",
+        "weakness_enabled",
+        "recommendation_enabled"
+      ],
       "type": "object"
     }
   },

@@ -121,7 +121,7 @@ packages:
     source: sdk
     version: "0.0.0"
   in_app_purchase:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: in_app_purchase
       sha256: "5cddd7f463f3bddb1d37a72b95066e840d5822d66291331d7f8f05ce32c24b6c"
@@ -328,6 +328,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  qualification_app:
+    dependency: "direct main"
+    description:
+      path: "../../packages/qualification_app"
+      relative: true
+    source: path
+    version: "1.0.0"
   quiz_engine:
     dependency: "direct main"
     description:
@@ -352,7 +359,7 @@ packages:
     source: hosted
     version: "6.1.0"
   shared_preferences:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: shared_preferences
       sha256: c3025c5534b01739267eb7d76959bbc25a6d10f6988e1c2a3036940133dd10bf

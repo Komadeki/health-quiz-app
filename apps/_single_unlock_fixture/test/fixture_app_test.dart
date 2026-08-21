@@ -4,21 +4,28 @@ import 'package:single_unlock_fixture/fixture_app.dart';
 import 'package:single_unlock_fixture/generated/app_manifest.g.dart';
 
 void main() {
-  testWidgets('app boots, loads two active cards, and unlocks premium', (
-    tester,
-  ) async {
-    await tester.pumpWidget(const FixtureApp());
-    await tester.pumpAndSettle();
+  testWidgets(
+    'non-Drone fixture boots the shared Factory and unlocks premium',
+    (tester) async {
+      await tester.pumpWidget(const FixtureApp());
+      await tester.pumpAndSettle();
 
-    expect(find.text(GeneratedAppManifest.displayName), findsOneWidget);
-    expect(find.text('2 active questions'), findsOneWidget);
-    expect(find.text('free / 利用可能'), findsOneWidget);
-    expect(find.text('premium / ロック中'), findsOneWidget);
+      expect(find.text(GeneratedAppManifest.displayName), findsOneWidget);
+      expect(find.text('架空資格のFactory検証'), findsOneWidget);
+      expect(find.text('1問を無料で利用できます'), findsOneWidget);
+      expect(find.byKey(const Key('unit-fixture_safety')), findsOneWidget);
+      expect(find.byKey(const Key('unit-fixture_operations')), findsOneWidget);
+      expect(find.byKey(const Key('start-random')), findsOneWidget);
+      expect(find.byKey(const Key('start-mock-exam')), findsOneWidget);
 
-    await tester.tap(find.byKey(const Key('fixture-full-unlock')));
-    await tester.pumpAndSettle();
+      final purchase = find.byKey(const Key('purchase-full-unlock'));
+      await tester.scrollUntilVisible(purchase, 300);
+      await tester.drag(find.byType(ListView), const Offset(0, -120));
+      await tester.pump();
+      await tester.tap(purchase);
+      await tester.pumpAndSettle();
 
-    expect(find.text('premium / 利用可能'), findsOneWidget);
-    expect(find.text('premium / ロック中'), findsNothing);
-  });
+      expect(find.text('全2問 解放済み'), findsOneWidget);
+    },
+  );
 }

@@ -12,13 +12,40 @@ permissions:
   contents: read
 
 jobs:
+  discover-apps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      apps: ${{ steps.apps.outputs.apps }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Discover direct-child apps
+        id: apps
+        shell: bash
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import glob
+          import json
+          import os
+
+          apps = sorted(
+              os.path.basename(os.path.dirname(path))
+              for path in glob.glob("apps/*/app.yaml")
+          )
+          print("apps=" + json.dumps(apps, separators=(",", ":")))
+          PY
+
   ios-smoke:
+    needs: discover-apps
     runs-on: macos-latest
     timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
-        app: [health, _single_unlock_fixture, drone_second_class]
+        app: ${{ fromJSON(needs.discover-apps.outputs.apps) }}
 
     steps:
       - name: Checkout

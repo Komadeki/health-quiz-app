@@ -54,4 +54,45 @@ abstract final class GeneratedAppManifest {
 
   static const String themeKey = "drone_blue";
   static const String seedColor = "#165D8F";
+  static final QualificationAppDefinition definition =
+      QualificationAppDefinition(
+        appKey: appKey,
+        displayName: displayName,
+        publisher: publisher,
+        brandName: brandName,
+        legalese: legalese,
+        urls: const QualificationUrls(
+          support: supportUrl,
+          privacy: privacyUrl,
+          marketing: marketingUrl,
+        ),
+        questionBankAsset: "assets/question_bank/drone_second_class_bank.json",
+        questionIdentityPolicy: questionIdentityPolicy,
+        monetization: monetizationDefinition,
+        examProfile: MockExamProfileV1(
+        profileVersion: "drone-second-class-v1",
+        questionCount: 100,
+        timeLimitMinutes: null,
+        allocations: [ExamUnitAllocationV1(unitId: "drone_operations", questionCount: 22), ExamUnitAllocationV1(unitId: "drone_risk_management", questionCount: 23), ExamUnitAllocationV1(unitId: "drone_rules", questionCount: 26), ExamUnitAllocationV1(unitId: "drone_systems", questionCount: 29)],
+        overallPassPercent: null,
+        sectionPassRules: [],
+        shuffleQuestions: true,
+      ),
+        branding: const QualificationBranding(
+          themeKey: themeKey,
+          seedColorHex: seedColor,
+        ),
+        learningProduct: const LearningProductProfileV1(
+          appVersion: "1.0.0+1",
+          homeHeadline: "教則第5版を基にした全100問",
+          sourceLabel: "無人航空機の飛行の安全に関する教則 第5版に基づく学習",
+          enabledModes: {LearningModeV1.unitPractice, LearningModeV1.randomPractice, LearningModeV1.unansweredPractice, LearningModeV1.incorrectPractice, LearningModeV1.retry, LearningModeV1.mockExam},
+          practiceQuestionCount: 20,
+          recentWindowSize: 20,
+          progressEnabled: true,
+          historyEnabled: true,
+          weaknessEnabled: true,
+          recommendationEnabled: true,
+        ),
+      );
 }

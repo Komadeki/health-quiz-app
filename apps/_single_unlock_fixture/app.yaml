@@ -41,7 +41,32 @@ exam:
   question_count: 2
   time_limit_minutes: null
   overall_pass_percent: null
+  allocations:
+    - unit_id: fixture_operations
+      question_count: 1
+    - unit_id: fixture_safety
+      question_count: 1
+  section_pass_rules: []
+  shuffle_questions: true
 
 branding:
   theme_key: fixture_teal
   seed_color: "#00695C"
+
+factory:
+  app_version: 0.1.0
+  home_headline: 架空資格のFactory検証
+  source_label: 架空資格のための独自作成資料
+  enabled_modes:
+    - unit_practice
+    - random_practice
+    - unanswered_practice
+    - incorrect_practice
+    - retry
+    - mock_exam
+  practice_question_count: 2
+  recent_window_size: 5
+  progress_enabled: true
+  history_enabled: true
+  weakness_enabled: true
+  recommendation_enabled: true

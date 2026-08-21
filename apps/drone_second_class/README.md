@@ -3,6 +3,11 @@
 This Flutter app ships the production `drone_second_class` experience for
 `二等無人航空機 学科対策`.
 
+It is the Qualification App Factory v1 Reference Product. Drone production is
+a thin generated-definition composition; shared learning, local history,
+practice, progress, mock exam, recommendation, and purchase behavior live in
+`packages/quiz_engine` and `packages/qualification_app`.
+
 The production entrypoint is `lib/main.dart`. It loads the generated 100-question
 runtime, offers four unit sessions, keeps progress on-device, and uses one
 non-consumable full unlock:

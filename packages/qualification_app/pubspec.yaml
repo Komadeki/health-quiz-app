@@ -1,0 +1,24 @@
+name: qualification_app
+description: Shared Flutter production runtime for KOMADEKI qualification apps.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  in_app_purchase: ^3.2.3
+  path_provider: ^2.1.5
+  quiz_engine:
+    path: ../quiz_engine
+  shared_preferences: ^2.5.3
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

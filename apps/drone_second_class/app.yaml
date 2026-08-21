@@ -41,7 +41,36 @@ exam:
   question_count: 100
   time_limit_minutes: null
   overall_pass_percent: null
+  allocations:
+    - unit_id: drone_operations
+      question_count: 22
+    - unit_id: drone_risk_management
+      question_count: 23
+    - unit_id: drone_rules
+      question_count: 26
+    - unit_id: drone_systems
+      question_count: 29
+  section_pass_rules: []
+  shuffle_questions: true
 
 branding:
   theme_key: drone_blue
   seed_color: "#165D8F"
+
+factory:
+  app_version: 1.0.0+1
+  home_headline: 教則第5版を基にした全100問
+  source_label: 無人航空機の飛行の安全に関する教則 第5版に基づく学習
+  enabled_modes:
+    - unit_practice
+    - random_practice
+    - unanswered_practice
+    - incorrect_practice
+    - retry
+    - mock_exam
+  practice_question_count: 20
+  recent_window_size: 20
+  progress_enabled: true
+  history_enabled: true
+  weakness_enabled: true
+  recommendation_enabled: true

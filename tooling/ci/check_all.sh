@@ -5,5 +5,4 @@ readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 "$SCRIPT_DIR/check_shared.sh"
 "$SCRIPT_DIR/check_health.sh"
-"$SCRIPT_DIR/check_fixture.sh"
-"$SCRIPT_DIR/check_drone.sh"
+"$SCRIPT_DIR/check_qualification_apps.sh"
