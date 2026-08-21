@@ -68,16 +68,41 @@ V0 Panel research remains isolated and is not a production dependency.
 
 ## Adding a second qualification
 
-1. Create `question_banks/<app_key>` from official-source authoring inputs and
-   issue permanent IDs under the Question Bank contract.
+The standard Question Factory pipeline is:
+
+```text
+Official Source Freeze
+→ Source Registry
+→ Knowledge / Coverage Map
+→ Human bank-size decision
+→ Authoring Plan
+→ 50–100Q draft batches
+→ Human source verification
+→ deterministic duplicate / coverage QC
+→ Permanent ID / canonical authoring
+→ final Human release approval
+→ released snapshot
+→ runtime generation
+```
+
+Pre-ID AI drafts may exist outside canonical `questions.csv`. Once a Question
+enters canonical authoring, it must follow the explicit permanent-identity
+rules. The factory validates declared coverage and source-version evidence; it
+does not decide semantic correctness, source authority, or whether a Human
+coverage taxonomy/bank size is sufficient.
+
+1. Freeze the official-source inputs and create `question_banks/<app_key>` with
+   `sources.json`, `coverage.json`, source-verification records, and canonical
+   Questions under the permanent-ID contract.
 2. Create a direct-child `apps/<app_key>` Flutter composition and native IDs.
 3. Add `app.yaml` with `qualification_runtime_v2`, `explicit_v1`,
    `singleFullUnlock`, exam/branding details, and a `factory` profile.
 4. Depend on both `packages/quiz_engine` and `packages/qualification_app` by
    relative path. The production entrypoint should pass only the generated
    definition to `QualificationProductionBootstrap`.
-5. Run manifest generation/validation, question-bank validation, and
-   `tooling/ci/check_all.sh`. Direct-child Factory apps are discovered by CI;
+5. Run the deterministic Question Factory readiness report, manifest
+   generation/validation, question-bank validation, and `tooling/ci/check_all.sh`.
+   Direct-child Factory apps are discovered by CI;
    adding a qualification does not require a new learning architecture.
 
 App-specific UI is appropriate for defensible product presentation or an

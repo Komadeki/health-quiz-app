@@ -1,0 +1,551 @@
+{
+  "knowledge_targets": [
+    {
+      "importance": 3,
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "minimum_active_question_count": 1,
+      "required": true,
+      "statement": "操縦者及び運航体制ユニットで扱う公式教則上の事項を確認できる。",
+      "title": "操縦者及び運航体制",
+      "unit_id": "drone_operations",
+      "variation_requirements": []
+    },
+    {
+      "importance": 3,
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "minimum_active_question_count": 1,
+      "required": true,
+      "statement": "リスク管理ユニットで扱う公式教則上の事項を確認できる。",
+      "title": "運航上のリスク管理",
+      "unit_id": "drone_risk_management",
+      "variation_requirements": []
+    },
+    {
+      "importance": 3,
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "minimum_active_question_count": 1,
+      "required": true,
+      "statement": "規則ユニットで扱う公式教則上の要件を確認できる。",
+      "title": "無人航空機に関する規則",
+      "unit_id": "drone_rules",
+      "variation_requirements": []
+    },
+    {
+      "importance": 3,
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "minimum_active_question_count": 1,
+      "required": true,
+      "statement": "システムユニットで扱う公式教則上の事項を確認できる。",
+      "title": "無人航空機のシステム",
+      "unit_id": "drone_systems",
+      "variation_requirements": []
+    }
+  ],
+  "question_bindings": [
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000001",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000002",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000003",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000004",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000005",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000006",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000007",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000008",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000009",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000010",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000011",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000012",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000013",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000014",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000015",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000016",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000017",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000018",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000019",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000020",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000021",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000022",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000023",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000024",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000025",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000026",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000027",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000028",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000029",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000030",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000031",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000032",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000033",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000034",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000035",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000036",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000037",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000038",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000039",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000040",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000041",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000042",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000043",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000044",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000045",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000046",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000047",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000048",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000049",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000050",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000051",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000052",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000053",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000054",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000055",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000056",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000057",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000058",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RULES-001",
+      "question_id": "DRONE-Q-000059",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000060",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000061",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000062",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000063",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000064",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000065",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000066",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000067",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000068",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000069",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000070",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000071",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000072",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000073",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000074",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000075",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000076",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000077",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000078",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-SYSTEMS-001",
+      "question_id": "DRONE-Q-000079",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000080",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000081",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000082",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000083",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000084",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000085",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000086",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000087",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000088",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-OPERATIONS-001",
+      "question_id": "DRONE-Q-000089",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000090",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000091",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000092",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000093",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000094",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000095",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000096",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000097",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000098",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000099",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "DRONE-KT-RISK-001",
+      "question_id": "DRONE-Q-000100",
+      "variation_tags": []
+    }
+  ],
+  "schema_version": 1,
+  "target_bank_size": {
+    "approved_question_count": 100,
+    "rationale": "二等無人航空機操縦士の初回リリースでは、4ユニットの既存配分を合計して100問を承認した。"
+  }
+}

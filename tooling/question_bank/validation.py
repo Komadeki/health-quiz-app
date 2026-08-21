@@ -18,6 +18,7 @@ from contract import (
     question_choices,
     read_csv,
 )
+from factory_contracts import validate_coverage, validate_source_verifications
 
 
 def _parse_date(
@@ -169,11 +170,42 @@ def _validate_registry(
                 location,
             )
         registry_by_id[question_id] = row
+        if not QUESTION_ID_PATTERN.fullmatch(question_id):
+            result.error(
+                "invalid_registry_question_id",
+                f"Invalid permanent question ID: {question_id}",
+                location,
+            )
         if row.get("status") not in {"used", "retired"}:
             result.error(
                 "invalid_registry_status",
                 "Registry status must be used or retired.",
                 location,
+            )
+        if row.get("status") == "retired":
+            retired_at = row.get("retired_at", "")
+            if not retired_at:
+                result.error(
+                    "missing_retired_tombstone_date",
+                    "Retired registry entries require retired_at.",
+                    location,
+                )
+            else:
+                _parse_date(retired_at, "retired_at", result, location)
+        replacement_id = row.get("replacement_id", "")
+        if replacement_id == question_id:
+            result.error(
+                "invalid_replacement_id",
+                "replacement_id cannot equal question_id.",
+                location,
+            )
+    for question_id, row in registry_by_id.items():
+        replacement_id = row.get("replacement_id", "")
+        if replacement_id and replacement_id not in registry_by_id:
+            result.error(
+                "unknown_replacement_id",
+                f"replacement_id is absent from the registry: {replacement_id}",
+                f"authoring/question_id_registry.csv:{question_id}",
             )
     return registry_by_id
 
@@ -427,8 +459,26 @@ def _validate_released_contract(
     result: ValidationResult,
     question_by_id: dict[str, dict[str, str]],
 ) -> None:
+    registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+    released_ids = {
+        str(released.get("question_id", "")).strip()
+        for released in inputs.released_questions
+    }
     for released in inputs.released_questions:
         question_id = str(released.get("question_id", "")).strip()
+        registry_row = registry_by_id.get(question_id)
+        if registry_row is None:
+            result.error(
+                "released_question_missing_registry_entry",
+                "Released question is absent from the permanent ID registry.",
+                f"authoring/released_questions.json:{question_id}",
+            )
+        elif not registry_row.get("first_used_bank_revision", ""):
+            result.error(
+                "released_question_missing_first_used_bank_revision",
+                "Released question requires its immutable first_used_bank_revision.",
+                f"authoring/question_id_registry.csv:{question_id}",
+            )
         current = question_by_id.get(question_id)
         if current is None:
             continue
@@ -493,6 +543,18 @@ def _validate_released_contract(
                 location,
             )
 
+    for question_id, registry_row in registry_by_id.items():
+        if (
+            question_id not in released_ids
+            and registry_row.get("first_used_bank_revision", "")
+            and registry_row.get("status") != "retired"
+        ):
+            result.error(
+                "unreleased_question_has_first_used_bank_revision",
+                "An unreleased question must not have first_used_bank_revision.",
+                f"authoring/question_id_registry.csv:{question_id}",
+            )
+
 
 def _validate_similar_questions(
     question_by_id: dict[str, dict[str, str]], result: ValidationResult
@@ -527,6 +589,23 @@ def validate_bank(bank_root: Path, *, check_generated: bool = False) -> Validati
             "authoring/questions.csv",
         )
 
+    registry_header, _ = read_csv(bank_root / "authoring" / "question_id_registry.csv")
+    required_registry_headers = {
+        "question_id",
+        "status",
+        "first_used_bank_revision",
+        "retired_at",
+        "replacement_id",
+        "notes",
+    }
+    missing_registry_headers = sorted(required_registry_headers - set(registry_header))
+    if missing_registry_headers:
+        result.error(
+            "missing_registry_columns",
+            f"Missing registry CSV columns: {', '.join(missing_registry_headers)}",
+            "authoring/question_id_registry.csv",
+        )
+
     inputs = load_bank_inputs(bank_root)
     as_of = _validate_metadata(inputs, result)
     source_by_id = _validate_sources(inputs, result)
@@ -534,6 +613,9 @@ def validate_bank(bank_root: Path, *, check_generated: bool = False) -> Validati
     question_by_id = _validate_questions(
         inputs, result, source_by_id, registry_by_id, as_of
     )
+    _, unit_ids = _metadata_ids(inputs.metadata)
+    validate_coverage(inputs, question_by_id, unit_ids, result)
+    validate_source_verifications(inputs, question_by_id, source_by_id, result)
     _validate_released_contract(inputs, result, question_by_id)
     _validate_similar_questions(question_by_id, result)
     if check_generated and result.is_valid:
