@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quiz_engine/quiz_engine.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'production_bank.dart';
 import 'production_controller.dart';
 import 'production_persistence.dart';
 import 'production_purchase.dart';
+
+typedef QualificationExternalUrlLauncher = Future<bool> Function(Uri url);
 
 final class QualificationProductionBootstrap extends StatefulWidget {
   const QualificationProductionBootstrap({
@@ -17,6 +22,7 @@ final class QualificationProductionBootstrap extends StatefulWidget {
     this.entitlementCache,
     this.now,
     this.randomizer,
+    this.urlLauncher,
     super.key,
   });
 
@@ -28,6 +34,7 @@ final class QualificationProductionBootstrap extends StatefulWidget {
   final EntitlementCache? entitlementCache;
   final DateTime Function()? now;
   final QuestionRandomizer? randomizer;
+  final QualificationExternalUrlLauncher? urlLauncher;
 
   @override
   State<QualificationProductionBootstrap> createState() =>
@@ -35,12 +42,13 @@ final class QualificationProductionBootstrap extends StatefulWidget {
 }
 
 final class _QualificationProductionBootstrapState
-    extends State<QualificationProductionBootstrap> {
+    extends State<QualificationProductionBootstrap> with WidgetsBindingObserver {
   late final QualificationProductionController controller;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     final definition = widget.definition;
     final productId =
         definition.monetization.productCatalog.fullUnlockProductId;
@@ -70,7 +78,15 @@ final class _QualificationProductionBootstrapState
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      unawaited(controller.completeExpiredMockExamIfNeeded());
+    }
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     controller.dispose();
     super.dispose();
   }
@@ -79,6 +95,7 @@ final class _QualificationProductionBootstrapState
   Widget build(BuildContext context) => QualificationProductionApp(
         definition: widget.definition,
         controller: controller,
+        urlLauncher: widget.urlLauncher,
       );
 }
 
@@ -86,11 +103,13 @@ final class QualificationProductionApp extends StatelessWidget {
   const QualificationProductionApp({
     required this.definition,
     required this.controller,
+    this.urlLauncher,
     super.key,
   });
 
   final QualificationAppDefinition definition;
   final QualificationProductionController controller;
+  final QualificationExternalUrlLauncher? urlLauncher;
 
   @override
   Widget build(BuildContext context) {
@@ -120,15 +139,16 @@ final class QualificationProductionApp extends StatelessWidget {
           }
           return switch (controller.view) {
             QualificationProductionView.home => QualificationHome(
-                controller: controller,
-              ),
+              controller: controller,
+              urlLauncher: urlLauncher ?? _launchExternalUrl,
+            ),
             QualificationProductionView.quiz => QualificationQuizPage(
-                key: ValueKey(controller.activeSession?.currentQuestionId),
-                controller: controller,
-              ),
+              key: ValueKey(controller.activeSession?.currentQuestionId),
+              controller: controller,
+            ),
             QualificationProductionView.result => QualificationResultPage(
-                controller: controller,
-              ),
+              controller: controller,
+            ),
           };
         },
       ),
@@ -137,9 +157,14 @@ final class QualificationProductionApp extends StatelessWidget {
 }
 
 final class QualificationHome extends StatelessWidget {
-  const QualificationHome({required this.controller, super.key});
+  const QualificationHome({
+    required this.controller,
+    required this.urlLauncher,
+    super.key,
+  });
 
   final QualificationProductionController controller;
+  final QualificationExternalUrlLauncher urlLauncher;
 
   @override
   Widget build(BuildContext context) {
@@ -209,6 +234,10 @@ final class QualificationHome extends StatelessWidget {
                   definition.legalese,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodySmall,
+                ),
+                _InformationLinks(
+                  urls: definition.urls,
+                  urlLauncher: urlLauncher,
                 ),
               ],
             ),
@@ -353,12 +382,33 @@ final class _PracticeModes extends StatelessWidget {
       controller.startIncorrect,
     );
     final profile = controller.definition.examProfile;
-    add(
-      LearningModeV1.mockExam,
-      'start-mock-exam',
-      profile == null ? '模擬試験' : '模擬試験（${profile.questionCount}問）',
-      controller.startMockExam,
-    );
+    if (controller.modeEnabled(LearningModeV1.mockExam)) {
+      final locked = controller.isMockExamLocked;
+      buttons.add(
+        OutlinedButton(
+          key: const Key('start-mock-exam'),
+          onPressed: locked ? null : controller.startMockExam,
+          child: Text(
+            locked
+                ? '模擬試験（全問解放後に利用可能）'
+                : profile == null
+                ? '模擬試験'
+                : '模擬試験（${profile.questionCount}問）',
+          ),
+        ),
+      );
+      if (locked) {
+        buttons.add(
+          const Padding(
+            padding: EdgeInsets.only(top: 4),
+            child: Text(
+              '模擬試験はFull Unlockで全問を解放すると利用できます。',
+              key: Key('mock-exam-locked'),
+            ),
+          ),
+        );
+      }
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -487,6 +537,41 @@ final class _UnlockCard extends StatelessWidget {
   }
 }
 
+final class _InformationLinks extends StatelessWidget {
+  const _InformationLinks({required this.urls, required this.urlLauncher});
+
+  final QualificationUrls urls;
+  final QualificationExternalUrlLauncher urlLauncher;
+
+  @override
+  Widget build(BuildContext context) {
+    final links = <Widget>[];
+    if (_hasUrl(urls.support)) {
+      links.add(
+        TextButton(
+          key: const Key('support-link'),
+          onPressed: () => _openExternalUrl(urls.support!, urlLauncher),
+          child: const Text('サポート'),
+        ),
+      );
+    }
+    if (_hasUrl(urls.privacy)) {
+      links.add(
+        TextButton(
+          key: const Key('privacy-link'),
+          onPressed: () => _openExternalUrl(urls.privacy!, urlLauncher),
+          child: const Text('プライバシーポリシー'),
+        ),
+      );
+    }
+    if (links.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Wrap(alignment: WrapAlignment.center, children: links),
+    );
+  }
+}
+
 final class QualificationQuizPage extends StatefulWidget {
   const QualificationQuizPage({required this.controller, super.key});
 
@@ -496,13 +581,39 @@ final class QualificationQuizPage extends StatefulWidget {
   State<QualificationQuizPage> createState() => _QualificationQuizPageState();
 }
 
-final class _QualificationQuizPageState extends State<QualificationQuizPage> {
+final class _QualificationQuizPageState extends State<QualificationQuizPage>
+    with WidgetsBindingObserver {
   int? selectedChoice;
+  Timer? _clockTicker;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     selectedChoice = widget.controller.currentResponse;
+    if (widget.controller.hasTimedMockExam) {
+      _clockTicker = Timer.periodic(
+        const Duration(seconds: 1),
+        (_) => _refreshMockExamClock(),
+      );
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) _refreshMockExamClock();
+  }
+
+  void _refreshMockExamClock() {
+    unawaited(widget.controller.completeExpiredMockExamIfNeeded());
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _clockTicker?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -516,11 +627,23 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage> {
     final timeLimit = session.mode == LearningModeV1.mockExam
         ? controller.definition.examProfile?.timeLimitMinutes
         : null;
+    final remaining = controller.remainingMockExamDuration;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          '${session.currentIndex + 1} / ${session.questionIds.length}'
-          '${timeLimit == null ? '' : ' ・ 制限$timeLimit分'}',
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                '${session.currentIndex + 1} / ${session.questionIds.length}'
+                '${timeLimit == null ? '' : ' ・ 制限$timeLimit分'}',
+              ),
+            ),
+            if (remaining != null)
+              Text(
+                _remainingTimeLabel(remaining),
+                key: const Key('mock-exam-remaining'),
+              ),
+          ],
         ),
       ),
       body: SafeArea(
@@ -629,6 +752,10 @@ final class QualificationResultPage extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(pass ? '合格' : '不合格'),
               ],
+              if (result.mode == LearningModeV1.mockExam && pass == null) ...[
+                const SizedBox(height: 8),
+                const Text('参考得点です。合否判定は行いません。', key: Key('mock-no-pass-rule')),
+              ],
               if (controller.modeEnabled(LearningModeV1.retry) &&
                   result.incorrectQuestionIds.isNotEmpty) ...[
                 const SizedBox(height: 16),
@@ -650,6 +777,31 @@ final class QualificationResultPage extends StatelessWidget {
       ),
     );
   }
+}
+
+bool _hasUrl(String? value) => value?.trim().isNotEmpty ?? false;
+
+Future<bool> _launchExternalUrl(Uri url) =>
+    launchUrl(url, mode: LaunchMode.externalApplication);
+
+Future<void> _openExternalUrl(
+  String rawUrl,
+  QualificationExternalUrlLauncher urlLauncher,
+) async {
+  try {
+    final url = Uri.tryParse(rawUrl);
+    if (url == null) return;
+    await urlLauncher(url);
+  } on Object {
+    // An unavailable browser must not disrupt local learning state.
+  }
+}
+
+String _remainingTimeLabel(Duration remaining) {
+  final seconds = remaining.isNegative ? 0 : remaining.inSeconds;
+  final minutes = seconds ~/ 60;
+  final secondsPart = seconds % 60;
+  return '残り $minutes:${secondsPart.toString().padLeft(2, '0')}';
 }
 
 final class _ProductionFailure extends StatelessWidget {
