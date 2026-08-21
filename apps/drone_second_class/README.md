@@ -23,19 +23,24 @@ source bank is the frozen snapshot under
 `question_banks/drone_second_class/validation/formal_snapshot/`; it does not read
 live production authoring.
 
+The validation protocol, bundle, and manifest remain in the repository for V0
+tooling and automated tests, but are intentionally not declared as production
+Flutter assets. After a production iOS build, verify that boundary with:
+
+```bash
+python3 tool/verify_production_asset_bundle.py \
+  --flutter-assets build/ios/iphoneos/Runner.app/Frameworks/App.framework/flutter_assets
+```
+
 To check the copied validation bundle assets from the repository root:
 
 ```bash
 python3 apps/drone_second_class/tool/sync_validation_assets.py --check
 ```
 
-The validation runner still requires an operator-supplied Researcher PIN and
-must never store that PIN in the repository:
-
-```bash
-flutter run -t lib/main_validation.dart \
-  --dart-define=V0P3_RESEARCHER_PIN=<operator-selected-value>
-```
+`main_validation.dart` and its Researcher PIN flow remain historical
+validation-only source. They must not be launched through this production app
+configuration or stored in the production Flutter asset bundle.
 
 Production identity and external URLs are generated from `app.yaml`. Do not
 hand-edit generated manifest files or the synced question-bank asset.

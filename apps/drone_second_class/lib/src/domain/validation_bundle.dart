@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 
 import 'validation_provenance.dart';
 
+typedef ValidationAssetReader = Future<String> Function(String assetKey);
+
 class ValidationQuestion {
   const ValidationQuestion({
     required this.questionId,
@@ -86,16 +88,18 @@ class ValidationBundle {
 }
 
 class ValidationBundleLoader {
-  ValidationBundleLoader({AssetBundle? assetBundle})
-      : assetBundle = assetBundle ?? rootBundle;
+  ValidationBundleLoader({
+    AssetBundle? assetBundle,
+    ValidationAssetReader? assetReader,
+  }) : assetReader = assetReader ?? (assetBundle ?? rootBundle).loadString;
 
-  final AssetBundle assetBundle;
+  final ValidationAssetReader assetReader;
 
   Future<ValidationBundle> load() async {
     final values = await Future.wait<String>(<Future<String>>[
-      assetBundle.loadString('assets/validation/protocol.json'),
-      assetBundle.loadString('assets/validation/validation_bundle.json'),
-      assetBundle.loadString('assets/validation/validation_manifest.json'),
+      assetReader('assets/validation/protocol.json'),
+      assetReader('assets/validation/validation_bundle.json'),
+      assetReader('assets/validation/validation_manifest.json'),
     ]);
     final protocol = (jsonDecode(values[0])! as Map).cast<String, Object?>();
     final bundleJson = (jsonDecode(values[1])! as Map).cast<String, Object?>();

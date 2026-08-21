@@ -26,6 +26,3 @@ flutter:
   uses-material-design: true
   assets:
     - assets/question_bank/drone_second_class_bank.json
-    - assets/validation/protocol.json
-    - assets/validation/validation_bundle.json
-    - assets/validation/validation_manifest.json

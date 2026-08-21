@@ -48,8 +48,8 @@ abstract final class GeneratedAppManifest {
       ExplicitQuestionIdentityV1();
 
   static const String? examProfileVersion = "drone-second-class-v1";
-  static const int? examQuestionCount = 100;
-  static const int? examTimeLimitMinutes = null;
+  static const int? examQuestionCount = 50;
+  static const int? examTimeLimitMinutes = 30;
   static const int? examOverallPassPercent = null;
 
   static const String themeKey = "drone_blue";
@@ -71,9 +71,9 @@ abstract final class GeneratedAppManifest {
         monetization: monetizationDefinition,
         examProfile: MockExamProfileV1(
         profileVersion: "drone-second-class-v1",
-        questionCount: 100,
-        timeLimitMinutes: null,
-        allocations: [ExamUnitAllocationV1(unitId: "drone_operations", questionCount: 22), ExamUnitAllocationV1(unitId: "drone_risk_management", questionCount: 23), ExamUnitAllocationV1(unitId: "drone_rules", questionCount: 26), ExamUnitAllocationV1(unitId: "drone_systems", questionCount: 29)],
+        questionCount: 50,
+        timeLimitMinutes: 30,
+        allocations: [],
         overallPassPercent: null,
         sectionPassRules: [],
         shuffleQuestions: true,
