@@ -11,11 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
   path_provider: ^2.1.5
+  qualification_app:
+    path: ../../packages/qualification_app
   quiz_engine:
     path: ../../packages/quiz_engine
   share_plus: ^11.1.0
-  shared_preferences: ^2.5.3
-  in_app_purchase: ^3.2.3
 
 dev_dependencies:
   flutter_lints: ^6.0.0

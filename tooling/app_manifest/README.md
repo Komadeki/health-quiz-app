@@ -5,6 +5,12 @@ app identity, question-bank, identity-policy, monetization, exam, and branding
 values. Nested app directories are not scanned, and apps never load YAML at
 runtime.
 
+The optional `factory` profile generates a typed
+`QualificationAppDefinition` containing configuration only: qualification
+identity, URLs, bank, purchase/exam behavior, branding, and the learning
+product profile. Health has no `factory` profile and retains its existing
+generated constants.
+
 `question_bank.runtime_path`, `question_bank.manifest_path`, and
 `question_bank.asset_output` are always repository-root-relative paths.
 Generated Dart and native configuration are written under the directory that

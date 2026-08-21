@@ -54,4 +54,45 @@ abstract final class GeneratedAppManifest {
 
   static const String themeKey = "fixture_teal";
   static const String seedColor = "#00695C";
+  static final QualificationAppDefinition definition =
+      QualificationAppDefinition(
+        appKey: appKey,
+        displayName: displayName,
+        publisher: publisher,
+        brandName: brandName,
+        legalese: legalese,
+        urls: const QualificationUrls(
+          support: supportUrl,
+          privacy: privacyUrl,
+          marketing: marketingUrl,
+        ),
+        questionBankAsset: "assets/question_bank/qualification_fixture_bank.json",
+        questionIdentityPolicy: questionIdentityPolicy,
+        monetization: monetizationDefinition,
+        examProfile: MockExamProfileV1(
+        profileVersion: "fixture-exam-v1",
+        questionCount: 2,
+        timeLimitMinutes: null,
+        allocations: [ExamUnitAllocationV1(unitId: "fixture_operations", questionCount: 1), ExamUnitAllocationV1(unitId: "fixture_safety", questionCount: 1)],
+        overallPassPercent: null,
+        sectionPassRules: [],
+        shuffleQuestions: true,
+      ),
+        branding: const QualificationBranding(
+          themeKey: themeKey,
+          seedColorHex: seedColor,
+        ),
+        learningProduct: const LearningProductProfileV1(
+          appVersion: "0.1.0",
+          homeHeadline: "架空資格のFactory検証",
+          sourceLabel: "架空資格のための独自作成資料",
+          enabledModes: {LearningModeV1.unitPractice, LearningModeV1.randomPractice, LearningModeV1.unansweredPractice, LearningModeV1.incorrectPractice, LearningModeV1.retry, LearningModeV1.mockExam},
+          practiceQuestionCount: 2,
+          recentWindowSize: 5,
+          progressEnabled: true,
+          historyEnabled: true,
+          weaknessEnabled: true,
+          recommendationEnabled: true,
+        ),
+      );
 }

@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  qualification_app:
+    path: ../../packages/qualification_app
   quiz_engine:
     path: ../../packages/quiz_engine
 

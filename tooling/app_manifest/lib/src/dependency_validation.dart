@@ -62,6 +62,12 @@ void validateDependencyBoundaries(
     packageNames,
     result,
   );
+  _validateQualificationApp(
+    repositoryRoot,
+    appRoots,
+    packageNames,
+    result,
+  );
 }
 
 void _validateAppPubspec(
@@ -88,6 +94,24 @@ void _validateAppPubspec(
     );
   }
 
+  if (app.factory != null) {
+    final qualificationApp = _stringMap(dependencies?['qualification_app']);
+    final qualificationAppPath = qualificationApp?['path'];
+    final expected = p.normalize(
+      p.join(repositoryRoot.path, 'packages', 'qualification_app'),
+    );
+    final resolved = qualificationAppPath is String
+        ? p.normalize(p.join(appRoots[app]!, qualificationAppPath))
+        : null;
+    if (resolved == null || !p.equals(resolved, expected)) {
+      result.error(
+        'invalid_qualification_app_path_dependency',
+        'Factory apps must depend on packages/qualification_app.',
+        app.appPath('pubspec.yaml'),
+      );
+    }
+  }
+
   for (final sectionName in ['dependencies', 'dev_dependencies']) {
     final section = _stringMap(pubspec[sectionName]);
     if (section == null) continue;
@@ -108,6 +132,63 @@ void _validateAppPubspec(
       }
     }
   }
+}
+
+void _validateQualificationApp(
+  Directory repositoryRoot,
+  Map<AppManifest, String> appRoots,
+  Map<AppManifest, String> packageNames,
+  ManifestValidationResult result,
+) {
+  final packageRoot =
+      p.join(repositoryRoot.path, 'packages', 'qualification_app');
+  final pubspec = File(p.join(packageRoot, 'pubspec.yaml'));
+  final decoded = _readYamlMap(pubspec, repositoryRoot, result);
+  if (decoded != null) {
+    final dependencies = _stringMap(decoded['dependencies']);
+    final quizEngine = _stringMap(dependencies?['quiz_engine']);
+    final dependencyPath = quizEngine?['path'];
+    final resolved = dependencyPath is String
+        ? p.normalize(p.join(packageRoot, dependencyPath))
+        : null;
+    final expected =
+        p.normalize(p.join(repositoryRoot.path, 'packages', 'quiz_engine'));
+    if (resolved == null || !p.equals(resolved, expected)) {
+      result.error(
+        'invalid_factory_quiz_engine_dependency',
+        'qualification_app must depend on packages/quiz_engine.',
+        p.relative(pubspec.path, from: repositoryRoot.path),
+      );
+    }
+    for (final sectionName in ['dependencies', 'dev_dependencies']) {
+      final section = _stringMap(decoded[sectionName]);
+      if (section == null) continue;
+      for (final entry in section.entries) {
+        final dependency = _stringMap(entry.value);
+        final path = dependency?['path'];
+        if (path is! String) continue;
+        final dependencyRoot = p.normalize(p.join(packageRoot, path));
+        if (appRoots.values
+            .any((root) => _isAtOrWithin(dependencyRoot, root))) {
+          result.error(
+            'qualification_app_app_path_dependency',
+            'qualification_app must not depend on apps/*.',
+            p.relative(pubspec.path, from: repositoryRoot.path),
+          );
+        }
+      }
+    }
+  }
+
+  _validateDartImports(
+    repositoryRoot: repositoryRoot,
+    sourceRoot: Directory(p.join(packageRoot, 'lib')),
+    owner: null,
+    appRoots: appRoots,
+    packageNames: packageNames,
+    result: result,
+    sharedPackageName: 'qualification_app',
+  );
 }
 
 void _validateQuizEngine(
@@ -156,6 +237,7 @@ void _validateDartImports({
   required Map<AppManifest, String> appRoots,
   required Map<AppManifest, String> packageNames,
   required ManifestValidationResult result,
+  String sharedPackageName = 'quiz_engine',
 }) {
   if (!sourceRoot.existsSync()) return;
   final directive = RegExp(
@@ -170,7 +252,14 @@ void _validateDartImports({
         final packageName = uri.substring('package:'.length).split('/').first;
         for (final entry in packageNames.entries) {
           if (entry.key != owner && entry.value == packageName) {
-            _reportAppImport(repositoryRoot, entity, owner, entry.key, result);
+            _reportAppImport(
+              repositoryRoot,
+              entity,
+              owner,
+              entry.key,
+              result,
+              sharedPackageName,
+            );
           }
         }
         continue;
@@ -179,7 +268,14 @@ void _validateDartImports({
       final resolved = p.normalize(p.join(entity.parent.path, uri));
       for (final entry in appRoots.entries) {
         if (entry.key != owner && _isAtOrWithin(resolved, entry.value)) {
-          _reportAppImport(repositoryRoot, entity, owner, entry.key, result);
+          _reportAppImport(
+            repositoryRoot,
+            entity,
+            owner,
+            entry.key,
+            result,
+            sharedPackageName,
+          );
         }
       }
     }
@@ -192,11 +288,12 @@ void _reportAppImport(
   AppManifest? owner,
   AppManifest dependency,
   ManifestValidationResult result,
+  String sharedPackageName,
 ) {
   result.error(
-    owner == null ? 'quiz_engine_app_import' : 'app_to_app_import',
+    owner == null ? '${sharedPackageName}_app_import' : 'app_to_app_import',
     owner == null
-        ? 'quiz_engine must not import ${dependency.appKey}.'
+        ? '$sharedPackageName must not import ${dependency.appKey}.'
         : '${owner.appKey} must not import ${dependency.appKey}.',
     p.relative(source.path, from: repositoryRoot.path),
   );

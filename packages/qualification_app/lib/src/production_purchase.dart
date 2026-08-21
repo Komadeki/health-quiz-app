@@ -2,22 +2,23 @@ import 'dart:async';
 
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:quiz_engine/quiz_engine.dart' as engine;
+import 'package:shared_preferences/shared_preferences.dart';
 
-abstract interface class DronePurchaseGateway
+abstract interface class LifecyclePurchaseGateway
     implements engine.PurchaseGateway {
   void startListening();
   Future<void> dispose();
 }
 
-final class StoreDronePurchaseGateway implements DronePurchaseGateway {
-  StoreDronePurchaseGateway({InAppPurchase? inAppPurchase})
+final class StorePurchaseGateway implements LifecyclePurchaseGateway {
+  StorePurchaseGateway({InAppPurchase? inAppPurchase})
       : _inAppPurchase = inAppPurchase ?? InAppPurchase.instance;
 
   final InAppPurchase _inAppPurchase;
   final _results = StreamController<engine.PurchaseResult>.broadcast();
   final _pendingCompletions = <String, PurchaseDetails>{};
-  StreamSubscription<List<PurchaseDetails>>? _subscription;
   final _products = <String, ProductDetails>{};
+  StreamSubscription<List<PurchaseDetails>>? _subscription;
   var _nextEventId = 0;
 
   @override
@@ -43,7 +44,8 @@ final class StoreDronePurchaseGateway implements DronePurchaseGateway {
 
   @override
   Future<engine.ProductQueryResult> queryProducts(
-      Set<String> productIds) async {
+    Set<String> productIds,
+  ) async {
     if (!await _inAppPurchase.isAvailable()) {
       return engine.ProductQueryResult(storeAvailable: false);
     }
@@ -113,7 +115,7 @@ final class StoreDronePurchaseGateway implements DronePurchaseGateway {
     }
   }
 
-  String _newEventId() => 'drone-store-${_nextEventId++}';
+  String _newEventId() => 'qualification-store-${_nextEventId++}';
 
   static engine.PurchaseResultStatus _statusOf(PurchaseStatus status) {
     return switch (status) {
@@ -124,4 +126,49 @@ final class StoreDronePurchaseGateway implements DronePurchaseGateway {
       PurchaseStatus.error => engine.PurchaseResultStatus.error,
     };
   }
+}
+
+final class SharedPreferencesFullUnlockEntitlementCache
+    implements engine.EntitlementCache {
+  const SharedPreferencesFullUnlockEntitlementCache({
+    required this.appKey,
+    required this.productId,
+  });
+
+  final String appKey;
+  final String productId;
+
+  String get _key => 'qualification_factory.$appKey.full_unlock.v1';
+
+  @override
+  Future<engine.EntitlementSnapshot> load() async {
+    final unlocked =
+        (await SharedPreferences.getInstance()).getBool(_key) ?? false;
+    return engine.EntitlementSnapshot(
+      ownedProductIds: unlocked ? {productId} : const <String>{},
+    );
+  }
+
+  @override
+  Future<engine.EntitlementSnapshot> merge(
+    engine.EntitlementSnapshot additions,
+  ) async {
+    if (additions.ownedProductIds.contains(productId)) {
+      await (await SharedPreferences.getInstance()).setBool(_key, true);
+    }
+    return load();
+  }
+}
+
+final class MemoryEntitlementCache implements engine.EntitlementCache {
+  engine.EntitlementSnapshot value = engine.EntitlementSnapshot();
+
+  @override
+  Future<engine.EntitlementSnapshot> load() async => value;
+
+  @override
+  Future<engine.EntitlementSnapshot> merge(
+    engine.EntitlementSnapshot additions,
+  ) async =>
+      value = value.mergedWith(additions);
 }

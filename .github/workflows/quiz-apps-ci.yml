@@ -15,8 +15,7 @@ jobs:
     outputs:
       shared: ${{ steps.scope.outputs.shared }}
       health: ${{ steps.scope.outputs.health }}
-      fixture: ${{ steps.scope.outputs.fixture }}
-      drone: ${{ steps.scope.outputs.drone }}
+      qualification_apps: ${{ steps.scope.outputs.qualification_apps }}
       docs_only: ${{ steps.scope.outputs.docs_only }}
       reason: ${{ steps.scope.outputs.reason }}
 
@@ -99,35 +98,9 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: tooling/ci/check_health.sh
 
-  fixture-checks:
+  qualification-app-checks:
     needs: scope
-    if: needs.scope.outputs.fixture == 'true'
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Flutter stable
-        run: |
-          git clone --depth 1 --branch stable \
-            https://github.com/flutter/flutter.git "$HOME/flutter"
-          echo "$HOME/flutter/bin" >> "$GITHUB_PATH"
-
-      - name: Flutter version
-        run: flutter --version
-
-      - name: Validate manifests for app-only change
-        if: needs.scope.outputs.shared != 'true'
-        run: tooling/ci/check_manifest.sh
-
-      - name: Run fixture checks
-        run: tooling/ci/check_fixture.sh
-
-  drone-checks:
-    needs: scope
-    if: needs.scope.outputs.drone == 'true'
+    if: needs.scope.outputs.qualification_apps == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -148,11 +121,11 @@ jobs:
         if: needs.scope.outputs.shared != 'true'
         run: tooling/ci/check_manifest.sh
 
-      - name: Run drone V0 Panel checks
-        run: tooling/ci/check_drone.sh
+      - name: Run discovered qualification app checks
+        run: tooling/ci/check_qualification_apps.sh
 
   ci-gate:
-    needs: [scope, shared-checks, health-checks, fixture-checks, drone-checks]
+    needs: [scope, shared-checks, health-checks, qualification-app-checks]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -166,10 +139,8 @@ jobs:
           SHARED_RESULT: ${{ needs.shared-checks.result }}
           EXPECT_HEALTH: ${{ needs.scope.outputs.health }}
           HEALTH_RESULT: ${{ needs.health-checks.result }}
-          EXPECT_FIXTURE: ${{ needs.scope.outputs.fixture }}
-          FIXTURE_RESULT: ${{ needs.fixture-checks.result }}
-          EXPECT_DRONE: ${{ needs.scope.outputs.drone }}
-          DRONE_RESULT: ${{ needs.drone-checks.result }}
+          EXPECT_QUALIFICATION_APPS: ${{ needs.scope.outputs.qualification_apps }}
+          QUALIFICATION_APPS_RESULT: ${{ needs.qualification-app-checks.result }}
         run: |
           if [[ "$SCOPE_RESULT" != "success" ]]; then
             echo "scope failed: $SCOPE_RESULT" >&2
@@ -193,6 +164,6 @@ jobs:
 
           verify_result "$EXPECT_SHARED" "$SHARED_RESULT" shared-checks
           verify_result "$EXPECT_HEALTH" "$HEALTH_RESULT" health-checks
-          verify_result "$EXPECT_FIXTURE" "$FIXTURE_RESULT" fixture-checks
-          verify_result "$EXPECT_DRONE" "$DRONE_RESULT" drone-checks
+          verify_result "$EXPECT_QUALIFICATION_APPS" \
+            "$QUALIFICATION_APPS_RESULT" qualification-app-checks
           echo "All required CI scopes passed."

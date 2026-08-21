@@ -90,6 +90,7 @@ void validateQuestionBank(
     result,
     manifest.questionBank.runtimePath,
   );
+  final unitCounts = _runtimeUnitCounts(runtimeJson);
   if (bankManifest['question_count'] != cards.length ||
       (manifest.exam.questionCount != null &&
           manifest.exam.questionCount != cards.length)) {
@@ -98,6 +99,26 @@ void validateQuestionBank(
       'Runtime, bank manifest, and app exam question counts must match.',
       manifest.sourcePath,
     );
+  }
+  for (final allocation in manifest.exam.allocations) {
+    final actual = unitCounts[allocation.unitId];
+    if (actual == null || actual < allocation.questionCount) {
+      result.error(
+        'exam_allocation_not_satisfied',
+        'Exam allocation ${allocation.unitId} requires '
+            '${allocation.questionCount} questions, found ${actual ?? 0}.',
+        manifest.sourcePath,
+      );
+    }
+  }
+  for (final rule in manifest.exam.sectionPassRules) {
+    if (!unitCounts.containsKey(rule.unitId)) {
+      result.error(
+        'section_pass_unit_missing',
+        'Section pass rule unit does not exist: ${rule.unitId}.',
+        manifest.sourcePath,
+      );
+    }
   }
   final ids = <String>{};
   for (final card in cards) {
@@ -140,6 +161,22 @@ void validateQuestionBank(
       );
     }
   }
+}
+
+Map<String, int> _runtimeUnitCounts(Map<String, Object?> runtime) {
+  final result = <String, int>{};
+  final decks = runtime['decks'];
+  if (decks is! List<Object?>) return result;
+  for (final deck in decks.whereType<Map<String, Object?>>()) {
+    final units = deck['units'];
+    if (units is! List<Object?>) continue;
+    for (final unit in units.whereType<Map<String, Object?>>()) {
+      final id = unit['id'];
+      final cards = unit['cards'];
+      if (id is String && cards is List<Object?>) result[id] = cards.length;
+    }
+  }
+  return result;
 }
 
 Map<String, Object?>? _readJsonMap(

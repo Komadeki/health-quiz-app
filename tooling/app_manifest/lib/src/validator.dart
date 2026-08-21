@@ -136,6 +136,7 @@ void validateManifestSemantics(
   _validateQuestionConfiguration(manifest, result);
   _validateProducts(manifest, result);
   _validateExamAndBranding(manifest, result);
+  _validateFactory(manifest, result);
 }
 
 void validateUniqueIdentities(
@@ -170,9 +171,7 @@ void _validatePlatformIdentifiers(
   ManifestValidationResult result,
 ) {
   final location = manifest.sourcePath;
-  final appleIdentifier = RegExp(
-    r'^[A-Za-z][A-Za-z0-9-]*(\.[A-Za-z0-9-]+)+$',
-  );
+  final appleIdentifier = RegExp(r'^[A-Za-z][A-Za-z0-9-]*(\.[A-Za-z0-9-]+)+$');
   if (!appleIdentifier.hasMatch(manifest.ios.identifier)) {
     result.error(
       'invalid_ios_bundle_id',
@@ -192,10 +191,7 @@ void _validatePlatformIdentifiers(
   }
 }
 
-void _validateUrls(
-  AppManifest manifest,
-  ManifestValidationResult result,
-) {
+void _validateUrls(AppManifest manifest, ManifestValidationResult result) {
   for (final entry in {
     'support': manifest.urls.support,
     'privacy': manifest.urls.privacy,
@@ -219,8 +215,10 @@ void _validateQuestionConfiguration(
   ManifestValidationResult result,
 ) {
   final location = manifest.sourcePath;
-  if (!{'legacy_hash_v1', 'explicit_v1'}
-      .contains(manifest.questionIdentityPolicy)) {
+  if (!{
+    'legacy_hash_v1',
+    'explicit_v1',
+  }.contains(manifest.questionIdentityPolicy)) {
     result.error(
       'unsupported_question_identity_policy',
       'Unsupported question identity policy: '
@@ -228,8 +226,10 @@ void _validateQuestionConfiguration(
       location,
     );
   }
-  if (!{'legacy_assets_v1', 'qualification_runtime_v2'}
-      .contains(manifest.questionBank.format)) {
+  if (!{
+    'legacy_assets_v1',
+    'qualification_runtime_v2',
+  }.contains(manifest.questionBank.format)) {
     result.error(
       'unsupported_question_bank_format',
       'Unsupported question-bank format: ${manifest.questionBank.format}',
@@ -268,10 +268,7 @@ void _validateQuestionConfiguration(
   }
 }
 
-void _validateProducts(
-  AppManifest manifest,
-  ManifestValidationResult result,
-) {
+void _validateProducts(AppManifest manifest, ManifestValidationResult result) {
   final products = manifest.monetization.products;
   final productIds = products.productIds.toList();
   if (productIds.toSet().length != productIds.length) {
@@ -360,6 +357,125 @@ void _validateExamAndBranding(
     result.error(
       'invalid_overall_pass_percent',
       'exam.overall_pass_percent must be between 1 and 100.',
+      manifest.sourcePath,
+    );
+  }
+  final timeLimit = manifest.exam.timeLimitMinutes;
+  if (timeLimit != null && timeLimit < 1) {
+    result.error(
+      'invalid_exam_time_limit',
+      'exam.time_limit_minutes must be positive when set.',
+      manifest.sourcePath,
+    );
+  }
+  final allocations = manifest.exam.allocations;
+  final allocationIds = allocations.map((item) => item.unitId).toList();
+  if (allocationIds.toSet().length != allocationIds.length) {
+    result.error(
+      'duplicate_exam_allocation',
+      'exam.allocations unit_id values must be unique.',
+      manifest.sourcePath,
+    );
+  }
+  if (allocations.any((item) => item.questionCount < 1)) {
+    result.error(
+      'invalid_exam_allocation_count',
+      'exam allocation question_count must be positive.',
+      manifest.sourcePath,
+    );
+  }
+  final questionCount = manifest.exam.questionCount;
+  if (allocations.isNotEmpty &&
+      questionCount != null &&
+      allocations.fold<int>(0, (sum, item) => sum + item.questionCount) !=
+          questionCount) {
+    result.error(
+      'exam_allocation_total_mismatch',
+      'exam allocations must sum to exam.question_count.',
+      manifest.sourcePath,
+    );
+  }
+  final rules = manifest.exam.sectionPassRules;
+  final ruleIds = rules.map((item) => item.unitId).toList();
+  if (ruleIds.toSet().length != ruleIds.length) {
+    result.error(
+      'duplicate_section_pass_rule',
+      'exam.section_pass_rules unit_id values must be unique.',
+      manifest.sourcePath,
+    );
+  }
+  if (rules.any(
+    (rule) => rule.minimumPercent < 1 || rule.minimumPercent > 100,
+  )) {
+    result.error(
+      'invalid_section_pass_percent',
+      'Section minimum_percent must be between 1 and 100.',
+      manifest.sourcePath,
+    );
+  }
+}
+
+void _validateFactory(AppManifest manifest, ManifestValidationResult result) {
+  final factory = manifest.factory;
+  if (factory == null) return;
+  const supportedModes = {
+    'unit_practice',
+    'random_practice',
+    'unanswered_practice',
+    'incorrect_practice',
+    'retry',
+    'mock_exam',
+  };
+  if (manifest.monetization.architecture != 'singleFullUnlock') {
+    result.error(
+      'factory_monetization_not_supported',
+      'Factory v1 requires singleFullUnlock.',
+      manifest.sourcePath,
+    );
+  }
+  if (manifest.questionBank.format != 'qualification_runtime_v2' ||
+      manifest.questionBank.assetOutput == null) {
+    result.error(
+      'factory_question_bank_not_supported',
+      'Factory v1 requires a generated qualification_runtime_v2 asset.',
+      manifest.sourcePath,
+    );
+  }
+  if (factory.enabledModes.toSet().length != factory.enabledModes.length ||
+      factory.enabledModes.any((mode) => !supportedModes.contains(mode))) {
+    result.error(
+      'invalid_factory_learning_modes',
+      'factory.enabled_modes must contain unique supported modes.',
+      manifest.sourcePath,
+    );
+  }
+  if (!factory.enabledModes.contains('unit_practice')) {
+    result.error(
+      'missing_factory_unit_practice',
+      'Factory v1 requires unit_practice.',
+      manifest.sourcePath,
+    );
+  }
+  if (factory.enabledModes.contains('mock_exam') &&
+      (manifest.exam.profileVersion == null ||
+          manifest.exam.questionCount == null)) {
+    result.error(
+      'mock_exam_profile_missing',
+      'mock_exam requires profile_version and question_count.',
+      manifest.sourcePath,
+    );
+  }
+  if (factory.practiceQuestionCount < 1 || factory.recentWindowSize < 1) {
+    result.error(
+      'invalid_factory_learning_window',
+      'Factory practice count and recent window must be positive.',
+      manifest.sourcePath,
+    );
+  }
+  if (factory.recommendationEnabled && !factory.weaknessEnabled) {
+    result.error(
+      'recommendation_requires_weakness',
+      'Factory recommendation requires the weakness baseline.',
       manifest.sourcePath,
     );
   }

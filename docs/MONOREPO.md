@@ -9,12 +9,14 @@ repository-wide.
 
 ```text
 apps/*
+  -> packages/qualification_app
   -> packages/quiz_engine
 ```
 
-App-to-app imports and path dependencies are forbidden. `quiz_engine` must not
-depend on any app. Moving an app does not justify extracting its widgets or
-product behavior into another shared package.
+App-to-app imports and path dependencies are forbidden. Shared packages must
+not depend on any app. Factory apps use `qualification_app`, which owns the
+Flutter/device production shell and depends on the UI-independent
+`quiz_engine` contracts.
 
 ## App and path discovery
 
@@ -48,9 +50,10 @@ An optional `asset_output` is byte-for-byte copied from its root-relative
 runtime bank. Native Xcode projects remain hand-maintained; the generator does
 not rewrite `project.pbxproj`.
 
-## Shared-engine freeze
+## Shared Factory boundary
 
-After Phase 2F, adding a qualification app does not normally require changing
-`quiz_engine`. Change the shared engine only after a requirement is proven to
-be common to multiple applications. Qualification-specific UI and product
-behavior stay in that app.
+Adding a qualification app does not require a new learning, progress,
+persistence, practice, mock-exam, or purchase architecture. Change shared
+contracts only for a proven reusable requirement. Qualification-specific exam
+rules, terminology, source presentation, branding, and defensible product UX
+remain configuration or thin composition.

@@ -1,4 +1,14 @@
 export 'src/identity/question_identity_policy.dart';
+export 'src/factory/learning_event.dart';
+export 'src/factory/learning_repository.dart';
+export 'src/factory/mock_exam.dart';
+export 'src/factory/practice_engine.dart';
+export 'src/factory/prediction.dart';
+export 'src/factory/progress.dart';
+export 'src/factory/qualification_app_definition.dart';
+export 'src/factory/qualification_session.dart';
+export 'src/factory/recommendation.dart';
+export 'src/factory/weakness.dart';
 export 'src/monetization/entitlement.dart';
 export 'src/monetization/monetization_definition.dart';
 export 'src/monetization/product_catalog.dart';

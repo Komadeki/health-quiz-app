@@ -13,8 +13,10 @@ final class ManifestFormatException implements Exception {
 }
 
 final class NativePlatformManifest {
-  const NativePlatformManifest(
-      {required this.identifier, required this.displayName});
+  const NativePlatformManifest({
+    required this.identifier,
+    required this.displayName,
+  });
 
   final String identifier;
   final String displayName;
@@ -82,8 +84,10 @@ final class ProductManifest {
 }
 
 final class MonetizationManifest {
-  const MonetizationManifest(
-      {required this.architecture, required this.products});
+  const MonetizationManifest({
+    required this.architecture,
+    required this.products,
+  });
 
   final String architecture;
   final ProductManifest products;
@@ -95,12 +99,38 @@ final class ExamManifest {
     required this.questionCount,
     required this.timeLimitMinutes,
     required this.overallPassPercent,
+    required this.allocations,
+    required this.sectionPassRules,
+    required this.shuffleQuestions,
   });
 
   final String? profileVersion;
   final int? questionCount;
   final int? timeLimitMinutes;
   final int? overallPassPercent;
+  final List<ExamAllocationManifest> allocations;
+  final List<ExamSectionPassRuleManifest> sectionPassRules;
+  final bool shuffleQuestions;
+}
+
+final class ExamAllocationManifest {
+  const ExamAllocationManifest({
+    required this.unitId,
+    required this.questionCount,
+  });
+
+  final String unitId;
+  final int questionCount;
+}
+
+final class ExamSectionPassRuleManifest {
+  const ExamSectionPassRuleManifest({
+    required this.unitId,
+    required this.minimumPercent,
+  });
+
+  final String unitId;
+  final int minimumPercent;
 }
 
 final class BrandingManifest {
@@ -108,6 +138,32 @@ final class BrandingManifest {
 
   final String themeKey;
   final String seedColor;
+}
+
+final class FactoryManifest {
+  const FactoryManifest({
+    required this.appVersion,
+    required this.homeHeadline,
+    required this.sourceLabel,
+    required this.enabledModes,
+    required this.practiceQuestionCount,
+    required this.recentWindowSize,
+    required this.progressEnabled,
+    required this.historyEnabled,
+    required this.weaknessEnabled,
+    required this.recommendationEnabled,
+  });
+
+  final String appVersion;
+  final String homeHeadline;
+  final String sourceLabel;
+  final List<String> enabledModes;
+  final int practiceQuestionCount;
+  final int recentWindowSize;
+  final bool progressEnabled;
+  final bool historyEnabled;
+  final bool weaknessEnabled;
+  final bool recommendationEnabled;
 }
 
 final class AppManifest {
@@ -130,6 +186,7 @@ final class AppManifest {
     required this.monetization,
     required this.exam,
     required this.branding,
+    required this.factory,
   });
 
   factory AppManifest.fromFile(File file, Directory repositoryRoot) {
@@ -154,6 +211,8 @@ final class AppManifest {
     final products = _requiredMap(monetization, 'products');
     final exam = _requiredMap(map, 'exam');
     final branding = _requiredMap(map, 'branding');
+    final factory =
+        map['factory'] == null ? null : _requiredMap(map, 'factory');
 
     _rejectUnknownKeys(
         map,
@@ -173,32 +232,42 @@ final class AppManifest {
           'monetization',
           'exam',
           'branding',
+          'factory',
         },
         'app.yaml');
     _rejectUnknownKeys(platforms, const {'ios', 'android'}, 'platforms');
     _rejectUnknownKeys(
-        ios, const {'bundle_id', 'display_name'}, 'platforms.ios');
+        ios,
+        const {
+          'bundle_id',
+          'display_name',
+        },
+        'platforms.ios');
     _rejectUnknownKeys(
-      android,
-      const {'application_id', 'display_name'},
-      'platforms.android',
-    );
-    _rejectUnknownKeys(
-      urls,
-      const {'support', 'privacy', 'marketing'},
-      'urls',
-    );
+        android,
+        const {
+          'application_id',
+          'display_name',
+        },
+        'platforms.android');
+    _rejectUnknownKeys(urls, const {'support', 'privacy', 'marketing'}, 'urls');
     _rejectUnknownKeys(questionIdentity, const {'policy'}, 'question_identity');
     _rejectUnknownKeys(
-      questionBank,
-      const {'format', 'runtime_path', 'manifest_path', 'asset_output'},
-      'question_bank',
-    );
+        questionBank,
+        const {
+          'format',
+          'runtime_path',
+          'manifest_path',
+          'asset_output',
+        },
+        'question_bank');
     _rejectUnknownKeys(
-      monetization,
-      const {'architecture', 'products'},
-      'monetization',
-    );
+        monetization,
+        const {
+          'architecture',
+          'products',
+        },
+        'monetization');
     _rejectUnknownKeys(
         products,
         const {
@@ -216,13 +285,29 @@ final class AppManifest {
           'question_count',
           'time_limit_minutes',
           'overall_pass_percent',
+          'allocations',
+          'section_pass_rules',
+          'shuffle_questions',
         },
         'exam');
-    _rejectUnknownKeys(
-      branding,
-      const {'theme_key', 'seed_color'},
-      'branding',
-    );
+    _rejectUnknownKeys(branding, const {'theme_key', 'seed_color'}, 'branding');
+    if (factory != null) {
+      _rejectUnknownKeys(
+          factory,
+          const {
+            'app_version',
+            'home_headline',
+            'source_label',
+            'enabled_modes',
+            'practice_question_count',
+            'recent_window_size',
+            'progress_enabled',
+            'history_enabled',
+            'weakness_enabled',
+            'recommendation_enabled',
+          },
+          'factory');
+    }
 
     final deckProducts = <DeckProductManifest>[];
     final rawDecks = products['decks'];
@@ -233,14 +318,17 @@ final class AppManifest {
       for (final rawDeck in rawDecks as Iterable<Object?>) {
         if (rawDeck is! Map) {
           throw const ManifestFormatException(
-              'Each deck product must be a map.');
+            'Each deck product must be a map.',
+          );
         }
         final deck = _stringMap(rawDeck, 'products.decks');
         _rejectUnknownKeys(
-          deck,
-          const {'deck_id', 'product_id'},
-          'products.decks',
-        );
+            deck,
+            const {
+              'deck_id',
+              'product_id',
+            },
+            'products.decks');
         deckProducts.add(
           DeckProductManifest(
             deckId: _requiredString(deck, 'deck_id'),
@@ -248,6 +336,51 @@ final class AppManifest {
           ),
         );
       }
+    }
+
+    final allocations = <ExamAllocationManifest>[];
+    for (final raw in _optionalList(exam, 'allocations')) {
+      if (raw is! Map) {
+        throw const ManifestFormatException(
+          'exam.allocations must contain maps.',
+        );
+      }
+      final allocation = _stringMap(raw, 'exam.allocations');
+      _rejectUnknownKeys(
+          allocation,
+          const {
+            'unit_id',
+            'question_count',
+          },
+          'exam.allocations');
+      allocations.add(
+        ExamAllocationManifest(
+          unitId: _requiredString(allocation, 'unit_id'),
+          questionCount: _requiredInt(allocation, 'question_count'),
+        ),
+      );
+    }
+    final sectionPassRules = <ExamSectionPassRuleManifest>[];
+    for (final raw in _optionalList(exam, 'section_pass_rules')) {
+      if (raw is! Map) {
+        throw const ManifestFormatException(
+          'exam.section_pass_rules must contain maps.',
+        );
+      }
+      final rule = _stringMap(raw, 'exam.section_pass_rules');
+      _rejectUnknownKeys(
+          rule,
+          const {
+            'unit_id',
+            'minimum_percent',
+          },
+          'exam.section_pass_rules');
+      sectionPassRules.add(
+        ExamSectionPassRuleManifest(
+          unitId: _requiredString(rule, 'unit_id'),
+          minimumPercent: _requiredInt(rule, 'minimum_percent'),
+        ),
+      );
     }
 
     final relativeSource = p.relative(file.path, from: repositoryRoot.path);
@@ -288,8 +421,10 @@ final class AppManifest {
         products: ProductManifest(
           decks: List.unmodifiable(deckProducts),
           bundle5ProductId: _optionalString(products, 'bundle5_product_id'),
-          bundleAllProductId:
-              _optionalString(products, 'bundle_all_product_id'),
+          bundleAllProductId: _optionalString(
+            products,
+            'bundle_all_product_id',
+          ),
           proProductId: _optionalString(products, 'pro_product_id'),
           fullUnlockProductId: _optionalString(
             products,
@@ -302,11 +437,36 @@ final class AppManifest {
         questionCount: _nullableInt(exam, 'question_count'),
         timeLimitMinutes: _nullableInt(exam, 'time_limit_minutes'),
         overallPassPercent: _nullableInt(exam, 'overall_pass_percent'),
+        allocations: List.unmodifiable(allocations),
+        sectionPassRules: List.unmodifiable(sectionPassRules),
+        shuffleQuestions: _optionalBool(exam, 'shuffle_questions') ?? false,
       ),
       branding: BrandingManifest(
         themeKey: _requiredString(branding, 'theme_key'),
         seedColor: _requiredString(branding, 'seed_color'),
       ),
+      factory: factory == null
+          ? null
+          : FactoryManifest(
+              appVersion: _requiredString(factory, 'app_version'),
+              homeHeadline: _requiredString(factory, 'home_headline'),
+              sourceLabel: _requiredString(factory, 'source_label'),
+              enabledModes: List.unmodifiable(
+                _requiredStringList(factory, 'enabled_modes'),
+              ),
+              practiceQuestionCount: _requiredInt(
+                factory,
+                'practice_question_count',
+              ),
+              recentWindowSize: _requiredInt(factory, 'recent_window_size'),
+              progressEnabled: _requiredBool(factory, 'progress_enabled'),
+              historyEnabled: _requiredBool(factory, 'history_enabled'),
+              weaknessEnabled: _requiredBool(factory, 'weakness_enabled'),
+              recommendationEnabled: _requiredBool(
+                factory,
+                'recommendation_enabled',
+              ),
+            ),
     );
   }
 
@@ -328,6 +488,7 @@ final class AppManifest {
   final MonetizationManifest monetization;
   final ExamManifest exam;
   final BrandingManifest branding;
+  final FactoryManifest? factory;
 
   String appPath(String relativePath) =>
       appDirectory == '.' ? relativePath : p.join(appDirectory, relativePath);
@@ -396,6 +557,43 @@ int? _nullableInt(Map<String, Object?> map, String key) {
     throw ManifestFormatException('$key must be an integer or null.');
   }
   return value;
+}
+
+List<Object?> _optionalList(Map<String, Object?> map, String key) {
+  final value = map[key];
+  if (value == null) return const [];
+  if (value is! Iterable<Object?>) {
+    throw ManifestFormatException('$key must be a list.');
+  }
+  return List<Object?>.from(value);
+}
+
+List<String> _requiredStringList(Map<String, Object?> map, String key) {
+  final values = _optionalList(map, key);
+  if (!map.containsKey(key) || values.isEmpty) {
+    throw ManifestFormatException('$key must be a non-empty string list.');
+  }
+  final result = <String>[];
+  for (final value in values) {
+    if (value is! String || value.trim().isEmpty) {
+      throw ManifestFormatException('$key must contain non-empty strings.');
+    }
+    result.add(value.trim());
+  }
+  return result;
+}
+
+bool _requiredBool(Map<String, Object?> map, String key) {
+  final value = map[key];
+  if (value is! bool) {
+    throw ManifestFormatException('$key must be a boolean.');
+  }
+  return value;
+}
+
+bool? _optionalBool(Map<String, Object?> map, String key) {
+  if (!map.containsKey(key)) return null;
+  return _requiredBool(map, key);
 }
 
 void _rejectUnknownKeys(
