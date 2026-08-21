@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "verifications": [
+    {
+      "question_id": "FIXTURE-Q-000001",
+      "source_id": "FIXTURE-SRC-001",
+      "source_version": "2026.1",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-01"
+    },
+    {
+      "question_id": "FIXTURE-Q-000002",
+      "source_id": "FIXTURE-SRC-001",
+      "source_version": "2026.1",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-01"
+    }
+  ]
+}

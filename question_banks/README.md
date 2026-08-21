@@ -5,7 +5,8 @@ unchanged. New
 qualification banks use a separate authoring and generation contract:
 
 ```text
-questions.csv + bank.json + sources.json + ID/release registries
+questions.csv + bank.json + sources.json + coverage.json + source verifications
+  + ID/release registries
   -> validate.py
   -> generate.py
   -> runtime bank JSON + bank manifest
@@ -38,6 +39,12 @@ row is a tombstone. `released_questions.json` freezes released answer contracts
 and choice snapshots. Changing `correct_choice` under the same ID fails;
 changing choice text warns and requires a `question_version` increment.
 
+For a Question that has entered `released_questions.json`, its registry row
+must retain a non-empty `first_used_bank_revision`. This is historical identity
+evidence, not a value a generator may replace when the current bank revision
+changes. Retired rows remain tombstones; a declared `replacement_id` must point
+to another allocated permanent ID.
+
 ## Authoring schema v2
 
 `questions.csv` has these columns:
@@ -68,6 +75,31 @@ generation and validation deterministic. An `active` question whose
 are required. `usage_basis` records provenance for editorial review; the
 validator does not make a legal judgment.
 
+`source_verifications.json` is the minimum release-readiness evidence, separate
+from historical `notes_internal` workflows. Every active Question has exactly
+one record with `question_id`, `source_id`, `source_version`,
+`verification_state`, and `verified_at`. Factory v1 accepts an active Question
+only when `verification_state` is `author_source_verified`, its source ID
+matches the Question, and its verified source version matches the current
+`sources.json` entry. A source-version mismatch requires Human review before
+release readiness; independent/SME review and AI drafting remain risk-based
+workflow choices, not universal gates.
+
+## Coverage and bank-size evidence
+
+`coverage.json` is authoring-only. It deliberately uses generic `unit_id`
+parents rather than a universal Domain/Topic taxonomy. It records knowledge
+targets, required/optional status, importance, minimum active counts, optional
+variation requirements, Question-to-target bindings, and the Human-approved
+target bank size with a rationale. Qualification-specific taxonomy can be
+additional metadata, but the shared validator does not interpret it.
+
+The validator checks declared IDs, units, bindings, active/draft counts,
+required minima, required variations, and unbound active Questions. Optional
+gaps and deterministic near-duplicate candidates are warnings. It cannot prove
+that a taxonomy, Question set, bank size, source authority, or semantic overlap
+is sufficient; those remain AI-assisted and Human-decided review.
+
 ## Runtime and provenance
 
 Generated cards contain the permanent ID (`stableId`), `questionVersion`,
@@ -91,9 +123,15 @@ python3 tooling/question_bank/validate.py \
 python3 tooling/question_bank/generate.py \
   --bank question_banks/qualification_fixture
 
+python3 tooling/question_bank/report.py \
+  --bank question_banks/qualification_fixture \
+  --check-generated --json
+
 python3 -m unittest discover \
   -s tooling/question_bank/tests -p 'test_*.py'
 ```
 
 CI reruns validation and compares deterministic output with the committed
 runtime JSON and manifest. Any difference is generated drift and fails.
+Coverage and verification remain authoring-only and do not change runtime bank
+or manifest architecture.

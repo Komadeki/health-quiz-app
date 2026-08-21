@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://komadeki.example/schema/source-verification-v1",
+  "description": "Minimum machine-checkable source-verification evidence for canonical questions.",
+  "properties": {
+    "schema_version": {"const": 1},
+    "verifications": {
+      "items": {
+        "properties": {
+          "question_id": {"minLength": 1, "type": "string"},
+          "source_id": {"minLength": 1, "type": "string"},
+          "source_version": {"minLength": 1, "type": "string"},
+          "verification_state": {"minLength": 1, "type": "string"},
+          "verified_at": {"format": "date", "type": "string"}
+        },
+        "required": ["question_id", "source_id", "source_version", "verification_state", "verified_at"],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": ["schema_version", "verifications"],
+  "title": "Question Source Verification v1",
+  "type": "object"
+}

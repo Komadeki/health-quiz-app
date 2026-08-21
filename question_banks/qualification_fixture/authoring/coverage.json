@@ -1,0 +1,45 @@
+{
+  "knowledge_targets": [
+    {
+      "importance": 3,
+      "knowledge_target_id": "FIXTURE-KT-SAFETY-001",
+      "minimum_active_question_count": 1,
+      "required": true,
+      "statement": "作業開始前の安全確認手順を選べる。",
+      "title": "作業前確認",
+      "unit_id": "fixture_safety",
+      "variation_requirements": [
+        "before_work"
+      ]
+    },
+    {
+      "importance": 2,
+      "knowledge_target_id": "FIXTURE-KT-OPERATIONS-001",
+      "minimum_active_question_count": 1,
+      "required": false,
+      "statement": "運用記録を残す基本原則を選べる。",
+      "title": "点検記録",
+      "unit_id": "fixture_operations",
+      "variation_requirements": []
+    }
+  ],
+  "question_bindings": [
+    {
+      "knowledge_target_id": "FIXTURE-KT-SAFETY-001",
+      "question_id": "FIXTURE-Q-000001",
+      "variation_tags": [
+        "before_work"
+      ]
+    },
+    {
+      "knowledge_target_id": "FIXTURE-KT-OPERATIONS-001",
+      "question_id": "FIXTURE-Q-000002",
+      "variation_tags": []
+    }
+  ],
+  "schema_version": 1,
+  "target_bank_size": {
+    "approved_question_count": 12,
+    "rationale": "架空資格の初期版では、2ユニットを各6問にして基礎確認と反復練習を両立する。"
+  }
+}

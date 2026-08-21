@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://komadeki.example/schema/coverage-v1",
+  "description": "Authoring-only Question Factory coverage evidence. The validator checks declared completeness, not semantic adequacy.",
+  "properties": {
+    "schema_version": {"const": 1},
+    "target_bank_size": {
+      "properties": {
+        "approved_question_count": {"minimum": 1, "type": "integer"},
+        "rationale": {"minLength": 1, "type": "string"}
+      },
+      "required": ["approved_question_count", "rationale"],
+      "type": "object"
+    },
+    "knowledge_targets": {
+      "items": {
+        "properties": {
+          "knowledge_target_id": {"minLength": 1, "type": "string"},
+          "unit_id": {"minLength": 1, "type": "string"},
+          "title": {"minLength": 1, "type": "string"},
+          "statement": {"minLength": 1, "type": "string"},
+          "required": {"type": "boolean"},
+          "importance": {"enum": [1, 2, 3]},
+          "minimum_active_question_count": {"minimum": 0, "type": "integer"},
+          "variation_requirements": {"items": {"minLength": 1, "type": "string"}, "type": "array"}
+        },
+        "required": ["knowledge_target_id", "unit_id", "title", "statement", "required", "importance", "minimum_active_question_count", "variation_requirements"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "question_bindings": {
+      "items": {
+        "properties": {
+          "question_id": {"minLength": 1, "type": "string"},
+          "knowledge_target_id": {"minLength": 1, "type": "string"},
+          "variation_tags": {"items": {"minLength": 1, "type": "string"}, "type": "array"}
+        },
+        "required": ["question_id", "knowledge_target_id", "variation_tags"],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": ["schema_version", "target_bank_size", "knowledge_targets", "question_bindings"],
+  "title": "Question Factory Coverage v1",
+  "type": "object"
+}

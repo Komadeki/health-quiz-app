@@ -10,12 +10,21 @@ model, content rights, and product specification first.
 2. Create an independent Flutter project at `apps/<app_key>`.
 3. Add its own direct-child `apps/<app_key>/app.yaml`.
 4. Assign unique iOS Bundle ID and Android application ID values.
-5. Author the bank under `question_banks/<app_key>`.
-6. Use `explicit_v1` question identity for qualification content.
+5. Follow the Question Factory pipeline: Official Source Freeze → Source
+   Registry → Knowledge / Coverage Map → Human bank-size decision → Authoring
+   Plan → 50–100Q draft batches → Human source verification → deterministic
+   duplicate / coverage QC → Permanent ID / canonical authoring → final Human
+   release approval → released snapshot → runtime generation.
+6. Author the canonical bank under `question_banks/<app_key>` with
+   `coverage.json` and `source_verifications.json`; use `explicit_v1` identity.
+   Pre-ID AI drafts may exist outside canonical `questions.csv` and do not
+   allocate or change permanent IDs.
 7. Start with the `singleFullUnlock` monetization architecture unless the
    product specification proves a different requirement.
 8. Run app-manifest generation and commit the generated Dart/native files.
-9. Validate authored data, generated bank drift, and the Flutter asset copy.
+9. Validate authored data, the deterministic readiness report, generated bank
+   drift, and the Flutter asset copy. Coverage taxonomy, semantic correctness,
+   source authority, and release approval remain Human decisions.
 10. Compose `QualificationProductionBootstrap` with the generated definition.
 11. Add app, contract, identity, purchase, and question-bank tests.
 12. Run `flutter build ios --no-codesign` from the app directory.

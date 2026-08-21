@@ -92,6 +92,8 @@ class BankInputs:
     sources: list[dict[str, Any]]
     id_registry: list[dict[str, str]]
     released_questions: list[dict[str, Any]]
+    coverage: dict[str, Any]
+    source_verifications: dict[str, Any]
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -122,6 +124,8 @@ def load_bank_inputs(bank_root: Path) -> BankInputs:
     released = read_json(
         bank_root / "authoring" / "released_questions.json"
     ).get("released_questions", [])
+    coverage_path = bank_root / "authoring" / "coverage.json"
+    verification_path = bank_root / "authoring" / "source_verifications.json"
     return BankInputs(
         root=bank_root,
         metadata=read_json(bank_root / "authoring" / "bank.json"),
@@ -129,6 +133,10 @@ def load_bank_inputs(bank_root: Path) -> BankInputs:
         sources=list(sources),
         id_registry=registry,
         released_questions=list(released),
+        coverage=read_json(coverage_path) if coverage_path.exists() else {},
+        source_verifications=(
+            read_json(verification_path) if verification_path.exists() else {}
+        ),
     )
 
 

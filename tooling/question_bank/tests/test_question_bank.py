@@ -16,6 +16,7 @@ sys.path.insert(0, str(TOOL_DIR))
 from question_bank import (  # noqa: E402
     build_generated_files,
     build_released_questions_document,
+    build_readiness_report,
     load_bank_inputs,
     validate_bank,
     write_generated_files,
@@ -49,6 +50,31 @@ class QuestionBankContractTest(unittest.TestCase):
 
     def _error_codes(self) -> set[str]:
         return {issue.code for issue in validate_bank(self.bank).errors}
+
+    def _read_json(self, relative_path: str) -> dict[str, object]:
+        return json.loads((self.bank / relative_path).read_text(encoding="utf-8"))
+
+    def _write_json(self, relative_path: str, value: object) -> None:
+        (self.bank / relative_path).write_text(
+            json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+    def _read_csv(self, path: Path) -> tuple[list[str], list[dict[str, str]]]:
+        with path.open(newline="", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
+            return list(reader.fieldnames or []), list(reader)
+
+    def _write_csv(
+        self,
+        path: Path,
+        fieldnames: list[str],
+        rows: list[dict[str, str]],
+    ) -> None:
+        with path.open("w", newline="", encoding="utf-8") as file:
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(rows)
 
     def test_valid_fixture_generates_and_decodes_expected_contract(self) -> None:
         result = validate_bank(self.bank)
@@ -190,6 +216,93 @@ class QuestionBankContractTest(unittest.TestCase):
         warnings = {issue.code for issue in validate_bank(self.bank).warnings}
         self.assertIn("difficulty_changed", warnings)
         self.assertIn("question_version_not_incremented", warnings)
+
+    def test_readiness_report_is_deterministic_and_includes_factory_evidence(self) -> None:
+        first, first_validation = build_readiness_report(
+            self.bank, check_generated=True
+        )
+        second, second_validation = build_readiness_report(
+            self.bank, check_generated=True
+        )
+
+        self.assertTrue(first_validation.is_valid, [str(issue) for issue in first_validation.issues])
+        self.assertTrue(second_validation.is_valid, [str(issue) for issue in second_validation.issues])
+        self.assertEqual(first, second)
+        self.assertEqual(first["target_bank_size"]["approved_question_count"], 12)
+        self.assertEqual(first["coverage"]["missing_required_knowledge_target_ids"], [])
+        self.assertEqual(first["question_verification"]["complete_active_question_count"], 2)
+        self.assertEqual(first["generated_drift"]["status"], "up_to_date")
+        self.assertEqual(first["correct_choice_position_distribution"]["A"]["count"], 1)
+        self.assertEqual(first["correct_choice_position_distribution"]["B"]["count"], 1)
+
+    def test_unknown_knowledge_target_binding_fails(self) -> None:
+        coverage = self._read_json("authoring/coverage.json")
+        coverage["question_bindings"][0]["knowledge_target_id"] = "MISSING-KT"
+        self._write_json("authoring/coverage.json", coverage)
+
+        self.assertIn("unknown_binding_knowledge_target_id", self._error_codes())
+
+    def test_missing_required_knowledge_target_coverage_fails(self) -> None:
+        coverage = self._read_json("authoring/coverage.json")
+        coverage["question_bindings"] = coverage["question_bindings"][1:]
+        self._write_json("authoring/coverage.json", coverage)
+
+        self.assertIn("missing_required_knowledge_target_coverage", self._error_codes())
+
+    def test_missing_required_variation_fails(self) -> None:
+        coverage = self._read_json("authoring/coverage.json")
+        coverage["question_bindings"][0]["variation_tags"] = []
+        self._write_json("authoring/coverage.json", coverage)
+
+        self.assertIn("missing_required_variation_coverage", self._error_codes())
+
+    def test_missing_active_source_verification_fails(self) -> None:
+        verifications = self._read_json("authoring/source_verifications.json")
+        verifications["verifications"] = verifications["verifications"][1:]
+        self._write_json("authoring/source_verifications.json", verifications)
+
+        self.assertIn("missing_source_verification", self._error_codes())
+
+    def test_source_verification_version_mismatch_fails(self) -> None:
+        verifications = self._read_json("authoring/source_verifications.json")
+        verifications["verifications"][0]["source_version"] = "outdated"
+        self._write_json("authoring/source_verifications.json", verifications)
+
+        self.assertIn("source_verification_source_version_mismatch", self._error_codes())
+
+    def test_released_question_requires_first_used_bank_revision(self) -> None:
+        registry_path = self.bank / "authoring" / "question_id_registry.csv"
+        fieldnames, rows = self._read_csv(registry_path)
+        rows[0]["first_used_bank_revision"] = ""
+        self._write_csv(registry_path, fieldnames, rows)
+
+        self.assertIn(
+            "released_question_missing_first_used_bank_revision",
+            self._error_codes(),
+        )
+
+    def test_generation_preserves_first_used_revision_after_later_bank_revision(self) -> None:
+        metadata = self._read_json("authoring/bank.json")
+        metadata["bank_revision"] = "fixture-bank-2026-09-01"
+        self._write_json("authoring/bank.json", metadata)
+        registry_path = self.bank / "authoring" / "question_id_registry.csv"
+        before = registry_path.read_bytes()
+
+        write_generated_files(self.bank)
+
+        self.assertEqual(registry_path.read_bytes(), before)
+        _, rows = self._read_csv(registry_path)
+        self.assertEqual(
+            rows[0]["first_used_bank_revision"], "fixture-bank-2026-08-17"
+        )
+
+    def test_retired_replacement_must_reference_an_allocated_id(self) -> None:
+        registry_path = self.bank / "authoring" / "question_id_registry.csv"
+        fieldnames, rows = self._read_csv(registry_path)
+        rows[2]["replacement_id"] = "FIXTURE-Q-999999"
+        self._write_csv(registry_path, fieldnames, rows)
+
+        self.assertIn("unknown_replacement_id", self._error_codes())
 
 
 class DroneQuestionBankTest(unittest.TestCase):
