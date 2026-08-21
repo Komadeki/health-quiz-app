@@ -5,7 +5,7 @@ import argparse
 import json
 from pathlib import Path
 
-from expansion import build_status_report
+from expansion import build_status_report, validate_expansion_batch
 
 
 def main() -> int:
@@ -13,6 +13,7 @@ def main() -> int:
     parser.add_argument("--batch", required=True, type=Path)
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
+    validation_errors = validate_expansion_batch(args.batch)
     report = build_status_report(args.batch)
     if args.json:
         print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
@@ -30,7 +31,7 @@ def main() -> int:
         print(f"released_count={report['released_count']}")
         print(f"blockers={json.dumps(report['blockers'], ensure_ascii=False)}")
         print(f"next_actionable_states={json.dumps(report['next_actionable_states'])}")
-    return 1 if report["blockers"] and any(str(item).startswith("missing required file:") or str(item).startswith("invalid ") or "candidate" in str(item) and "missing" in str(item) for item in report["blockers"]) else 0
+    return 1 if validation_errors else 0
 
 
 if __name__ == "__main__":
