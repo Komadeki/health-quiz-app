@@ -132,8 +132,11 @@ final class JsonLinesLearningRepository implements LearningRepository {
       throw ArgumentError.value(event.appKey, 'event.appKey');
     }
     final events = await loadAllEvents();
-    if (events.any((existing) => existing.attemptId == event.attemptId)) {
-      throw StateError('Duplicate learning attempt: ${event.attemptId}');
+    final matching =
+        events.where((existing) => existing.attemptId == event.attemptId);
+    if (matching.isNotEmpty) {
+      if (_sameLearningEvent(matching.single, event)) return;
+      throw StateError('Conflicting learning attempt: ${event.attemptId}');
     }
     final expectedAttempt =
         events.where((item) => item.questionId == event.questionId).length + 1;
@@ -218,8 +221,11 @@ final class JsonLinesLearningRepository implements LearningRepository {
       throw ArgumentError.value(history.appKey, 'history.appKey');
     }
     final existing = await loadSessionHistory(limit: 1 << 30);
-    if (existing.any((item) => item.sessionId == history.sessionId)) {
-      throw StateError('Duplicate session history: ${history.sessionId}');
+    final matching =
+        existing.where((item) => item.sessionId == history.sessionId);
+    if (matching.isNotEmpty) {
+      if (_sameSessionHistory(matching.single, history)) return;
+      throw StateError('Conflicting session history: ${history.sessionId}');
     }
     await _append({
       'record_type': 'session_history',
@@ -257,8 +263,11 @@ final class InMemoryLearningRepository implements LearningRepository {
 
   @override
   Future<void> recordAnswer(LearningEventV1 event) async {
-    if (_events.any((existing) => existing.attemptId == event.attemptId)) {
-      throw StateError('Duplicate learning attempt: ${event.attemptId}');
+    final matching =
+        _events.where((existing) => existing.attemptId == event.attemptId);
+    if (matching.isNotEmpty) {
+      if (_sameLearningEvent(matching.single, event)) return;
+      throw StateError('Conflicting learning attempt: ${event.attemptId}');
     }
     final expected =
         _events.where((item) => item.questionId == event.questionId).length + 1;
@@ -318,8 +327,11 @@ final class InMemoryLearningRepository implements LearningRepository {
 
   @override
   Future<void> recordSessionHistory(SessionHistoryV1 history) async {
-    if (_history.any((item) => item.sessionId == history.sessionId)) {
-      throw StateError('Duplicate session history.');
+    final matching =
+        _history.where((item) => item.sessionId == history.sessionId);
+    if (matching.isNotEmpty) {
+      if (_sameSessionHistory(matching.single, history)) return;
+      throw StateError('Conflicting session history: ${history.sessionId}');
     }
     _history.add(history);
   }
@@ -352,4 +364,37 @@ final class MemoryQualificationSessionStore
 
   @override
   Future<void> save(QualificationSessionV1 session) async => value = session;
+}
+
+bool _sameLearningEvent(LearningEventV1 left, LearningEventV1 right) {
+  return left.appKey == right.appKey &&
+      left.sessionId == right.sessionId &&
+      left.attemptId == right.attemptId &&
+      left.questionId == right.questionId &&
+      left.questionVersion == right.questionVersion &&
+      left.bankRevision == right.bankRevision &&
+      left.unitId == right.unitId &&
+      left.knowledgeTarget == right.knowledgeTarget &&
+      left.selectedChoice == right.selectedChoice &&
+      left.correct == right.correct &&
+      left.answeredAt == right.answeredAt &&
+      left.responseDurationMs == right.responseDurationMs &&
+      left.attemptNumber == right.attemptNumber &&
+      left.mode == right.mode &&
+      left.appVersion == right.appVersion;
+}
+
+bool _sameSessionHistory(SessionHistoryV1 left, SessionHistoryV1 right) {
+  if (left.questionIds.length != right.questionIds.length) return false;
+  for (var index = 0; index < left.questionIds.length; index += 1) {
+    if (left.questionIds[index] != right.questionIds[index]) return false;
+  }
+  return left.appKey == right.appKey &&
+      left.sessionId == right.sessionId &&
+      left.mode == right.mode &&
+      left.correctCount == right.correctCount &&
+      left.completedAt == right.completedAt &&
+      left.unitId == right.unitId &&
+      left.examProfileVersion == right.examProfileVersion &&
+      left.passed == right.passed;
 }

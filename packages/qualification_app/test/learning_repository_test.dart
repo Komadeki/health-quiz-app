@@ -23,7 +23,9 @@ void main() {
   });
 
   test('inserts events and enforces duplicate and attempt numbering', () async {
-    await repository.recordAnswer(_event('attempt-1', attemptNumber: 1));
+    final first = _event('attempt-1', attemptNumber: 1);
+    await repository.recordAnswer(first);
+    await repository.recordAnswer(first);
 
     expect(await repository.countAttempts('Q-1'), 1);
     expect(
@@ -88,9 +90,17 @@ void main() {
 
     expect(await repository.loadSessionHistory(), hasLength(2));
     expect((await repository.loadMockExamHistory()).single.sessionId, 'mock-1');
+    await repository.recordSessionHistory(
+      _history('mock-1', LearningModeV1.mockExam),
+    );
+    expect(await repository.loadSessionHistory(), hasLength(2));
     expect(
       () => repository.recordSessionHistory(
-        _history('mock-1', LearningModeV1.mockExam),
+        _history(
+          'mock-1',
+          LearningModeV1.mockExam,
+          correctCount: 0,
+        ),
       ),
       throwsStateError,
     );
@@ -189,13 +199,17 @@ LearningEventV1 _event(
   );
 }
 
-SessionHistoryV1 _history(String id, LearningModeV1 mode) {
+SessionHistoryV1 _history(
+  String id,
+  LearningModeV1 mode, {
+  int correctCount = 1,
+}) {
   return SessionHistoryV1(
     appKey: 'fixture_app',
     sessionId: id,
     mode: mode,
     questionIds: const ['Q-1'],
-    correctCount: 1,
+    correctCount: correctCount,
     completedAt: DateTime.utc(2026),
     examProfileVersion: mode == LearningModeV1.mockExam ? 'exam-v1' : null,
   );

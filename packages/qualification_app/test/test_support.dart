@@ -150,6 +150,33 @@ final class TestClock {
   }
 }
 
+final class FaultingSessionStore implements QualificationSessionStore {
+  QualificationSessionV1? value;
+  bool failNextSave = false;
+  bool failNextClear = false;
+
+  @override
+  Future<QualificationSessionV1?> load() async => value;
+
+  @override
+  Future<void> save(QualificationSessionV1 session) async {
+    if (failNextSave) {
+      failNextSave = false;
+      throw StateError('Simulated session save crash.');
+    }
+    value = session;
+  }
+
+  @override
+  Future<void> clear() async {
+    if (failNextClear) {
+      failNextClear = false;
+      throw StateError('Simulated session clear crash.');
+    }
+    value = null;
+  }
+}
+
 Future<void> settleEvents() async {
   await Future<void>.delayed(Duration.zero);
   await Future<void>.delayed(Duration.zero);

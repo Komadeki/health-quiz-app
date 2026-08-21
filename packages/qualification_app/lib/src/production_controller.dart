@@ -234,7 +234,7 @@ final class QualificationProductionController extends ChangeNotifier {
         profile: profile,
         accessibleQuestions: accessible,
       );
-      return _startSession(
+      return await _startSession(
         mode: LearningModeV1.mockExam,
         questionIds: ids,
         examProfileVersion: profile.profileVersion,
@@ -321,11 +321,23 @@ final class QualificationProductionController extends ChangeNotifier {
       }
       final rawDuration =
           now.difference(_questionShownAt ?? now).inMilliseconds;
+      final attemptId = '${session.sessionId}:${session.currentQuestionId}';
+      final persistedEvent = (await _learningRepository.loadAllEvents())
+          .where((event) => event.attemptId == attemptId)
+          .firstOrNull;
+      if (persistedEvent != null) {
+        _validatePersistedAnswer(
+          event: persistedEvent,
+          session: session,
+          card: card,
+          choiceIndex: choiceIndex,
+        );
+        await _saveCommittedResponse(session, persistedEvent);
+        return true;
+      }
       final attemptNumber =
           await _learningRepository.countAttempts(session.currentQuestionId) +
               1;
-      final attemptId =
-          '${session.sessionId}:${session.currentQuestionId}:$attemptNumber';
       final response = SessionResponseV1(
         choiceIndex: choiceIndex,
         attemptId: attemptId,
@@ -349,19 +361,62 @@ final class QualificationProductionController extends ChangeNotifier {
         appVersion: definition.learningProduct.appVersion,
       );
       await _learningRepository.recordAnswer(event);
-      activeSession = session.copyWith(
-        committedResponses: {
-          ...session.committedResponses,
-          session.currentQuestionId: response,
-        },
-        updatedAt: now,
-      );
-      await _sessionStore.save(activeSession!);
-      events = List.unmodifiable([...events, event]);
-      notifyListeners();
+      await _saveCommittedResponse(session, event, response: response);
       return true;
     } finally {
       _transitionBusy = false;
+    }
+  }
+
+  Future<void> _saveCommittedResponse(
+    QualificationSessionV1 session,
+    LearningEventV1 event, {
+    SessionResponseV1? response,
+  }) async {
+    final committedResponse = response ??
+        SessionResponseV1(
+          choiceIndex: event.selectedChoice,
+          attemptId: event.attemptId,
+          answeredAt: event.answeredAt,
+        );
+    final updatedSession = session.copyWith(
+      committedResponses: {
+        ...session.committedResponses,
+        session.currentQuestionId: committedResponse,
+      },
+      updatedAt: event.answeredAt.isBefore(session.updatedAt)
+          ? session.updatedAt
+          : event.answeredAt,
+    );
+    await _sessionStore.save(updatedSession);
+    activeSession = updatedSession;
+    if (!events.any((existing) => existing.attemptId == event.attemptId)) {
+      events = List.unmodifiable([...events, event]);
+    }
+    notifyListeners();
+  }
+
+  void _validatePersistedAnswer({
+    required LearningEventV1 event,
+    required QualificationSessionV1 session,
+    required QuizCard card,
+    required int choiceIndex,
+  }) {
+    final expectedCorrect = choiceIndex == card.answerIndex;
+    if (event.appKey != definition.appKey ||
+        event.sessionId != session.sessionId ||
+        event.questionId != session.currentQuestionId ||
+        event.questionVersion != card.questionVersion ||
+        event.bankRevision != session.bankRevision ||
+        event.unitId != card.unitId ||
+        event.knowledgeTarget != null ||
+        event.selectedChoice != choiceIndex ||
+        event.correct != expectedCorrect ||
+        event.mode != session.mode ||
+        event.appVersion != definition.learningProduct.appVersion) {
+      throw StateError(
+        'Conflicting answer commit: ${event.attemptId}',
+      );
     }
   }
 
@@ -420,21 +475,28 @@ final class QualificationProductionController extends ChangeNotifier {
         },
       );
     }
-    final completedAt = _now();
-    await _learningRepository.recordSessionHistory(
-      SessionHistoryV1(
-        appKey: definition.appKey,
-        sessionId: session.sessionId,
-        mode: session.mode,
-        questionIds: session.questionIds,
-        correctCount: correctCount,
-        completedAt: completedAt,
-        unitId: session.unitId,
-        examProfileVersion: session.examProfileVersion,
-        passed: mockResult?.passed,
-      ),
+    final existingHistory = (await _learningRepository.loadSessionHistory(
+      limit: 1 << 30,
+    ))
+        .where((item) => item.sessionId == session.sessionId)
+        .firstOrNull;
+    final completion = SessionHistoryV1(
+      appKey: definition.appKey,
+      sessionId: session.sessionId,
+      mode: session.mode,
+      questionIds: session.questionIds,
+      correctCount: correctCount,
+      completedAt: existingHistory?.completedAt ?? _now(),
+      unitId: session.unitId,
+      examProfileVersion: session.examProfileVersion,
+      passed: mockResult?.passed,
     );
-    result = QualificationSessionResult(
+    if (existingHistory == null) {
+      await _learningRepository.recordSessionHistory(completion);
+    } else {
+      _validatePersistedCompletion(existingHistory, completion);
+    }
+    final completedResult = QualificationSessionResult(
       sessionId: session.sessionId,
       mode: session.mode,
       correctCount: correctCount,
@@ -442,10 +504,36 @@ final class QualificationProductionController extends ChangeNotifier {
       incorrectQuestionIds: List.unmodifiable(incorrectIds),
       mockExamResult: mockResult,
     );
-    activeSession = null;
     await _sessionStore.clear();
+    activeSession = null;
+    result = completedResult;
     await _refreshLearningState();
     view = QualificationProductionView.result;
+  }
+
+  void _validatePersistedCompletion(
+    SessionHistoryV1 existing,
+    SessionHistoryV1 expected,
+  ) {
+    final sameQuestions =
+        existing.questionIds.length == expected.questionIds.length &&
+            List.generate(
+              existing.questionIds.length,
+              (index) =>
+                  existing.questionIds[index] == expected.questionIds[index],
+            ).every((matches) => matches);
+    if (existing.appKey != expected.appKey ||
+        existing.sessionId != expected.sessionId ||
+        existing.mode != expected.mode ||
+        !sameQuestions ||
+        existing.correctCount != expected.correctCount ||
+        existing.unitId != expected.unitId ||
+        existing.examProfileVersion != expected.examProfileVersion ||
+        existing.passed != expected.passed) {
+      throw StateError(
+        'Conflicting session completion: ${existing.sessionId}',
+      );
+    }
   }
 
   void returnHome() {
@@ -479,6 +567,14 @@ final class QualificationProductionController extends ChangeNotifier {
       return;
     }
     activeSession = loaded;
+    final completed = (await _learningRepository.loadSessionHistory(
+      limit: 1 << 30,
+    ))
+        .any((history) => history.sessionId == loaded.sessionId);
+    if (completed) {
+      await _completeSession(loaded);
+      return;
+    }
     if (_mockExamExpired(loaded, _now())) {
       await _completeSession(loaded);
     }

@@ -99,6 +99,186 @@ void main() {
   });
 
   test(
+    'answer commit reconciles one event after a crash before session save',
+    () async {
+      final store = FaultingSessionStore();
+      final learning = InMemoryLearningRepository();
+      final first = QualificationProductionController(
+        definition: fixtureDefinition,
+        bankLoader: FixedBankLoader(loadFixtureBank()),
+        sessionStore: store,
+        learningRepository: learning,
+        purchaseGateway: FakePurchaseGateway(),
+        entitlementCache: MemoryEntitlementCache(),
+        now: TestClock().call,
+        randomizer: const IdentityQuestionRandomizer(),
+      );
+      await first.initialize();
+      await first.startUnit('fixture_safety');
+      final choice = first.currentCard!.answerIndex;
+      store.failNextSave = true;
+
+      await expectLater(first.commitAnswer(choice), throwsStateError);
+      expect(await learning.loadAllEvents(), hasLength(1));
+      expect((await learning.loadAllEvents()).single.attemptNumber, 1);
+      expect(store.value!.committedResponses, isEmpty);
+      first.dispose();
+
+      final resumed = QualificationProductionController(
+        definition: fixtureDefinition,
+        bankLoader: FixedBankLoader(loadFixtureBank()),
+        sessionStore: store,
+        learningRepository: learning,
+        purchaseGateway: FakePurchaseGateway(),
+        entitlementCache: MemoryEntitlementCache(),
+        now: TestClock().call,
+        randomizer: const IdentityQuestionRandomizer(),
+      );
+      await resumed.initialize();
+      expect(await resumed.commitAnswer(choice), isTrue);
+      expect(await learning.loadAllEvents(), hasLength(1));
+      expect((await learning.loadAllEvents()).single.attemptNumber, 1);
+      expect(resumed.currentResponse, choice);
+      resumed.dispose();
+    },
+  );
+
+  test('answer reconciliation rejects a conflicting choice', () async {
+    final store = FaultingSessionStore();
+    final learning = InMemoryLearningRepository();
+    final first = QualificationProductionController(
+      definition: fixtureDefinition,
+      bankLoader: FixedBankLoader(loadFixtureBank()),
+      sessionStore: store,
+      learningRepository: learning,
+      purchaseGateway: FakePurchaseGateway(),
+      entitlementCache: MemoryEntitlementCache(),
+      now: TestClock().call,
+      randomizer: const IdentityQuestionRandomizer(),
+    );
+    await first.initialize();
+    await first.startUnit('fixture_safety');
+    final committedChoice = first.currentCard!.answerIndex;
+    store.failNextSave = true;
+    await expectLater(first.commitAnswer(committedChoice), throwsStateError);
+    first.dispose();
+
+    final resumed = QualificationProductionController(
+      definition: fixtureDefinition,
+      bankLoader: FixedBankLoader(loadFixtureBank()),
+      sessionStore: store,
+      learningRepository: learning,
+      purchaseGateway: FakePurchaseGateway(),
+      entitlementCache: MemoryEntitlementCache(),
+      now: TestClock().call,
+      randomizer: const IdentityQuestionRandomizer(),
+    );
+    await resumed.initialize();
+    final conflictingChoice =
+        (committedChoice + 1) % resumed.currentCard!.choices.length;
+    await expectLater(
+      resumed.commitAnswer(conflictingChoice),
+      throwsStateError,
+    );
+    expect(await learning.loadAllEvents(), hasLength(1));
+    expect(store.value!.committedResponses, isEmpty);
+    resumed.dispose();
+  });
+
+  test(
+    'session completion reconciles history after a crash before clear',
+    () async {
+      final store = FaultingSessionStore();
+      final learning = InMemoryLearningRepository();
+      final first = QualificationProductionController(
+        definition: fixtureDefinition,
+        bankLoader: FixedBankLoader(loadFixtureBank()),
+        sessionStore: store,
+        learningRepository: learning,
+        purchaseGateway: FakePurchaseGateway(),
+        entitlementCache: MemoryEntitlementCache(),
+        now: TestClock().call,
+        randomizer: const IdentityQuestionRandomizer(),
+      );
+      await first.initialize();
+      await first.startUnit('fixture_safety');
+      await first.commitAnswer(first.currentCard!.answerIndex);
+      store.failNextClear = true;
+
+      await expectLater(first.advance(), throwsStateError);
+      expect(await learning.loadSessionHistory(), hasLength(1));
+      expect(store.value, isNotNull);
+      first.dispose();
+
+      final resumed = QualificationProductionController(
+        definition: fixtureDefinition,
+        bankLoader: FixedBankLoader(loadFixtureBank()),
+        sessionStore: store,
+        learningRepository: learning,
+        purchaseGateway: FakePurchaseGateway(),
+        entitlementCache: MemoryEntitlementCache(),
+        now: TestClock().call,
+        randomizer: const IdentityQuestionRandomizer(),
+      );
+      await resumed.initialize();
+      expect(resumed.fatalError, isNull);
+      expect(resumed.activeSession, isNull);
+      expect(store.value, isNull);
+      expect(await learning.loadSessionHistory(), hasLength(1));
+      expect(resumed.result, isNotNull);
+      resumed.dispose();
+    },
+  );
+
+  test('session completion fails closed for conflicting persisted history',
+      () async {
+    final store = FaultingSessionStore();
+    final learning = InMemoryLearningRepository();
+    final first = QualificationProductionController(
+      definition: fixtureDefinition,
+      bankLoader: FixedBankLoader(loadFixtureBank()),
+      sessionStore: store,
+      learningRepository: learning,
+      purchaseGateway: FakePurchaseGateway(),
+      entitlementCache: MemoryEntitlementCache(),
+      now: TestClock().call,
+      randomizer: const IdentityQuestionRandomizer(),
+    );
+    await first.initialize();
+    await first.startUnit('fixture_safety');
+    await first.commitAnswer(first.currentCard!.answerIndex);
+    final session = store.value!;
+    await learning.recordSessionHistory(
+      SessionHistoryV1(
+        appKey: session.appKey,
+        sessionId: session.sessionId,
+        mode: session.mode,
+        questionIds: session.questionIds,
+        correctCount: 0,
+        completedAt: DateTime.utc(2026, 1, 2),
+        unitId: session.unitId,
+      ),
+    );
+    first.dispose();
+
+    final resumed = QualificationProductionController(
+      definition: fixtureDefinition,
+      bankLoader: FixedBankLoader(loadFixtureBank()),
+      sessionStore: store,
+      learningRepository: learning,
+      purchaseGateway: FakePurchaseGateway(),
+      entitlementCache: MemoryEntitlementCache(),
+      now: TestClock().call,
+      randomizer: const IdentityQuestionRandomizer(),
+    );
+    await resumed.initialize();
+    expect(resumed.fatalError, contains('Conflicting session completion'));
+    expect(store.value, isNotNull);
+    expect(await learning.loadSessionHistory(), hasLength(1));
+    resumed.dispose();
+  });
+
+  test(
     'unanswered and incorrect use durable committed history semantics',
     () async {
       final controller = createController();
