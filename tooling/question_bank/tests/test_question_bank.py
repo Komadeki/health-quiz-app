@@ -256,6 +256,25 @@ class QuestionBankContractTest(unittest.TestCase):
 
         self.assertIn("missing_required_variation_coverage", self._error_codes())
 
+    def test_missing_optional_variation_warns_without_error(self) -> None:
+        coverage = self._read_json("authoring/coverage.json")
+        coverage["knowledge_targets"][1]["variation_requirements"] = ["recording"]
+        coverage["question_bindings"][1]["variation_tags"] = []
+        self._write_json("authoring/coverage.json", coverage)
+
+        result = validate_bank(self.bank)
+        self.assertNotIn("optional_variation_coverage_gap", {issue.code for issue in result.errors})
+        self.assertIn("optional_variation_coverage_gap", {issue.code for issue in result.warnings})
+
+    def test_satisfied_optional_variation_has_no_variation_issue(self) -> None:
+        coverage = self._read_json("authoring/coverage.json")
+        coverage["knowledge_targets"][1]["variation_requirements"] = ["recording"]
+        coverage["question_bindings"][1]["variation_tags"] = ["recording"]
+        self._write_json("authoring/coverage.json", coverage)
+
+        result = validate_bank(self.bank)
+        self.assertNotIn("optional_variation_coverage_gap", {issue.code for issue in result.issues})
+
     def test_missing_active_source_verification_fails(self) -> None:
         verifications = self._read_json("authoring/source_verifications.json")
         verifications["verifications"] = verifications["verifications"][1:]
@@ -280,6 +299,33 @@ class QuestionBankContractTest(unittest.TestCase):
             "released_question_missing_first_used_bank_revision",
             self._error_codes(),
         )
+
+    def test_unreleased_draft_with_empty_first_used_revision_passes(self) -> None:
+        self._mutate_question(2, status="draft")
+        registry_path = self.bank / "authoring" / "question_id_registry.csv"
+        fieldnames, rows = self._read_csv(registry_path)
+        rows[2]["status"] = "used"
+        rows[2]["first_used_bank_revision"] = ""
+        rows[2]["retired_at"] = ""
+        self._write_csv(registry_path, fieldnames, rows)
+
+        result = validate_bank(self.bank)
+        self.assertNotIn("unreleased_question_has_first_used_bank_revision", {issue.code for issue in result.errors})
+
+    def test_unreleased_draft_with_first_used_revision_fails(self) -> None:
+        self._mutate_question(2, status="draft")
+        registry_path = self.bank / "authoring" / "question_id_registry.csv"
+        fieldnames, rows = self._read_csv(registry_path)
+        rows[2]["status"] = "used"
+        rows[2]["first_used_bank_revision"] = "fixture-bank-2026-08-17"
+        rows[2]["retired_at"] = ""
+        self._write_csv(registry_path, fieldnames, rows)
+
+        self.assertIn("unreleased_question_has_first_used_bank_revision", self._error_codes())
+
+    def test_released_question_with_first_used_revision_passes(self) -> None:
+        result = validate_bank(self.bank)
+        self.assertNotIn("unreleased_question_has_first_used_bank_revision", {issue.code for issue in result.errors})
 
     def test_generation_preserves_first_used_revision_after_later_bank_revision(self) -> None:
         metadata = self._read_json("authoring/bank.json")

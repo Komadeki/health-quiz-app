@@ -460,6 +460,10 @@ def _validate_released_contract(
     question_by_id: dict[str, dict[str, str]],
 ) -> None:
     registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
+    released_ids = {
+        str(released.get("question_id", "")).strip()
+        for released in inputs.released_questions
+    }
     for released in inputs.released_questions:
         question_id = str(released.get("question_id", "")).strip()
         registry_row = registry_by_id.get(question_id)
@@ -537,6 +541,18 @@ def _validate_released_contract(
                 "question_version_not_incremented",
                 "Released metadata changed without incrementing question_version.",
                 location,
+            )
+
+    for question_id, registry_row in registry_by_id.items():
+        if (
+            question_id not in released_ids
+            and registry_row.get("first_used_bank_revision", "")
+            and registry_row.get("status") != "retired"
+        ):
+            result.error(
+                "unreleased_question_has_first_used_bank_revision",
+                "An unreleased question must not have first_used_bank_revision.",
+                f"authoring/question_id_registry.csv:{question_id}",
             )
 
 

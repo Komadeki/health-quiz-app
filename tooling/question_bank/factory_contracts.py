@@ -191,11 +191,18 @@ def validate_coverage(
                 )
         for tag in _list_of_strings(target.get("variation_requirements", [])) or []:
             if tag not in variation_tags_by_target[target_id]:
-                result.error(
-                    "missing_required_variation_coverage",
-                    f"{target_id} is missing variation tag: {tag}",
-                    location,
-                )
+                if target.get("required") is True:
+                    result.error(
+                        "missing_required_variation_coverage",
+                        f"{target_id} is missing variation tag: {tag}",
+                        location,
+                    )
+                else:
+                    result.warning(
+                        "optional_variation_coverage_gap",
+                        f"{target_id} is missing optional variation tag: {tag}",
+                        location,
+                    )
                 summary["missing_required_variations"].append(
                     {"knowledge_target_id": target_id, "variation_tag": tag}
                 )
