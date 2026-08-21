@@ -100,6 +100,24 @@ gaps and deterministic near-duplicate candidates are warnings. It cannot prove
 that a taxonomy, Question set, bank size, source authority, or semantic overlap
 is sufficient; those remain AI-assisted and Human-decided review.
 
+## Pre-ID expansion batches
+
+Production-bank expansion before Permanent ID allocation uses the additive
+`Production Question Bank Expansion Protocol v1.0` in
+`PRODUCTION_QUESTION_BANK_EXPANSION_PROTOCOL_V1.md`. It does not change the
+canonical Question Factory path above.
+
+Expansion working sets live under
+`question_banks/<app_key>/authoring/batches/<directory_slug>/` as `batch.json`,
+`candidates.csv`, and `reviews.csv`. Chat is not a Source of Truth. The shared
+expansion validator checks lifecycle and structural invariants only; semantic
+correctness, material duplicate judgment, source sufficiency, and target bank
+size remain AI-assisted/Human decisions.
+
+Permanent IDs are not reserved in expansion artifacts. They are added only at
+the Permanent ID Gate and continue to use the existing canonical registry
+contract without a new registry status.
+
 ## Runtime and provenance
 
 Generated cards contain the permanent ID (`stableId`), `questionVersion`,
@@ -126,6 +144,12 @@ python3 tooling/question_bank/generate.py \
 python3 tooling/question_bank/report.py \
   --bank question_banks/qualification_fixture \
   --check-generated --json
+
+python3 tooling/question_bank/validate_expansion.py \
+  --batch question_banks/drone_second_class/authoring/batches/batch_001
+
+python3 tooling/question_bank/expansion_report.py \
+  --batch question_banks/drone_second_class/authoring/batches/batch_001 --json
 
 python3 -m unittest discover \
   -s tooling/question_bank/tests -p 'test_*.py'
