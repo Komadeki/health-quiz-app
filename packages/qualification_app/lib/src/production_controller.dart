@@ -71,6 +71,7 @@ final class QualificationProductionController extends ChangeNotifier {
   final QuestionRandomizer _randomizer;
   late final PurchaseEntitlementCoordinator _coordinator;
   late final StreamSubscription<PurchaseResult> _purchaseSubscription;
+  Timer? _mockExamDeadlineTimer;
 
   QualificationBank? bank;
   QualificationSessionV1? activeSession;
@@ -101,6 +102,53 @@ final class QualificationProductionController extends ChangeNotifier {
 
   int get freeQuestionCount =>
       bank?.cards.where((card) => !card.isPremium).length ?? 0;
+
+  bool get canStartMockExam {
+    final profile = definition.examProfile;
+    final productionBank = bank;
+    if (!hasFullUnlock ||
+        !modeEnabled(LearningModeV1.mockExam) ||
+        profile == null ||
+        productionBank == null) {
+      return false;
+    }
+    final accessible = productionBank.candidates.where(
+      (candidate) => canAccess(productionBank.cardsById[candidate.questionId]!),
+    );
+    if (profile.allocations.isEmpty) {
+      return accessible.length >= profile.questionCount;
+    }
+    final countByUnit = <String, int>{};
+    for (final candidate in accessible) {
+      countByUnit.update(
+        candidate.unitId,
+        (count) => count + 1,
+        ifAbsent: () => 1,
+      );
+    }
+    return profile.allocations.every(
+      (allocation) =>
+          (countByUnit[allocation.unitId] ?? 0) >= allocation.questionCount,
+    );
+  }
+
+  bool get isMockExamLocked {
+    return definition.examProfile != null &&
+        modeEnabled(LearningModeV1.mockExam) &&
+        !hasFullUnlock;
+  }
+
+  bool get hasTimedMockExam {
+    final session = activeSession;
+    return session?.mode == LearningModeV1.mockExam &&
+        definition.examProfile?.timeLimitMinutes != null;
+  }
+
+  Duration? get remainingMockExamDuration {
+    final session = activeSession;
+    if (session == null) return null;
+    return _mockExamRemaining(session, _now());
+  }
 
   bool modeEnabled(LearningModeV1 mode) =>
       definition.learningProduct.enabledModes.contains(mode);
@@ -225,6 +273,11 @@ final class QualificationProductionController extends ChangeNotifier {
   Future<bool> startMockExam() async {
     final profile = definition.examProfile;
     if (!modeEnabled(LearningModeV1.mockExam) || profile == null) return false;
+    if (!hasFullUnlock) {
+      storeMessage = '模擬試験は全問解放後に利用できます。';
+      notifyListeners();
+      return false;
+    }
     final accessible = bank!.candidates.where(
       (candidate) => canAccess(bank!.cardsById[candidate.questionId]!),
     );
@@ -275,6 +328,7 @@ final class QualificationProductionController extends ChangeNotifier {
     view = QualificationProductionView.quiz;
     _questionShownAt = now;
     await _sessionStore.save(session);
+    _armMockExamDeadline(session);
     notifyListeners();
     return true;
   }
@@ -290,7 +344,15 @@ final class QualificationProductionController extends ChangeNotifier {
     result = null;
     view = QualificationProductionView.quiz;
     _questionShownAt = _now();
+    _armMockExamDeadline(session);
     notifyListeners();
+  }
+
+  Future<bool> completeExpiredMockExamIfNeeded() async {
+    final session = activeSession;
+    if (session == null || !_mockExamExpired(session, _now())) return false;
+    await _completeExpiredMockExam(session);
+    return activeSession?.sessionId != session.sessionId;
   }
 
   QuizCard? get currentCard {
@@ -446,6 +508,8 @@ final class QualificationProductionController extends ChangeNotifier {
   }
 
   Future<void> _completeSession(QualificationSessionV1 session) async {
+    _mockExamDeadlineTimer?.cancel();
+    _mockExamDeadlineTimer = null;
     final cards = bank!.cardsById;
     final incorrectIds = <String>[];
     var correctCount = 0;
@@ -577,14 +641,58 @@ final class QualificationProductionController extends ChangeNotifier {
     }
     if (_mockExamExpired(loaded, _now())) {
       await _completeSession(loaded);
+    } else {
+      _armMockExamDeadline(loaded);
     }
   }
 
   bool _mockExamExpired(QualificationSessionV1 session, DateTime now) {
-    if (session.mode != LearningModeV1.mockExam) return false;
+    final remaining = _mockExamRemaining(session, now);
+    return remaining != null && remaining == Duration.zero;
+  }
+
+  Duration? _mockExamRemaining(QualificationSessionV1 session, DateTime now) {
+    if (session.mode != LearningModeV1.mockExam) return null;
     final minutes = definition.examProfile?.timeLimitMinutes;
-    if (minutes == null) return false;
-    return !now.isBefore(session.startedAt.add(Duration(minutes: minutes)));
+    if (minutes == null) return null;
+    final remaining = session.startedAt
+        .add(Duration(minutes: minutes))
+        .difference(now);
+    return remaining.isNegative ? Duration.zero : remaining;
+  }
+
+  void _armMockExamDeadline(QualificationSessionV1 session) {
+    _mockExamDeadlineTimer?.cancel();
+    _mockExamDeadlineTimer = null;
+    final remaining = _mockExamRemaining(session, _now());
+    if (remaining == null) return;
+    if (remaining == Duration.zero) {
+      unawaited(_completeExpiredMockExam(session));
+      return;
+    }
+    _mockExamDeadlineTimer = Timer(
+      remaining,
+      () => unawaited(_completeExpiredMockExam(session)),
+    );
+  }
+
+  Future<void> _completeExpiredMockExam(
+    QualificationSessionV1 expectedSession,
+  ) async {
+    final session = activeSession;
+    if (_transitionBusy ||
+        session == null ||
+        session.sessionId != expectedSession.sessionId ||
+        !_mockExamExpired(session, _now())) {
+      return;
+    }
+    _transitionBusy = true;
+    try {
+      await _completeSession(session);
+      notifyListeners();
+    } finally {
+      _transitionBusy = false;
+    }
   }
 
   bool _isCompatible(QualificationSessionV1 session) {
@@ -684,6 +792,7 @@ final class QualificationProductionController extends ChangeNotifier {
 
   @override
   void dispose() {
+    _mockExamDeadlineTimer?.cancel();
     unawaited(_purchaseSubscription.cancel());
     unawaited(_purchaseGateway.dispose());
     super.dispose();

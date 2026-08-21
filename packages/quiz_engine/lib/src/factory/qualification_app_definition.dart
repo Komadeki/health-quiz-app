@@ -10,8 +10,8 @@ final class QualificationUrls {
     this.marketing,
   });
 
-  final String support;
-  final String privacy;
+  final String? support;
+  final String? privacy;
   final String? marketing;
 }
 

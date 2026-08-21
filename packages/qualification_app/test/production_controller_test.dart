@@ -12,6 +12,7 @@ void main() {
   late TestClock clock;
 
   QualificationProductionController createController({
+    QualificationAppDefinition? definition,
     MemoryQualificationSessionStore? store,
     InMemoryLearningRepository? learning,
     MemoryEntitlementCache? cache,
@@ -23,7 +24,7 @@ void main() {
     gateway = purchaseGateway ?? FakePurchaseGateway();
     clock = TestClock();
     return QualificationProductionController(
-      definition: fixtureDefinition,
+      definition: definition ?? fixtureDefinition,
       bankLoader: FixedBankLoader(loadFixtureBank()),
       sessionStore: sessionStore,
       learningRepository: learningRepository,
@@ -326,6 +327,135 @@ void main() {
     },
   );
 
+  test('mock exam requires Full Unlock entitlement', () async {
+    final locked = createController();
+    await locked.initialize();
+
+    expect(locked.canStartMockExam, isFalse);
+    expect(locked.isMockExamLocked, isTrue);
+    expect(await locked.startMockExam(), isFalse);
+    expect(locked.activeSession, isNull);
+    expect(locked.storeMessage, '模擬試験は全問解放後に利用できます。');
+    locked.dispose();
+
+    final cache = MemoryEntitlementCache()
+      ..value = EntitlementSnapshot(
+        ownedProductIds: const {'fixture_full_unlock'},
+      );
+    final unlocked = createController(cache: cache);
+    await unlocked.initialize();
+
+    expect(unlocked.canStartMockExam, isTrue);
+    expect(unlocked.isMockExamLocked, isFalse);
+    expect(await unlocked.startMockExam(), isTrue);
+    unlocked.dispose();
+  });
+
+  test(
+    'free-pool-satisfiable mock remains locked without Full Unlock',
+    () async {
+      final profile = MockExamProfileV1(
+        profileVersion: 'fixture-free-pool-v1',
+        questionCount: 1,
+        timeLimitMinutes: null,
+        allocations: const [
+          ExamUnitAllocationV1(
+            unitId: 'fixture_safety',
+            questionCount: 1,
+          ),
+        ],
+        overallPassPercent: null,
+        sectionPassRules: const [],
+        shuffleQuestions: false,
+      );
+      final controller = createController(
+        definition: fixtureDefinitionWith(examProfile: profile),
+        cache: MemoryEntitlementCache(),
+      );
+      await controller.initialize();
+
+      final accessible = controller.bank!.candidates.where(
+        (candidate) => controller.canAccess(
+          controller.bank!.cardsById[candidate.questionId]!,
+        ),
+      );
+      expect(
+        MockExamEngineV1(
+          randomizer: const IdentityQuestionRandomizer(),
+        ).createQuestionSequence(
+          profile: profile,
+          accessibleQuestions: accessible,
+        ),
+        ['FIXTURE-Q-000001'],
+      );
+      expect(controller.hasFullUnlock, isFalse);
+      expect(controller.canStartMockExam, isFalse);
+      expect(controller.isMockExamLocked, isTrue);
+      expect(await controller.startMockExam(), isFalse);
+      expect(controller.activeSession, isNull);
+      expect(
+        controller.storeMessage,
+        '模擬試験は全問解放後に利用できます。',
+      );
+      controller.dispose();
+    },
+  );
+
+  test('timed mock keeps its original startedAt across resume', () async {
+    final profile = MockExamProfileV1(
+      profileVersion: 'fixture-timed-v1',
+      questionCount: 2,
+      timeLimitMinutes: 1,
+      allocations: const [
+        ExamUnitAllocationV1(unitId: 'fixture_operations', questionCount: 1),
+        ExamUnitAllocationV1(unitId: 'fixture_safety', questionCount: 1),
+      ],
+      overallPassPercent: null,
+      sectionPassRules: const [],
+      shuffleQuestions: false,
+    );
+    final definition = fixtureDefinitionWith(examProfile: profile);
+    final store = MemoryQualificationSessionStore();
+    final learning = InMemoryLearningRepository();
+    final cache = MemoryEntitlementCache()
+      ..value = EntitlementSnapshot(
+        ownedProductIds: const {'fixture_full_unlock'},
+      );
+    var now = DateTime.utc(2026, 1, 1, 12);
+    QualificationProductionController createTimedController() {
+      return QualificationProductionController(
+        definition: definition,
+        bankLoader: FixedBankLoader(loadFixtureBank()),
+        sessionStore: store,
+        learningRepository: learning,
+        purchaseGateway: FakePurchaseGateway(),
+        entitlementCache: cache,
+        now: () => now,
+        randomizer: const IdentityQuestionRandomizer(),
+      );
+    }
+
+    final first = createTimedController();
+    await first.initialize();
+    await first.startMockExam();
+    final startedAt = first.activeSession!.startedAt;
+    expect(first.remainingMockExamDuration, const Duration(minutes: 1));
+    first.dispose();
+
+    now = now.add(const Duration(seconds: 40));
+    final resumed = createTimedController();
+    await resumed.initialize();
+    await resumed.resume();
+
+    expect(resumed.activeSession!.startedAt, startedAt);
+    expect(resumed.remainingMockExamDuration, const Duration(seconds: 20));
+    now = now.add(const Duration(seconds: 21));
+    expect(await resumed.completeExpiredMockExamIfNeeded(), isTrue);
+    expect(resumed.view, QualificationProductionView.result);
+    expect(await learning.loadAllEvents(), isEmpty);
+    resumed.dispose();
+  });
+
   test('configured mock-exam time limit closes an expired session', () async {
     final timedDefinition = QualificationAppDefinition(
       appKey: fixtureDefinition.appKey,
@@ -416,6 +546,8 @@ void main() {
     await purchase.purchaseFullUnlock();
     await settleEvents();
     expect(purchase.hasFullUnlock, isTrue);
+    expect(purchase.canStartMockExam, isTrue);
+    expect(await purchase.startMockExam(), isTrue);
     expect(gateway.purchased, ['fixture_full_unlock']);
     purchase.dispose();
 
@@ -424,6 +556,8 @@ void main() {
     await restore.restorePurchases();
     await settleEvents();
     expect(restore.hasFullUnlock, isTrue);
+    expect(restore.canStartMockExam, isTrue);
+    expect(await restore.startMockExam(), isTrue);
     restore.dispose();
   });
 }

@@ -58,6 +58,26 @@ final QualificationAppDefinition fixtureDefinition = QualificationAppDefinition(
   ),
 );
 
+QualificationAppDefinition fixtureDefinitionWith({
+  QualificationUrls? urls,
+  MockExamProfileV1? examProfile,
+}) {
+  return QualificationAppDefinition(
+    appKey: fixtureDefinition.appKey,
+    displayName: fixtureDefinition.displayName,
+    publisher: fixtureDefinition.publisher,
+    brandName: fixtureDefinition.brandName,
+    legalese: fixtureDefinition.legalese,
+    urls: urls ?? fixtureDefinition.urls,
+    questionBankAsset: fixtureDefinition.questionBankAsset,
+    questionIdentityPolicy: fixtureDefinition.questionIdentityPolicy,
+    monetization: fixtureDefinition.monetization,
+    examProfile: examProfile ?? fixtureDefinition.examProfile,
+    branding: fixtureDefinition.branding,
+    learningProduct: fixtureDefinition.learningProduct,
+  );
+}
+
 QualificationBank loadFixtureBank() {
   return QualificationBank.decode(
     File(
