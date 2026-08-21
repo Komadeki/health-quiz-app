@@ -106,7 +106,8 @@ final class QualificationProductionController extends ChangeNotifier {
   bool get canStartMockExam {
     final profile = definition.examProfile;
     final productionBank = bank;
-    if (!modeEnabled(LearningModeV1.mockExam) ||
+    if (!hasFullUnlock ||
+        !modeEnabled(LearningModeV1.mockExam) ||
         profile == null ||
         productionBank == null) {
       return false;
@@ -134,7 +135,7 @@ final class QualificationProductionController extends ChangeNotifier {
   bool get isMockExamLocked {
     return definition.examProfile != null &&
         modeEnabled(LearningModeV1.mockExam) &&
-        !canStartMockExam;
+        !hasFullUnlock;
   }
 
   bool get hasTimedMockExam {
@@ -272,7 +273,7 @@ final class QualificationProductionController extends ChangeNotifier {
   Future<bool> startMockExam() async {
     final profile = definition.examProfile;
     if (!modeEnabled(LearningModeV1.mockExam) || profile == null) return false;
-    if (!canStartMockExam) {
+    if (!hasFullUnlock) {
       storeMessage = '模擬試験は全問解放後に利用できます。';
       notifyListeners();
       return false;
