@@ -1,10 +1,24 @@
+import 'dart:io';
+
 import 'package:drone_second_class/src/domain/panel_assignment.dart';
 import 'package:drone_second_class/src/domain/validation_bundle.dart';
 import 'package:drone_second_class/src/session/session_models.dart';
 import 'package:drone_second_class/src/session/session_repository.dart';
 
-Future<ValidationBundle> loadValidationBundle() =>
-    ValidationBundleLoader().load();
+Future<ValidationBundle> loadValidationBundle() => ValidationBundleLoader(
+  assetReader: (assetKey) {
+    const validationRoot = '../../question_banks/drone_second_class/validation';
+    final source = switch (assetKey) {
+      'assets/validation/protocol.json' => '$validationRoot/protocol.json',
+      'assets/validation/validation_bundle.json' =>
+        '$validationRoot/generated/validation_bundle.json',
+      'assets/validation/validation_manifest.json' =>
+        '$validationRoot/generated/validation_manifest.json',
+      _ => throw ArgumentError.value(assetKey, 'assetKey'),
+    };
+    return File(source).readAsString();
+  },
+).load();
 
 PanelAssignmentV1 smallAssignment({
   String assignmentId = 'assignment-small',

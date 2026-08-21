@@ -38,18 +38,10 @@ monetization:
 
 exam:
   profile_version: drone-second-class-v1
-  question_count: 100
-  time_limit_minutes: null
+  question_count: 50
+  time_limit_minutes: 30
   overall_pass_percent: null
-  allocations:
-    - unit_id: drone_operations
-      question_count: 22
-    - unit_id: drone_risk_management
-      question_count: 23
-    - unit_id: drone_rules
-      question_count: 26
-    - unit_id: drone_systems
-      question_count: 29
+  allocations: []
   section_pass_rules: []
   shuffle_questions: true
 

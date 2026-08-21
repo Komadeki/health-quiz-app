@@ -1,11 +1,13 @@
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:app_manifest_tooling/app_manifest.dart';
+import 'package:app_manifest_tooling/src/question_bank_validation.dart';
 import 'package:test/test.dart';
 
-void main() {
-  final repositoryRoot = findRepositoryRoot();
+final repositoryRoot = findRepositoryRoot();
 
+void main() {
   test('generation is byte-for-byte deterministic', () {
     final manifests = loadAppManifests(repositoryRoot);
     final first = buildGeneratedFiles(repositoryRoot, manifests);
@@ -28,6 +30,47 @@ void main() {
   test('repository manifests and committed generated files validate', () {
     final result = validateRepository(repositoryRoot, checkGenerated: true);
     expect(result.issues, isEmpty);
+  });
+
+  test('mock exam count may be smaller than its runtime bank', () {
+    final fixture = _droneQuestionBankFixture(examQuestionCount: 50);
+    addTearDown(() => fixture.directory.deleteSync(recursive: true));
+
+    expect(fixture.validate().issues, isEmpty);
+  });
+
+  test('mock exam count may equal its runtime bank', () {
+    final fixture = _droneQuestionBankFixture(examQuestionCount: 100);
+    addTearDown(() => fixture.directory.deleteSync(recursive: true));
+
+    expect(fixture.validate().issues, isEmpty);
+  });
+
+  test('mock exam count cannot exceed its runtime bank', () {
+    final fixture = _droneQuestionBankFixture(
+      examQuestionCount: 50,
+      runtimeQuestionCount: 49,
+      bankManifestQuestionCount: 49,
+    );
+    addTearDown(() => fixture.directory.deleteSync(recursive: true));
+
+    expect(
+      fixture.validate().issues.map((issue) => issue.code),
+      contains('exam_question_count_exceeds_bank_size'),
+    );
+  });
+
+  test('bank manifest count must match its full runtime bank', () {
+    final fixture = _droneQuestionBankFixture(
+      examQuestionCount: 50,
+      bankManifestQuestionCount: 99,
+    );
+    addTearDown(() => fixture.directory.deleteSync(recursive: true));
+
+    expect(
+      fixture.validate().issues.map((issue) => issue.code),
+      contains('question_count_mismatch'),
+    );
   });
 
   test('Factory definitions are generated only for opted-in qualification apps',
@@ -318,4 +361,101 @@ dependencies:
       hasLength(generated.length),
     );
   });
+}
+
+_DroneQuestionBankFixture _droneQuestionBankFixture({
+  required int examQuestionCount,
+  int? runtimeQuestionCount,
+  int? bankManifestQuestionCount,
+}) {
+  final directory = Directory.systemTemp.createTempSync(
+    'drone_question_bank_fixture.',
+  );
+  final appYaml = File('${directory.path}/apps/drone_second_class/app.yaml')
+    ..createSync(recursive: true)
+    ..writeAsStringSync(
+      File('${repositoryRoot.path}/apps/drone_second_class/app.yaml')
+          .readAsStringSync()
+          .replaceFirst(
+            '  question_count: 50',
+            '  question_count: $examQuestionCount',
+          ),
+    );
+  final runtime = _copyJson(
+    'question_banks/drone_second_class/generated/drone_second_class_bank.json',
+  );
+  final bankManifest = _copyJson(
+    'question_banks/drone_second_class/generated/bank_manifest.json',
+  );
+
+  if (runtimeQuestionCount != null) {
+    _setRuntimeQuestionCount(runtime, runtimeQuestionCount);
+  }
+  if (bankManifestQuestionCount != null) {
+    bankManifest['question_count'] = bankManifestQuestionCount;
+  }
+  _writeJson(
+    directory,
+    'question_banks/drone_second_class/generated/drone_second_class_bank.json',
+    runtime,
+  );
+  _writeJson(
+    directory,
+    'question_banks/drone_second_class/generated/bank_manifest.json',
+    bankManifest,
+  );
+
+  return _DroneQuestionBankFixture(
+    directory,
+    AppManifest.fromFile(appYaml, directory),
+  );
+}
+
+Map<String, dynamic> _copyJson(String relativePath) {
+  final source = File('${repositoryRoot.path}/$relativePath');
+  return (jsonDecode(source.readAsStringSync())! as Map)
+      .cast<String, dynamic>();
+}
+
+void _setRuntimeQuestionCount(Map<String, dynamic> runtime, int desiredCount) {
+  final units = ((runtime['decks']! as List).single as Map)['units']! as List;
+  var remaining = units.fold<int>(
+    0,
+    (total, unit) => total + ((unit as Map)['cards']! as List).length,
+  );
+  for (final unit in units.reversed) {
+    final cards = (unit as Map)['cards']! as List;
+    final removalCount = remaining - desiredCount;
+    if (removalCount <= 0) break;
+    final countToRemove =
+        removalCount < cards.length ? removalCount : cards.length;
+    cards.removeRange(
+      cards.length - countToRemove,
+      cards.length,
+    );
+    remaining -= countToRemove;
+  }
+}
+
+void _writeJson(
+  Directory directory,
+  String relativePath,
+  Map<String, dynamic> value,
+) {
+  File('${directory.path}/$relativePath')
+    ..createSync(recursive: true)
+    ..writeAsStringSync(jsonEncode(value));
+}
+
+class _DroneQuestionBankFixture {
+  const _DroneQuestionBankFixture(this.directory, this.manifest);
+
+  final Directory directory;
+  final AppManifest manifest;
+
+  ManifestValidationResult validate() {
+    final result = ManifestValidationResult();
+    validateQuestionBank(directory, manifest, result, false);
+    return result;
+  }
 }

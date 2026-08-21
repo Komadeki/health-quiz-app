@@ -91,12 +91,19 @@ void validateQuestionBank(
     manifest.questionBank.runtimePath,
   );
   final unitCounts = _runtimeUnitCounts(runtimeJson);
-  if (bankManifest['question_count'] != cards.length ||
-      (manifest.exam.questionCount != null &&
-          manifest.exam.questionCount != cards.length)) {
+  if (bankManifest['question_count'] != cards.length) {
     result.error(
       'question_count_mismatch',
-      'Runtime, bank manifest, and app exam question counts must match.',
+      'Runtime and bank manifest question counts must match.',
+      manifest.sourcePath,
+    );
+  }
+  final examQuestionCount = manifest.exam.questionCount;
+  if (examQuestionCount != null && examQuestionCount > cards.length) {
+    result.error(
+      'exam_question_count_exceeds_bank_size',
+      'Exam question count $examQuestionCount exceeds the available '
+          'runtime bank size ${cards.length}.',
       manifest.sourcePath,
     );
   }

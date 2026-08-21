@@ -8,19 +8,32 @@ import 'package:quiz_engine/quiz_engine.dart';
 import 'production_test_support.dart';
 
 void main() {
-  test('Reference Product preserves the released 100Q/20Q/four-unit bank', () {
-    final bank = loadProductionBank();
+  test(
+    'Reference Product preserves the 100Q/20Q bank and neutral mock profile',
+    () {
+      final bank = loadProductionBank();
+      final profile = GeneratedAppManifest.definition.examProfile;
 
-    expect(bank.bankRevision, 'drone-second-class-v1-release-2026-08-20');
-    expect(bank.examProfileVersion, 'drone-second-class-v1');
-    expect(bank.cards, hasLength(100));
-    expect(bank.cardsById, hasLength(100));
-    expect(bank.units, hasLength(4));
-    expect(bank.cards.where((card) => !card.isPremium), hasLength(20));
-    for (final unit in bank.units) {
-      expect(unit.cards.where((card) => !card.isPremium), hasLength(5));
-    }
-  });
+      expect(bank.bankRevision, 'drone-second-class-v1-release-2026-08-20');
+      expect(bank.examProfileVersion, 'drone-second-class-v1');
+      expect(bank.cards, hasLength(100));
+      expect(bank.cardsById, hasLength(100));
+      expect(bank.units, hasLength(4));
+      expect(bank.cards.where((card) => !card.isPremium), hasLength(20));
+      for (final unit in bank.units) {
+        expect(unit.cards.where((card) => !card.isPremium), hasLength(5));
+      }
+      expect(profile, isNotNull);
+      final resolvedProfile = profile!;
+      expect(resolvedProfile.profileVersion, 'drone-second-class-v1');
+      expect(resolvedProfile.questionCount, 50);
+      expect(resolvedProfile.timeLimitMinutes, 30);
+      expect(resolvedProfile.allocations, isEmpty);
+      expect(resolvedProfile.overallPassPercent, isNull);
+      expect(resolvedProfile.sectionPassRules, isEmpty);
+      expect(resolvedProfile.shuffleQuestions, isTrue);
+    },
+  );
 
   test('Drone composition uses shared Factory architecture only', () {
     final source = File(
@@ -70,7 +83,7 @@ void main() {
       await unlocked.initialize();
       expect(unlocked.accessibleQuestionCount, 100);
       expect(await unlocked.startMockExam(), isTrue);
-      expect(unlocked.activeSession!.questionIds, hasLength(100));
+      expect(unlocked.activeSession!.questionIds, hasLength(50));
       unlocked.dispose();
     },
   );
