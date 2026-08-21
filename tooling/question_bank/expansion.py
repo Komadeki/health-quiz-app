@@ -13,6 +13,7 @@ ALLOWED_STATES = {
 }
 HUMAN_DECISIONS = {"ACCEPT", "REWORK", "REJECT", "HOLD"}
 PRODUCTION_STATES = {"ID_ALLOCATED", "INTEGRATED", "VERIFIED", "RELEASED"}
+POST_ACCEPT_STATES = {"READY_FOR_ID", "ID_ALLOCATED", "INTEGRATED", "VERIFIED", "RELEASED"}
 REQUIRED_FILES = ("batch.json", "candidates.csv", "reviews.csv")
 CANDIDATE_COLUMNS = (
     "candidate_id", "state", "unit_id", "domain", "knowledge_target_id", "family",
@@ -113,6 +114,17 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
                 if not str(item.get(field, "")).strip():
                     errors.append(f"coverage_limit_decisions[{i}] missing {field}")
 
+    planned_scope = batch.get("planned_scope")
+    known_rejected_ids: set[str] = set()
+    if isinstance(planned_scope, dict):
+        raw_rejected = planned_scope.get("known_rejected_ids", [])
+        if isinstance(raw_rejected, list):
+            known_rejected_ids = {str(value).strip() for value in raw_rejected if str(value).strip()}
+        else:
+            errors.append("planned_scope.known_rejected_ids must be a list when present")
+    elif planned_scope is not None:
+        errors.append("planned_scope must be an object")
+
     candidate_fields, candidates = _read_csv(batch_dir / "candidates.csv")
     review_fields, reviews = _read_csv(batch_dir / "reviews.csv")
     missing_candidate_columns = [c for c in CANDIDATE_COLUMNS if c not in candidate_fields]
@@ -138,6 +150,8 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
         decision = row["decision"].strip()
         if decision not in HUMAN_DECISIONS:
             errors.append(f"invalid review decision for {candidate_id}: {decision}")
+        if not row["reviewer_role"].strip():
+            errors.append(f"reviewer_role is required for {candidate_id}")
         try:
             round_number = int(row["review_round"])
             if round_number < 1:
@@ -159,6 +173,8 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
         if state not in ALLOWED_STATES:
             errors.append(f"invalid candidate state for {candidate_id}: {state}")
             continue
+        if candidate_id in known_rejected_ids and state != "REJECT":
+            errors.append(f"known rejected candidate_id reused: {candidate_id}")
 
         content_required = state not in {"DRAFT", "REWORK", "HOLD", "REJECT"}
         if content_required:
@@ -186,21 +202,25 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
                 errors.append(f"duplicate permanent ID mapping: {permanent_id}")
             permanent_to_candidate[permanent_id] = candidate_id
 
+        candidate_reviews = reviews_by_candidate.get(candidate_id, [])
+        latest_decision = ""
+        if candidate_reviews:
+            def review_key(review: dict[str, str]) -> int:
+                try:
+                    return int(review["review_round"])
+                except ValueError:
+                    return -1
+            latest_decision = max(candidate_reviews, key=review_key)["decision"].strip()
+
         human_states = {"HUMAN_ACCEPT", "REWORK", "HOLD", "REJECT"}
         if state in human_states:
-            candidate_reviews = reviews_by_candidate.get(candidate_id, [])
             if not candidate_reviews:
                 errors.append(f"{state} candidate {candidate_id} has no Human review")
-            else:
-                def review_key(review: dict[str, str]) -> int:
-                    try:
-                        return int(review["review_round"])
-                    except ValueError:
-                        return -1
-                latest = max(candidate_reviews, key=review_key)
-                decision = latest["decision"].strip()
-                if decision in HUMAN_DECISIONS and _review_state(decision) != state:
-                    errors.append(f"latest Human review conflicts with candidate state for {candidate_id}")
+            elif latest_decision in HUMAN_DECISIONS and _review_state(latest_decision) != state:
+                errors.append(f"latest Human review conflicts with candidate state for {candidate_id}")
+        elif state in POST_ACCEPT_STATES:
+            if not candidate_reviews or latest_decision != "ACCEPT":
+                errors.append(f"{state} candidate {candidate_id} requires latest Human ACCEPT review")
 
     candidate_set = set(candidate_ids)
     for candidate_id in reviews_by_candidate:
@@ -214,22 +234,24 @@ def build_status_report(batch_dir: Path | str) -> dict[str, Any]:
     batch_dir = Path(batch_dir)
     batch = json.loads((batch_dir / "batch.json").read_text(encoding="utf-8"))
     _, candidates = _read_csv(batch_dir / "candidates.csv")
-    _, reviews = _read_csv(batch_dir / "reviews.csv")
     state_counts = Counter(row["state"].strip() for row in candidates)
-    review_counts = Counter(row["decision"].strip() for row in reviews)
     decisions = batch.get("target_size_decisions") or []
     blockers = list(batch.get("migration_blockers") or [])
-    errors = validate_expansion_batch(batch_dir)
-    blockers.extend(errors)
-    actionable = [state for state in ("DRAFT", "AI_PRE_ACCEPT", "REWORK", "HOLD", "HUMAN_ACCEPT", "READY_FOR_ID", "ID_ALLOCATED", "INTEGRATED", "VERIFIED") if state_counts.get(state)]
+    blockers.extend(validate_expansion_batch(batch_dir))
+    actionable = [
+        state for state in (
+            "DRAFT", "AI_PRE_ACCEPT", "REWORK", "HOLD", "HUMAN_ACCEPT",
+            "READY_FOR_ID", "ID_ALLOCATED", "INTEGRATED", "VERIFIED",
+        ) if state_counts.get(state)
+    ]
     return {
         "batch_id": batch.get("batch_id"),
         "batch_status": batch.get("batch_status"),
         "current_target_decision": decisions[-1] if decisions else None,
         "count_by_candidate_state": dict(sorted(state_counts.items())),
         "human_accept_count": state_counts.get("HUMAN_ACCEPT", 0),
-        "reject_count": state_counts.get("REJECT", 0) + review_counts.get("REJECT", 0),
-        "hold_count": state_counts.get("HOLD", 0) + review_counts.get("HOLD", 0),
+        "reject_count": state_counts.get("REJECT", 0),
+        "hold_count": state_counts.get("HOLD", 0),
         "ready_for_id_count": state_counts.get("READY_FOR_ID", 0),
         "id_allocated_count": state_counts.get("ID_ALLOCATED", 0),
         "integrated_count": state_counts.get("INTEGRATED", 0),
