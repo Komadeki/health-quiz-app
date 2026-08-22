@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B1",
+  "directory_slug": "batch_001",
+  "baseline_sha": "c99f02feb8c7d40303273c00b90d0421c24e429a",
+  "batch_status": "HUMAN_REVIEWED_WITH_MIGRATION_BLOCKERS",
+  "expansion_trigger": "Expand the released 100-question seed bank where current official-exam coverage or useful variation is thin, without treating the historical +75 drafting instruction as a quota.",
+  "evidence": [
+    "Current released count is 100.",
+    "Canonical coverage.json approved target remains 100 and is not modified by this batch.",
+    "PR #36 head ea794a9de4d13e85980cb8141c640f2afb4e4fef is the authoritative exact source for the 18 Human-confirmed Rules ACCEPT candidates."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B1-TARGET-001",
+      "previous_approved_target": 100,
+      "current_released_count": 100,
+      "proposed_target_min": 100,
+      "proposed_target_max": 100,
+      "approved_new_target": 100,
+      "rationale": "No new canonical bank-size target is approved in this implementation. The historical +75 authoring instruction is not a quota; target-size sufficiency remains a Human decision outside deterministic validation.",
+      "decision_date": "2026-08-22",
+      "evidence": "Production Question Bank Expansion Protocol v1.0 adoption decision; current coverage.json approved target remains 100."
+    }
+  ],
+  "planned_scope": {
+    "area": "Rules",
+    "candidate_batch_identity": "B1",
+    "human_confirmed_accept_ids": [
+      "B1-R-C001", "B1-R-C002", "B1-R-C003", "B1-R-C004", "B1-R-C005", "B1-R-C006",
+      "B1-R-C007", "B1-R-C008", "B1-R-C009", "B1-R-C010", "B1-R-C011", "B1-R-C012",
+      "B1-R-C013", "B1-R-C014", "B1-R-C015", "B1-R-C016", "B1-R-C023", "B1-R-C024"
+    ],
+    "known_rejected_ids": [
+      "B1-R-C017", "B1-R-C018", "B1-R-C019", "B1-R-C020", "B1-R-C021", "B1-R-C022"
+    ]
+  },
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B1-COVERAGE-LIMIT-R5-001",
+      "status": "CONFIRMED",
+      "scope": "Rules R5",
+      "evidence": "Final Rules allocation is R1=9, R2=4, R3=3, R4=2, R5=0. R5 reached the accepted source/coverage limit and its allocation was not force-filled."
+    }
+  ],
+  "migration_blockers": [
+    "B1-R-C017: known rejected identity but exact legacy packet unavailable",
+    "B1-R-C018: known rejected identity but exact legacy packet unavailable",
+    "B1-R-C019: known rejected identity but exact legacy packet unavailable",
+    "B1-R-C020: known rejected identity but exact legacy packet unavailable",
+    "B1-R-C021: known rejected identity but exact legacy packet unavailable",
+    "B1-R-C022: known rejected identity but exact legacy packet unavailable"
+  ]
+}
