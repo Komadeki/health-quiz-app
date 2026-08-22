@@ -20,6 +20,8 @@ def main() -> int:
     else:
         print(f"batch_id={report['batch_id']}")
         print(f"batch_status={report['batch_status']}")
+        print(f"current_target_decision_status={report['current_target_decision_status']}")
+        print(f"current_target_decision={json.dumps(report['current_target_decision'], ensure_ascii=False, sort_keys=True)}")
         print(f"count_by_candidate_state={json.dumps(report['count_by_candidate_state'], ensure_ascii=False, sort_keys=True)}")
         print(f"human_accept_count={report['human_accept_count']}")
         print(f"reject_count={report['reject_count']}")

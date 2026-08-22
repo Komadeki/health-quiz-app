@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -19,44 +20,16 @@ class ExpansionProtocolTest(unittest.TestCase):
     def setUp(self) -> None:
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.bank = Path(self.temp.name) / "question_banks" / "fixture"
+        self.bank = Path(self.temp.name) / "question_banks" / "qualification_fixture"
+        shutil.copytree(REPOSITORY_ROOT / "question_banks" / "qualification_fixture", self.bank)
         self.batch = self.bank / "authoring" / "batches" / "batch_001"
         self.batch.mkdir(parents=True)
-        self._write_canonical_fixture()
         self._write_valid_batch()
-
-    def _write_canonical_fixture(self) -> None:
-        authoring = self.bank / "authoring"
-        generated = self.bank / "generated"
-        generated.mkdir(parents=True)
-        (authoring / "bank.json").write_text(
-            json.dumps({
-                "app_key": "fixture",
-                "bank_revision": "fixture-v1",
-                "runtime_output": "generated/custom_runtime.json",
-            }),
-            encoding="utf-8",
-        )
-        self._write_csv(authoring / "question_id_registry.csv", ["question_id", "status"], [])
-        self._write_csv(authoring / "questions.csv", ["question_id", "source_id"], [])
-        (authoring / "sources.json").write_text(
-            json.dumps({"sources": [{"source_id": "SRC-1", "source_version": "1"}]}),
-            encoding="utf-8",
-        )
-        (authoring / "released_questions.json").write_text(
-            json.dumps({"released_questions": []}), encoding="utf-8"
-        )
-        (authoring / "source_verifications.json").write_text(
-            json.dumps({"verifications": []}), encoding="utf-8"
-        )
-        (generated / "custom_runtime.json").write_text(
-            json.dumps({"appKey": "fixture", "decks": []}), encoding="utf-8"
-        )
 
     def _write_valid_batch(self) -> None:
         batch = {
             "schema_version": "1.0",
-            "app_key": "fixture",
+            "app_key": "qualification_fixture",
             "batch_id": "B1",
             "directory_slug": "batch_001",
             "baseline_sha": "a" * 40,
@@ -83,7 +56,7 @@ class ExpansionProtocolTest(unittest.TestCase):
         candidate.update({
             "candidate_id": "B1-C001",
             "state": "HUMAN_ACCEPT",
-            "unit_id": "fixture_rules",
+            "unit_id": "fixture_safety",
             "domain": "Rules",
             "knowledge_target_id": "R1",
             "family": "scenario",
@@ -93,8 +66,8 @@ class ExpansionProtocolTest(unittest.TestCase):
             "choice3": "A3",
             "proposed_correct": "A",
             "explanation": "Because.",
-            "source_id": "SRC-1",
-            "source_version": "1",
+            "source_id": "FIXTURE-SRC-001",
+            "source_version": "2026.1",
             "source_locator": "p.1",
         })
         self._write_csv(self.batch / "candidates.csv", list(CANDIDATE_COLUMNS), [candidate])
@@ -135,53 +108,111 @@ class ExpansionProtocolTest(unittest.TestCase):
         mutate(payload)
         path.write_text(json.dumps(payload), encoding="utf-8")
 
-    def _install_canonical_evidence(
-        self,
-        question_id: str,
-        *,
-        registry: bool = False,
-        question: bool = False,
-        verified: bool = False,
-        released: bool = False,
-        generated: bool = False,
-        registry_status: str = "used",
-    ) -> None:
+    def _canonical_question(self, question_id: str) -> dict[str, str]:
+        with (self.bank / "authoring" / "questions.csv").open(
+            newline="", encoding="utf-8"
+        ) as handle:
+            return next(
+                row for row in csv.DictReader(handle) if row["question_id"] == question_id
+            )
+
+    def _bind_candidate_to_question(self, question_id: str, state: str) -> None:
+        question = self._canonical_question(question_id)
+        sources = json.loads(
+            (self.bank / "authoring" / "sources.json").read_text(encoding="utf-8")
+        )["sources"]
+        source = next(item for item in sources if item["source_id"] == question["source_id"])
+        self._mutate_candidate(
+            state=state,
+            permanent_question_id=question_id,
+            unit_id=question["unit_id"],
+            question=question["question"],
+            choice1=question["choice1"],
+            choice2=question["choice2"],
+            choice3=question["choice3"],
+            choice4=question["choice4"],
+            proposed_correct=question["correct_choice"],
+            explanation=question["explanation"],
+            source_id=question["source_id"],
+            source_version=str(source["source_version"]),
+            source_locator=question["source_locator"],
+        )
+
+    def _install_prerelease_question(
+        self, question_id: str = "FIXTURE-Q-000004", *, verified: bool = False
+    ) -> str:
         authoring = self.bank / "authoring"
-        if registry:
-            self._write_csv(
-                authoring / "question_id_registry.csv",
-                ["question_id", "status"],
-                [{"question_id": question_id, "status": registry_status}],
-            )
-        if question:
-            self._write_csv(
-                authoring / "questions.csv",
-                ["question_id", "source_id"],
-                [{"question_id": question_id, "source_id": "SRC-1"}],
-            )
+        with (authoring / "questions.csv").open(newline="", encoding="utf-8") as handle:
+            reader = csv.DictReader(handle)
+            question_fields = list(reader.fieldnames or [])
+            questions = list(reader)
+        draft = dict(questions[0])
+        draft.update({
+            "question_id": question_id,
+            "question_version": "1",
+            "status": "draft",
+            "question": "架空施設で追加作業前に最初に行うことはどれか？",
+            "notes_internal": "Expansion fixture draft",
+        })
+        questions.append(draft)
+        self._write_csv(authoring / "questions.csv", question_fields, questions)
+
+        with (authoring / "question_id_registry.csv").open(
+            newline="", encoding="utf-8"
+        ) as handle:
+            reader = csv.DictReader(handle)
+            registry_fields = list(reader.fieldnames or [])
+            registry = list(reader)
+        registry.append({
+            "question_id": question_id,
+            "status": "used",
+            "first_used_bank_revision": "",
+            "retired_at": "",
+            "replacement_id": "",
+            "notes": "Expansion fixture pre-release ID",
+        })
+        self._write_csv(authoring / "question_id_registry.csv", registry_fields, registry)
+
         if verified:
-            (authoring / "source_verifications.json").write_text(
-                json.dumps({"verifications": [{
-                    "question_id": question_id,
-                    "source_id": "SRC-1",
-                    "source_version": "1",
-                    "verification_state": "author_source_verified",
-                    "verified_at": "2026-08-22",
-                }]}),
-                encoding="utf-8",
-            )
-        if released:
-            (authoring / "released_questions.json").write_text(
-                json.dumps({"released_questions": [{"question_id": question_id}]}),
-                encoding="utf-8",
-            )
-        if generated:
-            (self.bank / "generated" / "custom_runtime.json").write_text(
-                json.dumps({"appKey": "fixture", "decks": [{"units": [{"cards": [
-                    {"stableId": question_id}
-                ]}]}]}),
-                encoding="utf-8",
-            )
+            verification_path = authoring / "source_verifications.json"
+            payload = json.loads(verification_path.read_text(encoding="utf-8"))
+            payload["verifications"].append({
+                "question_id": question_id,
+                "source_id": draft["source_id"],
+                "source_version": "2026.1",
+                "verification_state": "author_source_verified",
+                "verified_at": "2026-08-22",
+            })
+            verification_path.write_text(json.dumps(payload), encoding="utf-8")
+        return question_id
+
+    def _set_registry_field(self, question_id: str, field: str, value: str) -> None:
+        path = self.bank / "authoring" / "question_id_registry.csv"
+        with path.open(newline="", encoding="utf-8") as handle:
+            reader = csv.DictReader(handle)
+            fields = list(reader.fieldnames or [])
+            rows = list(reader)
+        next(row for row in rows if row["question_id"] == question_id)[field] = value
+        self._write_csv(path, fields, rows)
+
+    def _remove_canonical_question(self, question_id: str) -> None:
+        path = self.bank / "authoring" / "questions.csv"
+        with path.open(newline="", encoding="utf-8") as handle:
+            reader = csv.DictReader(handle)
+            fields = list(reader.fieldnames or [])
+            rows = [row for row in reader if row["question_id"] != question_id]
+        self._write_csv(path, fields, rows)
+
+    def _set_canonical_question_field(
+        self, question_id: str, field: str, value: str
+    ) -> None:
+        path = self.bank / "authoring" / "questions.csv"
+        with path.open(newline="", encoding="utf-8") as handle:
+            reader = csv.DictReader(handle)
+            fields = list(reader.fieldnames or [])
+            rows = list(reader)
+        next(row for row in rows if row["question_id"] == question_id)[field] = value
+        self._write_csv(path, fields, rows)
 
     def test_valid_expansion_batch_passes(self) -> None:
         self.assertEqual([], validate_expansion_batch(self.batch))
@@ -223,61 +254,177 @@ class ExpansionProtocolTest(unittest.TestCase):
         self.assertTrue(any("requires permanent_question_id" in error for error in validate_expansion_batch(self.batch)))
 
     def test_id_allocated_requires_registry_membership(self) -> None:
-        self._mutate_candidate(state="ID_ALLOCATED", permanent_question_id="FIXTURE-Q-000001")
+        self._mutate_candidate(state="ID_ALLOCATED", permanent_question_id="FIXTURE-Q-000004")
         self.assertTrue(any("absent from canonical registry" in error for error in validate_expansion_batch(self.batch)))
 
     def test_id_allocated_rejects_retired_registry_tombstone(self) -> None:
-        question_id = "FIXTURE-Q-000001"
-        self._install_canonical_evidence(question_id, registry=True, registry_status="retired")
+        question_id = "FIXTURE-Q-000003"
         self._mutate_candidate(state="ID_ALLOCATED", permanent_question_id=question_id)
-        self.assertTrue(any("not an allocated canonical registry entry" in error for error in validate_expansion_batch(self.batch)))
+        self.assertTrue(any("not a valid pre-release used registry entry" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_id_allocated_rejects_nonempty_first_used_revision(self) -> None:
+        question_id = "FIXTURE-Q-000001"
+        self._mutate_candidate(state="ID_ALLOCATED", permanent_question_id=question_id)
+        self.assertTrue(any("requires blank first_used_bank_revision" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_id_allocated_passes_with_unused_in_release_registry_row(self) -> None:
+        question_id = self._install_prerelease_question()
+        self._remove_canonical_question(question_id)
+        self._mutate_candidate(state="ID_ALLOCATED", permanent_question_id=question_id)
+        self.assertEqual([], validate_expansion_batch(self.batch))
 
     def test_integrated_requires_canonical_question(self) -> None:
-        question_id = "FIXTURE-Q-000001"
-        self._install_canonical_evidence(question_id, registry=True)
+        question_id = self._install_prerelease_question()
+        self._remove_canonical_question(question_id)
         self._mutate_candidate(state="INTEGRATED", permanent_question_id=question_id)
         self.assertTrue(any("absent from canonical questions" in error for error in validate_expansion_batch(self.batch)))
 
     def test_verified_requires_canonical_verification(self) -> None:
-        question_id = "FIXTURE-Q-000001"
-        self._install_canonical_evidence(question_id, registry=True, question=True)
-        self._mutate_candidate(state="VERIFIED", permanent_question_id=question_id)
+        question_id = self._install_prerelease_question()
+        self._bind_candidate_to_question(question_id, "VERIFIED")
         self.assertTrue(any("lacks canonical source verification" in error for error in validate_expansion_batch(self.batch)))
 
     def test_verified_rejects_stale_source_verification(self) -> None:
-        question_id = "FIXTURE-Q-000001"
-        self._install_canonical_evidence(question_id, registry=True, question=True, verified=True)
+        question_id = self._install_prerelease_question(verified=True)
         verification_path = self.bank / "authoring" / "source_verifications.json"
         payload = json.loads(verification_path.read_text(encoding="utf-8"))
-        payload["verifications"][0]["source_version"] = "0"
+        next(
+            row for row in payload["verifications"] if row["question_id"] == question_id
+        )["source_version"] = "0"
         verification_path.write_text(json.dumps(payload), encoding="utf-8")
-        self._mutate_candidate(state="VERIFIED", permanent_question_id=question_id)
+        self._bind_candidate_to_question(question_id, "VERIFIED")
         self.assertTrue(any("lacks canonical source verification" in error for error in validate_expansion_batch(self.batch)))
 
+    def test_verified_requires_canonical_validator_pass(self) -> None:
+        question_id = self._install_prerelease_question(verified=True)
+        self._bind_candidate_to_question(question_id, "VERIFIED")
+        self._set_canonical_question_field("FIXTURE-Q-000001", "choice2", "手順書を確認する")
+        self.assertTrue(any("VERIFIED canonical bank validation failed" in error for error in validate_expansion_batch(self.batch)))
+
     def test_released_requires_snapshot_and_generated_runtime(self) -> None:
-        question_id = "FIXTURE-Q-000001"
-        self._install_canonical_evidence(question_id, registry=True, question=True, verified=True)
-        self._mutate_candidate(state="RELEASED", permanent_question_id=question_id)
+        question_id = self._install_prerelease_question(verified=True)
+        self._set_registry_field(question_id, "first_used_bank_revision", "fixture-bank-v2")
+        self._set_canonical_question_field(question_id, "status", "active")
+        self._bind_candidate_to_question(question_id, "RELEASED")
         errors = validate_expansion_batch(self.batch)
         self.assertTrue(any("absent from released snapshot" in error for error in errors))
         self.assertTrue(any("absent from generated runtime" in error for error in errors))
 
     def test_released_passes_with_complete_canonical_evidence(self) -> None:
         question_id = "FIXTURE-Q-000001"
-        self._install_canonical_evidence(
-            question_id,
-            registry=True,
-            question=True,
-            verified=True,
-            released=True,
-            generated=True,
-        )
-        self._mutate_candidate(state="RELEASED", permanent_question_id=question_id)
+        self._bind_candidate_to_question(question_id, "RELEASED")
         self.assertEqual([], validate_expansion_batch(self.batch))
+
+    def test_released_existing_id_cannot_be_claimed_by_unrelated_candidate(self) -> None:
+        self._mutate_candidate(
+            state="RELEASED", permanent_question_id="FIXTURE-Q-000001"
+        )
+        self.assertTrue(any("canonical content mismatch: question" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_released_rejects_each_candidate_content_mismatch(self) -> None:
+        mismatches = (
+            ("question", "別の問題本文"),
+            ("choice1", "別の選択肢"),
+            ("proposed_correct", "B"),
+            ("explanation", "別の解説"),
+            ("source_id", "OTHER-SOURCE"),
+            ("source_locator", "別の箇所"),
+        )
+        for field, value in mismatches:
+            with self.subTest(field=field):
+                self._bind_candidate_to_question("FIXTURE-Q-000001", "RELEASED")
+                self._mutate_candidate(**{field: value})
+                self.assertTrue(any(
+                    f"canonical content mismatch: {field}" in error
+                    for error in validate_expansion_batch(self.batch)
+                ))
+
+    def test_integrated_requires_draft_canonical_status(self) -> None:
+        self._bind_candidate_to_question("FIXTURE-Q-000001", "INTEGRATED")
+        self.assertTrue(any("requires canonical status draft" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_integrated_rejects_candidate_question_mismatch(self) -> None:
+        question_id = self._install_prerelease_question()
+        self._bind_candidate_to_question(question_id, "INTEGRATED")
+        self._mutate_candidate(question="別の問題本文")
+        self.assertTrue(any("canonical content mismatch: question" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_integrated_rejects_candidate_choice_mismatch(self) -> None:
+        question_id = self._install_prerelease_question()
+        self._bind_candidate_to_question(question_id, "INTEGRATED")
+        self._mutate_candidate(choice2="別の選択肢")
+        self.assertTrue(any("canonical content mismatch: choice2" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_integrated_rejects_candidate_correct_answer_mismatch(self) -> None:
+        question_id = self._install_prerelease_question()
+        self._bind_candidate_to_question(question_id, "INTEGRATED")
+        self._mutate_candidate(proposed_correct="B")
+        self.assertTrue(any("canonical content mismatch: proposed_correct" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_integrated_rejects_candidate_explanation_mismatch(self) -> None:
+        question_id = self._install_prerelease_question()
+        self._bind_candidate_to_question(question_id, "INTEGRATED")
+        self._mutate_candidate(explanation="別の解説")
+        self.assertTrue(any("canonical content mismatch: explanation" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_integrated_rejects_candidate_source_id_mismatch(self) -> None:
+        question_id = self._install_prerelease_question()
+        self._bind_candidate_to_question(question_id, "INTEGRATED")
+        self._mutate_candidate(source_id="OTHER-SOURCE")
+        self.assertTrue(any("canonical content mismatch: source_id" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_integrated_rejects_candidate_source_locator_mismatch(self) -> None:
+        question_id = self._install_prerelease_question()
+        self._bind_candidate_to_question(question_id, "INTEGRATED")
+        self._mutate_candidate(source_locator="別の箇所")
+        self.assertTrue(any("canonical content mismatch: source_locator" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_integrated_rejects_candidate_source_version_mismatch(self) -> None:
+        question_id = self._install_prerelease_question()
+        self._bind_candidate_to_question(question_id, "INTEGRATED")
+        self._mutate_candidate(source_version="old")
+        self.assertTrue(any("canonical content mismatch: source_version" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_released_requires_active_canonical_status(self) -> None:
+        question_id = "FIXTURE-Q-000001"
+        self._bind_candidate_to_question(question_id, "RELEASED")
+        self._set_canonical_question_field(question_id, "status", "draft")
+        self.assertTrue(any("requires canonical status active" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_released_requires_first_used_revision(self) -> None:
+        question_id = "FIXTURE-Q-000001"
+        self._bind_candidate_to_question(question_id, "RELEASED")
+        self._set_registry_field(question_id, "first_used_bank_revision", "")
+        self.assertTrue(any("requires non-empty first_used_bank_revision" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_released_rejects_snapshot_answer_identity_mismatch(self) -> None:
+        question_id = "FIXTURE-Q-000001"
+        self._bind_candidate_to_question(question_id, "RELEASED")
+        path = self.bank / "authoring" / "released_questions.json"
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        next(
+            row for row in payload["released_questions"] if row["question_id"] == question_id
+        )["correct_choice"] = "B"
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        self.assertTrue(any("released snapshot identity mismatch" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_released_rejects_generated_drift(self) -> None:
+        question_id = "FIXTURE-Q-000001"
+        self._bind_candidate_to_question(question_id, "RELEASED")
+        path = self.bank / "generated" / "qualification_fixture_bank.json"
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        card = next(
+            card
+            for unit in payload["decks"][0]["units"]
+            for card in unit["cards"]
+            if card["stableId"] == question_id
+        )
+        card["question"] = "generated drift"
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        self.assertTrue(any("RELEASED canonical bank validation failed" in error for error in validate_expansion_batch(self.batch)))
 
     def test_expansion_uses_canonical_permanent_id_pattern(self) -> None:
         noncanonical = "FIXTURE-EXTRA-Q-000001"
-        self._install_canonical_evidence(noncanonical, registry=True)
         self._mutate_candidate(state="ID_ALLOCATED", permanent_question_id=noncanonical)
         self.assertTrue(any("invalid permanent_question_id" in error for error in validate_expansion_batch(self.batch)))
 
@@ -345,6 +492,36 @@ class ExpansionProtocolTest(unittest.TestCase):
         self._mutate_batch(mutate)
         self.assertTrue(any("chain continuity" in error for error in validate_expansion_batch(self.batch)))
 
+    def test_target_decision_requires_real_calendar_date(self) -> None:
+        self._mutate_batch(lambda payload: payload["target_size_decisions"][0].update({
+            "decision_date": "2026-02-30"
+        }))
+        self.assertTrue(any("invalid decision_date" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_target_decision_dates_must_not_move_backward(self) -> None:
+        def mutate(payload) -> None:
+            payload["target_size_decisions"].append({
+                "decision_id": "T2",
+                "previous_approved_target": 20,
+                "current_released_count": 10,
+                "proposed_target_min": 20,
+                "proposed_target_max": 30,
+                "approved_new_target": 25,
+                "rationale": "second decision",
+                "decision_date": "2026-08-21",
+                "evidence": "human approval",
+            })
+        self._mutate_batch(mutate)
+        self.assertTrue(any("decision_date moves backward" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_invalid_target_history_is_not_reported_as_authoritative(self) -> None:
+        self._mutate_batch(lambda payload: payload["target_size_decisions"][0].update({
+            "decision_date": "2026-02-30"
+        }))
+        report = build_status_report(self.batch)
+        self.assertIsNone(report["current_target_decision"])
+        self.assertEqual("validation_invalid", report["current_target_decision_status"])
+
     def test_status_human_accept_count_comes_from_latest_human_review(self) -> None:
         self._mutate_candidate(state="READY_FOR_ID")
         report = build_status_report(self.batch)
@@ -373,9 +550,23 @@ class ExpansionProtocolTest(unittest.TestCase):
         (sibling / "batch.json").write_text(json.dumps(payload), encoding="utf-8")
         self.assertTrue(any("duplicate logical batch_id" in error for error in validate_expansion_batch(self.batch)))
 
+    def test_invalid_logical_batch_ids_fail(self) -> None:
+        for batch_id in ("", "B0", "B-1", "batch1", "arbitrary"):
+            with self.subTest(batch_id=batch_id):
+                self._mutate_batch(lambda payload, value=batch_id: payload.update({"batch_id": value}))
+                self.assertTrue(any("invalid logical batch_id" in error for error in validate_expansion_batch(self.batch)))
+
     def test_ready_for_id_requires_contiguous_three_or_four_choices(self) -> None:
         self._mutate_candidate(state="READY_FOR_ID", choice3="", choice4="A4")
         self.assertTrue(any("requires 3-4 contiguous choices" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_ready_for_id_rejects_exactly_two_choices(self) -> None:
+        self._mutate_candidate(state="READY_FOR_ID", choice3="", choice4="")
+        self.assertTrue(any("requires 3-4 contiguous choices" in error for error in validate_expansion_batch(self.batch)))
+
+    def test_ready_for_id_rejects_normalized_duplicate_choices(self) -> None:
+        self._mutate_candidate(state="READY_FOR_ID", choice2="  A1  ")
+        self.assertTrue(any("requires unique normalized choices" in error for error in validate_expansion_batch(self.batch)))
 
     def test_known_rejected_candidate_id_cannot_be_reused(self) -> None:
         self._mutate_batch(lambda payload: payload["planned_scope"].update({
@@ -387,6 +578,7 @@ class ExpansionProtocolTest(unittest.TestCase):
         report = build_status_report(self.batch)
         self.assertEqual(1, report["human_accept_count"])
         self.assertEqual({"HUMAN_ACCEPT": 1}, report["count_by_candidate_state"])
+        self.assertEqual("valid", report["current_target_decision_status"])
 
     def test_migrated_drone_accept_set_passes(self) -> None:
         drone = REPOSITORY_ROOT / "question_banks" / "drone_second_class" / "authoring" / "batches" / "batch_001"

@@ -8,7 +8,8 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-from contract import QUESTION_ID_PATTERN
+from contract import QUESTION_ID_PATTERN, question_choices
+from validation import validate_bank
 
 ALLOWED_STATES = {
     "DRAFT", "AI_PRE_ACCEPT", "HUMAN_ACCEPT", "READY_FOR_ID", "ID_ALLOCATED",
@@ -36,6 +37,20 @@ TARGET_DECISION_FIELDS = (
     "decision_date", "evidence",
 )
 SCHEMA_VERSION = "1.0"
+BATCH_ID_PATTERN = re.compile(r"^B[1-9][0-9]*$")
+
+CANDIDATE_CANONICAL_FIELDS = (
+    ("question", "question"),
+    ("choice1", "choice1"),
+    ("choice2", "choice2"),
+    ("choice3", "choice3"),
+    ("choice4", "choice4"),
+    ("proposed_correct", "correct_choice"),
+    ("explanation", "explanation"),
+    ("source_id", "source_id"),
+    ("source_locator", "source_locator"),
+    ("unit_id", "unit_id"),
+)
 
 
 def _read_csv(path: Path) -> tuple[list[str], list[dict[str, str]]]:
@@ -60,6 +75,11 @@ def _nonempty(row: dict[str, str], *keys: str) -> bool:
 
 def _review_state(decision: str) -> str:
     return {"ACCEPT": "HUMAN_ACCEPT", "REWORK": "REWORK", "REJECT": "REJECT", "HOLD": "HOLD"}[decision]
+
+
+def _normalized(value: str) -> str:
+    """Match the canonical Question validator's choice normalization."""
+    return " ".join(value.split()).casefold()
 
 
 def _bank_root(batch_dir: Path) -> Path | None:
@@ -88,11 +108,16 @@ def _canonical_evidence(bank_root: Path, errors: list[str]) -> dict[str, Any]:
     authoring = bank_root / "authoring"
     evidence: dict[str, Any] = {
         "registry_ids": set(),
-        "allocated_registry_ids": set(),
+        "prerelease_registry_ids": set(),
+        "released_registry_ids": set(),
         "question_ids": set(),
         "verified_ids": set(),
         "released_ids": set(),
         "generated_ids": set(),
+        "registry_by_id": {},
+        "question_by_id": {},
+        "source_by_id": {},
+        "released_by_id": {},
         "bank_app_key": None,
     }
     try:
@@ -116,10 +141,26 @@ def _canonical_evidence(bank_root: Path, errors: list[str]) -> dict[str, Any]:
         if row.get("question_id"):
             registry_by_id.setdefault(row["question_id"], []).append(row)
     evidence["registry_ids"] = set(registry_by_id)
-    evidence["allocated_registry_ids"] = {
+    evidence["registry_by_id"] = registry_by_id
+    evidence["prerelease_registry_ids"] = {
         question_id
         for question_id, rows in registry_by_id.items()
-        if len(rows) == 1 and rows[0].get("status") == "used"
+        if (
+            len(rows) == 1
+            and rows[0].get("status") == "used"
+            and not rows[0].get("retired_at")
+            and not rows[0].get("first_used_bank_revision")
+        )
+    }
+    evidence["released_registry_ids"] = {
+        question_id
+        for question_id, rows in registry_by_id.items()
+        if (
+            len(rows) == 1
+            and rows[0].get("status") == "used"
+            and not rows[0].get("retired_at")
+            and bool(rows[0].get("first_used_bank_revision"))
+        )
     }
 
     question_rows_by_id: dict[str, list[dict[str, str]]] = {}
@@ -132,12 +173,27 @@ def _canonical_evidence(bank_root: Path, errors: list[str]) -> dict[str, Any]:
         if len(rows) == 1
     }
     evidence["question_ids"] = set(question_by_id)
+    evidence["question_by_id"] = question_by_id
 
     source_by_id = {
         str(source.get("source_id", "")).strip(): source
         for source in sources
         if isinstance(source, dict) and str(source.get("source_id", "")).strip()
     }
+    evidence["source_by_id"] = source_by_id
+    released_rows_by_id: dict[str, list[dict[str, Any]]] = {}
+    for row in released:
+        if not isinstance(row, dict):
+            continue
+        question_id = str(row.get("question_id", "")).strip()
+        if question_id:
+            released_rows_by_id.setdefault(question_id, []).append(row)
+    released_by_id = {
+        question_id: rows[0]
+        for question_id, rows in released_rows_by_id.items()
+        if len(rows) == 1
+    }
+    evidence["released_by_id"] = released_by_id
     evidence["released_ids"] = {
         str(row.get("question_id", "")).strip()
         for row in released if isinstance(row, dict) and str(row.get("question_id", "")).strip()
@@ -185,6 +241,51 @@ def _canonical_evidence(bank_root: Path, errors: list[str]) -> dict[str, Any]:
     return evidence
 
 
+def _validate_candidate_binding(
+    candidate: dict[str, str],
+    canonical_question: dict[str, str],
+    source_by_id: dict[str, dict[str, Any]],
+    errors: list[str],
+) -> None:
+    candidate_id = candidate["candidate_id"]
+    state = candidate["state"]
+    for candidate_field, canonical_field in CANDIDATE_CANONICAL_FIELDS:
+        if candidate[candidate_field] != canonical_question.get(canonical_field, ""):
+            errors.append(
+                f"{state} candidate {candidate_id} canonical content mismatch: {candidate_field}"
+            )
+
+    source = source_by_id.get(candidate["source_id"])
+    current_source_version = (
+        str(source.get("source_version", "")).strip() if source is not None else ""
+    )
+    if candidate["source_version"] != current_source_version:
+        errors.append(
+            f"{state} candidate {candidate_id} canonical content mismatch: source_version"
+        )
+
+
+def _released_identity_matches(
+    canonical_question: dict[str, str], released: dict[str, Any]
+) -> bool:
+    try:
+        released_version = int(released.get("question_version", 0))
+        canonical_version = int(canonical_question.get("question_version", ""))
+    except (TypeError, ValueError):
+        return False
+    released_choices = released.get("choices")
+    return (
+        str(released.get("question_id", "")).strip()
+        == canonical_question.get("question_id", "")
+        and released_version == canonical_version
+        and str(released.get("question", "")) == canonical_question.get("question", "")
+        and isinstance(released_choices, list)
+        and [str(choice) for choice in released_choices] == question_choices(canonical_question)
+        and str(released.get("correct_choice", ""))
+        == canonical_question.get("correct_choice", "")
+    )
+
+
 def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
     batch_dir = Path(batch_dir)
     errors: list[str] = []
@@ -211,6 +312,9 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
         errors.append(f"unsupported schema_version: {batch.get('schema_version')!r}")
     if batch.get("directory_slug") != batch_dir.name:
         errors.append("directory_slug must match batch directory name")
+    batch_id = str(batch.get("batch_id", "")).strip()
+    if not BATCH_ID_PATTERN.fullmatch(batch_id):
+        errors.append(f"invalid logical batch_id: {batch_id!r}")
 
     bank_root = _bank_root(batch_dir)
     canonical: dict[str, Any] | None = None
@@ -222,7 +326,6 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
             errors.append("app_key must match qualification bank directory")
         if canonical.get("bank_app_key") != batch.get("app_key"):
             errors.append("app_key must match canonical bank.json app_key")
-        batch_id = str(batch.get("batch_id", "")).strip()
         duplicate_dirs: list[str] = []
         for sibling in batch_dir.parent.iterdir():
             if sibling == batch_dir or not sibling.is_dir() or not (sibling / "batch.json").is_file():
@@ -244,6 +347,7 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
     else:
         seen_decisions: set[str] = set()
         prior_approved: int | None = None
+        prior_decision_date: date | None = None
         for i, decision in enumerate(decisions):
             if not isinstance(decision, dict):
                 errors.append(f"target_size_decisions[{i}] must be an object")
@@ -276,8 +380,19 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
                 prior_approved = approved
             if not str(decision.get("rationale", "")).strip() or not str(decision.get("evidence", "")).strip():
                 errors.append(f"target decision {decision_id} requires rationale and evidence")
-            if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(decision.get("decision_date", ""))):
+            decision_date_value = str(decision.get("decision_date", ""))
+            parsed_decision_date: date | None = None
+            if re.fullmatch(r"\d{4}-\d{2}-\d{2}", decision_date_value):
+                try:
+                    parsed_decision_date = date.fromisoformat(decision_date_value)
+                except ValueError:
+                    pass
+            if parsed_decision_date is None:
                 errors.append(f"target decision {decision_id} has invalid decision_date")
+            elif prior_decision_date is not None and parsed_decision_date < prior_decision_date:
+                errors.append(f"target decision {decision_id} decision_date moves backward")
+            if parsed_decision_date is not None:
+                prior_decision_date = parsed_decision_date
 
     coverage_limits = batch.get("coverage_limit_decisions", [])
     if not isinstance(coverage_limits, list):
@@ -378,6 +493,11 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
             populated = [index for index, value in enumerate(choices, start=1) if value]
             if len(populated) not in {3, 4} or populated != list(range(1, len(populated) + 1)):
                 errors.append(f"{state} candidate {candidate_id} requires 3-4 contiguous choices")
+            normalized_choices = [_normalized(choice) for choice in choices if choice]
+            if len(normalized_choices) != len(set(normalized_choices)):
+                errors.append(
+                    f"{state} candidate {candidate_id} requires unique normalized choices"
+                )
 
         correct = row["proposed_correct"]
         if correct:
@@ -413,26 +533,101 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
 
         if permanent_id and canonical is not None:
             registry_ids = canonical["registry_ids"]
-            allocated_registry_ids = canonical["allocated_registry_ids"]
+            prerelease_registry_ids = canonical["prerelease_registry_ids"]
+            released_registry_ids = canonical["released_registry_ids"]
             question_ids = canonical["question_ids"]
             verified_ids = canonical["verified_ids"]
             released_ids = canonical["released_ids"]
             generated_ids = canonical["generated_ids"]
+            registry_by_id = canonical["registry_by_id"]
+            question_by_id = canonical["question_by_id"]
             if state in PRODUCTION_STATES and permanent_id not in registry_ids:
                 errors.append(f"{state} candidate {candidate_id} permanent ID is absent from canonical registry")
-            elif state in PRODUCTION_STATES and permanent_id not in allocated_registry_ids:
-                errors.append(
-                    f"{state} candidate {candidate_id} permanent ID is not an allocated canonical registry entry"
-                )
+            elif state in {"ID_ALLOCATED", "INTEGRATED", "VERIFIED"}:
+                if permanent_id not in prerelease_registry_ids:
+                    registry_rows = registry_by_id.get(permanent_id, [])
+                    if (
+                        len(registry_rows) == 1
+                        and registry_rows[0].get("status") == "used"
+                        and not registry_rows[0].get("retired_at")
+                        and registry_rows[0].get("first_used_bank_revision")
+                    ):
+                        errors.append(
+                            f"{state} candidate {candidate_id} requires blank "
+                            "first_used_bank_revision"
+                        )
+                    else:
+                        errors.append(
+                            f"{state} candidate {candidate_id} permanent ID is not a valid "
+                            "pre-release used registry entry"
+                        )
+            elif state == "RELEASED" and permanent_id not in released_registry_ids:
+                registry_rows = registry_by_id.get(permanent_id, [])
+                if (
+                    len(registry_rows) == 1
+                    and registry_rows[0].get("status") == "used"
+                    and not registry_rows[0].get("retired_at")
+                    and not registry_rows[0].get("first_used_bank_revision")
+                ):
+                    errors.append(
+                        f"RELEASED candidate {candidate_id} requires non-empty "
+                        "first_used_bank_revision"
+                    )
+                else:
+                    errors.append(
+                        f"RELEASED candidate {candidate_id} permanent ID is not a valid "
+                        "released used registry entry"
+                    )
             if state in {"INTEGRATED", "VERIFIED", "RELEASED"} and permanent_id not in question_ids:
                 errors.append(f"{state} candidate {candidate_id} permanent ID is absent from canonical questions")
+            elif state in {"INTEGRATED", "VERIFIED", "RELEASED"}:
+                canonical_question = question_by_id[permanent_id]
+                expected_status = "active" if state == "RELEASED" else "draft"
+                if canonical_question.get("status") != expected_status:
+                    errors.append(
+                        f"{state} candidate {candidate_id} requires canonical status {expected_status}"
+                    )
+                _validate_candidate_binding(
+                    row,
+                    canonical_question,
+                    canonical["source_by_id"],
+                    errors,
+                )
             if state in {"VERIFIED", "RELEASED"} and permanent_id not in verified_ids:
                 errors.append(f"{state} candidate {candidate_id} lacks canonical source verification")
             if state == "RELEASED":
                 if permanent_id not in released_ids:
                     errors.append(f"RELEASED candidate {candidate_id} is absent from released snapshot")
+                elif permanent_id in question_by_id and not _released_identity_matches(
+                    question_by_id[permanent_id], canonical["released_by_id"].get(permanent_id, {})
+                ):
+                    errors.append(
+                        f"RELEASED candidate {candidate_id} released snapshot identity mismatch"
+                    )
                 if permanent_id not in generated_ids:
                     errors.append(f"RELEASED candidate {candidate_id} is absent from generated runtime")
+
+    production_validation_state = ""
+    if canonical is not None and any(row["state"] == "RELEASED" for row in candidates):
+        production_validation_state = "RELEASED"
+    elif canonical is not None and any(row["state"] == "VERIFIED" for row in candidates):
+        production_validation_state = "VERIFIED"
+    if production_validation_state and bank_root is not None:
+        try:
+            canonical_validation = validate_bank(
+                bank_root,
+                check_generated=production_validation_state == "RELEASED",
+            )
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            errors.append(
+                f"{production_validation_state} canonical bank validation failed: {exc}"
+            )
+        else:
+            if canonical_validation.errors:
+                codes = ",".join(sorted({issue.code for issue in canonical_validation.errors}))
+                errors.append(
+                    f"{production_validation_state} canonical bank validation failed: {codes}"
+                )
 
     candidate_set = set(candidate_ids)
     for candidate_id in reviews_by_candidate:
@@ -451,8 +646,9 @@ def build_status_report(batch_dir: Path | str) -> dict[str, Any]:
     latest_human = _latest_human_reviews(reviews)
     latest_human_counts = Counter(row["decision"] for row in latest_human.values())
     decisions = batch.get("target_size_decisions") or []
+    validation_errors = validate_expansion_batch(batch_dir)
     blockers = list(batch.get("migration_blockers") or [])
-    blockers.extend(validate_expansion_batch(batch_dir))
+    blockers.extend(validation_errors)
     actionable = [
         state for state in (
             "DRAFT", "AI_PRE_ACCEPT", "REWORK", "HOLD", "HUMAN_ACCEPT",
@@ -462,7 +658,12 @@ def build_status_report(batch_dir: Path | str) -> dict[str, Any]:
     return {
         "batch_id": batch.get("batch_id"),
         "batch_status": batch.get("batch_status"),
-        "current_target_decision": decisions[-1] if decisions else None,
+        "current_target_decision": (
+            decisions[-1] if decisions and not validation_errors else None
+        ),
+        "current_target_decision_status": (
+            "valid" if decisions and not validation_errors else "validation_invalid"
+        ),
         "count_by_candidate_state": dict(sorted(state_counts.items())),
         "human_accept_count": latest_human_counts.get("ACCEPT", 0),
         "reject_count": latest_human_counts.get("REJECT", 0),
