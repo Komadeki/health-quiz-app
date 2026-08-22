@@ -19,7 +19,7 @@ Canonical `questions.csv`, permanent question identity, ID registry status, `cov
 
 An expansion batch exists only after a Human decision to investigate or execute bank expansion. Bank-size decisions are recorded in `batch.json.target_size_decisions` as append-only history. Each decision records `decision_id`, `previous_approved_target`, `current_released_count`, `proposed_target_min`, `proposed_target_max`, `approved_new_target`, `rationale`, `decision_date`, and `evidence`.
 
-`approved_new_target` records the approved target after that decision and may equal the previous target when an exploratory expansion does not change the canonical approved target. Candidate counts are always derived from `candidates.csv`; they are never stored as authoritative summary counts. A drafting instruction such as “+75” is not itself a quota or an approved bank-size decision.
+`approved_new_target` records the approved target after that decision and may equal the previous target when an exploratory expansion does not change the canonical approved target. It must fall within the proposed range, and each subsequent decision's `previous_approved_target` must equal the prior decision's `approved_new_target`. Candidate counts are always derived from `candidates.csv`; they are never stored as authoritative summary counts. A drafting instruction such as “+75” is not itself a quota or an approved bank-size decision.
 
 ## Standard batch artifact
 
@@ -32,7 +32,7 @@ question_banks/<app_key>/authoring/batches/<directory_slug>/
   reviews.csv
 ```
 
-`batch_id` is the stable logical identity. A directory slug may differ only when an existing repository convention makes that clearer; the mapping must be explicit in `batch.json` and must not create another identity layer.
+`schema_version` is `1.0`. `app_key` must match the qualification bank and canonical `bank.json`. `directory_slug` must match the actual directory name. `batch_id` is the stable logical identity and must not be duplicated by another batch directory for the same qualification. A directory slug may differ from `batch_id` only when an existing repository convention makes that clearer; the mapping must be explicit in `batch.json` and must not create another identity layer.
 
 ## Candidate lifecycle
 
@@ -53,7 +53,7 @@ reasoning_path,collision_note,permanent_question_id
 
 `unit_id` is the shared canonical parent. `domain` and `knowledge_target_id` may carry qualification-specific metadata. Shared validation must not encode Drone-specific taxonomy.
 
-For pre-ID states, `permanent_question_id` is empty. A Permanent ID appears only at `ID_ALLOCATED` or a later production state.
+For pre-ID states, `permanent_question_id` is empty. A Permanent ID appears only at `ID_ALLOCATED` or a later production state. `READY_FOR_ID` and later states must already be canonical-compatible 3- or 4-choice Questions with contiguous `choice1` through `choice3`/`choice4`.
 
 ## Persistence invariant
 
@@ -70,7 +70,7 @@ candidate_id,review_round,decision,reason_code,reason_detail,
 collided_question_id,collided_candidate_id,reviewed_at,reviewer_role,resume_condition
 ```
 
-Human decisions are `ACCEPT`, `REWORK`, `REJECT`, and `HOLD`. The latest review must agree with the candidate’s current Human-review state.
+Human decisions are `ACCEPT`, `REWORK`, `REJECT`, and `HOLD`. In v1, a Human gate is valid only when `reviewer_role=HUMAN`; AI or other roles cannot satisfy it. `review_round` values are unique and strictly increasing per candidate. The latest Human review must agree with the candidate’s current Human-review state. Human ACCEPT/REJECT/HOLD status counts are derived from latest Human reviews, not from candidate state labels.
 
 Legacy migration may use an empty `reviewed_at` when no exact timestamp exists in the authoritative packet. `reviewer_role=HUMAN` is sufficient when the exact individual identity was not recorded. A timestamp or person must never be inferred.
 
@@ -90,17 +90,23 @@ Deterministic validation may check IDs, mappings, fields, and declared collision
 
 ## Permanent ID Gate
 
-Permanent IDs are allocated only after a candidate has passed the batch’s Human and coverage gates and reaches `READY_FOR_ID`. Allocation moves the candidate to `ID_ALLOCATED` and records the permanent ID on the same row. The canonical registry remains the sole permanent allocation ledger; this protocol adds no `reserved` registry state.
+Permanent IDs are allocated only after a candidate has passed the batch’s Human and coverage gates and reaches `READY_FOR_ID`. Allocation moves the candidate to `ID_ALLOCATED` and records the permanent ID on the same row. Expansion validation reuses the canonical `QUESTION_ID_PATTERN`; it does not define another Permanent ID format. `ID_ALLOCATED` is valid only when that ID already exists in the canonical `question_id_registry.csv`. The canonical registry remains the sole permanent allocation ledger; this protocol adds no `reserved` registry state.
 
 ## Production Integration Gate
 
-`ID_ALLOCATED` is not release. Canonical authoring, source verification, canonical validation, generation, and release controls remain the production integration path. `INTEGRATED`, `VERIFIED`, and `RELEASED` describe progress through those existing gates; they do not replace them.
+Production-state labels are evidence-backed and cannot be established by editing `candidates.csv` alone.
+
+- `INTEGRATED` requires the Permanent ID in both the canonical registry and canonical `questions.csv`.
+- `VERIFIED` additionally requires canonical `source_verifications.json` evidence with `verification_state=author_source_verified`.
+- `RELEASED` additionally requires the Permanent ID in `released_questions.json` and in generated runtime output.
+
+`ID_ALLOCATED` is not release. Canonical authoring, source verification, canonical validation, generation, and release controls remain the production integration path. `INTEGRATED`, `VERIFIED`, and `RELEASED` describe evidence already present in those existing gates; they do not replace or manufacture it.
 
 ## Batch checkpoint / PR and resumption
 
 A batch is checkpointed through repository commits/PRs. The persisted batch artifacts are sufficient to resume work without relying on Chat history. A status report is derived from `batch.json`, `candidates.csv`, and `reviews.csv`; summary counts are not hand-maintained files.
 
-The report includes batch identity/status, current target decision, counts by state, Human ACCEPT/REJECT/HOLD counts, production-state counts, blockers, and next actionable states.
+The report includes batch identity/status, current target decision, counts by state, latest-Human-review ACCEPT/REJECT/HOLD counts, production-state counts, blockers, and next actionable states.
 
 ## Multi-qualification applicability
 
