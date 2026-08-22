@@ -4,6 +4,7 @@ import csv
 import json
 import re
 from collections import Counter
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -87,6 +88,7 @@ def _canonical_evidence(bank_root: Path, errors: list[str]) -> dict[str, Any]:
     authoring = bank_root / "authoring"
     evidence: dict[str, Any] = {
         "registry_ids": set(),
+        "allocated_registry_ids": set(),
         "question_ids": set(),
         "verified_ids": set(),
         "released_ids": set(),
@@ -98,26 +100,77 @@ def _canonical_evidence(bank_root: Path, errors: list[str]) -> dict[str, Any]:
         evidence["bank_app_key"] = bank.get("app_key")
         _, registry = _read_csv(authoring / "question_id_registry.csv")
         _, questions = _read_csv(authoring / "questions.csv")
+        sources = _read_json(authoring / "sources.json").get("sources", [])
         released = _read_json(authoring / "released_questions.json").get("released_questions", [])
         verifications = _read_json(authoring / "source_verifications.json").get("verifications", [])
-        runtime = _read_json(bank_root / "generated" / f"{bank_root.name}_bank.json")
+        runtime_output = str(bank.get("runtime_output", "")).strip()
+        if not runtime_output:
+            raise ValueError("canonical bank.json missing runtime_output")
+        runtime = _read_json(bank_root / runtime_output)
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         errors.append(f"canonical evidence unavailable: {exc}")
         return evidence
 
-    evidence["registry_ids"] = {row["question_id"] for row in registry if row.get("question_id")}
-    evidence["question_ids"] = {row["question_id"] for row in questions if row.get("question_id")}
+    registry_by_id: dict[str, list[dict[str, str]]] = {}
+    for row in registry:
+        if row.get("question_id"):
+            registry_by_id.setdefault(row["question_id"], []).append(row)
+    evidence["registry_ids"] = set(registry_by_id)
+    evidence["allocated_registry_ids"] = {
+        question_id
+        for question_id, rows in registry_by_id.items()
+        if len(rows) == 1 and rows[0].get("status") == "used"
+    }
+
+    question_rows_by_id: dict[str, list[dict[str, str]]] = {}
+    for row in questions:
+        if row.get("question_id"):
+            question_rows_by_id.setdefault(row["question_id"], []).append(row)
+    question_by_id = {
+        question_id: rows[0]
+        for question_id, rows in question_rows_by_id.items()
+        if len(rows) == 1
+    }
+    evidence["question_ids"] = set(question_by_id)
+
+    source_by_id = {
+        str(source.get("source_id", "")).strip(): source
+        for source in sources
+        if isinstance(source, dict) and str(source.get("source_id", "")).strip()
+    }
     evidence["released_ids"] = {
         str(row.get("question_id", "")).strip()
         for row in released if isinstance(row, dict) and str(row.get("question_id", "")).strip()
     }
-    evidence["verified_ids"] = {
-        str(row.get("question_id", "")).strip()
-        for row in verifications
-        if isinstance(row, dict)
-        and row.get("verification_state") == "author_source_verified"
-        and str(row.get("question_id", "")).strip()
-    }
+    verification_rows_by_id: dict[str, list[dict[str, Any]]] = {}
+    for row in verifications:
+        if not isinstance(row, dict):
+            continue
+        question_id = str(row.get("question_id", "")).strip()
+        if question_id:
+            verification_rows_by_id.setdefault(question_id, []).append(row)
+    verified_ids: set[str] = set()
+    for question_id, rows in verification_rows_by_id.items():
+        if len(rows) != 1 or question_id not in question_by_id:
+            continue
+        row = rows[0]
+        question = question_by_id[question_id]
+        source_id = str(row.get("source_id", "")).strip()
+        source = source_by_id.get(source_id)
+        verified_at = str(row.get("verified_at", "")).strip()
+        try:
+            date.fromisoformat(verified_at)
+        except ValueError:
+            continue
+        if (
+            row.get("verification_state") == "author_source_verified"
+            and source_id == question.get("source_id")
+            and source is not None
+            and str(row.get("source_version", "")).strip()
+            == str(source.get("source_version", "")).strip()
+        ):
+            verified_ids.add(question_id)
+    evidence["verified_ids"] = verified_ids
     generated_ids: set[str] = set()
     for deck in runtime.get("decks", []):
         if not isinstance(deck, dict):
@@ -360,12 +413,17 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
 
         if permanent_id and canonical is not None:
             registry_ids = canonical["registry_ids"]
+            allocated_registry_ids = canonical["allocated_registry_ids"]
             question_ids = canonical["question_ids"]
             verified_ids = canonical["verified_ids"]
             released_ids = canonical["released_ids"]
             generated_ids = canonical["generated_ids"]
             if state in PRODUCTION_STATES and permanent_id not in registry_ids:
                 errors.append(f"{state} candidate {candidate_id} permanent ID is absent from canonical registry")
+            elif state in PRODUCTION_STATES and permanent_id not in allocated_registry_ids:
+                errors.append(
+                    f"{state} candidate {candidate_id} permanent ID is not an allocated canonical registry entry"
+                )
             if state in {"INTEGRATED", "VERIFIED", "RELEASED"} and permanent_id not in question_ids:
                 errors.append(f"{state} candidate {candidate_id} permanent ID is absent from canonical questions")
             if state in {"VERIFIED", "RELEASED"} and permanent_id not in verified_ids:

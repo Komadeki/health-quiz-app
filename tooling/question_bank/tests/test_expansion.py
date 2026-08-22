@@ -30,17 +30,26 @@ class ExpansionProtocolTest(unittest.TestCase):
         generated = self.bank / "generated"
         generated.mkdir(parents=True)
         (authoring / "bank.json").write_text(
-            json.dumps({"app_key": "fixture", "bank_revision": "fixture-v1"}), encoding="utf-8"
+            json.dumps({
+                "app_key": "fixture",
+                "bank_revision": "fixture-v1",
+                "runtime_output": "generated/custom_runtime.json",
+            }),
+            encoding="utf-8",
         )
         self._write_csv(authoring / "question_id_registry.csv", ["question_id", "status"], [])
-        self._write_csv(authoring / "questions.csv", ["question_id"], [])
+        self._write_csv(authoring / "questions.csv", ["question_id", "source_id"], [])
+        (authoring / "sources.json").write_text(
+            json.dumps({"sources": [{"source_id": "SRC-1", "source_version": "1"}]}),
+            encoding="utf-8",
+        )
         (authoring / "released_questions.json").write_text(
             json.dumps({"released_questions": []}), encoding="utf-8"
         )
         (authoring / "source_verifications.json").write_text(
             json.dumps({"verifications": []}), encoding="utf-8"
         )
-        (generated / "fixture_bank.json").write_text(
+        (generated / "custom_runtime.json").write_text(
             json.dumps({"appKey": "fixture", "decks": []}), encoding="utf-8"
         )
 
@@ -135,23 +144,29 @@ class ExpansionProtocolTest(unittest.TestCase):
         verified: bool = False,
         released: bool = False,
         generated: bool = False,
+        registry_status: str = "used",
     ) -> None:
         authoring = self.bank / "authoring"
         if registry:
             self._write_csv(
                 authoring / "question_id_registry.csv",
                 ["question_id", "status"],
-                [{"question_id": question_id, "status": "used"}],
+                [{"question_id": question_id, "status": registry_status}],
             )
         if question:
             self._write_csv(
-                authoring / "questions.csv", ["question_id"], [{"question_id": question_id}]
+                authoring / "questions.csv",
+                ["question_id", "source_id"],
+                [{"question_id": question_id, "source_id": "SRC-1"}],
             )
         if verified:
             (authoring / "source_verifications.json").write_text(
                 json.dumps({"verifications": [{
                     "question_id": question_id,
+                    "source_id": "SRC-1",
+                    "source_version": "1",
                     "verification_state": "author_source_verified",
+                    "verified_at": "2026-08-22",
                 }]}),
                 encoding="utf-8",
             )
@@ -161,7 +176,7 @@ class ExpansionProtocolTest(unittest.TestCase):
                 encoding="utf-8",
             )
         if generated:
-            (self.bank / "generated" / "fixture_bank.json").write_text(
+            (self.bank / "generated" / "custom_runtime.json").write_text(
                 json.dumps({"appKey": "fixture", "decks": [{"units": [{"cards": [
                     {"stableId": question_id}
                 ]}]}]}),
@@ -211,6 +226,12 @@ class ExpansionProtocolTest(unittest.TestCase):
         self._mutate_candidate(state="ID_ALLOCATED", permanent_question_id="FIXTURE-Q-000001")
         self.assertTrue(any("absent from canonical registry" in error for error in validate_expansion_batch(self.batch)))
 
+    def test_id_allocated_rejects_retired_registry_tombstone(self) -> None:
+        question_id = "FIXTURE-Q-000001"
+        self._install_canonical_evidence(question_id, registry=True, registry_status="retired")
+        self._mutate_candidate(state="ID_ALLOCATED", permanent_question_id=question_id)
+        self.assertTrue(any("not an allocated canonical registry entry" in error for error in validate_expansion_batch(self.batch)))
+
     def test_integrated_requires_canonical_question(self) -> None:
         question_id = "FIXTURE-Q-000001"
         self._install_canonical_evidence(question_id, registry=True)
@@ -223,6 +244,16 @@ class ExpansionProtocolTest(unittest.TestCase):
         self._mutate_candidate(state="VERIFIED", permanent_question_id=question_id)
         self.assertTrue(any("lacks canonical source verification" in error for error in validate_expansion_batch(self.batch)))
 
+    def test_verified_rejects_stale_source_verification(self) -> None:
+        question_id = "FIXTURE-Q-000001"
+        self._install_canonical_evidence(question_id, registry=True, question=True, verified=True)
+        verification_path = self.bank / "authoring" / "source_verifications.json"
+        payload = json.loads(verification_path.read_text(encoding="utf-8"))
+        payload["verifications"][0]["source_version"] = "0"
+        verification_path.write_text(json.dumps(payload), encoding="utf-8")
+        self._mutate_candidate(state="VERIFIED", permanent_question_id=question_id)
+        self.assertTrue(any("lacks canonical source verification" in error for error in validate_expansion_batch(self.batch)))
+
     def test_released_requires_snapshot_and_generated_runtime(self) -> None:
         question_id = "FIXTURE-Q-000001"
         self._install_canonical_evidence(question_id, registry=True, question=True, verified=True)
@@ -230,6 +261,19 @@ class ExpansionProtocolTest(unittest.TestCase):
         errors = validate_expansion_batch(self.batch)
         self.assertTrue(any("absent from released snapshot" in error for error in errors))
         self.assertTrue(any("absent from generated runtime" in error for error in errors))
+
+    def test_released_passes_with_complete_canonical_evidence(self) -> None:
+        question_id = "FIXTURE-Q-000001"
+        self._install_canonical_evidence(
+            question_id,
+            registry=True,
+            question=True,
+            verified=True,
+            released=True,
+            generated=True,
+        )
+        self._mutate_candidate(state="RELEASED", permanent_question_id=question_id)
+        self.assertEqual([], validate_expansion_batch(self.batch))
 
     def test_expansion_uses_canonical_permanent_id_pattern(self) -> None:
         noncanonical = "FIXTURE-EXTRA-Q-000001"

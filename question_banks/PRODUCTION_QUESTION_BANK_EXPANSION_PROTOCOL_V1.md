@@ -90,15 +90,15 @@ Deterministic validation may check IDs, mappings, fields, and declared collision
 
 ## Permanent ID Gate
 
-Permanent IDs are allocated only after a candidate has passed the batch’s Human and coverage gates and reaches `READY_FOR_ID`. Allocation moves the candidate to `ID_ALLOCATED` and records the permanent ID on the same row. Expansion validation reuses the canonical `QUESTION_ID_PATTERN`; it does not define another Permanent ID format. `ID_ALLOCATED` is valid only when that ID already exists in the canonical `question_id_registry.csv`. The canonical registry remains the sole permanent allocation ledger; this protocol adds no `reserved` registry state.
+Permanent IDs are allocated only after a candidate has passed the batch’s Human and coverage gates and reaches `READY_FOR_ID`. Allocation moves the candidate to `ID_ALLOCATED` and records the permanent ID on the same row. Expansion validation reuses the canonical `QUESTION_ID_PATTERN`; it does not define another Permanent ID format. `ID_ALLOCATED` is valid only when that ID exists as the unique `used` entry in the canonical `question_id_registry.csv`; a retired tombstone cannot satisfy the gate. The canonical registry remains the sole permanent allocation ledger; this protocol adds no `reserved` registry state.
 
 ## Production Integration Gate
 
 Production-state labels are evidence-backed and cannot be established by editing `candidates.csv` alone.
 
 - `INTEGRATED` requires the Permanent ID in both the canonical registry and canonical `questions.csv`.
-- `VERIFIED` additionally requires canonical `source_verifications.json` evidence with `verification_state=author_source_verified`.
-- `RELEASED` additionally requires the Permanent ID in `released_questions.json` and in generated runtime output.
+- `VERIFIED` additionally requires complete canonical `source_verifications.json` evidence with `verification_state=author_source_verified`, matching Question/source-registry IDs and source version, and a valid `verified_at` date.
+- `RELEASED` additionally requires the Permanent ID in `released_questions.json` and in the generated runtime output declared by canonical `bank.json.runtime_output`.
 
 `ID_ALLOCATED` is not release. Canonical authoring, source verification, canonical validation, generation, and release controls remain the production integration path. `INTEGRATED`, `VERIFIED`, and `RELEASED` describe evidence already present in those existing gates; they do not replace or manufacture it.
 
