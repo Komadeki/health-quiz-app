@@ -185,7 +185,7 @@ class QuestionExpansionTransaction:
         for row in candidates:
             if row.get("candidate_id") in mapping:
                 row = dict(row)
-                row["state"] = "ID_ALLOCATED"
+                row["state"] = "INTEGRATED" if self.question_factory is not None else "ID_ALLOCATED"
                 row["permanent_question_id"] = mapping[row["candidate_id"]]
             updated_candidates.append(row)
         updated_registry = list(registry)

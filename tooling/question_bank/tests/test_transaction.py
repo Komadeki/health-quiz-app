@@ -100,7 +100,7 @@ class TransactionHelperTest(unittest.TestCase):
         mapping = self._transaction(factory=self._factory).apply()
         self.assertEqual(len(mapping), 2)
         _, candidates = read_csv(self.batch / "candidates.csv")
-        self.assertEqual({row["state"] for row in candidates}, {"ID_ALLOCATED"})
+        self.assertEqual({row["state"] for row in candidates}, {"INTEGRATED"})
         _, questions = read_csv(self.bank / "authoring" / "questions.csv")
         self.assertEqual(len(questions), 5)
         with self.assertRaises(TransactionError):

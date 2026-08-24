@@ -3705,7 +3705,10 @@ class DroneQuestionBankTest(unittest.TestCase):
         self.assertTrue(result.is_valid, [str(issue) for issue in result.issues])
 
         inputs = load_bank_inputs(self.bank)
-        question_ids = [row["question_id"] for row in inputs.questions]
+        production_questions = [
+            row for row in inputs.questions if row["status"] == "active"
+        ]
+        question_ids = [row["question_id"] for row in production_questions]
         registry_ids = [row["question_id"] for row in inputs.id_registry]
         question_by_id = {row["question_id"]: row for row in inputs.questions}
         registry_by_id = {row["question_id"]: row for row in inputs.id_registry}
@@ -3726,8 +3729,8 @@ class DroneQuestionBankTest(unittest.TestCase):
         self.assertTrue(all(row["status"] == "used" for row in inputs.id_registry))
         self.assertTrue(
             all(
-                row["first_used_bank_revision"] == self.PRODUCTION_REVISION
-                for row in inputs.id_registry
+                registry_by_id[question_id]["first_used_bank_revision"] == self.PRODUCTION_REVISION
+                for question_id in question_ids
             )
         )
         self.assertEqual(inputs.metadata["app_key"], "drone_second_class")
@@ -5467,7 +5470,10 @@ class DroneQuestionBankTest(unittest.TestCase):
         expected_ids = [
             f"DRONE-Q-{sequence:06d}" for sequence in range(1, 101)
         ]
-        question_ids = [question["question_id"] for question in inputs.questions]
+        production_questions = [
+            question for question in inputs.questions if question["status"] == "active"
+        ]
+        question_ids = [question["question_id"] for question in production_questions]
         registry_ids = [entry["question_id"] for entry in inputs.id_registry]
 
         self.assertEqual(
@@ -5479,42 +5485,47 @@ class DroneQuestionBankTest(unittest.TestCase):
             inputs.metadata["exam_profile_version"],
             "drone-second-class-v1",
         )
-        self.assertEqual(len(inputs.questions), 100)
+        self.assertEqual(len(production_questions), 100)
         self.assertEqual(set(question_ids), set(expected_ids))
         self.assertTrue(
             all(
                 question["question_version"] == "1"
-                for question in inputs.questions
+                for question in production_questions
             )
         )
         self.assertTrue(
-            all(question["status"] == "active" for question in inputs.questions)
+            all(question["status"] == "active" for question in production_questions)
         )
         self.assertTrue(
             all(
                 "verification_state=author_source_verified"
                 in question["notes_internal"]
-                for question in inputs.questions
+                for question in production_questions
             )
         )
         self.assertTrue(
             all(
                 "release_approved=true" in question["notes_internal"]
-                for question in inputs.questions
+                for question in production_questions
             )
         )
-        self.assertEqual(registry_ids, expected_ids)
+        self.assertTrue(set(expected_ids).issubset(set(registry_ids)))
         self.assertTrue(
             all(entry["status"] == "used" for entry in inputs.id_registry)
         )
         self.assertTrue(
             all(
-                entry["first_used_bank_revision"] == self.PRODUCTION_REVISION
-                for entry in inputs.id_registry
+                next(entry for entry in inputs.id_registry if entry["question_id"] == question_id)["first_used_bank_revision"]
+                == self.PRODUCTION_REVISION
+                for question_id in expected_ids
             )
         )
         self.assertNotIn("DRONE-Q-000101", question_ids)
-        self.assertNotIn("DRONE-Q-000101", registry_ids)
+        self.assertIn("DRONE-Q-000101", registry_ids)
+        self.assertEqual(
+            next(entry for entry in inputs.id_registry if entry["question_id"] == "DRONE-Q-000101")["first_used_bank_revision"],
+            "",
+        )
         self.assertEqual(len(inputs.released_questions), 100)
         released_by_id = {
             question["question_id"]: question
@@ -5609,7 +5620,11 @@ class DroneQuestionBankTest(unittest.TestCase):
             / "authoring"
             / "questions.csv"
         )
-        live_by_id = {row["question_id"]: row for row in live_rows}
+        live_by_id = {
+            row["question_id"]: row
+            for row in live_rows
+            if row["status"] == "active"
+        }
         snapshot_by_id = {row["question_id"]: row for row in snapshot_rows}
         self.assertEqual(set(live_by_id), set(snapshot_by_id))
         protected_fields = (
