@@ -954,6 +954,7 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                     ),
                     const SizedBox(height: 4),
                     Text(card.explanation ?? ''),
+                    _QuestionSourceProvenance(card: card),
                   ],
                   const SizedBox(height: 16),
                   FilledButton(
@@ -964,6 +965,61 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                 ],
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+final class _QuestionSourceProvenance extends StatelessWidget {
+  const _QuestionSourceProvenance({required this.card});
+
+  final QuizCard card;
+
+  @override
+  Widget build(BuildContext context) {
+    String? normalized(String? value) {
+      final result = value?.trim();
+      return result == null || result.isEmpty ? null : result;
+    }
+
+    final title = normalized(card.sourceTitle);
+    final version = normalized(card.sourceVersion);
+    final section = normalized(card.sourceSection);
+    if (title == null && version == null && section == null) {
+      return const SizedBox.shrink();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: Card(
+        key: const Key('question-source-provenance'),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text('出典', style: Theme.of(context).textTheme.titleMedium),
+              if (title != null) ...[
+                const SizedBox(height: 4),
+                Text(title, key: const Key('question-source-title')),
+              ],
+              if (version != null) ...[
+                const SizedBox(height: 4),
+                Text(
+                  '版: $version',
+                  key: const Key('question-source-version'),
+                ),
+              ],
+              if (section != null) ...[
+                const SizedBox(height: 4),
+                Text(
+                  '箇所: $section',
+                  key: const Key('question-source-section'),
+                ),
+              ],
+            ],
           ),
         ),
       ),
