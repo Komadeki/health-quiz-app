@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "60ea72f43ac864d7153b9f8ad7e1a78df0f5b9da7fef10803da031bd1381a557",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「気象の影響」(1)2)e.海陸風"
+    },
+    "answer_defining_proposition": "沿岸部の局地風は昼夜の熱的条件に応じて海風・陸風が入れ替わる。",
+    "tested_misconception": "沿岸の局地風は昼夜で方向が変わらない。",
+    "reasoning_path": "coastal heating cycle -> pressure difference -> wind reversal -> time-of-day route risk",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存のcold-front/一般風問題とは異なるlocal wind time-of-day variation。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.2 supports daytime sea breeze toward warmer land and nighttime land breeze toward sea; no released item tests this reversal."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

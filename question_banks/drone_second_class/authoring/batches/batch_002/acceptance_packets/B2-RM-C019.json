@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C019",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f8d3945bc0b7a0edd89adde7ea163a86dc17f675fc986c27429990982faa3546",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「回転翼航空機（ヘリコプター）」(1)運航の特徴"
+    },
+    "answer_defining_proposition": "オートローテーション機能は無条件の安全保証ではなく、操作・高度・速度の成立範囲を運航計画で確認する。",
+    "tested_misconception": "機能搭載だけであらゆる高度・速度から自動的に安全着陸できる。",
+    "reasoning_path": "emergency capability -> operating envelope -> verify conditions -> realistic contingency plan",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存の緊急着陸地点問題とは異なり、aircraft featureの成立条件を過信しない判断を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.3 states autorotation has required operations and valid height/speed ranges; distinct from Q044 emergency landing-site planning."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "618edd18324d7e6a82899149a624b57724f8bf94e6f68b1caa86a34cee80d531",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「気象の影響」(2)気象に関する注意事項"
+    },
+    "answer_defining_proposition": "弱い一般風予報でも、強い日射を受ける広い運動場では局地的なつむじ風リスクを考慮する。",
+    "tested_misconception": "一般予報が弱風なら局地風のリスクはない。",
+    "reasoning_path": "forecast baseline -> site heating -> local vortex possibility -> operational caution",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。一般的な気象情報取得ではなく、site heatingに起因する局地現象を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.2 supports strong-sunlight broad-ground updraft/dust-devil risk; distinct from released general wind/gust items."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

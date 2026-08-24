@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "311767b279a08c5f4e6edac38215eff022527839a7f9cc7c1e260035fbad7d90",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「回転翼航空機（ヘリコプター）」(1)運航の特徴"
+    },
+    "answer_defining_proposition": "ヘリコプターの垂直・低速降下ではVRSを考慮し、前進を伴う降下を予防策として扱う。",
+    "tested_misconception": "VRSは上昇中の現象であり降下計画とは無関係である。",
+    "reasoning_path": "descent regime -> VRS hazard -> forward component mitigation -> descent method choice",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存Riskのaircraft-specific space/inertiaとは別のhelicopter descent hazard。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.3 supports VRS risk in vertical/low-speed descent and forward-descent mitigation; no released item tests this hazard."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

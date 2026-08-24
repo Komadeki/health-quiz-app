@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C023",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "881fc0fbe381d8c935ad16547da1593d44abc25320bf782473c6b0bf9524d063",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.4「目視外飛行」(1)1)フェールセーフ機能の例①"
+    },
+    "answer_defining_proposition": "目視外飛行の電波断絶リスクには、自動帰還又は通信復帰までの位置維持といった事前設定されたフェールセーフで備える。",
+    "tested_misconception": "通信断では自律動作をさせず、操縦入力だけを待つのが安全である。",
+    "reasoning_path": "link loss -> loss of direct control -> predefined failsafe behavior -> continuity/safe recovery",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存Systemsの通信/FCS機構説明ではなく、BVLOS contingencyとしてradio-loss behaviorを選ぶ。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.4 gives radio-loss failsafe examples of automatic return or position hold; no released item tests this contingency."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

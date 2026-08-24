@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C014",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "6de9f7ecce0687a5d837bb04730dc8f1cee4210788659734a08c92aabe5ed9f2",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「飛行機」(1)飛行機の運航の特徴"
+    },
+    "answer_defining_proposition": "飛行機型の離着陸は向かい風を基本とし、追い風は失速リスクから避ける。",
+    "tested_misconception": "追い風は対地速度が増えるので離着陸に有利である。",
+    "reasoning_path": "aircraft type -> wind relative direction -> stall risk -> runway-direction choice",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存のfixed-wing space requirementとは異なり、wind-relative takeoff/landing decisionを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.3 supports headwind takeoff/landing and tailwind stall risk; Q097 tests spatial constraints instead."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

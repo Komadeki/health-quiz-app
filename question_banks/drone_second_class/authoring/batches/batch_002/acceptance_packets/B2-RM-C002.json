@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "bf575ff27bea7d0c3f73b3c4ced3b64abceca149665a6359f9a2ad7ea51f9f7a",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.1「飛行計画」(1)飛行計画策定時の確認事項"
+    },
+    "answer_defining_proposition": "経路選定では電力施設の近接と航空機の往来を事前にリスク要因として考慮する。",
+    "tested_misconception": "最短経路なら周辺ハザードの確認は飛行中で足りる。",
+    "reasoning_path": "route alternatives -> identify external hazards -> preflight comparison -> safer route",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存Riskの一般的な障害物回避とは異なり、高圧電線と航空機往来を飛行計画へ織り込む判断を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.1 supports high-voltage-facility and aircraft-traffic checks; distinct from Q091 because this tests hazard identification and route choice."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

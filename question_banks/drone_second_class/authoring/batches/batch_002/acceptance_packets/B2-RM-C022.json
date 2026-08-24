@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C022",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b6a227680023763f263d1453724b8c5ca2058db97428a7ab002cb9a5bfe49c41",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.4「目視外飛行」(1)1)補助者を配置する場合"
+    },
+    "answer_defining_proposition": "目視外飛行では単一のカメラ機能だけでなく、自動操縦・機外監視・地上状態把握・フェールセーフを組み合わせて機体能力を評価する。",
+    "tested_misconception": "映像が得られれば位置・異常把握やフェールセーフは不要である。",
+    "reasoning_path": "BVLOS information loss -> required capability set -> compare aircraft -> select adequately monitored/failsafe platform",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "MEDIUM-LOW。既存のbaseline BVLOS assistant配置とは異なり、BVLOS機体・地上監視capability setを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.4 supports the broader BVLOS capability set. Q038 isolates position+abnormality; C022 tests completeness across autopilot/camera/state awareness/failsafe."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

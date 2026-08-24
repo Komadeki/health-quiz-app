@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b10f7f2826c814b8fa19ffa48be17761f2f0e6bcf74a04205220420d83730f6f",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.1「飛行計画」(1)飛行計画策定時の確認事項"
+    },
+    "answer_defining_proposition": "離着陸場の適否では、人の立入り・騒音に加えてコンパスエラーの原因となる構造物も確認する。",
+    "tested_misconception": "人が少なければ構造物による磁気的影響は無視できる。",
+    "reasoning_path": "site conditions -> compass-error hazard -> compare candidate sites -> select controllable site",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存Riskの一般的な安全マージン・障害物回避問題とは異なり、離着陸場のコンパスエラー要因を含むsite suitabilityを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.1 supports takeoff/landing-site checks for structures that may cause compass error; distinct from Q091 multi-constraint integration."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "2f84065a0652e3a66c16229ce7edf3b048513c8f178301b482389da375c5ca0f",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.1「経路設定」(1)飛行経路の安全な設定"
+    },
+    "answer_defining_proposition": "目視限界付近では距離知覚の不確かさを前提に現地確認と必要な補助者配置を行う。",
+    "tested_misconception": "目視範囲内なら地図上の距離確認だけで十分である。",
+    "reasoning_path": "visual limitation -> distance uncertainty -> onsite verification -> assistant if needed",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "MEDIUM-LOW。既存の障害物回避一般論と近接するが、目視限界による距離知覚の曖昧さと現地確認・補助者判断をanswer-defining propositionとする。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.1 explicitly addresses visual-limit distance ambiguity, onsite confirmation, and assistant placement; distinct from Q092 generic obstacle avoidance."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

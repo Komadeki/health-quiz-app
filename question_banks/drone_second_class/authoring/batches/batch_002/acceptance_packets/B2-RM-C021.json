@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C021",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "dfe4087d1a7196a4aaa9213395610ce755f4f4022bd5dbf04d03bdf9f51c514b",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.4「夜間飛行」(1)夜間飛行の運航"
+    },
+    "answer_defining_proposition": "夜間飛行は灯火装備だけでなく、安全な場所での事前訓練を前提とする。",
+    "tested_misconception": "昼間経験または灯火装備があれば夜間特有の訓練は不要である。",
+    "reasoning_path": "night-specific skill demand -> safe training environment -> competency preparation -> operational readiness",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存のnight lighting coverageと分離し、操縦者training readinessを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.4 requires prior night training in a safe no-third-party place; distinct from Q100 lighting controls."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

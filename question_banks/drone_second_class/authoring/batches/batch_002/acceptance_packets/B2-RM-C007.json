@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5c4f2742d043bd9d54b43ce0e680be1e5a1b2eab5c904fa70eeefe90750e0a9d",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「気象の影響」(2)気象に関する注意事項"
+    },
+    "answer_defining_proposition": "加熱された広い地表面では上昇気流を局地的な運航リスクとして扱う。",
+    "tested_misconception": "晴天なら太陽光パネル上空の気流は安定する。",
+    "reasoning_path": "surface heating -> local updraft -> route exposure -> route choice",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存Riskの一般風・前線問題とは異なる局地的thermal updraftのsite-specific判断。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.2 supports heated-surface/solar-panel local updraft risk; no released item tests this proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
