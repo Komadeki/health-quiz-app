@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B6",
+  "directory_slug": "batch_006",
+  "baseline_sha": "4813873dbbbd1b820713fb8c9557be1e53dee480",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "chatgpt-b6-operations-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Continue from 196 accepted/source-verified canonical questions toward the owner-directed 400-question Production target under the quality-preserving relaxation contract. B6 prioritizes explicit Chapter 2 Tier A propositions and uses seven source-defined Tier B boundary variants; no Tier C variant is authored in this batch.",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Exclude subsections explicitly marked 〔一等〕."
+  },
+  "evidence": [
+    "PR #150 verified B5 Q189..Q196 and established 196 accepted/source-verified canonical questions while released/runtime remained 188.",
+    "PR #143 adopted the quality-preserving 400-question target contract.",
+    "PR #151 persisted the B6 20-candidate ceiling; B6 authoring reconciliation records the final tier classification as 13 Tier A plus 7 Tier B without changing the 20 candidate propositions.",
+    "Official MLIT 教則第5版 Chapter 2 source text was rechecked on 2026-08-25 before authoring.",
+    "All B6 candidate source locators are in Chapter 2 material not marked 〔一等〕.",
+    "Every Tier B candidate is bound to the distinctness rationale persisted in the B6 plan and reconciliation artifact."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B6-TARGET-001",
+      "previous_approved_target": 350,
+      "current_released_count": 188,
+      "proposed_target_min": 400,
+      "proposed_target_max": 400,
+      "approved_new_target": 400,
+      "rationale": "Owner explicitly directed expansion to 400 while allowing only quality-preserving controlled variants.",
+      "decision_date": "2026-08-25",
+      "evidence": "Merged PR #143 / target_400_quality_relaxation_contract_2026-08-25.json."
+    }
+  ],
+  "planned_scope": {
+    "area": "Operations",
+    "candidate_batch_identity": "B6",
+    "candidate_ids": [
+      "B6-OPS-C001","B6-OPS-C002","B6-OPS-C003","B6-OPS-C004","B6-OPS-C005",
+      "B6-OPS-C006","B6-OPS-C007","B6-OPS-C008","B6-OPS-C009","B6-OPS-C010",
+      "B6-OPS-C011","B6-OPS-C012","B6-OPS-C013","B6-OPS-C014","B6-OPS-C015",
+      "B6-OPS-C016","B6-OPS-C017","B6-OPS-C018","B6-OPS-C019","B6-OPS-C020"
+    ],
+    "candidate_count": 20,
+    "candidate_count_is_quota": false,
+    "tier_counts": {
+      "A_NEW_PROPOSITION": 13,
+      "B_BOUNDARY_VARIANT": 7,
+      "C_REASONING_VARIANT": 0
+    },
+    "tier_b_candidate_ids": [
+      "B6-OPS-C006","B6-OPS-C008","B6-OPS-C011","B6-OPS-C015","B6-OPS-C016","B6-OPS-C019","B6-OPS-C020"
+    ],
+    "known_rejected_ids": []
+  },
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B6-COVERAGE-LIMIT-001",
+      "status": "PARTIAL",
+      "scope": "Chapter 2 Operations propositions and controlled variants",
+      "evidence": "Authoring is limited to the 20 propositions persisted by PR #151. No additional candidate is backfilled merely to increase count."
+    },
+    {
+      "decision_id": "B6-COVERAGE-LIMIT-002",
+      "status": "ACTIVE_POLICY",
+      "scope": "Controlled variants",
+      "evidence": "Seven Tier B variants are present after final candidate classification. Each has a source-defined boundary/phase/recipient/condition difference and a different reasoning path from its nearest canonical neighbor; wording-only variants are prohibited."
+    }
+  ],
+  "migration_blockers": [],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_AUTHORING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
