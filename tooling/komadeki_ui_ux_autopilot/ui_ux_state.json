@@ -4,7 +4,7 @@
   "workstream": "qualification_factory_ui_ux",
   "control_issue": 48,
   "status": "ACTIVE",
-  "current_phase": "DRONE_SPECIFIC_UX",
+  "current_phase": "ACCESSIBILITY_RESPONSIVE",
   "phase_order": [
     "BASELINE_AUDIT",
     "STANDARD_UX_CONTRACT",
@@ -15,10 +15,10 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "a78f90d4e60ee29fd5f1e07654cf946540b1baf0",
-  "next_atomic_objective": "IMPLEMENT_P1_007_ADD_DEFENSIBLE_DRONE_SPECIFIC_PRODUCT_UX_SEAM",
+  "observed_main": "5ef4c47bd2227f0e032eaa19e3afd7045d857d42",
+  "next_atomic_objective": "VERIFY_ACCESSIBILITY_RESPONSIVE_EXIT_CRITERIA",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 13
+  "state_epoch": 14
 }
