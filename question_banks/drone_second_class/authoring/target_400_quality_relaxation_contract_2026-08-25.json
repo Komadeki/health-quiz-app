@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0",
+  "decision_id": "DRONE-PRODUCTION-TARGET-400-QUALITY-RELAXATION-2026-08-25",
+  "product": "drone_second_class",
+  "decided_at": "2026-08-25",
+  "decision_authority": "OWNER_DIRECTION",
+  "supersedes": [
+    "DRONE-PRODUCTION-TARGET-350-2026-08-25"
+  ],
+  "target": {
+    "final_production_question_count": 400,
+    "current_released_count": 188,
+    "current_b5_pipeline_accept_count": 8,
+    "projected_canonical_after_b5_integration": 196,
+    "additional_from_released_baseline": 212,
+    "additional_after_b5": 204,
+    "status": "ACTIVE",
+    "release_activation": "EXPLICIT_GATE_REQUIRED"
+  },
+  "authoritative_source": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "edition": "第5版",
+    "issuer": "国土交通省",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "registered_source_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "scope_rule": "Use second-class-applicable material only; exclude subsections explicitly marked 〔一等〕."
+  },
+  "relaxation_decision": {
+    "previous_rule_relaxed": "A core proposition was effectively limited to one accepted question unless a wholly separate explicit proposition existed.",
+    "new_rule": "A core proposition may support controlled variants when each accepted item tests a materially different decision boundary, scenario condition, misconception, or reasoning path while remaining explicitly grounded in the authoritative source.",
+    "purpose": "Increase commercially useful practice depth to 400 without permitting wording-only duplication, unsupported inference, first-class-only material, or ambiguous answers."
+  },
+  "quality_floor": {
+    "source_first_required": true,
+    "second_class_scope_required": true,
+    "one_unambiguous_best_answer_required": true,
+    "semantic_collision_review_against_all_canonical_required": true,
+    "within_batch_collision_review_required": true,
+    "independent_ai_review_required": true,
+    "director_adjudication_required": true,
+    "permanent_id_only_after_acceptance": true,
+    "canonical_source_verification_required": true,
+    "released_runtime_mutation_only_after_activation_gate": true,
+    "human_review_identity_must_not_be_fabricated": true
+  },
+  "controlled_variant_policy": {
+    "tiers": {
+      "A_NEW_PROPOSITION": "Preferred. Test a distinct explicit proposition not already represented in canonical inventory.",
+      "B_BOUNDARY_VARIANT": "Allowed. Same core proposition may be reused when a source-defined condition, exception, threshold, flight phase, aircraft type, operational state, or response priority changes the required judgment.",
+      "C_REASONING_VARIANT": "Allowed with stricter review. Same core proposition may be reused only when the tested misconception and reasoning path are materially different and the scenario requires a different application step rather than paraphrase recognition."
+    },
+    "minimum_distinctness_for_B_or_C": {
+      "required_distinct_axes": 2,
+      "one_axis_must_be": [
+        "decision_boundary_or_exception",
+        "reasoning_path"
+      ],
+      "eligible_axes": [
+        "decision_boundary_or_exception",
+        "scenario_state_or_flight_phase",
+        "aircraft_or_operation_applicability",
+        "quantitative_threshold_side",
+        "tested_misconception",
+        "reasoning_path",
+        "causal_mechanism",
+        "response_sequence_or_priority"
+      ]
+    },
+    "core_proposition_density_limit": {
+      "default_max_accepted_questions": 3,
+      "fourth_question_allowed_only_if": "The authoritative source explicitly defines at least four materially different states, conditions, exceptions, thresholds, or response branches and Director adjudication records why the fourth requires a distinct decision boundary or reasoning path.",
+      "absolute_max_accepted_questions": 4
+    },
+    "quantitative_variants": "Allowed only when moving across a source-defined threshold changes the correct classification/action or when a distinct calculation relationship is tested. Merely changing numbers while preserving identical reasoning is prohibited.",
+    "scenario_variants": "Allowed only when the scenario variable is operationally relevant to the answer. Cosmetic context changes are prohibited."
+  },
+  "hard_reject_rules": [
+    "wording-only or near-paraphrase duplicate",
+    "same answer-defining proposition with the same reasoning path and no material boundary change",
+    "first-class-only material",
+    "unsupported inference beyond explicit source support",
+    "ambiguous or multiple defensible correct answers",
+    "trivia created from incidental wording with low exam/practice value",
+    "distractors that are obviously absurd rather than plausible misconceptions",
+    "candidate created solely to fill a numeric quota without a defensible learning objective"
+  ],
+  "review_scoring": {
+    "required_pass_dimensions": [
+      "source fidelity",
+      "second-class applicability",
+      "answer uniqueness",
+      "commercial practice value",
+      "semantic distinctness",
+      "plausible distractors",
+      "explanation correctness"
+    ],
+    "controlled_variant_extra_checks": [
+      "identify parent core proposition",
+      "identify distinctness tier B or C",
+      "record at least two distinctness axes",
+      "record nearest canonical neighbors",
+      "explain why solving this item requires materially different reasoning or boundary recognition"
+    ]
+  },
+  "execution_strategy": {
+    "mode": "SYSTEMATIC_COVERAGE_PLUS_CONTROLLED_VARIANTS_TO_400",
+    "batch_size_guidance": "Prefer 20-30 authored candidates per batch, then independently review and keep only passing candidates.",
+    "domain_distribution": "Coverage-driven, not a hard quota. Prefer underrepresented source sections and weak reasoning families before adding additional variants to already-dense propositions.",
+    "batch_order": [
+      "finish B5 integration and source verification",
+      "decompose all current 第5版 sections into proposition families and canonical-neighbor clusters",
+      "author Tier A new propositions first",
+      "add Tier B controlled boundary variants where Tier A supply is exhausted",
+      "add Tier C reasoning variants only after stronger Tier A/B opportunities are exhausted",
+      "repeat independent review, Director adjudication, ID allocation, canonical integration and source verification until 400 accepted/source-verified canonical questions exist",
+      "execute explicit 400-question release activation under a new bank revision"
+    ]
+  },
+  "preserved_invariants": [
+    "The currently released 188-question Production bank remains unchanged while expansion drafts are authored and reviewed.",
+    "DRONE-Q-000001..DRONE-Q-000188 retain existing identity, content, release history and first-use revision evidence.",
+    "The existing 20-question free selection remains unchanged until an explicit monetization decision changes it.",
+    "The immutable V0 100-question historical validation snapshot remains unchanged.",
+    "B5 accepted candidates continue through the existing transaction/source-verification gates without bypass."
+  ],
+  "current_atomic_objective_preserved": "ALLOCATE_AND_INTEGRATE_B5_OPERATIONS_ACCEPTED_8"
+}
