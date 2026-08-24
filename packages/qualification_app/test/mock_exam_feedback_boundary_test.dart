@@ -44,6 +44,8 @@ void main() {
       expect(controller.currentResponse, selectedIndex);
       expect(find.byKey(const Key('mock-answer-committed')), findsOneWidget);
       expect(find.byKey(const Key('answer-feedback')), findsNothing);
+      expect(find.byKey(const Key('selected-answer-text')), findsNothing);
+      expect(find.byKey(const Key('correct-answer-text')), findsNothing);
       expect(find.text('解説（Explanation）'), findsNothing);
       expect(find.byKey(const Key('next-question')), findsOneWidget);
       expect(find.byKey(const Key('commit-answer')), findsNothing);
