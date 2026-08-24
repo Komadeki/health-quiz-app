@@ -4,7 +4,7 @@
   "workstream": "qualification_factory_ui_ux",
   "control_issue": 48,
   "status": "ACTIVE",
-  "current_phase": "PRODUCT_UX_CLOSURE",
+  "current_phase": "PHYSICAL_UX",
   "phase_order": [
     "BASELINE_AUDIT",
     "STANDARD_UX_CONTRACT",
@@ -15,10 +15,10 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "efcef3317959f5d9929659d0ce6781511b1112cd",
-  "next_atomic_objective": "VERIFY_PRODUCT_UX_CLOSURE_EXIT_CRITERIA",
+  "observed_main": "085a95b448d04d609aa421343021fd2ba819c7ec",
+  "next_atomic_objective": "VERIFY_PHYSICAL_UX_EVIDENCE",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 15
+  "state_epoch": 16
 }
