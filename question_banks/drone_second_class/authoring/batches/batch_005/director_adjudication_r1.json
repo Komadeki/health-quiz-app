@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B5",
+  "adjudication_round": 1,
+  "director": {"id":"chatgpt-b5-operations-director-adjudicator-r1","role":"AI_DIRECTOR"},
+  "author": {"id":"chatgpt-b5-operations-author-r1","role":"AI_AUTHOR"},
+  "reviewer": {"id":"autopilot-b5-operations-reviewer-r1","role":"AI_REVIEWER"},
+  "identity_separation": "PASS",
+  "review_evidence": "independent_review_r1.json",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {"accept":8,"reject":0,"rework":0,"hold":0},
+  "accepted_candidate_ids": ["B5-OPS-C001","B5-OPS-C002","B5-OPS-C003","B5-OPS-C004","B5-OPS-C005","B5-OPS-C006","B5-OPS-C007","B5-OPS-C008"],
+  "rejected": [],
+  "director_rationale": "The independent review is adopted. All eight candidates are directly supported by current MLIT 教則第5版, are applicable to second-class scope, and preserve distinct answer-defining reasoning boundaries against the released 188-question bank. C008 remains distinct from Q065/Q139 because its trigger is low battery or anticipated inability to continue after failsafe has already activated, requiring a landing transition. The other seven candidates cover responsibility designation, authority communications, PPE, planning despite familiarity, weather deterioration action threshold, Version 5 insurance requirement, and emergency landing priority without duplicating an existing canonical proposition.",
+  "invariants": {"HUMAN_REVIEW_FABRICATED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"REGISTRY_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RUNTIME_CHANGED":false,"RELEASED_CHANGED":false},
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_8"
+}
