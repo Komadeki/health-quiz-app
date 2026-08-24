@@ -1,0 +1,7 @@
+{
+  "schema_version":"1.0","candidate_id":"B5-OPS-C007","candidate_state":"AI_PRE_ACCEPT","candidate_fingerprint":"627bc78d3e97258b563f7c380b13aa1a60823bff98b762286dda8f8823429200",
+  "actors":{"author":{"id":"chatgpt-b5-operations-author-r1","role":"AI_AUTHOR"},"reviewer":{"id":"autopilot-b5-operations-reviewer-r1","role":"AI_REVIEWER"},"director":{"id":"chatgpt-b5-operations-director-adjudicator-r1","role":"AI_DIRECTOR"}},
+  "evidence":{"source":{"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","source_locator":"教則 第5章 5.2.3「緊急時の対応」"},"answer_defining_proposition":"緊急時はRTH固定ではなく近くの安全な無人地帯への速やかな不時着を優先する。","tested_misconception":"緊急時でも離陸地点への帰還を常に優先すべきである。","reasoning_path":"emergency -> compare return distance with immediate safe landing -> nearest safe uninhabited landing priority","collision":{"released_bank_checked":true,"canonical_drafts_checked":true,"batch_checked":true,"note":"LOW。Q044は飛行前の緊急着陸地点確保。Q179はGNSSを使わない操作能力。緊急事象中の着陸先優先順位は未出。"}},
+  "independent_review":{"decision":"ACCEPT","rationale":"教則5.2.3 explicitly says emergency handling must not assume return to takeoff point and should promptly land at a nearby safe uninhabited area. Q044 is preflight emergency-site planning; Q179 concerns GNSS-independent control."},
+  "director_adjudication":{"decision":"ACCEPT","rationale":"Director independently confirms current MLIT 第5版 support, second-class applicability, answer correctness and a non-duplicate reasoning boundary against the 188-question canonical bank."},"requested_state":"AI_GOVERNED_ACCEPT"
+}
