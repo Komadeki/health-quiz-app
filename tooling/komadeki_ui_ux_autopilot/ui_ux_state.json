@@ -15,10 +15,10 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "0963d875ccd142bb9de243b70481ac3b708543f5",
-  "next_atomic_objective": "IMPLEMENT_P0_002_INTENTIONAL_LEAVE_HOME_RESUME",
+  "observed_main": "93b51000b06e042c111eee1e674dac1e1a03a32b",
+  "next_atomic_objective": "IMPLEMENT_P0_003_ELIMINATE_SILENT_NOOP_PRACTICE_ACTIONS",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 4
+  "state_epoch": 5
 }
