@@ -37,7 +37,7 @@ class B4IntegrationTests(unittest.TestCase):
     def test_exact_19_are_integrated_with_deterministic_ids(self) -> None:
         for candidate_id, question_id in EXPECTED.items():
             candidate = self.candidates[candidate_id]
-            self.assertEqual("INTEGRATED", candidate["state"])
+            self.assertIn(candidate["state"], {"INTEGRATED", "VERIFIED"})
             self.assertEqual(question_id, candidate["permanent_question_id"])
             question = self.questions[question_id]
             self.assertEqual("draft", question["status"])
@@ -72,7 +72,11 @@ class B4IntegrationTests(unittest.TestCase):
         self.assertEqual([], validate_expansion_batch(self.batch))
         verifications = json.loads((self.authoring / "source_verifications.json").read_text(encoding="utf-8"))["verifications"]
         verified_ids = {row["question_id"] for row in verifications}
-        self.assertTrue(all(question_id not in verified_ids for question_id in EXPECTED.values()))
+        for candidate_id, question_id in EXPECTED.items():
+            if self.candidates[candidate_id]["state"] == "VERIFIED":
+                self.assertIn(question_id, verified_ids)
+            else:
+                self.assertNotIn(question_id, verified_ids)
         released = json.loads((self.authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"]
         self.assertEqual(100, len(released))
         bank = json.loads((self.authoring / "bank.json").read_text(encoding="utf-8"))
