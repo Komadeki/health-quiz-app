@@ -102,7 +102,11 @@ void main() {
       expect(find.byKey(const Key('commit-answer')), findsNothing);
       expect(controller.activeSession, isNull);
       expect(controller.events, beforeEvents);
-      expect(find.byKey(const Key('retry-session')), findsOneWidget);
+
+      final retry = find.byKey(const Key('retry-session'));
+      await tester.scrollUntilVisible(retry, 200);
+      await tester.pumpAndSettle();
+      expect(retry, findsOneWidget);
       expect(tester.takeException(), isNull);
     },
   );
