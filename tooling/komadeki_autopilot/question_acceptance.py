@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -14,6 +15,7 @@ EXPECTED_ROLES = {
     "reviewer": "AI_REVIEWER",
     "director": "AI_DIRECTOR",
 }
+FINGERPRINT_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 
 
 def _text(value: Any) -> str:
@@ -30,6 +32,9 @@ def validate_packet(packet: dict[str, Any]) -> list[str]:
         errors.append("candidate_id is required")
     if packet.get("candidate_state") != "AI_PRE_ACCEPT":
         errors.append("candidate_state must be AI_PRE_ACCEPT")
+    fingerprint = _text(packet.get("candidate_fingerprint"))
+    if not FINGERPRINT_PATTERN.fullmatch(fingerprint):
+        errors.append("candidate_fingerprint must be a lowercase SHA-256 hex digest")
 
     actors = packet.get("actors")
     if not isinstance(actors, dict):
