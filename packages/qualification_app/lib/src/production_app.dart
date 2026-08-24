@@ -939,6 +939,16 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                     ),
                     const SizedBox(height: 12),
                     Text(
+                      'あなたの回答: ${card.choices[committedChoice!]}',
+                      key: const Key('selected-answer-feedback'),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '正解: ${card.choices[card.answerIndex]}',
+                      key: const Key('correct-answer-feedback'),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
                       '解説（Explanation）',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
