@@ -1,0 +1,7 @@
+{
+  "schema_version":"1.0","candidate_id":"B5-OPS-C003","candidate_state":"AI_PRE_ACCEPT","candidate_fingerprint":"5c024843ce199276e00d277a2cdc56ff12665afd626fc6eb349077e681e0b038",
+  "actors":{"author":{"id":"chatgpt-b5-operations-author-r1","role":"AI_AUTHOR"},"reviewer":{"id":"autopilot-b5-operations-reviewer-r1","role":"AI_REVIEWER"},"director":{"id":"chatgpt-b5-operations-director-adjudicator-r1","role":"AI_DIRECTOR"}},
+  "evidence":{"source":{"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","source_locator":"教則 第2章 2.2.6「服装に対する注意」"},"answer_defining_proposition":"飛行作業では動作性・露出低減・関係者識別を考慮した服装と必要な保護具を準備する。","tested_misconception":"操縦機器を持っていれば服装やPPEは安全準備の対象外である。","reasoning_path":"worksite exposure -> clothing/PPE controls -> reduce injury and identification risk","collision":{"released_bank_checked":true,"canonical_drafts_checked":true,"batch_checked":true,"note":"LOW。canonical 188に操縦者の服装・PPE準備を直接問う項目はない。"}},
+  "independent_review":{"decision":"ACCEPT","rationale":"教則2.2.6 explicitly defines clothing characteristics and PPE preparation. No canonical question tests operator clothing/PPE. The proposition is concrete, safety-relevant and independently answer-defining."},
+  "director_adjudication":{"decision":"ACCEPT","rationale":"Director independently confirms current MLIT 第5版 support, second-class applicability, answer correctness and a non-duplicate reasoning boundary against the 188-question canonical bank."},"requested_state":"AI_GOVERNED_ACCEPT"
+}
