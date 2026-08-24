@@ -1,0 +1,31 @@
+name: KOMADEKI Autopilot State
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/KOMADEKI_AUTOPILOT.md'
+      - 'tooling/komadeki_autopilot/**'
+      - '.github/workflows/komadeki-autopilot.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/KOMADEKI_AUTOPILOT.md'
+      - 'tooling/komadeki_autopilot/**'
+      - '.github/workflows/komadeki-autopilot.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-state:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate Drone autopilot state
+        run: python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+      - name: Diff hygiene
+        run: git diff --check HEAD^ HEAD || git diff --check
