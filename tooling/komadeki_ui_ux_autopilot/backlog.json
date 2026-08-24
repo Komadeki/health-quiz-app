@@ -1,0 +1,275 @@
+{
+  "schema_version": "1.0",
+  "workstream": "qualification_factory_ui_ux",
+  "audit_date": "2026-08-24",
+  "baseline_main": "585f7b5771c0840b547441d370382c931da6b8c9",
+  "audit_result": "PASS_WITH_BLOCKING_BACKLOG",
+  "findings": [
+    {
+      "id": "UX-P0-001",
+      "priority": "P0",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Defer correctness and explanation during mock exam",
+      "evidence": [
+        "packages/qualification_app/lib/src/production_app.dart renders answer feedback and explanation after every committed response without a mock-exam exception",
+        "apps/drone_second_class/app.yaml enables a 50-question timed mock exam"
+      ],
+      "user_impact": "In-exam feedback changes a timed practice session into guided practice and can influence later answers.",
+      "acceptance_criteria": [
+        "Mock-exam commit reveals no correctness, correct choice, explanation, or source before completion",
+        "Deadline and completion scoring remain deterministic",
+        "Feedback is available only through post-exam result/review"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "UX-P0-002",
+      "priority": "P0",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Provide intentional leave-to-Home and resume flow",
+      "evidence": [
+        "QualificationQuizPage has no close, Home, pause, or back action",
+        "QualificationProductionController.returnHome is exposed only from result while active sessions are persisted and Home already supports resume"
+      ],
+      "user_impact": "A learner must finish a session or terminate/background the app to leave normal practice.",
+      "acceptance_criteria": [
+        "Practice exposes an explicit leave-to-Home action that preserves the active session",
+        "Home exposes resume for the preserved session",
+        "Timed mock retains wall-clock deadline semantics and is not silently paused"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "UX-P0-003",
+      "priority": "P0",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Eliminate silent no-op practice actions",
+      "evidence": [
+        "Practice-mode buttons are enabled by feature flag rather than eligible-question count",
+        "startIncorrect and startUnanswered can pass an empty selection to _startSession, which returns false without UI feedback"
+      ],
+      "user_impact": "Visible learning actions can appear broken when no eligible questions exist.",
+      "acceptance_criteria": [
+        "Eligibility is represented before tap where practical or a clear empty-state response is shown",
+        "No enabled learning action fails silently",
+        "Empty-state behavior has widget coverage"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "UX-P1-001",
+      "priority": "P1",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Establish a deterministic primary action on Home",
+      "evidence": [
+        "Home stacks progress, all units, all practice modes, weakness, recommendation, history, and purchase",
+        "Recommendation appears below the feature list rather than as the primary next action"
+      ],
+      "user_impact": "The learner must interpret the product structure instead of being guided toward the next useful study action.",
+      "acceptance_criteria": [
+        "Home follows a deterministic primary-action hierarchy such as resume, review, weakness/recommendation, then start learning",
+        "Secondary modes remain discoverable without competing equally with the primary action",
+        "Hierarchy is covered by state-driven widget tests"
+      ],
+      "depends_on": ["UX-P0-002", "UX-P0-003"]
+    },
+    {
+      "id": "UX-P1-002",
+      "priority": "P1",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Make the correct answer explicit in practice feedback",
+      "evidence": [
+        "After commit the UI shows only correctness text and explanation",
+        "Disabled choice tiles do not explicitly distinguish the correct choice after an incorrect response"
+      ],
+      "user_impact": "The learner must infer the correct option from prose.",
+      "acceptance_criteria": [
+        "Practice feedback distinguishes selected and correct answers",
+        "Correctness is not communicated by color alone",
+        "Long Japanese choice text remains readable at large text scale"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "UX-P1-003",
+      "priority": "P1",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Expose per-question source provenance",
+      "evidence": [
+        "QuizCard preserves sourceId, sourceTitle, sourceSection, and sourceVersion",
+        "Drone runtime questions contain those fields",
+        "Production quiz currently renders explanation only"
+      ],
+      "user_impact": "Official-source traceability exists in data but is invisible to the learner.",
+      "acceptance_criteria": [
+        "Reusable source presentation shows title, version, and section when present",
+        "Practice shows source after commit",
+        "Mock exam shows source only in post-exam review",
+        "Missing source fields fail gracefully"
+      ],
+      "depends_on": ["UX-P0-001"]
+    },
+    {
+      "id": "UX-P1-004",
+      "priority": "P1",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Standardize loading, failure, and nonfatal status UX",
+      "evidence": [
+        "Loading is an unlabeled CircularProgressIndicator",
+        "Fatal loading displays the raw exception string",
+        "Controller actions can return false without a shared status surface"
+      ],
+      "user_impact": "Failure recovery and accessibility are inconsistent and internal error details may leak into learner-facing copy.",
+      "acceptance_criteria": [
+        "Loading has semantic and user-readable status",
+        "Fatal errors use stable user copy and a safe recovery path where possible",
+        "Expected nonfatal failures use a shared message/state mechanism"
+      ],
+      "depends_on": ["UX-P0-003"]
+    },
+    {
+      "id": "UX-P1-005",
+      "priority": "P1",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Add compact-width, large-text, long-content, and semantics gates",
+      "evidence": [
+        "Shared widget coverage primarily uses one 800x1800 viewport",
+        "No durable compact-width or large-text gate covers Home, long Japanese content, or the mock progress/timer AppBar"
+      ],
+      "user_impact": "Overflow or clipped controls can escape CI on small devices or with accessibility text settings.",
+      "acceptance_criteria": [
+        "Widget tests cover compact phone width and large text scaling",
+        "Long Japanese question and choice fixtures preserve scrolling and action reachability",
+        "Mock progress/timer header remains usable",
+        "Essential state changes have appropriate semantics"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "UX-P1-006",
+      "priority": "P1",
+      "status": "OPEN",
+      "ownership": "DRONE_SPECIFIC",
+      "title": "Remove manually maintained question total from Drone headline",
+      "evidence": [
+        "apps/drone_second_class/app.yaml hard-codes 教則第5版を基にした全100問",
+        "Home separately derives current question counts from the runtime bank",
+        "Question Bank expansion is a separate active workstream"
+      ],
+      "user_impact": "A legitimate bank expansion can produce stale or contradictory product copy.",
+      "acceptance_criteria": [
+        "Drone headline does not embed a manually maintained total or the total is generated from authoritative runtime data",
+        "Visible question totals have one authoritative source"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "UX-P1-007",
+      "priority": "P1",
+      "status": "OPEN",
+      "ownership": "DRONE_SPECIFIC",
+      "title": "Add one defensible Drone-specific product UX seam",
+      "evidence": [
+        "DroneProductionBootstrap delegates directly to QualificationProductionBootstrap",
+        "Current product differentiation is manifest/content driven only"
+      ],
+      "user_impact": "The reference product does not yet make full use of Drone-specific source, exam-area, and learning-path context.",
+      "acceptance_criteria": [
+        "At least one Drone-specific presentation is tied to official source, exam structure, or learning path rather than cosmetic duplication",
+        "Implementation composes Factory extension/configuration seams",
+        "Shared controllers, persistence, selection algorithms, purchase handling, and standard screens are not forked"
+      ],
+      "depends_on": ["UX-P1-001", "UX-P1-003"]
+    },
+    {
+      "id": "UX-P1-008",
+      "priority": "P1",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Provide post-exam review after mock completion",
+      "evidence": [
+        "Current result shows score/pass state and optional incorrect retry but no completed-attempt review surface"
+      ],
+      "user_impact": "After in-exam feedback is removed, learners need a separate way to learn from the completed mock.",
+      "acceptance_criteria": [
+        "Completed mock review exposes recorded answer, correct answer, explanation, and source where available",
+        "Review cannot mutate the completed attempt",
+        "Retry is a separate new attempt"
+      ],
+      "depends_on": ["UX-P0-001", "UX-P1-003"]
+    },
+    {
+      "id": "UX-P2-001",
+      "priority": "P2",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Define optional knowledge-target seam for finer weakness UX",
+      "evidence": [
+        "Factory architecture allows optional knowledge-target metrics",
+        "Current answer events persist knowledgeTarget as null and QuizCard has no knowledge-target field"
+      ],
+      "user_impact": "Weakness guidance cannot become more precise than broad units even when authoring data has finer concepts.",
+      "acceptance_criteria": [
+        "Define a backward-compatible optional knowledge-target seam before exposing finer weakness UX",
+        "Preserve unit-level behavior when no target exists"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "UX-P2-002",
+      "priority": "P2",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Make history optionally inspectable",
+      "evidence": [
+        "Home shows the five latest completed sessions as read-only score rows"
+      ],
+      "user_impact": "Past-session context cannot be inspected or reused directly.",
+      "acceptance_criteria": [
+        "Evaluate a history-detail/review entry point after P0/P1 flows are stable",
+        "Reuse post-mock review contracts rather than duplicate them"
+      ],
+      "depends_on": ["UX-P1-008"]
+    },
+    {
+      "id": "UX-P2-003",
+      "priority": "P2",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Normalize learner-facing terminology",
+      "evidence": [
+        "Visible production labels mix Japanese with implementation/product terms such as 解説（Explanation） and Full Unlock"
+      ],
+      "user_impact": "Terminology consistency and product polish are weaker than necessary.",
+      "acceptance_criteria": [
+        "Adopt consistent learner-facing terminology",
+        "Keep developer/internal terms out of visible production copy unless intentionally branded"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "UX-P2-004",
+      "priority": "P2",
+      "status": "OPEN",
+      "ownership": "FACTORY_SHARED",
+      "title": "Connect progress state more directly to action",
+      "evidence": [
+        "Progress shows completion and attempt counts while recommendation is a separate lower Home surface"
+      ],
+      "user_impact": "Progress explains state but does not itself reduce the next-action decision burden.",
+      "acceptance_criteria": [
+        "Address primarily through the Home primary-action hierarchy before adding more metrics",
+        "Do not introduce unsupported pass probability or real-exam-ability claims"
+      ],
+      "depends_on": ["UX-P1-001"]
+    }
+  ]
+}
