@@ -17,6 +17,7 @@ from ai_governance import (  # noqa: E402
     candidate_fingerprint,
     promote_ai_governed_candidates,
 )
+from expansion import validate_expansion_batch  # noqa: E402
 
 AUTOPILOT_DIR = REPOSITORY_ROOT / "tooling" / "komadeki_autopilot"
 sys.path.insert(0, str(AUTOPILOT_DIR))
@@ -65,6 +66,7 @@ class B2AcceptancePacketTest(unittest.TestCase):
         for row in rows:
             if row["candidate_id"] in self.accepted_ids:
                 row["state"] = "AI_PRE_ACCEPT"
+                row["permanent_question_id"] = ""
         with (batch / "candidates.csv").open("w", encoding="utf-8", newline="") as handle:
             writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
             writer.writeheader()
@@ -103,12 +105,31 @@ class B2AcceptancePacketTest(unittest.TestCase):
                 },
             }, packet["evidence"])
 
-    def test_only_accepted_candidates_are_promoted_without_human_or_ids(self) -> None:
-        self.assertEqual({candidate_id: "READY_FOR_ID" for candidate_id in self.accepted_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.accepted_ids})
+    def test_only_accepted_candidates_are_integrated_with_new_permanent_ids(self) -> None:
+        expected_ids = {
+            candidate_id: f"DRONE-Q-{number:06d}"
+            for candidate_id, number in zip(self.accepted_ids, range(119, 142))
+        }
+        self.assertEqual({candidate_id: "INTEGRATED" for candidate_id in self.accepted_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.accepted_ids})
+        self.assertEqual(expected_ids, {candidate_id: self.rows[candidate_id]["permanent_question_id"] for candidate_id in self.accepted_ids})
         self.assertEqual({candidate_id: "AI_PRE_ACCEPT" for candidate_id in self.rejected_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.rejected_ids})
-        self.assertTrue(all(not row["permanent_question_id"] for row in self.rows.values()))
+        self.assertTrue(all(not self.rows[candidate_id]["permanent_question_id"] for candidate_id in self.rejected_ids))
         with (self.source_batch / "reviews.csv").open(encoding="utf-8", newline="") as handle:
             self.assertEqual([], list(csv.DictReader(handle)))
+        with (REPOSITORY_ROOT / "question_banks/drone_second_class/authoring/questions.csv").open(encoding="utf-8", newline="") as handle:
+            questions = {row["question_id"]: row for row in csv.DictReader(handle)}
+        with (REPOSITORY_ROOT / "question_banks/drone_second_class/authoring/question_id_registry.csv").open(encoding="utf-8", newline="") as handle:
+            registry = {row["question_id"]: row for row in csv.DictReader(handle)}
+        for candidate_id, question_id in expected_ids.items():
+            candidate = self.rows[candidate_id]
+            self.assertEqual("draft", questions[question_id]["status"])
+            self.assertEqual(candidate["question"], questions[question_id]["question"])
+            self.assertEqual(candidate["proposed_correct"], questions[question_id]["correct_choice"])
+            self.assertEqual(candidate["source_locator"], questions[question_id]["source_locator"])
+            self.assertEqual("used", registry[question_id]["status"])
+            self.assertEqual("", registry[question_id]["first_used_bank_revision"])
+            self.assertEqual(f"Expansion pre-release allocation: {candidate_id}", registry[question_id]["notes"])
+        self.assertEqual([], validate_expansion_batch(self.source_batch))
 
     def test_promotion_path_promotes_all_23_atomically(self) -> None:
         _, batch = self._copy_batch()
