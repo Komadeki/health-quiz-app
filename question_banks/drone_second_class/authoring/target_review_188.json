@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "review_id": "DRONE-TARGET-REVIEW-188",
+  "product": "drone_second_class",
+  "reviewed_at": "2026-08-24",
+  "baseline_main": "d38ed240b5b55360316470fd30d2c2750891bd0b",
+  "canonical_inventory": 188,
+  "production_inventory": {
+    "active": 100,
+    "released": 100,
+    "runtime": 100
+  },
+  "domain_inventory": {
+    "drone_rules": 44,
+    "drone_systems": 57,
+    "drone_operations": 41,
+    "drone_risk_management": 46
+  },
+  "facts": [
+    "Current canonical inventory is 188: 100 production-active questions plus 18 Rules drafts, 23 Risk verified drafts, 28 Systems verified drafts, and 19 Operations verified drafts.",
+    "Current canonical domain inventory is Rules 44, Systems 57, Operations 41, and Risk Management 46.",
+    "B2 Risk, B3 Systems, and B4 Operations completed source-first authoring, independent acceptance gates, Permanent Question ID integration, and canonical source verification.",
+    "B4 authoring retained 20 explicit general Chapter 5 candidates; independent review and Director adjudication rejected B4-OPS-C016 as a semantic collision with DRONE-Q-000130, leaving 19 useful Operations additions.",
+    "Rules R5 remains source-limited/STOP and broad Rules expansion is not authorized by the adopted expansion contract.",
+    "Production active/released/runtime remains 100/100/100; this target review does not activate any canonical draft.",
+    "DRONE-Q-000101..000118 remain canonical Rules drafts in INTEGRATED state and do not yet have canonical source-verification records.",
+    "The adopted 180-220 figure is a coverage exploration envelope, not a release quota."
+  ],
+  "adopted_decisions": {
+    "expansion": "STOP",
+    "final_production_target": 188,
+    "target_status": "FROZEN",
+    "next_atomic_objective": "VERIFY_B1_RULES_CANONICAL_SOURCES_18"
+  },
+  "rationale": [
+    "The 180-220 range was an exploration envelope rather than a quota; 188 is selected because source-first expansion reached a balanced, non-duplicative inventory, not because 188 lies inside the envelope.",
+    "At canonical inventory 169, Operations was the only pronounced thin domain at 22 questions; B4 raised Operations to 41 while preserving source support and semantic distinctness.",
+    "Current domain counts of 41-57 no longer justify another broad source-first expansion pass.",
+    "Risk, Systems, and Operations useful source ceilings have been exercised under the autonomous acceptance and canonical source-verification gates, while further broad Rules expansion is constrained by the targeted-only policy and R5 source ceiling.",
+    "Additional broad authoring would increasingly depend on first-class-only material, unsupported inference, or semantic variants already excluded by collision gates.",
+    "Before any release activation to the frozen 188 target, the existing B1 Rules drafts must satisfy the same canonical source-verification standard as B2-B4."
+  ],
+  "source_ceiling_notes": {
+    "risk": "B2 completed useful second-class Risk additions under current official MLIT 第5版 source support; collision candidates were rejected rather than force-filled.",
+    "systems": "B3 completed useful second-class Systems additions under current official MLIT 第5版 source support; semantic-collision candidates were rejected.",
+    "operations": "B4 stopped after 20 explicit source-first candidates; independent review rejected one semantic collision and the remaining 19 were integrated and source-verified.",
+    "rules": "Rules remains targeted-only; R5 is source-limited/STOP. Existing B1 Rules drafts require verification, not another broad authoring pass."
+  },
+  "remaining_question_bank_closure": [
+    "Verify canonical source evidence for DRONE-Q-000101..000118 and transition the corresponding B1 candidates from INTEGRATED to VERIFIED only on PASS.",
+    "After all target-188 drafts satisfy canonical verification and Question Bank validators, execute an explicit release-selection/activation gate; do not mutate released/runtime implicitly."
+  ],
+  "inference": [
+    "188 is a defensible Production Question Bank target because the current source-first inventory is balanced and additional broad expansion has diminishing marginal value under the established scope, source-ceiling, and semantic-collision constraints."
+  ]
+}
