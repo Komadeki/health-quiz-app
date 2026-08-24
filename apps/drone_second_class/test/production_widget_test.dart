@@ -21,11 +21,19 @@ void main() {
 
     expect(find.text('二等無人航空機 学科対策'), findsOneWidget);
     expect(find.text('教則第5版を基にした全100問'), findsOneWidget);
-    expect(find.byKey(const Key('unit-drone_rules')), findsOneWidget);
-    expect(find.byKey(const Key('unit-drone_systems')), findsOneWidget);
-    expect(find.byKey(const Key('unit-drone_operations')), findsOneWidget);
-    expect(find.byKey(const Key('unit-drone_risk_management')), findsOneWidget);
     expect(find.byKey(const Key('overall-progress')), findsOneWidget);
+
+    for (final unitKey in [
+      'unit-drone_rules',
+      'unit-drone_systems',
+      'unit-drone_operations',
+      'unit-drone_risk_management',
+    ]) {
+      final unit = find.byKey(Key(unitKey));
+      await tester.scrollUntilVisible(unit, 200);
+      expect(unit, findsOneWidget);
+    }
+
     await tester.scrollUntilVisible(
       find.byKey(const Key('start-random')),
       300,
@@ -59,7 +67,9 @@ void main() {
         controller: controller,
       ),
     );
-    await tester.tap(find.byKey(const Key('unit-drone_rules')));
+    final rulesUnit = find.byKey(const Key('unit-drone_rules'));
+    await tester.scrollUntilVisible(rulesUnit, 200);
+    await tester.tap(rulesUnit);
     await tester.pump();
     final correctIndex = controller.currentCard!.answerIndex;
     await tester.tap(find.byKey(Key('choice-$correctIndex')));
