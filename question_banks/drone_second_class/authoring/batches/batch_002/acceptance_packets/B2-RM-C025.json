@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C025",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a439ba1efd78a83024fcc211fecb3df6a80c3e46f0f24d757755703de4b41b71",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.4「目視外飛行」(1)2)補助者を配置しない場合"
+    },
+    "answer_defining_proposition": "補助者なしBVLOSでは機体状態・周辺気象・計画経路からの位置差を地上で継続把握できることが重要である。",
+    "tested_misconception": "映像またはバッテリー情報だけでBVLOSの運航状態を十分に把握できる。",
+    "reasoning_path": "no-assistant BVLOS -> missing direct observation -> multi-parameter state/weather/deviation monitoring -> continuous situational awareness",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存のbaseline補助者問題と異なり、補助者なしBVLOSでのground monitoring scopeとin-flight weather awarenessを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.4 no-assistant BVLOS requires broad ground state/weather/route-deviation monitoring; distinct from Q038 assistant-present position/abnormality scope."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

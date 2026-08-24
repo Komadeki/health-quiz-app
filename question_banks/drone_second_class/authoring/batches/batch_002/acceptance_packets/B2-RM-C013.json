@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C013",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "adbf9f0208180e2ba82bf2ed1278810e2d6d986716280a867f7222e233934b2a",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「気象の影響」(1)2)i.ダウンバースト"
+    },
+    "answer_defining_proposition": "通常観測で未検出でも積乱雲周辺の短時間・局地的下降流リスクを否定できない。",
+    "tested_misconception": "観測網に表示されなければダウンバーストはない。",
+    "reasoning_path": "convective environment -> detection limitation -> residual local hazard -> conservative decision",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存のcold-front問題とは異なり、local detection limitationとresidual weather riskを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.2 supports short-lived local downburst/microburst events that may escape ordinary observation networks; distinct from Q094/Q036."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

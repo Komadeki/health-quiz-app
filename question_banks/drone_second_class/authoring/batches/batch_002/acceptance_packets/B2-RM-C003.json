@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "de8a5bac73c940acc1bf743bb5ef87f4b1900846d12a211e3189ce38d928b634",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.1「飛行計画」(1)飛行計画策定時の確認事項"
+    },
+    "answer_defining_proposition": "飛行計画の確認事項には予想可能な状況変化も含める。",
+    "tested_misconception": "一度作成した計画は固定条件だけを対象にすればよい。",
+    "reasoning_path": "planning assumptions -> foreseeable changes -> checklist coverage -> adaptive plan",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存のリスク評価・残留リスク問題とは別に、計画時checklistへforeseeable changeを組み込む境界を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.1 supports planning for foreseeable changes; no released item tests this checklist boundary directly."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

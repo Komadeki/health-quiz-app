@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "57b5a0929c22ab1fbecde8807696f9aaa1745a5eeddc5965d4ce10416fc6375a",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「回転翼航空機（ヘリコプター）」(1)運航の特徴"
+    },
+    "answer_defining_proposition": "ヘリコプターの低高度ホバリングではローター半径を目安に地面効果による推力・安定変化を考慮する。",
+    "tested_misconception": "地面効果は高高度でだけ問題になる。",
+    "reasoning_path": "height relative rotor radius -> ground effect -> thrust/stability change -> hover caution",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存のhelicopter離着陸エリア要件とは異なるaerodynamic operating characteristic。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.3 supports helicopter ground-effect risk near/below approximately main-rotor radius; Q098 tests takeoff-area separation, not ground effect."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

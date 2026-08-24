@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C011",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "42c76bf6771605b5f062a0dbba559fc12622a4b538853d8bf5d3e20d8e510db7",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「気象の影響」(1)2)f.山谷風"
+    },
+    "answer_defining_proposition": "山岳地帯では昼の谷風と夜の山風という局地風の反転を時間帯別に見込む。",
+    "tested_misconception": "昼に観察した谷風を夜もそのまま前提にしてよい。",
+    "reasoning_path": "terrain heating cycle -> valley/mountain wind reversal -> nighttime expectation -> plan adjustment",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存Riskの気象情報一般とは異なるterrain-driven local wind。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.2 supports daytime valley wind/nighttime mountain wind; distinct terrain/time reasoning."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

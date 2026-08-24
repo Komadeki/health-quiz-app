@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b95e4183e7170ac1a09cc3fa40fef88a0f1edd3d8afd74e9eb0e03efa042e1c1",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「安全のための気象状況の確認及び飛行の実施の判断」(1)"
+    },
+    "answer_defining_proposition": "雷鳴は降雨開始前でも延期・中止を検討すべき気象条件である。",
+    "tested_misconception": "雨が降るまでは雷鳴だけで飛行を止める必要はない。",
+    "reasoning_path": "thunder cue -> hazardous weather inference -> go/no-go -> postpone/cancel",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "MEDIUM-LOW。既存の一般的なflight-start judgmentと近接するが、降雨前の雷鳴という具体的decision boundaryを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.2 says thunder is a postpone/cancel condition. Q096 tests fog; this adds the distinct pre-rain thunder decision boundary and misconception."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

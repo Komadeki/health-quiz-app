@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C020",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ab8d30c4fe0412eb0022d23286953d79b970e99d8c1e4447f4e9398faf775ec6",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.4「夜間飛行」(1)夜間飛行の運航"
+    },
+    "answer_defining_proposition": "夜間では人の視認能力の制約により姿勢・方向・周囲確認が難しくなることを運航リスクとして扱う。",
+    "tested_misconception": "機体が視野に入っていれば夜間も昼間と同じ情報を得られる。",
+    "reasoning_path": "night condition -> visual-information degradation -> human-factor risk -> plan adjustment",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存のnight lighting問題とは異なり、灯火要件そのものではなくvisual human-factor limitationをanswer-defining propositionとする。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.4 supports night visual human-factor risk. Q100 gives that risk as a premise and tests lighting controls; C020 tests risk recognition itself."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

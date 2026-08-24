@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "19d33246e4edafb6ea07397ada809dd4ca7cc20b4fecb7633ba9c4f672762cad",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「回転翼航空機（ヘリコプター）」(1)運航の特徴"
+    },
+    "answer_defining_proposition": "山間・斜面の強い吹き下ろし風はヘリコプターの上昇能力を制約し得る。",
+    "tested_misconception": "ヘリコプターなら斜面の吹き下ろし風でも上昇性能は制約されない。",
+    "reasoning_path": "terrain wind -> climb performance limit -> margin assessment -> route/go-no-go adjustment",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。RM2の局地風知識ではなく、helicopter-specific climb performanceとの組合せを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.3 supports strong downslope wind limiting helicopter climb; distinct aircraft-specific performance decision."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

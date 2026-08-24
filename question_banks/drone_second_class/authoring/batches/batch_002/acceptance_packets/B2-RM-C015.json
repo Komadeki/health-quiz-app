@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C015",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a60760c6f624db813f93d1af0b3638df7908861c1935f1ab1e1c18ec407e094b",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「飛行機」(1)飛行機の運航の特徴"
+    },
+    "answer_defining_proposition": "飛行機型の上空待機はホバリングではなく旋回飛行を前提に空間を確保する。",
+    "tested_misconception": "飛行機型も回転翼機と同様に空中停止できる。",
+    "reasoning_path": "aircraft capability -> no hover -> loiter geometry -> operating-space plan",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。既存のfixed-wing離着陸space問題とは異なり、hover不可が待機方法とoperating spaceへ及ぼす影響を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.3 states fixed-wing aircraft cannot hover and use circling for loiter; distinct from Q097's broader area/turn-radius proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

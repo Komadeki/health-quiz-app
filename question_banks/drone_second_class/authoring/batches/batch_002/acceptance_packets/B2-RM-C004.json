@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B2-RM-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "6b79f30286376db2175420a99c4c4b0b4fa4f3193af3327d8d7352e95c32fe02",
+  "actors": {
+    "author": {
+      "id": "chatgpt-director-authoring-run-20260824-b2",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b2-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b2-risk-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.1「飛行計画」(1)飛行計画策定時の確認事項"
+    },
+    "answer_defining_proposition": "一時的な飛行規制は、予定経路と日時に結び付けて計画段階で確認する。",
+    "tested_misconception": "通常飛行可能な空域なら一時規制は運航開始後の確認でよい。",
+    "reasoning_path": "time-specific route -> temporary restriction check -> planning constraint -> go/no-go",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "LOW。Rulesの許可・承認要件そのものではなく、Risk Managementとして日時と経路に一時規制確認を結び付けるplanning decisionを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6.1 supports checking planned route/time for temporary restrictions; Q091 gives such a constraint as already established."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
