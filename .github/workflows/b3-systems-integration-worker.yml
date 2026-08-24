@@ -1,0 +1,213 @@
+name: B3 Systems Integration Worker
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-b3-systems-integrate-28-r2
+    paths:
+      - '.github/b3-systems-integration-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout integration branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply deterministic B3 integration transaction
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+
+          import csv
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          repo = Path.cwd()
+          tool_dir = repo / "tooling" / "question_bank"
+          sys.path.insert(0, str(tool_dir))
+
+          from expansion import validate_expansion_batch
+          from transaction import QuestionExpansionTransaction
+
+          accepted_ids = (
+              "B3-SYS-C001", "B3-SYS-C002", "B3-SYS-C003", "B3-SYS-C004",
+              "B3-SYS-C005", "B3-SYS-C006", "B3-SYS-C007", "B3-SYS-C008",
+              "B3-SYS-C009", "B3-SYS-C010", "B3-SYS-C011", "B3-SYS-C012",
+              "B3-SYS-C013", "B3-SYS-C014", "B3-SYS-C017", "B3-SYS-C018",
+              "B3-SYS-C019", "B3-SYS-C020", "B3-SYS-C021", "B3-SYS-C022",
+              "B3-SYS-C023", "B3-SYS-C024", "B3-SYS-C025", "B3-SYS-C026",
+              "B3-SYS-C027", "B3-SYS-C028", "B3-SYS-C029", "B3-SYS-C030",
+          )
+          rejected_ids = ("B3-SYS-C015", "B3-SYS-C016")
+          expected = {
+              candidate_id: f"DRONE-Q-{number:06d}"
+              for candidate_id, number in zip(accepted_ids, range(142, 170))
+          }
+
+          bank_root = repo / "question_banks" / "drone_second_class"
+          batch = bank_root / "authoring" / "batches" / "batch_003"
+
+          def canonical_row(candidate: dict[str, str], question_id: str) -> dict[str, str]:
+              return {
+                  "question_id": question_id,
+                  "question_version": "1",
+                  "status": "draft",
+                  "deck_id": "drone_second_class_exam",
+                  "unit_id": candidate["unit_id"],
+                  "question": candidate["question"],
+                  "choice1": candidate["choice1"],
+                  "choice2": candidate["choice2"],
+                  "choice3": candidate["choice3"],
+                  "choice4": candidate["choice4"],
+                  "correct_choice": candidate["proposed_correct"],
+                  "explanation": candidate["explanation"],
+                  "source_id": candidate["source_id"],
+                  "source_locator": candidate["source_locator"],
+                  "difficulty": "2",
+                  "importance": "2",
+                  "is_free": "false",
+                  "valid_from": "",
+                  "valid_until": "",
+                  "last_reviewed_at": "",
+                  "supersedes_id": "",
+                  "tags": "",
+                  "notes_internal": "",
+              }
+
+          transaction = QuestionExpansionTransaction(
+              bank_root,
+              batch,
+              accepted_ids,
+              question_factory=canonical_row,
+          )
+          plan = transaction.plan()
+          if plan.mapping != expected:
+              raise SystemExit(f"unexpected allocation: {plan.mapping!r}")
+          applied = transaction.apply()
+          if applied != expected:
+              raise SystemExit(f"unexpected applied mapping: {applied!r}")
+
+          with (batch / "candidates.csv").open(encoding="utf-8", newline="") as handle:
+              candidates = {row["candidate_id"]: row for row in csv.DictReader(handle)}
+          for candidate_id, question_id in expected.items():
+              row = candidates[candidate_id]
+              if row["state"] != "INTEGRATED" or row["permanent_question_id"] != question_id:
+                  raise SystemExit(f"candidate integration mismatch: {candidate_id}")
+          for candidate_id in rejected_ids:
+              row = candidates[candidate_id]
+              if row["state"] != "AI_PRE_ACCEPT" or row["permanent_question_id"]:
+                  raise SystemExit(f"rejected candidate changed: {candidate_id}")
+
+          test_path = repo / "tooling" / "question_bank" / "tests" / "test_b3_acceptance_packets.py"
+          text = test_path.read_text(encoding="utf-8")
+          import_line = "from expansion import validate_expansion_batch  # noqa: E402"
+          if import_line not in text:
+              marker = ")\n\nAUTOPILOT_DIR = REPOSITORY_ROOT"
+              replacement = ")\n" + import_line + "\n\nAUTOPILOT_DIR = REPOSITORY_ROOT"
+              if marker not in text:
+                  raise SystemExit("could not locate B3 test import marker")
+              text = text.replace(marker, replacement, 1)
+
+          start_marker = "    def test_only_director_accepted_candidates_are_ready_for_id(self) -> None:\n"
+          end_marker = "    def test_promotion_path_promotes_all_28_atomically(self) -> None:\n"
+          start = text.find(start_marker)
+          end = text.find(end_marker, start)
+          if start < 0 or end < 0:
+              raise SystemExit("could not locate B3 integration assertion block")
+          replacement_block = '''    def test_only_director_accepted_candidates_are_integrated_with_new_permanent_ids(self) -> None:
+              expected_ids = {
+                  candidate_id: f"DRONE-Q-{number:06d}"
+                  for candidate_id, number in zip(self.accepted_ids, range(142, 170))
+              }
+              self.assertEqual(
+                  {candidate_id: "INTEGRATED" for candidate_id in self.accepted_ids},
+                  {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.accepted_ids},
+              )
+              self.assertEqual(
+                  expected_ids,
+                  {candidate_id: self.rows[candidate_id]["permanent_question_id"] for candidate_id in self.accepted_ids},
+              )
+              self.assertEqual(
+                  {candidate_id: "AI_PRE_ACCEPT" for candidate_id in self.rejected_ids},
+                  {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.rejected_ids},
+              )
+              self.assertTrue(
+                  all(not self.rows[candidate_id]["permanent_question_id"] for candidate_id in self.rejected_ids)
+              )
+              with (self.source_batch / "reviews.csv").open(encoding="utf-8", newline="") as handle:
+                  self.assertEqual([], list(csv.DictReader(handle)))
+              with (REPOSITORY_ROOT / "question_banks/drone_second_class/authoring/questions.csv").open(encoding="utf-8", newline="") as handle:
+                  questions = {row["question_id"]: row for row in csv.DictReader(handle)}
+              with (REPOSITORY_ROOT / "question_banks/drone_second_class/authoring/question_id_registry.csv").open(encoding="utf-8", newline="") as handle:
+                  registry = {row["question_id"]: row for row in csv.DictReader(handle)}
+              for candidate_id, question_id in expected_ids.items():
+                  candidate = self.rows[candidate_id]
+                  self.assertEqual("draft", questions[question_id]["status"])
+                  self.assertEqual(candidate["question"], questions[question_id]["question"])
+                  self.assertEqual(candidate["proposed_correct"], questions[question_id]["correct_choice"])
+                  self.assertEqual(candidate["source_locator"], questions[question_id]["source_locator"])
+                  self.assertEqual("used", registry[question_id]["status"])
+                  self.assertEqual("", registry[question_id]["first_used_bank_revision"])
+                  self.assertEqual(
+                      f"Expansion pre-release allocation: {candidate_id}",
+                      registry[question_id]["notes"],
+                  )
+              self.assertEqual([], validate_expansion_batch(self.source_batch))
+
+'''
+          text = text[:start] + replacement_block + text[end:]
+          test_path.write_text(text, encoding="utf-8")
+
+          state_path = repo / "tooling" / "komadeki_autopilot" / "drone_state.json"
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          if state.get("next_atomic_objective") != "ALLOCATE_AND_INTEGRATE_B3_SYSTEMS_ACCEPTED_28":
+              raise SystemExit(f"unexpected objective: {state.get('next_atomic_objective')}")
+          if state.get("state_epoch") != 13:
+              raise SystemExit(f"unexpected state epoch: {state.get('state_epoch')}")
+          observed_main = subprocess.check_output(
+              ["git", "rev-parse", "origin/main"], text=True
+          ).strip()
+          state["observed_main"] = observed_main
+          state["next_atomic_objective"] = "VERIFY_B3_SYSTEMS_CANONICAL_SOURCES_28"
+          state["state_epoch"] = 14
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          errors = validate_expansion_batch(batch)
+          if errors:
+              raise SystemExit("B3 expansion validation failed: " + " | ".join(errors))
+          print(json.dumps(expected, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Run focused and full Question Bank tests
+        shell: bash
+        run: |
+          python3 tooling/question_bank/tests/test_b3_acceptance_packets.py
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+
+      - name: Commit durable transition
+        shell: bash
+        run: |
+          rm .github/b3-systems-integration-trigger
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git add \
+            question_banks/drone_second_class/authoring/batches/batch_003/candidates.csv \
+            question_banks/drone_second_class/authoring/question_id_registry.csv \
+            question_banks/drone_second_class/authoring/questions.csv \
+            tooling/question_bank/tests/test_b3_acceptance_packets.py \
+            tooling/komadeki_autopilot/drone_state.json \
+            .github/b3-systems-integration-trigger
+          git diff --cached --check
+          test "$(git diff --cached --name-only | wc -l | tr -d ' ')" = "6"
+          git commit -m "Integrate B3 Systems accepted drafts"
+          git push origin HEAD:chatgpt/drone-b3-systems-integrate-28-r2
