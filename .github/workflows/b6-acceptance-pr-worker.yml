@@ -1,0 +1,180 @@
+name: B6 AI Acceptance PR Worker
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/b6-acceptance-trigger'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b6-ai-acceptance-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  accept:
+    if: github.head_ref == 'chatgpt/drone-b6-acceptance'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout acceptance branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-b6-acceptance
+          fetch-depth: 0
+
+      - name: Reconcile to current main
+        shell: bash
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+
+      - name: Materialize and validate B6 AI acceptance packets
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+          import csv
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          repo = Path.cwd()
+          sys.path.insert(0, str(repo / "tooling" / "question_bank"))
+          from ai_governance import candidate_fingerprint, promote_ai_governed_candidates
+          from expansion import validate_expansion_batch
+
+          bank = repo / "question_banks" / "drone_second_class"
+          authoring = bank / "authoring"
+          batch = authoring / "batches" / "batch_006"
+          state_path = repo / "tooling" / "komadeki_autopilot" / "drone_state.json"
+          accepted = (
+              "B6-OPS-C001","B6-OPS-C002","B6-OPS-C003","B6-OPS-C004","B6-OPS-C005",
+              "B6-OPS-C006","B6-OPS-C007","B6-OPS-C008","B6-OPS-C009","B6-OPS-C010",
+              "B6-OPS-C011","B6-OPS-C012","B6-OPS-C013","B6-OPS-C014",
+              "B6-OPS-C016","B6-OPS-C017","B6-OPS-C018","B6-OPS-C019","B6-OPS-C020",
+          )
+          rejected = "B6-OPS-C015"
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          if state.get("next_atomic_objective") != "MATERIALIZE_B6_ACCEPTANCE_PACKETS_19" or state.get("state_epoch") != 42:
+              raise SystemExit(f"unexpected state: {state.get('state_epoch')} / {state.get('next_atomic_objective')}")
+
+          with (batch / "candidates.csv").open(encoding="utf-8", newline="") as h:
+              rows = {r["candidate_id"]: r for r in csv.DictReader(h)}
+          if set(rows) != set(accepted) | {rejected}:
+              raise SystemExit("unexpected B6 candidate set")
+          if any(rows[c]["state"] != "AI_PRE_ACCEPT" or rows[c]["permanent_question_id"].strip() for c in rows):
+              raise SystemExit("unexpected B6 pre-acceptance candidate state")
+
+          review = json.loads((batch / "independent_review_r1.json").read_text(encoding="utf-8"))
+          review_by = {d["candidate_id"]: d for d in review["decisions"]}
+          director = json.loads((batch / "director_adjudication_r1.json").read_text(encoding="utf-8"))
+          if director["summary"] != {"accept":19,"reject":1,"rework":0,"hold":0}:
+              raise SystemExit("unexpected B6 Director summary")
+          if set(director["accepted_candidate_ids"]) != set(accepted):
+              raise SystemExit("Director accepted set drift")
+          if review_by[rejected]["decision"] != "REJECT":
+              raise SystemExit("rejected candidate review drift")
+
+          packets = batch / "acceptance_packets"
+          packets.mkdir(exist_ok=True)
+          if list(packets.glob("*.json")):
+              raise SystemExit("partial B6 acceptance packet state detected")
+
+          for candidate_id in accepted:
+              candidate = rows[candidate_id]
+              review_decision = review_by[candidate_id]
+              if review_decision["decision"] != "ACCEPT":
+                  raise SystemExit(f"review decision drift: {candidate_id}")
+              packet = {
+                  "schema_version": "1.0",
+                  "candidate_id": candidate_id,
+                  "candidate_state": "AI_PRE_ACCEPT",
+                  "candidate_fingerprint": candidate_fingerprint(candidate),
+                  "actors": {
+                      "author": {"id":"chatgpt-b6-operations-author-r1","role":"AI_AUTHOR"},
+                      "reviewer": {"id":"autopilot-b6-operations-reviewer-r1","role":"AI_REVIEWER"},
+                      "director": {"id":"chatgpt-b6-operations-director-r1","role":"AI_DIRECTOR"},
+                  },
+                  "evidence": {
+                      "source": {
+                          "source_id": candidate["source_id"],
+                          "source_version": candidate["source_version"],
+                          "source_locator": candidate["source_locator"],
+                      },
+                      "answer_defining_proposition": candidate["answer_defining_proposition"],
+                      "tested_misconception": candidate["tested_misconception"],
+                      "reasoning_path": candidate["reasoning_path"],
+                      "collision": {
+                          "released_bank_checked": True,
+                          "canonical_drafts_checked": True,
+                          "batch_checked": True,
+                          "note": candidate["collision_note"],
+                      },
+                  },
+                  "independent_review": {
+                      "decision": "ACCEPT",
+                      "rationale": review_decision["rationale"],
+                  },
+                  "director_adjudication": {
+                      "decision": "ACCEPT",
+                      "rationale": director["director_rationale"],
+                  },
+                  "requested_state": "AI_GOVERNED_ACCEPT",
+              }
+              (packets / f"{candidate_id}.json").write_text(
+                  json.dumps(packet, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+              )
+
+          promote_ai_governed_candidates(batch, accepted)
+
+          with (batch / "candidates.csv").open(encoding="utf-8", newline="") as h:
+              after = {r["candidate_id"]: r for r in csv.DictReader(h)}
+          if any(after[c]["state"] != "READY_FOR_ID" or after[c]["permanent_question_id"] for c in accepted):
+              raise SystemExit("B6 accepted promotion failed")
+          if after[rejected]["state"] != "AI_PRE_ACCEPT" or after[rejected]["permanent_question_id"]:
+              raise SystemExit("B6 rejected candidate changed")
+          if (packets / f"{rejected}.json").exists():
+              raise SystemExit("B6 rejected candidate must not have acceptance packet")
+
+          released = json.loads((authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"]
+          if len(released) != 188:
+              raise SystemExit("released baseline changed")
+          bank_meta = json.loads((authoring / "bank.json").read_text(encoding="utf-8"))
+          runtime = json.loads((bank / bank_meta["runtime_output"]).read_text(encoding="utf-8"))
+          runtime_count = sum(len(u.get("cards", [])) for d in runtime.get("decks", []) for u in d.get("units", []))
+          if runtime_count != 188:
+              raise SystemExit("runtime baseline changed")
+
+          observed_main = subprocess.check_output(["git", "rev-parse", "origin/main"], text=True).strip()
+          state["observed_main"] = observed_main
+          state["next_atomic_objective"] = "ALLOCATE_AND_INTEGRATE_B6_ACCEPTED_19"
+          state["state_epoch"] = 43
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          errors = validate_expansion_batch(batch)
+          if errors:
+              raise SystemExit("B6 expansion validation failed: " + " | ".join(errors))
+          PY
+
+      - name: Validate acceptance and repository gates
+        shell: bash
+        run: |
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class --check-generated
+
+      - name: Commit durable B6 acceptance transition
+        shell: bash
+        run: |
+          rm -f .github/b6-acceptance-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Materialize B6 AI acceptance packets'
+          git push --force-with-lease origin HEAD:chatgpt/drone-b6-acceptance
