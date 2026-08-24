@@ -174,7 +174,7 @@
     {
       "id": "UX-P1-007",
       "priority": "P1",
-      "status": "OPEN",
+      "status": "CLOSED",
       "ownership": "DRONE_SPECIFIC",
       "title": "Add one defensible Drone-specific product UX seam",
       "evidence": [
