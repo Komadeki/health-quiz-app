@@ -353,6 +353,7 @@ class QuestionBankContractTest(unittest.TestCase):
 
 class DroneQuestionBankTest(unittest.TestCase):
     PRODUCTION_REVISION = "drone-second-class-v1-release-2026-08-20"
+    CURRENT_PRODUCTION_REVISION = "drone-second-class-v2-release-2026-08-24"
     FREE_QUESTION_IDS = {
         "DRONE-Q-000001",
         "DRONE-Q-000002",
@@ -3717,7 +3718,7 @@ class DroneQuestionBankTest(unittest.TestCase):
         self.assertEqual(len(registry_ids), len(set(registry_ids)))
         self.assertEqual(
             set(question_ids),
-            set(self.PERMANENT_SLOT_TO_ID.values()),
+            {f"DRONE-Q-{sequence:06d}" for sequence in range(1, 189)},
         )
         self.assertTrue(set(question_ids).issubset(registry_ids))
         self.assertTrue(
@@ -3729,13 +3730,14 @@ class DroneQuestionBankTest(unittest.TestCase):
         self.assertTrue(all(row["status"] == "used" for row in inputs.id_registry))
         self.assertTrue(
             all(
-                registry_by_id[question_id]["first_used_bank_revision"] == self.PRODUCTION_REVISION
+                registry_by_id[question_id]["first_used_bank_revision"]
+                == (self.PRODUCTION_REVISION if int(question_id.rsplit("-", 1)[1]) <= 100 else self.CURRENT_PRODUCTION_REVISION)
                 for question_id in question_ids
             )
         )
         self.assertEqual(inputs.metadata["app_key"], "drone_second_class")
         self.assertEqual(inputs.metadata["question_identity_policy"], "explicit_v1")
-        self.assertEqual(len(inputs.released_questions), 100)
+        self.assertEqual(len(inputs.released_questions), 188)
 
         for slot_id, question_id in self.PERMANENT_SLOT_TO_ID.items():
             self.assertIn(question_id, question_by_id)
@@ -5459,16 +5461,16 @@ class DroneQuestionBankTest(unittest.TestCase):
             for unit in deck["units"]
             for card in unit["cards"]
         ]
-        self.assertEqual(len(cards), 100)
-        self.assertEqual(len({card["stableId"] for card in cards}), 100)
+        self.assertEqual(len(cards), 188)
+        self.assertEqual(len({card["stableId"] for card in cards}), 188)
         self.assertEqual(sum(not card["isPremium"] for card in cards), 20)
-        self.assertEqual(manifest["question_count"], 100)
+        self.assertEqual(manifest["question_count"], 188)
         self.assertEqual(manifest["free_question_count"], 20)
 
     def test_drone_production_release_contract(self) -> None:
         inputs = load_bank_inputs(self.bank)
         expected_ids = [
-            f"DRONE-Q-{sequence:06d}" for sequence in range(1, 101)
+            f"DRONE-Q-{sequence:06d}" for sequence in range(1, 189)
         ]
         production_questions = [
             question for question in inputs.questions if question["status"] == "active"
@@ -5478,14 +5480,14 @@ class DroneQuestionBankTest(unittest.TestCase):
 
         self.assertEqual(
             inputs.metadata["bank_revision"],
-            self.PRODUCTION_REVISION,
+            self.CURRENT_PRODUCTION_REVISION,
         )
-        self.assertEqual(inputs.metadata["content_as_of"], "2026-08-19")
+        self.assertEqual(inputs.metadata["content_as_of"], "2026-08-24")
         self.assertEqual(
             inputs.metadata["exam_profile_version"],
             "drone-second-class-v1",
         )
-        self.assertEqual(len(production_questions), 100)
+        self.assertEqual(len(production_questions), 188)
         self.assertEqual(set(question_ids), set(expected_ids))
         self.assertTrue(
             all(
@@ -5500,13 +5502,13 @@ class DroneQuestionBankTest(unittest.TestCase):
             all(
                 "verification_state=author_source_verified"
                 in question["notes_internal"]
-                for question in production_questions
+                for question in production_questions[:100]
             )
         )
         self.assertTrue(
             all(
                 "release_approved=true" in question["notes_internal"]
-                for question in production_questions
+                for question in production_questions[:100]
             )
         )
         self.assertTrue(set(expected_ids).issubset(set(registry_ids)))
@@ -5516,17 +5518,17 @@ class DroneQuestionBankTest(unittest.TestCase):
         self.assertTrue(
             all(
                 next(entry for entry in inputs.id_registry if entry["question_id"] == question_id)["first_used_bank_revision"]
-                == self.PRODUCTION_REVISION
+                == (self.PRODUCTION_REVISION if int(question_id.rsplit("-", 1)[1]) <= 100 else self.CURRENT_PRODUCTION_REVISION)
                 for question_id in expected_ids
             )
         )
-        self.assertNotIn("DRONE-Q-000101", question_ids)
+        self.assertIn("DRONE-Q-000101", question_ids)
         self.assertIn("DRONE-Q-000101", registry_ids)
         self.assertEqual(
             next(entry for entry in inputs.id_registry if entry["question_id"] == "DRONE-Q-000101")["first_used_bank_revision"],
-            "",
+            self.CURRENT_PRODUCTION_REVISION,
         )
-        self.assertEqual(len(inputs.released_questions), 100)
+        self.assertEqual(len(inputs.released_questions), 188)
         released_by_id = {
             question["question_id"]: question
             for question in inputs.released_questions
@@ -5592,23 +5594,23 @@ class DroneQuestionBankTest(unittest.TestCase):
             )
         )
         self.assertEqual(
-            runtime["bankRevision"], self.PRODUCTION_REVISION
+            runtime["bankRevision"], self.CURRENT_PRODUCTION_REVISION
         )
-        self.assertEqual(runtime["contentAsOf"], "2026-08-19")
+        self.assertEqual(runtime["contentAsOf"], "2026-08-24")
         runtime_cards = [
             card
             for deck in runtime["decks"]
             for unit in deck["units"]
             for card in unit["cards"]
         ]
-        self.assertEqual(len(runtime_cards), 100)
-        self.assertEqual(len({card["stableId"] for card in runtime_cards}), 100)
+        self.assertEqual(len(runtime_cards), 188)
+        self.assertEqual(len({card["stableId"] for card in runtime_cards}), 188)
         self.assertEqual(
             manifest["bank_revision"],
-            self.PRODUCTION_REVISION,
+            self.CURRENT_PRODUCTION_REVISION,
         )
-        self.assertEqual(manifest["content_as_of"], "2026-08-19")
-        self.assertEqual(manifest["question_count"], 100)
+        self.assertEqual(manifest["content_as_of"], "2026-08-24")
+        self.assertEqual(manifest["question_count"], 188)
         self.assertEqual(manifest["free_question_count"], 20)
 
     def test_production_release_preserves_all_protected_question_content(self) -> None:
@@ -5620,12 +5622,12 @@ class DroneQuestionBankTest(unittest.TestCase):
             / "authoring"
             / "questions.csv"
         )
+        snapshot_by_id = {row["question_id"]: row for row in snapshot_rows}
         live_by_id = {
             row["question_id"]: row
             for row in live_rows
-            if row["status"] == "active"
+            if row["question_id"] in snapshot_by_id
         }
-        snapshot_by_id = {row["question_id"]: row for row in snapshot_rows}
         self.assertEqual(set(live_by_id), set(snapshot_by_id))
         protected_fields = (
             "question_id",

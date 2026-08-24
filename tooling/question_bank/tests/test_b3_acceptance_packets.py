@@ -158,7 +158,7 @@ class B3AcceptancePacketTest(unittest.TestCase):
             for candidate_id, number in zip(self.accepted_ids, range(142, 170))
         }
         self.assertEqual(
-            {candidate_id: "VERIFIED" for candidate_id in self.accepted_ids},
+            {candidate_id: "RELEASED" for candidate_id in self.accepted_ids},
             {
                 candidate_id: self.rows[candidate_id]["state"]
                 for candidate_id in self.accepted_ids
@@ -202,7 +202,7 @@ class B3AcceptancePacketTest(unittest.TestCase):
 
         for candidate_id, question_id in expected_ids.items():
             candidate = self.rows[candidate_id]
-            self.assertEqual("draft", questions[question_id]["status"])
+            self.assertEqual("active", questions[question_id]["status"])
             self.assertEqual(candidate["question"], questions[question_id]["question"])
             self.assertEqual(
                 candidate["proposed_correct"], questions[question_id]["correct_choice"]
@@ -211,7 +211,7 @@ class B3AcceptancePacketTest(unittest.TestCase):
                 candidate["source_locator"], questions[question_id]["source_locator"]
             )
             self.assertEqual("used", registry[question_id]["status"])
-            self.assertEqual("", registry[question_id]["first_used_bank_revision"])
+            self.assertEqual("drone-second-class-v2-release-2026-08-24", registry[question_id]["first_used_bank_revision"])
             self.assertEqual(
                 f"Expansion pre-release allocation: {candidate_id}",
                 registry[question_id]["notes"],

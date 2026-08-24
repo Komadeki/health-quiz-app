@@ -110,7 +110,7 @@ class B2AcceptancePacketTest(unittest.TestCase):
             candidate_id: f"DRONE-Q-{number:06d}"
             for candidate_id, number in zip(self.accepted_ids, range(119, 142))
         }
-        self.assertEqual({candidate_id: "VERIFIED" for candidate_id in self.accepted_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.accepted_ids})
+        self.assertEqual({candidate_id: "RELEASED" for candidate_id in self.accepted_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.accepted_ids})
         self.assertEqual(expected_ids, {candidate_id: self.rows[candidate_id]["permanent_question_id"] for candidate_id in self.accepted_ids})
         self.assertEqual({candidate_id: "AI_PRE_ACCEPT" for candidate_id in self.rejected_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.rejected_ids})
         self.assertTrue(all(not self.rows[candidate_id]["permanent_question_id"] for candidate_id in self.rejected_ids))
@@ -122,12 +122,12 @@ class B2AcceptancePacketTest(unittest.TestCase):
             registry = {row["question_id"]: row for row in csv.DictReader(handle)}
         for candidate_id, question_id in expected_ids.items():
             candidate = self.rows[candidate_id]
-            self.assertEqual("draft", questions[question_id]["status"])
+            self.assertEqual("active", questions[question_id]["status"])
             self.assertEqual(candidate["question"], questions[question_id]["question"])
             self.assertEqual(candidate["proposed_correct"], questions[question_id]["correct_choice"])
             self.assertEqual(candidate["source_locator"], questions[question_id]["source_locator"])
             self.assertEqual("used", registry[question_id]["status"])
-            self.assertEqual("", registry[question_id]["first_used_bank_revision"])
+            self.assertEqual("drone-second-class-v2-release-2026-08-24", registry[question_id]["first_used_bank_revision"])
             self.assertEqual(f"Expansion pre-release allocation: {candidate_id}", registry[question_id]["notes"])
         verification_path = REPOSITORY_ROOT / "question_banks/drone_second_class/authoring/source_verifications.json"
         verifications = json.loads(verification_path.read_text(encoding="utf-8"))["verifications"]
