@@ -11,6 +11,7 @@
     "director": "AI_DIRECTOR"
   },
   "require_pairwise_distinct_actor_ids": true,
+  "require_candidate_fingerprint": true,
   "require_reviewer_accept": true,
   "require_director_accept": true,
   "require_source_evidence": true,
