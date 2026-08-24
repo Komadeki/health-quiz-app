@@ -1,0 +1,7 @@
+{
+  "schema_version":"1.0","candidate_id":"B5-OPS-C005","candidate_state":"AI_PRE_ACCEPT","candidate_fingerprint":"3633b4c892ab28e1e4a4eeda05686285a6de0c6a190d2edcb712d4f963f382c8",
+  "actors":{"author":{"id":"chatgpt-b5-operations-author-r1","role":"AI_AUTHOR"},"reviewer":{"id":"autopilot-b5-operations-reviewer-r1","role":"AI_REVIEWER"},"director":{"id":"chatgpt-b5-operations-director-adjudicator-r1","role":"AI_DIRECTOR"}},
+  "evidence":{"source":{"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","source_locator":"教則 第2章 2.2「飛行中の注意」(1)「無理をしない」"},"answer_defining_proposition":"天候悪化が予見される段階で危険になる前に帰還又は緊急着陸へ移る。","tested_misconception":"実際に危険状態になるまで飛行を続けてもよい。","reasoning_path":"weather trend -> anticipate hazard before threshold -> early return/emergency landing","collision":{"released_bank_checked":true,"canonical_drafts_checked":true,"batch_checked":true,"note":"LOW。Q003は疲労管理。Q023はTEMでThreatを早期把握する枠組み。Q170は監視項目。本問は予見後の具体的運航判断を問う。"}},
+  "independent_review":{"decision":"ACCEPT","rationale":"教則2.2 flight-in-progress guidance explicitly requires return or emergency landing when deterioration is anticipated, before conditions become dangerous. Existing weather/TEM items cover observation or Threat recognition rather than this action threshold."},
+  "director_adjudication":{"decision":"ACCEPT","rationale":"Director independently confirms current MLIT 第5版 support, second-class applicability, answer correctness and a non-duplicate reasoning boundary against the 188-question canonical bank."},"requested_state":"AI_GOVERNED_ACCEPT"
+}
