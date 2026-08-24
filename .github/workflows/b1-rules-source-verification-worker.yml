@@ -1,0 +1,132 @@
+name: B1 Rules Source Verification Worker
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-b1-rules-source-verify-18-r1
+    paths:
+      - '.github/b1-rules-source-verification-trigger'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b1-rules-source-verification-worker
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: github.event.head_commit.message == 'Trigger B1 Rules source verification worker'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reconcile to current main
+        shell: bash
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Apply B1 Rules source verification
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+          import csv, json, subprocess, sys
+          from pathlib import Path
+
+          repo = Path.cwd()
+          tool_dir = repo / "tooling" / "question_bank"
+          sys.path.insert(0, str(tool_dir))
+          from expansion import validate_expansion_batch
+
+          bank = repo / "question_banks" / "drone_second_class"
+          authoring = bank / "authoring"
+          batch = authoring / "batches" / "batch_001"
+          state_path = repo / "tooling" / "komadeki_autopilot" / "drone_state.json"
+          accepted = tuple([f"B1-R-C{i:03d}" for i in range(1, 17)] + ["B1-R-C023", "B1-R-C024"])
+          mapping = {cid: f"DRONE-Q-{n:06d}" for cid, n in zip(accepted, range(101, 119))}
+
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          if state.get("next_atomic_objective") != "VERIFY_B1_RULES_CANONICAL_SOURCES_18" or state.get("state_epoch") != 23:
+              raise SystemExit(f"unexpected state: {state.get('state_epoch')} / {state.get('next_atomic_objective')}")
+
+          with (batch / "candidates.csv").open(encoding="utf-8", newline="") as h:
+              reader = csv.DictReader(h)
+              fields = list(reader.fieldnames or [])
+              rows = list(reader)
+          by_id = {r["candidate_id"]: r for r in rows}
+          for cid, qid in mapping.items():
+              r = by_id[cid]
+              if r["state"] != "INTEGRATED" or r["permanent_question_id"] != qid:
+                  raise SystemExit(f"integration binding mismatch: {cid}")
+              if r["source_id"] != "MLIT-UAS-SAFETY-GUIDE-5" or r["source_version"] != "5" or not r["source_locator"].strip() or "〔一等〕" in r["source_locator"]:
+                  raise SystemExit(f"source contract mismatch: {cid}")
+
+          with (authoring / "questions.csv").open(encoding="utf-8", newline="") as h:
+              questions = {r["question_id"]: r for r in csv.DictReader(h)}
+          if len(questions) != 188:
+              raise SystemExit(f"canonical inventory expected 188, got {len(questions)}")
+          for cid, qid in mapping.items():
+              q = questions[qid]
+              c = by_id[cid]
+              if q["status"] != "draft" or q["unit_id"] != "drone_rules" or q["question"] != c["question"] or q["correct_choice"] != c["proposed_correct"] or q["source_id"] != c["source_id"] or q["source_locator"] != c["source_locator"]:
+                  raise SystemExit(f"canonical binding mismatch: {qid}")
+
+          sources = json.loads((authoring / "sources.json").read_text(encoding="utf-8"))["sources"]
+          source = next(s for s in sources if s["source_id"] == "MLIT-UAS-SAFETY-GUIDE-5")
+          if str(source["source_version"]) != "5":
+              raise SystemExit("unexpected current source version")
+
+          verification_path = authoring / "source_verifications.json"
+          verification_doc = json.loads(verification_path.read_text(encoding="utf-8"))
+          existing = {r["question_id"] for r in verification_doc["verifications"]}
+          if any(qid in existing for qid in mapping.values()):
+              raise SystemExit("partial/duplicate B1 source verification detected")
+          verification_doc["verifications"].extend({
+              "question_id": qid,
+              "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+              "source_version": "5",
+              "verification_state": "author_source_verified",
+              "verified_at": "2026-08-24",
+          } for qid in mapping.values())
+          verification_doc["verifications"].sort(key=lambda r: r["question_id"])
+          verification_path.write_text(json.dumps(verification_doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          for cid in accepted:
+              by_id[cid]["state"] = "VERIFIED"
+          with (batch / "candidates.csv").open("w", encoding="utf-8", newline="") as h:
+              writer = csv.DictWriter(h, fieldnames=fields, lineterminator="\n")
+              writer.writeheader()
+              writer.writerows(rows)
+
+          observed_main = subprocess.check_output(["git", "rev-parse", "origin/main"], text=True).strip()
+          state["observed_main"] = observed_main
+          state["next_atomic_objective"] = "PREPARE_PRODUCTION_BANK_188_RELEASE_ACTIVATION"
+          state["state_epoch"] = 24
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          errors = validate_expansion_batch(batch)
+          if errors:
+              raise SystemExit(" | ".join(errors))
+
+          test_path = tool_dir / "tests" / "test_b1_source_verification.py"
+          test_path.write_text('''from __future__ import annotations\nimport csv,json,unittest\nfrom pathlib import Path\nROOT=Path(__file__).resolve().parents[3]\nA=ROOT/"question_banks/drone_second_class/authoring"\nB=A/"batches/batch_001"\nIDS=[f"DRONE-Q-{n:06d}" for n in range(101,119)]\nACCEPTED={*[f"B1-R-C{i:03d}" for i in range(1,17)],"B1-R-C023","B1-R-C024"}\nclass T(unittest.TestCase):\n def test_verified(self):\n  with (B/"candidates.csv").open(encoding="utf-8",newline="") as h: rows={r["candidate_id"]:r for r in csv.DictReader(h)}\n  self.assertTrue(all(rows[c]["state"]=="VERIFIED" for c in ACCEPTED))\n  v=json.loads((A/"source_verifications.json").read_text(encoding="utf-8"))["verifications"]; by={r["question_id"]:r for r in v}\n  for q in IDS:\n   self.assertEqual("author_source_verified",by[q]["verification_state"]); self.assertEqual("5",by[q]["source_version"]); self.assertEqual("2026-08-24",by[q]["verified_at"])\n  released=json.loads((A/"released_questions.json").read_text(encoding="utf-8"))["released_questions"]; self.assertEqual(100,len(released))\nif __name__=="__main__": unittest.main()\n''', encoding="utf-8")
+          PY
+      - name: Validate transition
+        shell: bash
+        run: |
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+          python3 tooling/question_bank/tests/test_b1_source_verification.py
+      - name: Commit durable transition
+        shell: bash
+        run: |
+          rm .github/b1-rules-source-verification-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Verify B1 Rules canonical sources'
+          git push origin HEAD:chatgpt/drone-b1-rules-source-verify-18-r1
