@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B4",
+  "review_round": 1,
+  "reviewer": {
+    "id": "autopilot-b4-operations-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "chatgpt-b4-operations-author-r1",
+  "identity_separation": "PASS",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-24",
+    "second_class_scope_rule": "Accepted Chapter 5 propositions are outside subsections explicitly marked [一等]."
+  },
+  "review_basis": [
+    "current GitHub main batch_004 candidates",
+    "current 169-question canonical inventory",
+    "within-B4 collision review",
+    "current official MLIT 第5版 Chapter 5 source/locators",
+    "correct-answer/distractor/proposition/misconception/reasoning review"
+  ],
+  "summary": {
+    "reviewed": 20,
+    "accept": 19,
+    "rework": 0,
+    "reject": 1,
+    "hold": 0
+  },
+  "decisions": [
+    {"candidate_id":"B4-OPS-C001","decision":"ACCEPT","rationale":"5.1.2 explicitly requires continuous in-flight monitoring of ownship condition and planned route/altitude/speed, weather changes, aircraft/other UAS, and third parties. This general operational monitoring set is distinct from existing no-assistant BVLOS telemetry requirements."},
+    {"candidate_id":"B4-OPS-C002","decision":"ACCEPT","rationale":"5.1.2 explicitly includes a preflight functional check of Remote ID when equipped. Existing Remote ID coverage tests exemption conditions, not normal-operation functional verification."},
+    {"candidate_id":"B4-OPS-C003","decision":"ACCEPT","rationale":"5.1.2 states that gasoline transported by passenger vehicle must use a Fire Service Act compliant dedicated container of 22 L or less. Existing engine questions do not test transport-container requirements."},
+    {"candidate_id":"B4-OPS-C004","decision":"ACCEPT","rationale":"5.1.2 specifically links engine-aircraft vibration to heightened checking for loose screws/fasteners. Q081 is a general preflight inspection proposition; this cause-specific engine inspection boundary remains distinct."},
+    {"candidate_id":"B4-OPS-C005","decision":"ACCEPT","rationale":"5.1.2 states that when no assistant is placed at the drop location, object-drop altitude is in principle within 1 m. Existing coverage addresses drop-device construction/procedure and legal definitions, not this operational height constraint."},
+    {"candidate_id":"B4-OPS-C006","decision":"ACCEPT","rationale":"5.1.3 explicitly requires Category II application submission by 10 business days before the planned flight start. Q082 tests the application-review-approval workflow, not this lead-time requirement."},
+    {"candidate_id":"B4-OPS-C007","decision":"ACCEPT","rationale":"5.1.4 explicitly distinguishes hull/camera damage insurance from liability insurance for operational third-party property/person damage. No canonical item tests this insurance-type mapping."},
+    {"candidate_id":"B4-OPS-C008","decision":"ACCEPT","rationale":"5.1.4 specifically requires checking whether transported cargo itself is within insurance coverage. This cargo-scope decision boundary is distinct from the general insurance-type distinction in C007."},
+    {"candidate_id":"B4-OPS-C009","decision":"ACCEPT","rationale":"5.1.4 explains software-tampering/commandeering risk and states that certified aircraft have cybersecurity conformity, making certified-aircraft use a mitigation. Q084 covers physical custody/security, not software-tampering mitigation."},
+    {"candidate_id":"B4-OPS-C010","decision":"ACCEPT","rationale":"5.2.1 explicitly requires capability to operate without GNSS position estimation in an emergency. Existing GNSS questions concern accuracy/waypoint effects; auto/manual takeover questions do not test GNSS-independent operation itself."},
+    {"candidate_id":"B4-OPS-C011","decision":"ACCEPT","rationale":"5.2.1 explicitly instructs elevator and aileron correction to stabilize horizontal position during GNSS-off hovering. This concrete control response is distinct from C010's general GNSS-independent capability."},
+    {"candidate_id":"B4-OPS-C012","decision":"ACCEPT","rationale":"5.2.1 requires helicopter takeoff/landing sites to be level, non-slippery, and to avoid sand/dry soil due downwash visibility risk. Existing helicopter/Risk coverage addresses area size, isolation, ground effect and wind, not this surface-condition proposition."},
+    {"candidate_id":"B4-OPS-C013","decision":"ACCEPT","rationale":"5.2.1 requires sufficient rotor speed before helicopter liftoff because low rotor speed can delay aircraft response. No canonical item tests this takeoff sequencing requirement."},
+    {"candidate_id":"B4-OPS-C014","decision":"ACCEPT","rationale":"5.2.1 requires not approaching a normally landed helicopter until the rotor stops. Q087 concerns accident-site immediate safety around a potentially powered/crashed aircraft, so the normal post-landing procedure is a distinct operational boundary."},
+    {"candidate_id":"B4-OPS-C015","decision":"ACCEPT","rationale":"5.2.1 requires a level fixed-wing runway without overgrown grass because slope can destabilize ground roll and grass can contact the propeller. No canonical item tests this runway-surface selection rule."},
+    {"candidate_id":"B4-OPS-C016","decision":"REJECT","reason_code":"SEMANTIC_COLLISION_CANONICAL_DRAFT","collided_question_id":"DRONE-Q-000130","rationale":"DRONE-Q-000130 already tests the same answer-defining proposition: fixed-wing takeoff/landing should select a headwind direction and tailwind creates stall risk. C016 changes wording/context but not the required reasoning boundary, so it is a semantic duplicate."},
+    {"candidate_id":"B4-OPS-C017","decision":"ACCEPT","rationale":"5.2.2 explicitly requires onsite preconfirmation of obstacles along an automatically configured waypoint route to mitigate setup-related collision/crash. Existing auto-flight questions test repeatability and GNSS route error, not this preflight human-error control."},
+    {"candidate_id":"B4-OPS-C018","decision":"ACCEPT","rationale":"5.2.2 identifies manual-control orientation/distance-perception errors and recommends all-direction control and specified-distance landing practice. Existing manual-control coverage tests use-case suitability or takeover, not this targeted training mitigation."},
+    {"candidate_id":"B4-OPS-C019","decision":"ACCEPT","rationale":"5.4.1 explicitly lists five CRM nontechnical skills for effective TEM: situational awareness, decision making, workload management, teamwork, and communication. Existing CRM/TEM items test the framework and stage management, not this skill set."},
+    {"candidate_id":"B4-OPS-C020","decision":"ACCEPT","rationale":"5.4.2 states that because the pilot must concentrate on aircraft movement/control, assistants principally handle flight preparation, route safety management and third-party access management. Q089 tests advance staffing/assignment/communication coordination, not this primary role division."}
+  ],
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}
