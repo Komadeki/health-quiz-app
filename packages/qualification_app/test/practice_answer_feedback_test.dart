@@ -26,7 +26,7 @@ void main() {
   }
 
   testWidgets(
-    'practice feedback identifies selected and correct answers at large text scale',
+    'incorrect practice feedback identifies selected and correct answers at large text scale',
     (tester) async {
       tester.view.physicalSize = const Size(320, 900);
       tester.view.devicePixelRatio = 1;
@@ -82,6 +82,48 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+
+  testWidgets('correct practice feedback still identifies both answers',
+      (tester) async {
+    final controller = await createController();
+    addTearDown(controller.dispose);
+    expect(await controller.startUnit('fixture_safety'), isTrue);
+    await tester.pumpWidget(
+      QualificationProductionApp(
+        definition: fixtureDefinition,
+        controller: controller,
+      ),
+    );
+
+    final card = controller.currentCard!;
+    final correctIndex = card.answerIndex;
+    final correctText = card.choices[correctIndex];
+    await tester.tap(find.byKey(Key('choice-$correctIndex')));
+    await tester.pump();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('commit-answer')),
+      120,
+    );
+    await tester.tap(find.byKey(const Key('commit-answer')));
+    await tester.pump();
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('practice-answer-summary')),
+      120,
+    );
+    await tester.pump();
+
+    expect(find.text('正解'), findsOneWidget);
+    expect(find.text('あなたの回答'), findsOneWidget);
+    expect(find.text('正解の選択肢'), findsOneWidget);
+    expect(
+      tester.widget<Text>(find.byKey(const Key('selected-answer'))).data,
+      correctText,
+    );
+    expect(
+      tester.widget<Text>(find.byKey(const Key('correct-answer'))).data,
+      correctText,
+    );
+  });
 
   testWidgets('mock commit does not reveal practice answer summary',
       (tester) async {
