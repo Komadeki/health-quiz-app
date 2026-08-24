@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4c5e127c6b0a40790c682f6c886b5462a8810ecfda327bbe9c3eb720d96eebe3",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.2.1(1)①「飛行計画の作成」（教則表示ページ3 / PDF viewer 9）"
+    },
+    "answer_defining_proposition": "機体性能と操縦者・補助者の経験や能力を考慮し、無理のない飛行計画を立てる。",
+    "tested_misconception": "空域・気象条件だけ適合すれば、機体性能や要員能力は飛行計画の制約にならない。",
+    "reasoning_path": "mission demand -> aircraft capability + crew capability -> feasible plan",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q119-Q122は外部hazardや変化を問う。任務要求を機体性能・要員能力へ適合させる計画判断は未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "2.2.1(1)1 explicitly requires planning that accounts for aircraft performance and pilot/assistant experience and capability. Existing planning items focus on external route/environmental hazards rather than mission-capability fit."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

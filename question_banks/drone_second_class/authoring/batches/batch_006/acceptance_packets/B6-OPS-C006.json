@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "787b7b17f42635b2b1553eb6faf2693582b05cfdfdb16df6b71218a67775f301",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.2.1(1)③「飛行計画の作成」（教則表示ページ4 / PDF viewer 10）"
+    },
+    "answer_defining_proposition": "緊急着陸地点だけでなく、安全にホバリング・旋回できる場所等も含め、異常時の対策を事前設定する。",
+    "tested_misconception": "異常時対策は緊急着陸地点だけ決めれば十分である。",
+    "reasoning_path": "contingency planning -> not yet forced landing -> identify safe holding/maneuvering options",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=preflight contingency planning。distinct axes=decision boundary/response priority。Q044は緊急着陸地点確保、Q195は事象中の不時着優先。本問は着陸前のsafe holding/turning branchを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. 2.2.1(1)3 separately names emergency landing locations and places where safe hovering/turning is possible. Q044 tests emergency landing-site availability and Q195 tests in-event landing priority; this candidate tests the preflight safe-holding/maneuvering branch before forced landing."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

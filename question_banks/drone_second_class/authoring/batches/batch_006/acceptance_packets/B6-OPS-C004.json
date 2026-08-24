@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "19357b562ce9c19eb7bdc1b19a7b4ff2dfeddd976c6b08705bb47576fe5d914a",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.1.7「第三者及び関係者に対する操縦者の責任」（教則表示ページ3 / PDF viewer 9）"
+    },
+    "answer_defining_proposition": "第三者が容易に近付くことのない飛行経路を選択するなど、第三者・関係者の安全を意識する。",
+    "tested_misconception": "第三者が現在飛行経路上にいなければ、第三者が近づきやすい経路でも問題ない。",
+    "reasoning_path": "route selection -> foreseeable third-party access -> preventive separation",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q090は安全マージン、Q188は補助者の立入管理役割。第三者の接近可能性を理由に飛行経路自体を選ぶ判断は未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "2.1.7 explicitly requires route selection that prevents easy third-party approach. This preventive route-choice boundary is distinct from existing safety-margin and assistant access-management items."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

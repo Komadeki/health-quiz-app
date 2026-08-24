@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "71e767883027706d12999056effe5dbca89894fbeffa049a7dc965976d257ab2",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.1.8(3)「行政処分等」（教則表示ページ3 / PDF viewer 9）"
+    },
+    "answer_defining_proposition": "航空法違反、非行又は重大な過失がある場合、技能証明取消・停止、文書警告、口頭注意等の行政処分等の対象となり得る。",
+    "tested_misconception": "技能証明に対する行政措置は更新拒否だけで、取消や停止はない。",
+    "reasoning_path": "violation/misconduct/gross negligence -> administrative branch -> available sanctions",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q109は技能証明の更新手続を問う。違反等に対する行政処分の種類は未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "2.1.8(3) explicitly lists certificate cancellation/suspension, written warning and oral caution. Existing certificate coverage concerns renewal rather than sanctions for violation, misconduct or gross negligence."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

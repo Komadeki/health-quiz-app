@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fb93cbecc82663053f8f153f52e63851bb1b9bf40ae6ffd6081624d321a6ca2f",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.2.1(2)④「飛行予定地域や周辺施設の調査」（教則表示ページ4 / PDF viewer 10）"
+    },
+    "answer_defining_proposition": "飛行予定地域で地上の歩行者・自動車の通行、有人航空機の飛行状況等を事前調査する。",
+    "tested_misconception": "有人航空機や地上交通は飛行開始後に監視すればよく、事前調査は不要である。",
+    "reasoning_path": "preflight area survey -> dynamic traffic exposure -> determine feasibility/controls before launch",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=preflight area survey。distinct axes=decision boundary/flight phase。Q051は遭遇時回避、Q120は経路選択、Q170は飛行中監視。本問は飛行前調査phaseを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. 2.2.1(2)4 explicitly requires preflight survey of pedestrian/vehicle traffic and manned-aircraft activity. Existing Q051/Q170 address encounter response or in-flight monitoring, so the flight-phase decision boundary is materially different."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

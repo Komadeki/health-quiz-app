@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C020",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "76cfdcd855615bfeecd43ba15993c11a5999d0c1c5b160d044baee09e631ff97",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.3.3「保険」（教則表示ページ6 / PDF viewer 12）"
+    },
+    "answer_defining_proposition": "総重量25kg未満でも、レベル3.5飛行に該当するカテゴリーII飛行では十分な第三者賠償責任保険加入が求められる。",
+    "tested_misconception": "25kg未満ならレベル3.5飛行でも当該保険要件の対象外である。",
+    "reasoning_path": "Category II -> not 25kg+ -> evaluate independent Level 3.5 branch -> insurance still required",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=specified Category II liability insurance requirement。distinct axes=decision boundary/condition branch。Q194は26kgという25kg+ branch。本問は10kgでもLevel3.5という独立OR branchを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. 2.3.3 defines 25kg+ and Level 3.5 as independent OR conditions for sufficient third-party liability insurance. Q194 tests the 25kg+ branch; C020 uses <25kg and requires recognizing the separate Level 3.5 branch, a genuine source-defined boundary rather than number substitution."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

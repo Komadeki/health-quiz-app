@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8f05b1582d1fd211ecc49251c4c60a796938094faf1edcdfbcba5de6dc2f54d8",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.3.1「事故を起こしたら」③（教則表示ページ6 / PDF viewer 12）"
+    },
+    "answer_defining_proposition": "事故原因究明と再発防止のため、飛行ログ等の記録を残す。",
+    "tested_misconception": "事故後は機体を回収できれば、飛行ログ等の記録は保存しなくてよい。",
+    "reasoning_path": "accident occurred -> investigation/recurrence prevention -> preserve operational evidence",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q052/Q087は事故直後の救護・危険防止・報告。本問は原因究明・再発防止の証拠保存を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "2.3.1(3) explicitly requires preserving flight logs for investigation and recurrence prevention. Existing accident items test immediate human safety, hazard prevention and reporting, not evidence preservation after those actions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f37bd238a34b22c0ce82050b6c90465f17ea67beec8e2ff832e5ff317f90ebb9",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.1.8(2)「民事責任」（教則表示ページ3 / PDF viewer 9）"
+    },
+    "answer_defining_proposition": "操縦者は被害者に対して民法に基づく損害賠償責任を負う場合がある。",
+    "tested_misconception": "保険加入の有無が民事上の損害賠償責任そのものを決める。",
+    "reasoning_path": "harm to victim -> civil-law branch -> damages liability",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q176/Q177は保険の補償対象を問うが、被害者に対する民法上の損害賠償責任そのものは未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "2.1.8(2) explicitly states potential Civil Code damages liability to victims. Existing insurance items test coverage scope, not the underlying civil obligation."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C012",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "472e258ef6dd2ad47457342ebf9558a10ca131d9e336ab42a1d9d5cc6800c76e",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.2.8「技能証明書等の携帯」（教則表示ページ5 / PDF viewer 11）"
+    },
+    "answer_defining_proposition": "特定飛行では許可書又は承認書の原本又は写しを携行する。",
+    "tested_misconception": "DIPS上で許可・承認を確認できれば、許可書・承認書の原本又は写しは携行不要である。",
+    "reasoning_path": "specific flight -> required documentary evidence -> carry permission/approval document",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q111は技能証明書と飛行日誌の携行を問う。許可書・承認書そのものの携行は未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "2.2.8 explicitly requires carrying the original or copy of permission/approval documentation for a specific flight. Q111 tests skill-certificate and flight-log carriage, not this document branch."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

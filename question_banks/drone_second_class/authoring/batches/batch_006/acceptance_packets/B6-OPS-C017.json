@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f53aed804ff1e8b9562f987b5f657e5db710fb0b50f120d406be182fe08d08e4",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.2.10(3)「飛行日誌の作成」（教則表示ページ6 / PDF viewer 12）"
+    },
+    "answer_defining_proposition": "リスク対応が不十分と感じた場合は、今後の飛行に備えてその内容を記録することが望ましい。",
+    "tested_misconception": "事故に至らなければ、不十分だったリスク対応を飛行後に記録する必要はない。",
+    "reasoning_path": "near-miss/insufficient control -> learning evidence -> record for future planning",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q039/Q042は点検・必須飛行日誌項目。本問は不十分だったrisk controlのlearning recordを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "2.2.10(3) explicitly recommends recording inadequate risk responses for future flights. Existing log questions do not test capturing insufficient controls/near-miss learning evidence."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

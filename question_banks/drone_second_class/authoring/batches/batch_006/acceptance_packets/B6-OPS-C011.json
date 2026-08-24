@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C011",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "42d31e8f8e0117e8920ab28511cd2fe96ac745eec27d1f46c327c7aae65d731f",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.2.7②「体調管理」（教則表示ページ5 / PDF viewer 11）"
+    },
+    "answer_defining_proposition": "前日に十分な睡眠を取り、睡眠不足や疲労が蓄積した状態では操縦しない。",
+    "tested_misconception": "飛行前に疲労を自覚していても、まだ操作ミスが起きていなければ開始してよい。",
+    "reasoning_path": "preflight accumulated fatigue/sleep debt -> launch decision -> do not begin operation",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=fatigue risk management。distinct axes=flight phase/reasoning path。Q003は複数飛行中に疲労が生じた後の時間管理。本問は開始前から睡眠不足・蓄積疲労があるgo/no-goを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. 2.2.7(2) explicitly states not to operate with sleep deprivation or accumulated fatigue. Q003 addresses flight-time management after fatigue develops during repeated operations; this item tests the pre-launch go/no-go branch when impairment already exists."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
