@@ -938,6 +938,11 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                       ),
                     ),
                     const SizedBox(height: 12),
+                    _PracticeAnswerSummary(
+                      selectedAnswer: card.choices[committedChoice!],
+                      correctAnswer: card.choices[card.answerIndex],
+                    ),
+                    const SizedBox(height: 12),
                     Text(
                       '解説（Explanation）',
                       style: Theme.of(context).textTheme.titleMedium,
@@ -955,6 +960,44 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+final class _PracticeAnswerSummary extends StatelessWidget {
+  const _PracticeAnswerSummary({
+    required this.selectedAnswer,
+    required this.correctAnswer,
+  });
+
+  final String selectedAnswer;
+  final String correctAnswer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      key: const Key('practice-answer-summary'),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              'あなたの回答',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+            const SizedBox(height: 4),
+            Text(selectedAnswer, key: const Key('selected-answer')),
+            const SizedBox(height: 12),
+            Text(
+              '正解の選択肢',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+            const SizedBox(height: 4),
+            Text(correctAnswer, key: const Key('correct-answer')),
+          ],
         ),
       ),
     );
