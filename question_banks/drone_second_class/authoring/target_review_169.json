@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "review_id": "DRONE-TARGET-REVIEW-169",
+  "product": "drone_second_class",
+  "reviewed_at": "2026-08-24",
+  "baseline_main": "173564a1fdf5d5c49c31c4fe75b2207cf46f64fc",
+  "canonical_inventory": 169,
+  "production_inventory": {
+    "active": 100,
+    "released": 100,
+    "runtime": 100
+  },
+  "domain_inventory": {
+    "drone_rules": 44,
+    "drone_systems": 57,
+    "drone_operations": 22,
+    "drone_risk_management": 46
+  },
+  "facts": [
+    "Current canonical inventory is 169: 100 production-active questions plus 18 Rules drafts, 23 Risk verified drafts, and 28 Systems verified drafts.",
+    "The current 100-question released seed bank contains 26 Rules, 29 Systems, 22 Operations, and 23 Risk questions; the three completed expansion batches add only Rules (+18), Risk (+23), and Systems (+28).",
+    "Operations therefore remains the thinnest canonical domain at 22 questions while Rules=44, Risk=46, and Systems=57.",
+    "B2 Risk and B3 Systems source-verification gates are complete; B1 Rules drafts remain prerelease and Rules R5 remains source-limited/STOP under the existing contract.",
+    "Production active/released/runtime remains 100/100/100; no expansion draft has been activated by this review.",
+    "The adopted 180-220 figure is a coverage exploration envelope, not a release quota or an approved final Production target."
+  ],
+  "adopted_decisions": {
+    "expansion": "GO",
+    "next_domain": "Operations",
+    "next_batch": "B4",
+    "final_production_target": "HOLD",
+    "next_atomic_objective": "AUTHOR_AND_PERSIST_B4_OPERATIONS_AI_PRE_ACCEPT"
+  },
+  "rationale": [
+    "Stopping at 169 would leave a pronounced domain imbalance: Operations has 22 canonical questions versus 44-57 in every other domain.",
+    "The established expansion order is Risk -> Systems -> Operations -> Rules targeted-only, so Operations is the next contract-consistent domain after verified B3 Systems evidence.",
+    "A fixed final Production target is not yet defensible because the useful Operations source ceiling has not been measured through a source-first B4 authoring/review pass.",
+    "B4 must retain only explicit, second-class-applicable, semantically distinct propositions; candidate count is an observed result, not a quota designed to reach 180, 200, or 220."
+  ],
+  "source_ceiling_notes": {
+    "operations_source_area": "MLIT-UAS-SAFETY-GUIDE-5 Chapter 5, with adjacent general second-class operational requirements where directly relevant",
+    "known_existing_coverage": "The released seed already covers representative preflight checks, manual/automatic transitions, fatigue/stress/alcohol, TEM/CRM, helper coordination, security, accident response, and selected operational procedures.",
+    "authoring_rule": "Search the official source first for explicit answer-defining propositions not already represented in the 169-question canonical inventory; exclude explicitly first-class-only material, weak paraphrase variants, and semantic collisions.",
+    "stop_rule": "Stop B4 authoring when additional Operations ideas require inference beyond the official source or collapse into existing propositions; do not force-fill to an envelope."
+  },
+  "next_review_trigger": "Review target/coverage again after the B4 Operations accepted set has completed independent review and source-ceiling evidence is known, and no later than the point at which integrated canonical inventory materially enters the 180-220 exploration envelope.",
+  "inference": [
+    "Given the current 22-question Operations inventory and the breadth of general Chapter 5 operational material, a useful B4 set is likely available, but its size is intentionally not predetermined.",
+    "The final Production target should remain unresolved until B4 demonstrates how much non-duplicative second-class Operations coverage the source actually supports."
+  ]
+}
