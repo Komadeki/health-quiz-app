@@ -1,0 +1,224 @@
+name: B4 Operations Integration Worker
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-b4-operations-integrate-19-r1
+    paths:
+      - '.github/b4-operations-integration-trigger'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b4-operations-integration-worker
+  cancel-in-progress: false
+
+jobs:
+  integrate:
+    if: github.event.head_commit.message == 'Trigger B4 Operations integration worker'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout integration branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconcile to current main
+        shell: bash
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+
+      - name: Apply deterministic B4 integration transaction
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+
+          import csv
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          repo = Path.cwd()
+          tool_dir = repo / "tooling" / "question_bank"
+          sys.path.insert(0, str(tool_dir))
+
+          from expansion import validate_expansion_batch
+          from transaction import QuestionExpansionTransaction
+
+          accepted_ids = (
+              "B4-OPS-C001", "B4-OPS-C002", "B4-OPS-C003", "B4-OPS-C004",
+              "B4-OPS-C005", "B4-OPS-C006", "B4-OPS-C007", "B4-OPS-C008",
+              "B4-OPS-C009", "B4-OPS-C010", "B4-OPS-C011", "B4-OPS-C012",
+              "B4-OPS-C013", "B4-OPS-C014", "B4-OPS-C015", "B4-OPS-C017",
+              "B4-OPS-C018", "B4-OPS-C019", "B4-OPS-C020",
+          )
+          rejected_id = "B4-OPS-C016"
+          expected = {
+              candidate_id: f"DRONE-Q-{number:06d}"
+              for candidate_id, number in zip(accepted_ids, range(170, 189))
+          }
+
+          bank_root = repo / "question_banks" / "drone_second_class"
+          authoring = bank_root / "authoring"
+          batch = authoring / "batches" / "batch_004"
+
+          state_path = repo / "tooling" / "komadeki_autopilot" / "drone_state.json"
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          if state.get("next_atomic_objective") != "ALLOCATE_AND_INTEGRATE_B4_OPERATIONS_ACCEPTED_19":
+              raise SystemExit(f"unexpected objective: {state.get('next_atomic_objective')}")
+          if state.get("state_epoch") != 20:
+              raise SystemExit(f"unexpected state epoch: {state.get('state_epoch')}")
+
+          with (batch / "candidates.csv").open(encoding="utf-8", newline="") as handle:
+              before = {row["candidate_id"]: row for row in csv.DictReader(handle)}
+          if tuple(candidate_id for candidate_id in accepted_ids if before[candidate_id]["state"] != "READY_FOR_ID"):
+              raise SystemExit("not all Director-accepted B4 candidates are READY_FOR_ID")
+          if any(before[candidate_id]["permanent_question_id"] for candidate_id in accepted_ids):
+              raise SystemExit("partial accepted-candidate ID mapping detected")
+          if before[rejected_id]["state"] != "AI_PRE_ACCEPT" or before[rejected_id]["permanent_question_id"]:
+              raise SystemExit("B4-OPS-C016 rejection invariant violated")
+          if (batch / "acceptance_packets" / f"{rejected_id}.json").exists():
+              raise SystemExit("rejected B4-OPS-C016 must not have an acceptance packet")
+          packet_ids = {path.stem for path in (batch / "acceptance_packets").glob("*.json")}
+          if packet_ids != set(accepted_ids):
+              raise SystemExit(f"unexpected B4 acceptance packet set: {sorted(packet_ids)!r}")
+
+          def canonical_row(candidate: dict[str, str], question_id: str) -> dict[str, str]:
+              return {
+                  "question_id": question_id,
+                  "question_version": "1",
+                  "status": "draft",
+                  "deck_id": "drone_second_class_exam",
+                  "unit_id": "drone_operations",
+                  "question": candidate["question"],
+                  "choice1": candidate["choice1"],
+                  "choice2": candidate["choice2"],
+                  "choice3": candidate["choice3"],
+                  "choice4": candidate["choice4"],
+                  "correct_choice": candidate["proposed_correct"],
+                  "explanation": candidate["explanation"],
+                  "source_id": candidate["source_id"],
+                  "source_locator": candidate["source_locator"],
+                  "difficulty": "2",
+                  "importance": "2",
+                  "is_free": "false",
+                  "valid_from": "",
+                  "valid_until": "",
+                  "last_reviewed_at": "",
+                  "supersedes_id": "",
+                  "tags": "",
+                  "notes_internal": "",
+              }
+
+          transaction = QuestionExpansionTransaction(
+              bank_root,
+              batch,
+              accepted_ids,
+              question_factory=canonical_row,
+          )
+          plan = transaction.plan()
+          if plan.mapping != expected:
+              raise SystemExit(f"unexpected allocation: {plan.mapping!r}")
+          applied = transaction.apply()
+          if applied != expected:
+              raise SystemExit(f"unexpected applied mapping: {applied!r}")
+
+          with (batch / "candidates.csv").open(encoding="utf-8", newline="") as handle:
+              candidates = {row["candidate_id"]: row for row in csv.DictReader(handle)}
+          with (authoring / "question_id_registry.csv").open(encoding="utf-8", newline="") as handle:
+              registry = {row["question_id"]: row for row in csv.DictReader(handle)}
+          with (authoring / "questions.csv").open(encoding="utf-8", newline="") as handle:
+              questions = {row["question_id"]: row for row in csv.DictReader(handle)}
+
+          for candidate_id, question_id in expected.items():
+              candidate = candidates[candidate_id]
+              if candidate["state"] != "INTEGRATED" or candidate["permanent_question_id"] != question_id:
+                  raise SystemExit(f"candidate integration mismatch: {candidate_id}")
+              question = questions.get(question_id)
+              if question is None or question["status"] != "draft" or question["unit_id"] != "drone_operations":
+                  raise SystemExit(f"canonical draft mismatch: {question_id}")
+              if question["question"] != candidate["question"] or question["correct_choice"] != candidate["proposed_correct"]:
+                  raise SystemExit(f"canonical content mismatch: {question_id}")
+              reg = registry.get(question_id)
+              if reg is None or reg["status"] != "used" or reg["first_used_bank_revision"] or reg["retired_at"]:
+                  raise SystemExit(f"registry mismatch: {question_id}")
+              if reg["notes"] != f"Expansion pre-release allocation: {candidate_id}":
+                  raise SystemExit(f"registry note mismatch: {question_id}")
+
+          rejected = candidates[rejected_id]
+          if rejected["state"] != "AI_PRE_ACCEPT" or rejected["permanent_question_id"]:
+              raise SystemExit("rejected candidate changed during transaction")
+          if len(questions) != 188:
+              raise SystemExit(f"canonical inventory must be 188, got {len(questions)}")
+
+          source_verifications = json.loads((authoring / "source_verifications.json").read_text(encoding="utf-8"))
+          verified_ids = {
+              str(row.get("question_id", ""))
+              for row in source_verifications.get("verifications", [])
+              if isinstance(row, dict)
+          }
+          if any(question_id in verified_ids for question_id in expected.values()):
+              raise SystemExit("B4 source verification must not occur in integration transition")
+
+          released = json.loads((authoring / "released_questions.json").read_text(encoding="utf-8"))
+          released_rows = released.get("released_questions", [])
+          if len(released_rows) != 100:
+              raise SystemExit(f"released count changed: {len(released_rows)}")
+
+          bank = json.loads((authoring / "bank.json").read_text(encoding="utf-8"))
+          runtime = json.loads((bank_root / bank["runtime_output"]).read_text(encoding="utf-8"))
+          runtime_count = sum(
+              len(unit.get("cards", []))
+              for deck in runtime.get("decks", []) if isinstance(deck, dict)
+              for unit in deck.get("units", []) if isinstance(unit, dict)
+          )
+          if runtime_count != 100:
+              raise SystemExit(f"runtime count changed: {runtime_count}")
+
+          observed_main = subprocess.check_output(["git", "rev-parse", "origin/main"], text=True).strip()
+          state["observed_main"] = observed_main
+          state["next_atomic_objective"] = "VERIFY_B4_OPERATIONS_CANONICAL_SOURCES_19"
+          state["state_epoch"] = 21
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          errors = validate_expansion_batch(batch)
+          if errors:
+              raise SystemExit("B4 expansion validation failed: " + " | ".join(errors))
+
+          test_path = repo / "tooling" / "question_bank" / "tests" / "test_b4_integration.py"
+          test_path.write_text('''from __future__ import annotations\n\nimport csv\nimport json\nimport sys\nimport unittest\nfrom pathlib import Path\n\nREPOSITORY_ROOT = Path(__file__).resolve().parents[3]\nsys.path.insert(0, str(REPOSITORY_ROOT / "tooling" / "question_bank"))\n\nfrom expansion import validate_expansion_batch  # noqa: E402\n\nACCEPTED_IDS = (\n    "B4-OPS-C001", "B4-OPS-C002", "B4-OPS-C003", "B4-OPS-C004",\n    "B4-OPS-C005", "B4-OPS-C006", "B4-OPS-C007", "B4-OPS-C008",\n    "B4-OPS-C009", "B4-OPS-C010", "B4-OPS-C011", "B4-OPS-C012",\n    "B4-OPS-C013", "B4-OPS-C014", "B4-OPS-C015", "B4-OPS-C017",\n    "B4-OPS-C018", "B4-OPS-C019", "B4-OPS-C020",\n)\nEXPECTED = {candidate_id: f"DRONE-Q-{number:06d}" for candidate_id, number in zip(ACCEPTED_IDS, range(170, 189))}\nREJECTED_ID = "B4-OPS-C016"\n\n\nclass B4IntegrationTests(unittest.TestCase):\n    def setUp(self) -> None:\n        self.bank_root = REPOSITORY_ROOT / "question_banks" / "drone_second_class"\n        self.authoring = self.bank_root / "authoring"\n        self.batch = self.authoring / "batches" / "batch_004"\n        with (self.batch / "candidates.csv").open(encoding="utf-8", newline="") as handle:\n            self.candidates = {row["candidate_id"]: row for row in csv.DictReader(handle)}\n        with (self.authoring / "question_id_registry.csv").open(encoding="utf-8", newline="") as handle:\n            self.registry = {row["question_id"]: row for row in csv.DictReader(handle)}\n        with (self.authoring / "questions.csv").open(encoding="utf-8", newline="") as handle:\n            self.questions = {row["question_id"]: row for row in csv.DictReader(handle)}\n\n    def test_exact_19_are_integrated_with_deterministic_ids(self) -> None:\n        for candidate_id, question_id in EXPECTED.items():\n            candidate = self.candidates[candidate_id]\n            self.assertEqual("INTEGRATED", candidate["state"])\n            self.assertEqual(question_id, candidate["permanent_question_id"])\n            question = self.questions[question_id]\n            self.assertEqual("draft", question["status"])\n            self.assertEqual("drone_second_class_exam", question["deck_id"])\n            self.assertEqual("drone_operations", question["unit_id"])\n            self.assertEqual("1", question["question_version"])\n            self.assertEqual("2", question["difficulty"])\n            self.assertEqual("2", question["importance"])\n            self.assertEqual("false", question["is_free"])\n            self.assertEqual("", question["last_reviewed_at"])\n            self.assertEqual("", question["notes_internal"])\n            self.assertEqual(candidate["question"], question["question"])\n            self.assertEqual(candidate["proposed_correct"], question["correct_choice"])\n            self.assertEqual(candidate["source_locator"], question["source_locator"])\n            registry = self.registry[question_id]\n            self.assertEqual("used", registry["status"])\n            self.assertEqual("", registry["first_used_bank_revision"])\n            self.assertEqual("", registry["retired_at"])\n            self.assertEqual(f"Expansion pre-release allocation: {candidate_id}", registry["notes"])\n        self.assertEqual(188, len(self.questions))\n\n    def test_c016_remains_rejected_from_integration(self) -> None:\n        row = self.candidates[REJECTED_ID]\n        self.assertEqual("AI_PRE_ACCEPT", row["state"])\n        self.assertEqual("", row["permanent_question_id"])\n        self.assertFalse((self.batch / "acceptance_packets" / f"{REJECTED_ID}.json").exists())\n        self.assertNotIn(REJECTED_ID, {row["notes"] for row in self.registry.values()})\n\n    def test_acceptance_packet_binding_and_release_runtime_invariants(self) -> None:\n        packet_ids = {path.stem for path in (self.batch / "acceptance_packets").glob("*.json")}\n        self.assertEqual(set(ACCEPTED_IDS), packet_ids)\n        self.assertEqual([], validate_expansion_batch(self.batch))\n        verifications = json.loads((self.authoring / "source_verifications.json").read_text(encoding="utf-8"))["verifications"]\n        verified_ids = {row["question_id"] for row in verifications}\n        self.assertTrue(all(question_id not in verified_ids for question_id in EXPECTED.values()))\n        released = json.loads((self.authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"]\n        self.assertEqual(100, len(released))\n        bank = json.loads((self.authoring / "bank.json").read_text(encoding="utf-8"))\n        runtime = json.loads((self.bank_root / bank["runtime_output"]).read_text(encoding="utf-8"))\n        runtime_count = sum(len(unit.get("cards", [])) for deck in runtime.get("decks", []) for unit in deck.get("units", []))\n        self.assertEqual(100, runtime_count)\n\n\nif __name__ == "__main__":\n    unittest.main()\n''', encoding="utf-8")
+          PY
+
+      - name: Run focused and full Question Bank tests
+        shell: bash
+        run: |
+          python3 tooling/question_bank/tests/test_b4_integration.py
+          python3 tooling/question_bank/tests/test_transaction.py
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+
+      - name: Commit durable transition
+        shell: bash
+        run: |
+          rm .github/b4-operations-integration-trigger
+          git add -A
+          git diff --cached --check
+          expected_files=$(cat <<'EOF'
+          .github/b4-operations-integration-trigger
+          question_banks/drone_second_class/authoring/batches/batch_004/candidates.csv
+          question_banks/drone_second_class/authoring/question_id_registry.csv
+          question_banks/drone_second_class/authoring/questions.csv
+          tooling/komadeki_autopilot/drone_state.json
+          tooling/question_bank/tests/test_b4_integration.py
+          EOF
+          )
+          actual_files=$(git diff --cached --name-only)
+          test "$actual_files" = "$expected_files"
+          git commit -m "Integrate B4 Operations accepted drafts"
+          git push --force-with-lease origin HEAD:chatgpt/drone-b4-operations-integrate-19-r1
