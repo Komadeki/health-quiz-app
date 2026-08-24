@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B3",
+  "directory_slug": "batch_003",
+  "baseline_sha": "e15b1f1dbf5441e9509e78807cd845f14efa0bb3",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "expansion_trigger": "Expand Systems coverage from the current 141-question canonical inventory using source-first second-class propositions from MLIT 第5版. The project-level 180-220 exploration envelope and 20-30 Systems planning range are not quotas; unsupported or semantically duplicate variants are excluded.",
+  "evidence": [
+    "Current GitHub main at authoring start is e15b1f1dbf5441e9509e78807cd845f14efa0bb3.",
+    "Current released/active/runtime Question Bank remains 100/100/100; Rules drafts DRONE-Q-000101..000118 and Risk VERIFIED drafts DRONE-Q-000119..000141 remain prerelease.",
+    "MLIT 無人航空機の飛行の安全に関する教則 第5版 was published 2026-07-07 and applies from 2026-07-14.",
+    "Authoritative source_id is MLIT-UAS-SAFETY-GUIDE-5, source_version 5.",
+    "Existing Systems canonical coverage was audited before authoring; 30 candidates were retained because their answer-defining propositions remain distinct from the current canonical inventory."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B3-TARGET-001",
+      "previous_approved_target": 100,
+      "current_released_count": 100,
+      "proposed_target_min": 100,
+      "proposed_target_max": 100,
+      "approved_new_target": 100,
+      "rationale": "No new released-bank target is approved by this authoring batch. Final Production target remains HOLD; the 180-220 value is only a coverage exploration envelope.",
+      "decision_date": "2026-08-24",
+      "evidence": "Production Bank Target/Coverage Decision: expansion GO, Systems after Risk, final target HOLD."
+    }
+  ],
+  "planned_scope": {
+    "area": "Systems",
+    "candidate_batch_identity": "B3",
+    "candidate_ids": [
+      "B3-SYS-C001",
+      "B3-SYS-C002",
+      "B3-SYS-C003",
+      "B3-SYS-C004",
+      "B3-SYS-C005",
+      "B3-SYS-C006",
+      "B3-SYS-C007",
+      "B3-SYS-C008",
+      "B3-SYS-C009",
+      "B3-SYS-C010",
+      "B3-SYS-C011",
+      "B3-SYS-C012",
+      "B3-SYS-C013",
+      "B3-SYS-C014",
+      "B3-SYS-C015",
+      "B3-SYS-C016",
+      "B3-SYS-C017",
+      "B3-SYS-C018",
+      "B3-SYS-C019",
+      "B3-SYS-C020",
+      "B3-SYS-C021",
+      "B3-SYS-C022",
+      "B3-SYS-C023",
+      "B3-SYS-C024",
+      "B3-SYS-C025",
+      "B3-SYS-C026",
+      "B3-SYS-C027",
+      "B3-SYS-C028",
+      "B3-SYS-C029",
+      "B3-SYS-C030"
+    ],
+    "allocation": {
+      "SYS1_aircraft_characteristics_and_controls": 9,
+      "SYS2_flight_method_equipment": 4,
+      "SYS3_flight_axes": 1,
+      "SYS4_sensors": 3,
+      "SYS5_powertrain_and_battery": 12,
+      "SYS6_radio_propagation": 1
+    },
+    "known_rejected_ids": []
+  },
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B3-COVERAGE-LIMIT-001",
+      "status": "PARTIAL",
+      "scope": "Systems propositions excluded from this batch",
+      "evidence": "First-class-only sections such as 4.3.3/4.3.5 performance calculations, 4.4.3(2) transmitter-signal interference, and 4.5.3/4.5.5 one-class-only analysis were not used. Existing canonical propositions such as basic GNSS multipath, GNSS waypoint error, ESC role, LiPo storage/swelling/short-circuit, and existing BVLOS monitoring/failsafe propositions were not repeated."
+    }
+  ],
+  "migration_blockers": []
+}
