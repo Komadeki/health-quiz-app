@@ -127,14 +127,12 @@ final class QualificationProductionApp extends StatelessWidget {
         listenable: controller,
         builder: (context, _) {
           if (controller.isLoading) {
-            return const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            );
+            return _ProductionLoading(definition: definition);
           }
           if (controller.fatalError != null) {
             return _ProductionFailure(
               definition: definition,
-              message: controller.fatalError!,
+              urlLauncher: urlLauncher ?? _launchExternalUrl,
             );
           }
           return switch (controller.view) {
@@ -192,6 +190,12 @@ final class QualificationHome extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 _PrimaryLearningAction(controller: controller),
+                if (controller.storeMessage != null) ...[
+                  const SizedBox(height: 16),
+                  _NonfatalStatus(
+                    message: _learnerFacingStatus(controller.storeMessage!),
+                  ),
+                ],
                 if (definition.learningProduct.progressEnabled) ...[
                   const SizedBox(height: 16),
                   _ProgressCard(controller: controller),
@@ -395,6 +399,28 @@ _PrimaryActionSpec _resolvePrimaryAction(
     icon: Icons.info_outline,
     onPressed: null,
   );
+}
+
+final class _NonfatalStatus extends StatelessWidget {
+  const _NonfatalStatus({required this.message});
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      liveRegion: true,
+      label: message,
+      child: Card(
+        key: const Key('nonfatal-status'),
+        child: ListTile(
+          leading: const Icon(Icons.info_outline),
+          title: const Text('お知らせ'),
+          subtitle: Text(message, key: const Key('nonfatal-status-message')),
+        ),
+      ),
+    );
+  }
 }
 
 final class _WeaknessCard extends StatelessWidget {
@@ -696,10 +722,6 @@ final class _UnlockCard extends StatelessWidget {
           children: [
             Text('全$total問を解放', style: Theme.of(context).textTheme.titleMedium),
             Text(price == null ? '価格を確認できません' : '買い切り $price'),
-            if (controller.storeMessage != null) ...[
-              const SizedBox(height: 8),
-              Text(controller.storeMessage!),
-            ],
             const SizedBox(height: 12),
             FilledButton(
               key: const Key('purchase-full-unlock'),
@@ -1080,6 +1102,109 @@ final class QualificationResultPage extends StatelessWidget {
   }
 }
 
+final class _ProductionLoading extends StatelessWidget {
+  const _ProductionLoading({required this.definition});
+
+  final QualificationAppDefinition definition;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(definition.displayName)),
+      body: Center(
+        child: Semantics(
+          key: const Key('production-loading'),
+          liveRegion: true,
+          label: '問題データを読み込んでいます',
+          child: const ExcludeSemantics(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text('問題データを読み込んでいます'),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+final class _ProductionFailure extends StatelessWidget {
+  const _ProductionFailure({
+    required this.definition,
+    required this.urlLauncher,
+  });
+
+  final QualificationAppDefinition definition;
+  final QualificationExternalUrlLauncher urlLauncher;
+
+  @override
+  Widget build(BuildContext context) {
+    final support = definition.urls.support;
+    return Scaffold(
+      key: const Key('production-failure'),
+      appBar: AppBar(title: Text(definition.displayName)),
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.error_outline, size: 40),
+                const SizedBox(height: 16),
+                Text(
+                  '問題データを読み込めませんでした',
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'アプリを再度開いても解消しない場合は、サポートをご確認ください。',
+                  textAlign: TextAlign.center,
+                ),
+                if (_hasUrl(support)) ...[
+                  const SizedBox(height: 16),
+                  TextButton(
+                    key: const Key('failure-support-link'),
+                    onPressed: () => _openExternalUrl(support!, urlLauncher),
+                    child: const Text('サポートを開く'),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+String _learnerFacingStatus(String rawMessage) {
+  const knownMessages = {
+    '購入情報を確認できませんでした。無料問題は利用できます。',
+    'ストア商品を取得できません。無料問題は利用できます。',
+    'ストア情報の一部を取得できませんでした。',
+    'ストアに接続できません。無料問題は利用できます。',
+    '模擬試験は全問解放後に利用できます。',
+    '購入商品を利用できません。無料問題は引き続き利用できます。',
+    '購入を開始できませんでした。',
+    '購入の復元に失敗しました。',
+    '購入処理を確認しています。',
+    '購入はキャンセルされました。',
+    '購入を完了できませんでした。',
+    '購入情報を保存できませんでした。',
+  };
+  if (knownMessages.contains(rawMessage) ||
+      RegExp(r'^全\d+問を利用できます。$').hasMatch(rawMessage)) {
+    return rawMessage;
+  }
+  return '操作を完了できませんでした。もう一度お試しください。';
+}
+
 bool _hasUrl(String? value) => value?.trim().isNotEmpty ?? false;
 
 Future<bool> _launchExternalUrl(Uri url) =>
@@ -1103,24 +1228,6 @@ String _remainingTimeLabel(Duration remaining) {
   final minutes = seconds ~/ 60;
   final secondsPart = seconds % 60;
   return '残り $minutes:${secondsPart.toString().padLeft(2, '0')}';
-}
-
-final class _ProductionFailure extends StatelessWidget {
-  const _ProductionFailure({required this.definition, required this.message});
-
-  final QualificationAppDefinition definition;
-  final String message;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(definition.displayName)),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Text('問題データを読み込めませんでした。\n$message'),
-      ),
-    );
-  }
 }
 
 String _modeLabel(LearningModeV1 mode) => switch (mode) {
