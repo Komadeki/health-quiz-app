@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import os
 import sys
 import tempfile
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Iterable
 
 _AUTOPILOT_DIR = Path(__file__).resolve().parents[1] / "komadeki_autopilot"
 if str(_AUTOPILOT_DIR) not in sys.path:
@@ -19,8 +20,42 @@ class AIGovernanceError(RuntimeError):
     pass
 
 
+CONTENT_BINDING_FIELDS = (
+    "candidate_id",
+    "unit_id",
+    "domain",
+    "knowledge_target_id",
+    "family",
+    "question",
+    "choice1",
+    "choice2",
+    "choice3",
+    "choice4",
+    "proposed_correct",
+    "explanation",
+    "source_id",
+    "source_version",
+    "source_locator",
+    "answer_defining_proposition",
+    "tested_misconception",
+    "reasoning_path",
+    "collision_note",
+)
+
+
 def packet_path(batch_dir: Path | str, candidate_id: str) -> Path:
     return Path(batch_dir) / "acceptance_packets" / f"{candidate_id}.json"
+
+
+def candidate_fingerprint(candidate: dict[str, str]) -> str:
+    payload = {field: candidate.get(field, "") for field in CONTENT_BINDING_FIELDS}
+    canonical = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
 
 
 def ai_acceptance_errors(batch_dir: Path | str, candidate: dict[str, str]) -> list[str]:
@@ -37,6 +72,8 @@ def ai_acceptance_errors(batch_dir: Path | str, candidate: dict[str, str]) -> li
     errors = [f"packet: {error}" for error in validate_packet(packet)]
     if str(packet.get("candidate_id", "")).strip() != candidate.get("candidate_id", ""):
         errors.append("packet candidate_id does not match candidate row")
+    if str(packet.get("candidate_fingerprint", "")).strip() != candidate_fingerprint(candidate):
+        errors.append("packet candidate_fingerprint does not match candidate content")
 
     evidence = packet.get("evidence") if isinstance(packet.get("evidence"), dict) else {}
     source = evidence.get("source") if isinstance(evidence.get("source"), dict) else {}
