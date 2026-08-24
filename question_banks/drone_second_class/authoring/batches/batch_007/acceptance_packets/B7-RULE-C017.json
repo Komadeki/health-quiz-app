@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a1cecd640d719eec89b3a5f7d2628794bb575f5f854a4f271de3bdf14e35c2bd",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(5)3)「技能証明の交付手続き」（教則表示ページ28 / PDF viewer 33）"
+    },
+    "answer_defining_proposition": "技能証明試験では学科試験合格が実地試験受験の前提となる。",
+    "tested_misconception": "学科試験と実地試験は順不同で受験できる。",
+    "reasoning_path": "skill-certificate exam -> knowledge gate -> practical-test eligibility",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q109/Q111は更新・携行を問う。技能証明試験の受験順序は未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(5)3) explicitly requires passing the knowledge examination before taking the practical examination. Q109 concerns renewal timing; the examination-sequence gate is a separate proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

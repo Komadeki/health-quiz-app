@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "19f300dd6903539681d977ba4eb6fffd3887537d2499935b9ac6d480046b2241",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)2)a「飛行計画の通報等」（教則表示ページ23 / PDF viewer 28）"
+    },
+    "answer_defining_proposition": "特定飛行の飛行計画には、機体・操縦者・運航・立入管理・保険等の所定事項を含めて通報する。",
+    "tested_misconception": "特定飛行の通報は飛行日時と経路だけ入力すれば足りる。",
+    "reasoning_path": "specific flight -> notification requirement -> assemble required operational and risk-control fields",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q053は通報後の計画遵守、Q110は通報時期を問う。通報すべき情報セット自体は未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(3)2)a explicitly enumerates the information required in a specific-flight plan notification, including aircraft/pilot, operation, access-control and insurance information. Q053 tests adherence after notification and Q110 notification timing, not the required data set."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

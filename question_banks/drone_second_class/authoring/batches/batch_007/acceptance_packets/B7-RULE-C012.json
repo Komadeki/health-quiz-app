@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C012",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "967c28167477b3bd97b1ead01d296a3f07ad0de6ede628760c36ca579b3f9cd0",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)3)b「必要な整備の義務」（教則表示ページ24 / PDF viewer 29）"
+    },
+    "answer_defining_proposition": "機体認証を受けた無人航空機は、安全基準適合を維持するため整備手順書等に従い必要な整備を行う。",
+    "tested_misconception": "機体認証後は、異常が発生するまでメーカー等の整備手順に従う義務はない。",
+    "reasoning_path": "certified aircraft in service -> maintenance procedure -> maintain safety-standard conformity",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q049は機体認証の手続上の役割を問うが、機体認証に伴う継続整備義務は直接問っていない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(3)3)b explicitly requires maintenance according to the maintenance manual to preserve conformity with safety standards after aircraft certification. Current canonical certification coverage does not test this continuing certified-aircraft maintenance duty."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

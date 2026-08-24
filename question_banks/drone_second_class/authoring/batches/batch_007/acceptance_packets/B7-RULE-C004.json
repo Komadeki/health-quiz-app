@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4bcf024b7d7d8c69879f5b34bceea6d211c841cfb05c25fc1f7d4d90c988375d",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)1)d「他人に迷惑を及ぼす方法での飛行禁止」（教則表示ページ22 / PDF viewer 27）"
+    },
+    "answer_defining_proposition": "飛行上の必要がない高調音、急降下、人への急接近など、他人に迷惑を及ぼす方法で飛行してはならない。",
+    "tested_misconception": "空域・飛行方法の許可条件を満たしていれば、必要のない急降下や人への急接近も許される。",
+    "reasoning_path": "flight conduct -> no operational necessity -> nuisance behavior -> prohibited method",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。現行canonicalに、飛行上の必要性を境界として迷惑飛行そのものを直接判定させる問題はない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(3)1)d explicitly prohibits nuisance flight such as unnecessary rapid descent or approach to people. The operational-necessity boundary is a new answer-defining proposition in the current canonical inventory."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

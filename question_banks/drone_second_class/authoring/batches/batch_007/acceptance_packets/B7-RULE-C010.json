@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d751bdf287dca0e631a3f8f686abdf97ebd825903462231504d2f56e6549ab92",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)2)b「飛行日誌の携行及び記載」（教則表示ページ23 / PDF viewer 28）"
+    },
+    "answer_defining_proposition": "飛行記録には、年月日、離着陸場所・時刻、飛行時間、操縦者、不具合と対応等を記載する。",
+    "tested_misconception": "飛行日誌の飛行記録は飛行時間と場所だけ残せば足り、不具合や対応は別記録でよい。",
+    "reasoning_path": "completed flight -> flight-record branch -> capture operational identity, timing, duration and anomalies/actions",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q042は飛行日誌の記録区分を識別させる問題であり、本問はそのうち飛行記録の具体的内容を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(3)2)b explicitly specifies flight-record contents such as date, takeoff/landing place and time, duration, pilot, malfunction and response. Q042 identifies record classes but does not test the concrete fields of the flight-record branch."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

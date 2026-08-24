@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C019",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e62a1a2431c533bef9444190b6d71ca210ff9c54d7631e5f7735118cfbcaff11",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(5)1)「制度概要」（教則表示ページ28 / PDF viewer 33）"
+    },
+    "answer_defining_proposition": "Powered-lift機にはマルチローターと飛行機の両方の種類の限定に係る資格が必要である。",
+    "tested_misconception": "Powered-lift機は独立した1種類の限定だけ取得すれば飛行できる。",
+    "reasoning_path": "aircraft type = Powered-lift -> map hybrid type to certificate limitations -> require both multirotor and airplane qualifications",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q142はPowered-liftの飛行特性を問う。本問は同じ機体類型に対する法的な技能証明限定要件を問うため、答えを定める命題が異なる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(5)1) explicitly requires both multirotor and airplane type limitations for Powered-lift operation. Q142 tests Powered-lift flight characteristics, not the legal skill-certificate limitation requirement."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
