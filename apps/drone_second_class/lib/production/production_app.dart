@@ -35,13 +35,16 @@ final class DroneHomeSupplement extends StatelessWidget {
   Widget build(BuildContext context) {
     final definition = controller.definition;
     final profile = definition.examProfile;
-    final examSummary = switch (profile) {
-      null => '単元別・復習で理解を固めます。',
-      _ when profile.timeLimitMinutes == null =>
-        '単元別・復習で確認した後、このアプリの模擬試験（${profile.questionCount}問）で仕上げます。',
-      _ =>
-        '単元別・復習で確認した後、このアプリの模擬試験（${profile.questionCount}問・${profile.timeLimitMinutes}分）で仕上げます。',
-    };
+    late final String examSummary;
+    if (profile == null) {
+      examSummary = '単元別・復習で理解を固めます。';
+    } else if (profile.timeLimitMinutes == null) {
+      examSummary =
+          '単元別・復習で確認した後、このアプリの模擬試験（${profile.questionCount}問）で仕上げます。';
+    } else {
+      examSummary =
+          '単元別・復習で確認した後、このアプリの模擬試験（${profile.questionCount}問・${profile.timeLimitMinutes}分）で仕上げます。';
+    }
 
     return Card(
       key: const Key('drone-study-guide'),
