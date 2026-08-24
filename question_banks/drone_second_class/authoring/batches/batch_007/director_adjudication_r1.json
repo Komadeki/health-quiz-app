@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B7",
+  "adjudication_round": 1,
+  "director": {
+    "id": "chatgpt-primary-director-b7-r1",
+    "role": "DECISION_OWNER"
+  },
+  "adjudicated_at": "2026-08-25",
+  "author_identity": "chatgpt-b7-rules-author-r1",
+  "reviewer_identity": "autopilot-b7-rules-reviewer-r1",
+  "identity_separation_checked": true,
+  "basis": [
+    "current GitHub main and Drone machine state",
+    "merged B7 batch contract and candidates.csv",
+    "merged independent_review_r1.json",
+    "current 215-question accepted/source-verified canonical baseline",
+    "MLIT-UAS-SAFETY-GUIDE-5 source contract, edition 5",
+    "merged 400-question quality-preserving controlled-variant contract"
+  ],
+  "decision": {
+    "accept": 20,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0,
+    "accepted_candidate_ids": [
+      "B7-RULE-C001","B7-RULE-C002","B7-RULE-C003","B7-RULE-C004","B7-RULE-C005",
+      "B7-RULE-C006","B7-RULE-C007","B7-RULE-C008","B7-RULE-C009","B7-RULE-C010",
+      "B7-RULE-C011","B7-RULE-C012","B7-RULE-C013","B7-RULE-C014","B7-RULE-C015",
+      "B7-RULE-C016","B7-RULE-C017","B7-RULE-C018","B7-RULE-C019","B7-RULE-C020"
+    ]
+  },
+  "director_findings": [
+    "The independent review is internally consistent with the B7 source-first plan and the 215-question canonical baseline.",
+    "The five controlled Tier B candidates C001, C003, C008, C013 and C015 each retain a source-defined material distinction in flight phase, authority/exception boundary, operation subtype, vehicle state, or response sequence rather than wording-only variation.",
+    "No accepted B7 candidate relies on a subsection explicitly marked 〔一等〕.",
+    "No candidate is accepted merely to satisfy a numeric quota; all 20 passed the explicit source, answer-uniqueness, collision and commercial-practice-value gates.",
+    "No HUMAN review is claimed or fabricated."
+  ],
+  "invariants": {
+    "HUMAN_REVIEW_CREATED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "next_gate": "MATERIALIZE_B7_ACCEPTANCE_PACKETS_20"
+}
