@@ -1058,44 +1058,172 @@ final class QualificationResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final result = controller.result!;
     final pass = result.mockExamResult?.passed;
+    final matchingHistory = controller.history
+        .where((item) => item.sessionId == result.sessionId)
+        .toList(growable: false);
+    final completedHistory =
+        matchingHistory.isEmpty ? null : matchingHistory.first;
     return Scaffold(
       appBar: AppBar(title: const Text('結果')),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '${result.correctCount} / ${result.totalCount} 正解',
-                key: const Key('session-result'),
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              if (pass != null) ...[
-                const SizedBox(height: 8),
-                Text(pass ? '合格' : '不合格'),
-              ],
-              if (result.mode == LearningModeV1.mockExam && pass == null) ...[
-                const SizedBox(height: 8),
-                const Text('参考得点です。合否判定は行いません。', key: Key('mock-no-pass-rule')),
-              ],
-              if (controller.modeEnabled(LearningModeV1.retry) &&
-                  result.incorrectQuestionIds.isNotEmpty) ...[
-                const SizedBox(height: 16),
-                OutlinedButton(
-                  key: const Key('retry-session'),
-                  onPressed: controller.startRetry,
-                  child: const Text('間違えた問題を再挑戦'),
+      body: SafeArea(
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 720),
+            child: ListView(
+              padding: const EdgeInsets.all(24),
+              children: [
+                Text(
+                  '${result.correctCount} / ${result.totalCount} 正解',
+                  key: const Key('session-result'),
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center,
+                ),
+                if (pass != null) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    pass ? '合格' : '不合格',
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+                if (result.mode == LearningModeV1.mockExam && pass == null) ...[
+                  const SizedBox(height: 8),
+                  const Text(
+                    '参考得点です。合否判定は行いません。',
+                    key: Key('mock-no-pass-rule'),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+                if (result.mode == LearningModeV1.mockExam &&
+                    completedHistory != null) ...[
+                  const SizedBox(height: 16),
+                  _MockExamReview(
+                    controller: controller,
+                    history: completedHistory,
+                  ),
+                ],
+                if (controller.modeEnabled(LearningModeV1.retry) &&
+                    result.incorrectQuestionIds.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  OutlinedButton(
+                    key: const Key('retry-session'),
+                    onPressed: controller.startRetry,
+                    child: const Text('間違えた問題を再挑戦'),
+                  ),
+                ],
+                const SizedBox(height: 24),
+                FilledButton(
+                  key: const Key('return-home'),
+                  onPressed: controller.returnHome,
+                  child: const Text('ホームへ戻る'),
                 ),
               ],
-              const SizedBox(height: 24),
-              FilledButton(
-                key: const Key('return-home'),
-                onPressed: controller.returnHome,
-                child: const Text('ホームへ戻る'),
-              ),
-            ],
+            ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+final class _MockExamReview extends StatelessWidget {
+  const _MockExamReview({
+    required this.controller,
+    required this.history,
+  });
+
+  final QualificationProductionController controller;
+  final SessionHistoryV1 history;
+
+  @override
+  Widget build(BuildContext context) {
+    final bank = controller.bank!;
+    final eventsByQuestionId = <String, LearningEventV1>{
+      for (final event in controller.events)
+        if (event.sessionId == history.sessionId) event.questionId: event,
+    };
+    final reviewItems = <Widget>[];
+    for (var index = 0; index < history.questionIds.length; index += 1) {
+      final questionId = history.questionIds[index];
+      final card = bank.cardsById[questionId];
+      if (card == null) continue;
+      reviewItems.add(
+        _MockExamReviewItem(
+          index: index,
+          card: card,
+          event: eventsByQuestionId[questionId],
+        ),
+      );
+    }
+
+    return Card(
+      key: const Key('mock-review'),
+      child: ExpansionTile(
+        key: const Key('mock-review-toggle'),
+        title: const Text('模擬試験を復習'),
+        subtitle: const Text('回答・正答・解説・出典を確認できます。'),
+        childrenPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+        children: reviewItems,
+      ),
+    );
+  }
+}
+
+final class _MockExamReviewItem extends StatelessWidget {
+  const _MockExamReviewItem({
+    required this.index,
+    required this.card,
+    required this.event,
+  });
+
+  final int index;
+  final QuizCard card;
+  final LearningEventV1? event;
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedChoice = event?.selectedChoice;
+    final selectedText = selectedChoice == null
+        ? '未回答'
+        : card.choices[selectedChoice];
+    final status = selectedChoice == null
+        ? '未回答'
+        : selectedChoice == card.answerIndex
+            ? '正解'
+            : '不正解';
+    final explanation = card.explanation?.trim();
+
+    return Card(
+      key: Key('mock-review-item-$index'),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              '第${index + 1}問 ・ $status',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(card.question),
+            const SizedBox(height: 12),
+            Text(
+              'あなたの回答: $selectedText',
+              key: Key('mock-review-selected-$index'),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '正解: ${card.choices[card.answerIndex]}',
+              key: Key('mock-review-correct-$index'),
+            ),
+            if (explanation != null && explanation.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              Text('解説', style: Theme.of(context).textTheme.titleSmall),
+              const SizedBox(height: 4),
+              Text(explanation),
+            ],
+            _QuestionSourceProvenance(card: card),
+          ],
         ),
       ),
     );
