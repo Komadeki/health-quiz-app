@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B3",
+  "adjudication_round": 1,
+  "director": {"id":"chatgpt-b3-systems-director-adjudicator-r1","role":"AI_DIRECTOR"},
+  "author": {"id":"chatgpt-b3-systems-author-r1","role":"AI_AUTHOR"},
+  "reviewer": {"id":"autopilot-b3-systems-reviewer-r1","role":"AI_REVIEWER"},
+  "identity_separation": "PASS",
+  "review_evidence": "independent_review_r1.json",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {"accept":28,"reject":2,"rework":0,"hold":0},
+  "accepted_candidate_ids": [
+    "B3-SYS-C001","B3-SYS-C002","B3-SYS-C003","B3-SYS-C004","B3-SYS-C005","B3-SYS-C006","B3-SYS-C007","B3-SYS-C008","B3-SYS-C009","B3-SYS-C010","B3-SYS-C011","B3-SYS-C012","B3-SYS-C013","B3-SYS-C014",
+    "B3-SYS-C017","B3-SYS-C018","B3-SYS-C019","B3-SYS-C020","B3-SYS-C021","B3-SYS-C022","B3-SYS-C023","B3-SYS-C024","B3-SYS-C025","B3-SYS-C026","B3-SYS-C027","B3-SYS-C028","B3-SYS-C029","B3-SYS-C030"
+  ],
+  "rejected": [
+    {
+      "candidate_id":"B3-SYS-C015",
+      "reason_code":"SEMANTIC_COLLISION_RELEASED",
+      "collided_question_id":"DRONE-Q-000070",
+      "director_rationale":"Confirmed. Q070 already tests the IMU's accelerometer contribution to detection of acceleration together with gyro-based angular velocity. C015 narrows the same underlying sensor proposition without a sufficiently distinct decision boundary or commercial reasoning target."
+    },
+    {
+      "candidate_id":"B3-SYS-C016",
+      "reason_code":"SEMANTIC_COLLISION_RELEASED",
+      "collided_question_id":"DRONE-Q-000043",
+      "director_rationale":"Confirmed. Q043 already requires the learner to understand that local geomagnetism is detected to obtain heading for magnetic calibration. C016 isolates that same geomagnetic-heading fact and does not add sufficiently distinct reasoning."
+    }
+  ],
+  "director_rationale":"The independent review is source-consistent, preserves second-class scope, and correctly rejects two sensor-fact candidates whose answer-defining propositions are already represented in released questions. The remaining 28 candidates cover distinct Chapter 4 system characteristics, equipment boundaries, sensor principles, powertrain/battery behavior, and radio propagation with useful commercial practice value.",
+  "invariants": {
+    "HUMAN_REVIEW_FABRICATED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "RELEASED_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_28"
+}
