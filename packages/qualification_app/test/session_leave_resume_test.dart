@@ -99,7 +99,6 @@ void main() {
       );
       await controller.initialize();
       await controller.startMockExam();
-      addTearDown(controller.dispose);
 
       await tester.pumpWidget(
         QualificationProductionApp(
@@ -142,6 +141,9 @@ void main() {
         beforeLeave.inSeconds - afterResume.inSeconds,
         greaterThanOrEqualTo(19),
       );
+
+      await tester.pumpWidget(const SizedBox.shrink());
+      controller.dispose();
     },
   );
 }
