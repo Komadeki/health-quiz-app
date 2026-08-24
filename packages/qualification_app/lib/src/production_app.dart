@@ -623,8 +623,9 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
     final card = controller.currentCard!;
     final committedChoice = controller.currentResponse;
     final committed = committedChoice != null;
+    final isMockExam = session.mode == LearningModeV1.mockExam;
     final correct = committed && committedChoice == card.answerIndex;
-    final timeLimit = session.mode == LearningModeV1.mockExam
+    final timeLimit = isMockExam
         ? controller.definition.examProfile?.timeLimitMinutes
         : null;
     final remaining = controller.remainingMockExamDuration;
@@ -690,26 +691,36 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                     child: const Text('回答確定'),
                   ),
                 if (committed) ...[
-                  Semantics(
-                    liveRegion: true,
-                    child: Text(
-                      correct ? '正解' : '不正解',
-                      key: const Key('answer-feedback'),
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                color: correct
-                                    ? Colors.green.shade800
-                                    : Theme.of(context).colorScheme.error,
-                              ),
+                  if (isMockExam)
+                    Semantics(
+                      liveRegion: true,
+                      child: const Text(
+                        '回答を記録しました',
+                        key: Key('mock-answer-committed'),
+                      ),
+                    )
+                  else ...[
+                    Semantics(
+                      liveRegion: true,
+                      child: Text(
+                        correct ? '正解' : '不正解',
+                        key: const Key('answer-feedback'),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  color: correct
+                                      ? Colors.green.shade800
+                                      : Theme.of(context).colorScheme.error,
+                                ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    '解説（Explanation）',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(card.explanation ?? ''),
+                    const SizedBox(height: 12),
+                    Text(
+                      '解説（Explanation）',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(card.explanation ?? ''),
+                  ],
                   const SizedBox(height: 16),
                   FilledButton(
                     key: const Key('next-question'),
