@@ -16,12 +16,12 @@
     "SUBMIT",
     "DONE"
   ],
-  "observed_main": "52173774ea4992622a432942a736e001a74c5561",
-  "next_atomic_objective": "MIGRATE_EXPANSION_LIFECYCLE_FOR_AI_GOVERNANCE",
-  "autonomous_acceptance": "MIGRATION_REQUIRED",
+  "observed_main": "bf83a27dd32935c6e9144749b12f29ff9dca44b1",
+  "next_atomic_objective": "AUTHOR_AND_PERSIST_B2_RISK_AI_PRE_ACCEPT",
+  "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 2
+  "state_epoch": 3
 }

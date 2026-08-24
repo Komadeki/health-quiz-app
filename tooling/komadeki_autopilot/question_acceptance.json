@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "status": "ADOPTED_CONTRACT",
-  "lifecycle_bridge": "PENDING",
+  "lifecycle_bridge": "ADOPTED",
   "candidate_pre_state": "AI_PRE_ACCEPT",
   "acceptance_state": "AI_GOVERNED_ACCEPT",
   "ready_state": "READY_FOR_ID",
@@ -11,6 +11,7 @@
     "director": "AI_DIRECTOR"
   },
   "require_pairwise_distinct_actor_ids": true,
+  "require_candidate_fingerprint": true,
   "require_reviewer_accept": true,
   "require_director_accept": true,
   "require_source_evidence": true,

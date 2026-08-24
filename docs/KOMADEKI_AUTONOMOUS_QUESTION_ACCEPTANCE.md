@@ -1,8 +1,8 @@
 # KOMADEKI Autonomous Question Acceptance Contract v1.0
 
-Status: **ADOPTED CONTRACT / LIFECYCLE BRIDGE PENDING**
+Status: **ADOPTED / LIFECYCLE BRIDGE IMPLEMENTED**
 
-This contract governs autonomous Question Bank review for qualification-app expansion. It does not remove or rewrite legacy HUMAN review evidence. It defines a separate AI-governed path that must be wired into the existing expansion lifecycle before it can advance candidates beyond `AI_PRE_ACCEPT`.
+This contract governs autonomous Question Bank review for qualification-app expansion. It does not remove or rewrite legacy HUMAN review evidence. It defines a separate AI-governed path that can advance candidates to `READY_FOR_ID` only when its durable acceptance packet passes the fail-closed lifecycle bridge.
 
 ## 1. Non-negotiable identity rule
 
@@ -18,13 +18,18 @@ AI must never claim or synthesize `HUMAN` review. Existing human-reviewed batche
 
 `AI_GOVERNED_ACCEPT` is not equivalent to HUMAN_ACCEPT and must never be serialized as HUMAN review.
 
-Before the lifecycle bridge is implemented, accepted autonomous packets remain evidence only and candidates must not be moved to `READY_FOR_ID`.
+The durable packet for candidate `<candidate_id>` is stored at:
+
+`authoring/batches/<batch>/acceptance_packets/<candidate_id>.json`
+
+A valid packet is evidence for the AI-governed path. The candidate row itself moves from `AI_PRE_ACCEPT` to `READY_FOR_ID`; no fake Human review row is created.
 
 ## 3. Required evidence
 
 Every autonomous candidate acceptance packet must preserve:
 
-- candidate identity and immutable content hash or equivalent content binding;
+- candidate identity;
+- `candidate_fingerprint`: lowercase SHA-256 over the canonical content-binding fields;
 - authoritative `source_id`, `source_version`, and `source_locator`;
 - answer-defining proposition;
 - tested misconception;
@@ -34,42 +39,62 @@ Every autonomous candidate acceptance packet must preserve:
 - Director decision and rationale;
 - distinct author, reviewer, and Director identities.
 
+The fingerprint binds the acceptance decision to the candidate content that was actually reviewed, including question/choices/correct answer/explanation, source binding, proposition, misconception, reasoning path, and collision note. Any post-review mutation invalidates the packet.
+
+The lifecycle bridge also checks packet source/proposition/misconception/reasoning/collision evidence against the current candidate row. A stale or mismatched packet fails closed.
+
 ## 4. Decision rules
 
 An autonomous candidate is accepted only when all of the following are true:
 
-1. authoring state is `AI_PRE_ACCEPT`;
+1. authoring state before promotion is `AI_PRE_ACCEPT`;
 2. independent reviewer decision is `ACCEPT`;
 3. Director decision is `ACCEPT`;
 4. author, reviewer, and Director IDs are non-empty and pairwise distinct;
-5. source evidence is complete;
-6. semantic-collision checks are recorded as complete;
-7. answer-defining proposition, tested misconception, and reasoning path are non-empty;
-8. neither review role is `HUMAN`;
-9. no unresolved HOLD/REWORK/REJECT condition exists.
+5. `candidate_fingerprint` is a valid lowercase SHA-256 digest and matches the current candidate content;
+6. source evidence is complete and matches the candidate row;
+7. semantic-collision checks are recorded as complete and the collision note matches the candidate row;
+8. answer-defining proposition, tested misconception, and reasoning path are non-empty and match the candidate row;
+9. no autonomous actor claims the `HUMAN` role;
+10. the acceptance packet requests `AI_GOVERNED_ACCEPT`;
+11. no unresolved HOLD/REWORK/REJECT condition exists.
 
-A reviewer `REWORK`, `REJECT`, or `HOLD` cannot be overridden by omission. The Director must explicitly adjudicate the result; acceptance after reviewer disagreement requires a new independent reviewer round rather than unilateral Director acceptance.
+A reviewer `REWORK`, `REJECT`, or `HOLD` cannot be overridden by omission. Acceptance after reviewer disagreement requires a new independent reviewer round rather than unilateral Director acceptance.
 
-## 5. Separation from source verification
+## 5. Lifecycle bridge
+
+The existing expansion lifecycle remains backward compatible:
+
+- genuine Human path: latest real Human `ACCEPT` review satisfies the post-accept gate;
+- AI-governed path: a valid durable acceptance packet satisfies the same post-accept gate without creating a Human review record.
+
+`tooling/question_bank/ai_governance.py` computes the candidate fingerprint, performs fail-closed packet/content binding, and atomically promotes valid candidates from `AI_PRE_ACCEPT` to `READY_FOR_ID`.
+
+`tooling/question_bank/expansion.py` recognizes a post-accept candidate only when either:
+
+- a genuine latest Human `ACCEPT` review exists; or
+- the candidate has a valid AI-governed acceptance packet whose fingerprint and evidence match the current candidate row.
+
+`QuestionExpansionTransaction` continues to allocate from accepted pre-ID states. The AI path reaches it through `READY_FOR_ID`, so permanent-ID allocation, duplicate-ID checks, partial-state detection, and rollback protections are unchanged.
+
+## 6. Separation from source verification
 
 Autonomous acceptance is a content-selection gate only. It does **not** satisfy canonical source verification. Existing `VERIFIED` requirements, including authoritative source/version binding, remain unchanged.
 
-## 6. Durable evidence
+## 7. Durable evidence
 
 Completion is recognized only when the acceptance packet is persisted on GitHub. Chat-only, browser-only, or local-only evidence is non-authoritative.
 
-## 7. Legacy compatibility
+Promotion is atomic across `candidates.csv`: if any selected candidate has missing, malformed, mismatched, stale, or non-accepted AI evidence, no selected candidate is promoted.
 
-Legacy batches with genuine Human review remain valid under Production Question Bank Expansion Protocol v1.0. The autonomous path is additive. Migration must preserve all existing Human-review tests and Batch 1 evidence.
+## 8. Legacy compatibility
 
-## 8. Lifecycle bridge requirement
+Legacy batches with genuine Human review remain valid under Production Question Bank Expansion Protocol v1.0. The autonomous path is additive. Existing Human-review rows remain `reviewer_role=HUMAN`; AI evidence is kept in separate JSON packets and is never serialized as Human review.
 
-The next repository change must connect this contract to the expansion lifecycle so that:
+## 9. Gate after lifecycle bridge
 
-- the validator recognizes explicit AI-governed acceptance evidence;
-- `READY_FOR_ID` can be reached through either genuine Human ACCEPT or valid AI-governed acceptance;
-- transaction allocation accepts the AI-governed path without weakening ID/rollback protections;
-- invalid role reuse, missing independent review, missing source/collision evidence, and fabricated Human identity fail closed;
-- existing Human path behavior remains unchanged.
+Once this bridge passes required CI and is merged:
 
-Until that bridge is merged, `autonomous_acceptance` remains `MIGRATION_REQUIRED` in the Autopilot machine state.
+- `autonomous_acceptance` may advance from `MIGRATION_REQUIRED` to `AI_GOVERNED`;
+- new autonomous batches may progress from `AI_PRE_ACCEPT` to `READY_FOR_ID` through valid AI-governed acceptance;
+- canonical `VERIFIED` and release gates remain unchanged.

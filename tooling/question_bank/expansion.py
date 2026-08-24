@@ -8,6 +8,7 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
+from ai_governance import ai_acceptance_errors
 from contract import QUESTION_ID_PATTERN, question_choices
 from validation import validate_bank
 
@@ -528,8 +529,18 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
             elif latest_decision in HUMAN_DECISIONS and _review_state(latest_decision) != state:
                 errors.append(f"latest Human review conflicts with candidate state for {candidate_id}")
         elif state in POST_ACCEPT_STATES:
-            if latest is None or latest_decision != "ACCEPT":
-                errors.append(f"{state} candidate {candidate_id} requires latest Human ACCEPT review")
+            has_human_accept = latest is not None and latest_decision == "ACCEPT"
+            if not has_human_accept:
+                ai_errors = ai_acceptance_errors(batch_dir, row)
+                if ai_errors:
+                    errors.append(
+                        f"{state} candidate {candidate_id} requires latest Human ACCEPT "
+                        "or valid AI-governed acceptance"
+                    )
+                    errors.extend(
+                        f"{state} candidate {candidate_id} AI governance: {error}"
+                        for error in ai_errors
+                    )
 
         if permanent_id and canonical is not None:
             registry_ids = canonical["registry_ids"]
