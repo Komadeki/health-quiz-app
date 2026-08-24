@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qualification_app/qualification_app.dart';
+import 'package:quiz_engine/quiz_engine.dart';
 
 import 'test_support.dart';
 
