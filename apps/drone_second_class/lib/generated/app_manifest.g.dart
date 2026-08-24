@@ -84,7 +84,7 @@ abstract final class GeneratedAppManifest {
         ),
         learningProduct: const LearningProductProfileV1(
           appVersion: "1.0.0+1",
-          homeHeadline: "教則第5版を基にした全100問",
+          homeHeadline: "教則第5版を基にした学科試験対策",
           sourceLabel: "無人航空機の飛行の安全に関する教則 第5版に基づく学習",
           enabledModes: {LearningModeV1.unitPractice, LearningModeV1.randomPractice, LearningModeV1.unansweredPractice, LearningModeV1.incorrectPractice, LearningModeV1.retry, LearningModeV1.mockExam},
           practiceQuestionCount: 20,

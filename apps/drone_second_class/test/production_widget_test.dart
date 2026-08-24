@@ -20,7 +20,15 @@ void main() {
     );
 
     expect(find.text('二等無人航空機 学科対策'), findsOneWidget);
-    expect(find.text('教則第5版を基にした全100問'), findsOneWidget);
+    expect(find.text('教則第5版を基にした学科試験対策'), findsOneWidget);
+    expect(
+      GeneratedAppManifest.definition.learningProduct.homeHeadline,
+      isNot(matches(RegExp(r'全\d+問'))),
+    );
+    expect(
+      find.text('${controller.freeQuestionCount}問を無料で利用できます'),
+      findsOneWidget,
+    );
     expect(find.byKey(const Key('overall-progress')), findsOneWidget);
 
     for (final unitKey in [
