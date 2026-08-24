@@ -15,10 +15,10 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "8f365eaa0d9a6f427972ea7fa8d28361714e9005",
-  "next_atomic_objective": "IMPLEMENT_P1_005_ADD_COMPACT_WIDTH_LARGE_TEXT_LONG_CONTENT_AND_SEMANTICS_GATES",
+  "observed_main": "59b697a05ff29808140814609095cd049d4efd0f",
+  "next_atomic_objective": "IMPLEMENT_P1_008_PROVIDE_POST_EXAM_REVIEW_AFTER_MOCK_COMPLETION",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 10
+  "state_epoch": 11
 }
