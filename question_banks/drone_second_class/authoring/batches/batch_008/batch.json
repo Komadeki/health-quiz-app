@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B8",
+  "directory_slug": "batch_008",
+  "baseline_sha": "1398c65de1acf7659d728ec1dd8cc6d555768aa1",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "chatgpt-b8-systems-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Continue from 235 accepted/source-verified canonical questions toward the owner-directed 400-question Production target under the quality-preserving relaxation contract. B8 authors the 20 source-first Chapter 4 Systems candidates persisted by the merged B8 plan: 16 Tier A new explicit propositions and 4 Tier B source-defined boundary variants; no Tier C variant is authored.",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Exclude subsections explicitly marked 〔一等〕."
+  },
+  "evidence": [
+    "PR #172 persisted the B8 Chapter 4 Systems coverage plan and established the next atomic objective as B8 candidate authoring from a 235-question accepted/source-verified canonical baseline.",
+    "PR #143 adopted the quality-preserving 400-question target contract.",
+    "Official MLIT 教則第5版 Chapter 4 source text was rechecked on 2026-08-25 before authoring.",
+    "All B8 candidate source locators are in Chapter 4 material not marked 〔一等〕; 4.3.5 first-class flight-performance calculations and Category III radio calculations are excluded.",
+    "Every Tier B candidate is bound to a source-defined materially different boundary or reasoning rationale persisted in the B8 plan; wording-only and near-paraphrase variants remain prohibited."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B8-TARGET-001",
+      "previous_approved_target": 350,
+      "current_released_count": 188,
+      "proposed_target_min": 400,
+      "proposed_target_max": 400,
+      "approved_new_target": 400,
+      "rationale": "Owner explicitly directed expansion to 400 while preserving the merged source, review, collision, Permanent-ID, source-verification, and release gates.",
+      "decision_date": "2026-08-25",
+      "evidence": "Merged PR #143 / target_400_quality_relaxation_contract_2026-08-25.json."
+    }
+  ],
+  "planned_scope": {
+    "area": "Systems",
+    "candidate_batch_identity": "B8",
+    "candidate_ids": [
+      "B8-SYS-C001",
+      "B8-SYS-C002",
+      "B8-SYS-C003",
+      "B8-SYS-C004",
+      "B8-SYS-C005",
+      "B8-SYS-C006",
+      "B8-SYS-C007",
+      "B8-SYS-C008",
+      "B8-SYS-C009",
+      "B8-SYS-C010",
+      "B8-SYS-C011",
+      "B8-SYS-C012",
+      "B8-SYS-C013",
+      "B8-SYS-C014",
+      "B8-SYS-C015",
+      "B8-SYS-C016",
+      "B8-SYS-C017",
+      "B8-SYS-C018",
+      "B8-SYS-C019",
+      "B8-SYS-C020"
+    ],
+    "candidate_count": 20,
+    "candidate_count_is_quota": false,
+    "tier_counts": {
+      "A_NEW_PROPOSITION": 16,
+      "B_BOUNDARY_VARIANT": 4,
+      "C_REASONING_VARIANT": 0
+    },
+    "tier_b_candidate_ids": [
+      "B8-SYS-C002",
+      "B8-SYS-C011",
+      "B8-SYS-C015",
+      "B8-SYS-C019"
+    ],
+    "known_rejected_ids": []
+  },
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B8-COVERAGE-LIMIT-001",
+      "status": "PARTIAL",
+      "scope": "Chapter 4 Systems propositions and controlled variants",
+      "evidence": "Authoring is limited to the 20 propositions persisted by PR #172. No candidate is backfilled merely to increase count."
+    },
+    {
+      "decision_id": "B8-COVERAGE-LIMIT-002",
+      "status": "ACTIVE_POLICY",
+      "scope": "Controlled variants",
+      "evidence": "Four Tier B variants are authored. Each changes a source-defined aircraft/operation applicability, flight phase, recovery action, storage state, or dynamic-load reasoning path relative to its nearest canonical neighbor."
+    }
+  ],
+  "migration_blockers": [],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_AUTHORING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
