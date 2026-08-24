@@ -349,16 +349,46 @@ final class _PracticeModes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bank = controller.bank!;
+    final selectionEngine = PracticeSelectionEngine(
+      canAccess: (candidate) =>
+          controller.canAccess(bank.cardsById[candidate.questionId]!),
+      randomizer: const IdentityQuestionRandomizer(),
+    );
+    final hasAccessibleQuestions = controller.accessibleQuestionCount > 0;
+    final hasUnansweredQuestions = selectionEngine
+        .selectUnanswered(bank.candidates, controller.events)
+        .isNotEmpty;
+    final hasIncorrectQuestions = selectionEngine
+        .selectIncorrect(bank.candidates, controller.events)
+        .isNotEmpty;
     final buttons = <Widget>[];
+
     void add(
       LearningModeV1 mode,
       String key,
       String label,
-      Future<bool> Function() start,
-    ) {
-      if (controller.modeEnabled(mode)) {
+      Future<bool> Function() start, {
+      required bool available,
+      String? unavailableReason,
+    }) {
+      if (!controller.modeEnabled(mode)) return;
+      buttons.add(
+        OutlinedButton(
+          key: Key(key),
+          onPressed: available ? start : null,
+          child: Text(label),
+        ),
+      );
+      if (!available && unavailableReason != null) {
         buttons.add(
-          OutlinedButton(key: Key(key), onPressed: start, child: Text(label)),
+          Padding(
+            padding: const EdgeInsets.only(top: 4, bottom: 8),
+            child: Text(
+              unavailableReason,
+              key: Key('$key-unavailable'),
+            ),
+          ),
         );
       }
     }
@@ -368,18 +398,24 @@ final class _PracticeModes extends StatelessWidget {
       'start-random',
       'ランダム演習',
       controller.startRandom,
+      available: hasAccessibleQuestions,
+      unavailableReason: '利用できる問題がありません。',
     );
     add(
       LearningModeV1.unansweredPractice,
       'start-unanswered',
       '未回答から出題',
       controller.startUnanswered,
+      available: hasUnansweredQuestions,
+      unavailableReason: '未回答の問題はありません。',
     );
     add(
       LearningModeV1.incorrectPractice,
       'start-incorrect',
       '直近で間違えた問題',
       controller.startIncorrect,
+      available: hasIncorrectQuestions,
+      unavailableReason: '直近で間違えた問題はありません。',
     );
     final profile = controller.definition.examProfile;
     if (controller.modeEnabled(LearningModeV1.mockExam)) {
