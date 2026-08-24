@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "decision_id": "DRONE-PRODUCTION-TARGET-350-2026-08-25",
+  "product": "drone_second_class",
+  "decided_at": "2026-08-25",
+  "baseline_main": "bb5150e82f6b45f70e435ca84a6bd4318f55032d",
+  "decision_authority": "OWNER_DIRECTION",
+  "target": {
+    "final_production_question_count": 350,
+    "current_released_count": 188,
+    "additional_questions_required": 162,
+    "status": "ACTIVE",
+    "release_activation": "EXPLICIT_GATE_REQUIRED"
+  },
+  "authoritative_source": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "edition": "第5版",
+    "issuer": "国土交通省",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "official_pdf": "https://www.mlit.go.jp/common/002010809.pdf",
+    "scope_rule": "Use second-class-applicable material only; exclude subsections explicitly marked 〔一等〕."
+  },
+  "quality_contract": {
+    "fixed_target_does_not_authorize_filler": true,
+    "source_first_required": true,
+    "semantic_collision_gate_required": true,
+    "independent_ai_review_required": true,
+    "director_adjudication_required": true,
+    "permanent_id_only_after_acceptance": true,
+    "canonical_source_verification_required": true,
+    "released_runtime_mutation_only_after_activation_gate": true,
+    "human_review_identity_must_not_be_fabricated": true,
+    "fail_closed_if_source_support_is_insufficient": true
+  },
+  "expansion_strategy": {
+    "mode": "SYSTEMATIC_COVERAGE_AND_DISTINCT_REASONING_VARIANTS",
+    "current_domain_inventory": {
+      "drone_rules": 44,
+      "drone_systems": 57,
+      "drone_operations": 41,
+      "drone_risk_management": 46
+    },
+    "provisional_balanced_350_distribution": {
+      "drone_rules": 88,
+      "drone_systems": 88,
+      "drone_operations": 87,
+      "drone_risk_management": 87
+    },
+    "distribution_is_hard_quota": false,
+    "allowed_distinctness_axes": [
+      "different explicit source proposition",
+      "different boundary or exception",
+      "different calculation or quantitative relation",
+      "different operational decision threshold",
+      "different causal mechanism",
+      "different sequence or response priority",
+      "different misconception with a materially different reasoning path",
+      "different aircraft or flight-method applicability where the source defines a real distinction"
+    ],
+    "prohibited": [
+      "wording-only variants",
+      "first-class-only material",
+      "unsupported inference",
+      "duplicate answer-defining propositions",
+      "backfilling low-value questions solely to hit a round number"
+    ]
+  },
+  "execution_plan": [
+    {
+      "stage": "B5",
+      "objective": "Complete the already-audited post-188 Operations gaps first.",
+      "candidate_ceiling": 8
+    },
+    {
+      "stage": "B6_PLUS",
+      "objective": "Run systematic chapter/subsection coverage decomposition and author accepted batches across Rules, Systems, Operations and Risk until canonical accepted inventory reaches 350.",
+      "batch_size_guidance": "Prefer 15-25 candidates per batch before review; smaller where source ceilings are reached."
+    },
+    {
+      "stage": "FINAL_350_ACTIVATION",
+      "objective": "When 350 accepted, source-verified canonical questions exist, execute explicit release selection/activation and regenerate runtime assets under a new bank revision."
+    }
+  ],
+  "preserved_invariants": [
+    "The currently released 188-question Production bank remains unchanged while expansion drafts are authored and reviewed.",
+    "DRONE-Q-000001..DRONE-Q-000188 retain their existing identity, content, release history and first-use revision evidence.",
+    "The existing 20-question free selection remains unchanged until an explicit monetization decision changes it.",
+    "The immutable V0 100-question historical validation snapshot remains unchanged."
+  ],
+  "next_atomic_objective": "AUTHOR_AND_PERSIST_B5_OPERATIONS_AI_PRE_ACCEPT"
+}
