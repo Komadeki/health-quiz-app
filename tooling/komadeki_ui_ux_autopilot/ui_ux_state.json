@@ -4,7 +4,7 @@
   "workstream": "qualification_factory_ui_ux",
   "control_issue": 48,
   "status": "ACTIVE",
-  "current_phase": "CORE_UX_IMPROVEMENT",
+  "current_phase": "DRONE_SPECIFIC_UX",
   "phase_order": [
     "BASELINE_AUDIT",
     "STANDARD_UX_CONTRACT",
@@ -15,10 +15,10 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "59b697a05ff29808140814609095cd049d4efd0f",
-  "next_atomic_objective": "IMPLEMENT_P1_008_PROVIDE_POST_EXAM_REVIEW_AFTER_MOCK_COMPLETION",
+  "observed_main": "d4c3ce9954e5359e32b06f4196fd7ee14ad9215b",
+  "next_atomic_objective": "IMPLEMENT_P1_006_REMOVE_MANUALLY_MAINTAINED_QUESTION_TOTAL_FROM_DRONE_HEADLINE",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 11
+  "state_epoch": 12
 }
