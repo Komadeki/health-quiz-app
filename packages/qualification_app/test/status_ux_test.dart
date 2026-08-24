@@ -43,7 +43,6 @@ void main() {
     addTearDown(controller.dispose);
     unawaited(controller.initialize());
     final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
 
     await pumpApp(tester, controller);
 
@@ -53,6 +52,7 @@ void main() {
       find.bySemanticsLabel('問題データを読み込んでいます'),
       findsWidgets,
     );
+    semantics.dispose();
 
     completer.complete(loadFixtureBank());
     await tester.pumpAndSettle();
