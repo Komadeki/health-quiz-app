@@ -15,10 +15,10 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "4175dd65881b8781611fa1d88327c9507a89b721",
-  "next_atomic_objective": "IMPLEMENT_P1_001_ESTABLISH_DETERMINISTIC_HOME_PRIMARY_ACTION",
+  "observed_main": "bba13a05618186365b9acaaafed9e3a4cff19457",
+  "next_atomic_objective": "IMPLEMENT_P1_002_MAKE_CORRECT_ANSWER_EXPLICIT_IN_PRACTICE_FEEDBACK",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 6
+  "state_epoch": 7
 }
