@@ -1,0 +1,312 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B8-400-TARGET-COVERAGE-VARIANTS-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B8_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "1558a88aab4d92f3f6953906113001e0c1c9b1f4",
+  "target_contract": "target_400_quality_relaxation_contract_2026-08-25.json",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 235,
+    "accepted_source_verified_canonical": 235,
+    "remaining_to_400": 165,
+    "next_unreserved_permanent_id": "DRONE-Q-000236"
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "scope_rule": "Use second-class-applicable Chapter 4 propositions only. Exclude subsections explicitly marked 〔一等〕, including 4.3.5 flight-performance calculations and Category III radio calculations."
+  },
+  "batch": {
+    "batch_id": "B8",
+    "domain": "drone_systems",
+    "candidate_ceiling": 20,
+    "candidate_ceiling_is_quota": false,
+    "authoring_priority": [
+      "Tier A new explicit Chapter 4 propositions",
+      "Tier B source-defined boundary/action variants with materially different solving rules",
+      "Tier C reasoning variants only if stronger A/B opportunities are exhausted"
+    ],
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 16,
+      "B_BOUNDARY_VARIANT": 4,
+      "C_REASONING_VARIANT": 0
+    }
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B8-SYS-C001",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "fixed-wing automated launch/recovery equipment",
+      "source_locator": "教則 第4章 4.1『飛行機』(1)機体の特徴",
+      "proposition": "離着陸を含めて飛行機型無人航空機を自動飛行させる場合、発射装置や回収装置などの地上設備が必要となる場合がある。",
+      "tested_misconception": "自動飛行であれば飛行機型でも離着陸用の地上設備は常に不要である。",
+      "reasoning_path": "fixed-wing mission -> automated takeoff/landing -> assess launcher/recovery ground equipment",
+      "nearest_canonical": ["DRONE-Q-000143","DRONE-Q-000144","DRONE-Q-000145"],
+      "distinctness": "Existing fixed-wing items cover minimum speed, glide after thrust loss and control surfaces, not the ground-equipment implication of fully automated launch/recovery."
+    },
+    {
+      "candidate_id": "B8-SYS-C002",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "large-aircraft inertia changes control response",
+      "distinctness_axes": ["aircraft_type_and_control_dynamics","scenario_state_or_flight_phase"],
+      "family": "large-helicopter early hover control",
+      "source_locator": "教則 第4章 4.1『回転翼航空機（ヘリコプター）』(2)大型機",
+      "proposition": "最大離陸重量25kg以上の大型ヘリコプターは慣性力が大きく操舵に対する機体挙動が遅れ気味になるため、特にホバリングでは早めの操舵が必要となる。",
+      "tested_misconception": "大型ヘリコプターは慣性力が大きいので、ホバリングでは小型機より操舵を遅らせる方が安定する。",
+      "reasoning_path": "large helicopter -> delayed dynamic response -> hover position-hold -> anticipate and command earlier",
+      "nearest_canonical": ["DRONE-Q-000099","DRONE-Q-000147"],
+      "distinctness": "Q099 tests generic large-aircraft acceleration/deceleration distance and obstacle avoidance. This candidate is helicopter-specific and asks for the opposite control-timing decision during hover."
+    },
+    {
+      "candidate_id": "B8-SYS-C003",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "fixed-wing glide impact dispersion",
+      "source_locator": "教則 第4章 4.1『飛行機』(1)機体の特徴",
+      "proposition": "飛行機型は滑空するため、墜落・不時着時の落下地点を狭い範囲に抑えられない。",
+      "tested_misconception": "飛行機型は推力喪失後に滑空するので、落下地点を狭い一点付近へ限定しやすい。",
+      "reasoning_path": "fixed-wing glide capability -> off-nominal descent -> broad possible landing/impact area",
+      "nearest_canonical": ["DRONE-Q-000144","DRONE-Q-000097"],
+      "distinctness": "Q144 tests that a fixed-wing aircraft can continue gliding after thrust loss; this candidate tests the separate consequence that the possible impact/forced-landing area cannot be tightly localized."
+    },
+    {
+      "candidate_id": "B8-SYS-C004",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "angle-of-attack and sideslip reference",
+      "source_locator": "教則 第4章 4.3『無人航空機の飛行原理』",
+      "proposition": "迎角は機体前後軸と縦面へ投影した流入空気方向の角で下方からの流入を正、横滑り角は機体右側からの流入を正とする。",
+      "tested_misconception": "迎角・横滑り角は機体姿勢のピッチ角・ヨー角そのものを表す。",
+      "reasoning_path": "relative airflow -> choose longitudinal/lateral reference plane -> determine signed aerodynamic angle",
+      "nearest_canonical": ["DRONE-Q-000067","DRONE-Q-000155"],
+      "distinctness": "Q067 tests excessive angle of attack leading to stall and Q155 tests attitude angles. Neither defines the signed relative-airflow angles themselves."
+    },
+    {
+      "candidate_id": "B8-SYS-C005",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "sensor calibration discipline",
+      "source_locator": "教則 第4章 4.4『フライトコントロールシステム』(1)基礎",
+      "proposition": "多くのセンサはキャリブレーションを必要とするため、各機体で指定された方法により正しく行われているか常に注意する。",
+      "tested_misconception": "センサのキャリブレーション方法は機体によらず共通で、一度実施すれば以後確認不要である。",
+      "reasoning_path": "sensor-dependent FCS -> calibration-sensitive device -> follow aircraft-specific calibration method and verify",
+      "nearest_canonical": ["DRONE-Q-000043","DRONE-Q-000005","DRONE-Q-000070"],
+      "distinctness": "Q043 specifically defines magnetic calibration; this candidate tests the broader FCS rule that many sensors require aircraft-specific correct calibration."
+    },
+    {
+      "candidate_id": "B8-SYS-C006",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "transmitter telemetry direction",
+      "source_locator": "教則 第4章 4.4『フライトコントロールシステム』(1)一般的デバイス",
+      "proposition": "送信機は操作指令を機体へ送るだけでなく、機体情報を受信するデバイスでもある。",
+      "tested_misconception": "送信機は操縦指令の送信専用で、機体情報を受信する役割は持たない。",
+      "reasoning_path": "ground transmitter -> outbound command channel plus inbound aircraft telemetry role",
+      "nearest_canonical": ["DRONE-Q-000004"],
+      "distinctness": "Q004 tests the outbound command path through receiver/main controller. It does not test the transmitter's inbound aircraft-information role."
+    },
+    {
+      "candidate_id": "B8-SYS-C007",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "low-voltage abrupt power loss",
+      "source_locator": "教則 第4章 4.4『機体又はバッテリーの故障及び事故の分析』(2)リチウムポリマーバッテリーに関わる電気的なトラブル",
+      "proposition": "LiPoは残量が減って電圧が低下すると急激に出力が弱くなり、墜落原因となり得る。",
+      "tested_misconception": "LiPoの残量低下は表示値だけの問題で、電圧低下による急激な出力低下にはつながらない。",
+      "reasoning_path": "depleted LiPo -> voltage declines -> abrupt output weakening -> loss-of-flight-margin/crash risk",
+      "nearest_canonical": ["DRONE-Q-000158","DRONE-Q-000164","DRONE-Q-000196"],
+      "distinctness": "Existing items test current demand at lower voltage, transient sag during a high-current maneuver, and failsafe landing transition. This candidate tests the late-discharge abrupt-output-loss hazard itself."
+    },
+    {
+      "candidate_id": "B8-SYS-C008",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "radio-wave interference",
+      "source_locator": "教則 第4章 4.5『電波』(1)1)直進・反射・屈折・回折・干渉・減衰",
+      "proposition": "2つ以上の電波が重なると干渉により強め合ったり弱め合ったりする。",
+      "tested_misconception": "複数の電波が重なると受信強度は必ず強くなり、弱め合うことはない。",
+      "reasoning_path": "multiple overlapping radio waves -> phase interaction/interference -> signal can reinforce or cancel",
+      "nearest_canonical": ["DRONE-Q-000074","DRONE-Q-000075"],
+      "distinctness": "Existing items cover diffraction and multipath propagation; no canonical item tests the general interference property that overlapping waves can reinforce or weaken one another."
+    },
+    {
+      "candidate_id": "B8-SYS-C009",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "inverse-square radio attenuation",
+      "source_locator": "教則 第4章 4.5『電波』(1)1)減衰",
+      "proposition": "電波の電力密度は進行距離の2乗に反比例して減少し、距離が2倍なら1/4となる。",
+      "tested_misconception": "送信条件が同じなら電波の電力密度は距離に比例して低下し、距離2倍で1/2になる。",
+      "reasoning_path": "propagation distance change -> inverse-square attenuation -> calculate relative power density",
+      "nearest_canonical": ["DRONE-Q-000074","DRONE-Q-000169"],
+      "distinctness": "Current questions test frequency-dependent diffraction and Fresnel obstruction, not the second-class-applicable inverse-square attenuation relation."
+    },
+    {
+      "candidate_id": "B8-SYS-C010",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "water radio attenuation",
+      "source_locator": "教則 第4章 4.5『電波』(1)1)減衰",
+      "proposition": "電波は周波数による差はあるものの、水中では吸収されて大きく減衰する。",
+      "tested_misconception": "水は電波をほとんど吸収しないため、水中でも空中と同程度の伝搬を期待できる。",
+      "reasoning_path": "radio path enters water -> absorption -> substantial attenuation",
+      "nearest_canonical": ["DRONE-Q-000074","DRONE-Q-000075"],
+      "distinctness": "No canonical item tests water absorption as a propagation-medium limitation."
+    },
+    {
+      "candidate_id": "B8-SYS-C011",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "multipath can weaken the control link",
+      "distinctness_axes": ["response_sequence_or_priority","reasoning_path"],
+      "family": "multipath recovery action",
+      "source_locator": "教則 第4章 4.5『電波』(1)2)マルチパス",
+      "proposition": "マルチパスで電波が弱くなり一時的に操縦不能となった場合は、送信機をできるだけ高い位置に持ちアンテナの向きを変えて復帰を試みる。",
+      "tested_misconception": "マルチパスで一時的に操縦不能になったら、送信機の位置・アンテナ向きを変えても復帰には影響しない。",
+      "reasoning_path": "identify multipath-related weak link -> alter transmitter height/orientation -> attempt control recovery",
+      "nearest_canonical": ["DRONE-Q-000075","DRONE-Q-000169"],
+      "distinctness": "Q075 diagnoses the multipath mechanism and consequence. This candidate starts after failure and tests the source-prescribed recovery action."
+    },
+    {
+      "candidate_id": "B8-SYS-C012",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "RTK/DGPS accuracy advantage",
+      "source_locator": "教則 第4章 4.5『GNSS』(2)GNSSとRTKの精度",
+      "proposition": "GPS受信機1台の単独測位は数十m程度だが、RTKやDGPSでは数cm～数mレベルの高精度測位が可能である。",
+      "tested_misconception": "RTKやDGPSを用いても、単独GPS測位と同じ数十m程度の精度にとどまる。",
+      "reasoning_path": "positioning architecture -> single receiver versus differential/reference receiver -> expected accuracy class",
+      "nearest_canonical": ["DRONE-Q-000015","DRONE-Q-000077"],
+      "distinctness": "Existing GNSS items test satellite count and the need for higher accuracy in autonomous flight; none compares standalone GPS with RTK/DGPS accuracy levels."
+    },
+    {
+      "candidate_id": "B8-SYS-C013",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "GNSS receiver installation environment",
+      "source_locator": "教則 第4章 4.5『GNSS』(3)GNSSを使用した飛行における注意事項",
+      "proposition": "GNSS受信機は周囲の地形や障害物の状況を考慮して設置する必要がある。",
+      "tested_misconception": "GNSS受信機の設置位置は機体上で固定できればよく、周囲の地形・障害物による受信環境は考慮不要である。",
+      "reasoning_path": "GNSS receiver installation -> local obstruction/multipath environment -> choose placement considering terrain/obstacles",
+      "nearest_canonical": ["DRONE-Q-000014","DRONE-Q-000016","DRONE-Q-000017"],
+      "distinctness": "Current items test multipath diagnosis and waypoint consequences; this candidate tests the preventive installation decision."
+    },
+    {
+      "candidate_id": "B8-SYS-C014",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "GNSS vertical accuracy limitation",
+      "source_locator": "教則 第4章 4.5『GNSS』(3)GNSSを使用した飛行における注意事項",
+      "proposition": "一般にGNSSの位置精度は水平方向より高度方向の誤差が大きい。",
+      "tested_misconception": "GNSSは水平位置より高度方向の方が一般に高精度である。",
+      "reasoning_path": "GNSS error dimension -> compare horizontal versus vertical -> recognize larger altitude error",
+      "nearest_canonical": ["DRONE-Q-000014","DRONE-Q-000017","DRONE-Q-000077"],
+      "distinctness": "No canonical item tests the anisotropic horizontal-versus-vertical GNSS accuracy limitation."
+    },
+    {
+      "candidate_id": "B8-SYS-C015",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "LiPo short circuit can cause fire",
+      "distinctness_axes": ["scenario_state_or_flight_phase","response_sequence_or_priority"],
+      "family": "LiPo storage short-circuit prevention",
+      "source_locator": "教則 第4章 4.6『リチウムポリマーバッテリーの保管方法』",
+      "proposition": "LiPo保管時は端子を短絡させないよう注意し、機体コネクタとバッテリーを接続したままにしない。",
+      "tested_misconception": "飛行していない保管中なら機体コネクタとLiPoを接続したままでも短絡火災リスク管理上問題ない。",
+      "reasoning_path": "post-operation storage -> prevent conductive short path -> disconnect aircraft connector and protect terminals",
+      "nearest_canonical": ["DRONE-Q-000072","DRONE-Q-000032"],
+      "distinctness": "Q072 tests the consequence after a short circuit occurs. This candidate tests the separate post-operation prevention boundary and required storage action."
+    },
+    {
+      "candidate_id": "B8-SYS-C016",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "LiPo fire-resistant storage",
+      "source_locator": "教則 第4章 4.6『リチウムポリマーバッテリーの保管方法』",
+      "proposition": "LiPoは万一発火しても安全を保てる不燃性ケースに入れ、突起物で傷つかない状態で保管する。",
+      "tested_misconception": "LiPoは端子だけ保護すれば、可燃性の容器や突起物が接触する状態でも安全に保管できる。",
+      "reasoning_path": "LiPo storage -> residual fire/mechanical-damage hazards -> fire-resistant case and puncture protection",
+      "nearest_canonical": ["DRONE-Q-000032","DRONE-Q-000033","DRONE-Q-000167"],
+      "distinctness": "Existing items test charge level, replacement of swollen packs and impact-fire consequence; none tests the specified storage enclosure and puncture-protection controls."
+    },
+    {
+      "candidate_id": "B8-SYS-C017",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "LiPo high-temperature storage limit",
+      "source_locator": "教則 第4章 4.6『リチウムポリマーバッテリーの保管方法』",
+      "proposition": "LiPoは35℃を超える高温環境で保管しない。",
+      "tested_misconception": "LiPoの保管温度は充電率だけ管理すればよく、35℃を超えても問題ない。",
+      "reasoning_path": "storage environment -> temperature threshold >35C -> reject storage condition",
+      "nearest_canonical": ["DRONE-Q-000032","DRONE-Q-000045"],
+      "distinctness": "Q032 tests long-term storage charge and Q045 tests low-temperature flight endurance. No current item tests the explicit high-temperature storage threshold."
+    },
+    {
+      "candidate_id": "B8-SYS-C018",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "business LiPo disposal",
+      "source_locator": "教則 第4章 4.6『リチウムポリマーバッテリーの廃棄方法』",
+      "proposition": "事業で用いたLiPoを廃棄する場合は、法律に則り産業廃棄物として廃棄する。",
+      "tested_misconception": "事業用LiPoも家庭用と同じ一般ごみとして任意に廃棄できる。",
+      "reasoning_path": "spent LiPo -> identify business-use waste stream -> industrial-waste disposal under law",
+      "nearest_canonical": ["DRONE-Q-000032","DRONE-Q-000033"],
+      "distinctness": "No canonical question tests LiPo disposal classification or the business-use legal disposal branch."
+    },
+    {
+      "candidate_id": "B8-SYS-C019",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "payload-drop equipment requires device-specific safe handling",
+      "distinctness_axes": ["operation_subtype","dynamic_state_change"],
+      "family": "winch suspended-load dynamics",
+      "source_locator": "教則 第4章 4.4『物件投下のために装備される機器』",
+      "proposition": "物件投下用ウインチで吊り下げる場合は、物件の揺れと投下前後の重心変化に注意する。",
+      "tested_misconception": "ウインチで物件を吊り下げる場合、投下装置が正常なら物件の揺れや投下前後の重心変化は飛行特性上考慮不要である。",
+      "reasoning_path": "winch-suspended payload -> pendulum motion plus mass-location/removal change -> manage stability before/after release",
+      "nearest_canonical": ["DRONE-Q-000073","DRONE-Q-000069"],
+      "distinctness": "Q073 tests generic drop-device retention/procedure and Q069 tests static payload CG placement. This candidate combines the source-defined winch subtype with dynamic swing and before/after-release CG change."
+    },
+    {
+      "candidate_id": "B8-SYS-C020",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "agricultural spray-device operating envelope",
+      "source_locator": "教則 第4章 4.4『物件投下のために装備される機器』",
+      "proposition": "農薬散布装置は定められた飛行速度・高度等を守り、風などで対象区域外へ飛散させないよう使用する。",
+      "tested_misconception": "農薬散布装置は散布量だけ合えば、メーカー等が定める飛行速度・高度や風による区域外飛散を考慮しなくてよい。",
+      "reasoning_path": "agricultural dispensing device -> prescribed speed/altitude envelope + wind drift risk -> operate within both constraints",
+      "nearest_canonical": ["DRONE-Q-000073","DRONE-Q-000050","DRONE-Q-000107"],
+      "distinctness": "Rules items cover agricultural special procedures and the legal definition of dropping objects; this Systems item tests the device-specific operating envelope and off-target drift control."
+    }
+  ],
+  "explicit_exclusions": [
+    {
+      "source_locator": "教則 第4章 4.3.5『飛行性能の基本的な計算』",
+      "reason": "Explicitly marked 〔一等〕; prohibited for the second-class production bank."
+    },
+    {
+      "source_locator": "教則 第4章 4.5.1(6)『電波と通信に関わる基本的な計算』",
+      "reason": "Category III / first-class calculation material; excluded from B8."
+    },
+    {
+      "proposition": "Large-aircraft inertia makes acceleration/deceleration/climb/descent take more time/distance",
+      "reason": "Already directly represented by DRONE-Q-000099; no wording variant planned."
+    },
+    {
+      "proposition": "Swollen LiPo may contain flammable gas and should be replaced early",
+      "reason": "Already directly represented by DRONE-Q-000033; no causal paraphrase planned."
+    },
+    {
+      "proposition": "Low temperature shortens flight time",
+      "reason": "Already directly represented by DRONE-Q-000045; not regenerated."
+    }
+  ],
+  "quality_gates": {
+    "wording_only_duplicates_prohibited": true,
+    "tier_b_requires_at_least_two_distinctness_axes": true,
+    "source_defined_answer_boundary_required": true,
+    "ambiguous_or_multi_correct_answer_rejected": true,
+    "one_candidate_one_answer_defining_proposition": true,
+    "quota_backfill_prohibited": true,
+    "human_review_not_required_for_ai_governed_pipeline": true,
+    "never_fabricate_human_review": true
+  },
+  "invariants": {
+    "no_question_rows_mutated": true,
+    "no_permanent_ids_reserved": true,
+    "no_source_verifications_mutated": true,
+    "no_release_artifacts_mutated": true,
+    "released_runtime_remains": 188,
+    "concurrent_ui_ux_work": "Preserve unrelated main changes; if main advances before merge, reconcile to current main rather than overwrite."
+  },
+  "next_transition_on_pass": "AUTHOR_AND_PERSIST_B8_400_TARGET_CANDIDATES"
+}
