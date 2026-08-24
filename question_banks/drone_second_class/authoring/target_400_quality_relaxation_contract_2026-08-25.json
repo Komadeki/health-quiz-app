@@ -68,9 +68,9 @@
       ]
     },
     "core_proposition_density_limit": {
-      "default_max_accepted_questions": 2,
-      "third_question_allowed_only_if": "The authoritative source explicitly defines at least three materially different conditions/boundaries and Director adjudication records why all three require different reasoning.",
-      "absolute_max_accepted_questions": 3
+      "default_max_accepted_questions": 3,
+      "fourth_question_allowed_only_if": "The authoritative source explicitly defines at least four materially different states, conditions, exceptions, thresholds, or response branches and Director adjudication records why the fourth requires a distinct decision boundary or reasoning path.",
+      "absolute_max_accepted_questions": 4
     },
     "quantitative_variants": "Allowed only when moving across a source-defined threshold changes the correct classification/action or when a distinct calculation relationship is tested. Merely changing numbers while preserving identical reasoning is prohibited.",
     "scenario_variants": "Allowed only when the scenario variable is operationally relevant to the answer. Cosmetic context changes are prohibited."
@@ -106,7 +106,7 @@
   "execution_strategy": {
     "mode": "SYSTEMATIC_COVERAGE_PLUS_CONTROLLED_VARIANTS_TO_400",
     "batch_size_guidance": "Prefer 20-30 authored candidates per batch, then independently review and keep only passing candidates.",
-    "domain_distribution": "Coverage-driven, not a hard quota. Prefer underrepresented source sections and weak reasoning families before adding a second or third variant to already-dense propositions.",
+    "domain_distribution": "Coverage-driven, not a hard quota. Prefer underrepresented source sections and weak reasoning families before adding additional variants to already-dense propositions.",
     "batch_order": [
       "finish B5 integration and source verification",
       "decompose all current 第5版 sections into proposition families and canonical-neighbor clusters",
