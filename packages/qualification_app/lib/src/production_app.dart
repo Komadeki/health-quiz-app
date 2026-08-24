@@ -939,7 +939,7 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'あなたの回答: ${card.choices[committedChoice!]}',
+                      'あなたの回答: ${card.choices[committedChoice]}',
                       key: const Key('practice-selected-answer'),
                     ),
                     const SizedBox(height: 4),
