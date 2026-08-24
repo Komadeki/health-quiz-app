@@ -15,10 +15,10 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "65d7df42a0ad4c501350917ca055832ffb9475e2",
-  "next_atomic_objective": "IMPLEMENT_P0_001_MOCK_EXAM_FEEDBACK_BOUNDARY",
+  "observed_main": "0963d875ccd142bb9de243b70481ac3b708543f5",
+  "next_atomic_objective": "IMPLEMENT_P0_002_INTENTIONAL_LEAVE_HOME_RESUME",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 3
+  "state_epoch": 4
 }
