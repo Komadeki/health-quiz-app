@@ -108,6 +108,7 @@ void main() {
     );
 
     final support = find.byKey(const Key('support-link'));
+    await tester.scrollUntilVisible(support, 100);
     await tester.ensureVisible(support);
     await tester.pumpAndSettle();
     await tester.tap(support);
