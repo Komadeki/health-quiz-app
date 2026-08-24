@@ -9,15 +9,15 @@ import 'production_test_support.dart';
 
 void main() {
   test(
-    'Reference Product preserves the 100Q/20Q bank and neutral mock profile',
+    'Reference Product preserves the 188Q/20Q bank and neutral mock profile',
     () {
       final bank = loadProductionBank();
       final profile = GeneratedAppManifest.definition.examProfile;
 
-      expect(bank.bankRevision, 'drone-second-class-v1-release-2026-08-20');
+      expect(bank.bankRevision, 'drone-second-class-v2-release-2026-08-24');
       expect(bank.examProfileVersion, 'drone-second-class-v1');
-      expect(bank.cards, hasLength(100));
-      expect(bank.cardsById, hasLength(100));
+      expect(bank.cards, hasLength(188));
+      expect(bank.cardsById, hasLength(188));
       expect(bank.units, hasLength(4));
       expect(bank.cards.where((card) => !card.isPremium), hasLength(20));
       for (final unit in bank.units) {
@@ -81,7 +81,7 @@ void main() {
         );
       final unlocked = createProductionController(entitlementCache: cache);
       await unlocked.initialize();
-      expect(unlocked.accessibleQuestionCount, 100);
+      expect(unlocked.accessibleQuestionCount, 188);
       expect(await unlocked.startMockExam(), isTrue);
       expect(unlocked.activeSession!.questionIds, hasLength(50));
       unlocked.dispose();
