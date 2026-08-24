@@ -108,10 +108,14 @@ void main() {
     );
 
     final support = find.byKey(const Key('support-link'));
-    await tester.scrollUntilVisible(support, 250);
+    await tester.scrollUntilVisible(support, 100);
+    await tester.ensureVisible(support);
+    await tester.pumpAndSettle();
     await tester.tap(support);
     await tester.pump();
     final privacy = find.byKey(const Key('privacy-link'));
+    await tester.ensureVisible(privacy);
+    await tester.pumpAndSettle();
     await tester.tap(privacy);
     await tester.pump();
 

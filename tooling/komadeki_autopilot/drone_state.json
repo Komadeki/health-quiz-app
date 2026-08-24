@@ -5,7 +5,17 @@
   "control_issue": 40,
   "status": "ACTIVE",
   "current_phase": "QUESTION_BANK_COMPLETION",
-  "phase_order": ["QUESTION_BANK_COMPLETION","FEATURE_COMPLETION","PRODUCT_CLOSURE","PHYSICAL_DEVICE","STOREKIT_TESTFLIGHT","APP_STORE_CONNECT","FINAL_RELEASE_GATE","SUBMIT","DONE"],
+  "phase_order": [
+    "QUESTION_BANK_COMPLETION",
+    "FEATURE_COMPLETION",
+    "PRODUCT_CLOSURE",
+    "PHYSICAL_DEVICE",
+    "STOREKIT_TESTFLIGHT",
+    "APP_STORE_CONNECT",
+    "FINAL_RELEASE_GATE",
+    "SUBMIT",
+    "DONE"
+  ],
   "observed_main": "05d2852ccbfb7befc3d35907dd55c5912b857f53",
   "next_atomic_objective": "VERIFY_B3_SYSTEMS_CANONICAL_SOURCES_28",
   "autonomous_acceptance": "AI_GOVERNED",

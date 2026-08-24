@@ -44,7 +44,7 @@
     {
       "id": "UX-P0-003",
       "priority": "P0",
-      "status": "OPEN",
+      "status": "CLOSED",
       "ownership": "FACTORY_SHARED",
       "title": "Eliminate silent no-op practice actions",
       "evidence": [
