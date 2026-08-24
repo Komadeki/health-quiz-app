@@ -1,0 +1,31 @@
+name: KOMADEKI UI UX Autopilot State
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/KOMADEKI_UI_UX_AUTOPILOT.md'
+      - 'tooling/komadeki_ui_ux_autopilot/**'
+      - '.github/workflows/komadeki-ui-ux-autopilot.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/KOMADEKI_UI_UX_AUTOPILOT.md'
+      - 'tooling/komadeki_ui_ux_autopilot/**'
+      - '.github/workflows/komadeki-ui-ux-autopilot.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-state:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate UI UX autopilot state
+        run: python3 tooling/komadeki_ui_ux_autopilot/validate_ui_ux_state.py tooling/komadeki_ui_ux_autopilot/ui_ux_state.json
+      - name: Diff hygiene
+        run: git diff --check HEAD^ HEAD || git diff --check
