@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "contract_version": "1.0",
+  "workstream": "qualification_factory_ui_ux",
+  "adopted_baseline": "65d7df42a0ad4c501350917ca055832ffb9475e2",
+  "rules": {
+    "practice_session": {
+      "leave_to_home": "PRESERVE_ACTIVE_SESSION",
+      "resume_priority": 1,
+      "leave_creates_completion": false
+    },
+    "timed_mock": {
+      "leave_allowed": true,
+      "leave_requires_clock_warning": true,
+      "clock_semantics": "WALL_CLOCK_CONTINUES",
+      "feedback_during_exam": false,
+      "correct_answer_during_exam": false,
+      "explanation_during_exam": false,
+      "source_during_exam": false,
+      "committed_answer_mutable": false,
+      "post_exam_review_read_only": true,
+      "retry_is_new_attempt": true
+    },
+    "practice_feedback": {
+      "show_correctness_text": true,
+      "identify_selected_answer": true,
+      "identify_correct_answer": true,
+      "color_only_feedback_forbidden": true,
+      "show_explanation_when_present": true,
+      "show_source_when_present": true
+    },
+    "empty_actions": {
+      "silent_noop_forbidden": true,
+      "prefer_precomputed_unavailable_state": true,
+      "nonfatal_message_when_discovered_after_action": true
+    },
+    "home_primary_action_order": [
+      "RESUME_ACTIVE_SESSION",
+      "INCORRECT_REVIEW_IF_ELIGIBLE",
+      "DETERMINISTIC_RECOMMENDATION",
+      "UNANSWERED_OR_START_LEARNING",
+      "SECONDARY_MODES"
+    ],
+    "source_provenance": {
+      "fields": ["sourceTitle", "sourceVersion", "sourceSection"],
+      "practice_visibility": "AFTER_COMMIT",
+      "mock_visibility": "POST_COMPLETION_REVIEW_ONLY",
+      "hide_missing_fields": true,
+      "official_endorsement_claim_forbidden": true
+    },
+    "loading_error_status": {
+      "loading_requires_semantic_text": true,
+      "raw_exception_user_copy_forbidden": true,
+      "free_learning_survives_store_failure": true,
+      "preserve_valid_local_state": true
+    },
+    "accessibility_responsive": {
+      "compact_width_logical_px": 320,
+      "text_scale": 2.0,
+      "long_japanese_content_gate": true,
+      "essential_actions_scroll_reachable": true,
+      "mock_header_gate": true,
+      "render_overflow_forbidden": true,
+      "essential_semantics_required": true
+    },
+    "claims": {
+      "unsupported_pass_probability_forbidden": true,
+      "ai_pass_fail_claim_forbidden": true,
+      "real_exam_ability_claim_forbidden": true,
+      "invented_pass_rule_forbidden": true
+    },
+    "qualification_specific_boundary": {
+      "requires_defensible_qualification_difference": true,
+      "cosmetic_duplication_insufficient": true,
+      "shared_controller_fork_forbidden": true,
+      "shared_persistence_fork_forbidden": true,
+      "shared_purchase_fork_forbidden": true
+    }
+  },
+  "blocking_implementation_order": ["UX-P0-001", "UX-P0-002", "UX-P0-003"]
+}
