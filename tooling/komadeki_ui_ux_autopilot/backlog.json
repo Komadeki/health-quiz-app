@@ -156,7 +156,7 @@
     {
       "id": "UX-P1-006",
       "priority": "P1",
-      "status": "OPEN",
+      "status": "CLOSED",
       "ownership": "DRONE_SPECIFIC",
       "title": "Remove manually maintained question total from Drone headline",
       "evidence": [
