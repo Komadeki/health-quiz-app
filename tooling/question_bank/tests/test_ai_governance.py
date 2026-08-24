@@ -13,7 +13,11 @@ TOOL_DIR = Path(__file__).resolve().parents[1]
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(TOOL_DIR))
 
-from ai_governance import AIGovernanceError, promote_ai_governed_candidates  # noqa: E402
+from ai_governance import (  # noqa: E402
+    AIGovernanceError,
+    candidate_fingerprint,
+    promote_ai_governed_candidates,
+)
 from expansion import CANDIDATE_COLUMNS, REVIEW_COLUMNS, validate_expansion_batch  # noqa: E402
 from transaction import QuestionExpansionTransaction  # noqa: E402
 
@@ -103,6 +107,7 @@ class AIGovernanceLifecycleTest(unittest.TestCase):
             "schema_version": "1.0",
             "candidate_id": self.candidate_id,
             "candidate_state": "AI_PRE_ACCEPT",
+            "candidate_fingerprint": candidate_fingerprint(candidate),
             "actors": {
                 "author": {"id": "author-1", "role": "AI_AUTHOR"},
                 "reviewer": {"id": "reviewer-1", "role": "AI_REVIEWER"},
@@ -141,6 +146,15 @@ class AIGovernanceLifecycleTest(unittest.TestCase):
         with (self.batch / "candidates.csv").open(newline="", encoding="utf-8") as handle:
             return next(csv.DictReader(handle))["state"]
 
+    def _mutate_candidate(self, **changes: str) -> None:
+        path = self.batch / "candidates.csv"
+        with path.open(newline="", encoding="utf-8") as handle:
+            reader = csv.DictReader(handle)
+            fields = list(reader.fieldnames or [])
+            rows = list(reader)
+        rows[0].update(changes)
+        self._write_csv(path, fields, rows)
+
     def test_valid_ai_governed_acceptance_promotes_to_ready_for_id(self) -> None:
         promote_ai_governed_candidates(self.batch, [self.candidate_id])
         self.assertEqual("READY_FOR_ID", self._candidate_state())
@@ -170,6 +184,12 @@ class AIGovernanceLifecycleTest(unittest.TestCase):
         self._write_packet(mutate)
         with self.assertRaises(AIGovernanceError):
             promote_ai_governed_candidates(self.batch, [self.candidate_id])
+
+    def test_candidate_content_mutation_invalidates_packet(self) -> None:
+        self._mutate_candidate(question="承認後に改変された問題文")
+        with self.assertRaises(AIGovernanceError):
+            promote_ai_governed_candidates(self.batch, [self.candidate_id])
+        self.assertEqual("AI_PRE_ACCEPT", self._candidate_state())
 
     def test_transaction_allocates_after_ai_governed_promotion(self) -> None:
         promote_ai_governed_candidates(self.batch, [self.candidate_id])
