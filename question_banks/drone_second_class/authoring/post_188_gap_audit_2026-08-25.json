@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0",
+  "audit_id": "DRONE-POST-188-TARGETED-GAP-AUDIT-2026-08-25",
+  "product": "drone_second_class",
+  "audited_at": "2026-08-25",
+  "baseline_main": "b08e8c5221c7b34e250dbc0abe9bcef9e2dba26a",
+  "objective": "AUDIT_POST_188_TARGETED_EXPANSION_GAPS",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "edition": "第5版",
+    "official_current_verified_at": "2026-08-25",
+    "official_current_pdf": "https://www.mlit.go.jp/common/002010809.pdf",
+    "published": "2026-07-07",
+    "academic_exam_applicable_from": "2026-07-14",
+    "scope_rule": "Use only propositions applicable to second-class scope; exclude subsections explicitly marked 〔一等〕."
+  },
+  "released_baseline": {
+    "canonical": 188,
+    "active": 188,
+    "released": 188,
+    "runtime": 188,
+    "free": 20,
+    "premium": 168,
+    "bank_revision": "drone-second-class-v2-release-2026-08-24",
+    "next_unreserved_id": "DRONE-Q-000189"
+  },
+  "audit_decision": {
+    "targeted_expansion": "GO",
+    "priority_domain": "drone_operations",
+    "proposed_batch": "B5",
+    "candidate_ceiling": 8,
+    "candidate_ceiling_is_quota": false,
+    "future_final_production_target": "HOLD",
+    "reason": "The 188-question bank is broad, but eight explicit second-class-applicable operational propositions remain commercially useful and semantically distinguishable enough to justify one targeted source-first authoring pass. Authoring must stop below eight if any candidate fails source or collision review."
+  },
+  "defensible_gaps": [
+    {
+      "gap_id": "POST188-OPS-G01",
+      "source_locator": "教則 第2章 2.1『役割分担の明確化』",
+      "proposition": "技能証明保有者が複数いる場合、意図する飛行の操縦者を飛行前に明確にする。",
+      "commercial_value": "HIGH",
+      "collision_risk": "LOW",
+      "nearest_existing": ["DRONE-Q-000089", "DRONE-Q-000188"],
+      "distinctness": "Existing items address assistant staffing/coordination and assistant primary roles, not designation of the responsible pilot among multiple certificate holders."
+    },
+    {
+      "gap_id": "POST188-OPS-G02",
+      "source_locator": "教則 第2章 2.2『連絡体制の確保』",
+      "proposition": "飛行時は携帯電話等の通話可能範囲を確認し、空港事務所等の関係機関と常に連絡できる体制を確保する。",
+      "commercial_value": "HIGH",
+      "collision_risk": "LOW",
+      "nearest_existing": ["DRONE-Q-000170"],
+      "distinctness": "Continuous in-flight monitoring does not test pre-established communications availability with relevant authorities."
+    },
+    {
+      "gap_id": "POST188-OPS-G03",
+      "source_locator": "教則 第2章 2.2『服装に対する注意』",
+      "proposition": "動きやすく露出が少なく関係者と識別しやすい服装とし、必要に応じヘルメット・保護メガネ等の保護具を準備する。",
+      "commercial_value": "MEDIUM",
+      "collision_risk": "LOW",
+      "nearest_existing": [],
+      "distinctness": "No canonical question tests operator clothing or PPE preparation."
+    },
+    {
+      "gap_id": "POST188-OPS-G04",
+      "source_locator": "教則 第2章 2.2『飛行計画の作成・現地調査』",
+      "proposition": "近所や飛行経験のある場所でも必ず飛行計画を立てる。",
+      "commercial_value": "MEDIUM",
+      "collision_risk": "LOW",
+      "nearest_existing": ["DRONE-Q-000119", "DRONE-Q-000120", "DRONE-Q-000121", "DRONE-Q-000122"],
+      "distinctness": "Existing Risk items test specific planning hazards and changing conditions, not the rule that familiarity with a location does not remove the need to plan."
+    },
+    {
+      "gap_id": "POST188-OPS-G05",
+      "source_locator": "教則 第2章 2.2『飛行中の注意―無理をしない』",
+      "proposition": "天候悪化が見込まれる場合は危険になる前に察知し、飛行途中でも直ちに帰還又は緊急着陸するなど安全を第一に判断する。",
+      "commercial_value": "HIGH",
+      "collision_risk": "LOW",
+      "nearest_existing": ["DRONE-Q-000003", "DRONE-Q-000170"],
+      "distinctness": "Existing questions cover fatigue management and weather monitoring, not the operational decision threshold and action once weather deterioration is anticipated."
+    },
+    {
+      "gap_id": "POST188-OPS-G06",
+      "source_locator": "教則 第2章 2.3『保険』",
+      "proposition": "カテゴリーIIのうち総重量25kg以上の飛行又はレベル3.5飛行では、不測の事態に十分な補償が可能な第三者賠償責任保険への加入が求められる。",
+      "commercial_value": "HIGH",
+      "collision_risk": "LOW",
+      "nearest_existing": ["DRONE-Q-000176", "DRONE-Q-000177"],
+      "distinctness": "Existing items distinguish insurance types and cargo coverage; they do not test the specific Category II cases in which sufficient third-party liability coverage is required."
+    },
+    {
+      "gap_id": "POST188-OPS-G07",
+      "source_locator": "教則 第5章 5.2.3『緊急時の対応』",
+      "proposition": "緊急時は離陸地点へ戻すことを前提とせず、速やかに近くの安全な無人地帯へ不時着させる。",
+      "commercial_value": "HIGH",
+      "collision_risk": "LOW",
+      "nearest_existing": ["DRONE-Q-000044", "DRONE-Q-000179"],
+      "distinctness": "Q044 is preflight emergency-site planning and Q179 is GNSS-independent control preparedness; neither tests the in-event priority to land at the nearest safe uninhabited area rather than insist on return-to-home."
+    },
+    {
+      "gap_id": "POST188-OPS-G08",
+      "source_locator": "教則 第5章 5.2.3(1)『機体のフェールセーフ機能』",
+      "proposition": "フェールセーフ作動中でもバッテリー残量不足等で飛行継続不能又はその予測時には、機体は着陸動作へ遷移して着陸を試みる。",
+      "commercial_value": "HIGH",
+      "collision_risk": "MEDIUM",
+      "nearest_existing": ["DRONE-Q-000065", "DRONE-Q-000139"],
+      "distinctness": "Existing failsafe questions test radio-link-loss behavior (return or position hold). A B5 item is allowed only if it preserves the separate low-battery/continued-flight-impossibility trigger and landing-transition reasoning boundary."
+    }
+  ],
+  "explicitly_not_reopened": [
+    "Rules R5 source-limited/STOP remains unchanged.",
+    "No broad Rules, Systems, or Risk expansion is authorized by this audit.",
+    "No 〔一等〕-only proposition may be used.",
+    "No wording-only variant of the existing 188 questions may be accepted.",
+    "The rejected B4 fixed-wing headwind/tailwind collision remains rejected and must not be regenerated."
+  ],
+  "authoring_contract": {
+    "batch_id": "B5",
+    "domain": "drone_operations",
+    "maximum_candidates": 8,
+    "target_count": null,
+    "candidate_ids": "B5-OPS-C001..C008 only as needed; do not force all eight",
+    "initial_state": "AI_PRE_ACCEPT",
+    "permanent_ids": "PROHIBITED_AT_AUTHORING",
+    "released_runtime_mutation": "PROHIBITED",
+    "required_per_candidate": [
+      "exact official source locator",
+      "second-class scope confirmation",
+      "one answer-defining proposition",
+      "tested misconception",
+      "reasoning path",
+      "semantic collision check against all 188 canonical questions and within B5",
+      "commercial practice value"
+    ]
+  },
+  "invariants": {
+    "CANONICAL_CHANGED": false,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_atomic_objective": "AUTHOR_AND_PERSIST_B5_OPERATIONS_AI_PRE_ACCEPT"
+}
