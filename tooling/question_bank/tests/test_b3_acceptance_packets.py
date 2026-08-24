@@ -158,7 +158,7 @@ class B3AcceptancePacketTest(unittest.TestCase):
             for candidate_id, number in zip(self.accepted_ids, range(142, 170))
         }
         self.assertEqual(
-            {candidate_id: "INTEGRATED" for candidate_id in self.accepted_ids},
+            {candidate_id: "VERIFIED" for candidate_id in self.accepted_ids},
             {
                 candidate_id: self.rows[candidate_id]["state"]
                 for candidate_id in self.accepted_ids
