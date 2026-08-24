@@ -19,7 +19,7 @@ class B4SourceVerificationTest(unittest.TestCase):
         with (B / "candidates.csv").open(encoding="utf-8", newline="") as handle:
             rows = {row["candidate_id"]: row for row in csv.DictReader(handle)}
 
-        self.assertTrue(all(rows[cid]["state"] == "VERIFIED" for cid in ACCEPTED))
+        self.assertTrue(all(rows[cid]["state"] == "RELEASED" for cid in ACCEPTED))
         self.assertEqual("AI_PRE_ACCEPT", rows["B4-OPS-C016"]["state"])
         self.assertEqual("", rows["B4-OPS-C016"]["permanent_question_id"])
 
@@ -32,7 +32,7 @@ class B4SourceVerificationTest(unittest.TestCase):
             self.assertEqual("2026-08-24", by_id[question_id]["verified_at"])
 
         released = json.loads((A / "released_questions.json").read_text(encoding="utf-8"))["released_questions"]
-        self.assertEqual(100, len(released))
+        self.assertEqual(188, len(released))
 
 
 if __name__ == "__main__":

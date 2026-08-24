@@ -586,7 +586,7 @@ class ExpansionProtocolTest(unittest.TestCase):
         with (drone / "candidates.csv").open(newline="", encoding="utf-8") as handle:
             rows = list(csv.DictReader(handle))
         self.assertEqual(18, len(rows))
-        self.assertEqual({"VERIFIED"}, {row["state"] for row in rows})
+        self.assertEqual({"RELEASED"}, {row["state"] for row in rows})
         self.assertTrue(all(row["permanent_question_id"] for row in rows))
         self.assertEqual(
             [f"B1-R-C{i:03d}" for i in range(1, 17)] + ["B1-R-C023", "B1-R-C024"],

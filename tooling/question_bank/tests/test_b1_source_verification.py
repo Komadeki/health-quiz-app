@@ -13,13 +13,13 @@ CANDIDATE_IDS = [f"B1-R-C{i:03d}" for i in range(1, 17)] + ["B1-R-C023", "B1-R-C
 
 
 class B1SourceVerificationTest(unittest.TestCase):
-    def test_b1_rules_are_verified_without_release_activation(self) -> None:
+    def test_b1_rules_are_released_after_verified_activation(self) -> None:
         with (BATCH / "candidates.csv").open(encoding="utf-8", newline="") as handle:
             rows = {row["candidate_id"]: row for row in csv.DictReader(handle)}
 
         self.assertEqual(CANDIDATE_IDS, [candidate_id for candidate_id in rows])
         for candidate_id, question_id in zip(CANDIDATE_IDS, QUESTION_IDS, strict=True):
-            self.assertEqual("VERIFIED", rows[candidate_id]["state"])
+            self.assertEqual("RELEASED", rows[candidate_id]["state"])
             self.assertEqual(question_id, rows[candidate_id]["permanent_question_id"])
 
         verifications = json.loads(
@@ -36,7 +36,7 @@ class B1SourceVerificationTest(unittest.TestCase):
         released = json.loads(
             (AUTHORING / "released_questions.json").read_text(encoding="utf-8")
         )["released_questions"]
-        self.assertEqual(100, len(released))
+        self.assertEqual(188, len(released))
 
 
 if __name__ == "__main__":
