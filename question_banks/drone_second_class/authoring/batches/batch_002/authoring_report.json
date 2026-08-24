@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B2",
+  "authoring_actor": {
+    "id": "chatgpt-director-authoring-run-20260824-b2",
+    "role": "AI_AUTHOR"
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "title": "無人航空機の飛行の安全に関する教則",
+    "edition": "第5版",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "official_current_check": "2026-08-24",
+    "official_page_evidence": "MLIT 無人航空機操縦者技能証明等: 第5版公開・2026-07-14以降学科試験準拠"
+  },
+  "attempted": 27,
+  "ai_pre_accept": 25,
+  "rejected_plans": [
+    {
+      "planning_identity": "RM2-ICING",
+      "reason": "No explicit answer-defining proposition for icing was located in current Chapter 6 second-class source during this pass.",
+      "collision_target": null
+    },
+    {
+      "planning_identity": "RM4-PAYLOAD-DROP",
+      "reason": "No explicit Risk Management answer-defining proposition for payload dropping was located in current Chapter 6 second-class source during this pass; do not infer from unrelated rules text.",
+      "collision_target": null
+    }
+  ],
+  "allocation": {
+    "RM1": 5,
+    "RM2": 8,
+    "RM3": 6,
+    "RM4": 6
+  },
+  "collision_basis": [
+    "Previously audited released Risk strengths: hazard/risk distinction, frequency/severity, residual risk, safety margin, generic plan constraints, obstacle avoidance, emergency landing, weather information, cold front, fog, generic flight-start judgment, fixed-wing space, helicopter takeoff/landing area, large-aircraft inertia, night lighting, baseline BVLOS assistant.",
+    "B2 candidates intentionally target narrower decision boundaries not covered by those propositions; each row contains a collision_note.",
+    "Rules drafts DRONE-Q-000101..000118 were treated as existing canonical prerelease inventory; B2 avoids Rules answer-defining propositions."
+  ],
+  "invariants": {
+    "PERMANENT_IDS": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "RELEASED_CHANGED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
