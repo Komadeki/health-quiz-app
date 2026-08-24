@@ -4,20 +4,53 @@
   "batch_id": "B5",
   "directory_slug": "batch_005",
   "baseline_sha": "2b85d02358667d5ebb92597285966388764bb480",
-  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "batch_status": "AI_GOVERNED_ACCEPT_READY_FOR_ID",
   "author": {
     "id": "chatgpt-b5-operations-author-r1",
     "role": "AI_AUTHOR"
   },
-  "expansion_trigger": "Owner-directed Production target is 350. B5 executes the eight already source-audited post-188 Operations gaps first while preserving the released 188-question baseline.",
+  "expansion_trigger": "Owner direction first adopted a 350-question Production target, then superseded it with the quality-preserving 400-question target. B5 executes the eight already source-audited post-188 Operations gaps while preserving the released 188-question baseline.",
   "source_contract": {
     "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
     "source_version": "5",
     "edition": "第5版",
     "official_current_check": "2026-08-25",
-    "official_pdf": "https://www.mlit.go.jp/common/002010809.pdf",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
     "second_class_scope_rule": "Exclude subsections explicitly marked 〔一等〕."
   },
+  "evidence": [
+    "PR #131 merged the durable post-188 gap audit and identified eight defensible Operations propositions.",
+    "PR #132 adopted the owner-directed 350-question target while preserving source-first and semantic-collision gates.",
+    "PR #143 superseded the 350 target with the quality-preserving 400-question target and permits only controlled variants that satisfy the durable distinctness and review policy.",
+    "The current released canonical/runtime baseline remains 188 questions until an explicit later activation gate.",
+    "All B5 propositions are outside subsections explicitly marked 〔一等〕 in MLIT 教則第5版.",
+    "Independent AI review accepted all eight B5 candidates and Director adjudication adopted all eight decisions.",
+    "Eight AI-governed acceptance packets are content-bound and all B5 candidates are READY_FOR_ID."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B5-TARGET-001",
+      "previous_approved_target": 188,
+      "current_released_count": 188,
+      "proposed_target_min": 350,
+      "proposed_target_max": 350,
+      "approved_new_target": 350,
+      "rationale": "Owner explicitly directed expansion from the released 188-question baseline to a 350-question Production target while retaining quality gates.",
+      "decision_date": "2026-08-25",
+      "evidence": "Merged PR #132 / target_350_expansion_contract_2026-08-25.json."
+    },
+    {
+      "decision_id": "B5-TARGET-002",
+      "previous_approved_target": 350,
+      "current_released_count": 188,
+      "proposed_target_min": 400,
+      "proposed_target_max": 400,
+      "approved_new_target": 400,
+      "rationale": "Owner explicitly raised the final Production target to 400 and authorized quality-preserving controlled variants under durable source, distinctness, review and density constraints.",
+      "decision_date": "2026-08-25",
+      "evidence": "Merged PR #143 / target_400_quality_relaxation_contract_2026-08-25.json."
+    }
+  ],
   "planned_scope": {
     "area": "Operations",
     "candidate_batch_identity": "B5",
@@ -32,19 +65,28 @@
       "B5-OPS-C008"
     ],
     "candidate_count": 8,
-    "candidate_count_is_quota": false
+    "candidate_count_is_quota": false,
+    "known_rejected_ids": []
   },
-  "evidence": [
-    "PR #131 merged the durable post-188 gap audit and identified eight defensible Operations propositions.",
-    "The current released canonical/runtime baseline remains 188 questions.",
-    "The owner-directed 350 target contract preserves source-first and semantic-collision gates; reaching 350 does not authorize filler.",
-    "All B5 propositions are outside subsections explicitly marked 〔一等〕 in MLIT 教則第5版.",
-    "No Permanent Question IDs are allocated at authoring."
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B5-COVERAGE-LIMIT-001",
+      "status": "PARTIAL",
+      "scope": "Post-188 explicit Operations gaps selected for B5",
+      "evidence": "B5 is limited to the eight source-audited gaps persisted by PR #131. The eight count is an observed defensible set, not a quota, and B5 does not backfill unsupported or one-class-only propositions."
+    },
+    {
+      "decision_id": "B5-COVERAGE-LIMIT-002",
+      "status": "SUPERSEDED_FOR_FUTURE_BATCHES",
+      "scope": "Prior near-one-question-per-core-proposition strictness",
+      "evidence": "PR #143 changes the policy only for future 400-target expansion by allowing controlled Tier B/C variants under distinctness and density gates. B5 itself remains the eight explicit Tier A source gaps already reviewed and accepted."
+    }
   ],
+  "migration_blockers": [],
   "invariants": {
-    "CANONICAL_CHANGED": false,
-    "PERMANENT_IDS_ALLOCATED": 0,
-    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "CANONICAL_CHANGED_AT_AUTHORING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING": false,
     "RELEASED_CHANGED": false,
     "RUNTIME_CHANGED": false,
     "BANK_REVISION_CHANGED": false,
@@ -52,5 +94,5 @@
     "V0_SNAPSHOT_CHANGED": false,
     "HUMAN_REVIEW_CREATED": false
   },
-  "next_gate": "INDEPENDENT_AI_REVIEW"
+  "next_gate": "PERMANENT_ID_INTEGRATION"
 }
