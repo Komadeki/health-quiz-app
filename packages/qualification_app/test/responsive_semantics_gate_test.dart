@@ -95,7 +95,6 @@ void main() {
       unlocked: true,
       now: () => tester.binding.clock.now().toUtc(),
     );
-    addTearDown(controller.dispose);
     await controller.startMockExam();
     await pumpCompact(tester, controller, definition: definition);
 
@@ -103,6 +102,8 @@ void main() {
     expect(find.byKey(const Key('mock-exam-remaining')), findsOneWidget);
     expect(find.textContaining('1 / 2'), findsOneWidget);
     expect(tester.takeException(), isNull);
+
+    controller.dispose();
   });
 
   testWidgets('compact large-text Result keeps Home action reachable', (
