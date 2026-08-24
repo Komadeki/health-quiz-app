@@ -137,7 +137,7 @@
     {
       "id": "UX-P1-005",
       "priority": "P1",
-      "status": "OPEN",
+      "status": "CLOSED",
       "ownership": "FACTORY_SHARED",
       "title": "Add compact-width, large-text, long-content, and semantics gates",
       "evidence": [
