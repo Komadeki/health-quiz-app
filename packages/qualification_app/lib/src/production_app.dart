@@ -692,9 +692,9 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                   ),
                 if (committed) ...[
                   if (isMockExam)
-                    const Semantics(
+                    Semantics(
                       liveRegion: true,
-                      child: Text(
+                      child: const Text(
                         '回答を記録しました',
                         key: Key('mock-answer-committed'),
                       ),
