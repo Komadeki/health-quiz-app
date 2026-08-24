@@ -1,0 +1,7 @@
+{
+  "schema_version":"1.0","candidate_id":"B5-OPS-C004","candidate_state":"AI_PRE_ACCEPT","candidate_fingerprint":"96705fb9b57920bbccb681fcbb522c53ede5a0f47d2096ffdfbb7774c8d74967",
+  "actors":{"author":{"id":"chatgpt-b5-operations-author-r1","role":"AI_AUTHOR"},"reviewer":{"id":"autopilot-b5-operations-reviewer-r1","role":"AI_REVIEWER"},"director":{"id":"chatgpt-b5-operations-director-adjudicator-r1","role":"AI_DIRECTOR"}},
+  "evidence":{"source":{"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","source_locator":"教則 第2章 2.2.1(1)「飛行計画の作成」②"},"answer_defining_proposition":"場所への慣れや過去の飛行経験があっても個々の飛行について計画を立てる。","tested_misconception":"慣れた場所なら計画作成を省略できる。","reasoning_path":"familiarity -> false confidence -> planning obligation remains","collision":{"released_bank_checked":true,"canonical_drafts_checked":true,"batch_checked":true,"note":"LOW。Q119-Q122は計画時に考慮する具体的hazardや変化を問うが慣れた場所でも計画自体を省略しない境界は未出。"}},
+  "independent_review":{"decision":"ACCEPT","rationale":"教則2.2.1 explicitly says a flight plan is still required for nearby or previously flown locations. Existing planning questions test hazards/changes, not the familiarity-does-not-remove-planning boundary."},
+  "director_adjudication":{"decision":"ACCEPT","rationale":"Director independently confirms current MLIT 第5版 support, second-class applicability, answer correctness and a non-duplicate reasoning boundary against the 188-question canonical bank."},"requested_state":"AI_GOVERNED_ACCEPT"
+}
