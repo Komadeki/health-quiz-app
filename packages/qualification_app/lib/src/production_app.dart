@@ -609,6 +609,39 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
     if (mounted) setState(() {});
   }
 
+  Future<void> _leaveSession() async {
+    final controller = widget.controller;
+    final session = controller.activeSession;
+    if (session == null) return;
+    final timedMock = session.mode == LearningModeV1.mockExam &&
+        controller.hasTimedMockExam;
+    if (timedMock) {
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: const Text('模擬試験を中断しますか？'),
+          content: const Text(
+            'ホームに戻っても制限時間は止まりません。後で「続きから」再開できます。',
+          ),
+          actions: [
+            TextButton(
+              key: const Key('stay-in-session'),
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: const Text('続ける'),
+            ),
+            FilledButton(
+              key: const Key('confirm-leave-session'),
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: const Text('ホームへ戻る'),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true || !mounted) return;
+    }
+    controller.returnHome();
+  }
+
   @override
   void dispose() {
     _clockTicker?.cancel();
@@ -631,6 +664,12 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
     final remaining = controller.remainingMockExamDuration;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          key: const Key('leave-session'),
+          tooltip: 'ホームへ戻る',
+          onPressed: _leaveSession,
+          icon: const Icon(Icons.close),
+        ),
         title: Row(
           children: [
             Expanded(
