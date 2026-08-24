@@ -4,7 +4,7 @@
   "workstream": "qualification_factory_ui_ux",
   "control_issue": 48,
   "status": "ACTIVE",
-  "current_phase": "BASELINE_AUDIT",
+  "current_phase": "STANDARD_UX_CONTRACT",
   "phase_order": [
     "BASELINE_AUDIT",
     "STANDARD_UX_CONTRACT",
@@ -15,10 +15,10 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "d9907ac9451fdda04fd3a41012749e3636a7d4cf",
-  "next_atomic_objective": "AUDIT_FACTORY_STANDARD_UX_AND_PERSIST_BACKLOG",
+  "observed_main": "9ba283fa8dadf61a5e71c5aa78acb37647adc15e",
+  "next_atomic_objective": "ADOPT_STANDARD_UX_ACCEPTANCE_CONTRACT",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 1
+  "state_epoch": 2
 }
