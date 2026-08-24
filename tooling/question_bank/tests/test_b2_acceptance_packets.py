@@ -110,7 +110,7 @@ class B2AcceptancePacketTest(unittest.TestCase):
             candidate_id: f"DRONE-Q-{number:06d}"
             for candidate_id, number in zip(self.accepted_ids, range(119, 142))
         }
-        self.assertEqual({candidate_id: "INTEGRATED" for candidate_id in self.accepted_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.accepted_ids})
+        self.assertEqual({candidate_id: "VERIFIED" for candidate_id in self.accepted_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.accepted_ids})
         self.assertEqual(expected_ids, {candidate_id: self.rows[candidate_id]["permanent_question_id"] for candidate_id in self.accepted_ids})
         self.assertEqual({candidate_id: "AI_PRE_ACCEPT" for candidate_id in self.rejected_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.rejected_ids})
         self.assertTrue(all(not self.rows[candidate_id]["permanent_question_id"] for candidate_id in self.rejected_ids))
@@ -129,6 +129,17 @@ class B2AcceptancePacketTest(unittest.TestCase):
             self.assertEqual("used", registry[question_id]["status"])
             self.assertEqual("", registry[question_id]["first_used_bank_revision"])
             self.assertEqual(f"Expansion pre-release allocation: {candidate_id}", registry[question_id]["notes"])
+        verification_path = REPOSITORY_ROOT / "question_banks/drone_second_class/authoring/source_verifications.json"
+        verifications = json.loads(verification_path.read_text(encoding="utf-8"))["verifications"]
+        b2_verifications = {row["question_id"]: row for row in verifications if row["question_id"] in set(expected_ids.values())}
+        self.assertEqual(set(expected_ids.values()), set(b2_verifications))
+        self.assertTrue(all(row == {
+            "question_id": question_id,
+            "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+            "source_version": "5",
+            "verification_state": "author_source_verified",
+            "verified_at": "2026-08-24",
+        } for question_id, row in b2_verifications.items()))
         self.assertEqual([], validate_expansion_batch(self.source_batch))
 
     def test_promotion_path_promotes_all_23_atomically(self) -> None:
