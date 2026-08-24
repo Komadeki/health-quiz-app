@@ -104,6 +104,9 @@ void main() {
     await tester.tap(find.byKey(const Key('start-incorrect')));
     await tester.pump();
     expect(controller.view, QualificationProductionView.quiz);
-    expect(controller.currentCard?.stableId, 'FIXTURE-Q-000001');
+    expect(
+      controller.bank!.stableId(controller.currentCard!),
+      'FIXTURE-Q-000001',
+    );
   });
 }
