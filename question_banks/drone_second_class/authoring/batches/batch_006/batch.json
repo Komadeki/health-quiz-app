@@ -9,7 +9,7 @@
     "id": "chatgpt-b6-operations-author-r1",
     "role": "AI_AUTHOR"
   },
-  "expansion_trigger": "Continue from 196 accepted/source-verified canonical questions toward the owner-directed 400-question Production target under the quality-preserving relaxation contract. B6 prioritizes explicit Chapter 2 Tier A propositions and only six source-defined Tier B boundary variants; no Tier C variant is authored in this batch.",
+  "expansion_trigger": "Continue from 196 accepted/source-verified canonical questions toward the owner-directed 400-question Production target under the quality-preserving relaxation contract. B6 prioritizes explicit Chapter 2 Tier A propositions and uses seven source-defined Tier B boundary variants; no Tier C variant is authored in this batch.",
   "source_contract": {
     "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
     "source_version": "5",
@@ -21,10 +21,10 @@
   "evidence": [
     "PR #150 verified B5 Q189..Q196 and established 196 accepted/source-verified canonical questions while released/runtime remained 188.",
     "PR #143 adopted the quality-preserving 400-question target contract.",
-    "PR #151 persisted the B6 plan: candidate ceiling 20, not a quota; 14 Tier A new explicit propositions plus 6 Tier B source-defined boundary variants.",
+    "PR #151 persisted the B6 20-candidate ceiling; B6 authoring reconciliation records the final tier classification as 13 Tier A plus 7 Tier B without changing the 20 candidate propositions.",
     "Official MLIT 教則第5版 Chapter 2 source text was rechecked on 2026-08-25 before authoring.",
     "All B6 candidate source locators are in Chapter 2 material not marked 〔一等〕.",
-    "Every Tier B candidate is bound to the distinctness rationale persisted in b6_400_target_plan_2026-08-25.json."
+    "Every Tier B candidate is bound to the distinctness rationale persisted in the B6 plan and reconciliation artifact."
   ],
   "target_size_decisions": [
     {
@@ -51,10 +51,13 @@
     "candidate_count": 20,
     "candidate_count_is_quota": false,
     "tier_counts": {
-      "A_NEW_PROPOSITION": 14,
-      "B_BOUNDARY_VARIANT": 6,
+      "A_NEW_PROPOSITION": 13,
+      "B_BOUNDARY_VARIANT": 7,
       "C_REASONING_VARIANT": 0
     },
+    "tier_b_candidate_ids": [
+      "B6-OPS-C006","B6-OPS-C008","B6-OPS-C011","B6-OPS-C015","B6-OPS-C016","B6-OPS-C019","B6-OPS-C020"
+    ],
     "known_rejected_ids": []
   },
   "coverage_limit_decisions": [
@@ -68,7 +71,7 @@
       "decision_id": "B6-COVERAGE-LIMIT-002",
       "status": "ACTIVE_POLICY",
       "scope": "Controlled variants",
-      "evidence": "Only six Tier B variants are allowed in B6. Each has a source-defined boundary/phase/recipient/condition difference and a different reasoning path from its nearest canonical neighbor; wording-only variants are prohibited."
+      "evidence": "Seven Tier B variants are present after final candidate classification. Each has a source-defined boundary/phase/recipient/condition difference and a different reasoning path from its nearest canonical neighbor; wording-only variants are prohibited."
     }
   ],
   "migration_blockers": [],
