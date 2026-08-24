@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "74f417cc953bfc6dff9402991a778805820e22b03dfa67573c02d561c5441742",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)1)c「航空機又は他の無人航空機との衝突防止」（教則表示ページ22 / PDF viewer 27）"
+    },
+    "answer_defining_proposition": "飛行前に他の無人航空機の飛行を確認した場合は、相手の操縦者と飛行日時・経路・高度等を調整する。",
+    "tested_misconception": "他の無人航空機が飛んでいても、目視で避ける予定なら事前調整は不要である。",
+    "reasoning_path": "preflight UAS traffic -> identify another operator -> coordinate time/route/altitude",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q170は飛行中に他の無人航空機等を継続監視する論点であり、飛行前の操縦者間調整義務は直接問っていない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(3)1)c explicitly requires preflight coordination of date/time, route and altitude when another UAS operation is identified. Existing canonical coverage monitors traffic but does not test this operator-to-operator coordination obligation."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

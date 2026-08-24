@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "989cfc1b6e00da1a7301763aa2dcc5a69bf5a93f3447e7e969bcd30db79b2104",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(5)2)「技能証明の資格要件」（教則表示ページ28 / PDF viewer 33）"
+    },
+    "answer_defining_proposition": "16歳に満たない者は無人航空機操縦者技能証明を申請できない。",
+    "tested_misconception": "技能証明は試験に合格できれば年齢にかかわらず申請できる。",
+    "reasoning_path": "applicant -> age qualification gate -> application eligibility",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q109は技能証明の更新時期を問う。申請時の最低年齢ゲートは未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(5)2) explicitly bars applicants under 16 from applying for a UAS pilot skill certificate. No current canonical item tests the minimum-age application gate."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

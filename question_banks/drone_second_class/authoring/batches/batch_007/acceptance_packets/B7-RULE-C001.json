@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "05787d7280725631203cc94a7de5bea07051aa59baee0ace3cebf4bf6a10c09a",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)1)c「航空機又は他の無人航空機との衝突防止」（教則表示ページ22 / PDF viewer 27）"
+    },
+    "answer_defining_proposition": "飛行前に航行中の航空機を確認した場合は、無人航空機の飛行を開始しない。",
+    "tested_misconception": "航空機との衝突防止は離陸後に回避操作を行えば足り、飛行前に航空機を確認しても離陸してよい。",
+    "reasoning_path": "preflight traffic observation -> manned aircraft present -> no-launch decision",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=collision prevention with manned aircraft。distinct axes=scenario_state_or_flight_phase + decision_boundary_or_exception。Q051は飛行中の有人航空機遭遇後の対応、Q170は飛行中の継続監視を問う。本問は離陸前のno-launch境界を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. 3.1.2(3)1)c explicitly defines a preflight no-launch branch when a manned aircraft is already operating nearby. Q051 tests the in-flight encounter response and Q170 generic in-flight monitoring, so flight phase plus no-launch decision boundary are materially distinct."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

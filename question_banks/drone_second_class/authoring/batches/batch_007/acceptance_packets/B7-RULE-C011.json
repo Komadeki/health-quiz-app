@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C011",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "92d12a7e105432e15a85142518fabd827e39056286837788bee9a42d941e573b",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)3)a「使用の条件の遵守」（教則表示ページ24 / PDF viewer 29）"
+    },
+    "answer_defining_proposition": "機体認証を受けた無人航空機で特定飛行する場合は、指定された使用条件の範囲内で運航する。",
+    "tested_misconception": "機体認証を受けた機体なら、認証時に指定された高度・速度等の使用条件を超えても特定飛行できる。",
+    "reasoning_path": "certified aircraft -> read specified use conditions -> keep operation inside certified envelope",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q049はカテゴリーII-Bの手続条件として機体認証を扱う。本問は認証機の運用限界そのものを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(3)3)a explicitly requires a certified UAS used for a specific flight to remain within specified operating conditions such as mass, altitude and speed. Q049 concerns the II-B procedural exemption route, not compliance with the certified operating envelope."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

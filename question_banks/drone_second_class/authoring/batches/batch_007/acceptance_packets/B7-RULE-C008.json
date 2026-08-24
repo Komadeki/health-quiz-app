@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d9a62e132dbd508faadb4ef424739e93ac4ed4f92ec131e97d975fdd6acb0f43",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)2)a「飛行計画の通報等」（教則表示ページ23 / PDF viewer 28）"
+    },
+    "answer_defining_proposition": "国土交通大臣から安全上の飛行計画変更を指示された場合は、やむを得ない安全上の例外を除き従う。",
+    "tested_misconception": "一度通報した飛行計画は、国土交通大臣から安全上の変更指示があっても操縦者の判断で維持できる。",
+    "reasoning_path": "notified plan -> authority issues safety change -> comply unless safety necessity prevents it",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=adherence to a notified flight plan。distinct axes=decision_boundary_or_exception + reasoning_path。Q053の操縦者による任意変更とは異なり、本問は大臣による安全上の変更指示と例外条件を評価する。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. 3.1.2(3)2)a explicitly requires compliance with a Minister-directed safety change to a notified plan, subject to the source-defined unavoidable-safety exception. Q053 concerns an operator's voluntary route change; authority-driven change plus exception is a different decision boundary and reasoning path."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

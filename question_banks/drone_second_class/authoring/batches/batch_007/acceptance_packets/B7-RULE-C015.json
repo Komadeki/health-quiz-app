@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C015",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5b4f5efe826be1d4ae68f7788890fd2cf16287cd731156be68c1546597088155",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(2)4)c「レベル3.5飛行」（教則表示ページ20 / PDF viewer 25）"
+    },
+    "answer_defining_proposition": "レベル3.5では所定要件下で移動中車両等の上空を一時横断できるが、歩行者等の第三者上空までは許容されない。",
+    "tested_misconception": "レベル3.5の要件を満たせば、移動中の車両だけでなく歩行者の上空も同じように横断できる。",
+    "reasoning_path": "Level 3.5 crossing -> classify moving-vehicle occupant vs exposed pedestrian -> apply narrow exception only to vehicle crossing",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=Level 3.5 third-party-overflight boundary。distinct axes=scenario_state_or_flight_phase + decision_boundary_or_exception。Q013は停止車両等による遮蔽の一般例外、Q215は保険要件。本問はLevel 3.5固有の移動中車両と歩行者の境界を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. 3.1.2(2)4)c explicitly permits temporary crossing above moving vehicles under Level 3.5 conditions while excluding exposed pedestrians/other third parties from the same treatment. Q013 concerns the ordinary shielding exception for a stationary vehicle; moving-vehicle state plus narrow Level 3.5 exception is materially distinct."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

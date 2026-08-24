@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1af874e008b082dc37d96ab70d1018ad5761d53fe82b1f7f428823cd94cb480c",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(5)3)「技能証明の交付手続き」（教則表示ページ28 / PDF viewer 33）"
+    },
+    "answer_defining_proposition": "登録講習機関の所定講習修了者は技能証明試験の実地試験を免除できる。",
+    "tested_misconception": "登録講習機関を修了しても、指定試験機関の実地試験は必ず受けなければならない。",
+    "reasoning_path": "registered training completion -> statutory exemption route -> practical test may be omitted",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。現行canonicalに登録講習機関修了による実地試験免除ルートを直接問う問題はない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(5)3) explicitly provides a practical-examination exemption route for completion of prescribed training at a registered training organization. Current canonical inventory does not directly test that statutory exemption route."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

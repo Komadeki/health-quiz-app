@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C013",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "148f24b53462e8026d6434fce1ae0e066d75eacc02f1d185874ef28e0208c9e4",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(4)1)「安全確保措置等」（教則表示ページ27 / PDF viewer 32）"
+    },
+    "answer_defining_proposition": "カテゴリーII-Aは、技能証明・機体認証がそろっていても運航管理の事前審査と許可・承認を要する。",
+    "tested_misconception": "技能証明と機体認証がそろえば、カテゴリーII-AでもカテゴリーII-Bと同様に個別の許可・承認を省略できる。",
+    "reasoning_path": "Category II flight -> identify II-A -> certification route does not remove prior operational-management approval",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=Category II procedure route。distinct axes=aircraft_or_operation_applicability + decision_boundary_or_exception。Q049はII-Bの手続省略側を問う。本問はII-Aという別subtypeで許可・承認が必要となる反対側の手続境界を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. 3.1.2(4)1) explicitly keeps prior operational-management review and permission/approval for Category II-A even when skill certification and aircraft certification are present. Q049 tests the opposite II-B exemption route; operation subtype plus procedural decision boundary are materially distinct."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a208a5c91cc0750bcef84fc10bf75459874df2ea736dac8420246e1a07860773",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)2)b「飛行日誌の携行及び記載」（教則表示ページ23 / PDF viewer 28）"
+    },
+    "answer_defining_proposition": "特定飛行で携行する飛行日誌は紙・電子いずれでもよいが、必要時に速やかに参照・提示できる状態にする。",
+    "tested_misconception": "電子データで保存していれば、現場で速やかに表示できなくても携行要件を満たす。",
+    "reasoning_path": "special flight -> choose log medium -> ensure immediate practical access/presentation",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q042/Q111/Q211は日誌の種類・携行等を問うが、媒体自由と速やかな参照・提示可能性を組み合わせた条件は直接問っていない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(3)2)b explicitly permits paper or electronic flight logs while requiring prompt practical reference/presentation. Q042 tests log record categories and Q111 carriage, so medium freedom plus accessibility is a distinct proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

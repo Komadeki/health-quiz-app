@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "45abfa743389bc9345647a578a770e41c1b8fb49ac320d39ad9f568c24aba248",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)1)c「航空機又は他の無人航空機との衝突防止」（教則表示ページ22 / PDF viewer 27）"
+    },
+    "answer_defining_proposition": "飛行中に他の無人航空機を確認した場合は安全な間隔を確保し、衝突のおそれがあれば回避措置と操縦者間調整を行う。",
+    "tested_misconception": "他の無人航空機との距離を一時的に広げれば、その後の操縦者間調整は不要である。",
+    "reasoning_path": "inflight UAS encounter -> establish separation -> collision-risk escalation -> avoidance plus coordination",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=collision prevention with another UAS。distinct axes=scenario_state_or_flight_phase + response_sequence_or_priority。Q051は有人航空機との遭遇、Q170は一般的な継続監視。本問はUAS同士の遭遇後の分離・回避・調整の連続判断を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. 3.1.2(3)1)c separately defines the in-flight other-UAS branch: establish safe separation, take avoidance action when collision risk arises, and coordinate with the other operator. This response sequence differs from Q051's manned-aircraft avoidance and Q170's general monitoring."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C014",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4217e3addc84412aa525046f2f07e7928064135185bd8f06356257c824a8025d",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(2)4)c「レベル3.5飛行」（教則表示ページ20 / PDF viewer 25）"
+    },
+    "answer_defining_proposition": "レベル3.5飛行はカテゴリーIIであり、機上カメラによる確認で一部立入管理措置を代替するが立入管理自体は消滅しない。",
+    "tested_misconception": "レベル3.5は第三者上空を自由に飛べるカテゴリーIII相当で、立入管理措置が全面的に不要になる。",
+    "reasoning_path": "Level 3.5 conditions -> camera-based confirmation -> partial substitution of access controls -> remain Category II",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q028はカテゴリーII/IIIの一般区分、Q215はレベル3.5の保険要件を問う。法的位置付けとカメラによる一部代替の境界は未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(2)4)c explicitly classifies Level 3.5 as Category II and permits onboard-camera confirmation to substitute for some access-control measures without eliminating access management or authorizing general third-party overflight. Q028 is only the general II/III classification and Q215 tests insurance."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

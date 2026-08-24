@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C020",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "82f453e64e37ea804faf12bfe1b7d390cb1951fbbcf8ec553153b69e9a8ad404",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(5)4)「技能証明を受けた者の義務」（教則表示ページ29 / PDF viewer 34）"
+    },
+    "answer_defining_proposition": "技能証明保持者は特定飛行で証明の機体種類・飛行方法の限定を守り、範囲外は別途許可・承認を要する。",
+    "tested_misconception": "技能証明を一度取得すれば、限定された機体種類や飛行方法を超えても追加手続なしで特定飛行できる。",
+    "reasoning_path": "special flight -> read certificate limitations -> stay within scope unless separate approval route applies",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q109/Q111は技能証明の更新・携行を問う。運航時の限定遵守と別許可・承認の例外ルートは未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(5)4) explicitly requires certificate holders to operate specific flights within the certified aircraft-type/flight-method limitations, with separate permission/approval required outside that scope. Q109/Q111 test renewal and carriage, not operational limitation compliance."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

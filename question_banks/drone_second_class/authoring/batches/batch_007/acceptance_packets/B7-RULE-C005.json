@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d6fd6c2133de6e1b3f9f0e1c243d837f2393988412dc7cd21a3be07ce5cee68f",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)1)e「使用者の整備及び改造の義務」（教則表示ページ22 / PDF viewer 27）"
+    },
+    "answer_defining_proposition": "登録無人航空機の使用者は、安全上の登録適格性と登録記号表示を継続的に維持する。",
+    "tested_misconception": "機体登録は取得時だけの要件であり、登録後に安全性が低下しても登録記号さえ残っていればよい。",
+    "reasoning_path": "registered aircraft in service -> continuing safety eligibility + marking -> maintenance duty",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q102は登録拒否となる初期条件、Q108は登録情報変更を問う。本問は登録後の継続的な安全適格性・表示維持義務を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(3)1)e explicitly imposes continuing duties on the user of a registered UAS to preserve safety eligibility and registration-mark display. Q102 concerns initial registration refusal and Q108 registration-data changes, not post-registration maintenance of eligibility and marking."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

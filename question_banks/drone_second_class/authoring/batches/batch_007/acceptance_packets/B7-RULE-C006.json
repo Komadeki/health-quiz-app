@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B7-RULE-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b1385f6a59660055e7b9396740b8077df0cc9ea93effa02b17ca33d79b25f106",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b7-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b7-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b7-rules-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)1)f イ「重大インシデントの報告」（教則表示ページ22-23 / PDF viewer 27-28）"
+    },
+    "answer_defining_proposition": "事故に至らなくても、制御不能など所定の重大インシデントは国土交通大臣への報告対象となる。",
+    "tested_misconception": "事故に該当しない事態は、危険性が高くても国土交通大臣への報告義務がない。",
+    "reasoning_path": "event without reportable accident -> serious-incident category -> mandatory report",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q052/Q214は事故発生時の対応・報告を問う。本問は事故に至らない制御不能という重大インシデントの独立した報告分岐を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3.1.2(3)1)f explicitly treats loss of control as a reportable serious incident even when no accident, injury or property damage occurs. Q052 and Q214 address accident response/reporting, so this non-accident reporting branch is materially distinct."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract to the B7 Chapter 3 Rules set. All 15 Tier A candidates test explicit source propositions not represented by the current 215-question accepted/source-verified canonical bank. The five Tier B candidates C001, C003, C008, C013 and C015 remain materially distinct through source-defined flight-phase, authority/exception, operation-subtype, response-sequence or moving-vehicle boundaries. None is retained as wording-only variation, none relies on a subsection marked 〔一等〕, and none is accepted merely to fill a numeric quota."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
