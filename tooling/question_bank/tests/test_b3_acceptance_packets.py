@@ -158,7 +158,7 @@ class B3AcceptancePacketTest(unittest.TestCase):
             for candidate_id, number in zip(self.accepted_ids, range(142, 170))
         }
         self.assertEqual(
-            {candidate_id: "INTEGRATED" for candidate_id in self.accepted_ids},
+            {candidate_id: "VERIFIED" for candidate_id in self.accepted_ids},
             {
                 candidate_id: self.rows[candidate_id]["state"]
                 for candidate_id in self.accepted_ids
@@ -216,6 +216,17 @@ class B3AcceptancePacketTest(unittest.TestCase):
                 f"Expansion pre-release allocation: {candidate_id}",
                 registry[question_id]["notes"],
             )
+        verification_path = REPOSITORY_ROOT / "question_banks/drone_second_class/authoring/source_verifications.json"
+        verifications = json.loads(verification_path.read_text(encoding="utf-8"))["verifications"]
+        b3_verifications = {row["question_id"]: row for row in verifications if row["question_id"] in set(expected_ids.values())}
+        self.assertEqual(set(expected_ids.values()), set(b3_verifications))
+        self.assertTrue(all(row == {
+            "question_id": question_id,
+            "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+            "source_version": "5",
+            "verification_state": "author_source_verified",
+            "verified_at": "2026-08-24",
+        } for question_id, row in b3_verifications.items()))
 
     def test_promotion_path_promotes_all_28_atomically(self) -> None:
         batch = self._copy_batch()
