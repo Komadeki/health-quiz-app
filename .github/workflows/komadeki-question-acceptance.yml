@@ -1,0 +1,29 @@
+name: KOMADEKI Question Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/KOMADEKI_AUTONOMOUS_QUESTION_ACCEPTANCE.md'
+      - 'tooling/komadeki_autopilot/question_acceptance.json'
+      - 'tooling/komadeki_autopilot/question_acceptance.py'
+      - 'tooling/komadeki_autopilot/tests/test_question_acceptance.py'
+      - '.github/workflows/komadeki-question-acceptance.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  acceptance-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate policy JSON
+        run: python3 -m json.tool tooling/komadeki_autopilot/question_acceptance.json >/dev/null
+      - name: Run acceptance contract tests
+        run: python3 -m unittest tooling/komadeki_autopilot/tests/test_question_acceptance.py
+      - name: Diff hygiene
+        run: git diff --check HEAD^ HEAD || true
