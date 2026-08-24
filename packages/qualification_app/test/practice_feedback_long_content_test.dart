@@ -89,9 +89,17 @@ void main() {
 
       await tester.tap(find.byKey(const Key('choice-0')));
       await tester.pump();
-      await tester.tap(find.byKey(const Key('commit-answer')));
+      final commit = find.byKey(const Key('commit-answer'));
+      await tester.scrollUntilVisible(commit, 200);
+      await tester.pumpAndSettle();
+      await tester.tap(commit);
       await tester.pump();
 
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('correct-answer-feedback')),
+        200,
+      );
+      await tester.pumpAndSettle();
       expect(
         find.text('あなたの回答: $_longSelectedAnswer'),
         findsOneWidget,
@@ -99,7 +107,7 @@ void main() {
       expect(find.text('正解: $_longCorrectAnswer'), findsOneWidget);
 
       final next = find.byKey(const Key('next-question'));
-      await tester.ensureVisible(next);
+      await tester.scrollUntilVisible(next, 200);
       await tester.pumpAndSettle();
       expect(next, findsOneWidget);
       expect(tester.takeException(), isNull);
