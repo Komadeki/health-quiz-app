@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B5",
+  "review_round": 1,
+  "reviewer": {
+    "id": "autopilot-b5-operations-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "chatgpt-b5-operations-author-r1",
+  "identity_separation": "PASS",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "second_class_scope_rule": "All accepted propositions are outside subsections explicitly marked 〔一等〕."
+  },
+  "review_basis": [
+    "B5 candidates persisted on the author branch",
+    "full current 188-question canonical inventory",
+    "post-188 gap audit merged in PR #131",
+    "current official MLIT 第5版 source text and page evidence",
+    "within-B5 semantic collision review",
+    "answer correctness, distractor plausibility, misconception and reasoning-path review"
+  ],
+  "summary": {
+    "reviewed": 8,
+    "accept": 8,
+    "rework": 0,
+    "reject": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "B5-OPS-C001",
+      "decision": "ACCEPT",
+      "rationale": "教則2.1.2 explicitly requires preflight designation of the intended pilot when multiple skill-certificate holders are present. Q089 and Q188 concern assistant coordination/roles, not pilot responsibility designation."
+    },
+    {
+      "candidate_id": "B5-OPS-C002",
+      "decision": "ACCEPT",
+      "rationale": "教則2.2.5 explicitly requires confirming mobile-call coverage and maintaining a communications arrangement with relevant authorities. Q116 concerns airborne cellular-system use, not the operator's ground communications arrangement."
+    },
+    {
+      "candidate_id": "B5-OPS-C003",
+      "decision": "ACCEPT",
+      "rationale": "教則2.2.6 explicitly defines clothing characteristics and PPE preparation. No canonical question tests operator clothing/PPE. The proposition is concrete, safety-relevant and independently answer-defining."
+    },
+    {
+      "candidate_id": "B5-OPS-C004",
+      "decision": "ACCEPT",
+      "rationale": "教則2.2.1 explicitly says a flight plan is still required for nearby or previously flown locations. Existing planning questions test hazards/changes, not the familiarity-does-not-remove-planning boundary."
+    },
+    {
+      "candidate_id": "B5-OPS-C005",
+      "decision": "ACCEPT",
+      "rationale": "教則2.2 flight-in-progress guidance explicitly requires return or emergency landing when deterioration is anticipated, before conditions become dangerous. Existing weather/TEM items cover observation or Threat recognition rather than this action threshold."
+    },
+    {
+      "candidate_id": "B5-OPS-C006",
+      "decision": "ACCEPT",
+      "rationale": "The Version 5 insurance expansion explicitly requires sufficient third-party liability coverage for specified Category II operations including 25kg+ or Level 3.5. Existing Q176/Q177 test insurance type/cargo scope, not this required-coverage condition."
+    },
+    {
+      "candidate_id": "B5-OPS-C007",
+      "decision": "ACCEPT",
+      "rationale": "教則5.2.3 explicitly says emergency handling must not assume return to takeoff point and should promptly land at a nearby safe uninhabited area. Q044 is preflight emergency-site planning; Q179 concerns GNSS-independent control."
+    },
+    {
+      "candidate_id": "B5-OPS-C008",
+      "decision": "ACCEPT",
+      "rationale": "教則5.2.3(1) explicitly defines a second trigger while failsafe is active: insufficient battery/anticipated inability to continue causes transition to landing. Q065/Q139 test radio-link-loss failsafe behavior before this new energy constraint, so the reasoning boundary is distinct."
+    }
+  ],
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}
