@@ -1,0 +1,360 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B7-400-TARGET-COVERAGE-VARIANTS-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B7_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "66ed727c6e3a0bf1a30ac25c57df943e425c2f3d",
+  "target_contract": "target_400_quality_relaxation_contract_2026-08-25.json",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 215,
+    "accepted_source_verified_canonical": 215,
+    "remaining_to_400": 185,
+    "next_unreserved_permanent_id": "DRONE-Q-000216"
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "scope_rule": "Exclude subsections explicitly marked 〔一等〕. All B7 planned propositions below are in unmarked Chapter 3 material and are second-class-applicable."
+  },
+  "batch": {
+    "batch_id": "B7",
+    "domain": "drone_rules",
+    "candidate_ceiling": 20,
+    "candidate_ceiling_is_quota": false,
+    "authoring_priority": [
+      "Tier A new explicit propositions",
+      "Tier B source-defined boundary/condition variants",
+      "Tier C reasoning variants only if stronger A/B opportunities are exhausted"
+    ],
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 15,
+      "B_BOUNDARY_VARIANT": 5,
+      "C_REASONING_VARIANT": 0
+    }
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B7-RULE-C001",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "collision prevention with manned aircraft",
+      "distinctness_axes": [
+        "scenario_state_or_flight_phase",
+        "decision_boundary_or_exception"
+      ],
+      "family": "preflight manned-aircraft conflict",
+      "source_locator": "教則 第3章 3.1.2(3)1)c「航空機又は他の無人航空機との衝突防止」",
+      "proposition": "飛行前に航行中の航空機を確認した場合は、無人航空機の飛行を開始しない。",
+      "tested_misconception": "航空機との衝突防止は離陸後に回避操作を行えば足り、飛行前に航空機を確認しても離陸してよい。",
+      "reasoning_path": "preflight traffic observation -> manned aircraft present -> no-launch decision",
+      "nearest_canonical": [
+        "DRONE-Q-000051",
+        "DRONE-Q-000170"
+      ],
+      "distinctness": "Q051 tests the response after a manned aircraft is detected during flight, while Q170 tests continuous monitoring. This candidate moves the decision to the pre-launch boundary and requires a no-launch outcome."
+    },
+    {
+      "candidate_id": "B7-RULE-C002",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "preflight coordination with another UAS",
+      "source_locator": "教則 第3章 3.1.2(3)1)c「航空機又は他の無人航空機との衝突防止」",
+      "proposition": "飛行前に他の無人航空機の飛行を確認した場合は、相手の操縦者と飛行日時・経路・高度等を調整する。",
+      "tested_misconception": "他の無人航空機が飛んでいても、目視で避ける予定なら事前調整は不要である。",
+      "reasoning_path": "preflight UAS traffic -> identify another operator -> coordinate time/route/altitude",
+      "nearest_canonical": [
+        "DRONE-Q-000170"
+      ],
+      "distinctness": "Q170 tests monitoring for other UAS during flight; it does not test the explicit preflight operator-to-operator coordination duty."
+    },
+    {
+      "candidate_id": "B7-RULE-C003",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "collision prevention with another UAS",
+      "distinctness_axes": [
+        "scenario_state_or_flight_phase",
+        "response_sequence_or_priority"
+      ],
+      "family": "inflight coordination with another UAS",
+      "source_locator": "教則 第3章 3.1.2(3)1)c「航空機又は他の無人航空機との衝突防止」",
+      "proposition": "飛行中に他の無人航空機を確認した場合は安全な間隔を確保し、接近・衝突のおそれがあれば降下等の措置を取り、飛行日時・経路・高度等も調整する。",
+      "tested_misconception": "他の無人航空機との距離を一時的に広げれば、その後の操縦者間調整は不要である。",
+      "reasoning_path": "inflight UAS encounter -> establish separation -> collision-risk escalation -> avoidance plus coordination",
+      "nearest_canonical": [
+        "DRONE-Q-000051",
+        "DRONE-Q-000170"
+      ],
+      "distinctness": "Existing items cover a manned-aircraft encounter and general monitoring. This candidate tests the separate UAS-to-UAS response sequence and coordination obligation."
+    },
+    {
+      "candidate_id": "B7-RULE-C004",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "nuisance-flight prohibition",
+      "source_locator": "教則 第3章 3.1.2(3)1)d「他人に迷惑を及ぼす方法での飛行禁止」",
+      "proposition": "飛行上の必要がない高調音、急降下、人への急接近など、他人に迷惑を及ぼす方法で飛行してはならない。",
+      "tested_misconception": "空域・飛行方法の許可条件を満たしていれば、必要のない急降下や人への急接近も許される。",
+      "reasoning_path": "flight conduct -> no operational necessity -> nuisance behavior -> prohibited method",
+      "nearest_canonical": [],
+      "distinctness": "No canonical item directly tests the statutory nuisance-flight conduct rule or the operational-necessity boundary."
+    },
+    {
+      "candidate_id": "B7-RULE-C005",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "registered-aircraft continuing maintenance duty",
+      "source_locator": "教則 第3章 3.1.2(3)1)e「使用者の整備及び改造の義務」",
+      "proposition": "登録無人航空機の使用者は、整備や必要な改造により安全上登録できない状態にならないよう維持し、登録記号の表示も維持する。",
+      "tested_misconception": "機体登録は取得時だけの要件であり、登録後に安全性が低下しても登録記号さえ残っていればよい。",
+      "reasoning_path": "registered aircraft in service -> continuing safety eligibility + marking -> maintenance duty",
+      "nearest_canonical": [
+        "DRONE-Q-000102",
+        "DRONE-Q-000108"
+      ],
+      "distinctness": "Q102 tests initial registration rejection and Q108 tests a registration-data change. This candidate tests the continuing in-service maintenance and marking duty."
+    },
+    {
+      "candidate_id": "B7-RULE-C006",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "serious-incident reporting",
+      "source_locator": "教則 第3章 3.1.2(3)1)f イ「重大インシデントの報告」",
+      "proposition": "事故に至らなくても、航空機との衝突・接触のおそれ、重傷に至らない人の負傷、制御不能、飛行中の発火等の重大インシデントは国土交通大臣への報告対象となる。",
+      "tested_misconception": "事故に該当しない事態は、危険性が高くても国土交通大臣への報告義務がない。",
+      "reasoning_path": "event without reportable accident -> serious-incident category -> mandatory report",
+      "nearest_canonical": [
+        "DRONE-Q-000052",
+        "DRONE-Q-000214"
+      ],
+      "distinctness": "Existing items test accident response/reporting. They do not test the separate serious-incident branch when the event falls short of an accident."
+    },
+    {
+      "candidate_id": "B7-RULE-C007",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "flight-plan required data",
+      "source_locator": "教則 第3章 3.1.2(3)2)a「飛行計画の通報等」",
+      "proposition": "特定飛行の飛行計画には、機体・操縦者情報だけでなく、目的・高度・速度、対象空域・方法、出発地・目的地・所要時間、立入管理措置、保険契約等の所定事項を含めて通報する。",
+      "tested_misconception": "特定飛行の通報は飛行日時と経路だけ入力すれば足りる。",
+      "reasoning_path": "specific flight -> notification requirement -> assemble required operational and risk-control fields",
+      "nearest_canonical": [
+        "DRONE-Q-000053",
+        "DRONE-Q-000110"
+      ],
+      "distinctness": "Q053 tests adherence after notification and Q110 tests delayed notification. Neither tests the information set that must be notified."
+    },
+    {
+      "candidate_id": "B7-RULE-C008",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "adherence to a notified flight plan",
+      "distinctness_axes": [
+        "decision_authority",
+        "decision_boundary_or_exception"
+      ],
+      "family": "minister-directed flight-plan change",
+      "source_locator": "教則 第3章 3.1.2(3)2)a「飛行計画の通報等」",
+      "proposition": "安全確保のため国土交通大臣から特定飛行の日時・経路等の変更を指示された場合は、その指示に従う。ただし安全確保のためやむを得ない場合は例外となる。",
+      "tested_misconception": "一度通報した飛行計画は、国土交通大臣から安全上の変更指示があっても操縦者の判断で維持できる。",
+      "reasoning_path": "notified plan -> authority issues safety change -> comply unless safety necessity prevents it",
+      "nearest_canonical": [
+        "DRONE-Q-000053",
+        "DRONE-Q-000110"
+      ],
+      "distinctness": "Q053 tests an operator's voluntary deviation; this candidate changes both the source of the change decision and the compliance/exception boundary."
+    },
+    {
+      "candidate_id": "B7-RULE-C009",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "flight-log medium and accessibility",
+      "source_locator": "教則 第3章 3.1.2(3)2)b「飛行日誌の携行及び記載」",
+      "proposition": "特定飛行で携行する飛行日誌は紙・電子データのいずれでもよいが、必要に応じ速やかに参照・提示できる状態にする。",
+      "tested_misconception": "電子データで保存していれば、現場で速やかに表示できなくても携行要件を満たす。",
+      "reasoning_path": "special flight -> choose log medium -> ensure immediate practical access/presentation",
+      "nearest_canonical": [
+        "DRONE-Q-000042",
+        "DRONE-Q-000111",
+        "DRONE-Q-000211"
+      ],
+      "distinctness": "Existing items test log types, carriage, and desirability outside special flight; none tests medium-independence plus the rapid-access condition."
+    },
+    {
+      "candidate_id": "B7-RULE-C010",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "flight-record content",
+      "source_locator": "教則 第3章 3.1.2(3)2)b「飛行日誌の携行及び記載」",
+      "proposition": "飛行記録には、飛行年月日、離着陸場所・時刻、飛行時間、操縦者、不具合とその対応等を記載する。",
+      "tested_misconception": "飛行日誌の飛行記録は飛行時間と場所だけ残せば足り、不具合や対応は別記録でよい。",
+      "reasoning_path": "completed flight -> flight-record branch -> capture operational identity, timing, duration and anomalies/actions",
+      "nearest_canonical": [
+        "DRONE-Q-000042",
+        "DRONE-Q-000211"
+      ],
+      "distinctness": "Q042 distinguishes three record categories; this candidate tests the content inside the flight-record category."
+    },
+    {
+      "candidate_id": "B7-RULE-C011",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "certified-aircraft operating limitations",
+      "source_locator": "教則 第3章 3.1.2(3)3)a「使用の条件の遵守」",
+      "proposition": "機体認証を受けた無人航空機で特定飛行を行う場合は、最大離陸重量・飛行可能高度・速度等として指定された使用条件の範囲内で飛行する。",
+      "tested_misconception": "機体認証を受けた機体なら、認証時に指定された高度・速度等の使用条件を超えても特定飛行できる。",
+      "reasoning_path": "certified aircraft -> read specified use conditions -> keep operation inside certified envelope",
+      "nearest_canonical": [
+        "DRONE-Q-000049"
+      ],
+      "distinctness": "Q049 uses aircraft certification as one condition for a Category II-B procedure route; it does not test compliance with the certified operating envelope."
+    },
+    {
+      "candidate_id": "B7-RULE-C012",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "certified-aircraft maintenance obligation",
+      "source_locator": "教則 第3章 3.1.2(3)3)b「必要な整備の義務」",
+      "proposition": "機体認証を受けた無人航空機は、安全基準への適合を維持するため、無人航空機整備手順書等に従って必要な整備を行う。",
+      "tested_misconception": "機体認証後は、異常が発生するまでメーカー等の整備手順に従う義務はない。",
+      "reasoning_path": "certified aircraft in service -> maintenance procedure -> maintain safety-standard conformity",
+      "nearest_canonical": [
+        "DRONE-Q-000049"
+      ],
+      "distinctness": "No canonical item directly tests the maintenance obligation created by aircraft certification."
+    },
+    {
+      "candidate_id": "B7-RULE-C013",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "Category II procedure route",
+      "distinctness_axes": [
+        "category_subtype",
+        "decision_boundary_or_exception"
+      ],
+      "family": "Category II-A prior approval",
+      "source_locator": "教則 第3章 3.1.2(4)1)「安全確保措置等」",
+      "proposition": "カテゴリーII-Aでは、技能証明を受けた操縦者が機体認証済みの機体を使う場合でも、運航管理の方法について事前審査を受け、飛行の許可・承認が必要である。",
+      "tested_misconception": "技能証明と機体認証がそろえば、カテゴリーII-AでもカテゴリーII-Bと同様に個別の許可・承認を省略できる。",
+      "reasoning_path": "Category II flight -> identify II-A -> certification route does not remove prior operational-management approval",
+      "nearest_canonical": [
+        "DRONE-Q-000029",
+        "DRONE-Q-000049"
+      ],
+      "distinctness": "Q049 tests the II-B no-individual-procedure route. This candidate explicitly tests the opposite procedural boundary for II-A."
+    },
+    {
+      "candidate_id": "B7-RULE-C014",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "Level 3.5 classification and camera substitution",
+      "source_locator": "教則 第3章 3.1.2(2)4)c「レベル3.5飛行」",
+      "proposition": "レベル3.5飛行はカテゴリーIIに位置付けられ、機上カメラで飛行経路下の無人状態を確認して補助者・看板等の一部立入管理措置を代替するが、立入管理そのものが不要になるわけではない。",
+      "tested_misconception": "レベル3.5は第三者上空を自由に飛べるカテゴリーIII相当で、立入管理措置が全面的に不要になる。",
+      "reasoning_path": "Level 3.5 conditions -> camera-based confirmation -> partial substitution of access controls -> remain Category II",
+      "nearest_canonical": [
+        "DRONE-Q-000028",
+        "DRONE-Q-000215"
+      ],
+      "distinctness": "Q028 distinguishes Category II/III generally and Q215 tests Level 3.5 insurance. Neither tests Level 3.5's legal classification or the partial-substitution boundary."
+    },
+    {
+      "candidate_id": "B7-RULE-C015",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "Level 3.5 third-party-overflight boundary",
+      "distinctness_axes": [
+        "third_party_state",
+        "decision_boundary_or_exception"
+      ],
+      "family": "Level 3.5 moving-vehicle crossing boundary",
+      "source_locator": "教則 第3章 3.1.2(2)4)c「レベル3.5飛行」",
+      "proposition": "レベル3.5は、要件を満たす場合に道路等を一時的に横断して移動中の車両等の上空を飛行できるが、歩行者等の第三者上空飛行まで認めるものではない。",
+      "tested_misconception": "レベル3.5の要件を満たせば、移動中の車両だけでなく歩行者の上空も同じように横断できる。",
+      "reasoning_path": "Level 3.5 crossing -> classify protected moving-vehicle occupant vs exposed pedestrian -> apply narrow exception only to vehicle crossing",
+      "nearest_canonical": [
+        "DRONE-Q-000013",
+        "DRONE-Q-000215"
+      ],
+      "distinctness": "Q013 tests the ordinary shielding exception for a stopped vehicle, while Q215 tests insurance. This candidate tests the separate moving-vehicle-only Level 3.5 exception and its pedestrian exclusion."
+    },
+    {
+      "candidate_id": "B7-RULE-C016",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "skill-certificate minimum age",
+      "source_locator": "教則 第3章 3.1.2(5)2)「技能証明の資格要件」",
+      "proposition": "16歳に満たない者は無人航空機操縦者技能証明の申請をすることができない。",
+      "tested_misconception": "技能証明は試験に合格できれば年齢にかかわらず申請できる。",
+      "reasoning_path": "applicant -> age qualification gate -> application eligibility",
+      "nearest_canonical": [
+        "DRONE-Q-000109"
+      ],
+      "distinctness": "Q109 tests renewal timing; no canonical item tests the minimum-age application gate."
+    },
+    {
+      "candidate_id": "B7-RULE-C017",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "skill-certificate examination sequence",
+      "source_locator": "教則 第3章 3.1.2(5)3)「技能証明の交付手続き」",
+      "proposition": "技能証明試験では、学科試験に合格しなければ実地試験を受けることができない。",
+      "tested_misconception": "学科試験と実地試験は順不同で受験できる。",
+      "reasoning_path": "skill-certificate exam -> knowledge gate -> practical-test eligibility",
+      "nearest_canonical": [
+        "DRONE-Q-000109",
+        "DRONE-Q-000111"
+      ],
+      "distinctness": "Existing skill-certificate items test renewal and carriage, not examination sequencing."
+    },
+    {
+      "candidate_id": "B7-RULE-C018",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "registered-training practical-test exemption",
+      "source_locator": "教則 第3章 3.1.2(5)3)「技能証明の交付手続き」",
+      "proposition": "国の登録を受けた登録講習機関の所定講習を修了した者は、技能証明試験の実地試験を免除できる。",
+      "tested_misconception": "登録講習機関を修了しても、指定試験機関の実地試験は必ず受けなければならない。",
+      "reasoning_path": "registered training completion -> statutory exemption route -> practical test may be omitted",
+      "nearest_canonical": [
+        "DRONE-Q-000109"
+      ],
+      "distinctness": "No canonical item directly tests the registered-training exemption route."
+    },
+    {
+      "candidate_id": "B7-RULE-C019",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "Powered-lift certificate limitations",
+      "source_locator": "教則 第3章 3.1.2(5)1)「制度概要」",
+      "proposition": "Powered-lift機を飛行させるには、回転翼航空機（マルチローター）と飛行機の両方の種類の限定に係る資格が必要である。",
+      "tested_misconception": "Powered-lift機は独立した1種類の限定だけ取得すれば飛行できる。",
+      "reasoning_path": "aircraft type = Powered-lift -> map hybrid type to certificate limitations -> require both multirotor and airplane qualifications",
+      "nearest_canonical": [
+        "DRONE-Q-000142"
+      ],
+      "distinctness": "Q142 tests the aircraft's hybrid flight characteristics; this candidate tests the separate legal qualification requirement for that aircraft type."
+    },
+    {
+      "candidate_id": "B7-RULE-C020",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "skill-certificate limitation compliance",
+      "source_locator": "教則 第3章 3.1.2(5)4)「技能証明を受けた者の義務」",
+      "proposition": "技能証明を受けた者は、特定飛行では原則として証明に限定された無人航空機の種類・飛行方法の範囲内で飛行しなければならないが、別途飛行の許可・承認を受ける場合は例外となる。",
+      "tested_misconception": "技能証明を一度取得すれば、限定された機体種類や飛行方法を超えても追加手続なしで特定飛行できる。",
+      "reasoning_path": "special flight -> read certificate limitations -> stay within scope unless separate approval route applies",
+      "nearest_canonical": [
+        "DRONE-Q-000109",
+        "DRONE-Q-000111"
+      ],
+      "distinctness": "Existing skill-certificate questions test renewal and carriage; they do not test the operational limitation boundary and separate-approval exception."
+    }
+  ],
+  "authoring_gate": {
+    "source_first": true,
+    "second_class_only": true,
+    "semantic_collision_rejection": true,
+    "independent_ai_review_required": true,
+    "director_adjudication_required": true,
+    "content_bound_acceptance_packet_required": true,
+    "permanent_id_allocation": "Do not reserve or append DRONE-Q IDs during this planning transition. Authoring persists candidate IDs only; deterministic permanent IDs begin from DRONE-Q-000216 only after the configured acceptance/adjudication gate permits canonical integration.",
+    "used_retired_id_protection": true,
+    "release_activation": "Do not change the released/runtime bank in B7 planning, authoring, review, adjudication, integration, or source verification. Release changes require a later explicit activation transition."
+  },
+  "rollback_and_concurrency": {
+    "baseline_must_remain": "66ed727c6e3a0bf1a30ac25c57df943e425c2f3d",
+    "plan_is_non_release": true,
+    "no_question_rows_mutated": true,
+    "no_permanent_ids_reserved": true,
+    "no_release_artifacts_mutated": true,
+    "concurrent_ui_ux_work": "Preserve unrelated main changes; if main advances before merge, rebase/reconcile rather than overwrite."
+  },
+  "next_transition_on_pass": "AUTHOR_AND_PERSIST_B7_400_TARGET_CANDIDATES"
+}
