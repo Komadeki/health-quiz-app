@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "decision_id": "DRONE-POST-188-EXPANSION-REOPEN-2026-08-25",
+  "product": "drone_second_class",
+  "decided_at": "2026-08-25",
+  "baseline_main": "ee53619b1fa0c5761eaec4c82588baef6c910546",
+  "decision_authority": "OWNER_DIRECTION",
+  "trigger": "Owner explicitly requested continued Question Bank expansion after the 188-question Production release had been frozen.",
+  "prior_decision": {
+    "artifact": "question_banks/drone_second_class/authoring/target_review_188.json",
+    "final_production_target": 188,
+    "target_status": "FROZEN",
+    "expansion": "STOP"
+  },
+  "current_released_baseline": {
+    "canonical": 188,
+    "active": 188,
+    "released": 188,
+    "runtime": 188,
+    "free": 20,
+    "premium": 168,
+    "bank_revision": "drone-second-class-v2-release-2026-08-24"
+  },
+  "adopted_decisions": {
+    "post_188_expansion": "TARGETED_ONLY_REOPEN",
+    "future_final_production_target": "HOLD",
+    "current_188_release_remains_authoritative": true,
+    "broad_quota_authoring": false,
+    "source_first_required": true,
+    "semantic_collision_gate_required": true,
+    "independent_ai_review_required": true,
+    "director_adjudication_required": true,
+    "canonical_source_verification_required_before_release": true
+  },
+  "preserved_invariants": [
+    "The released 188-question Production bank and bank revision remain unchanged until a later explicit release-selection/activation gate.",
+    "DRONE-Q-000001..DRONE-Q-000188 retain their existing content, identities, release history, and first-use revision evidence.",
+    "DRONE-Q-000189 and later IDs remain unreserved until accepted candidates pass the existing permanent-ID allocation gate.",
+    "The original 20-question free selection remains unchanged unless a later explicit monetization decision changes it.",
+    "The immutable V0 100-question historical validation snapshot remains unchanged.",
+    "No HUMAN review identity may be fabricated."
+  ],
+  "source_ceiling_policy": [
+    "The prior source-ceiling findings remain evidence and are not erased by this reopening decision.",
+    "Rules R5 remains source-limited/STOP unless new authoritative source evidence changes that finding.",
+    "Do not create wording-only variants or candidates that depend on first-class-only material, unsupported inference, or propositions already covered semantically.",
+    "If the gap audit cannot identify explicit second-class source-supported non-collision propositions with commercial practice value, expansion must fail closed rather than force a count."
+  ],
+  "next_atomic_objective": "AUDIT_POST_188_TARGETED_EXPANSION_GAPS",
+  "next_objective_contract": {
+    "purpose": "Recompute post-188 coverage against the current official second-class source and the full 188-question canonical bank, then identify only defensible targeted expansion gaps.",
+    "output": "A durable gap-audit artifact naming exact source-supported knowledge gaps, candidate domain priority, proposed batch size as an evidence-derived ceiling rather than a quota, and collision/source risks.",
+    "prohibited": [
+      "Do not allocate Permanent Question IDs.",
+      "Do not change released/runtime Question Bank data.",
+      "Do not author candidates merely to reach a round-number target."
+    ]
+  }
+}
