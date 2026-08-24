@@ -937,6 +937,19 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                                 ),
                       ),
                     ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'あなたの回答: ${card.choices[committedChoice!]}',
+                      key: const Key('practice-selected-answer'),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '正解: ${card.choices[card.answerIndex]}',
+                      key: const Key('practice-correct-answer'),
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
                     const SizedBox(height: 12),
                     Text(
                       '解説（Explanation）',
