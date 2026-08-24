@@ -16,6 +16,7 @@ def valid_packet() -> dict:
         "schema_version": "1.0",
         "candidate_id": "B2-RM-C001",
         "candidate_state": "AI_PRE_ACCEPT",
+        "candidate_fingerprint": "a" * 64,
         "actors": {
             "author": {"role": "AI_AUTHOR", "id": "author-model-a"},
             "reviewer": {"role": "AI_REVIEWER", "id": "reviewer-model-b"},
@@ -54,6 +55,13 @@ class AutonomousQuestionAcceptanceTest(unittest.TestCase):
         packet = valid_packet()
         self.assertEqual([], validate_packet(packet))
         self.assertTrue(accepted(packet))
+
+    def test_candidate_fingerprint_is_required(self) -> None:
+        packet = valid_packet()
+        packet["candidate_fingerprint"] = ""
+        self.assertTrue(any("candidate_fingerprint" in error for error in validate_packet(packet)))
+        packet["candidate_fingerprint"] = "A" * 64
+        self.assertTrue(any("candidate_fingerprint" in error for error in validate_packet(packet)))
 
     def test_roles_must_be_pairwise_distinct(self) -> None:
         packet = valid_packet()
