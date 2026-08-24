@@ -51,7 +51,7 @@ branding:
 
 factory:
   app_version: 1.0.0+1
-  home_headline: 教則第5版を基にした全100問
+  home_headline: 教則第5版を基にした学科試験対策
   source_label: 無人航空機の飛行の安全に関する教則 第5版に基づく学習
   enabled_modes:
     - unit_practice
