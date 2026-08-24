@@ -1,11 +1,11 @@
 name: B3 Systems Integration Worker
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - chatgpt/drone-b3-systems-integrate-28-r1
     paths:
-      - '.github/workflows/b3-systems-integration-worker.yml'
+      - '.github/b3-systems-integration-trigger'
 
 permissions:
   contents: write
@@ -19,7 +19,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.head_ref }}
 
       - name: Apply deterministic B3 integration transaction
         shell: bash
@@ -29,6 +28,7 @@ jobs:
 
           import csv
           import json
+          import subprocess
           import sys
           from pathlib import Path
 
@@ -175,7 +175,10 @@ jobs:
               raise SystemExit(f"unexpected objective: {state.get('next_atomic_objective')}")
           if state.get("state_epoch") != 13:
               raise SystemExit(f"unexpected state epoch: {state.get('state_epoch')}")
-          state["observed_main"] = "4175dd65881b8781611fa1d88327c9507a89b721"
+          observed_main = subprocess.check_output(
+              ["git", "rev-parse", "origin/main"], text=True
+          ).strip()
+          state["observed_main"] = observed_main
           state["next_atomic_objective"] = "VERIFY_B3_SYSTEMS_CANONICAL_SOURCES_28"
           state["state_epoch"] = 14
           state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -195,7 +198,7 @@ jobs:
       - name: Commit only the durable transition
         shell: bash
         run: |
-          rm .github/workflows/b3-systems-integration-worker.yml
+          rm .github/b3-systems-integration-trigger
           git config user.name "KOMADEKI Autopilot"
           git config user.email "autopilot@users.noreply.github.com"
           git add \
@@ -204,7 +207,7 @@ jobs:
             question_banks/drone_second_class/authoring/questions.csv \
             tooling/question_bank/tests/test_b3_acceptance_packets.py \
             tooling/komadeki_autopilot/drone_state.json \
-            .github/workflows/b3-systems-integration-worker.yml
+            .github/b3-systems-integration-trigger
           git diff --cached --check
           git diff --cached --name-only
           test "$(git diff --cached --name-only | wc -l | tr -d ' ')" = "6"
