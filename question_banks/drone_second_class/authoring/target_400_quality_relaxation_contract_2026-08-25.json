@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.0",
+  "decision_id": "DRONE-PRODUCTION-TARGET-400-QUALITY-CONTROLLED-2026-08-25",
+  "product": "drone_second_class",
+  "decided_at": "2026-08-25",
+  "decision_authority": "OWNER_DIRECTION",
+  "supersedes": "DRONE-PRODUCTION-TARGET-350-2026-08-25",
+  "baseline_main": "4c9c9d4869dd35f95b1900ad1629f5f99c1adc95",
+  "target": {
+    "final_production_question_count": 400,
+    "released_baseline": 188,
+    "additional_questions_required_from_released_baseline": 212,
+    "current_accepted_pending_integration": 8,
+    "status": "ACTIVE",
+    "release_activation": "EXPLICIT_GATE_REQUIRED"
+  },
+  "quality_intent": "Relax anti-duplication strictness enough to support commercially useful spaced-practice variation, while preserving source correctness, second-class scope, answer integrity and meaningful cognitive distinctness.",
+  "authoritative_source": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "edition": "第5版",
+    "issuer": "国土交通省",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "scope_rule": "Use only second-class-applicable material. Subsections explicitly marked 〔一等〕 remain prohibited. Supporting statutes or MLIT pages may verify a guide proposition but may not create an exam proposition absent from the guide."
+  },
+  "quality_floor_nonnegotiable": {
+    "official_source_support_per_question": true,
+    "single_unambiguous_best_answer": true,
+    "second_class_scope_confirmation": true,
+    "no_material_factual_inference_beyond_source": true,
+    "distractors_must_be_plausible_but_false_under_the_stem": true,
+    "independent_ai_review_for_every_candidate": true,
+    "source_verification_before_release": true,
+    "permanent_id_only_after_ai_governed_acceptance": true,
+    "released_runtime_mutation_only_at_explicit_activation_gate": true,
+    "human_review_identity_must_not_be_fabricated": true
+  },
+  "controlled_relaxations": {
+    "same_core_proposition_variants": {
+      "allowed": true,
+      "maximum_canonical_questions_per_core_proposition_family": 3,
+      "rule": "The same core source proposition may support multiple questions only when each additional question tests a materially different decision, application, exception, misconception, or reasoning route. Wording-only repetition remains prohibited."
+    },
+    "distinctness_gate": {
+      "previous_rule": "duplicate answer-defining propositions are rejected",
+      "new_rule": "shared core proposition is permitted when the tested decision boundary is materially different",
+      "minimum_distinctness": "Each variant after the first must differ from every accepted family member on at least two controlled axes, and at least one differing axis must be cognitive rather than cosmetic.",
+      "controlled_axes": [
+        "decision boundary or exception",
+        "operational phase or response priority",
+        "causal mechanism",
+        "quantitative relation or threshold",
+        "aircraft or flight-method applicability explicitly distinguished by the source",
+        "scenario facts that change the required judgment",
+        "tested misconception",
+        "reasoning path"
+      ],
+      "cosmetic_axes_not_sufficient": [
+        "names",
+        "locations with no rule effect",
+        "number order",
+        "synonyms",
+        "mere positive-to-negative wording reversal"
+      ]
+    },
+    "review_throughput": {
+      "director_candidate_by_candidate_narrative_required": false,
+      "director_may_adopt_clean_reviewer_decisions_in_batch": true,
+      "individual_director_rationale_required_for": [
+        "review REWORK/REJECT/HOLD",
+        "medium/high collision risk",
+        "same-core-proposition variant",
+        "source ambiguity",
+        "exception or boundary-sensitive rule"
+      ],
+      "note": "Independent reviewer still evaluates every candidate; this relaxation reduces governance prose, not answer-quality checks."
+    },
+    "batch_size": {
+      "preferred_candidates_before_review": "25-40",
+      "maximum_candidates_per_batch": 50,
+      "reason": "Larger batches reduce transaction overhead while keeping collision review tractable."
+    }
+  },
+  "portfolio_quality_controls": {
+    "wording_only_duplicate_rate": 0,
+    "maximum_family_size": 3,
+    "minimum_new_questions_from_unique_or_new_boundary_propositions": "50% of post-188 additions",
+    "maximum_controlled_variant_share": "50% of post-188 additions",
+    "family_members_must_not_share_identical_reasoning_path": true,
+    "family_members_must_not_share_identical_tested_misconception": true,
+    "answer_position_balancing_required_per_batch": true,
+    "domain_distribution_is_guidance_not_quota": true,
+    "stop_rule": "If 400 cannot be reached without violating the quality floor or controlled-variant limits, stop below 400 and persist the source ceiling rather than fabricate filler."
+  },
+  "target_distribution_guidance": {
+    "drone_rules": 100,
+    "drone_systems": 100,
+    "drone_operations": 100,
+    "drone_risk_management": 100,
+    "hard_quota": false,
+    "allowed_deviation": "Prefer source-supported balance; exact 100/100/100/100 is not required."
+  },
+  "prohibited": [
+    "wording-only duplicates",
+    "first-class-only material",
+    "unsupported inference",
+    "invented numerical thresholds",
+    "distractors that are arguably correct under the stem",
+    "more than three questions in one core proposition family",
+    "same scenario with only nouns/numbers shuffled",
+    "backfilling low-value items solely to hit 400"
+  ],
+  "execution_plan": [
+    {
+      "stage": "B5_CLOSE",
+      "objective": "Integrate and source-verify the already accepted eight Operations candidates as Q189-Q196."
+    },
+    {
+      "stage": "B6_PLUS_SYSTEMATIC_EXPANSION",
+      "objective": "Decompose the guide by domain, core proposition family, boundary/exception, misconception and reasoning path; author 25-40 candidates per batch under the controlled-variant rules."
+    },
+    {
+      "stage": "ROLLING_INTEGRATION",
+      "objective": "After each batch passes independent review and Director gate, allocate IDs, integrate canonical drafts and source-verify without waiting for all 400."
+    },
+    {
+      "stage": "FINAL_400_ACTIVATION",
+      "objective": "When 400 accepted, source-verified canonical questions exist, execute one explicit release activation, preserve historical first-use revision evidence, regenerate runtime and app assets, and run full release gates."
+    }
+  ],
+  "preserved_invariants": [
+    "DRONE-Q-000001..DRONE-Q-000188 keep their existing identity, content and release history.",
+    "The currently released 188-question runtime remains unchanged until a later activation gate.",
+    "The existing 20-question free selection remains unchanged unless separately decided.",
+    "The immutable V0 100-question validation snapshot remains unchanged."
+  ],
+  "next_atomic_objective": "ALLOCATE_AND_INTEGRATE_B5_OPERATIONS_ACCEPTED_8"
+}
