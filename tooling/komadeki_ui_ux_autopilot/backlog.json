@@ -80,7 +80,7 @@
     {
       "id": "UX-P1-002",
       "priority": "P1",
-      "status": "OPEN",
+      "status": "CLOSED",
       "ownership": "FACTORY_SHARED",
       "title": "Make the correct answer explicit in practice feedback",
       "evidence": [
