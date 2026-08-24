@@ -1,0 +1,50 @@
+name: B4 Operations Integration Once
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-b4-integration-worker-r1
+    paths:
+      - .github/workflows/b4-operations-integration-once.yml
+      - tooling/komadeki_autopilot/run_b4_operations_integration_once.py
+      - question_banks/drone_second_class/authoring/batches/batch_004/**
+      - question_banks/drone_second_class/authoring/question_id_registry.csv
+      - question_banks/drone_second_class/authoring/questions.csv
+      - tooling/komadeki_autopilot/drone_state.json
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute protected integration transaction
+        run: python tooling/komadeki_autopilot/run_b4_operations_integration_once.py
+      - name: Validate Question Bank
+        run: python tooling/question_bank/validate.py --bank question_banks/drone_second_class
+      - name: Validate Autopilot state
+        run: python tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+      - name: Run transaction regression tests
+        run: python -m unittest tooling/question_bank/tests/test_transaction.py
+      - name: Commit generated durable transition
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo 'No durable changes to commit.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add question_banks/drone_second_class/authoring/batches/batch_004/candidates.csv \
+                  question_banks/drone_second_class/authoring/question_id_registry.csv \
+                  question_banks/drone_second_class/authoring/questions.csv \
+                  tooling/komadeki_autopilot/drone_state.json
+          git commit -m 'Integrate B4 Operations accepted drafts'
+          git push origin HEAD:chatgpt/drone-b4-integration-worker-r1
