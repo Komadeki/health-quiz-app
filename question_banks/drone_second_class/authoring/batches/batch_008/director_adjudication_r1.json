@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B8",
+  "adjudication_round": 1,
+  "director": {
+    "id": "chatgpt-primary-director-b8-r1",
+    "role": "DECISION_OWNER"
+  },
+  "adjudicated_at": "2026-08-25",
+  "author_identity": "chatgpt-b8-systems-author-r1",
+  "reviewer_identity": "autopilot-b8-systems-reviewer-r1",
+  "identity_separation_checked": true,
+  "basis": [
+    "current GitHub main and Drone machine state",
+    "merged B8 batch contract and candidates.csv",
+    "merged independent_review_r1.json",
+    "current 235-question accepted/source-verified canonical baseline",
+    "MLIT-UAS-SAFETY-GUIDE-5 source contract, edition 5",
+    "merged 400-question quality-preserving controlled-variant contract"
+  ],
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 20,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "B8-SYS-C001","B8-SYS-C002","B8-SYS-C003","B8-SYS-C004","B8-SYS-C005",
+    "B8-SYS-C006","B8-SYS-C007","B8-SYS-C008","B8-SYS-C009","B8-SYS-C010",
+    "B8-SYS-C011","B8-SYS-C012","B8-SYS-C013","B8-SYS-C014","B8-SYS-C015",
+    "B8-SYS-C016","B8-SYS-C017","B8-SYS-C018","B8-SYS-C019","B8-SYS-C020"
+  ],
+  "director_findings": [
+    "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline.",
+    "All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation.",
+    "C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material.",
+    "No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕.",
+    "No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates.",
+    "No HUMAN review is claimed or fabricated."
+  ],
+  "controlled_variant_result": {
+    "accepted_tier_b": ["B8-SYS-C002","B8-SYS-C011","B8-SYS-C015","B8-SYS-C019"],
+    "rejected_tier_b": [],
+    "wording_only_duplicate_retained": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_FABRICATED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_20"
+}
