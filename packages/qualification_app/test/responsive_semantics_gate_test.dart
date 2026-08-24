@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qualification_app/qualification_app.dart';
 import 'package:quiz_engine/quiz_engine.dart';
@@ -144,7 +143,7 @@ void main() {
     await tester.pumpAndSettle();
     final node = tester.getSemantics(feedback);
     expect(node.label, contains('正解'));
-    expect(node.hasFlag(SemanticsFlag.isLiveRegion), isTrue);
+    expect(node.flagsCollection.isLiveRegion, isTrue);
     expect(tester.takeException(), isNull);
     semantics.dispose();
   });
