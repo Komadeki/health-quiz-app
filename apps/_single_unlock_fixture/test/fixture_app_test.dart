@@ -15,7 +15,10 @@ void main() {
       expect(find.text('1問を無料で利用できます'), findsOneWidget);
       expect(find.byKey(const Key('unit-fixture_safety')), findsOneWidget);
       expect(find.byKey(const Key('unit-fixture_operations')), findsOneWidget);
-      expect(find.byKey(const Key('start-random')), findsOneWidget);
+
+      final random = find.byKey(const Key('start-random'));
+      await tester.scrollUntilVisible(random, 200);
+      expect(random, findsOneWidget);
       expect(find.byKey(const Key('start-mock-exam')), findsOneWidget);
 
       final purchase = find.byKey(const Key('purchase-full-unlock'));
