@@ -18,6 +18,8 @@ from ai_governance import (  # noqa: E402
     promote_ai_governed_candidates,
 )
 from expansion import validate_expansion_batch  # noqa: E402
+from contract import QUESTION_FIELDS, read_csv  # noqa: E402
+from transaction import QuestionExpansionTransaction, TransactionError  # noqa: E402
 
 AUTOPILOT_DIR = REPOSITORY_ROOT / "tooling" / "komadeki_autopilot"
 sys.path.insert(0, str(AUTOPILOT_DIR))
@@ -71,6 +73,30 @@ class B2AcceptancePacketTest(unittest.TestCase):
             writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
             writer.writeheader()
             writer.writerows(rows)
+
+    @staticmethod
+    def _canonical_draft(candidate: dict[str, str], question_id: str) -> dict[str, str]:
+        row = {field: "" for field in QUESTION_FIELDS}
+        row.update({
+            "question_id": question_id,
+            "question_version": "1",
+            "status": "draft",
+            "deck_id": "drone_second_class_exam",
+            "unit_id": candidate["unit_id"],
+            "question": candidate["question"],
+            "choice1": candidate["choice1"],
+            "choice2": candidate["choice2"],
+            "choice3": candidate["choice3"],
+            "choice4": candidate["choice4"],
+            "correct_choice": candidate["proposed_correct"],
+            "explanation": candidate["explanation"],
+            "source_id": candidate["source_id"],
+            "source_locator": candidate["source_locator"],
+            "difficulty": "2",
+            "importance": "2",
+            "is_free": "false",
+        })
+        return row
 
     def test_packets_bind_exactly_to_director_accepted_candidates(self) -> None:
         review = json.loads((self.source_batch / "independent_review_r1.json").read_text(encoding="utf-8"))
@@ -130,6 +156,51 @@ class B2AcceptancePacketTest(unittest.TestCase):
             self.assertEqual("", registry[question_id]["first_used_bank_revision"])
             self.assertEqual(f"Expansion pre-release allocation: {candidate_id}", registry[question_id]["notes"])
         self.assertEqual([], validate_expansion_batch(self.source_batch))
+
+    def test_transaction_reproduces_the_b2_mapping_and_rejects_repeat(self) -> None:
+        expected_ids = {
+            candidate_id: f"DRONE-Q-{number:06d}"
+            for candidate_id, number in zip(self.accepted_ids, range(119, 142))
+        }
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        bank = Path(temporary.name) / "drone_second_class"
+        shutil.copytree(REPOSITORY_ROOT / "question_banks/drone_second_class", bank)
+        batch = bank / "authoring/batches/batch_002"
+
+        candidate_path = batch / "candidates.csv"
+        with candidate_path.open(encoding="utf-8", newline="") as handle:
+            fields = list((reader := csv.DictReader(handle)).fieldnames or [])
+            candidates = list(reader)
+        for candidate in candidates:
+            if candidate["candidate_id"] in self.accepted_ids:
+                candidate["state"] = "READY_FOR_ID"
+                candidate["permanent_question_id"] = ""
+        with candidate_path.open("w", encoding="utf-8", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(candidates)
+
+        registry_path = bank / "authoring/question_id_registry.csv"
+        registry_fields, registry = read_csv(registry_path)
+        registry = [row for row in registry if row["question_id"] not in set(expected_ids.values())]
+        with registry_path.open("w", encoding="utf-8", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=registry_fields, lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(registry)
+        questions_path = bank / "authoring/questions.csv"
+        question_fields, questions = read_csv(questions_path)
+        questions = [row for row in questions if row["question_id"] not in set(expected_ids.values())]
+        with questions_path.open("w", encoding="utf-8", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=question_fields, lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(questions)
+
+        transaction = QuestionExpansionTransaction(bank, batch, self.accepted_ids, question_factory=self._canonical_draft)
+        self.assertEqual(expected_ids, transaction.dry_run())
+        self.assertEqual(expected_ids, transaction.apply())
+        with self.assertRaises(TransactionError):
+            QuestionExpansionTransaction(bank, batch, self.accepted_ids, question_factory=self._canonical_draft).apply()
 
     def test_promotion_path_promotes_all_23_atomically(self) -> None:
         _, batch = self._copy_batch()

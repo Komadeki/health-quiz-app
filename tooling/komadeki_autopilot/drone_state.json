@@ -7,7 +7,7 @@
   "current_phase": "QUESTION_BANK_COMPLETION",
   "phase_order": ["QUESTION_BANK_COMPLETION","FEATURE_COMPLETION","PRODUCT_CLOSURE","PHYSICAL_DEVICE","STOREKIT_TESTFLIGHT","APP_STORE_CONNECT","FINAL_RELEASE_GATE","SUBMIT","DONE"],
   "observed_main": "d9907ac9451fdda04fd3a41012749e3636a7d4cf",
-  "next_atomic_objective": "VERIFY_B2_RISK_CANONICAL_SOURCES_23",
+  "next_atomic_objective": "AUTHOR_AND_PERSIST_B3_SYSTEMS_AI_PRE_ACCEPT",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
