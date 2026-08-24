@@ -21,9 +21,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Validate policy JSON
         run: python3 -m json.tool tooling/komadeki_autopilot/question_acceptance.json >/dev/null
       - name: Run acceptance contract tests
         run: python3 -m unittest tooling/komadeki_autopilot/tests/test_question_acceptance.py
       - name: Diff hygiene
-        run: git diff --check HEAD^ HEAD || true
+        run: git diff --check '${{ github.event.pull_request.base.sha }}' '${{ github.event.pull_request.head.sha }}'
