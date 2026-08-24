@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B2",
+  "adjudication_round": 1,
+  "director": {"id":"chatgpt-b2-risk-director-adjudicator-r1","role":"AI_DIRECTOR"},
+  "author": {"id":"chatgpt-director-authoring-run-20260824-b2","role":"AI_AUTHOR"},
+  "reviewer": {"id":"autopilot-b2-risk-reviewer-r1","role":"AI_REVIEWER"},
+  "identity_separation":"PASS",
+  "review_evidence":"independent_review_r1.json",
+  "decision":"ADOPT_REVIEWER_DECISIONS",
+  "summary":{"accept":23,"reject":2,"rework":0,"hold":0},
+  "accepted_candidate_ids":["B2-RM-C001","B2-RM-C002","B2-RM-C003","B2-RM-C004","B2-RM-C005","B2-RM-C007","B2-RM-C008","B2-RM-C009","B2-RM-C010","B2-RM-C011","B2-RM-C013","B2-RM-C014","B2-RM-C015","B2-RM-C016","B2-RM-C017","B2-RM-C018","B2-RM-C019","B2-RM-C020","B2-RM-C021","B2-RM-C022","B2-RM-C023","B2-RM-C024","B2-RM-C025"],
+  "rejected":[
+    {"candidate_id":"B2-RM-C006","reason_code":"SEMANTIC_COLLISION_RELEASED","collided_question_id":"DRONE-Q-000045","director_rationale":"Confirmed. Both test the same answer-defining proposition: low temperature may shorten battery endurance/flight time. Scenario-only reserve-margin framing is insufficient variation."},
+    {"candidate_id":"B2-RM-C012","reason_code":"SEMANTIC_COLLISION_RELEASED","collided_question_id":"DRONE-Q-000035","director_rationale":"Confirmed. Both test the same proposition that building geometry can create local building wind that must be evaluated separately from a nearby open-site wind observation."}
+  ],
+  "director_rationale":"Independent reviewer evidence is source-consistent and correctly distinguishes integration/decision-boundary variants from exact semantic collisions. The 23 accepted candidates retain distinct propositions and commercial practice value; the two collision candidates must not receive acceptance packets or Permanent IDs.",
+  "invariants":{"HUMAN_REVIEW_FABRICATED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"REGISTRY_CHANGED":false,"RUNTIME_CHANGED":false,"RELEASED_CHANGED":false},
+  "final_gate":"READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_23"
+}
