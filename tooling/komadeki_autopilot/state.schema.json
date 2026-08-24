@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://komadeki.local/schemas/autopilot-state-v1.json",
+  "title": "KOMADEKI Autopilot State v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project",
+    "product",
+    "control_issue",
+    "status",
+    "current_phase",
+    "phase_order",
+    "observed_main",
+    "next_atomic_objective",
+    "autonomous_acceptance",
+    "review_identity_policy",
+    "local_only_state_authoritative",
+    "repository_completion_rule",
+    "human_blocker",
+    "state_epoch"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "project": {"type": "string", "minLength": 1},
+    "product": {"type": "string", "minLength": 1},
+    "control_issue": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["ACTIVE", "HUMAN_BLOCKED", "DONE"]},
+    "current_phase": {
+      "enum": [
+        "QUESTION_BANK_COMPLETION",
+        "FEATURE_COMPLETION",
+        "PRODUCT_CLOSURE",
+        "PHYSICAL_DEVICE",
+        "STOREKIT_TESTFLIGHT",
+        "APP_STORE_CONNECT",
+        "FINAL_RELEASE_GATE",
+        "SUBMIT",
+        "DONE"
+      ]
+    },
+    "phase_order": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {"type": "string"}
+    },
+    "observed_main": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "next_atomic_objective": {"type": "string"},
+    "autonomous_acceptance": {"enum": ["MIGRATION_REQUIRED", "AI_GOVERNED", "HUMAN_REQUIRED"]},
+    "review_identity_policy": {"const": "NEVER_FABRICATE_HUMAN"},
+    "local_only_state_authoritative": {"const": false},
+    "repository_completion_rule": {"const": "DURABLE_GITHUB_EVIDENCE_REQUIRED"},
+    "human_blocker": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["action", "resume_evidence"],
+          "properties": {
+            "action": {"type": "string", "minLength": 1},
+            "resume_evidence": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
+    "state_epoch": {"type": "integer", "minimum": 1}
+  }
+}
