@@ -29,6 +29,7 @@ A valid packet is evidence for the AI-governed path. The candidate row itself mo
 Every autonomous candidate acceptance packet must preserve:
 
 - candidate identity;
+- `candidate_fingerprint`: lowercase SHA-256 over the canonical content-binding fields;
 - authoritative `source_id`, `source_version`, and `source_locator`;
 - answer-defining proposition;
 - tested misconception;
@@ -38,7 +39,9 @@ Every autonomous candidate acceptance packet must preserve:
 - Director decision and rationale;
 - distinct author, reviewer, and Director identities.
 
-The lifecycle bridge additionally binds packet source/proposition/misconception/reasoning/collision evidence back to the current candidate row. A stale or mismatched packet fails closed.
+The fingerprint binds the acceptance decision to the candidate content that was actually reviewed, including question/choices/correct answer/explanation, source binding, proposition, misconception, reasoning path, and collision note. Any post-review mutation invalidates the packet.
+
+The lifecycle bridge also checks packet source/proposition/misconception/reasoning/collision evidence against the current candidate row. A stale or mismatched packet fails closed.
 
 ## 4. Decision rules
 
@@ -48,12 +51,13 @@ An autonomous candidate is accepted only when all of the following are true:
 2. independent reviewer decision is `ACCEPT`;
 3. Director decision is `ACCEPT`;
 4. author, reviewer, and Director IDs are non-empty and pairwise distinct;
-5. source evidence is complete and matches the candidate row;
-6. semantic-collision checks are recorded as complete and the collision note matches the candidate row;
-7. answer-defining proposition, tested misconception, and reasoning path are non-empty and match the candidate row;
-8. no autonomous actor claims the `HUMAN` role;
-9. the acceptance packet requests `AI_GOVERNED_ACCEPT`;
-10. no unresolved HOLD/REWORK/REJECT condition exists.
+5. `candidate_fingerprint` is a valid lowercase SHA-256 digest and matches the current candidate content;
+6. source evidence is complete and matches the candidate row;
+7. semantic-collision checks are recorded as complete and the collision note matches the candidate row;
+8. answer-defining proposition, tested misconception, and reasoning path are non-empty and match the candidate row;
+9. no autonomous actor claims the `HUMAN` role;
+10. the acceptance packet requests `AI_GOVERNED_ACCEPT`;
+11. no unresolved HOLD/REWORK/REJECT condition exists.
 
 A reviewer `REWORK`, `REJECT`, or `HOLD` cannot be overridden by omission. Acceptance after reviewer disagreement requires a new independent reviewer round rather than unilateral Director acceptance.
 
@@ -64,12 +68,12 @@ The existing expansion lifecycle remains backward compatible:
 - genuine Human path: latest real Human `ACCEPT` review satisfies the post-accept gate;
 - AI-governed path: a valid durable acceptance packet satisfies the same post-accept gate without creating a Human review record.
 
-`tooling/question_bank/ai_governance.py` performs fail-closed packet binding and atomic promotion from `AI_PRE_ACCEPT` to `READY_FOR_ID`.
+`tooling/question_bank/ai_governance.py` computes the candidate fingerprint, performs fail-closed packet/content binding, and atomically promotes valid candidates from `AI_PRE_ACCEPT` to `READY_FOR_ID`.
 
 `tooling/question_bank/expansion.py` recognizes a post-accept candidate only when either:
 
 - a genuine latest Human `ACCEPT` review exists; or
-- the candidate has a valid AI-governed acceptance packet.
+- the candidate has a valid AI-governed acceptance packet whose fingerprint and evidence match the current candidate row.
 
 `QuestionExpansionTransaction` continues to allocate from accepted pre-ID states. The AI path reaches it through `READY_FOR_ID`, so permanent-ID allocation, duplicate-ID checks, partial-state detection, and rollback protections are unchanged.
 
@@ -81,7 +85,7 @@ Autonomous acceptance is a content-selection gate only. It does **not** satisfy 
 
 Completion is recognized only when the acceptance packet is persisted on GitHub. Chat-only, browser-only, or local-only evidence is non-authoritative.
 
-Promotion is atomic across `candidates.csv`: if any selected candidate has missing, malformed, mismatched, or non-accepted AI evidence, no selected candidate is promoted.
+Promotion is atomic across `candidates.csv`: if any selected candidate has missing, malformed, mismatched, stale, or non-accepted AI evidence, no selected candidate is promoted.
 
 ## 8. Legacy compatibility
 
