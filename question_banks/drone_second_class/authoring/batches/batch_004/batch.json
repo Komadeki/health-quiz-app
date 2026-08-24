@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B4",
+  "directory_slug": "batch_004",
+  "baseline_sha": "19f359d45f08cb1121d0b95fa1bd0e7b8fcddc8b",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "expansion_trigger": "Expand Operations coverage after the canonical inventory reached 169 and the target/coverage review identified Operations as the thinnest domain (22 questions). Author source-first from general second-class-applicable MLIT 第5版 Chapter 5 material; the 180-220 exploration envelope is not a quota and unsupported, one-class-only, or semantically duplicate propositions are excluded.",
+  "evidence": [
+    "Current GitHub main at reconciled authoring start is 19f359d45f08cb1121d0b95fa1bd0e7b8fcddc8b.",
+    "Current canonical inventory is 169: Rules 44, Systems 57, Operations 22, Risk Management 46; production active/released/runtime remains 100/100/100.",
+    "Merged PR #87 retained final Production target HOLD and selected Operations as the next source-first expansion domain.",
+    "MLIT 無人航空機の飛行の安全に関する教則 第5版 was published 2026-07-07 and applies to academic examinations from 2026-07-14.",
+    "Authoritative source_id is MLIT-UAS-SAFETY-GUIDE-5, source_version 5.",
+    "Author identity for this batch is chatgpt-b4-operations-author-r1 / AI_AUTHOR.",
+    "Twenty candidate propositions were retained because this authoring pass found explicit general Chapter 5 support and a distinct tested misconception/reasoning path against the current 169-question canonical inventory; 20 is an observed source ceiling for this pass, not a target quota."
+  ],
+  "target_size_decisions": [{"decision_id":"B4-TARGET-001","previous_approved_target":100,"current_released_count":100,"proposed_target_min":100,"proposed_target_max":100,"approved_new_target":100,"rationale":"No new released-bank target is approved by B4 authoring. Final Production target remains HOLD. The 180-220 value remains only a coverage exploration envelope; B4 candidate count follows explicit source support and semantic distinctness.","decision_date":"2026-08-24","evidence":"Merged target_review_169.json / PR #87: Operations is next; final target HOLD."}],
+  "planned_scope": {
+    "area": "Operations",
+    "candidate_batch_identity": "B4",
+    "candidate_ids": ["B4-OPS-C001","B4-OPS-C002","B4-OPS-C003","B4-OPS-C004","B4-OPS-C005","B4-OPS-C006","B4-OPS-C007","B4-OPS-C008","B4-OPS-C009","B4-OPS-C010","B4-OPS-C011","B4-OPS-C012","B4-OPS-C013","B4-OPS-C014","B4-OPS-C015","B4-OPS-C016","B4-OPS-C017","B4-OPS-C018","B4-OPS-C019","B4-OPS-C020"],
+    "allocation": {"OPS1_operational_process_and_checks":5,"OPS2_application_insurance_security":4,"OPS3_flight_technique_and_human_error":9,"OPS4_crm_and_assistant_roles":2},
+    "known_rejected_ids": []
+  },
+  "coverage_limit_decisions": [
+    {"decision_id":"B4-COVERAGE-LIMIT-001","status":"PARTIAL","scope":"Operations propositions excluded from this batch","evidence":"Explicitly 〔一等〕-only Chapter 5 material was excluded, including Category III-specific application/risk, Category III takeoff/landing, and Category III emergency-response additions. Existing canonical propositions for fatigue, stress, alcohol, auto/manual takeover, TEM stages, general CRM resource use, assistant coordination, preflight preparation/inspection, Category II application workflow, flight-plan change, physical security, VRS descent, automatic-vs-manual use cases, accident-site immediate safety, and end-of-day storage were not repeated."},
+    {"decision_id":"B4-COVERAGE-LIMIT-002","status":"PARTIAL","scope":"B4 authoring pass candidate count","evidence":"Authoring stopped after 20 explicit, semantically distinct general Chapter 5 propositions were retained. No count was backfilled to reach the 180-220 exploration envelope."}
+  ],
+  "migration_blockers": []
+}
