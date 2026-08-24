@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B6",
+  "review_round": 1,
+  "reviewer": {
+    "id": "autopilot-b6-operations-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "chatgpt-b6-operations-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "All reviewed Chapter 2 locators are outside subsections explicitly marked 〔一等〕."
+  },
+  "review_basis": [
+    "current merged B6 candidates.csv",
+    "current 196-question canonical inventory",
+    "B6 within-batch collision review",
+    "current official MLIT 教則第5版 Chapter 2 source",
+    "merged 400-question quality-preserving controlled-variant contract",
+    "answer correctness, answer uniqueness, distractor plausibility, commercial practice value, proposition/misconception/reasoning-path distinctness"
+  ],
+  "summary": {
+    "reviewed": 20,
+    "accept": 19,
+    "reject": 1,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {"candidate_id":"B6-OPS-C001","decision":"ACCEPT","rationale":"2.1.8(1) explicitly states potential criminal liability such as professional negligence causing death or injury. Existing accident questions test immediate response/reporting, not classification of the pilot's legal responsibility."},
+    {"candidate_id":"B6-OPS-C002","decision":"ACCEPT","rationale":"2.1.8(2) explicitly states potential Civil Code damages liability to victims. Existing insurance items test coverage scope, not the underlying civil obligation."},
+    {"candidate_id":"B6-OPS-C003","decision":"ACCEPT","rationale":"2.1.8(3) explicitly lists certificate cancellation/suspension, written warning and oral caution. Existing certificate coverage concerns renewal rather than sanctions for violation, misconduct or gross negligence."},
+    {"candidate_id":"B6-OPS-C004","decision":"ACCEPT","rationale":"2.1.7 explicitly requires route selection that prevents easy third-party approach. This preventive route-choice boundary is distinct from existing safety-margin and assistant access-management items."},
+    {"candidate_id":"B6-OPS-C005","decision":"ACCEPT","rationale":"2.2.1(1)1 explicitly requires planning that accounts for aircraft performance and pilot/assistant experience and capability. Existing planning items focus on external route/environmental hazards rather than mission-capability fit."},
+    {"candidate_id":"B6-OPS-C006","decision":"ACCEPT","rationale":"Tier B PASS. 2.2.1(1)3 separately names emergency landing locations and places where safe hovering/turning is possible. Q044 tests emergency landing-site availability and Q195 tests in-event landing priority; this candidate tests the preflight safe-holding/maneuvering branch before forced landing."},
+    {"candidate_id":"B6-OPS-C007","decision":"ACCEPT","rationale":"2.2.1(2)2 explicitly includes MSL altitude, obstacle locations and landmarks in site survey. Q185 concerns onsite obstacle confirmation for an automatic waypoint route; the broader vertical/geometric site-survey proposition remains distinct."},
+    {"candidate_id":"B6-OPS-C008","decision":"ACCEPT","rationale":"Tier B PASS. 2.2.1(2)4 explicitly requires preflight survey of pedestrian/vehicle traffic and manned-aircraft activity. Existing Q051/Q170 address encounter response or in-flight monitoring, so the flight-phase decision boundary is materially different."},
+    {"candidate_id":"B6-OPS-C009","decision":"ACCEPT","rationale":"2.2.3 explicitly requires collecting current weather, wind direction, warnings and advisories before flight. Existing items test weather-based decisions or in-flight deterioration, not this information-collection obligation itself."},
+    {"candidate_id":"B6-OPS-C010","decision":"ACCEPT","rationale":"2.2.7(1) explicitly links poor physical condition to distraction and reduced judgment. Existing human-performance questions separately test fatigue, stress and alcohol, so illness-related impairment is a new explicit proposition."},
+    {"candidate_id":"B6-OPS-C011","decision":"ACCEPT","rationale":"Tier B PASS. 2.2.7(2) explicitly states not to operate with sleep deprivation or accumulated fatigue. Q003 addresses flight-time management after fatigue develops during repeated operations; this item tests the pre-launch go/no-go branch when impairment already exists."},
+    {"candidate_id":"B6-OPS-C012","decision":"ACCEPT","rationale":"2.2.8 explicitly requires carrying the original or copy of permission/approval documentation for a specific flight. Q111 tests skill-certificate and flight-log carriage, not this document branch."},
+    {"candidate_id":"B6-OPS-C013","decision":"ACCEPT","rationale":"2.2.8 explicitly defines the oral-permission/no-document branch: the date and number must be answerable. This source-defined exception is not represented by Q111 or the Category II application timing question."},
+    {"candidate_id":"B6-OPS-C014","decision":"ACCEPT","rationale":"2.2.9(2) explicitly warns against overreliance on collision-avoidance equipment and specifically mentions birds. Q170 tests the general monitoring set; this item tests automation overtrust/residual-hazard reasoning and is commercially useful."},
+    {"candidate_id":"B6-OPS-C015","decision":"REJECT","reason_code":"SEMANTIC_COLLISION_CANONICAL","collided_question_id":"DRONE-Q-000089","rationale":"Q089 already requires preflight determination of pilot-assistant communication methods as part of assistant coordination. C015 changes the causal framing to misunderstanding/transmission delay but the answer-defining action and solving rule remain the same: predetermine the communication/information-sharing method before flight. This is too close under the 400-target quality floor and must not be retained as a wording/reason variant."},
+    {"candidate_id":"B6-OPS-C016","decision":"ACCEPT","rationale":"Tier B PASS. 2.2.10(3) explicitly distinguishes mandatory logging for specific flights from recommended logging for non-specific flights. Q042 tests the mandatory side; C016 tests the opposite statutory-versus-recommended boundary."},
+    {"candidate_id":"B6-OPS-C017","decision":"ACCEPT","rationale":"2.2.10(3) explicitly recommends recording inadequate risk responses for future flights. Existing log questions do not test capturing insufficient controls/near-miss learning evidence."},
+    {"candidate_id":"B6-OPS-C018","decision":"ACCEPT","rationale":"2.3.1(3) explicitly requires preserving flight logs for investigation and recurrence prevention. Existing accident items test immediate human safety, hazard prevention and reporting, not evidence preservation after those actions."},
+    {"candidate_id":"B6-OPS-C019","decision":"ACCEPT","rationale":"Tier B PASS. 2.3.2 separately defines immediate recipients based on event content—police, fire and other necessary agencies—together with MLIT reporting. Q052 covers stop/rescue/hazard-prevention and MLIT reporting but does not test recipient selection, so this branch is materially distinct."},
+    {"candidate_id":"B6-OPS-C020","decision":"ACCEPT","rationale":"Tier B PASS. 2.3.3 defines 25kg+ and Level 3.5 as independent OR conditions for sufficient third-party liability insurance. Q194 tests the 25kg+ branch; C020 uses <25kg and requires recognizing the separate Level 3.5 branch, a genuine source-defined boundary rather than number substitution."}
+  ],
+  "controlled_variant_gate": {
+    "reviewed_tier_b": ["B6-OPS-C006","B6-OPS-C008","B6-OPS-C011","B6-OPS-C015","B6-OPS-C016","B6-OPS-C019","B6-OPS-C020"],
+    "accepted_tier_b": ["B6-OPS-C006","B6-OPS-C008","B6-OPS-C011","B6-OPS-C016","B6-OPS-C019","B6-OPS-C020"],
+    "rejected_tier_b": ["B6-OPS-C015"],
+    "density_policy_checked": true,
+    "wording_only_duplicates_allowed": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_19_ACCEPT_1_REJECT"
+}
