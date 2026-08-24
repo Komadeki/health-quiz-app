@@ -6,14 +6,22 @@ import 'package:quiz_engine/quiz_engine.dart';
 import 'test_support.dart';
 
 void main() {
-  Future<QualificationProductionController> createController() async {
+  Future<QualificationProductionController> createController({
+    bool unlocked = false,
+  }) async {
+    final entitlementCache = MemoryEntitlementCache();
+    if (unlocked) {
+      entitlementCache.value = EntitlementSnapshot(
+        ownedProductIds: const {'fixture_full_unlock'},
+      );
+    }
     final controller = QualificationProductionController(
       definition: fixtureDefinition,
       bankLoader: FixedBankLoader(loadFixtureBank()),
       sessionStore: MemoryQualificationSessionStore(),
       learningRepository: InMemoryLearningRepository(),
       purchaseGateway: FakePurchaseGateway(),
-      entitlementCache: MemoryEntitlementCache(),
+      entitlementCache: entitlementCache,
       now: TestClock().call,
       randomizer: const IdentityQuestionRandomizer(),
     );
@@ -37,14 +45,33 @@ void main() {
     );
   }
 
-  testWidgets('recommendation is the initial primary action', (tester) async {
-    final controller = await createController();
+  testWidgets('recommendation outranks unanswered when it is accessible', (
+    tester,
+  ) async {
+    final controller = await createController(unlocked: true);
     addTearDown(controller.dispose);
     await pumpHome(tester, controller);
 
     expect(find.byKey(const Key('primary-learning-action')), findsOneWidget);
-    expect(find.byKey(const Key('primary-action-recommendation')), findsOneWidget);
+    expect(
+      find.byKey(const Key('primary-action-recommendation')),
+      findsOneWidget,
+    );
     expect(find.textContaining('おすすめ'), findsWidgets);
+  });
+
+  testWidgets('inaccessible recommendation falls through to unanswered', (
+    tester,
+  ) async {
+    final controller = await createController();
+    addTearDown(controller.dispose);
+    await pumpHome(tester, controller);
+
+    expect(find.byKey(const Key('primary-action-unanswered')), findsOneWidget);
+    expect(
+      find.byKey(const Key('primary-action-recommendation')),
+      findsNothing,
+    );
   });
 
   testWidgets('incorrect review outranks recommendation after a mistake', (
@@ -76,7 +103,7 @@ void main() {
     final correct = controller.currentCard!.answerIndex;
     await controller.commitAnswer(correct == 0 ? 1 : 0);
     await controller.advance();
-    await controller.startUnit('fixture_operations');
+    await controller.startIncorrect();
     controller.returnHome();
     await tester.pump();
 
