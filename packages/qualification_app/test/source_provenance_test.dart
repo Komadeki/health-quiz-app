@@ -145,7 +145,7 @@ void main() {
 
     expect(find.byKey(const Key('question-source-provenance')), findsNothing);
     expect(find.text('出典'), findsNothing);
-    expect(find.textContaining('出典metadataは任意'), findsOneWidget);
+    expect(find.byKey(const Key('answer-feedback')), findsOneWidget);
     final next = find.byKey(const Key('next-question'));
     await tester.scrollUntilVisible(next, 200);
     await tester.pumpAndSettle();
