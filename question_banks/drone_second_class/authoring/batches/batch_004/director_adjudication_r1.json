@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B4",
+  "adjudication_round": 1,
+  "director": {"id":"chatgpt-b4-operations-director-adjudicator-r1","role":"AI_DIRECTOR"},
+  "author": {"id":"chatgpt-b4-operations-author-r1","role":"AI_AUTHOR"},
+  "reviewer": {"id":"autopilot-b4-operations-reviewer-r1","role":"AI_REVIEWER"},
+  "identity_separation": "PASS",
+  "review_evidence": "independent_review_r1.json",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {"accept":19,"reject":1,"rework":0,"hold":0},
+  "accepted_candidate_ids": [
+    "B4-OPS-C001","B4-OPS-C002","B4-OPS-C003","B4-OPS-C004","B4-OPS-C005","B4-OPS-C006","B4-OPS-C007","B4-OPS-C008","B4-OPS-C009","B4-OPS-C010",
+    "B4-OPS-C011","B4-OPS-C012","B4-OPS-C013","B4-OPS-C014","B4-OPS-C015","B4-OPS-C017","B4-OPS-C018","B4-OPS-C019","B4-OPS-C020"
+  ],
+  "rejected": [
+    {
+      "candidate_id":"B4-OPS-C016",
+      "reason_code":"SEMANTIC_COLLISION_CANONICAL_DRAFT",
+      "collided_question_id":"DRONE-Q-000130",
+      "director_rationale":"Confirmed. DRONE-Q-000130 already tests the same fixed-wing takeoff/landing headwind selection and tailwind stall-risk proposition. C016 changes wording but not the answer-defining decision boundary, so adding it would be a wording-only duplicate."
+    }
+  ],
+  "director_rationale":"The independent review is source-consistent with the current MLIT 第5版 Chapter 5, preserves second-class scope, and correctly isolates one semantic duplicate. The other 19 candidates test distinct operational process, insurance/security, GNSS-off control, aircraft-specific takeoff/landing technique, human-error mitigation, CRM-skill, and assistant-role propositions with useful practice value. Near-neighbor candidates C004, C012, C014 and C020 remain distinct from the cited canonical questions because they require different causal or operational decision boundaries.",
+  "invariants": {
+    "HUMAN_REVIEW_FABRICATED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "RELEASED_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_19"
+}
