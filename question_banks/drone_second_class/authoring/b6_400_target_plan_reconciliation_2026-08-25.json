@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "reconciliation_id": "DRONE-B6-400-TARGET-PLAN-RECONCILIATION-2026-08-25",
+  "reconciled_at": "2026-08-25",
+  "plan": "b6_400_target_plan_2026-08-25.json",
+  "reason": "The merged planning artifact counted B6-OPS-C020 as Tier A in its aggregate 14/6 total, while the candidate's actual design is explicitly a controlled boundary variant of the Q194 25kg+ insurance branch. Final authoring classification therefore contains seven Tier B candidates, not six.",
+  "candidate_set_changed": false,
+  "candidate_count": 20,
+  "corrected_tier_counts": {
+    "A_NEW_PROPOSITION": 13,
+    "B_BOUNDARY_VARIANT": 7,
+    "C_REASONING_VARIANT": 0
+  },
+  "tier_b_candidate_ids": [
+    "B6-OPS-C006",
+    "B6-OPS-C008",
+    "B6-OPS-C011",
+    "B6-OPS-C015",
+    "B6-OPS-C016",
+    "B6-OPS-C019",
+    "B6-OPS-C020"
+  ],
+  "scope_effect": "Classification correction only. No new proposition, candidate, source scope, quality threshold, target count, Permanent ID, canonical row, source verification, release/runtime data or V0 snapshot is changed.",
+  "authoritative_for_b6_tier_counts": true
+}
