@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B7",
+  "review_round": 1,
+  "reviewer": {
+    "id": "autopilot-b7-rules-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "chatgpt-b7-rules-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "All reviewed Chapter 3 locators are outside subsections explicitly marked 〔一等〕."
+  },
+  "review_basis": [
+    "current merged B7 candidates.csv",
+    "current 215-question accepted/source-verified canonical inventory",
+    "B7 within-batch collision notes and nearest canonical neighbors",
+    "current official MLIT 教則第5版 Chapter 3 source",
+    "merged 400-question quality-preserving controlled-variant contract",
+    "answer correctness, answer uniqueness, distractor plausibility, commercial practice value, proposition/misconception/reasoning-path distinctness"
+  ],
+  "summary": {
+    "reviewed": 20,
+    "accept": 20,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {"candidate_id":"B7-RULE-C001","decision":"ACCEPT","rationale":"Tier B PASS. 3.1.2(3)1)c explicitly defines a preflight no-launch branch when a manned aircraft is already operating nearby. Q051 tests the in-flight encounter response and Q170 generic in-flight monitoring, so flight phase plus no-launch decision boundary are materially distinct."},
+    {"candidate_id":"B7-RULE-C002","decision":"ACCEPT","rationale":"3.1.2(3)1)c explicitly requires preflight coordination of date/time, route and altitude when another UAS operation is identified. Existing canonical coverage monitors traffic but does not test this operator-to-operator coordination obligation."},
+    {"candidate_id":"B7-RULE-C003","decision":"ACCEPT","rationale":"Tier B PASS. 3.1.2(3)1)c separately defines the in-flight other-UAS branch: establish safe separation, take avoidance action when collision risk arises, and coordinate with the other operator. This response sequence differs from Q051's manned-aircraft avoidance and Q170's general monitoring."},
+    {"candidate_id":"B7-RULE-C004","decision":"ACCEPT","rationale":"3.1.2(3)1)d explicitly prohibits nuisance flight such as unnecessary rapid descent or approach to people. The operational-necessity boundary is a new answer-defining proposition in the current canonical inventory."},
+    {"candidate_id":"B7-RULE-C005","decision":"ACCEPT","rationale":"3.1.2(3)1)e explicitly imposes continuing duties on the user of a registered UAS to preserve safety eligibility and registration-mark display. Q102 concerns initial registration refusal and Q108 registration-data changes, not post-registration maintenance of eligibility and marking."},
+    {"candidate_id":"B7-RULE-C006","decision":"ACCEPT","rationale":"3.1.2(3)1)f explicitly treats loss of control as a reportable serious incident even when no accident, injury or property damage occurs. Q052 and Q214 address accident response/reporting, so this non-accident reporting branch is materially distinct."},
+    {"candidate_id":"B7-RULE-C007","decision":"ACCEPT","rationale":"3.1.2(3)2)a explicitly enumerates the information required in a specific-flight plan notification, including aircraft/pilot, operation, access-control and insurance information. Q053 tests adherence after notification and Q110 notification timing, not the required data set."},
+    {"candidate_id":"B7-RULE-C008","decision":"ACCEPT","rationale":"Tier B PASS. 3.1.2(3)2)a explicitly requires compliance with a Minister-directed safety change to a notified plan, subject to the source-defined unavoidable-safety exception. Q053 concerns an operator's voluntary route change; authority-driven change plus exception is a different decision boundary and reasoning path."},
+    {"candidate_id":"B7-RULE-C009","decision":"ACCEPT","rationale":"3.1.2(3)2)b explicitly permits paper or electronic flight logs while requiring prompt practical reference/presentation. Q042 tests log record categories and Q111 carriage, so medium freedom plus accessibility is a distinct proposition."},
+    {"candidate_id":"B7-RULE-C010","decision":"ACCEPT","rationale":"3.1.2(3)2)b explicitly specifies flight-record contents such as date, takeoff/landing place and time, duration, pilot, malfunction and response. Q042 identifies record classes but does not test the concrete fields of the flight-record branch."},
+    {"candidate_id":"B7-RULE-C011","decision":"ACCEPT","rationale":"3.1.2(3)3)a explicitly requires a certified UAS used for a specific flight to remain within specified operating conditions such as mass, altitude and speed. Q049 concerns the II-B procedural exemption route, not compliance with the certified operating envelope."},
+    {"candidate_id":"B7-RULE-C012","decision":"ACCEPT","rationale":"3.1.2(3)3)b explicitly requires maintenance according to the maintenance manual to preserve conformity with safety standards after aircraft certification. Current canonical certification coverage does not test this continuing certified-aircraft maintenance duty."},
+    {"candidate_id":"B7-RULE-C013","decision":"ACCEPT","rationale":"Tier B PASS. 3.1.2(4)1) explicitly keeps prior operational-management review and permission/approval for Category II-A even when skill certification and aircraft certification are present. Q049 tests the opposite II-B exemption route; operation subtype plus procedural decision boundary are materially distinct."},
+    {"candidate_id":"B7-RULE-C014","decision":"ACCEPT","rationale":"3.1.2(2)4)c explicitly classifies Level 3.5 as Category II and permits onboard-camera confirmation to substitute for some access-control measures without eliminating access management or authorizing general third-party overflight. Q028 is only the general II/III classification and Q215 tests insurance."},
+    {"candidate_id":"B7-RULE-C015","decision":"ACCEPT","rationale":"Tier B PASS. 3.1.2(2)4)c explicitly permits temporary crossing above moving vehicles under Level 3.5 conditions while excluding exposed pedestrians/other third parties from the same treatment. Q013 concerns the ordinary shielding exception for a stationary vehicle; moving-vehicle state plus narrow Level 3.5 exception is materially distinct."},
+    {"candidate_id":"B7-RULE-C016","decision":"ACCEPT","rationale":"3.1.2(5)2) explicitly bars applicants under 16 from applying for a UAS pilot skill certificate. No current canonical item tests the minimum-age application gate."},
+    {"candidate_id":"B7-RULE-C017","decision":"ACCEPT","rationale":"3.1.2(5)3) explicitly requires passing the knowledge examination before taking the practical examination. Q109 concerns renewal timing; the examination-sequence gate is a separate proposition."},
+    {"candidate_id":"B7-RULE-C018","decision":"ACCEPT","rationale":"3.1.2(5)3) explicitly provides a practical-examination exemption route for completion of prescribed training at a registered training organization. Current canonical inventory does not directly test that statutory exemption route."},
+    {"candidate_id":"B7-RULE-C019","decision":"ACCEPT","rationale":"3.1.2(5)1) explicitly requires both multirotor and airplane type limitations for Powered-lift operation. Q142 tests Powered-lift flight characteristics, not the legal skill-certificate limitation requirement."},
+    {"candidate_id":"B7-RULE-C020","decision":"ACCEPT","rationale":"3.1.2(5)4) explicitly requires certificate holders to operate specific flights within the certified aircraft-type/flight-method limitations, with separate permission/approval required outside that scope. Q109/Q111 test renewal and carriage, not operational limitation compliance."}
+  ],
+  "controlled_variant_gate": {
+    "reviewed_tier_b": ["B7-RULE-C001","B7-RULE-C003","B7-RULE-C008","B7-RULE-C013","B7-RULE-C015"],
+    "accepted_tier_b": ["B7-RULE-C001","B7-RULE-C003","B7-RULE-C008","B7-RULE-C013","B7-RULE-C015"],
+    "rejected_tier_b": [],
+    "density_policy_checked": true,
+    "minimum_distinct_axes_checked": true,
+    "wording_only_duplicates_allowed": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_20_ACCEPT"
+}
