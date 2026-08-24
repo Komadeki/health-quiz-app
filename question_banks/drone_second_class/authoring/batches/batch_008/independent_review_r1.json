@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B8",
+  "review_round": 1,
+  "reviewer": {
+    "id": "autopilot-b8-systems-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "chatgpt-b8-systems-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "All reviewed Chapter 4 locators are outside subsections explicitly marked 〔一等〕; first-class-only 4.3.5 and Category III radio calculations remain excluded."
+  },
+  "review_basis": [
+    "current merged B8 candidates.csv",
+    "current 235-question accepted/source-verified canonical inventory",
+    "B8 within-batch collision notes and nearest canonical neighbors",
+    "current official MLIT 教則第5版 Chapter 4 source contract",
+    "merged 400-question quality-preserving controlled-variant contract",
+    "answer correctness, answer uniqueness, distractor plausibility, commercial practice value, proposition/misconception/reasoning-path distinctness"
+  ],
+  "summary": {"reviewed":20,"accept":20,"reject":0,"rework":0,"hold":0},
+  "decisions": [
+    {"candidate_id":"B8-SYS-C001","decision":"ACCEPT","rationale":"4.1 explicitly notes that fixed-wing automated takeoff/landing may require launcher/recovery ground equipment. Existing fixed-wing items test minimum speed, glide and control surfaces, not ground-equipment requirements."},
+    {"candidate_id":"B8-SYS-C002","decision":"ACCEPT","rationale":"Tier B PASS. The source-defined large-helicopter hover branch changes both aircraft applicability and control timing: large inertia delays response, so early control is required. Q099 tests generic large-aircraft acceleration/deceleration and obstacle avoidance, not hover anticipation."},
+    {"candidate_id":"B8-SYS-C003","decision":"ACCEPT","rationale":"The source-defined safety consequence of fixed-wing glide is a broadened possible impact/forced-landing area. Q144 tests glide capability itself; this item tests the distinct hazard implication for impact-location estimation."},
+    {"candidate_id":"B8-SYS-C004","decision":"ACCEPT","rationale":"The item tests the definition/sign convention of aerodynamic angle of attack and sideslip from relative airflow. Existing items test stall at high angle of attack or attitude angles, not these definitions."},
+    {"candidate_id":"B8-SYS-C005","decision":"ACCEPT","rationale":"The source states that many FCS sensors require aircraft-specific calibration. Q043 is the narrower geomagnetic-sensor calibration case, so the system-level calibration discipline is a separate proposition rather than a wording variant."},
+    {"candidate_id":"B8-SYS-C006","decision":"ACCEPT","rationale":"The transmitter role includes outbound commands and, in some systems, inbound aircraft information. Q004 covers the outbound command path; the telemetry-reception direction is materially distinct."},
+    {"candidate_id":"B8-SYS-C007","decision":"ACCEPT","rationale":"The source explicitly links low remaining LiPo voltage to abrupt output weakening and possible crash. Existing low-voltage/current/failsafe items do not directly test this end-of-charge output-collapse proposition."},
+    {"candidate_id":"B8-SYS-C008","decision":"ACCEPT","rationale":"General radio-wave interference can strengthen or weaken a combined signal. Existing diffraction/multipath items do not directly test the general interference proposition."},
+    {"candidate_id":"B8-SYS-C009","decision":"ACCEPT","rationale":"The distance-squared attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded Category III calculation material. The simple 2x-distance -> 1/4 power-density application is answer-unique and practice-relevant."},
+    {"candidate_id":"B8-SYS-C010","decision":"ACCEPT","rationale":"Water absorption causing substantial radio attenuation is an explicit propagation-medium proposition absent from the current canonical diffraction/multipath coverage."},
+    {"candidate_id":"B8-SYS-C011","decision":"ACCEPT","rationale":"Tier B PASS. Q075 tests multipath mechanism/result; this item tests the source-defined recovery action after control degradation—raise transmitter position and change antenna orientation—so response sequence and reasoning path are materially different."},
+    {"candidate_id":"B8-SYS-C012","decision":"ACCEPT","rationale":"The source gives distinct positioning accuracy classes for standalone GPS versus RTK/DGPS. Existing GNSS items test satellite count or the need for high-accuracy positioning, not this architecture-to-accuracy comparison."},
+    {"candidate_id":"B8-SYS-C013","decision":"ACCEPT","rationale":"The item tests preventive GNSS-receiver installation considering terrain/obstacles. Existing GNSS questions test operational effects such as multipath or waypoint error, not installation-site selection."},
+    {"candidate_id":"B8-SYS-C014","decision":"ACCEPT","rationale":"The source explicitly states that GNSS vertical error is generally larger than horizontal error. This directional accuracy limitation is distinct from existing cause/effect and high-precision-positioning questions."},
+    {"candidate_id":"B8-SYS-C015","decision":"ACCEPT","rationale":"Tier B PASS. Q072 tests the hazard after short-circuit; this item tests the storage-phase preventive boundary—disconnect aircraft connector and prevent terminal shorting. Flight phase plus preventive action are materially distinct."},
+    {"candidate_id":"B8-SYS-C016","decision":"ACCEPT","rationale":"Fire-resistant storage containment plus protection from puncture/mechanical damage is a separate storage-state proposition not covered by charge-level, swelling or post-impact LiPo items."},
+    {"candidate_id":"B8-SYS-C017","decision":"ACCEPT","rationale":"The explicit >35°C LiPo storage threshold is source-defined, answer-unique, and distinct from long-term charge-state management or cold-weather flight effects."},
+    {"candidate_id":"B8-SYS-C018","decision":"ACCEPT","rationale":"Business-use LiPo disposal as industrial waste under applicable law is an explicit end-of-life management proposition not represented by current storage/replacement items."},
+    {"candidate_id":"B8-SYS-C019","decision":"ACCEPT","rationale":"Tier B PASS. The winch-suspended-load branch requires reasoning about dynamic swing plus center-of-gravity change before/after release. Q073 is generic drop-device procedure and Q069 static payload CG; operation applicability and dynamics are materially distinct."},
+    {"candidate_id":"B8-SYS-C020","decision":"ACCEPT","rationale":"Agricultural spray-device operation within prescribed speed/altitude plus wind-drift prevention is device-specific operational-envelope knowledge distinct from general drop-device or legal-procedure questions."}
+  ],
+  "controlled_variant_gate": {
+    "reviewed_tier_b": ["B8-SYS-C002","B8-SYS-C011","B8-SYS-C015","B8-SYS-C019"],
+    "accepted_tier_b": ["B8-SYS-C002","B8-SYS-C011","B8-SYS-C015","B8-SYS-C019"],
+    "rejected_tier_b": [],
+    "density_policy_checked": true,
+    "minimum_distinct_axes_checked": true,
+    "wording_only_duplicates_allowed": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_20_ACCEPT"
+}
