@@ -53,8 +53,19 @@ void main() {
   ) async {
     await tester.tap(find.byKey(Key('choice-$selectedIndex')));
     await tester.pump();
-    await tester.tap(find.byKey(const Key('commit-answer')));
+    final commit = find.byKey(const Key('commit-answer'));
+    await tester.scrollUntilVisible(commit, 200);
+    await tester.pumpAndSettle();
+    await tester.tap(commit);
     await tester.pump();
+  }
+
+  Future<void> revealPracticeFeedback(WidgetTester tester) async {
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('correct-answer-feedback')),
+      200,
+    );
+    await tester.pumpAndSettle();
   }
 
   testWidgets('correct practice explicitly identifies selected and correct answer', (
@@ -68,8 +79,9 @@ void main() {
     await pumpQuiz(tester, controller);
 
     await commitChoice(tester, correctIndex);
-
     expect(find.text('正解'), findsOneWidget);
+    await revealPracticeFeedback(tester);
+
     expect(
       find.text('あなたの回答: ${card.choices[correctIndex]}'),
       findsOneWidget,
@@ -80,7 +92,7 @@ void main() {
     );
     expect(find.byKey(const Key('selected-answer-feedback')), findsOneWidget);
     expect(find.byKey(const Key('correct-answer-feedback')), findsOneWidget);
-    await tester.ensureVisible(find.byKey(const Key('next-question')));
+    await tester.scrollUntilVisible(find.byKey(const Key('next-question')), 200);
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('next-question')), findsOneWidget);
     expect(tester.takeException(), isNull);
@@ -98,8 +110,9 @@ void main() {
     await pumpQuiz(tester, controller);
 
     await commitChoice(tester, selectedIndex);
-
     expect(find.text('不正解'), findsOneWidget);
+    await revealPracticeFeedback(tester);
+
     expect(
       find.text('あなたの回答: ${card.choices[selectedIndex]}'),
       findsOneWidget,
@@ -110,7 +123,7 @@ void main() {
     );
     expect(find.byKey(const Key('selected-answer-feedback')), findsOneWidget);
     expect(find.byKey(const Key('correct-answer-feedback')), findsOneWidget);
-    await tester.ensureVisible(find.byKey(const Key('next-question')));
+    await tester.scrollUntilVisible(find.byKey(const Key('next-question')), 200);
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('next-question')), findsOneWidget);
     expect(tester.takeException(), isNull);
@@ -131,6 +144,8 @@ void main() {
     expect(find.byKey(const Key('selected-answer-feedback')), findsNothing);
     expect(find.byKey(const Key('correct-answer-feedback')), findsNothing);
     expect(find.text('解説（Explanation）'), findsNothing);
+    await tester.scrollUntilVisible(find.byKey(const Key('next-question')), 200);
+    await tester.pumpAndSettle();
     expect(find.byKey(const Key('next-question')), findsOneWidget);
   });
 }
