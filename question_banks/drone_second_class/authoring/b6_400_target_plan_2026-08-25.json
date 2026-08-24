@@ -1,0 +1,291 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B6-400-TARGET-COVERAGE-VARIANTS-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B6_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "26c7685a752570860383b7c15609bdb07c0fa4c5",
+  "target_contract": "target_400_quality_relaxation_contract_2026-08-25.json",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 196,
+    "accepted_source_verified_canonical": 196,
+    "remaining_to_400": 204,
+    "next_unreserved_permanent_id": "DRONE-Q-000197"
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "scope_rule": "Exclude subsections explicitly marked 〔一等〕. All B6 planned propositions below are in unmarked Chapter 2 material and are second-class-applicable."
+  },
+  "batch": {
+    "batch_id": "B6",
+    "domain": "drone_operations",
+    "candidate_ceiling": 20,
+    "candidate_ceiling_is_quota": false,
+    "authoring_priority": [
+      "Tier A new explicit propositions",
+      "Tier B source-defined boundary/condition variants",
+      "Tier C reasoning variants only if stronger A/B opportunities are exhausted"
+    ],
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 14,
+      "B_BOUNDARY_VARIANT": 6,
+      "C_REASONING_VARIANT": 0
+    }
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B6-OPS-C001",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "criminal liability after accident",
+      "source_locator": "教則 第2章 2.1.8(1)「刑事責任」",
+      "proposition": "衝突・墜落で死傷者が発生した場合、事故内容により業務上過失致死傷等の刑事責任を負う場合がある。",
+      "tested_misconception": "無人航空機事故は行政上の問題に限られ、刑事責任は生じない。",
+      "reasoning_path": "accident consequence -> death/injury -> criminal-liability branch",
+      "nearest_canonical": ["DRONE-Q-000052", "DRONE-Q-000087"],
+      "distinctness": "Existing questions test immediate accident actions/reporting, not classification of the pilot's potential criminal legal responsibility."
+    },
+    {
+      "candidate_id": "B6-OPS-C002",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "civil liability after accident",
+      "source_locator": "教則 第2章 2.1.8(2)「民事責任」",
+      "proposition": "操縦者は被害者に対して民法に基づく損害賠償責任を負う場合がある。",
+      "tested_misconception": "保険加入の有無が民事上の損害賠償責任そのものを決める。",
+      "reasoning_path": "harm to victim -> civil-law branch -> damages liability",
+      "nearest_canonical": ["DRONE-Q-000176", "DRONE-Q-000177"],
+      "distinctness": "Existing insurance questions test insurance coverage, not the underlying civil liability owed to a victim."
+    },
+    {
+      "candidate_id": "B6-OPS-C003",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "administrative sanctions",
+      "source_locator": "教則 第2章 2.1.8(3)「行政処分等」",
+      "proposition": "航空法違反、非行又は重大な過失がある場合、技能証明取消・停止、文書警告、口頭注意等の行政処分等の対象となり得る。",
+      "tested_misconception": "技能証明に対する行政措置は更新拒否だけで、取消や停止はない。",
+      "reasoning_path": "violation/misconduct/gross negligence -> administrative branch -> available sanctions",
+      "nearest_canonical": ["DRONE-Q-000109"],
+      "distinctness": "Q109 tests renewal procedure; it does not test sanctions for violations or serious misconduct."
+    },
+    {
+      "candidate_id": "B6-OPS-C004",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "third-party route separation",
+      "source_locator": "教則 第2章 2.1.7「第三者及び関係者に対する操縦者の責任」",
+      "proposition": "第三者が容易に近付くことのない飛行経路を選択するなど、第三者・関係者の安全を意識する。",
+      "tested_misconception": "第三者が現在飛行経路上にいなければ、第三者が近づきやすい経路でも問題ない。",
+      "reasoning_path": "route selection -> foreseeable third-party access -> preventive separation",
+      "nearest_canonical": ["DRONE-Q-000090", "DRONE-Q-000188"],
+      "distinctness": "Existing items concern safety margins and assistant access management; they do not test preventive route selection based on ease of third-party approach."
+    },
+    {
+      "candidate_id": "B6-OPS-C005",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "performance-aware flight planning",
+      "source_locator": "教則 第2章 2.2.1(1)①「飛行計画の作成」",
+      "proposition": "機体性能と操縦者・補助者の経験や能力を考慮し、無理のない飛行計画を立てる。",
+      "tested_misconception": "空域・気象条件だけ適合すれば、機体性能や要員能力は飛行計画の制約にならない。",
+      "reasoning_path": "mission demand -> aircraft capability + crew capability -> feasible plan",
+      "nearest_canonical": ["DRONE-Q-000119", "DRONE-Q-000120", "DRONE-Q-000121"],
+      "distinctness": "Current planning questions test external hazards and changes, not matching mission demands to aircraft and personnel capability."
+    },
+    {
+      "candidate_id": "B6-OPS-C006",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "preflight contingency planning",
+      "distinctness_axes": ["decision_boundary_or_exception", "response_sequence_or_priority"],
+      "family": "safe hover/turn contingency",
+      "source_locator": "教則 第2章 2.2.1(1)③「飛行計画の作成」",
+      "proposition": "緊急着陸地点だけでなく、安全にホバリング・旋回できる場所等も含め、異常時の対策を事前設定する。",
+      "tested_misconception": "異常時対策は緊急着陸地点だけ決めれば十分である。",
+      "reasoning_path": "contingency planning -> not yet forced landing -> identify safe holding/maneuvering options",
+      "nearest_canonical": ["DRONE-Q-000044", "DRONE-Q-000195"],
+      "distinctness": "Q044 tests emergency landing-site availability and Q195 in-event landing priority. This item tests the separate preflight branch of a safe holding/turning area before landing becomes necessary."
+    },
+    {
+      "candidate_id": "B6-OPS-C007",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "terrain and obstacle survey",
+      "source_locator": "教則 第2章 2.2.1(2)②「飛行予定地域や周辺施設の調査」",
+      "proposition": "現地調査で標高（海抜高度）、障害物位置、目標物等を確認する。",
+      "tested_misconception": "経路を地図上で設定できれば、標高や障害物位置は現地調査の対象外である。",
+      "reasoning_path": "planned area -> vertical/geometric constraints -> survey altitude and obstacles",
+      "nearest_canonical": ["DRONE-Q-000120", "DRONE-Q-000185"],
+      "distinctness": "Existing items test particular route hazards and onsite obstacle confirmation for automatic waypoints, not the broader planned-area survey set including MSL altitude and landmarks."
+    },
+    {
+      "candidate_id": "B6-OPS-C008",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "preflight area survey",
+      "distinctness_axes": ["decision_boundary_or_exception", "scenario_state_or_flight_phase"],
+      "family": "surface and manned-aircraft traffic survey",
+      "source_locator": "教則 第2章 2.2.1(2)④「飛行予定地域や周辺施設の調査」",
+      "proposition": "飛行予定地域で地上の歩行者・自動車の通行、有人航空機の飛行状況等を事前調査する。",
+      "tested_misconception": "有人航空機や地上交通は飛行開始後に監視すればよく、事前調査は不要である。",
+      "reasoning_path": "preflight area survey -> dynamic traffic exposure -> determine feasibility/controls before launch",
+      "nearest_canonical": ["DRONE-Q-000051", "DRONE-Q-000120", "DRONE-Q-000170"],
+      "distinctness": "Existing items concern encounter response, route hazard selection and in-flight monitoring; this item tests the preflight survey phase."
+    },
+    {
+      "candidate_id": "B6-OPS-C009",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "latest weather information collection",
+      "source_locator": "教則 第2章 2.2.3「気象情報の収集」",
+      "proposition": "飛行前に最新の天気、風向、警報、注意報等の気象情報を収集する。",
+      "tested_misconception": "現地で雨や強風が見えなければ、警報・注意報等の最新情報は確認しなくてよい。",
+      "reasoning_path": "preflight -> current external weather information -> collect forecast/warnings before go/no-go",
+      "nearest_canonical": ["DRONE-Q-000096", "DRONE-Q-000122", "DRONE-Q-000193"],
+      "distinctness": "Current questions test go/no-go weather decisions, temporary restrictions and in-flight deterioration, not the required preflight information collection set."
+    },
+    {
+      "candidate_id": "B6-OPS-C010",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "poor physical condition impairment",
+      "source_locator": "教則 第2章 2.2.7①「体調管理」",
+      "proposition": "体調不良は注意力散漫・判断力低下を招き事故原因となり得る。",
+      "tested_misconception": "体調不良は操縦の快適性に影響するだけで、判断能力には影響しない。",
+      "reasoning_path": "poor condition -> cognitive impairment -> accident risk",
+      "nearest_canonical": ["DRONE-Q-000003", "DRONE-Q-000034", "DRONE-Q-000040"],
+      "distinctness": "Existing human-performance items cover fatigue management, stress and alcohol; general illness-related cognitive impairment is not directly tested."
+    },
+    {
+      "candidate_id": "B6-OPS-C011",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "fatigue risk management",
+      "distinctness_axes": ["scenario_state_or_flight_phase", "reasoning_path"],
+      "family": "preflight sleep deprivation",
+      "source_locator": "教則 第2章 2.2.7②「体調管理」",
+      "proposition": "前日に十分な睡眠を取り、睡眠不足や疲労が蓄積した状態では操縦しない。",
+      "tested_misconception": "飛行前に疲労を自覚していても、まだ操作ミスが起きていなければ開始してよい。",
+      "reasoning_path": "preflight accumulated fatigue/sleep debt -> launch decision -> do not begin operation",
+      "nearest_canonical": ["DRONE-Q-000003"],
+      "distinctness": "Q003 tests management after fatigue develops during repeated flights. This variant tests the pre-launch decision when sleep debt/fatigue already exists."
+    },
+    {
+      "candidate_id": "B6-OPS-C012",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "permission document carriage",
+      "source_locator": "教則 第2章 2.2.8「技能証明書等の携帯」",
+      "proposition": "特定飛行では許可書又は承認書の原本又は写しを携行する。",
+      "tested_misconception": "DIPS上で許可・承認を確認できれば、許可書・承認書の原本又は写しは携行不要である。",
+      "reasoning_path": "specific flight -> required documentary evidence -> carry permission/approval document",
+      "nearest_canonical": ["DRONE-Q-000111"],
+      "distinctness": "Q111 tests skill certificate and flight-log carriage; it does not test the permission/approval document itself."
+    },
+    {
+      "candidate_id": "B6-OPS-C013",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "oral permission evidence",
+      "source_locator": "教則 第2章 2.2.8「技能証明書等の携帯」",
+      "proposition": "口頭で許可等を受け、書面未交付の場合は許可等の年月及び番号を回答できるようにする。",
+      "tested_misconception": "口頭許可なら、書面が交付されるまで許可年月や番号を把握する必要はない。",
+      "reasoning_path": "specific flight + oral permission + document not issued -> retain date/number evidence",
+      "nearest_canonical": ["DRONE-Q-000111", "DRONE-Q-000175"],
+      "distinctness": "No canonical item tests the oral-permission/no-document evidence branch."
+    },
+    {
+      "candidate_id": "B6-OPS-C014",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "collision avoidance system overtrust",
+      "source_locator": "教則 第2章 2.2.9(2)「監視の実施」",
+      "proposition": "衝突防止装置を搭載していても過信せず、鳥等を含む周囲監視を最大の安全対策として継続する。",
+      "tested_misconception": "衝突防止装置があれば、鳥や周囲障害物の目視監視を大幅に省略できる。",
+      "reasoning_path": "automation aid present -> residual detection limits -> maintain active surveillance",
+      "nearest_canonical": ["DRONE-Q-000170"],
+      "distinctness": "Q170 tests the monitoring set generally. This item tests automation-overtrust and residual hazards when collision avoidance is installed."
+    },
+    {
+      "candidate_id": "B6-OPS-C015",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "pilot-assistant coordination",
+      "distinctness_axes": ["scenario_state_or_flight_phase", "causal_mechanism"],
+      "family": "assistant information-sharing latency",
+      "source_locator": "教則 第2章 2.2.9(2)「監視の実施」",
+      "proposition": "補助者配置時は情報共有方法を事前確認し、状況把握の誤解や伝達遅延を防ぐ。",
+      "tested_misconception": "補助者の担当範囲だけ決めれば、具体的な情報共有方法は飛行中に決めてもよい。",
+      "reasoning_path": "assistant used -> communication channel/protocol -> prevent misunderstanding/delay during monitoring",
+      "nearest_canonical": ["DRONE-Q-000089", "DRONE-Q-000188"],
+      "distinctness": "Q089 tests staffing/assignment/contact planning broadly; Q188 tests assistant primary duties. This variant isolates information-sharing latency/misunderstanding during monitoring."
+    },
+    {
+      "candidate_id": "B6-OPS-C016",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "flight-log recording obligation",
+      "distinctness_axes": ["decision_boundary_or_exception", "reasoning_path"],
+      "family": "non-specific-flight log recommendation",
+      "source_locator": "教則 第2章 2.2.10(3)「飛行日誌の作成」",
+      "proposition": "特定飛行でなくても飛行日誌への記載が望ましい。",
+      "tested_misconception": "飛行日誌は特定飛行だけに関係し、カテゴリーI等では記録する意味がない。",
+      "reasoning_path": "not a specific flight -> statutory must boundary absent -> recommended safety record remains",
+      "nearest_canonical": ["DRONE-Q-000042"],
+      "distinctness": "Q042 tests the mandatory records for a specific flight. This variant tests the opposite side of the source-defined specific/non-specific flight boundary."
+    },
+    {
+      "candidate_id": "B6-OPS-C017",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "record inadequate risk response",
+      "source_locator": "教則 第2章 2.2.10(3)「飛行日誌の作成」",
+      "proposition": "リスク対応が不十分と感じた場合は、今後の飛行に備えてその内容を記録することが望ましい。",
+      "tested_misconception": "事故に至らなければ、不十分だったリスク対応を飛行後に記録する必要はない。",
+      "reasoning_path": "near-miss/insufficient control -> learning evidence -> record for future planning",
+      "nearest_canonical": ["DRONE-Q-000039", "DRONE-Q-000042"],
+      "distinctness": "Current log items do not test capturing inadequate risk controls for future learning."
+    },
+    {
+      "candidate_id": "B6-OPS-C018",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "accident flight-log preservation",
+      "source_locator": "教則 第2章 2.3.1「事故を起こしたら」③",
+      "proposition": "事故原因究明と再発防止のため、飛行ログ等の記録を残す。",
+      "tested_misconception": "事故後は機体を回収できれば、飛行ログ等の記録は保存しなくてよい。",
+      "reasoning_path": "accident occurred -> investigation/recurrence prevention -> preserve operational evidence",
+      "nearest_canonical": ["DRONE-Q-000052", "DRONE-Q-000087"],
+      "distinctness": "Existing accident questions test immediate safety/report actions, not preservation of flight evidence for investigation."
+    },
+    {
+      "candidate_id": "B6-OPS-C019",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "accident notification/reporting",
+      "distinctness_axes": ["decision_boundary_or_exception", "response_sequence_or_priority"],
+      "family": "police/fire/authority notification",
+      "source_locator": "教則 第2章 2.3.2「通報先」",
+      "proposition": "人の死傷、第三者物件損傷、機体紛失、航空機との衝突・接近等では内容に応じ直ちに警察署・消防署・必要機関へ連絡し、国土交通大臣にも報告する。",
+      "tested_misconception": "国土交通大臣への報告だけ行えば、警察・消防等への直ちの連絡は不要である。",
+      "reasoning_path": "specified accident/event -> choose immediate operational emergency recipient(s) + aviation authority reporting",
+      "nearest_canonical": ["DRONE-Q-000052"],
+      "distinctness": "Q052 tests flight stop/rescue/hazard mitigation and MLIT accident reporting. This variant tests the separate recipient/notification branch, including police/fire/other agencies based on event content."
+    },
+    {
+      "candidate_id": "B6-OPS-C020",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "specified Category II liability insurance requirement",
+      "distinctness_axes": ["decision_boundary_or_exception", "scenario_state_or_flight_phase"],
+      "family": "Level 3.5 insurance condition",
+      "source_locator": "教則 第2章 2.3.3「保険」",
+      "proposition": "総重量25kg未満でも、レベル3.5飛行に該当するカテゴリーII飛行では十分な第三者賠償責任保険加入が求められる。",
+      "tested_misconception": "25kg未満ならレベル3.5飛行でも当該保険要件の対象外である。",
+      "reasoning_path": "Category II -> not 25kg+ -> evaluate independent Level 3.5 branch -> insurance still required",
+      "nearest_canonical": ["DRONE-Q-000194"],
+      "distinctness": "Q194's stem tests the 25kg+ branch. The source explicitly defines Level 3.5 as a separate OR branch, so this variant tests the opposite condition path rather than changing wording."
+    }
+  ],
+  "quality_gate": {
+    "hard_reject_if": [
+      "wording-only duplicate",
+      "same proposition and same reasoning path without a material boundary change",
+      "unsupported inference",
+      "first-class-only content",
+      "ambiguous correct answer",
+      "low-value incidental trivia",
+      "implausible distractors",
+      "quota filler"
+    ],
+    "controlled_variant_requirement": "Tier B items must retain at least two recorded distinctness axes and one must be a decision boundary/exception or reasoning path. Parent proposition density must remain within the merged 400-target contract."
+  },
+  "next_atomic_objective": "AUTHOR_AND_PERSIST_B6_400_TARGET_CANDIDATES"
+}
