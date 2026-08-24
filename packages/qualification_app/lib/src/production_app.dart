@@ -11,6 +11,10 @@ import 'production_persistence.dart';
 import 'production_purchase.dart';
 
 typedef QualificationExternalUrlLauncher = Future<bool> Function(Uri url);
+typedef QualificationHomeSupplementBuilder = Widget Function(
+  BuildContext context,
+  QualificationProductionController controller,
+);
 
 final class QualificationProductionBootstrap extends StatefulWidget {
   const QualificationProductionBootstrap({
@@ -23,6 +27,7 @@ final class QualificationProductionBootstrap extends StatefulWidget {
     this.now,
     this.randomizer,
     this.urlLauncher,
+    this.homeSupplementBuilder,
     super.key,
   });
 
@@ -35,6 +40,7 @@ final class QualificationProductionBootstrap extends StatefulWidget {
   final DateTime Function()? now;
   final QuestionRandomizer? randomizer;
   final QualificationExternalUrlLauncher? urlLauncher;
+  final QualificationHomeSupplementBuilder? homeSupplementBuilder;
 
   @override
   State<QualificationProductionBootstrap> createState() =>
@@ -96,6 +102,7 @@ final class _QualificationProductionBootstrapState
         definition: widget.definition,
         controller: controller,
         urlLauncher: widget.urlLauncher,
+        homeSupplementBuilder: widget.homeSupplementBuilder,
       );
 }
 
@@ -104,12 +111,14 @@ final class QualificationProductionApp extends StatelessWidget {
     required this.definition,
     required this.controller,
     this.urlLauncher,
+    this.homeSupplementBuilder,
     super.key,
   });
 
   final QualificationAppDefinition definition;
   final QualificationProductionController controller;
   final QualificationExternalUrlLauncher? urlLauncher;
+  final QualificationHomeSupplementBuilder? homeSupplementBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +148,7 @@ final class QualificationProductionApp extends StatelessWidget {
             QualificationProductionView.home => QualificationHome(
               controller: controller,
               urlLauncher: urlLauncher ?? _launchExternalUrl,
+              homeSupplementBuilder: homeSupplementBuilder,
             ),
             QualificationProductionView.quiz => QualificationQuizPage(
               key: ValueKey(controller.activeSession?.currentQuestionId),
@@ -158,11 +168,13 @@ final class QualificationHome extends StatelessWidget {
   const QualificationHome({
     required this.controller,
     required this.urlLauncher,
+    this.homeSupplementBuilder,
     super.key,
   });
 
   final QualificationProductionController controller;
   final QualificationExternalUrlLauncher urlLauncher;
+  final QualificationHomeSupplementBuilder? homeSupplementBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -194,6 +206,14 @@ final class QualificationHome extends StatelessWidget {
                   const SizedBox(height: 16),
                   _NonfatalStatus(
                     message: _learnerFacingStatus(controller.storeMessage!),
+                  ),
+                ],
+                if (homeSupplementBuilder != null) ...[
+                  const SizedBox(height: 16),
+                  Builder(
+                    key: const Key('home-supplement'),
+                    builder: (context) =>
+                        homeSupplementBuilder!(context, controller),
                   ),
                 ],
                 if (definition.learningProduct.progressEnabled) ...[
