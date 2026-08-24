@@ -1,1321 +1,190 @@
-{
-  "schema_version": 1,
-  "verifications": [
-    {
-      "question_id": "DRONE-Q-000001",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000002",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000003",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000004",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000005",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000006",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000007",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000008",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000009",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000010",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000011",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000012",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000013",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000014",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000015",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000016",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000017",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000018",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000019",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000020",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000021",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000022",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000023",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000024",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000025",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000026",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000027",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000028",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000029",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000030",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000031",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000032",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000033",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000034",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000035",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000036",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000037",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000038",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000039",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000040",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000041",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000042",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000043",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000044",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000045",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000046",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000047",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000048",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000049",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000050",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000051",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000052",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000053",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000054",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000055",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000056",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000057",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000058",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000059",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000060",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000061",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000062",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000063",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000064",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000065",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000066",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000067",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000068",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000069",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000070",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000071",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000072",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000073",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000074",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000075",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000076",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000077",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000078",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000079",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000080",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000081",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000082",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000083",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000084",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000085",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000086",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000087",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000088",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000089",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000090",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000091",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000092",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000093",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000094",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000095",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000096",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000097",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000098",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000099",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000100",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-19"
-    },
-    {
-      "question_id": "DRONE-Q-000101",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000102",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000103",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000104",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000105",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000106",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000107",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000108",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000109",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000110",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000111",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000112",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000113",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000114",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000115",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000116",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000117",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000118",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000119",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000120",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000121",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000122",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000123",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000124",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000125",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000126",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000127",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000128",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000129",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000130",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000131",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000132",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000133",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000134",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000135",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000136",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000137",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000138",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000139",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000140",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000141",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000142",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000143",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000144",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000145",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000146",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000147",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000148",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000149",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000150",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000151",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000152",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000153",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000154",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000155",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000156",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000157",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000158",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000159",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000160",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000161",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000162",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000163",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000164",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000165",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000166",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000167",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000168",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000169",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000170",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000171",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000172",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000173",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000174",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000175",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000176",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000177",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000178",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000179",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000180",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000181",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000182",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000183",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000184",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000185",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000186",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000187",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    },
-    {
-      "question_id": "DRONE-Q-000188",
-      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
-      "source_version": "5",
-      "verification_state": "author_source_verified",
-      "verified_at": "2026-08-24"
-    }
-  ]
-}
+{"schema_version":1,"verifications":[
+{"question_id":"DRONE-Q-000001","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000002","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000003","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000004","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000005","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000006","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000007","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000008","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000009","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000010","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000011","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000012","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000013","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000014","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000015","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000016","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000017","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000018","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000019","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000020","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000021","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000022","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000023","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000024","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000025","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000026","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000027","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000028","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000029","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000030","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000031","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000032","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000033","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000034","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000035","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000036","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000037","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000038","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000039","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000040","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000041","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000042","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000043","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000044","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000045","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000046","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000047","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000048","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000049","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000050","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000051","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000052","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000053","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000054","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000055","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000056","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000057","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000058","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000059","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000060","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000061","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000062","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000063","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000064","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000065","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000066","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000067","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000068","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000069","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000070","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000071","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000072","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000073","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000074","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000075","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000076","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000077","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000078","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000079","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000080","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000081","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000082","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000083","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000084","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000085","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000086","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000087","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000088","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000089","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000090","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000091","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000092","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000093","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000094","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000095","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000096","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000097","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000098","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000099","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000100","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-19"},
+{"question_id":"DRONE-Q-000101","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000102","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000103","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000104","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000105","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000106","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000107","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000108","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000109","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000110","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000111","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000112","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000113","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000114","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000115","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000116","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000117","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000118","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000119","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000120","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000121","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000122","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000123","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000124","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000125","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000126","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000127","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000128","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000129","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000130","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000131","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000132","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000133","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000134","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000135","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000136","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000137","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000138","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000139","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000140","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000141","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000142","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000143","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000144","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000145","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000146","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000147","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000148","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000149","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000150","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000151","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000152","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000153","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000154","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000155","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000156","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000157","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000158","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000159","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000160","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000161","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000162","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000163","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000164","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000165","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000166","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000167","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000168","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000169","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000170","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000171","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000172","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000173","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000174","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000175","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000176","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000177","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000178","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000179","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000180","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000181","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000182","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000183","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000184","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000185","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000186","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000187","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"},
+{"question_id":"DRONE-Q-000188","source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","verification_state":"author_source_verified","verified_at":"2026-08-24"}
+]}
