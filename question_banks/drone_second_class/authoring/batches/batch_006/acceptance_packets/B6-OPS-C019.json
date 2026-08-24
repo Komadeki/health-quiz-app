@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C019",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b555078cde4916e24394eeddf23976434e4c8abea6e79c9816cfdae26ceaaece",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.3.2「通報先」（教則表示ページ6 / PDF viewer 12）"
+    },
+    "answer_defining_proposition": "対象事故・事案では内容に応じ警察署・消防署・必要機関へ直ちに連絡し、国土交通大臣にも報告する。",
+    "tested_misconception": "国土交通大臣への報告だけ行えば、警察・消防等への直ちの連絡は不要である。",
+    "reasoning_path": "specified accident/event -> choose immediate emergency recipient(s) + aviation authority reporting",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=accident notification/reporting。distinct axes=decision boundary/response recipients。Q052は飛行中止・救護・危険防止・MLIT報告。本問は警察/消防/必要機関というrecipient branchを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. 2.3.2 separately defines immediate recipients based on event content—police, fire and other necessary agencies—together with MLIT reporting. Q052 covers stop/rescue/hazard-prevention and MLIT reporting but does not test recipient selection, so this branch is materially distinct."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

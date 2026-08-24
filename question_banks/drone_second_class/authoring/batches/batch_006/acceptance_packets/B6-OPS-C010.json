@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "07aa3f54cc28ec916f693457c8ed773cd615eb69f25617958e1078e36b3f0f75",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.2.7①「体調管理」（教則表示ページ4 / PDF viewer 10）"
+    },
+    "answer_defining_proposition": "体調不良は注意力散漫・判断力低下を招き事故原因となり得る。",
+    "tested_misconception": "体調不良は操縦の快適性に影響するだけで、判断能力には影響しない。",
+    "reasoning_path": "poor condition -> cognitive impairment -> accident risk",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q003は疲労、Q034はストレス、Q040はアルコール。一般的な体調不良による注意・判断力低下は未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "2.2.7(1) explicitly links poor physical condition to distraction and reduced judgment. Existing human-performance questions separately test fatigue, stress and alcohol, so illness-related impairment is a new explicit proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

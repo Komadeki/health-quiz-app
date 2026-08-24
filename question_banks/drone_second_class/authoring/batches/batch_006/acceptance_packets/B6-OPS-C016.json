@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e1c955c707fd62086ab8979d757685e47c4ae571521293cafbf2e5d7ed0c80c5",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.2.10(3)「飛行日誌の作成」（教則表示ページ6 / PDF viewer 12）"
+    },
+    "answer_defining_proposition": "特定飛行でなくても飛行日誌への記載が望ましい。",
+    "tested_misconception": "飛行日誌は特定飛行だけに関係し、カテゴリーI等では記録する意味がない。",
+    "reasoning_path": "not a specific flight -> statutory must boundary absent -> recommended safety record remains",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=flight-log recording obligation。distinct axes=decision boundary/reasoning path。Q042は特定飛行での必須記録。本問は非特定飛行側の推奨境界を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. 2.2.10(3) explicitly distinguishes mandatory logging for specific flights from recommended logging for non-specific flights. Q042 tests the mandatory side; C016 tests the opposite statutory-versus-recommended boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

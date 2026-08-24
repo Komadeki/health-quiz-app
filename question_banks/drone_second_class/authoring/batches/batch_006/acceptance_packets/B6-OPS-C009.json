@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ff519ab2042b204262a07167953ca12064bc70e50199aade647f722ecaf738ea",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.2.3「気象情報の収集」（教則表示ページ4 / PDF viewer 10）"
+    },
+    "answer_defining_proposition": "飛行前に最新の天気、風向、警報、注意報等の気象情報を収集する。",
+    "tested_misconception": "現地で雨や強風が見えなければ、警報・注意報等の最新情報は確認しなくてよい。",
+    "reasoning_path": "preflight -> current external weather information -> collect forecast/warnings before go/no-go",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q096/Q122/Q193は気象判断・規制・飛行中悪化を問う。飛行前の最新情報収集セットそのものは未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "2.2.3 explicitly requires collecting current weather, wind direction, warnings and advisories before flight. Existing items test weather-based decisions or in-flight deterioration, not this information-collection obligation itself."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

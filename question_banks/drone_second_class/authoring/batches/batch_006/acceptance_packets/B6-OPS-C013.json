@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B6-OPS-C013",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d2c4f04395380b06ecb0631bd5b837a5c9c356cb8434b940f7ccf6ff325ae16c",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b6-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b6-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-b6-operations-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第2章 2.2.8「技能証明書等の携帯」（教則表示ページ5 / PDF viewer 11）"
+    },
+    "answer_defining_proposition": "口頭で許可等を受け、書面未交付の場合は許可等の年月及び番号を回答できるようにする。",
+    "tested_misconception": "口頭許可なら、書面が交付されるまで許可年月や番号を把握する必要はない。",
+    "reasoning_path": "specific flight + oral permission + document not issued -> retain date/number evidence",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q111/Q175は携行物・申請時期。本問の口頭許可かつ書面未交付という証拠保持branchは未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "2.2.8 explicitly defines the oral-permission/no-document branch: the date and number must be answerable. This source-defined exception is not represented by Q111 or the Category II application timing question."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the quality-preserving 400-question contract. The 13 Tier A source propositions are explicit Chapter 2 learning targets not represented by the current canonical bank. Six Tier B variants remain materially distinct because each tests a source-defined branch, phase, recipient or condition with a different application path: C006 safe holding/turning contingency, C008 preflight traffic survey, C011 preflight sleep-debt go/no-go, C016 non-specific-flight logging recommendation, C019 emergency-recipient selection, and C020 Level 3.5 insurance as an independent OR condition. C015 is excluded because its operational action duplicates Q089. Quality takes precedence over filling the 20-candidate ceiling."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
