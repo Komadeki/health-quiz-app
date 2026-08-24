@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "project": "03｜KOMADEKI 資格試験アプリ量産",
+  "product": "drone_second_class",
+  "control_issue": 40,
+  "status": "ACTIVE",
+  "current_phase": "QUESTION_BANK_COMPLETION",
+  "phase_order": [
+    "QUESTION_BANK_COMPLETION",
+    "FEATURE_COMPLETION",
+    "PRODUCT_CLOSURE",
+    "PHYSICAL_DEVICE",
+    "STOREKIT_TESTFLIGHT",
+    "APP_STORE_CONNECT",
+    "FINAL_RELEASE_GATE",
+    "SUBMIT",
+    "DONE"
+  ],
+  "observed_main": "c91d5cf2448ed03e10fa1aa37e1bc1c45c29ea41",
+  "next_atomic_objective": "ADOPT_AUTONOMOUS_QUESTION_ACCEPTANCE_CONTRACT",
+  "autonomous_acceptance": "MIGRATION_REQUIRED",
+  "review_identity_policy": "NEVER_FABRICATE_HUMAN",
+  "local_only_state_authoritative": false,
+  "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
+  "human_blocker": null,
+  "state_epoch": 1
+}
