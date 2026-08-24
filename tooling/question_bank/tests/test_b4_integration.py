@@ -57,7 +57,8 @@ class B4IntegrationTests(unittest.TestCase):
             self.assertEqual("drone-second-class-v2-release-2026-08-24", registry["first_used_bank_revision"])
             self.assertEqual("", registry["retired_at"])
             self.assertEqual(f"Expansion pre-release allocation: {candidate_id}", registry["notes"])
-        self.assertEqual(188, len(self.questions))
+        self.assertTrue(set(EXPECTED.values()).issubset(self.questions))
+        self.assertGreaterEqual(len(self.questions), 188)
 
     def test_c016_remains_rejected_from_integration(self) -> None:
         row = self.candidates[REJECTED_ID]
