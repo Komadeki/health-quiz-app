@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0",
+  "activation_id": "DRONE-PRODUCTION-BANK-188-RELEASE-ACTIVATION",
+  "product": "drone_second_class",
+  "prepared_at": "2026-08-24",
+  "preparation_base_main": "2e9d007ef9f322449977b1d7172749719ef914c4",
+  "target_review_id": "DRONE-TARGET-REVIEW-188",
+  "target_status": "FROZEN",
+  "release_selection": {
+    "current_active_count": 100,
+    "current_released_count": 100,
+    "current_runtime_count": 100,
+    "canonical_question_count": 188,
+    "activation_question_count": 88,
+    "activation_question_id_start": "DRONE-Q-000101",
+    "activation_question_id_end": "DRONE-Q-000188",
+    "expected_post_active_count": 188,
+    "expected_post_released_count": 188,
+    "expected_post_runtime_count": 188
+  },
+  "planned_release_identity": {
+    "bank_revision": "drone-second-class-v2-release-2026-08-24",
+    "content_as_of": "2026-08-24",
+    "activation_review_date": "2026-08-24",
+    "free_selection_policy": "Preserve the existing 20 free questions exactly; DRONE-Q-000101..DRONE-Q-000188 retain their canonical is_free=false values.",
+    "expected_free_question_count": 20,
+    "expected_premium_question_count": 168
+  },
+  "verified_expansion_ranges": [
+    {
+      "batch": "batch_001",
+      "domain": "Rules",
+      "question_id_start": "DRONE-Q-000101",
+      "question_id_end": "DRONE-Q-000118",
+      "count": 18
+    },
+    {
+      "batch": "batch_002",
+      "domain": "Risk Management",
+      "question_id_start": "DRONE-Q-000119",
+      "question_id_end": "DRONE-Q-000141",
+      "count": 23
+    },
+    {
+      "batch": "batch_003",
+      "domain": "Systems",
+      "question_id_start": "DRONE-Q-000142",
+      "question_id_end": "DRONE-Q-000169",
+      "count": 28
+    },
+    {
+      "batch": "batch_004",
+      "domain": "Operations",
+      "question_id_start": "DRONE-Q-000170",
+      "question_id_end": "DRONE-Q-000188",
+      "count": 19
+    }
+  ],
+  "baseline_bindings": {
+    "question_banks/drone_second_class/authoring/bank.json": "a807ad3c50a8eeb98915a98e4e3df46a00cf6be9",
+    "question_banks/drone_second_class/authoring/questions.csv": "a7244f90bbcfc8c3ce2ccb7f82e8f57337a086ba",
+    "question_banks/drone_second_class/authoring/question_id_registry.csv": "d72b9294f87d37d7e2a44e1d84213f91a22fba53",
+    "question_banks/drone_second_class/authoring/released_questions.json": "592457e15bab30234a66443c283bd3106c329a3e",
+    "question_banks/drone_second_class/authoring/source_verifications.json": "85b500611e90257834ea3bac312a3b0a196554aa",
+    "question_banks/drone_second_class/authoring/target_review_188.json": "8e31f31f4fab1bcfe10d8a2d129096a3e005da3a",
+    "question_banks/drone_second_class/authoring/batches/batch_001/candidates.csv": "32c3598557d3ec67a801bf135931b9bcc2fabc5e",
+    "question_banks/drone_second_class/authoring/batches/batch_002/candidates.csv": "27446fa4be5364583690e718540e0c94c632414a",
+    "question_banks/drone_second_class/authoring/batches/batch_003/candidates.csv": "48c10f1b6cd6c58d3160d5e22d4c5d7b6dd49e15",
+    "question_banks/drone_second_class/authoring/batches/batch_004/candidates.csv": "4dd841950be272ad7366a4e45aace2dafb8ca607",
+    "question_banks/drone_second_class/generated/bank_manifest.json": "46f44bd7f400921dcfc6c0aeb9f6e61510a6b26e",
+    "question_banks/drone_second_class/generated/drone_second_class_bank.json": "10c7843feee7d26bb9c4718bf8103afb53a4c6b3",
+    "apps/drone_second_class/assets/question_bank/drone_second_class_bank.json": "10c7843feee7d26bb9c4718bf8103afb53a4c6b3"
+  },
+  "execution_preconditions": [
+    "Before activation, re-read authoritative current main. The preparation_base_main identifies the reviewed pre-preparation baseline; current main is expected to include the merged preparation transition and does not need to equal that SHA.",
+    "Every baseline-bound release input must still match its recorded blob SHA. If any bound canonical, registry, source-verification, candidate, released-snapshot, generated-runtime, manifest, or app-asset input changed after preparation, re-audit the drift and re-prepare before activation.",
+    "The target review must remain FROZEN at exactly 188 and broad expansion must remain STOP.",
+    "Exactly DRONE-Q-000101..DRONE-Q-000188 must remain canonical draft questions with permanent IDs already allocated and registry status used with blank first_used_bank_revision.",
+    "All 88 selected expansion questions must retain canonical source-verification evidence matching their current source ID and source version, and validate_bank(check_generated=false) must PASS before activation mutation.",
+    "The accepted expansion candidates bound above must remain VERIFIED and exact-bound to their canonical questions; rejected, held, collision, and unallocated candidates must remain outside the release selection.",
+    "The existing 100 released question contracts and their original first_used_bank_revision values must remain unchanged before the activation begins.",
+    "The historical V0 formal snapshot and validation-generated artifacts must remain untouched."
+  ],
+  "required_atomic_mutations": [
+    "Update only DRONE-Q-000101..DRONE-Q-000188 in canonical questions.csv from draft to active and set last_reviewed_at to 2026-08-24; preserve question IDs, versions, units, question text, choices, correct answers, explanations, source bindings, difficulty, importance, is_free flags, validity fields, supersedes IDs, tags, and internal notes unless a validator-proven metadata correction is strictly required.",
+    "Set first_used_bank_revision for exactly DRONE-Q-000101..DRONE-Q-000188 to drone-second-class-v2-release-2026-08-24; preserve DRONE-Q-000001..DRONE-Q-000100 historical first-use revisions and every retired-ID tombstone/replacement invariant.",
+    "Extend released_questions.json deterministically from the existing 100 immutable release contracts to exactly 188, appending exact release snapshots for DRONE-Q-000101..DRONE-Q-000188 without rewriting the protected answer contracts of DRONE-Q-000001..DRONE-Q-000100.",
+    "Change bank.json to the planned bank_revision and content_as_of only after the selected canonical/registry/release snapshot mutations are staged together.",
+    "Regenerate the canonical runtime bank and manifest deterministically from the 188 active questions, then copy the generated runtime byte-identically to the Drone app question-bank asset.",
+    "Transition only the accepted, exact-bound expansion candidate rows corresponding to DRONE-Q-000101..DRONE-Q-000188 from VERIFIED to RELEASED after canonical active state, release snapshot, first-use revision, runtime membership, and validate_bank(check_generated=true) all prove RELEASED evidence; preserve rejected/collision/non-selected candidate states.",
+    "Update release-fact documentation and regression assertions only where the 188 release makes existing 100-question release facts stale; do not broaden product scope."
+  ],
+  "prohibited_mutations": [
+    "No new permanent question IDs and no ID reuse, renumbering, retirement, or replacement changes.",
+    "No question-content, choice, correct-answer, explanation, source-locator, source-version, or semantic-collision adjudication changes as part of activation.",
+    "No activation of any candidate outside DRONE-Q-000101..DRONE-Q-000188.",
+    "No change to the existing 20-question free selection.",
+    "No mutation of validation/formal_snapshot or historical V0 evidence.",
+    "No partial update of released/runtime state on main and no direct edit of generated artifacts without deterministic regeneration."
+  ],
+  "verification_gates": [
+    "Validate all four expansion batches and prove every selected candidate reaches RELEASED only from evidence-backed production state.",
+    "Run canonical Question Bank validation before generation and validate_bank(check_generated=true) after regeneration; both must PASS.",
+    "Prove canonical active count, released snapshot count, generated runtime count, and app runtime asset count are all exactly 188 with stable IDs DRONE-Q-000001..DRONE-Q-000188 and no duplicates or gaps.",
+    "Prove source verification remains complete for every active question and current source versions match the source registry.",
+    "Prove registry first-use history is unchanged for DRONE-Q-000001..DRONE-Q-000100, set exactly once to the planned revision for DRONE-Q-000101..DRONE-Q-000188, and remains protected for retired IDs.",
+    "Prove generated runtime and the bundled app asset are byte-identical and the manifest reports question_count=188 and free_question_count=20.",
+    "Run the repository-required GitHub Actions, including KOMADEKI Autopilot State and Quiz Apps CI, and require all relevant jobs to PASS with no unresolved P0/P1 finding before merge."
+  ],
+  "rollback_and_partial_state_protection": [
+    "Perform activation on one branch/PR from a revalidated current-main baseline; main must remain at 100/100/100 until the complete activation PR passes audit and CI.",
+    "Abort activation and re-prepare if any bound source/candidate/canonical/release/runtime input has drifted or if current contracts/target state invalidate this preparation.",
+    "Never persist a first_used_bank_revision for the 88 selected IDs without the matching active canonical rows and expanded released snapshot in the same activation PR.",
+    "Never merge generated/runtime changes without the canonical, registry, release-snapshot, candidate-lifecycle, and app-asset changes that make the 188 release internally consistent.",
+    "On any validation, audit, or CI failure, repair the activation branch or abandon it; do not advance machine state or mutate main partially."
+  ],
+  "preparation_effect": {
+    "release_activation_performed": false,
+    "active_count_after_preparation": 100,
+    "released_count_after_preparation": 100,
+    "runtime_count_after_preparation": 100,
+    "next_atomic_objective": "EXECUTE_PRODUCTION_BANK_188_RELEASE_ACTIVATION"
+  }
+}
