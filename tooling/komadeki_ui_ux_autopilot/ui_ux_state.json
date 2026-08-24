@@ -3,7 +3,7 @@
   "project": "03｜KOMADEKI 資格試験アプリ量産",
   "workstream": "qualification_factory_ui_ux",
   "control_issue": 48,
-  "status": "ACTIVE",
+  "status": "HUMAN_BLOCKED",
   "current_phase": "PHYSICAL_UX",
   "phase_order": [
     "BASELINE_AUDIT",
@@ -15,10 +15,13 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "085a95b448d04d609aa421343021fd2ba819c7ec",
+  "observed_main": "bb5150e82f6b45f70e435ca84a6bd4318f55032d",
   "next_atomic_objective": "VERIFY_PHYSICAL_UX_EVIDENCE",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
-  "human_blocker": null,
-  "state_epoch": 16
+  "human_blocker": {
+    "action": "Run the physical-device interaction checklist in docs/KOMADEKI_UI_UX_PHYSICAL_EVIDENCE_GATE.md on a physical iPhone using a build containing the verified UI/UX baseline or a later reconciled main commit, then persist the evidence to GitHub issue #48.",
+    "resume_evidence": "Issue #48 must identify device model, iOS version, build or commit SHA, PASS/FAIL for every numbered physical interaction check, and concrete defect evidence when any check fails; the tested commit must be reconciled against then-current main before the workstream can advance."
+  },
+  "state_epoch": 17
 }
