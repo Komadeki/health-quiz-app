@@ -190,15 +190,8 @@ final class QualificationHome extends StatelessWidget {
                       ? '全${bank.cards.length}問を利用できます'
                       : '${controller.freeQuestionCount}問を無料で利用できます',
                 ),
-                if (controller.activeSession != null) ...[
-                  const SizedBox(height: 16),
-                  FilledButton.icon(
-                    key: const Key('resume-session'),
-                    onPressed: controller.resume,
-                    icon: const Icon(Icons.play_arrow),
-                    label: const Text('続きから'),
-                  ),
-                ],
+                const SizedBox(height: 16),
+                _PrimaryLearningAction(controller: controller),
                 if (definition.learningProduct.progressEnabled) ...[
                   const SizedBox(height: 16),
                   _ProgressCard(controller: controller),
@@ -246,6 +239,162 @@ final class QualificationHome extends StatelessWidget {
       ),
     );
   }
+}
+
+final class _PrimaryLearningAction extends StatelessWidget {
+  const _PrimaryLearningAction({required this.controller});
+
+  final QualificationProductionController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final action = _resolvePrimaryAction(controller);
+    return Card(
+      key: const Key('primary-learning-action'),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text('次にやること', style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: 4),
+            Text(action.description),
+            const SizedBox(height: 12),
+            FilledButton.icon(
+              key: Key(action.key),
+              onPressed: action.onPressed,
+              icon: Icon(action.icon),
+              label: Text(action.label),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+final class _PrimaryActionSpec {
+  const _PrimaryActionSpec({
+    required this.key,
+    required this.label,
+    required this.description,
+    required this.icon,
+    required this.onPressed,
+  });
+
+  final String key;
+  final String label;
+  final String description;
+  final IconData icon;
+  final VoidCallback? onPressed;
+}
+
+_PrimaryActionSpec _resolvePrimaryAction(
+  QualificationProductionController controller,
+) {
+  if (controller.activeSession != null) {
+    return _PrimaryActionSpec(
+      key: 'resume-session',
+      label: '続きから',
+      description: '中断した学習をそのまま再開します。',
+      icon: Icons.play_arrow,
+      onPressed: () => unawaited(controller.resume()),
+    );
+  }
+
+  final bank = controller.bank!;
+  final selectionEngine = PracticeSelectionEngine(
+    canAccess: (candidate) =>
+        controller.canAccess(bank.cardsById[candidate.questionId]!),
+    randomizer: const IdentityQuestionRandomizer(),
+  );
+
+  if (controller.modeEnabled(LearningModeV1.incorrectPractice)) {
+    final incorrect =
+        selectionEngine.selectIncorrect(bank.candidates, controller.events);
+    if (incorrect.isNotEmpty) {
+      return _PrimaryActionSpec(
+        key: 'primary-action-incorrect',
+        label: '間違えた問題を復習',
+        description: '直近で間違えた${incorrect.length}問を優先して確認します。',
+        icon: Icons.replay,
+        onPressed: () => unawaited(controller.startIncorrect()),
+      );
+    }
+  }
+
+  if (controller.definition.learningProduct.recommendationEnabled) {
+    final recommendation = controller.recommendation;
+    final unit = recommendation == null
+        ? null
+        : controller.bank!.unitById(recommendation.unitId);
+    if (recommendation != null &&
+        unit != null &&
+        controller.accessibleCardsFor(unit).isNotEmpty) {
+      final reason = recommendation.reasonCode == 'unanswered_unit'
+          ? 'まだ回答していない単元から始めます。'
+          : '直近の学習状況から、この単元を優先します。';
+      return _PrimaryActionSpec(
+        key: 'primary-action-recommendation',
+        label: 'おすすめ: ${unit.title}',
+        description: reason,
+        icon: Icons.route,
+        onPressed: () => unawaited(controller.startUnit(unit.id)),
+      );
+    }
+  }
+
+  if (controller.modeEnabled(LearningModeV1.unansweredPractice)) {
+    final unanswered =
+        selectionEngine.selectUnanswered(bank.candidates, controller.events);
+    if (unanswered.isNotEmpty) {
+      return _PrimaryActionSpec(
+        key: 'primary-action-unanswered',
+        label: '未回答から始める',
+        description: 'まだ解いていない${unanswered.length}問から学習します。',
+        icon: Icons.fiber_new,
+        onPressed: () => unawaited(controller.startUnanswered()),
+      );
+    }
+  }
+
+  Unit? firstAccessibleUnit;
+  if (controller.modeEnabled(LearningModeV1.unitPractice)) {
+    for (final unit in bank.units) {
+      if (controller.accessibleCardsFor(unit).isNotEmpty) {
+        firstAccessibleUnit = unit;
+        break;
+      }
+    }
+  }
+  if (firstAccessibleUnit != null) {
+    return _PrimaryActionSpec(
+      key: 'primary-action-start',
+      label: '${firstAccessibleUnit.title}から始める',
+      description: '利用できる単元から学習を始めます。',
+      icon: Icons.school,
+      onPressed: () => unawaited(controller.startUnit(firstAccessibleUnit!.id)),
+    );
+  }
+
+  if (controller.modeEnabled(LearningModeV1.randomPractice) &&
+      controller.accessibleQuestionCount > 0) {
+    return _PrimaryActionSpec(
+      key: 'primary-action-start',
+      label: '学習を始める',
+      description: '利用できる問題から学習を始めます。',
+      icon: Icons.school,
+      onPressed: () => unawaited(controller.startRandom()),
+    );
+  }
+
+  return const _PrimaryActionSpec(
+    key: 'primary-action-unavailable',
+    label: '利用できる学習がありません',
+    description: '現在利用できる問題を確認してください。',
+    icon: Icons.info_outline,
+    onPressed: null,
+  );
 }
 
 final class _WeaknessCard extends StatelessWidget {
