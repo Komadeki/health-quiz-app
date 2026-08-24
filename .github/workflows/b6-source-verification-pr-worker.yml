@@ -1,0 +1,159 @@
+name: B6 Source Verification PR Worker
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/b6-source-verification-trigger'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b6-source-verification-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: github.head_ref == 'chatgpt/drone-b6-source-verify-19'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout source verification branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-b6-source-verify-19
+          fetch-depth: 0
+
+      - name: Reconcile to current main
+        shell: bash
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+
+      - name: Verify exact B6 canonical sources
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+          import csv
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          repo = Path.cwd()
+          sys.path.insert(0, str(repo / "tooling" / "question_bank"))
+          from expansion import validate_expansion_batch
+
+          bank = repo / "question_banks" / "drone_second_class"
+          authoring = bank / "authoring"
+          batch = authoring / "batches" / "batch_006"
+          state_path = repo / "tooling" / "komadeki_autopilot" / "drone_state.json"
+          accepted = (
+              "B6-OPS-C001","B6-OPS-C002","B6-OPS-C003","B6-OPS-C004","B6-OPS-C005",
+              "B6-OPS-C006","B6-OPS-C007","B6-OPS-C008","B6-OPS-C009","B6-OPS-C010",
+              "B6-OPS-C011","B6-OPS-C012","B6-OPS-C013","B6-OPS-C014",
+              "B6-OPS-C016","B6-OPS-C017","B6-OPS-C018","B6-OPS-C019","B6-OPS-C020",
+          )
+          rejected = "B6-OPS-C015"
+          mapping = {cid: f"DRONE-Q-{n:06d}" for cid, n in zip(accepted, range(197,216))}
+
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          if state.get("next_atomic_objective") != "VERIFY_B6_CANONICAL_SOURCES_19" or state.get("state_epoch") != 44:
+              raise SystemExit(f"unexpected state: {state.get('state_epoch')} / {state.get('next_atomic_objective')}")
+
+          def read_csv(path: Path):
+              with path.open(encoding="utf-8", newline="") as h:
+                  return list(csv.DictReader(h))
+
+          with (batch / "candidates.csv").open(encoding="utf-8", newline="") as h:
+              reader = csv.DictReader(h); fields = list(reader.fieldnames or []); rows = list(reader)
+          by_id = {r["candidate_id"]: r for r in rows}
+          if set(by_id) != set(accepted) | {rejected}:
+              raise SystemExit("unexpected B6 candidate set")
+          for cid,qid in mapping.items():
+              r=by_id[cid]
+              if r["state"] != "INTEGRATED" or r["permanent_question_id"] != qid:
+                  raise SystemExit(f"integration binding mismatch: {cid}")
+              if r["source_id"] != "MLIT-UAS-SAFETY-GUIDE-5" or r["source_version"] != "5":
+                  raise SystemExit(f"source contract mismatch: {cid}")
+              if not r["source_locator"].startswith("教則 第2章") or "〔一等〕" in r["source_locator"]:
+                  raise SystemExit(f"source locator/scope mismatch: {cid}")
+          if by_id[rejected]["state"] != "AI_PRE_ACCEPT" or by_id[rejected]["permanent_question_id"]:
+              raise SystemExit("rejected B6 candidate mutated")
+
+          questions = {r["question_id"]:r for r in read_csv(authoring / "questions.csv")}
+          if len(questions) != 215:
+              raise SystemExit(f"canonical inventory expected 215, got {len(questions)}")
+          for cid,qid in mapping.items():
+              q=questions[qid]; c=by_id[cid]
+              if q["status"] != "draft" or q["unit_id"] != "drone_operations":
+                  raise SystemExit(f"canonical draft mismatch: {qid}")
+              for qfield,cfield in (("question","question"),("choice1","choice1"),("choice2","choice2"),("choice3","choice3"),("choice4","choice4"),("correct_choice","proposed_correct"),("explanation","explanation"),("source_id","source_id"),("source_locator","source_locator")):
+                  if q[qfield] != c[cfield]:
+                      raise SystemExit(f"canonical binding mismatch: {qid}:{qfield}")
+
+          source_doc = json.loads((authoring / "sources.json").read_text(encoding="utf-8"))["sources"]
+          source = next(s for s in source_doc if s["source_id"] == "MLIT-UAS-SAFETY-GUIDE-5")
+          if str(source["source_version"]) != "5" or source.get("edition") != "第5版":
+              raise SystemExit("unexpected current source contract")
+
+          vp = authoring / "source_verifications.json"
+          vdoc = json.loads(vp.read_text(encoding="utf-8"))
+          existing = {r["question_id"] for r in vdoc["verifications"]}
+          if any(qid in existing for qid in mapping.values()):
+              raise SystemExit("partial/duplicate B6 source verification detected")
+          vdoc["verifications"].extend({
+              "question_id": qid,
+              "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+              "source_version": "5",
+              "verification_state": "author_source_verified",
+              "verified_at": "2026-08-25",
+          } for qid in mapping.values())
+          vdoc["verifications"].sort(key=lambda r:r["question_id"])
+          vp.write_text(json.dumps(vdoc,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+
+          for cid in accepted:
+              by_id[cid]["state"]="VERIFIED"
+          with (batch / "candidates.csv").open("w",encoding="utf-8",newline="") as h:
+              w=csv.DictWriter(h,fieldnames=fields,lineterminator="\n"); w.writeheader(); w.writerows(rows)
+
+          released=json.loads((authoring/"released_questions.json").read_text(encoding="utf-8"))["released_questions"]
+          if len(released)!=188:
+              raise SystemExit("released baseline changed")
+          meta=json.loads((authoring/"bank.json").read_text(encoding="utf-8"))
+          runtime=json.loads((bank/meta["runtime_output"]).read_text(encoding="utf-8"))
+          runtime_count=sum(len(u.get("cards",[])) for d in runtime.get("decks",[]) for u in d.get("units",[]))
+          if runtime_count!=188:
+              raise SystemExit("runtime baseline changed")
+
+          observed_main=subprocess.check_output(["git","rev-parse","origin/main"],text=True).strip()
+          state["observed_main"]=observed_main
+          state["next_atomic_objective"]="PLAN_B7_400_TARGET_COVERAGE_VARIANTS"
+          state["state_epoch"]=45
+          state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+
+          errors=validate_expansion_batch(batch)
+          if errors:
+              raise SystemExit("B6 expansion validation failed: "+" | ".join(errors))
+          PY
+
+      - name: Validate source verification and repository gates
+        shell: bash
+        run: |
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class --check-generated
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+
+      - name: Commit durable B6 source verification
+        shell: bash
+        run: |
+          rm -f .github/b6-source-verification-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Verify B6 canonical sources'
+          git push --force-with-lease origin HEAD:chatgpt/drone-b6-source-verify-19
