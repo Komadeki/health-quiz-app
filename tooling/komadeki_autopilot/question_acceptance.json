@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "status": "ADOPTED_CONTRACT",
+  "lifecycle_bridge": "PENDING",
+  "candidate_pre_state": "AI_PRE_ACCEPT",
+  "acceptance_state": "AI_GOVERNED_ACCEPT",
+  "ready_state": "READY_FOR_ID",
+  "roles": {
+    "author": "AI_AUTHOR",
+    "reviewer": "AI_REVIEWER",
+    "director": "AI_DIRECTOR"
+  },
+  "require_pairwise_distinct_actor_ids": true,
+  "require_reviewer_accept": true,
+  "require_director_accept": true,
+  "require_source_evidence": true,
+  "require_collision_evidence": true,
+  "require_answer_defining_proposition": true,
+  "require_tested_misconception": true,
+  "require_reasoning_path": true,
+  "allow_human_role_alias": false,
+  "canonical_source_verification_satisfied_by_acceptance": false,
+  "legacy_human_path_preserved": true
+}
