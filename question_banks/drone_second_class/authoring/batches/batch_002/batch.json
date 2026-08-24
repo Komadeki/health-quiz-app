@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B2",
+  "directory_slug": "batch_002",
+  "baseline_sha": "adaa289e21bfa49dadadc3e1162b62a16a67b240",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "expansion_trigger": "Expand Risk Management coverage where the current 100-question released seed bank and 18 integrated Rules drafts leave useful second-class scenario/decision variation, without treating the 180-220 exploration envelope or the 25-35 Risk planning range as a quota.",
+  "evidence": [
+    "Current GitHub main at authoring start is adaa289e21bfa49dadadc3e1162b62a16a67b240.",
+    "Current released/active/runtime Question Bank remains 100/100/100; Rules canonical drafts DRONE-Q-000101..000118 remain prerelease.",
+    "MLIT official qualification page checked 2026-08-24: academic examinations from 2026-07-14 are based on 無人航空機の飛行の安全に関する教則 第5版.",
+    "Authoritative source corpus is MLIT-UAS-SAFETY-GUIDE-5, source_version 5.",
+    "Risk allocation is source-first: RM1=5, RM2=8, RM3=6, RM4=6. This is an observed useful set, not a quota."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B2-TARGET-001",
+      "previous_approved_target": 100,
+      "current_released_count": 100,
+      "proposed_target_min": 100,
+      "proposed_target_max": 100,
+      "approved_new_target": 100,
+      "rationale": "No new released-bank target is approved by this authoring batch. The project-level 180-220 value is a coverage exploration envelope, not a release quota; final Production target remains HOLD pending further coverage/source-ceiling evidence.",
+      "decision_date": "2026-08-24",
+      "evidence": "Production Bank Target/Coverage Decision: expansion GO, Risk next, final target HOLD."
+    }
+  ],
+  "planned_scope": {
+    "area": "Risk Management",
+    "candidate_batch_identity": "B2",
+    "candidate_ids": [
+      "B2-RM-C001",
+      "B2-RM-C002",
+      "B2-RM-C003",
+      "B2-RM-C004",
+      "B2-RM-C005",
+      "B2-RM-C006",
+      "B2-RM-C007",
+      "B2-RM-C008",
+      "B2-RM-C009",
+      "B2-RM-C010",
+      "B2-RM-C011",
+      "B2-RM-C012",
+      "B2-RM-C013",
+      "B2-RM-C014",
+      "B2-RM-C015",
+      "B2-RM-C016",
+      "B2-RM-C017",
+      "B2-RM-C018",
+      "B2-RM-C019",
+      "B2-RM-C020",
+      "B2-RM-C021",
+      "B2-RM-C022",
+      "B2-RM-C023",
+      "B2-RM-C024",
+      "B2-RM-C025"
+    ],
+    "allocation": {
+      "RM1": 5,
+      "RM2": 8,
+      "RM3": 6,
+      "RM4": 6
+    },
+    "known_rejected_ids": []
+  },
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B2-COVERAGE-LIMIT-001",
+      "status": "PARTIAL",
+      "scope": "Risk authoring ideas without sufficient explicit second-class Chapter 6 support",
+      "evidence": "Icing and payload-dropping candidates were not force-authored because an explicit answer-defining proposition was not located in the current Chapter 6 second-class source during this authoring pass. One-class-only mitigation/planning examples were also excluded."
+    }
+  ],
+  "migration_blockers": []
+}
