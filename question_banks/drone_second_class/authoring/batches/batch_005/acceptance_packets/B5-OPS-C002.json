@@ -1,0 +1,7 @@
+{
+  "schema_version":"1.0","candidate_id":"B5-OPS-C002","candidate_state":"AI_PRE_ACCEPT","candidate_fingerprint":"0aeeb87bbfe64d6bde78d6ea5ec2b9f649deabeed78e637b65dfc7333b06c189",
+  "actors":{"author":{"id":"chatgpt-b5-operations-author-r1","role":"AI_AUTHOR"},"reviewer":{"id":"autopilot-b5-operations-reviewer-r1","role":"AI_REVIEWER"},"director":{"id":"chatgpt-b5-operations-director-adjudicator-r1","role":"AI_DIRECTOR"}},
+  "evidence":{"source":{"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","source_locator":"教則 第2章 2.2.5「連絡体制の確保」"},"answer_defining_proposition":"飛行前に通信可能範囲を確認し関係機関と常時連絡可能な体制を確保する。","tested_misconception":"必要時に後から通信手段を探せばよい。","reasoning_path":"possible authority contact -> verify communications availability -> establish continuous contact capability","collision":{"released_bank_checked":true,"canonical_drafts_checked":true,"batch_checked":true,"note":"LOW。Q116は機体搭載携帯電話の上空利用手続。Q170は飛行中監視。地上側の関係機関連絡体制は未出。"}},
+  "independent_review":{"decision":"ACCEPT","rationale":"教則2.2.5 explicitly requires confirming mobile-call coverage and maintaining a communications arrangement with relevant authorities. Q116 concerns airborne cellular-system use, not the operator's ground communications arrangement."},
+  "director_adjudication":{"decision":"ACCEPT","rationale":"Director independently confirms current MLIT 第5版 support, second-class applicability, answer correctness and a non-duplicate reasoning boundary against the 188-question canonical bank."},"requested_state":"AI_GOVERNED_ACCEPT"
+}
