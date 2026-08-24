@@ -1,9 +1,9 @@
 name: B3 Systems Integration Worker
 
 on:
-  push:
+  pull_request:
     branches:
-      - chatgpt/drone-b3-systems-integrate-28-r1
+      - main
     paths:
       - '.github/workflows/b3-systems-integration-worker.yml'
 
@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref }}
 
       - name: Apply deterministic B3 integration transaction
         shell: bash
