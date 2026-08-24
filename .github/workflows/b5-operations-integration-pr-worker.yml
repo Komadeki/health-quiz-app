@@ -1,0 +1,174 @@
+name: B5 Operations Integration PR Worker
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/b5-operations-integration-trigger'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b5-operations-integration-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  integrate:
+    if: github.head_ref == 'chatgpt/drone-b5-operations-integrate-8'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout integration branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-b5-operations-integrate-8
+          fetch-depth: 0
+
+      - name: Reconcile to current main
+        shell: bash
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+
+      - name: Apply deterministic B5 integration transaction
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+          import csv
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          repo = Path.cwd()
+          sys.path.insert(0, str(repo / "tooling" / "question_bank"))
+          from expansion import validate_expansion_batch
+          from transaction import QuestionExpansionTransaction
+
+          accepted_ids = tuple(f"B5-OPS-C{i:03d}" for i in range(1, 9))
+          expected = {
+              candidate_id: f"DRONE-Q-{number:06d}"
+              for candidate_id, number in zip(accepted_ids, range(189, 197))
+          }
+          bank_root = repo / "question_banks" / "drone_second_class"
+          authoring = bank_root / "authoring"
+          batch = authoring / "batches" / "batch_005"
+          state_path = repo / "tooling" / "komadeki_autopilot" / "drone_state.json"
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          if state.get("next_atomic_objective") != "ALLOCATE_AND_INTEGRATE_B5_OPERATIONS_ACCEPTED_8":
+              raise SystemExit(f"unexpected objective: {state.get('next_atomic_objective')}")
+          if state.get("state_epoch") != 36:
+              raise SystemExit(f"unexpected state epoch: {state.get('state_epoch')}")
+
+          def read_csv(path: Path):
+              with path.open(encoding="utf-8", newline="") as handle:
+                  return list(csv.DictReader(handle))
+
+          before = {r["candidate_id"]: r for r in read_csv(batch / "candidates.csv")}
+          if any(before[cid]["state"] != "READY_FOR_ID" for cid in accepted_ids):
+              raise SystemExit("B5 accepted candidates are not all READY_FOR_ID")
+          if any(before[cid]["permanent_question_id"].strip() for cid in accepted_ids):
+              raise SystemExit("partial B5 Permanent-ID mapping detected")
+          packet_ids = {p.stem for p in (batch / "acceptance_packets").glob("*.json")}
+          if packet_ids != set(accepted_ids):
+              raise SystemExit(f"unexpected B5 acceptance packet set: {sorted(packet_ids)}")
+
+          def canonical_row(candidate: dict[str, str], question_id: str) -> dict[str, str]:
+              return {
+                  "question_id": question_id,
+                  "question_version": "1",
+                  "status": "draft",
+                  "deck_id": "drone_second_class_exam",
+                  "unit_id": "drone_operations",
+                  "question": candidate["question"],
+                  "choice1": candidate["choice1"],
+                  "choice2": candidate["choice2"],
+                  "choice3": candidate["choice3"],
+                  "choice4": candidate["choice4"],
+                  "correct_choice": candidate["proposed_correct"],
+                  "explanation": candidate["explanation"],
+                  "source_id": candidate["source_id"],
+                  "source_locator": candidate["source_locator"],
+                  "difficulty": "2",
+                  "importance": "2",
+                  "is_free": "false",
+                  "valid_from": "",
+                  "valid_until": "",
+                  "last_reviewed_at": "",
+                  "supersedes_id": "",
+                  "tags": "",
+                  "notes_internal": "",
+              }
+
+          transaction = QuestionExpansionTransaction(
+              bank_root, batch, accepted_ids, question_factory=canonical_row
+          )
+          plan = transaction.plan()
+          if plan.mapping != expected:
+              raise SystemExit(f"unexpected B5 allocation: {plan.mapping}")
+          if transaction.apply() != expected:
+              raise SystemExit("B5 applied mapping drift")
+
+          candidates = {r["candidate_id"]: r for r in read_csv(batch / "candidates.csv")}
+          questions = {r["question_id"]: r for r in read_csv(authoring / "questions.csv")}
+          registry = {r["question_id"]: r for r in read_csv(authoring / "question_id_registry.csv")}
+          for cid, qid in expected.items():
+              candidate = candidates[cid]
+              question = questions[qid]
+              reg = registry[qid]
+              if candidate["state"] != "INTEGRATED" or candidate["permanent_question_id"] != qid:
+                  raise SystemExit(f"candidate integration mismatch: {cid}")
+              if question["status"] != "draft" or question["unit_id"] != "drone_operations":
+                  raise SystemExit(f"canonical draft mismatch: {qid}")
+              if question["question"] != candidate["question"] or question["correct_choice"] != candidate["proposed_correct"]:
+                  raise SystemExit(f"canonical content mismatch: {qid}")
+              if reg["status"] != "used" or reg["first_used_bank_revision"] or reg["retired_at"]:
+                  raise SystemExit(f"registry mismatch: {qid}")
+          if len(questions) != 196:
+              raise SystemExit(f"canonical inventory must be 196, got {len(questions)}")
+
+          released = json.loads((authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"]
+          if len(released) != 188:
+              raise SystemExit("released baseline changed before 400 activation")
+          bank = json.loads((authoring / "bank.json").read_text(encoding="utf-8"))
+          runtime = json.loads((bank_root / bank["runtime_output"]).read_text(encoding="utf-8"))
+          runtime_count = sum(
+              len(unit.get("cards", []))
+              for deck in runtime.get("decks", [])
+              for unit in deck.get("units", [])
+          )
+          if runtime_count != 188:
+              raise SystemExit("runtime baseline changed before 400 activation")
+
+          observed_main = subprocess.check_output(["git", "rev-parse", "origin/main"], text=True).strip()
+          state["observed_main"] = observed_main
+          state["next_atomic_objective"] = "VERIFY_B5_OPERATIONS_CANONICAL_SOURCES_8"
+          state["state_epoch"] = 37
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          errors = validate_expansion_batch(batch)
+          if errors:
+              raise SystemExit("B5 expansion validation failed: " + " | ".join(errors))
+          PY
+
+      - name: Run focused and full Question Bank gates
+        shell: bash
+        run: |
+          python3 tooling/question_bank/tests/test_transaction.py
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class --check-generated
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+
+      - name: Commit durable B5 integration transition
+        shell: bash
+        run: |
+          rm -f .github/b5-operations-integration-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Integrate B5 Operations accepted drafts'
+          git push --force-with-lease origin HEAD:chatgpt/drone-b5-operations-integrate-8
