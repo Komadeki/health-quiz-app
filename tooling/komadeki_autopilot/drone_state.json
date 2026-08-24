@@ -16,7 +16,7 @@
     "SUBMIT",
     "DONE"
   ],
-  "observed_main": "05d2852ccbfb7befc3d35907dd55c5912b857f53",
+  "observed_main": "964522be35e5adfa30130b1beb89bbea064511a2",
   "next_atomic_objective": "VERIFY_B3_SYSTEMS_CANONICAL_SOURCES_28",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
