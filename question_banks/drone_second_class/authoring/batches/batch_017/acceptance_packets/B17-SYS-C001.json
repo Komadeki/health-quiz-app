@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B17-SYS-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f0ca60b1ad9c2a2e78cfcc0a8012af6b8cae1e97713281deb7e085860440498f",
+  "actors": {
+    "author": {"id":"chatgpt-b17-systems-author-r1","role":"AI_AUTHOR"},
+    "reviewer": {"id":"autopilot-b17-systems-reviewer-r1","role":"AI_REVIEWER"},
+    "director": {"id":"chatgpt-primary-director-b17-r1","role":"AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","source_locator":"教則 第4章 4.4「無人航空機の主たる構成要素」(1)バッテリー"},
+    "answer_defining_proposition": "バッテリーの電圧降下は抵抗×電流で表され放電中の電圧降下は内部抵抗によって決まるため同じ内部抵抗なら放電電流が大きいほど電圧降下は大きくなる。",
+    "tested_misconception": "放電中の電圧降下はセル数や残量だけで決まり内部抵抗や放電電流には左右されない。",
+    "reasoning_path": "identify Vdrop = R × I -> hold internal resistance constant -> compare discharge current -> infer relative voltage drop",
+    "collision": {"released_bank_checked":true,"canonical_drafts_checked":true,"batch_checked":true,"note":"Tier B。Q157はセル電圧×セル数の公称電圧。Q158は一定出力維持時の電流増大。Q164は大電流で一時的な電圧低下が起こる現象。本問は内部抵抗を固定してVdrop=R×Iの定量関係を判断させる。"}
+  },
+  "independent_review": {"decision":"ACCEPT","rationale":"Tier B PASS. Q164 identifies a qualitative transient voltage sag after rapid ascent, while Q157 and Q158 cover nominal pack voltage and the constant-output current consequence. C001 instead requires the source-defined Vdrop = R × I relationship, holds internal resistance constant and compares discharge current quantitatively. Calculation relationship, causal mechanism and reasoning path are materially distinct."},
+  "director_adjudication": {"decision":"ACCEPT","rationale":"Adopt the independent review at ACCEPT 5 / REJECT 0. All five propositions are directly supported by second-class-applicable Chapter 4 source text. C001 and C004 satisfy the controlled-variant distinctness contract; C002, C003 and C005 add new answer-defining propositions. No quota backfill is required or permitted."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
