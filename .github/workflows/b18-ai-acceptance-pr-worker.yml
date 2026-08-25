@@ -1,0 +1,46 @@
+name: B18 AI Acceptance PR Worker
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/b18-acceptance-trigger'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: drone-b18-ai-acceptance-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  accept:
+    if: github.head_ref == 'chatgpt/drone-b18-acceptance'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout acceptance branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-b18-acceptance
+          fetch-depth: 0
+      - name: Reconcile to current main
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Materialize B18 residual acceptance packets
+        run: python3 tooling/komadeki_autopilot/b18_acceptance_transition.py
+      - name: Validate acceptance and repository gates
+        run: |
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class --check-generated
+      - name: Commit durable B18 acceptance transition
+        run: |
+          rm -f .github/b18-acceptance-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Materialize B18 residual acceptance packets'
+          git push --force-with-lease origin HEAD:chatgpt/drone-b18-acceptance
