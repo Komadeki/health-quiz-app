@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "reviewer": {"id": "otsu4-b1-reviewer-r1", "role": "AI_REVIEWER"},
+  "round": 1,
+  "decision": "REWORK",
+  "candidates": [
+    {"candidate_id": "O4-B1-LAW-C001", "decision": "REWORK", "rationale": "Source locator must identify the exact current table row for gasoline and kerosene."},
+    {"candidate_id": "O4-B1-LAW-C002", "decision": "REWORK", "rationale": "Source locator must identify the exact current table row for gasoline."},
+    {"candidate_id": "O4-B1-PHY-C001", "decision": "REWORK", "rationale": "The registered MEXT locator is a heading, not a pinpoint section/page supporting the proposition."},
+    {"candidate_id": "O4-B1-PHY-C002", "decision": "REWORK", "rationale": "The registered MEXT locator is a heading, not a pinpoint section/page supporting the proposition."},
+    {"candidate_id": "O4-B1-FIR-C001", "decision": "REWORK", "rationale": "The KHK locator is not a pinpoint official source for the proposed safety claim."},
+    {"candidate_id": "O4-B1-FIR-C002", "decision": "REWORK", "rationale": "The KHK locator is not a pinpoint official source for the proposed extinguishing claim."}
+  ],
+  "next_gate": "AUTHORING_REWORK_WITH_PINPOINT_SOURCE_LOCATORS"
+}
