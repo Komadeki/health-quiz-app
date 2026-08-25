@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d9bbf8ae629f2ccf2b1d9305b8ea75bed9a8fc631c9c28b93365e9a054768559",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.3「無人航空機の飛行原理」（教則表示ページ38 / PDF viewer 43）"
+    },
+    "answer_defining_proposition": "迎角・横滑り角は相対流入空気に対する空力角であり、迎角は下方流入、横滑り角は右側流入を正とする。",
+    "tested_misconception": "迎角・横滑り角は機体姿勢のピッチ角・ヨー角そのものを表す。",
+    "reasoning_path": "relative airflow -> choose longitudinal/lateral reference plane -> determine signed aerodynamic angle",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q067は過大迎角による失速、Q155は姿勢角を扱う。本問は相対流入空気に基づく空力角の定義と符号を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The item tests the definition/sign convention of aerodynamic angle of attack and sideslip from relative airflow. Existing items test stall at high angle of attack or attitude angles, not these definitions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

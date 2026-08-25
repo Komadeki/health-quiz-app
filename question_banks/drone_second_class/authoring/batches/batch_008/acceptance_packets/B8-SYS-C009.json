@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e7f69c74f1b32273ec8ffd859cc7835d41089cc954191525088f43f5c5f00557",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.5「電波」(1)1)減衰（教則表示ページ47 / PDF viewer 52）"
+    },
+    "answer_defining_proposition": "電波の電力密度は進行距離の2乗に反比例し、距離2倍で1/4となる。",
+    "tested_misconception": "送信条件が同じなら電波の電力密度は距離に比例して低下し、距離2倍で1/2になる。",
+    "reasoning_path": "propagation distance change -> inverse-square attenuation -> calculate relative power density",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q074は周波数と回折、Q169はフレネルゾーン障害を扱う。本問は二等範囲の距離二乗反比例の減衰関係を直接問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The distance-squared attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded Category III calculation material. The simple 2x-distance -> 1/4 power-density application is answer-unique and practice-relevant."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

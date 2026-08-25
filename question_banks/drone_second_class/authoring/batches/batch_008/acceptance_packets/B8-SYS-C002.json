@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "249655932cbea3974bcb146c16c54c4b06a6a01ff34005b43a54ef1846718265",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.1「回転翼航空機（ヘリコプター）」(2)大型機（教則表示ページ35 / PDF viewer 40）"
+    },
+    "answer_defining_proposition": "大型ヘリコプターは慣性力により操舵応答が遅れ気味になるため、定点ホバリングでは早めの操舵が必要である。",
+    "tested_misconception": "大型ヘリコプターは慣性力が大きいので、ホバリングでは小型機より操舵を遅らせる方が安定する。",
+    "reasoning_path": "large helicopter -> delayed dynamic response -> hover position-hold -> anticipate and command earlier",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=large-aircraft inertia changes control response。distinct axes=aircraft_or_operation_applicability + scenario_state_or_flight_phase + reasoning_path。Q099は大型機一般の加減速距離・障害物回避。本問はヘリコプター固有の定点ホバリングでの操舵時期判断を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. The source-defined large-helicopter hover branch changes both aircraft applicability and control timing: large inertia delays response, so early control is required. Q099 tests generic large-aircraft acceleration/deceleration and obstacle avoidance, not hover anticipation."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

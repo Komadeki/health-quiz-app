@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "06c0218dec1ee35a44872a2e585cc74b257676a3b915af21d24602c02e816f40",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.6「リチウムポリマーバッテリーの保管方法」（教則表示ページ51 / PDF viewer 56）"
+    },
+    "answer_defining_proposition": "LiPoは不燃性ケースに入れ、突起物で傷つかない状態で保管する。",
+    "tested_misconception": "LiPoは端子だけ保護すれば、可燃性の容器や突起物が接触する状態でも安全に保管できる。",
+    "reasoning_path": "LiPo storage -> residual fire/mechanical-damage hazards -> fire-resistant case and puncture protection",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q032は長期保管の充電率、Q033は膨張時交換、Q167は衝撃後の発火リスク。本問は不燃性ケースと損傷防止という保管設備・状態を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Fire-resistant storage containment plus protection from puncture/mechanical damage is a separate storage-state proposition not covered by charge-level, swelling or post-impact LiPo items."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1ee56c7e2201036c227a04cf93c594cc7bb33d3ec4131024eaeebcb30d333f14",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.4「機体又はバッテリーの故障及び事故の分析」(2)リチウムポリマーバッテリーに関わる電気的なトラブル（教則表示ページ46 / PDF viewer 51）"
+    },
+    "answer_defining_proposition": "LiPoは残量減少と電圧低下に伴い急激に出力が弱くなり、墜落原因となり得る。",
+    "tested_misconception": "LiPoの残量低下は表示値だけの問題で、電圧低下による急激な出力低下にはつながらない。",
+    "reasoning_path": "depleted LiPo -> voltage declines -> abrupt output weakening -> loss-of-flight-margin/crash risk",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q158は低電圧時の必要電流、Q164は高電流時の一時的電圧降下、Q196はフェールセーフ着陸遷移。本問は残量末期の急激な出力低下そのものを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source explicitly links low remaining LiPo voltage to abrupt output weakening and possible crash. Existing low-voltage/current/failsafe items do not directly test this end-of-charge output-collapse proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

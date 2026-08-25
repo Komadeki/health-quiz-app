@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C014",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "69dd6fad5c7cee337d77afeff626fdb09cc3b362631aa634dc9bdd37e5285d50",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.5「GNSS」(3)GNSSを使用した飛行における注意事項（教則表示ページ50 / PDF viewer 55）"
+    },
+    "answer_defining_proposition": "一般にGNSSの位置精度は、水平方向より高度方向の誤差が大きい。",
+    "tested_misconception": "GNSSは水平位置より高度方向の方が一般に高精度である。",
+    "reasoning_path": "GNSS error dimension -> compare horizontal versus vertical -> recognize larger altitude error",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q014/Q017/Q077はGNSS誤差の原因・Waypoint影響・高精度測位の必要性。本問は水平と高度方向の精度差を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source explicitly states that GNSS vertical error is generally larger than horizontal error. This directional accuracy limitation is distinct from existing cause/effect and high-precision-positioning questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

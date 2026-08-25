@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "399badb6cae821afb493ab3163d2012dc2bf8df1c3d1d628708cb7cfc196829e",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.1「飛行機」(1)機体の特徴（教則表示ページ34 / PDF viewer 39）"
+    },
+    "answer_defining_proposition": "飛行機型は滑空するため、墜落・不時着時の落下地点を狭い範囲に抑えられない。",
+    "tested_misconception": "飛行機型は推力喪失後に滑空するので、落下地点を狭い一点付近へ限定しやすい。",
+    "reasoning_path": "fixed-wing glide capability -> off-nominal descent -> broad possible landing/impact area",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q144は推力喪失後も滑空できること自体を問う。本問はその別の安全上の帰結である落下地点の分散を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source-defined safety consequence of fixed-wing glide is a broadened possible impact/forced-landing area. Q144 tests glide capability itself; this item tests the distinct hazard implication for impact-location estimation."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a8835494ce77d9131879da1798be02ffa515821b5f4e184b405be671f2e8cb46",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.6「リチウムポリマーバッテリーの廃棄方法」（教則表示ページ51 / PDF viewer 56）"
+    },
+    "answer_defining_proposition": "事業で用いたLiPoは、法律に則り産業廃棄物として廃棄する。",
+    "tested_misconception": "事業用LiPoも家庭用と同じ一般ごみとして任意に廃棄できる。",
+    "reasoning_path": "spent LiPo -> identify business-use waste stream -> industrial-waste disposal under law",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q032/Q033は保管・交換を扱う。現行canonicalに事業用LiPoの廃棄区分を直接判定させる問題はない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Business-use LiPo disposal as industrial waste under applicable law is an explicit end-of-life management proposition not represented by current storage/replacement items."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
