@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B10",
+  "adjudication_round": 1,
+  "director": {
+    "id": "chatgpt-primary-director-b10-r1",
+    "role": "DECISION_OWNER"
+  },
+  "adjudicated_at": "2026-08-25",
+  "author_identity": "chatgpt-b10-rules-author-r1",
+  "reviewer_identity": "autopilot-b10-rules-reviewer-r1",
+  "identity_separation_checked": true,
+  "basis": [
+    "current GitHub main and Drone machine state",
+    "merged B10 batch contract and candidates.csv",
+    "merged independent_review_r1.json",
+    "current 275-question accepted/source-verified canonical baseline",
+    "MLIT-UAS-SAFETY-GUIDE-5 source contract, edition 5",
+    "merged 400-question quality-preserving controlled-variant contract"
+  ],
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 20,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "B10-RULE-C001","B10-RULE-C002","B10-RULE-C003","B10-RULE-C004","B10-RULE-C005",
+    "B10-RULE-C006","B10-RULE-C007","B10-RULE-C008","B10-RULE-C009","B10-RULE-C010",
+    "B10-RULE-C011","B10-RULE-C012","B10-RULE-C013","B10-RULE-C014","B10-RULE-C015",
+    "B10-RULE-C016","B10-RULE-C017","B10-RULE-C018","B10-RULE-C019","B10-RULE-C020"
+  ],
+  "director_findings": [
+    "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline.",
+    "All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation.",
+    "C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions.",
+    "No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕.",
+    "No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates.",
+    "No HUMAN review is claimed or fabricated."
+  ],
+  "controlled_variant_result": {
+    "accepted_tier_b": ["B10-RULE-C003","B10-RULE-C010","B10-RULE-C018"],
+    "rejected_tier_b": [],
+    "wording_only_duplicate_retained": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_FABRICATED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_20"
+}
