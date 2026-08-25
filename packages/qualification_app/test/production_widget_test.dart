@@ -75,6 +75,11 @@ void main() {
       find.descendant(of: mockBest, matching: find.text('未受験')),
       findsOneWidget,
     );
+    await tester.tap(mockBest);
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('mock-exam-unlock-sheet')), findsOneWidget);
+    await tester.binding.handlePopRoute();
+    await tester.pumpAndSettle();
 
     final lockedMock = find.byKey(const Key('start-mock-exam'));
     await tester.scrollUntilVisible(lockedMock, 160);
@@ -87,8 +92,24 @@ void main() {
       find.descendant(of: unlockSheet, matching: find.text('買い切り Fixture')),
       findsOneWidget,
     );
+    expect(
+      find.descendant(
+        of: unlockSheet,
+        matching: find.text('全${controller.bank!.cards.length}問を解放する'),
+      ),
+      findsOneWidget,
+    );
     await tester.binding.handlePopRoute();
     await tester.pumpAndSettle();
+
+    final purchase = find.byKey(const Key('purchase-full-unlock'));
+    await tester.scrollUntilVisible(purchase, 160);
+    expect(find.byKey(const Key('free-tier-progress')), findsOneWidget);
+    expect(find.text('各単元の全問題'), findsOneWidget);
+    expect(
+      find.text('全${controller.bank!.cards.length}問を解放する'),
+      findsOneWidget,
+    );
 
     for (final unsupported in ['合格可能性', 'AI合否', '本番力']) {
       expect(find.textContaining(unsupported), findsNothing);

@@ -8,15 +8,16 @@ Coverage questions, ten B5 D2-A Coverage questions, ten B6 D2-B Coverage
 questions, ten B7 D3 Coverage questions, and 11 B8 D4 Coverage questions. The
 B4 D1, B5 D2-A, B6 D2-B, B7 D3, and B8 D4 questions passed the Source-first
 Gate, Question Authoring Content Gate, Human Author Verification, and QID Gate.
-Production release v2 activates the complete 188-question canonical bank without changing
-question content or permanent identities.
+Production release v3 keeps the complete 188-question canonical bank and expands the
+free tier from 20 to 30 questions without changing question content or permanent identities.
 
 ## Release state
 
 - 188 / 188 canonical questions are Production active and released.
-- Production bank revision: `drone-second-class-v2-release-2026-08-24`.
-- Production runtime: 188 active questions, 20 free, and 168 premium.
-- Free selection remains the original 20 permanent IDs; the 88 expansion questions remain premium.
+- Production bank revision: `drone-second-class-v3-release-2026-08-25`.
+- Production runtime: 188 active questions, 30 free, and 158 premium.
+- Free selection preserves the original 20 and adds 10 already-released questions, distributed across all four units.
+- Added free IDs for v3: DRONE-Q-000022, DRONE-Q-000023, DRONE-Q-000010, DRONE-Q-000035, DRONE-Q-000027, DRONE-Q-000028, DRONE-Q-000017, DRONE-Q-000032, DRONE-Q-000033, DRONE-Q-000043.
 - `DRONE-Q-000001..DRONE-Q-000100` preserve their original first-use revision `drone-second-class-v1-release-2026-08-20`.
 - `DRONE-Q-000101..DRONE-Q-000188` record first use in `drone-second-class-v2-release-2026-08-24`.
 - `DRONE-Q-000189` and later IDs remain unreserved.
