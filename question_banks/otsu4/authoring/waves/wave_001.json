@@ -1,9 +1,10 @@
 {
   "schema_version": "1.0",
   "wave_id": "W1",
-  "status": "AI_PRE_ACCEPT_AUTHORED",
+  "status": "INDEPENDENT_AI_REVIEWED",
   "planned_at": "2026-08-25",
   "authored_at": "2026-08-25",
+  "reviewed_at": "2026-08-25",
   "production_target": 600,
   "canonical_verified_baseline": 51,
   "candidate_ceiling": 72,
@@ -14,19 +15,23 @@
     "B6": 20,
     "total": 64
   },
+  "independent_review_summary": {
+    "reviewed": 64,
+    "accept": 63,
+    "reject": 1,
+    "rework": 0,
+    "hold": 0,
+    "rejected_candidate_ids": ["O4-B5-PHY-C002"]
+  },
   "authors": {
-    "B4": {
-      "id": "otsu4-b4-author-r1",
-      "role": "AI_AUTHOR"
-    },
-    "B5": {
-      "id": "otsu4-b5-author-r1",
-      "role": "AI_AUTHOR"
-    },
-    "B6": {
-      "id": "otsu4-b6-author-r1",
-      "role": "AI_AUTHOR"
-    }
+    "B4": {"id": "otsu4-b4-author-r1", "role": "AI_AUTHOR"},
+    "B5": {"id": "otsu4-b5-author-r1", "role": "AI_AUTHOR"},
+    "B6": {"id": "otsu4-b6-author-r1", "role": "AI_AUTHOR"}
+  },
+  "independent_reviewers": {
+    "B4": {"id": "otsu4-w1-b4-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "B5": {"id": "otsu4-w1-b5-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "B6": {"id": "otsu4-w1-b6-independent-reviewer-r1", "role": "AI_REVIEWER"}
   },
   "batches": [
     {
@@ -58,12 +63,13 @@
     }
   ],
   "authoring_rule": "All three batches are persisted as AI_PRE_ACCEPT before independent review. No Permanent IDs, canonical rows, source-verification rows, released rows or runtime rows are created during wave authoring.",
-  "collision_rule": "Each candidate is checked against all 51 baseline canonical questions plus every earlier authored candidate in W1. Independent review must recheck the full 64-candidate W1 set.",
+  "collision_rule": "Each candidate is checked against all 51 baseline canonical questions plus every earlier authored candidate in W1. Independent review rechecked the full 64-candidate W1 set.",
   "post_review_transaction": "DIRECTOR_ACCEPT_AND_PROMOTE combines Director adjudication, content-bound Acceptance Packet materialization and promotion to READY_FOR_ID for reviewer-accepted candidates only.",
   "permanent_id_and_source_verification_separate": true,
   "filler_prohibited": true,
   "activated_state_epoch": 43,
   "authored_state_epoch": 44,
   "count_reconciled_state_epoch": 45,
-  "next_gate": "INDEPENDENT_AI_REVIEW_W1_B4_B5_B6_64"
+  "reviewed_state_epoch": 46,
+  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_W1_B4_B5_B6_63"
 }
