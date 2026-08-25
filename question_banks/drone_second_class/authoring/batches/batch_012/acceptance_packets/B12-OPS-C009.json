@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B12-OPS-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "3951e59123dfab87994fc22ca7f277b1b3ad6be0719d441d935e47f129d63898",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b12-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b12-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b12-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.2.1(2)2)「離陸方法」"
+    },
+    "answer_defining_proposition": "ヘリコプターの離陸時に生じ得る横方向の傾向を機体特性として把握し、補正操作に備える。",
+    "tested_misconception": "離陸時の横方向傾向は考慮不要である。",
+    "reasoning_path": "helicopter rotor configuration -> lateral tendency at liftoff -> anticipate corrective control",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q182は十分なローター回転数、Q068は反トルクとヨー制御。本問は離陸時の横方向挙動への備えを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Helicopter takeoff lateral tendency from tail-rotor action, including direction depending on rotor rotation, is explicitly stated and is not already answer-defining in the canonical bank."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B12 plan, reconciliation and current Chapter 5 source text. C004 is correctly rejected: the cited source defines abnormal-event checks for crisis avoidance and safe landing during the event, not the stronger post-landing event-specific inspection duty written into the candidate. The seven accepted Tier B candidates C006, C007, C008, C010, C013, C018 and C020 retain material source-defined distinctions in flight phase, operating-condition gate, ground-effect action branch, sensor-failure response or post-landing lifecycle state. C002 is correctly treated as Tier A under the merged reconciliation because abnormal heating is an explicit post-flight inspection proposition rather than a reuse of a canonical core proposition. No accepted candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota; C004 is dropped without replacement. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

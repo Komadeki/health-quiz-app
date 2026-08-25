@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B12-OPS-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ea2c9f3d12b52d3652aeca4ece9a286e9641bb2b4d74cd950f44b1495f65e17c",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b12-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b12-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b12-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.2.1(3)3)「着陸方法」"
+    },
+    "answer_defining_proposition": "飛行機の着陸では距離・高度の目測誤差による滑走路逸脱に注意する。",
+    "tested_misconception": "滑走路が水平なら目測誤差による逸脱は考慮不要である。",
+    "reasoning_path": "visual range/height estimation -> touchdown placement error -> runway-excursion prevention",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q184は滑走路物理条件、Q186は一般的な手動操縦距離認識訓練。本問は着陸時の目測誤差と逸脱の因果を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source explicitly warns that visual-estimation error can cause runway excursion. This is a distinct landing consequence branch from runway-site physical-condition selection and generic manual distance training."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B12 plan, reconciliation and current Chapter 5 source text. C004 is correctly rejected: the cited source defines abnormal-event checks for crisis avoidance and safe landing during the event, not the stronger post-landing event-specific inspection duty written into the candidate. The seven accepted Tier B candidates C006, C007, C008, C010, C013, C018 and C020 retain material source-defined distinctions in flight phase, operating-condition gate, ground-effect action branch, sensor-failure response or post-landing lifecycle state. C002 is correctly treated as Tier A under the merged reconciliation because abnormal heating is an explicit post-flight inspection proposition rather than a reuse of a canonical core proposition. No accepted candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota; C004 is dropped without replacement. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

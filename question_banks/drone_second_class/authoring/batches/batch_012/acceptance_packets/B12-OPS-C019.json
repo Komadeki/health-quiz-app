@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B12-OPS-C019",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5e37a9485cab7467851070ec368273891fd57db5c7a5e3299c545a74a1573c21",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b12-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b12-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b12-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.4.2「安全な運航のための補助者の必要性、役割及び配置」"
+    },
+    "answer_defining_proposition": "異常時に補助者は危険情報を操縦者へ伝え、安全な緊急着陸場所への誘導を支援する。",
+    "tested_misconception": "補助者の役割は第三者の立入管理だけで、異常時の緊急着陸誘導には関与しない。",
+    "reasoning_path": "abnormal operation -> assistant external observation -> communicate hazard -> guide safe landing",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q188は通常時の主要役割、Q089は事前coordination。本問は異常時の緊急着陸支援という具体任務を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Chapter 5.4.2 explicitly assigns assistants hazard-warning communication and guidance to an emergency landing point. This abnormal-state duty is distinct from normal third-party/access management and preflight coordination."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B12 plan, reconciliation and current Chapter 5 source text. C004 is correctly rejected: the cited source defines abnormal-event checks for crisis avoidance and safe landing during the event, not the stronger post-landing event-specific inspection duty written into the candidate. The seven accepted Tier B candidates C006, C007, C008, C010, C013, C018 and C020 retain material source-defined distinctions in flight phase, operating-condition gate, ground-effect action branch, sensor-failure response or post-landing lifecycle state. C002 is correctly treated as Tier A under the merged reconciliation because abnormal heating is an explicit post-flight inspection proposition rather than a reuse of a canonical core proposition. No accepted candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota; C004 is dropped without replacement. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B12-OPS-C013",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0b0e572fe7fb10608bdc61e6a51bd9702fe32243ecc5c9d7f6afa312ed3cb723",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b12-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b12-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b12-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.2.1(2)3)「着陸方法」"
+    },
+    "answer_defining_proposition": "着陸時には地面効果が顕著な高度帯で長くホバリングせず、安定を確認した上で着陸する。",
+    "tested_misconception": "着陸前は地面効果帯で長時間ホバリングするほど安全である。",
+    "reasoning_path": "landing approach -> ground-effect regime -> avoid prolonged hover -> complete landing",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=helicopter ground effect。axes=flight_phase + decision_boundary。Q132は現象、Q183は接地後。本問は着陸直前の滞留回避を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. The source explicitly says to avoid hovering within the ground-effect range and land promptly. Landing-phase action is materially different from general ground-effect recognition and takeoff-phase departure."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B12 plan, reconciliation and current Chapter 5 source text. C004 is correctly rejected: the cited source defines abnormal-event checks for crisis avoidance and safe landing during the event, not the stronger post-landing event-specific inspection duty written into the candidate. The seven accepted Tier B candidates C006, C007, C008, C010, C013, C018 and C020 retain material source-defined distinctions in flight phase, operating-condition gate, ground-effect action branch, sensor-failure response or post-landing lifecycle state. C002 is correctly treated as Tier A under the merged reconciliation because abnormal heating is an explicit post-flight inspection proposition rather than a reuse of a canonical core proposition. No accepted candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota; C004 is dropped without replacement. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

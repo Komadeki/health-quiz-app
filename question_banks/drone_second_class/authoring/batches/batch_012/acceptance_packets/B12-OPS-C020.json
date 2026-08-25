@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B12-OPS-C020",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "409ec47c4e422010ea4fbc2659235b4ab59d5ee91b5f555aeda3ad85b87c815a",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b12-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b12-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b12-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.4.2「安全な運航のための補助者の必要性、役割及び配置」"
+    },
+    "answer_defining_proposition": "緊急着陸後も補助者は機体回収や周囲安全確認、必要な確認・点検の支援に移り、運航終了まで安全管理を継続する。",
+    "tested_misconception": "補助者の安全管理役割は接地した時点で終了する。",
+    "reasoning_path": "emergency touchdown -> transition from flight monitoring to recovery/safety support -> close operation safely",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=assistant operational support。axes=flight_phase + response_sequence。Q188は飛行準備・経路・立入管理、Q087は事故直後の操縦者対応。本問は補助者役割の着陸後ライフサイクル境界を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Chapter 5.4.2 explicitly includes aircraft recovery and safety-inspection assistance after landing. The post-landing lifecycle state and response sequence differ from normal in-flight assistant duties."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B12 plan, reconciliation and current Chapter 5 source text. C004 is correctly rejected: the cited source defines abnormal-event checks for crisis avoidance and safe landing during the event, not the stronger post-landing event-specific inspection duty written into the candidate. The seven accepted Tier B candidates C006, C007, C008, C010, C013, C018 and C020 retain material source-defined distinctions in flight phase, operating-condition gate, ground-effect action branch, sensor-failure response or post-landing lifecycle state. C002 is correctly treated as Tier A under the merged reconciliation because abnormal heating is an explicit post-flight inspection proposition rather than a reuse of a canonical core proposition. No accepted candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota; C004 is dropped without replacement. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
