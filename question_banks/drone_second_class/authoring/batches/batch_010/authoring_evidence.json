@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B10",
+  "author_id": "chatgpt-b10-rules-author-r1",
+  "authored_at": "2026-08-25",
+  "candidate_count": 20,
+  "state": "AI_PRE_ACCEPT",
+  "tier_counts": {
+    "A_NEW_PROPOSITION": 17,
+    "B_BOUNDARY_VARIANT": 3,
+    "C_REASONING_VARIANT": 0
+  },
+  "canonical_collision_scope": 275,
+  "permanent_ids_allocated": 0,
+  "canonical_changed": false,
+  "released_changed": false,
+  "runtime_changed": false,
+  "human_review_created": false,
+  "next_gate": "INDEPENDENT_AI_REVIEW_B10_400_TARGET_CANDIDATES_20"
+}
