@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B15",
+  "review_round": 1,
+  "reviewer": {"id":"autopilot-b15-risk-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked": "chatgpt-b15-risk-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","edition":"第5版","official_current_check":"2026-08-25","official_pdf":"https://www.mlit.go.jp/common/002010809.pdf","second_class_scope_rule":"Use only second-class-applicable Chapter 6 propositions; exclude subsections explicitly marked 〔一等〕."},
+  "review_basis": [
+    "current merged B15 candidates.csv from PR #289",
+    "current 345-question canonical inventory",
+    "B15 pre-screen plan from PR #288",
+    "current MLIT 教則第5版 Chapter 6 source text",
+    "400-question quality-preserving controlled-variant contract",
+    "source fidelity, second-class applicability, answer uniqueness, semantic distinctness, commercial practice value, plausible distractors and explanation correctness"
+  ],
+  "summary": {"reviewed":9,"accept":9,"reject":0,"rework":0,"hold":0},
+  "decisions": [
+    {"candidate_id":"B15-RISK-C001","decision":"ACCEPT","rationale":"Tier B PASS. Q090 establishes that a safety margin extends beyond the flight area, while C001 tests the distinct source-defined quantitative boundary: use the longer of height-equivalent distance or 30m. At 50m the required reasoning changes the answer to 50m."},
+    {"candidate_id":"B15-RISK-C002","decision":"ACCEPT","rationale":"Explicit Chapter 6 operational-organization proposition not answer-defining elsewhere. Existing CRM and assistant questions do not test the recommendation to separate piloting and safety management by assigning a safety/operations manager."},
+    {"candidate_id":"B15-RISK-C003","decision":"ACCEPT","rationale":"Explicit meteorological interpretation rule: unqualified wind speed means the preceding 10-minute mean and differs from maximum instantaneous wind. Existing wind questions address vertical profile and gust timing, not this measurement definition."},
+    {"candidate_id":"B15-RISK-C004","decision":"ACCEPT","rationale":"Mountain/valley wind has a terrain-specific day/night reversal mechanism distinct from Q270's sea/land-breeze mechanism and calm transition periods."},
+    {"candidate_id":"B15-RISK-C005","decision":"ACCEPT","rationale":"Downburst/microburst scale and intensity are explicit source facts with operational hazard value. Existing thunderstorm/gust questions do not make this definition or the approximately 4km microburst boundary answer-defining."},
+    {"candidate_id":"B15-RISK-C006","decision":"ACCEPT","rationale":"Fixed-wing takeoff/landing into headwind and prohibition of tailwind operation because of stall risk is source-defined and distinct from existing runway-size/turn-radius and landing-speed/elevator questions."},
+    {"candidate_id":"B15-RISK-C007","decision":"ACCEPT","rationale":"Fixed-wing inability to hover and the resulting circular-turn holding method is an operational consequence not tested by the existing minimum-turn-radius question or B13 fixed-wing lateral-motion constraint."},
+    {"candidate_id":"B15-RISK-C008","decision":"ACCEPT","rationale":"Tier B PASS. Q272 tests forward climb as a power-saving technique; C008 changes the operating condition to strong downslope wind in mountain/slope flight and tests possible loss of climb capability."},
+    {"candidate_id":"B15-RISK-C009","decision":"ACCEPT","rationale":"Large-aircraft noise-driven route-neighborhood consideration is explicitly stated and distinct from current large-aircraft inertia/avoidance and emergency-landing-area questions."}
+  ],
+  "controlled_variant_gate": {"reviewed_tier_b":["B15-RISK-C001","B15-RISK-C008"],"accepted_tier_b":["B15-RISK-C001","B15-RISK-C008"],"rejected_tier_b":[],"density_policy_checked":true,"minimum_distinct_axes_checked":true,"wording_only_duplicates_allowed":false},
+  "canonical_collision_reconciliation": {"planning_claim_confirmed":true,"hard_rejected_count":0,"quota_backfill":false,"accepted_candidate_ids":["B15-RISK-C001","B15-RISK-C002","B15-RISK-C003","B15-RISK-C004","B15-RISK-C005","B15-RISK-C006","B15-RISK-C007","B15-RISK-C008","B15-RISK-C009"]},
+  "invariants": {"HUMAN_REVIEW_ROWS_CREATED":0,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"REGISTRY_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false},
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_9_ACCEPT_0_REJECT"
+}
