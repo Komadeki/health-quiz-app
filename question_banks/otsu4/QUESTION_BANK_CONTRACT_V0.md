@@ -24,6 +24,12 @@ Every candidate has one primary subject and one knowledge target:
 
 Each target must carry variation tags for `recall`, `application`, or `calculation_decision`; calculation/decision questions also record their tested misconception and reasoning boundary. A candidate cannot bind to multiple primary subjects merely to satisfy coverage.
 
+## Production target
+
+The current commercial production target is 600 original accepted questions under `docs/OTSU4_600Q_PRODUCTION_TARGET_DECISION_V1.md`: 法令 260, 物化 160, 性消 180.
+
+The target is not a quota. No wording-only duplicate, semantic filler, unsupported source expansion, or low-value variant may be accepted merely to reach 600. A demonstrated source/coverage ceiling must be recorded as a coverage-limit decision instead.
+
 ## Initial batch gate
 
-Batch 1 may contain at most 20 original candidates: 8 Law, 5 Physics/Chemistry, and 7 Properties/Fire. It must include at least two calculation/decision candidates per subject and no released, canonical-draft, or same-batch semantic collision. Passing Batch 1 does not change the 300-question product target or authorize a mock-exam release.
+Batch 1 may contain at most 20 original candidates: 8 Law, 5 Physics/Chemistry, and 7 Properties/Fire. It must include at least two calculation/decision candidates per subject and no released, canonical-draft, or same-batch semantic collision. Passing Batch 1 does not itself authorize a mock-exam release or relax the 600-question production quality gates.

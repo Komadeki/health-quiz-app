@@ -6,12 +6,12 @@
   "status": "ACTIVE",
   "current_phase": "QUESTION_BANK_COMPLETION",
   "phase_order": ["QUESTION_BANK_COMPLETION","FEATURE_COMPLETION","PRODUCT_CLOSURE","PHYSICAL_DEVICE","STOREKIT_TESTFLIGHT","APP_STORE_CONNECT","FINAL_RELEASE_GATE","SUBMIT","DONE"],
-  "observed_main": "8928edfa29a94cf2c82cbcef258942240e616af5",
-  "next_atomic_objective": "ALLOCATE_AND_INTEGRATE_OTSU4_B1_LAW_C002",
+  "observed_main": "7d20d8ec1326f03584566977a603f7857edeaa52",
+  "next_atomic_objective": "PLAN_OTSU4_600Q_15_TARGET_COVERAGE_MAP",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 13
+  "state_epoch": 14
 }
