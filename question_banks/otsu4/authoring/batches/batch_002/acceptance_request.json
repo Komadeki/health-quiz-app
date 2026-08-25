@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "objective": "MATERIALIZE_OTSU4_BATCH_2_ACCEPTANCE_PACKETS_23",
+  "requested_at": "2026-08-25",
+  "expected_candidate_count": 23,
+  "excluded_candidate_id": "O4-B2-LAW-C016"
+}
