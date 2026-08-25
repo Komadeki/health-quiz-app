@@ -46,6 +46,15 @@ void main() {
     expect(find.byKey(const Key('overall-progress')), findsOneWidget);
     expect(find.byKey(const Key('home-hero')), findsOneWidget);
     expect(find.byKey(const Key('overall-progress-ring')), findsOneWidget);
+    expect(find.byKey(const Key('unit-performance-chart')), findsOneWidget);
+    for (final metricKey in [
+      'progress-metric-completed',
+      'progress-metric-accuracy',
+      'progress-metric-review',
+      'progress-metric-mock-best',
+    ]) {
+      expect(find.byKey(Key(metricKey)), findsOneWidget);
+    }
     expect(find.byKey(const Key('unit-fixture_safety')), findsOneWidget);
     expect(find.byKey(const Key('start-random')), findsOneWidget);
     expect(find.byKey(const Key('start-unanswered')), findsOneWidget);
@@ -97,6 +106,52 @@ void main() {
     );
     expect(
       find.descendant(of: sheet, matching: find.text('架空の運用原則')),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('progress dashboard shows review count and best mock score', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final controller = await createController(
+      entitlement: EntitlementSnapshot(
+        ownedProductIds: const {'fixture_full_unlock'},
+      ),
+    );
+    addTearDown(controller.dispose);
+
+    await controller.startMockExam();
+    while (controller.activeSession != null) {
+      await controller.commitAnswer(controller.currentCard!.answerIndex);
+      await controller.advance();
+    }
+    controller.returnHome();
+
+    await controller.startUnit('fixture_safety');
+    final card = controller.currentCard!;
+    final wrongAnswer = (card.answerIndex + 1) % card.choices.length;
+    await controller.commitAnswer(wrongAnswer);
+    controller.returnHome();
+
+    await tester.pumpWidget(
+      QualificationProductionApp(
+        definition: fixtureDefinition,
+        controller: controller,
+      ),
+    );
+
+    final review = find.byKey(const Key('progress-metric-review'));
+    final mockBest = find.byKey(const Key('progress-metric-mock-best'));
+    expect(
+      find.descendant(of: review, matching: find.text('1問')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: mockBest, matching: find.text('2/2')),
       findsOneWidget,
     );
   });
@@ -188,7 +243,9 @@ void main() {
       ),
     );
     final unit = find.byKey(const Key('unit-fixture_safety'));
-    await tester.scrollUntilVisible(unit, 160);
+    await tester.scrollUntilVisible(unit, 200);
+    await tester.ensureVisible(unit);
+    await tester.pumpAndSettle();
     await tester.tap(unit);
     await tester.pump();
     final correctIndex = controller.currentCard!.answerIndex;

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,8 @@ import 'production_bank.dart';
 import 'production_controller.dart';
 import 'production_persistence.dart';
 import 'production_purchase.dart';
+
+part 'progress_dashboard.dart';
 
 typedef QualificationExternalUrlLauncher = Future<bool> Function(Uri url);
 typedef QualificationHomeSupplementBuilder = Widget Function(
@@ -630,101 +633,8 @@ final class _ProgressCard extends StatelessWidget {
   final QualificationProductionController controller;
 
   @override
-  Widget build(BuildContext context) {
-    final progress = controller.progress!.overall;
-    final percent = (progress.completion * 100).round();
-    final remaining = progress.totalQuestions - progress.completedQuestions;
-    final accuracy = progress.accuracy == null
-        ? '—'
-        : '${(progress.accuracy! * 100).round()}%';
-    return Card(
-      key: const Key('progress-card'),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    '学習進捗',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
-                ),
-                const Icon(Icons.auto_graph),
-              ],
-            ),
-            const SizedBox(height: 20),
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final compact = constraints.maxWidth < 420;
-                final chart = _ProgressRing(
-                  completion: progress.completion,
-                  percent: percent,
-                );
-                final metrics = Expanded(
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      _ProgressMetric(
-                        icon: Icons.check_circle_outline,
-                        value: '${progress.completedQuestions}問',
-                        label: '学習済み',
-                      ),
-                      _ProgressMetric(
-                        icon: Icons.flag_outlined,
-                        value: '$remaining問',
-                        label: '残り',
-                      ),
-                      _ProgressMetric(
-                        icon: Icons.track_changes,
-                        value: accuracy,
-                        label: '正答率',
-                      ),
-                    ],
-                  ),
-                );
-                if (compact) {
-                  return Column(
-                    children: [
-                      chart,
-                      const SizedBox(height: 20),
-                      Row(children: [metrics]),
-                    ],
-                  );
-                }
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [chart, const SizedBox(width: 24), metrics],
-                );
-              },
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '${progress.completedQuestions} / ${progress.totalQuestions}問 ・ '
-              '${progress.attemptCount}回答',
-              key: const Key('overall-progress'),
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                key: const Key('show-learning-status'),
-                onPressed: () => _showLearningStatus(context, controller),
-                icon: const Icon(Icons.insights),
-                label: const Text('学習状況を詳しく見る'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) =>
+      _buildProgressDashboard(context, controller);
 }
 
 final class _ProgressRing extends StatelessWidget {
@@ -783,8 +693,8 @@ final class _ProgressMetric extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return Container(
-      constraints: const BoxConstraints(minWidth: 92),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      constraints: const BoxConstraints(minHeight: 96),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       decoration: BoxDecoration(
         color: colors.secondaryContainer.withValues(alpha: 0.65),
         borderRadius: BorderRadius.circular(16),
