@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "O4-B1",
+  "adjudication_round": 1,
+  "director": {
+    "id": "otsu4-b1-director-adjudicator-r1",
+    "role": "AI_DIRECTOR"
+  },
+  "author": {
+    "id": "otsu4-b1-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "reviewer": {
+    "id": "otsu4-b1-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "identity_separation": "PASS",
+  "review_evidence": "independent_review_r1.json",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 1,
+    "reject": 0,
+    "rework": 5,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "O4-B1-LAW-C002"
+  ],
+  "rework": [
+    {
+      "candidate_id": "O4-B1-LAW-C001",
+      "reason_code": "SOURCE_LOCATOR_INCOMPLETE",
+      "director_rationale": "Adopted. The cited table proves individual quantities but not the aggregation proposition used by this scenario."
+    },
+    {
+      "candidate_id": "O4-B1-PHY-C001",
+      "reason_code": "SOURCE_LOCATOR_INCOMPLETE",
+      "director_rationale": "Adopted. The source locator must identify the required MEXT chapter and page before an independent check can reproduce the proposition."
+    },
+    {
+      "candidate_id": "O4-B1-PHY-C002",
+      "reason_code": "SOURCE_LOCATOR_INCOMPLETE",
+      "director_rationale": "Adopted. The source locator must identify the required MEXT chapter and page before an independent check can reproduce the proposition and terminology."
+    },
+    {
+      "candidate_id": "O4-B1-FIR-C001",
+      "reason_code": "SOURCE_LOCATOR_INCOMPLETE",
+      "director_rationale": "Adopted. The broad KHK heading is not a proposition-supporting locator for this fire-response boundary."
+    },
+    {
+      "candidate_id": "O4-B1-FIR-C002",
+      "reason_code": "SOURCE_LOCATOR_INCOMPLETE",
+      "director_rationale": "Adopted. The broad KHK heading is not a proposition-supporting locator for the foam-blanket mechanism."
+    }
+  ],
+  "director_rationale": "The independent review applied the adopted source-verification contract correctly. O4-B1-LAW-C002 has a current, reproducible primary-law table binding and may proceed alone to an AI-governed acceptance packet. The other candidates must remain AI_PRE_ACCEPT until their cited sources are pinpointed and re-verified; no acceptance may be inferred from a broad heading.",
+  "invariants": {
+    "HUMAN_REVIEW_FABRICATED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "RELEASED_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKET_FOR_O4_B1_LAW_C002"
+}
