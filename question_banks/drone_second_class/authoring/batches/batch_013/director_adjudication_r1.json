@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B13",
+  "adjudication_round": 1,
+  "director": {
+    "id": "chatgpt-primary-director-b13-r1",
+    "role": "DECISION_OWNER"
+  },
+  "adjudicated_at": "2026-08-25",
+  "author_identity": "chatgpt-b13-systems-author-r1",
+  "reviewer_identity": "autopilot-b13-systems-reviewer-r1",
+  "identity_separation_checked": true,
+  "basis": [
+    "current GitHub main and Drone machine state",
+    "merged B13 plan and candidates.csv",
+    "merged B13 independent_review_r1.json from PR #254",
+    "current 332-question accepted/source-verified canonical baseline",
+    "MLIT-UAS-SAFETY-GUIDE-5 edition 5 Chapter 4 source contract",
+    "merged 400-question quality-preserving controlled-variant contract"
+  ],
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 4,
+    "reject": 16,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "B13-SYS-C002",
+    "B13-SYS-C009",
+    "B13-SYS-C014",
+    "B13-SYS-C020"
+  ],
+  "rejected_candidate_ids": [
+    "B13-SYS-C001",
+    "B13-SYS-C003",
+    "B13-SYS-C004",
+    "B13-SYS-C005",
+    "B13-SYS-C006",
+    "B13-SYS-C007",
+    "B13-SYS-C008",
+    "B13-SYS-C010",
+    "B13-SYS-C011",
+    "B13-SYS-C012",
+    "B13-SYS-C013",
+    "B13-SYS-C015",
+    "B13-SYS-C016",
+    "B13-SYS-C017",
+    "B13-SYS-C018",
+    "B13-SYS-C019"
+  ],
+  "director_findings": [
+    "The independent review correctly corrected the B13 planning blind spot: earlier canonical Systems questions Q061-Q071 and Q142-Q169 already cover many Chapter 4 propositions that the plan treated as new.",
+    "C002 is retained because the fixed-wing no-lateral-translation/banked-turn rule is not answer-defining in the current canonical bank.",
+    "C009 is the only accepted Tier B candidate. It changes aircraft applicability to large multirotor and tests the source-defined broader ground-effect operating envelope rather than generic helicopter ground-effect recognition or helicopter takeoff/landing actions.",
+    "C014 is retained because the Ah = current A × time h relationship is a new answer-defining relation. Q159 covers usable-capacity variation with discharge current and temperature but does not define ampere-hour capacity itself.",
+    "C020 is retained because proactive antenna orientation from directional radiation/reception characteristics is distinct from Q246's abnormal multipath-recovery action.",
+    "C007 is correctly rejected under the core-proposition density policy: Q149 already requires the same clockwise/counter-clockwise reaction-torque balance knowledge and its deliberate imbalance for yaw; isolating the prerequisite balance is insufficient new practice value.",
+    "C011 is correctly rejected as a direct collision with Q078, which already tests periodic maintenance triggered by elapsed period or accumulated flight time.",
+    "The remaining fourteen rejected candidates are direct or semantic collisions with canonical Q061/Q063/Q068/Q070/Q071/Q142/Q146/Q148/Q149/Q156/Q161/Q162/Q163/Q166.",
+    "The 20-candidate ceiling is not a quota. Sixteen rejected candidates are dropped without replacement in B13.",
+    "No HUMAN review is claimed or fabricated."
+  ],
+  "controlled_variant_result": {
+    "accepted_tier_b": [
+      "B13-SYS-C009"
+    ],
+    "rejected_tier_b": [
+      "B13-SYS-C003",
+      "B13-SYS-C008"
+    ],
+    "additional_same_core_candidate_rejected": [
+      "B13-SYS-C007"
+    ],
+    "wording_only_duplicate_retained": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_FABRICATED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_4"
+}
