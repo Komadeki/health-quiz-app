@@ -4,7 +4,7 @@
   "product": "drone_second_class",
   "control_issue": 40,
   "status": "ACTIVE",
-  "current_phase": "QUESTION_BANK_COMPLETION",
+  "current_phase": "FEATURE_COMPLETION",
   "phase_order": [
     "QUESTION_BANK_COMPLETION",
     "FEATURE_COMPLETION",
@@ -16,12 +16,12 @@
     "SUBMIT",
     "DONE"
   ],
-  "observed_main": "03956dc24933c84b0a09897f8179b13e75c6cad1",
-  "next_atomic_objective": "EXECUTE_FROZEN_PRODUCTION_BANK_386_RELEASE_ACTIVATION",
+  "observed_main": "6528a71b577ebe3d4e3d7c93170c2d5bdf4f9985",
+  "next_atomic_objective": "VERIFY_FEATURE_COMPLETION_EXIT_CRITERIA",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 143
+  "state_epoch": 144
 }

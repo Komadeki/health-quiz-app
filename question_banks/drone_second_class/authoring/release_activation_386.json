@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "activation_id": "DRONE-PRODUCTION-BANK-386-RELEASE-ACTIVATION-2026-08-26",
+  "freeze_id": "DRONE-PRODUCTION-BANK-386-RELEASE-FREEZE-2026-08-26",
+  "bank_revision": "drone-second-class-v4-release-2026-08-26",
+  "activated_count": 386,
+  "free_count": 30,
+  "premium_count": 356,
+  "newly_activated_range": [
+    "DRONE-Q-000189",
+    "DRONE-Q-000386"
+  ],
+  "historical_release_prefix_preserved": true,
+  "generated_app_asset_byte_identical": true,
+  "question_bank_validation": "PASS",
+  "candidate_lifecycle": "Q189..Q386 VERIFIED_TO_RELEASED",
+  "next_phase": "FEATURE_COMPLETION"
+}

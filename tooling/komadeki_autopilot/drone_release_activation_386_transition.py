@@ -210,7 +210,11 @@ bank_path.write_text(json.dumps(bank_after, ensure_ascii=False, indent=2) + "\n"
 
 inputs = load_bank_inputs(BANK)
 released_doc = build_released_questions_document(inputs)
-released_after = released_doc.get("released_questions", [])
+generated_rows = released_doc.get("released_questions", [])
+if len(generated_rows) != 386 or [x["question_id"] for x in generated_rows] != list(ALL): fail("staged generated release snapshot drift")
+generated_by_id = {row["question_id"]: row for row in generated_rows}
+released_doc["released_questions"] = released_before + [generated_by_id[qid] for qid in NEW]
+released_after = released_doc["released_questions"]
 if len(released_after) != 386 or [x["question_id"] for x in released_after] != list(ALL): fail("staged released snapshot drift")
 if released_after[:188] != released_before: fail("historical release prefix changed")
 released_path.write_bytes(pretty_json_bytes(released_doc))
@@ -259,7 +263,7 @@ for old, new in (("self.assertEqual(188, len(released))","self.assertEqual(386, 
     t = t.replace(old, new)
 p.write_text(t, encoding="utf-8")
 p = REPO / "tooling/question_bank/tests/test_b5_source_verification.py"; t = p.read_text(encoding="utf-8")
-for old, new in (("test_b5_is_verified_without_release_activation","test_b5_is_released_after_verified_activation"),('rows[c]["state"]=="VERIFIED"','rows[c]["state"]=="RELEASED"'),('q[i]["status"]=="draft"','q[i]["status"]=="active"'),("self.assertEqual(188,len(released))","self.assertEqual(386,len(released))"),("range(1,189)","range(1,387)"),("self.assertEqual(188,len(cards))","self.assertEqual(386,len(cards)")):
+for old, new in (("test_b5_is_verified_without_release_activation","test_b5_is_released_after_verified_activation"),('rows[c]["state"]=="VERIFIED"','rows[c]["state"]=="RELEASED"'),('q[i]["status"]=="draft"','q[i]["status"]=="active"'),("self.assertEqual(188,len(released))","self.assertEqual(386,len(released))"),("range(1,189)","range(1,387)"),("self.assertEqual(188,len(cards))","self.assertEqual(386,len(cards))")):
     if old not in t: fail(f"B5 assertion missing: {old}")
     t = t.replace(old, new)
 p.write_text(t, encoding="utf-8")

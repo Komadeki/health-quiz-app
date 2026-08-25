@@ -8,20 +8,19 @@ Coverage questions, ten B5 D2-A Coverage questions, ten B6 D2-B Coverage
 questions, ten B7 D3 Coverage questions, and 11 B8 D4 Coverage questions. The
 B4 D1, B5 D2-A, B6 D2-B, B7 D3, and B8 D4 questions passed the Source-first
 Gate, Question Authoring Content Gate, Human Author Verification, and QID Gate.
-Production release v3 keeps the complete 188-question canonical bank and expands the
-free tier from 20 to 30 questions without changing question content or permanent identities.
+Production release v4 activates the complete 386-question canonical bank while preserving the
+existing 30-question free selection and all permanent question identities.
 
 ## Release state
 
-- 188 / 188 canonical questions are Production active and released.
-- Production bank revision: `drone-second-class-v3-release-2026-08-25`.
-- Production runtime: 188 active questions, 30 free, and 158 premium.
-- Free selection preserves the original 20 and adds 10 already-released questions, distributed across all four units.
-- Added free IDs for v3: DRONE-Q-000022, DRONE-Q-000023, DRONE-Q-000010, DRONE-Q-000035, DRONE-Q-000027, DRONE-Q-000028, DRONE-Q-000017, DRONE-Q-000032, DRONE-Q-000033, DRONE-Q-000043.
-- `DRONE-Q-000001..DRONE-Q-000100` preserve their original first-use revision `drone-second-class-v1-release-2026-08-20`.
-- `DRONE-Q-000101..DRONE-Q-000188` record first use in `drone-second-class-v2-release-2026-08-24`.
-- `DRONE-Q-000189` and later IDs remain unreserved.
-- Broad Question Bank expansion is STOP; the source/coverage-driven Production target is FROZEN at 188.
+- 386 / 386 canonical questions are Production active and released.
+- Production bank revision: `drone-second-class-v4-release-2026-08-26`.
+- Production runtime: 386 active questions, 30 free, and 356 premium.
+- Free selection preserves the exact v3 30-question set; Q189..Q386 remain premium.
+- `DRONE-Q-000001..DRONE-Q-000100` preserve first use in `drone-second-class-v1-release-2026-08-20`.
+- `DRONE-Q-000101..DRONE-Q-000188` preserve first use in `drone-second-class-v2-release-2026-08-24`.
+- `DRONE-Q-000189..DRONE-Q-000386` record first use in `drone-second-class-v4-release-2026-08-26`.
+- The current release set is frozen at 386 under `DRONE-PRODUCTION-BANK-386-RELEASE-FREEZE-2026-08-26`; later expansion is a separate bank revision.
 
 ## Validation snapshot identity
 
@@ -143,10 +142,7 @@ reproducibility rule is independent of the question-level
 | VS-099 | DRONE-Q-000099 |
 | VS-100 | DRONE-Q-000100 |
 
-The registry uses the existing `used` status. `DRONE-Q-000001..DRONE-Q-000100`
-preserve `drone-second-class-v1-release-2026-08-20` in `first_used_bank_revision`;
-`DRONE-Q-000101..DRONE-Q-000188` record
-`drone-second-class-v2-release-2026-08-24`. IDs beyond `DRONE-Q-000188` are not reserved.
+The registry uses the existing `used` status. `DRONE-Q-000001..DRONE-Q-000100` preserve `drone-second-class-v1-release-2026-08-20`; `DRONE-Q-000101..DRONE-Q-000188` preserve `drone-second-class-v2-release-2026-08-24`; and `DRONE-Q-000189..DRONE-Q-000386` record `drone-second-class-v4-release-2026-08-26` in `first_used_bank_revision`. IDs beyond `DRONE-Q-000386` are not reserved.
 
 The shared schema has no verification-state field. The existing
 `notes_internal` field records `author_source_verified` and the measurement
@@ -157,7 +153,7 @@ The existing M3, breadth, Sentinel, and coverage mappings remain unchanged.
 They continue to support the frozen V0 evidence, while production sessions use
 only the four unit mappings and permanent question IDs. Production does not
 execute validation counterbalancing, Sentinel routing, researcher handoff, or
-Prediction. Expansion IDs `DRONE-Q-000101..DRONE-Q-000188` are allocated and released; `DRONE-Q-000189` and later remain unreserved.
+Prediction. Expansion IDs `DRONE-Q-000101..DRONE-Q-000386` are allocated and released; `DRONE-Q-000387` and later remain unreserved.
 
 VS-039 (`DRONE-Q-000004`) remains the US-C Sentinel. VS-069
 (`DRONE-Q-000005`) remains its COV-25 neighbor and does not expose the
