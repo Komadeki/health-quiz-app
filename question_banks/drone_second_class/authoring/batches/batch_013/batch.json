@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B13",
+  "directory_slug": "batch_013",
+  "baseline_sha": "a4c566c129c361c6525aece896a06b8f307600f7",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "chatgpt-b13-systems-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Continue from 332 accepted/source-verified canonical questions toward the owner-directed 400-question Production target. B13 authors the 20 source-first Chapter 4 Systems candidates persisted by merged PR #249: 17 Tier A explicit propositions and 3 Tier B materially distinct source-defined variants; no Tier C variant is authored.",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Use only second-class-applicable Chapter 4 propositions and exclude every subsection explicitly marked 〔一等〕."
+  },
+  "evidence": [
+    "PR #249 persisted the B13 Systems source-first coverage plan from a 332-question accepted/source-verified canonical baseline.",
+    "PR #143 adopted the quality-preserving 400-question target contract.",
+    "B8 Systems coverage was explicitly excluded proposition-by-proposition before B13 planning; all B13 candidates must still be compared against the full 332-question canonical inventory.",
+    "Tier B candidates C003, C008 and C009 change causal reasoning, dynamic control state or aircraft/phase applicability rather than wording only."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B13-TARGET-001",
+      "previous_approved_target": 400,
+      "current_released_count": 188,
+      "proposed_target_min": 400,
+      "proposed_target_max": 400,
+      "approved_new_target": 400,
+      "rationale": "Continue the owner-directed 400-question target without changing the release baseline until explicit 400 release activation.",
+      "decision_date": "2026-08-25",
+      "evidence": "Merged PR #143 and PR #249."
+    }
+  ],
+  "planned_scope": {
+    "area": "Systems",
+    "candidate_batch_identity": "B13",
+    "candidate_ids": [
+      "B13-SYS-C001", "B13-SYS-C002", "B13-SYS-C003", "B13-SYS-C004", "B13-SYS-C005",
+      "B13-SYS-C006", "B13-SYS-C007", "B13-SYS-C008", "B13-SYS-C009", "B13-SYS-C010",
+      "B13-SYS-C011", "B13-SYS-C012", "B13-SYS-C013", "B13-SYS-C014", "B13-SYS-C015",
+      "B13-SYS-C016", "B13-SYS-C017", "B13-SYS-C018", "B13-SYS-C019", "B13-SYS-C020"
+    ],
+    "candidate_count": 20,
+    "candidate_count_is_quota": false,
+    "tier_counts": {
+      "A_NEW_PROPOSITION": 17,
+      "B_BOUNDARY_VARIANT": 3,
+      "C_REASONING_VARIANT": 0
+    },
+    "tier_b_candidate_ids": ["B13-SYS-C003", "B13-SYS-C008", "B13-SYS-C009"],
+    "known_rejected_ids": []
+  },
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B13-COVERAGE-LIMIT-001",
+      "status": "PARTIAL",
+      "scope": "Chapter 4 Systems propositions and controlled variants",
+      "evidence": "Authoring is limited to the 20 source-first propositions persisted by PR #249. No candidate is backfilled merely to increase count."
+    },
+    {
+      "decision_id": "B13-COVERAGE-LIMIT-002",
+      "status": "ACTIVE_POLICY",
+      "scope": "Controlled variants",
+      "evidence": "Three Tier B variants are authored; each changes contract-recognized causal, state, phase or applicability reasoning relative to its nearest canonical/core proposition."
+    }
+  ],
+  "migration_blockers": [],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_AUTHORING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}

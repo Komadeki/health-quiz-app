@@ -1,0 +1,309 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B13-400-TARGET-COVERAGE-VARIANTS-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B13_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "95e2f478ff6c196f77b2d61ad76c9a91660e61f9",
+  "target_contract": "target_400_quality_relaxation_contract_2026-08-25.json",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 332,
+    "accepted_source_verified_canonical": 332,
+    "remaining_to_400": 68,
+    "next_unreserved_permanent_id": "DRONE-Q-000333",
+    "derived_domain_counts": {
+      "drone_rules": 84,
+      "drone_systems": 77,
+      "drone_operations": 87,
+      "drone_risk_management": 84
+    }
+  },
+  "coverage_rationale": {
+    "selected_domain": "drone_systems",
+    "selection_basis": "After B12 Operations verification, Systems is the thinnest canonical domain: Systems 77, Rules 84, Risk 84, Operations 87. B13 restores breadth in Chapter 4 before further expansion of thicker domains.",
+    "source_chapter": "第4章 無人航空機のシステム",
+    "focus": "Second-class-applicable Chapter 4 propositions not answer-defining in the 332-question canonical inventory, emphasizing aircraft configuration, propulsion/electrical systems, sensors, maintenance and radio-operation decisions that B8 did not consume.",
+    "candidate_ceiling": 20,
+    "candidate_ceiling_is_quota": false
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "official_current_check": "2026-08-25",
+    "scope_rule": "Use only second-class-applicable Chapter 4 propositions. Exclude every subsection explicitly marked 〔一等〕, including flight-performance calculation material, Category III/radio calculations and other first-class-only subsections."
+  },
+  "planning_evidence": [
+    "B8 already consumed 20 Systems propositions including automated fixed-wing launch/recovery equipment, large-helicopter hover timing, glide impact dispersion, aerodynamic-angle definitions, sensor calibration, transmitter telemetry, late-discharge LiPo output loss, radio interference/attenuation/multipath recovery, RTK/DGPS, GNSS installation/vertical accuracy, LiPo storage/disposal controls, winch-load dynamics and agricultural spray-device operating envelopes.",
+    "The current 332-question bank therefore requires B13 candidates to be compared against all canonical questions, not merely prior Systems batches; wording-only variants and same-proposition/same-reasoning variants remain hard rejects.",
+    "Current MLIT 教則第5版 Chapter 4 supports additional second-class propositions around VTOL/fixed-wing/rotorcraft configuration, multirotor torque control, night sensor limitations, IMU/altitude sensing, propulsion/electrical components, battery balancing, periodic maintenance and antenna directionality.",
+    "Candidate ceiling 20 is not a quota. Any candidate that fails source fidelity, second-class applicability, material distinctness, answer uniqueness or commercial practice value is rejected without count backfill."
+  ],
+  "batch": {
+    "batch_id": "B13",
+    "domain": "drone_systems",
+    "candidate_ceiling": 20,
+    "candidate_ceiling_is_quota": false,
+    "authoring_priority": [
+      "Tier A new explicit second-class Chapter 4 propositions",
+      "Tier B source-defined aircraft/state/action variants with materially different solving rules",
+      "Tier C reasoning variants only if stronger A/B opportunities are exhausted"
+    ],
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 17,
+      "B_BOUNDARY_VARIANT": 3,
+      "C_REASONING_VARIANT": 0
+    }
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B13-SYS-C001",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "VTOL combined flight characteristics",
+      "source_locator": "教則 第4章 4.1「無人航空機の種類」垂直離着陸機",
+      "proposition": "垂直離着陸機は、回転翼機の垂直離着陸能力と飛行機型の前進巡航特性を組み合わせた機体である。",
+      "tested_misconception": "垂直離着陸機は回転翼機と同じ飛行特性だけを持ち、飛行機型の前進巡航特性は持たない。",
+      "reasoning_path": "aircraft configuration -> identify rotorborne takeoff/landing plus wingborne cruise -> classify VTOL characteristics",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C002",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "fixed-wing motion limitations",
+      "source_locator": "教則 第4章 4.1「飛行機」機体の特徴",
+      "proposition": "飛行機型はホバリング、後進、真横への移動ができず、横方向へ進むにはバンクして旋回する。",
+      "tested_misconception": "飛行機型はマルチローターと同様に機首方向を変えず真横へ移動できる。",
+      "reasoning_path": "fixed-wing lift/forward-flight constraint -> reject hover/reverse/lateral translation -> bank to change horizontal direction",
+      "nearest_canonical": ["DRONE-Q-000143", "DRONE-Q-000145"]
+    },
+    {
+      "candidate_id": "B13-SYS-C003",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "fixed-wing stall is caused by excessive angle of attack or insufficient airspeed",
+      "distinctness_axes": ["causal_mechanism", "reasoning_path"],
+      "family": "fixed-wing stall control-surface ineffectiveness",
+      "source_locator": "教則 第4章 4.3「無人航空機の飛行原理」失速",
+      "proposition": "飛行機型が失速すると翼面の流れが剥離し、舵面の効きも低下して通常の姿勢制御が困難になる。",
+      "tested_misconception": "失速中でも舵面には通常どおり十分な空気流が当たり、姿勢制御能力は変わらない。",
+      "reasoning_path": "stall -> airflow separation -> reduced control-surface effectiveness -> degraded attitude control",
+      "nearest_canonical": ["DRONE-Q-000067", "DRONE-Q-000130"]
+    },
+    {
+      "candidate_id": "B13-SYS-C004",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "helicopter swashplate control",
+      "source_locator": "教則 第4章 4.1「回転翼航空機（ヘリコプター）」機体の特徴",
+      "proposition": "ヘリコプターはスワッシュプレート等によりローター面の傾きやローターブレードのピッチを変化させて飛行を制御する。",
+      "tested_misconception": "ヘリコプターの飛行制御はローター回転数だけで行い、ローター面の傾きやブレードピッチは変化させない。",
+      "reasoning_path": "pilot/control input -> swashplate mechanism -> rotor-disk tilt/pitch change -> flight control",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C005",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "helicopter tail-rotor functions",
+      "source_locator": "教則 第4章 4.1「回転翼航空機（ヘリコプター）」機体の特徴",
+      "proposition": "テールローターはメインローターの反トルクを打ち消すとともに、機首方位の制御に用いられる。",
+      "tested_misconception": "テールローターは揚力を増やすためだけの装置で、反トルクの相殺やヨー制御には関係しない。",
+      "reasoning_path": "main-rotor reaction torque -> tail-rotor counter-torque -> yaw/heading control",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C006",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "multirotor rotor-count resilience",
+      "source_locator": "教則 第4章 4.1「回転翼航空機（マルチローター）」機体の特徴",
+      "proposition": "同等のモーター性能を前提とすれば、ローター数を増やすことで一部故障時の耐性や搭載可能重量を高められる場合がある。",
+      "tested_misconception": "ローター数を増やしても故障耐性や搭載可能重量には影響せず、機体設計上の意味はない。",
+      "reasoning_path": "multirotor architecture -> distribute lift across more rotors -> infer redundancy/payload effect",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C007",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "multirotor reaction-torque balance",
+      "source_locator": "教則 第4章 4.1「回転翼航空機（マルチローター）」機体の特徴",
+      "proposition": "マルチローターでは時計回りと反時計回りのローターを組み合わせ、通常時の反トルクが釣り合うようにする。",
+      "tested_misconception": "全ローターを同じ方向へ回転させるほど反トルクが相殺され、機首方位が安定する。",
+      "reasoning_path": "multiple rotor reaction torques -> pair opposite rotation directions -> cancel net yaw torque",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C008",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "opposite-rotation rotors balance reaction torque",
+      "distinctness_axes": ["scenario_state_or_flight_phase", "causal_mechanism", "reasoning_path"],
+      "family": "multirotor yaw by torque imbalance",
+      "source_locator": "教則 第4章 4.1「回転翼航空機（マルチローター）」飛行制御",
+      "proposition": "マルチローターのヨー旋回は、時計回り群と反時計回り群の回転数差を作り、反トルクの釣合いを意図的に崩して行う。",
+      "tested_misconception": "ヨー旋回時も全ローターを同じ割合で増減し、反トルクの釣合いを保ったまま機首方位を変える。",
+      "reasoning_path": "balanced hover torque -> command yaw -> create opposite-group RPM difference -> net reaction torque rotates aircraft",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C009",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "ground effect alters rotorcraft behavior near the surface",
+      "distinctness_axes": ["aircraft_or_operation_applicability", "scenario_state_or_flight_phase", "reasoning_path"],
+      "family": "large-multirotor ground-effect envelope",
+      "source_locator": "教則 第4章 4.1「回転翼航空機（マルチローター）」大型機",
+      "proposition": "大型マルチローターは地面効果の影響範囲が広くなり、離陸やホバリングでは小型機より慎重な操縦が必要となる。",
+      "tested_misconception": "大型化すると地面効果の影響範囲は狭くなり、地表付近の操縦は小型機より容易になる。",
+      "reasoning_path": "larger multirotor -> broader ground-effect influence -> takeoff/hover control demand increases",
+      "nearest_canonical": ["DRONE-Q-000132", "DRONE-Q-000183"]
+    },
+    {
+      "candidate_id": "B13-SYS-C010",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "night vision-sensor functional limitation",
+      "source_locator": "教則 第4章「夜間飛行を行う機体」",
+      "proposition": "夜間に対応していないビジョンセンサへ依存する機体では、夜間に障害物回避や姿勢安定化などの安全機能が利用できない場合がある。",
+      "tested_misconception": "昼間に動作するビジョンセンサ機能は照度に関係なく夜間も同じ性能で利用できる。",
+      "reasoning_path": "night lighting condition -> sensor capability check -> determine availability of vision-dependent safety functions",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C011",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "periodic maintenance schedule",
+      "source_locator": "教則 第4章「点検・整備」定期的な点検・整備",
+      "proposition": "飛行前後の点検とは別に、メーカー等が定める期間又は累積飛行時間に応じた定期点検・整備を行う。",
+      "tested_misconception": "毎回の飛行前後点検を行えば、メーカーが指定する期間・累積飛行時間に基づく定期整備は不要である。",
+      "reasoning_path": "routine pre/postflight checks -> compare elapsed period/total flight time with maintenance program -> perform scheduled maintenance",
+      "nearest_canonical": ["DRONE-Q-000078", "DRONE-Q-000081"]
+    },
+    {
+      "candidate_id": "B13-SYS-C012",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "IMU composition",
+      "source_locator": "教則 第4章 4.4「フライトコントロールシステム」IMU",
+      "proposition": "IMUは一般に3軸ジャイロと3方向の加速度センサを組み合わせ、機体の角速度や加速度を検出する。",
+      "tested_misconception": "IMUはGNSS衛星から位置情報を受信するだけの装置で、角速度や加速度は検出しない。",
+      "reasoning_path": "identify IMU sensor suite -> gyro + accelerometer measurements -> infer attitude/motion-state inputs",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C013",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "altitude-sensor modalities",
+      "source_locator": "教則 第4章 4.4「フライトコントロールシステム」高度センサ",
+      "proposition": "高度検出には気圧、超音波、LiDARなど異なる方式が用いられ、それぞれの測定原理と適用範囲を踏まえて利用する。",
+      "tested_misconception": "無人航空機の高度はGNSSだけで測定され、気圧・超音波・LiDARは高度検出には用いられない。",
+      "reasoning_path": "altitude information need -> identify available sensor modality -> apply measurement principle/operating range",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C014",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "battery ampere-hour capacity",
+      "source_locator": "教則 第4章「電源・バッテリー」容量",
+      "proposition": "バッテリー容量Ahは電流と時間の積で表され、実際に取り出せる容量は放電電流や温度条件の影響を受ける。",
+      "tested_misconception": "Ah容量は温度や放電電流に関係なく常に公称値どおり取り出せる。",
+      "reasoning_path": "current draw × time -> nominal Ah capacity -> adjust expectation for discharge-current/temperature conditions",
+      "nearest_canonical": ["DRONE-Q-000158", "DRONE-Q-000164"]
+    },
+    {
+      "candidate_id": "B13-SYS-C015",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "brushless-motor characteristics",
+      "source_locator": "教則 第4章「推進系」ブラシレスモーター",
+      "proposition": "ブラシレスモーターはブラシの清掃・交換が不要で保守が容易、騒音が小さく長寿命という特徴がある。",
+      "tested_misconception": "ブラシレスモーターは定期的なブラシ交換を必要とし、ブラシ付きモーターより保守負担が大きい。",
+      "reasoning_path": "motor construction without brushes -> remove brush wear/maintenance -> infer noise/lifetime/maintenance characteristics",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C016",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "rotor rotation-direction matching",
+      "source_locator": "教則 第4章「推進系」モーター・プロペラ",
+      "proposition": "プロペラ／ローターはモーターの時計回り・反時計回りの回転方向に合った形状・向きのものを取り付ける必要がある。",
+      "tested_misconception": "同じ寸法のプロペラなら回転方向に関係なくどのモーターへ取り付けても同じ推力が得られる。",
+      "reasoning_path": "motor rotation direction -> choose matching propeller/rotor handedness -> generate intended thrust",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C017",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "ESC motor-speed control",
+      "source_locator": "教則 第4章「推進系」ESC",
+      "proposition": "ESCはフライトコントローラ等からの指令に応じてモーター回転数を制御し、揚力・推力を変化させる。",
+      "tested_misconception": "ESCはバッテリー残量表示だけを行う装置で、モーター回転数や揚力・推力の制御には関係しない。",
+      "reasoning_path": "flight-control command -> ESC electrical drive -> motor RPM change -> lift/thrust change",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C018",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "electric-versus-engine power tradeoff",
+      "source_locator": "教則 第4章「動力源」電動機・エンジン",
+      "proposition": "電動機は低振動・低騒音だが航続時間が短い傾向があり、エンジンは長時間・長距離飛行に向く一方で騒音が大きい。",
+      "tested_misconception": "電動機とエンジンは騒音・振動・航続時間に実質的な特性差がない。",
+      "reasoning_path": "mission endurance/noise requirement -> compare electric and engine propulsion characteristics -> choose appropriate power source",
+      "nearest_canonical": []
+    },
+    {
+      "candidate_id": "B13-SYS-C019",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "multi-cell LiPo balance charging",
+      "source_locator": "教則 第4章「リチウムポリマーバッテリー」充電",
+      "proposition": "複数セルのLiPoはセル間電圧差を抑えるバランス充電が重要で、バランスコネクタを備える場合は指定どおり接続して充電する。",
+      "tested_misconception": "複数セルLiPoでも主電源端子だけ接続すればセル間電圧差は問題にならず、バランスコネクタは不要である。",
+      "reasoning_path": "multi-cell pack -> cell-voltage imbalance risk -> use balancing connection/charger -> reduce cell stress",
+      "nearest_canonical": ["DRONE-Q-000032", "DRONE-Q-000033"]
+    },
+    {
+      "candidate_id": "B13-SYS-C020",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "antenna directional orientation",
+      "source_locator": "教則 第4章 4.5「電波」アンテナの指向性",
+      "proposition": "アンテナの放射・受信強度は方向によって異なるため、送信機の持ち方と機体位置を考慮して適切なアンテナ角度を設定する。",
+      "tested_misconception": "アンテナは全方向へ同じ強さで電波を放射・受信するため、向きは通信品質に影響しない。",
+      "reasoning_path": "directional antenna pattern -> relative transmitter/aircraft geometry -> choose antenna orientation for link quality",
+      "nearest_canonical": ["DRONE-Q-000075", "DRONE-Q-000169"]
+    }
+  ],
+  "collision_and_quality_gates": {
+    "canonical_collision_scope": "Compare every authored B13 candidate against all 332 canonical questions, including B8 Systems Q236..Q255 and all later cross-domain questions.",
+    "tier_b_rule": "Each Tier B candidate must preserve at least two contract-recognized distinctness axes and include decision-boundary/exception or reasoning-path distinctness.",
+    "core_proposition_cap": "Default maximum accepted variants per core proposition is 3; absolute maximum 4 requires source-defined separate branches and explicit Director rationale.",
+    "hard_rejects": [
+      "wording-only duplicate",
+      "same answer-defining proposition with the same reasoning path",
+      "first-class-only proposition",
+      "unsupported inference",
+      "ambiguous answer",
+      "low-value numeric trivia without a classification or action boundary",
+      "absurd distractors",
+      "quota filler"
+    ],
+    "human_review_fabrication": false
+  },
+  "mutation_scope": {
+    "this_transition": [
+      "create b13_400_target_plan_2026-08-25.json",
+      "advance durable Autopilot state to B13 authoring"
+    ],
+    "explicitly_not_mutated": [
+      "canonical questions.csv",
+      "question_id_registry.csv",
+      "released snapshot",
+      "runtime/generated question assets",
+      "candidate rows",
+      "acceptance packets",
+      "source-verification artifacts",
+      "Permanent IDs"
+    ]
+  },
+  "completion_criteria": [
+    "exactly this plan and machine-state transition are durable on GitHub",
+    "required CI is green",
+    "canonical remains 332 and released/runtime remains 188",
+    "no HUMAN review is claimed or fabricated"
+  ],
+  "next_atomic_objective": "AUTHOR_AND_PERSIST_B13_400_TARGET_CANDIDATES"
+}
