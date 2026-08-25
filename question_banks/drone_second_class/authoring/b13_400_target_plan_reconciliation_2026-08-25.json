@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "reconciliation_id": "DRONE-B13-400-TARGET-PLAN-RECONCILIATION-2026-08-25",
+  "product": "drone_second_class",
+  "reconciled_at": "2026-08-25",
+  "baseline_main": "a4c566c129c361c6525aece896a06b8f307600f7",
+  "supersedes_candidate_selection_in": "b13_400_target_plan_2026-08-25.json",
+  "reason": "The merged B13 planning artifact did not correctly apply its own all-canonical semantic-collision gate. A direct audit against the 332-question canonical inventory found 16 of 20 planned candidates were already answer-defining canonical propositions or near-paraphrases with the same reasoning path. The 400-target quality contract prohibits quota backfill and wording-only/same-reasoning duplicates, so only four defensible candidates remain for B13 authoring.",
+  "canonical_baseline": 332,
+  "released_runtime": 188,
+  "retained_candidates": [
+    {
+      "candidate_id": "B13-SYS-C002",
+      "tier": "B_BOUNDARY_VARIANT",
+      "family": "fixed-wing lateral movement by bank turn",
+      "source_locator": "教則 第4章 4.1「飛行機」(1)機体の特徴",
+      "answer_defining_proposition": "飛行機型は真横へ直接移動できず、横方向へ進むにはバンクターンで旋回する。",
+      "tested_misconception": "飛行機型はマルチローターのように機首方位を保ったまま真横へ直接移動できる。",
+      "reasoning_path": "fixed-wing forward-flight constraint -> reject direct lateral translation -> use bank turn to change horizontal direction",
+      "nearest_canonical": ["DRONE-Q-000131", "DRONE-Q-000145"],
+      "distinctness": "Q131 tests the no-hover waiting boundary and Q145 maps control surfaces to axes. This candidate tests the separate source-defined lateral-movement limitation and required bank-turn solution.",
+      "distinctness_axes": ["aircraft_or_operation_applicability", "reasoning_path"]
+    },
+    {
+      "candidate_id": "B13-SYS-C009",
+      "tier": "B_BOUNDARY_VARIANT",
+      "family": "large-multirotor ground-effect envelope",
+      "source_locator": "教則 第4章 4.1「回転翼航空機（マルチローター）」(2)大型機",
+      "answer_defining_proposition": "最大離陸重量25kg以上の大型マルチローターは離着陸・ホバリング時の地面効果等の影響範囲が広がり、高度な操縦技術を要する。",
+      "tested_misconception": "大型マルチローターは地面効果の影響範囲が小型機より狭くなり、地表付近の操縦が容易になる。",
+      "reasoning_path": "large multirotor -> broader near-ground aerodynamic influence -> increased takeoff/hover control demand",
+      "nearest_canonical": ["DRONE-Q-000132"],
+      "distinctness": "Q132 is a helicopter-specific rotor-radius ground-effect threshold. This candidate applies the source-defined large-multirotor size boundary and broader effect envelope, changing both aircraft applicability and reasoning.",
+      "distinctness_axes": ["aircraft_or_operation_applicability", "quantitative_threshold_side", "reasoning_path"]
+    },
+    {
+      "candidate_id": "B13-SYS-C014",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "battery ampere-hour relationship",
+      "source_locator": "教則 第4章 4.4「無人航空機の主たる構成要素」(1)バッテリー",
+      "answer_defining_proposition": "バッテリー容量Ahは電流Aと時間hの積で表される。",
+      "tested_misconception": "Ahは電流と時間の積ではなく、電圧と時間の積で求める。",
+      "reasoning_path": "given current and duration -> multiply A by h -> determine Ah capacity",
+      "nearest_canonical": ["DRONE-Q-000157", "DRONE-Q-000158", "DRONE-Q-000159", "DRONE-Q-000160"],
+      "distinctness": "Current battery questions cover pack voltage, power/current behavior, condition-dependent usable capacity and state-of-charge. None tests the explicit Ah = A × h relationship.",
+      "distinctness_axes": []
+    },
+    {
+      "candidate_id": "B13-SYS-C020",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "antenna directional orientation",
+      "source_locator": "教則 第4章 4.5「電波」(4)電波の送信、受信に関わる基本的な技術",
+      "answer_defining_proposition": "アンテナの放射強度は方向で異なるため、送信機の持ち方と機体位置を考慮してアンテナ角度を設定する。",
+      "tested_misconception": "アンテナの向きは通信品質に影響しないため、送信機の持ち方や機体位置を考慮する必要はない。",
+      "reasoning_path": "direction-dependent antenna field -> transmitter/aircraft geometry -> choose suitable antenna orientation",
+      "nearest_canonical": ["DRONE-Q-000075", "DRONE-Q-000169"],
+      "distinctness": "Q075 tests multipath and Q169 tests Fresnel obstruction. Neither tests source-defined antenna directionality/orientation as a preventive link-quality decision.",
+      "distinctness_axes": []
+    }
+  ],
+  "hard_rejected_planned_candidates": [
+    {"candidate_id": "B13-SYS-C001", "canonical_collision": "DRONE-Q-000142", "reason": "same Powered-lift vertical-takeoff plus fixed-wing forward-flight proposition"},
+    {"candidate_id": "B13-SYS-C003", "canonical_collision": "DRONE-Q-000146", "reason": "same stall -> reduced/ineffective control-surface proposition"},
+    {"candidate_id": "B13-SYS-C004", "canonical_collision": "DRONE-Q-000061", "reason": "same helicopter swashplate control proposition"},
+    {"candidate_id": "B13-SYS-C005", "canonical_collision": "DRONE-Q-000068", "reason": "same tail-rotor counter-torque/yaw proposition"},
+    {"candidate_id": "B13-SYS-C006", "canonical_collision": "DRONE-Q-000148", "reason": "same rotor-count fault-tolerance/payload proposition"},
+    {"candidate_id": "B13-SYS-C007", "canonical_collision": "DRONE-Q-000149", "reason": "near-paraphrase of opposite-rotation reaction-torque balance used for yaw"},
+    {"candidate_id": "B13-SYS-C008", "canonical_collision": "DRONE-Q-000149", "reason": "same torque-imbalance yaw proposition"},
+    {"candidate_id": "B13-SYS-C010", "canonical_collision": "DRONE-Q-000063", "reason": "same night-incompatible vision-sensor safety-function limitation"},
+    {"candidate_id": "B13-SYS-C011", "canonical_collision": "DRONE-Q-000078", "reason": "same period/total-flight-time maintenance schedule proposition"},
+    {"candidate_id": "B13-SYS-C012", "canonical_collision": "DRONE-Q-000070", "reason": "same IMU gyro-plus-accelerometer proposition"},
+    {"candidate_id": "B13-SYS-C013", "canonical_collision": "DRONE-Q-000156", "reason": "same altitude-sensor modality proposition"},
+    {"candidate_id": "B13-SYS-C015", "canonical_collision": "DRONE-Q-000161", "reason": "same brushless-motor maintenance/noise/longevity proposition"},
+    {"candidate_id": "B13-SYS-C016", "canonical_collision": "DRONE-Q-000162", "reason": "same CW/CCW rotor installation proposition"},
+    {"candidate_id": "B13-SYS-C017", "canonical_collision": "DRONE-Q-000071", "reason": "same ESC motor-RPM/lift-thrust control proposition"},
+    {"candidate_id": "B13-SYS-C018", "canonical_collision": "DRONE-Q-000163", "reason": "same electric-versus-engine endurance/noise tradeoff"},
+    {"candidate_id": "B13-SYS-C019", "canonical_collision": "DRONE-Q-000166", "reason": "same multi-cell LiPo balance-connector charging proposition"}
+  ],
+  "quality_decision": {
+    "planned": 20,
+    "retained_for_authoring": 4,
+    "hard_rejected_before_authoring": 16,
+    "quota_backfill": false,
+    "human_review_claimed": false
+  },
+  "next_atomic_objective": "AUTHOR_AND_PERSIST_B13_400_TARGET_CANDIDATES_4"
+}
