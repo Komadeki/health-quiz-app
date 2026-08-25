@@ -3,11 +3,10 @@
   "decision_id": "DRONE-OWNER-TARGET-400-REASSERTION-2026-08-26",
   "product": "drone_second_class",
   "decided_at": "2026-08-26",
-  "decision_authority": "OWNER_DIRECTION_CURRENT",
-  "status": "ACTIVE",
-  "supersedes": [
-    "DRONE-OWNER-DYNAMIC-RELEASE-INCLUSION-2026-08-26"
-  ],
+  "decision_authority": "OWNER_DIRECTION_HISTORICAL",
+  "status": "SUPERSEDED",
+  "superseded_by": "DRONE-OWNER-DYNAMIC-RELEASE-INCLUSION-2026-08-26",
+  "supersedes": [],
   "reaffirms": [
     "DRONE-PRODUCTION-TARGET-400-QUALITY-RELAXATION-2026-08-25"
   ],
@@ -17,75 +16,16 @@
     "current_accepted_source_verified_canonical": 386,
     "current_released_runtime": 188,
     "remaining_to_400": 14,
-    "status": "ACTIVE",
-    "release_activation": "EXPLICIT_GATE_REQUIRED",
-    "release_before_400": "PROHIBITED_BY_CURRENT_OWNER_DIRECTION"
+    "status": "HISTORICAL_SUPERSEDED",
+    "release_activation": "NO_LONGER_BLOCKED_BY_400",
+    "release_before_400": "ALLOWED_BY_CURRENT_OWNER_DIRECTION"
   },
   "authoritative_source": {
     "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
     "edition": "第5版",
     "issuer": "国土交通省",
-    "published_at": "2026-07-07",
-    "effective_from": "2026-07-14",
-    "registered_source_url": "https://www.mlit.go.jp/common/002010810.pdf",
-    "scope_rule": "Use second-class-applicable material only; exclude subsections explicitly marked 〔一等〕."
+    "registered_source_url": "https://www.mlit.go.jp/common/002010810.pdf"
   },
-  "quality_floor": {
-    "source_first_required": true,
-    "second_class_scope_required": true,
-    "one_unambiguous_best_answer_required": true,
-    "semantic_collision_review_against_all_canonical_required": true,
-    "within_batch_collision_review_required": true,
-    "independent_ai_review_required": true,
-    "director_adjudication_required": true,
-    "content_bound_acceptance_packet_required": true,
-    "permanent_id_only_after_acceptance": true,
-    "deterministic_permanent_id_allocation_required": true,
-    "used_and_retired_id_protection_required": true,
-    "canonical_source_verification_required": true,
-    "rollback_and_partial_state_protection_required": true,
-    "released_runtime_mutation_only_after_activation_gate": true,
-    "human_review_identity_must_not_be_fabricated": true
-  },
-  "expansion_policy": {
-    "priority": [
-      "Tier A new explicit propositions",
-      "materially distinct source-defined boundary or condition variants",
-      "materially distinct reasoning variants only after stronger coverage opportunities are exhausted"
-    ],
-    "controlled_variant_minimum_distinct_axes": 2,
-    "controlled_variant_required_axis": [
-      "decision_boundary_or_exception",
-      "reasoning_path"
-    ],
-    "core_proposition_default_max": 3,
-    "core_proposition_absolute_max": 4,
-    "fourth_question_condition": "The authoritative source explicitly defines at least four materially different states, conditions, exceptions, thresholds, or response branches and Director adjudication records why the fourth requires a distinct decision boundary or reasoning path.",
-    "numeric_target_is_not_permission_for_filler": true,
-    "insufficient_source_support_action": "REJECT_OR_REWORK_CANDIDATE_AND_CONTINUE_SYSTEMATIC_CHAPTER_SUBSECTION_COVERAGE_DECOMPOSITION_AND_MATERIALLY_DISTINCT_VARIANTS_ELSEWHERE",
-    "current_residual_search_mode": "FULL_SOURCE_RESIDUAL_AUDIT_AGAINST_ALL_386_CANONICAL_BEFORE_B20_AUTHORING"
-  },
-  "hard_reject_rules": [
-    "wording-only or near-paraphrase duplicate",
-    "same answer-defining proposition with the same reasoning path and no material boundary change",
-    "first-class-only material",
-    "unsupported inference beyond explicit source support",
-    "ambiguous or multiple defensible correct answers",
-    "incidental trivia with low exam or practice value",
-    "implausible distractors that do not represent credible misconceptions",
-    "candidate created solely to satisfy the numeric target"
-  ],
-  "reconciliation": {
-    "reason": "The current owner direction explicitly restores the fixed 400 accepted/source-verified canonical target. The prior dynamic-release decision is historical and must not route the machine to release freeze at 386.",
-    "b19_result": "All 15 B19 candidates reached VERIFIED with Permanent IDs DRONE-Q-000372..000386.",
-    "next_action": "Audit the entire remaining second-class-applicable source against all 386 canonical questions before planning B20; no release freeze or activation work is permitted in this transition."
-  },
-  "preserved_invariants": [
-    "Canonical content is unchanged by this control-plane reconciliation.",
-    "Released/runtime remain 188 until a later explicit activation gate after the 400-question target is reached.",
-    "Existing question identities, used/retired ID history, release history and current free selection remain unchanged.",
-    "The immutable V0 historical validation snapshot remains unchanged.",
-    "No HUMAN review identity is created or implied."
-  ],
-  "next_atomic_objective": "AUDIT_POST_386_RESIDUAL_400_GAPS"
+  "supersession_reason": "The current owner direction is dynamic release inclusion: include additional questions that become fully source-verified before the release freeze, but do not require 400 or continue B20 before the current release. B19 completed and the eligible set is now frozen at 386.",
+  "historical_next_atomic_objective": "AUDIT_POST_386_RESIDUAL_400_GAPS"
 }

@@ -6,7 +6,8 @@
   "decision_authority": "OWNER_DIRECTION_CURRENT",
   "status": "ACTIVE",
   "supersedes": [
-    "DRONE-OWNER-TARGET-400-RECONCILIATION-AFTER-371-CUT-2026-08-25"
+    "DRONE-OWNER-TARGET-400-RECONCILIATION-AFTER-371-CUT-2026-08-25",
+    "DRONE-OWNER-TARGET-400-REASSERTION-2026-08-26"
   ],
   "release_policy": {
     "fixed_release_question_count": null,
@@ -15,8 +16,8 @@
     "activation_set_rule": "At the release activation freeze point, include every canonical question on authoritative current main that is eligible for Production release: it has a permanent question_id, canonical source verification matching the current registered source version, no retired/replaced identity conflict, and any governed expansion candidate bound to it has reached VERIFIED. Existing already-released questions remain included without rewriting release identity.",
     "late_arrival_rule": "If additional questions become fully eligible before the activation set is frozen, include them in the same release and recompute the target count. If they become eligible after the freeze, or are not yet source-verified, they do not block the current release and move to a later bank revision.",
     "drift_rule": "Any change to eligible canonical/source-verification inputs between activation preparation and execution invalidates the prepared gate and requires automatic re-freeze/re-prepare against current main; do not silently drop newly eligible questions and do not release partially verified questions.",
-    "authoring_rule": "Additional authoring/review may continue, but a numeric target and unfinished candidate work must not block the current release once the existing source-verified Production set is commercially sufficient.",
-    "in_flight_batch_rule": "B19 was already authored before this decision. Allow that one in-flight batch to complete independent review, Director adjudication, acceptance, ID integration and source verification. After B19 source verification, freeze the release set before planning or authoring any B20 batch.",
+    "authoring_rule": "Additional authoring/review may continue in later revisions, but a numeric target and unfinished candidate work must not block the current release once the existing source-verified Production set is commercially sufficient.",
+    "in_flight_batch_rule": "B19 was the sole permitted in-flight batch before the current release freeze. B19 has now completed source verification. The current release set is frozen at 386 before any B20 planning or authoring.",
     "free_selection_rule": "Preserve the current 30-question free selection unless a separate monetization decision changes it.",
     "release_revision_rule": "Every activation uses a new bank_revision and preserves all prior question identity and first-use release history."
   },
@@ -38,13 +39,14 @@
     "questions added after the activation set freeze unless the gate is deliberately invalidated and re-prepared"
   ],
   "current_facts": {
-    "source_verified_canonical_floor": 371,
+    "source_verified_canonical_floor": 386,
     "released_runtime": 188,
-    "b19_candidates_authored": 15,
-    "b19_current_release_treatment": "COMPLETE_IN_FLIGHT_THEN_INCLUDE_ONLY_VERIFIED_SURVIVORS",
+    "b19_candidates_verified": 15,
+    "b19_question_id_range": "DRONE-Q-000372..DRONE-Q-000386",
+    "current_release_freeze_count": 386,
     "b20_before_current_release": "PROHIBITED",
     "prepared_fixed_371_activation": "SUPERSEDED_NOT_EXECUTABLE",
     "fixed_400_completion_requirement": "SUPERSEDED"
   },
-  "handoff_after_b19": "FREEZE_CURRENT_SOURCE_VERIFIED_SET_FOR_RELEASE_ACTIVATION"
+  "handoff_after_b19": "EXECUTE_FROZEN_PRODUCTION_BANK_386_RELEASE_ACTIVATION"
 }

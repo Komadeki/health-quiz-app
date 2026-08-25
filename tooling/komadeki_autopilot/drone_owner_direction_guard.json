@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "guard_id": "DRONE-OWNER-DIRECTION-GUARD-2026-08-26-R1",
+  "product": "drone_second_class",
+  "status": "ACTIVE",
+  "authoritative_decision_id": "DRONE-OWNER-DYNAMIC-RELEASE-INCLUSION-2026-08-26",
+  "authoritative_decision_path": "question_banks/drone_second_class/authoring/owner_dynamic_release_inclusion_2026-08-26.json",
+  "release_freeze_id": "DRONE-PRODUCTION-BANK-386-RELEASE-FREEZE-2026-08-26",
+  "minimum_state_epoch": 143,
+  "question_bank_completion_allowed_objectives": [
+    "EXECUTE_FROZEN_PRODUCTION_BANK_386_RELEASE_ACTIVATION"
+  ],
+  "forbidden_active_contract_paths": [
+    "question_banks/drone_second_class/authoring/owner_target_400_reassertion_2026-08-26.json"
+  ],
+  "purpose": "Prevent stale fixed-400 or B20 control-plane work from overriding the current owner-directed 386-question release freeze. The guard is intentionally narrow: once Drone exits QUESTION_BANK_COMPLETION, later phases are not objective-restricted by this guard."
+}

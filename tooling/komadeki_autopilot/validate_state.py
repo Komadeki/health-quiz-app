@@ -108,6 +108,69 @@ def validate(state: dict[str, object]) -> None:
             fail("DONE state must not have a human blocker")
 
 
+def validate_repository_owner_guard(state: dict[str, object], state_path: Path) -> None:
+    """Apply repository-only owner-direction guard to the authoritative Drone state.
+
+    Unit tests and validation of temporary state files retain the generic state-machine
+    contract above. This extra guard applies only when the actual repository
+    `drone_state.json` is the file being validated.
+    """
+
+    expected_state_path = Path(__file__).resolve().parent / "drone_state.json"
+    if state_path.resolve() != expected_state_path.resolve():
+        return
+    if state.get("product") != "drone_second_class":
+        return
+
+    repository_root = Path(__file__).resolve().parents[2]
+    guard_path = Path(__file__).resolve().parent / "drone_owner_direction_guard.json"
+    if not guard_path.is_file():
+        return
+
+    guard = json.loads(guard_path.read_text(encoding="utf-8"))
+    if not isinstance(guard, dict):
+        fail("Drone owner-direction guard must be an object")
+    if guard.get("status") != "ACTIVE":
+        return
+    if guard.get("schema_version") != "1.0" or guard.get("product") != "drone_second_class":
+        fail("invalid Drone owner-direction guard identity")
+
+    minimum_epoch = guard.get("minimum_state_epoch")
+    if not isinstance(minimum_epoch, int) or minimum_epoch < 1:
+        fail("Drone owner-direction guard has invalid minimum_state_epoch")
+    if int(state["state_epoch"]) < minimum_epoch:
+        fail("Drone state epoch predates the active owner-direction guard")
+
+    policy_rel = guard.get("authoritative_decision_path")
+    decision_id = guard.get("authoritative_decision_id")
+    if not isinstance(policy_rel, str) or not policy_rel or not isinstance(decision_id, str) or not decision_id:
+        fail("Drone owner-direction guard is missing authoritative policy identity")
+    policy_path = repository_root / policy_rel
+    policy = json.loads(policy_path.read_text(encoding="utf-8"))
+    if policy.get("decision_id") != decision_id or policy.get("status") != "ACTIVE":
+        fail("Drone authoritative owner decision is not active")
+
+    for relative_path in guard.get("forbidden_active_contract_paths", []):
+        if not isinstance(relative_path, str) or not relative_path:
+            fail("Drone owner-direction guard has invalid forbidden contract path")
+        path = repository_root / relative_path
+        if not path.is_file():
+            continue
+        contract = json.loads(path.read_text(encoding="utf-8"))
+        if contract.get("status") == "ACTIVE":
+            fail(f"forbidden superseded Drone contract is active: {relative_path}")
+
+    if state.get("current_phase") == "QUESTION_BANK_COMPLETION":
+        allowed = guard.get("question_bank_completion_allowed_objectives")
+        if not isinstance(allowed, list) or not allowed or not all(isinstance(x, str) and x for x in allowed):
+            fail("Drone owner-direction guard has invalid allowed objectives")
+        if state.get("next_atomic_objective") not in allowed:
+            fail(
+                "Drone QUESTION_BANK_COMPLETION objective conflicts with active owner-direction guard: "
+                f"{state.get('next_atomic_objective')}"
+            )
+
+
 def main() -> int:
     if len(sys.argv) != 2:
         print("usage: validate_state.py <state.json>", file=sys.stderr)
@@ -118,6 +181,7 @@ def main() -> int:
         if not isinstance(data, dict):
             fail("top-level state must be an object")
         validate(data)
+        validate_repository_owner_guard(data, path)
     except (OSError, json.JSONDecodeError, ValueError) as exc:
         print(f"KOMADEKI autopilot state invalid: {exc}", file=sys.stderr)
         return 1
