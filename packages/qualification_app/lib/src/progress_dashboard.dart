@@ -1,127 +1,117 @@
-import 'dart:math' as math;
+part of 'production_app.dart';
 
-import 'package:flutter/material.dart';
-import 'package:quiz_engine/quiz_engine.dart';
+Widget _buildProgressDashboard(
+  BuildContext context,
+  QualificationProductionController controller,
+) {
+  final progress = controller.progress!;
+  final overall = progress.overall;
+  final bank = controller.bank!;
+  final percent = (overall.completion * 100).round();
+  final accuracy = overall.accuracy == null
+      ? '—'
+      : '${(overall.accuracy! * 100).round()}%';
+  final selectionEngine = PracticeSelectionEngine(
+    canAccess: (candidate) =>
+        controller.canAccess(bank.cardsById[candidate.questionId]!),
+    randomizer: const IdentityQuestionRandomizer(),
+  );
+  final reviewCount = selectionEngine
+      .selectIncorrect(bank.candidates, controller.events)
+      .length;
+  final bestMock = _bestMockHistory(controller.history);
+  final mockBest = bestMock == null
+      ? '—'
+      : '${bestMock.correctCount}/${bestMock.totalCount}';
+  final radarData = <_RadarDatum>[
+    for (final unit in bank.units)
+      _RadarDatum(
+        label: unit.title,
+        value: (progress.byUnit[unit.id]?.accuracy ?? 0)
+            .clamp(0.0, 1.0)
+            .toDouble(),
+        hasData: progress.byUnit[unit.id]?.accuracy != null,
+      ),
+  ];
 
-import 'production_controller.dart';
-
-final class QualificationProgressDashboard extends StatelessWidget {
-  const QualificationProgressDashboard({required this.controller, super.key});
-
-  final QualificationProductionController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    final progress = controller.progress!;
-    final overall = progress.overall;
-    final bank = controller.bank!;
-    final percent = (overall.completion * 100).round();
-    final accuracy = overall.accuracy == null
-        ? '—'
-        : '${(overall.accuracy! * 100).round()}%';
-    final selectionEngine = PracticeSelectionEngine(
-      canAccess: (candidate) =>
-          controller.canAccess(bank.cardsById[candidate.questionId]!),
-      randomizer: const IdentityQuestionRandomizer(),
-    );
-    final reviewCount = selectionEngine
-        .selectIncorrect(bank.candidates, controller.events)
-        .length;
-    final bestMock = _bestMockHistory(controller.history);
-    final mockBest = bestMock == null
-        ? '—'
-        : '${bestMock.correctCount}/${bestMock.totalCount}';
-    final radarData = <_RadarDatum>[
-      for (final unit in bank.units)
-        _RadarDatum(
-          label: unit.title,
-          value: (progress.byUnit[unit.id]?.accuracy ?? 0)
-              .clamp(0.0, 1.0)
-              .toDouble(),
-          hasData: progress.byUnit[unit.id]?.accuracy != null,
-        ),
-    ];
-
-    return Card(
-      key: const Key('progress-card'),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    '学習進捗',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
+  return Card(
+    key: const Key('progress-card'),
+    child: Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  '学習進捗',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                 ),
-                const Icon(Icons.auto_graph),
-              ],
-            ),
-            const SizedBox(height: 20),
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final textScale =
-                    MediaQuery.textScalerOf(context).scale(1.0);
-                final stackCharts =
-                    constraints.maxWidth < 260 || textScale > 1.7;
-                final ring = _ProgressRing(
-                  completion: overall.completion,
-                  percent: percent,
-                );
-                final radar = _UnitPerformanceChart(data: radarData);
-                if (stackCharts) {
-                  return Column(
-                    children: [
-                      ring,
-                      const SizedBox(height: 16),
-                      radar,
-                    ],
-                  );
-                }
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+              const Icon(Icons.auto_graph),
+            ],
+          ),
+          const SizedBox(height: 20),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final textScale = MediaQuery.textScalerOf(context).scale(1.0);
+              final stackCharts =
+                  constraints.maxWidth < 260 || textScale > 1.7;
+              final ring = _ProgressRing(
+                completion: overall.completion,
+                percent: percent,
+              );
+              final radar = _UnitPerformanceChart(data: radarData);
+              if (stackCharts) {
+                return Column(
                   children: [
-                    Expanded(child: Center(child: ring)),
-                    const SizedBox(width: 12),
-                    Expanded(child: radar),
+                    ring,
+                    const SizedBox(height: 16),
+                    radar,
                   ],
                 );
-              },
+              }
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(child: Center(child: ring)),
+                  const SizedBox(width: 12),
+                  Expanded(child: radar),
+                ],
+              );
+            },
+          ),
+          const SizedBox(height: 20),
+          _ProgressMetrics(
+            completed: '${overall.completedQuestions}問',
+            accuracy: accuracy,
+            review: '$reviewCount問',
+            mockBest: mockBest,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            '${overall.completedQuestions} / ${overall.totalQuestions}問 ・ '
+            '${overall.attemptCount}回答',
+            key: const Key('overall-progress'),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              key: const Key('show-learning-status'),
+              onPressed: () => _showLearningStatus(context, controller),
+              icon: const Icon(Icons.insights),
+              label: const Text('学習状況を詳しく見る'),
             ),
-            const SizedBox(height: 20),
-            _ProgressMetrics(
-              completed: '${overall.completedQuestions}問',
-              accuracy: accuracy,
-              review: '$reviewCount問',
-              mockBest: mockBest,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '${overall.completedQuestions} / ${overall.totalQuestions}問 ・ '
-              '${overall.attemptCount}回答',
-              key: const Key('overall-progress'),
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                key: const Key('show-learning-status'),
-                onPressed: () => _showLearningStatus(context, controller),
-                icon: const Icon(Icons.insights),
-                label: const Text('学習状況を詳しく見る'),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
 }
 
 SessionHistoryV1? _bestMockHistory(List<SessionHistoryV1> history) {
@@ -146,47 +136,6 @@ SessionHistoryV1? _bestMockHistory(List<SessionHistoryV1> history) {
   return best;
 }
 
-final class _ProgressRing extends StatelessWidget {
-  const _ProgressRing({required this.completion, required this.percent});
-
-  final double completion;
-  final int percent;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox.square(
-      dimension: 120,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox.square(
-            dimension: 112,
-            child: CircularProgressIndicator(
-              key: const Key('overall-progress-ring'),
-              value: completion,
-              strokeWidth: 10,
-              strokeCap: StrokeCap.round,
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            ),
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '$percent%',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w800,
-                    ),
-              ),
-              Text('完了', style: Theme.of(context).textTheme.labelMedium),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 final class _ProgressMetrics extends StatelessWidget {
   const _ProgressMetrics({
     required this.completed,
@@ -203,30 +152,26 @@ final class _ProgressMetrics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final metrics = <Widget>[
-      _MetricTile(
-        key: const Key('progress-metric-completed'),
+      const _MetricDescriptor(
+        keyName: 'progress-metric-completed',
         icon: Icons.check_circle_outline,
-        value: completed,
         label: '学習済み',
-      ),
-      _MetricTile(
-        key: const Key('progress-metric-accuracy'),
+      ).build(completed),
+      const _MetricDescriptor(
+        keyName: 'progress-metric-accuracy',
         icon: Icons.track_changes,
-        value: accuracy,
         label: '正答率',
-      ),
-      _MetricTile(
-        key: const Key('progress-metric-review'),
+      ).build(accuracy),
+      const _MetricDescriptor(
+        keyName: 'progress-metric-review',
         icon: Icons.replay,
-        value: review,
         label: '要復習',
-      ),
-      _MetricTile(
-        key: const Key('progress-metric-mock-best'),
+      ).build(review),
+      const _MetricDescriptor(
+        keyName: 'progress-metric-mock-best',
         icon: Icons.fact_check_outlined,
-        value: mockBest,
         label: '模試ベスト',
-      ),
+      ).build(mockBest),
     ];
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -247,55 +192,21 @@ final class _ProgressMetrics extends StatelessWidget {
   }
 }
 
-final class _MetricTile extends StatelessWidget {
-  const _MetricTile({
+final class _MetricDescriptor {
+  const _MetricDescriptor({
+    required this.keyName,
     required this.icon,
-    required this.value,
     required this.label,
-    super.key,
   });
 
+  final String keyName;
   final IconData icon;
-  final String value;
   final String label;
 
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-    return Semantics(
-      label: '$label $value',
-      child: Container(
-        constraints: const BoxConstraints(minHeight: 104),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-        decoration: BoxDecoration(
-          color: colors.secondaryContainer.withValues(alpha: 0.65),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(icon, size: 18, color: colors.onSecondaryContainer),
-            const Spacer(),
-            Text(
-              value,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              label,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(String value) => KeyedSubtree(
+        key: Key(keyName),
+        child: _ProgressMetric(icon: icon, value: value, label: label),
+      );
 }
 
 final class _RadarDatum {
@@ -462,7 +373,8 @@ final class _RadarPainter extends CustomPainter {
     }
 
     for (final level in [0.25, 0.5, 0.75, 1.0]) {
-      final path = Path()..moveTo(pointAt(0, level).dx, pointAt(0, level).dy);
+      final first = pointAt(0, level);
+      final path = Path()..moveTo(first.dx, first.dy);
       for (var index = 1; index < count; index += 1) {
         final point = pointAt(index, level);
         path.lineTo(point.dx, point.dy);
@@ -534,9 +446,11 @@ final class _RadarPainter extends CustomPainter {
       )..layout(maxWidth: 68);
       final rawX = anchor.dx - painter.width / 2;
       final rawY = anchor.dy - painter.height / 2;
-      final x = rawX.clamp(0.0, math.max(0.0, size.width - painter.width));
-      final y = rawY.clamp(0.0, math.max(0.0, size.height - painter.height));
-      painter.paint(canvas, Offset(x.toDouble(), y.toDouble()));
+      final maxX = math.max(0.0, size.width - painter.width);
+      final maxY = math.max(0.0, size.height - painter.height);
+      final x = rawX.clamp(0.0, maxX).toDouble();
+      final y = rawY.clamp(0.0, maxY).toDouble();
+      painter.paint(canvas, Offset(x, y));
     }
   }
 
@@ -548,67 +462,4 @@ String _shortRadarLabel(String label) {
   final trimmed = label.trim();
   if (trimmed.length <= 6) return trimmed;
   return '${trimmed.substring(0, 6)}…';
-}
-
-Future<void> _showLearningStatus(
-  BuildContext context,
-  QualificationProductionController controller,
-) {
-  final overall = controller.progress!.overall;
-  return showModalBottomSheet<void>(
-    context: context,
-    showDragHandle: true,
-    isScrollControlled: true,
-    builder: (context) => SafeArea(
-      child: FractionallySizedBox(
-        heightFactor: 0.78,
-        child: ListView(
-          key: const Key('learning-status-sheet'),
-          padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
-          children: [
-            Text('学習状況', style: Theme.of(context).textTheme.headlineSmall),
-            const SizedBox(height: 4),
-            Text(
-              '${overall.completedQuestions}/${overall.totalQuestions}問を学習済み。'
-              '単元ごとの進み具合を確認できます。',
-            ),
-            const SizedBox(height: 20),
-            for (final unit in controller.bank!.units) ...[
-              Builder(
-                builder: (context) {
-                  final metric = controller.progress!.byUnit[unit.id];
-                  final completed = metric?.completedQuestions ?? 0;
-                  final total = metric?.totalQuestions ?? unit.cards.length;
-                  final completion = metric?.completion ?? 0;
-                  final accuracy = metric?.accuracy;
-                  return Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            unit.title,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(height: 10),
-                          LinearProgressIndicator(value: completion),
-                          const SizedBox(height: 8),
-                          Text(
-                            '$completed/$total問を学習済み'
-                            '${accuracy == null ? '' : ' ・ 正答率${(accuracy * 100).round()}%'}',
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 8),
-            ],
-          ],
-        ),
-      ),
-    ),
-  );
 }
