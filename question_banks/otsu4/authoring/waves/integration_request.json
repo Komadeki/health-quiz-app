@@ -1,7 +1,0 @@
-{
-  "schema_version": "1.0",
-  "wave_id": "W1",
-  "expected_state_epoch": 47,
-  "expected_objective": "ALLOCATE_AND_INTEGRATE_OTSU4_WAVE_1_ACCEPTED_60",
-  "expected_accept_count": 60
-}

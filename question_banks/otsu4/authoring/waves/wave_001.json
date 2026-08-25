@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W1",
-  "status": "DIRECTOR_ACCEPTED_AND_PROMOTED",
+  "status": "INTEGRATED",
   "planned_at": "2026-08-25",
   "authored_at": "2026-08-25",
   "reviewed_at": "2026-08-25",
@@ -89,7 +89,7 @@
   "authored_state_epoch": 44,
   "count_reconciled_state_epoch": 45,
   "reviewed_state_epoch": 46,
-  "next_gate": "ALLOCATE_AND_INTEGRATE_W1_ACCEPTED_60",
+  "next_gate": "VERIFY_W1_CANONICAL_SOURCES_60",
   "director_adjudication": {
     "artifact": "wave_001_director_adjudication_r1.json",
     "decision": "ADOPT_REVIEWER_DECISIONS",
@@ -99,5 +99,11 @@
     "hold": 0
   },
   "accepted_candidate_state": "READY_FOR_ID",
-  "accept_promote_state_epoch": 47
+  "accept_promote_state_epoch": 47,
+  "integration_state_epoch": 48,
+  "integrated_candidate_count": 60,
+  "permanent_id_range": {
+    "first": "OTSU4-Q-000052",
+    "last": "OTSU4-Q-000111"
+  }
 }
