@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B9-RISK-C020",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "be2ada8e3ad7f6fbcb1d3f42b2f006165b2477dc42c8eac29387baa6f92e79eb",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b9-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b9-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b9-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.4「目視外飛行」(1)2)補助者を配置しない場合"
+    },
+    "answer_defining_proposition": "補助者なしBVLOSでは十分な運用実績があり初期故障期間を超えた機体を使用する。",
+    "tested_misconception": "補助者なし目視外飛行では機体が新品で飛行実績がなくても地上監視機能だけ備えていればよい。",
+    "reasoning_path": "no-assistant BVLOS -> elevated reliance on aircraft reliability -> require sufficient operation-specific flight history beyond infant-failure period",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q140/Q141/Q153/Q154は視認性・航空機監視・危害低減・telemetry。本問は機体の飛行実績と初期故障期間超過を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The unmarked no-assistant-BVLOS subsection explicitly requires sufficient operation-specific flight history beyond the aircraft's initial-failure period. Existing BVLOS canonical questions test monitoring, aircraft visibility and harm-reduction functions, not maturity-by-flight-history."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B9 source-first Chapter 6 plan and the 255-question canonical baseline. Both controlled Tier B candidates C014 and C015 retain material source-defined distinctions rather than wording-only variation. For C014, the authoring label temporal_prediction is normalized for governance purposes to scenario_state_or_flight_phase; reasoning_path and tested_misconception provide additional recognized distinctness axes. C015 changes the sea-breeze proposition from daytime/nighttime direction to the source-defined wind-reversal boundary state of morning/evening calm. C018, C019 and C020 are supported by unmarked second-class-applicable Chapter 6 subsections; adjacent risk-mitigation subsections marked 〔一等〕 are not used as the answer-defining source. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B9-RISK-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c4fd2938d008c1fc5c55e9b7dd9f293afcf9879bece729edee0b4f08923eacaa",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b9-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b9-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b9-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「大型機（最大離陸重量25kg以上）」(1)運航の特徴"
+    },
+    "answer_defining_proposition": "大型機では緊急着陸地点として小型機より広い範囲が必要となる。",
+    "tested_misconception": "大型機でも緊急着陸地点に必要な広さは小型機と同程度でよい。",
+    "reasoning_path": "large-aircraft size/inertia -> contingency landing footprint -> require broader emergency landing area",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q099は大型機の慣性、Q044は一般的な緊急着陸地点。本問は大型機固有の必要面積拡大を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source explicitly states that large aircraft require a broader emergency-landing area than small aircraft in the unmarked subsection (1). Q099 tests inertia/obstacle avoidance and Q044 tests generic contingency landing-site preparation."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B9 source-first Chapter 6 plan and the 255-question canonical baseline. Both controlled Tier B candidates C014 and C015 retain material source-defined distinctions rather than wording-only variation. For C014, the authoring label temporal_prediction is normalized for governance purposes to scenario_state_or_flight_phase; reasoning_path and tested_misconception provide additional recognized distinctness axes. C015 changes the sea-breeze proposition from daytime/nighttime direction to the source-defined wind-reversal boundary state of morning/evening calm. C018, C019 and C020 are supported by unmarked second-class-applicable Chapter 6 subsections; adjacent risk-mitigation subsections marked 〔一等〕 are not used as the answer-defining source. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
