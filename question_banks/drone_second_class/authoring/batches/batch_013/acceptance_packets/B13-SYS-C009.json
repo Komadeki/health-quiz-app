@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B13-SYS-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "97bea8acbce30efc4f1d0e0cf9b0c63aab5316ee1804374ebf6cc5769cbcb373",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b13-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b13-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b13-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.1「回転翼航空機（マルチローター）」大型機"
+    },
+    "answer_defining_proposition": "大型マルチローターは地面効果の影響範囲が広くなり離陸やホバリングでは小型機より慎重な操縦が必要となる。",
+    "tested_misconception": "大型化すると地面効果の影響範囲は狭くなり地表付近の操縦は小型機より容易になる。",
+    "reasoning_path": "larger multirotor -> broader ground-effect influence -> takeoff/hover control demand increases",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=ground effect。distinct axes=aircraft_or_operation_applicability + scenario_state_or_flight_phase + reasoning_path。Q132は一般的な地面効果で本問は大型マルチローターの適用境界。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Q132 is helicopter-specific ground-effect recognition near approximately rotor-radius altitude. C009 applies the separate source-defined large-multirotor boundary: broader ground-effect influence near takeoff/hover and higher control demand. Aircraft applicability, operating state and reasoning path materially differ."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review because it applies the full-canonical collision gate required by the 400-question quality contract. Drop the 16 rejected candidates without replacement; the B13 ceiling is not a quota. Retain C002 for the source-defined fixed-wing lateral-movement constraint and bank-turn solution. Retain C009 as a materially distinct large-multirotor ground-effect boundary variant relative to Q132. Retain C014 because the Ah = A × h relationship is not answer-defining in the current canonical bank; Q159 overlap is contextual only. Retain C020 for source-defined antenna directionality and operational orientation. Reject C007 because Q149 already embeds the same opposite-rotation reaction-torque balance mechanism and the extra density is not justified. No HUMAN review is claimed."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

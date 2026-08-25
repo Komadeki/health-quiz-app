@@ -35,6 +35,20 @@ void main() {
       findsOneWidget,
     );
     expect(find.byKey(const Key('overall-progress')), findsOneWidget);
+    final performanceChart = find.byKey(const Key('unit-performance-chart'));
+    expect(performanceChart, findsOneWidget);
+    expect(
+      find.descendant(of: performanceChart, matching: find.byType(CustomPaint)),
+      findsOneWidget,
+    );
+    for (final metricKey in [
+      'progress-metric-completed',
+      'progress-metric-accuracy',
+      'progress-metric-review',
+      'progress-metric-mock-best',
+    ]) {
+      expect(find.byKey(Key(metricKey)), findsOneWidget);
+    }
 
     for (final unitKey in [
       'unit-drone_rules',

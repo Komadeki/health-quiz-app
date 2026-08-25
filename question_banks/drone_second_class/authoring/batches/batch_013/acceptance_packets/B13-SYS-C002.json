@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B13-SYS-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0f304c7ef23fac8acaff5935e1d1644a0dd2aa658788f751e74d56f103fb2ca6",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b13-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b13-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b13-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.1「飛行機」機体の特徴"
+    },
+    "answer_defining_proposition": "飛行機型はホバリング・後進・真横への移動ができず横方向へ進むにはバンクして旋回する。",
+    "tested_misconception": "飛行機型はマルチローターと同様に機首方向を変えず真横へ移動できる。",
+    "reasoning_path": "fixed-wing lift/forward-flight constraint -> reject hover/reverse/lateral translation -> bank to change horizontal direction",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。既存固定翼問は最低速度・滑空・操舵面等が中心で横移動の運動制約は別命題。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Explicit fixed-wing motion constraint not answer-defining elsewhere: no direct lateral translation; horizontal direction change requires a banked turn. Existing fixed-wing questions cover minimum speed, glide and control-surface axes, not this lateral-movement rule."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review because it applies the full-canonical collision gate required by the 400-question quality contract. Drop the 16 rejected candidates without replacement; the B13 ceiling is not a quota. Retain C002 for the source-defined fixed-wing lateral-movement constraint and bank-turn solution. Retain C009 as a materially distinct large-multirotor ground-effect boundary variant relative to Q132. Retain C014 because the Ah = A × h relationship is not answer-defining in the current canonical bank; Q159 overlap is contextual only. Retain C020 for source-defined antenna directionality and operational orientation. Reject C007 because Q149 already embeds the same opposite-rotation reaction-torque balance mechanism and the extra density is not justified. No HUMAN review is claimed."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

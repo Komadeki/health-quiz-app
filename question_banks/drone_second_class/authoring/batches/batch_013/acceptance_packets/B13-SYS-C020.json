@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B13-SYS-C020",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "da8d31eb5aee1b6d32474214fe2361cb37a79803b7d9b78c2e1f52f3c41e3d0a",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b13-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b13-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b13-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.5「電波」アンテナの指向性"
+    },
+    "answer_defining_proposition": "アンテナの放射・受信強度は方向によって異なるため送信機の持ち方と機体位置を考慮して適切なアンテナ角度を設定する。",
+    "tested_misconception": "アンテナは全方向へ同じ強さで電波を放射・受信するため向きは通信品質に影響しない。",
+    "reasoning_path": "directional antenna pattern -> relative transmitter/aircraft geometry -> choose antenna orientation for link quality",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q075/B8-C011のマルチパス診断・復帰とは異なり通常運用時のアンテナ指向性に基づく設定判断を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Antenna radiation/reception strength directionality and operational orientation based on transmitter handling plus aircraft position are explicitly source-defined and not answer-defining in the canonical bank. Existing radio items test multipath/Fresnel/interference rather than antenna orientation."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review because it applies the full-canonical collision gate required by the 400-question quality contract. Drop the 16 rejected candidates without replacement; the B13 ceiling is not a quota. Retain C002 for the source-defined fixed-wing lateral-movement constraint and bank-turn solution. Retain C009 as a materially distinct large-multirotor ground-effect boundary variant relative to Q132. Retain C014 because the Ah = A × h relationship is not answer-defining in the current canonical bank; Q159 overlap is contextual only. Retain C020 for source-defined antenna directionality and operational orientation. Reject C007 because Q149 already embeds the same opposite-rotation reaction-torque balance mechanism and the extra density is not justified. No HUMAN review is claimed."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
