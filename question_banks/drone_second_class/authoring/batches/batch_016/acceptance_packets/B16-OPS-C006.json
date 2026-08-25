@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B16-OPS-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "dab46c05f9bb7fd04581ac8b66c20b9659369aa21be007dbea0f8c6a1fd4e984",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b16-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b16-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b16-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.4.1「CRM / TEM」"
+    },
+    "answer_defining_proposition": "TEMはThreatを早期把握・管理し利用可能なリソースを活用してErrorやUASから事故へ進む連鎖を断つ手法である。",
+    "tested_misconception": "TEMは事故後の原因分析だけを目的としErrorが起きた後は対象外になる。",
+    "reasoning_path": "threat emerges -> use all resources for early detection/management -> prevent error/UAS -> recover before accident",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q088はCRMで全リソースを活用する概念。Q187は5つのCRMスキル。本問はTEMのThreat→Error→UAS→事故という因果連鎖と管理目的をanswer-defining propositionとする。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The current bank covers broad CRM resource use in Q088 and the five CRM skills in Q187, but not the source-defined TEM causal chain Threat -> Error -> UAS -> accident and the objective of breaking that chain using available resources before or after Error/UAS occurs."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 6 / REJECT 0. All six answer-defining propositions are directly supported by second-class-applicable Chapter 5 source text and remain distinct from their named canonical neighbors. C001 and C004 are controlled boundary variants with distinct flight phases and required actions, not wording-only variants. C006 adds the TEM Threat-to-Error-to-UAS causal management chain rather than repeating broad CRM resources or the five CRM skills. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
