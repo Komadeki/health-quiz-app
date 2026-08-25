@@ -353,7 +353,8 @@ class QuestionBankContractTest(unittest.TestCase):
 
 class DroneQuestionBankTest(unittest.TestCase):
     PRODUCTION_REVISION = "drone-second-class-v1-release-2026-08-20"
-    CURRENT_PRODUCTION_REVISION = "drone-second-class-v2-release-2026-08-24"
+    EXPANSION_RELEASE_REVISION = "drone-second-class-v2-release-2026-08-24"
+    CURRENT_PRODUCTION_REVISION = "drone-second-class-v3-release-2026-08-25"
     FREE_QUESTION_IDS = {
         "DRONE-Q-000001",
         "DRONE-Q-000002",
@@ -375,6 +376,16 @@ class DroneQuestionBankTest(unittest.TestCase):
         "DRONE-Q-000020",
         "DRONE-Q-000021",
         "DRONE-Q-000026",
+        "DRONE-Q-000010",
+        "DRONE-Q-000017",
+        "DRONE-Q-000022",
+        "DRONE-Q-000023",
+        "DRONE-Q-000027",
+        "DRONE-Q-000028",
+        "DRONE-Q-000032",
+        "DRONE-Q-000033",
+        "DRONE-Q-000035",
+        "DRONE-Q-000043",
     }
 
     PERMANENT_SLOT_TO_ID = {
@@ -3731,7 +3742,7 @@ class DroneQuestionBankTest(unittest.TestCase):
         self.assertTrue(
             all(
                 registry_by_id[question_id]["first_used_bank_revision"]
-                == (self.PRODUCTION_REVISION if int(question_id.rsplit("-", 1)[1]) <= 100 else self.CURRENT_PRODUCTION_REVISION)
+                == (self.PRODUCTION_REVISION if int(question_id.rsplit("-", 1)[1]) <= 100 else self.EXPANSION_RELEASE_REVISION)
                 for question_id in question_ids
             )
         )
@@ -5463,9 +5474,9 @@ class DroneQuestionBankTest(unittest.TestCase):
         ]
         self.assertEqual(len(cards), 188)
         self.assertEqual(len({card["stableId"] for card in cards}), 188)
-        self.assertEqual(sum(not card["isPremium"] for card in cards), 20)
+        self.assertEqual(sum(not card["isPremium"] for card in cards), 30)
         self.assertEqual(manifest["question_count"], 188)
-        self.assertEqual(manifest["free_question_count"], 20)
+        self.assertEqual(manifest["free_question_count"], 30)
 
     def test_drone_production_release_contract(self) -> None:
         inputs = load_bank_inputs(self.bank)
@@ -5518,7 +5529,7 @@ class DroneQuestionBankTest(unittest.TestCase):
         self.assertTrue(
             all(
                 next(entry for entry in inputs.id_registry if entry["question_id"] == question_id)["first_used_bank_revision"]
-                == (self.PRODUCTION_REVISION if int(question_id.rsplit("-", 1)[1]) <= 100 else self.CURRENT_PRODUCTION_REVISION)
+                == (self.PRODUCTION_REVISION if int(question_id.rsplit("-", 1)[1]) <= 100 else self.EXPANSION_RELEASE_REVISION)
                 for question_id in expected_ids
             )
         )
@@ -5526,7 +5537,7 @@ class DroneQuestionBankTest(unittest.TestCase):
         self.assertIn("DRONE-Q-000101", registry_ids)
         self.assertEqual(
             next(entry for entry in inputs.id_registry if entry["question_id"] == "DRONE-Q-000101")["first_used_bank_revision"],
-            self.CURRENT_PRODUCTION_REVISION,
+            self.EXPANSION_RELEASE_REVISION,
         )
         self.assertEqual(len(inputs.released_questions), 188)
         released_by_id = {
@@ -5555,7 +5566,6 @@ class DroneQuestionBankTest(unittest.TestCase):
                 "source_id",
                 "difficulty",
                 "importance",
-                "is_free",
             ):
                 self.assertEqual(str(released[field]), question[field])
 
@@ -5576,10 +5586,10 @@ class DroneQuestionBankTest(unittest.TestCase):
         self.assertEqual(
             free_by_unit,
             {
-                "drone_rules": 5,
-                "drone_systems": 5,
-                "drone_operations": 5,
-                "drone_risk_management": 5,
+                "drone_rules": 7,
+                "drone_systems": 9,
+                "drone_operations": 7,
+                "drone_risk_management": 7,
             },
         )
 
@@ -5611,7 +5621,7 @@ class DroneQuestionBankTest(unittest.TestCase):
         )
         self.assertEqual(manifest["content_as_of"], "2026-08-24")
         self.assertEqual(manifest["question_count"], 188)
-        self.assertEqual(manifest["free_question_count"], 20)
+        self.assertEqual(manifest["free_question_count"], 30)
 
     def test_production_release_preserves_all_protected_question_content(self) -> None:
         _, live_rows = self._read_csv(self.questions_path)
