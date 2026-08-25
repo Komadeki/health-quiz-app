@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B15-400-TARGET-RISK-PRESCREEN-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B15_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "755ce861c6f028c227c8eeb306d819bb3cb3b4a0",
+  "target_contract": "target_400_quality_relaxation_contract_2026-08-25.json",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 345,
+    "accepted_source_verified_canonical": 345,
+    "remaining_to_400": 55,
+    "next_unreserved_permanent_id": "DRONE-Q-000346",
+    "derived_domain_counts": {
+      "drone_rules": 93,
+      "drone_systems": 81,
+      "drone_operations": 87,
+      "drone_risk_management": 84
+    }
+  },
+  "strategy": {
+    "why_risk": "Systems is numerically thinnest but B13 demonstrated strong Chapter 4 canonical saturation: only 4 of 20 authored Systems candidates survived independent review. Risk is the next-thinnest domain and Chapter 6 still contains explicit second-class-applicable operational boundaries that survive direct nearest-neighbor pre-screening.",
+    "pre_screen_first": true,
+    "batch_size_decision": "Use a 9-candidate ceiling, not a quota. Every item below has an explicit source-defined proposition and a named canonical neighbor or gap rationale before authoring.",
+    "quality_rule": "Drop any item at authoring or review if the full 345-question canonical comparison reveals same-proposition/same-reasoning collision, unsupported inference, first-class-only scope, ambiguity, trivial wording variation, or insufficient commercial practice value."
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010809.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "official_current_check": "2026-08-25",
+    "scope_rule": "Use only second-class-applicable Chapter 6 propositions; exclude every subsection explicitly marked 〔一等〕."
+  },
+  "pre_screen": {
+    "canonical_baseline": 345,
+    "canonical_file": "questions.csv",
+    "reviewed_neighbor_policy": "Every candidate names the closest canonical question(s). Authoring must preserve the distinct decision boundary or operational rule described below.",
+    "b13_rejected_topics_not_reused": true,
+    "quota_backfill_allowed": false
+  },
+  "batch": {
+    "batch_id": "B15",
+    "domain": "drone_risk_management",
+    "candidate_ceiling": 9,
+    "candidate_ceiling_is_quota": false,
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 7,
+      "B_BOUNDARY_VARIANT": 2,
+      "C_REASONING_VARIANT": 0
+    }
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B15-RISK-C001",
+      "tier": "B_BOUNDARY_VARIANT",
+      "family": "safety-margin danger-radius boundary",
+      "source_locator": "教則 第6章 6.1.1(1)1)『安全マージン』",
+      "proposition": "飛行領域の立入管理範囲は、飛行領域に危険半径として飛行高度と同じ数値又は30mのいずれか長い方を加えた範囲を基本とする。",
+      "tested_misconception": "安全マージンは常に30m固定で、飛行高度が30mを超えても拡大しない。",
+      "reasoning_path": "determine flight height -> compare height-equivalent distance with 30m -> use longer value for hazard radius and controlled area",
+      "nearest_canonical": ["DRONE-Q-000090"],
+      "pre_screen_result": "PASS: Q090 tests that a safety margin extends outside the planned flight area; it does not test the explicit max(height,30m) hazard-radius boundary."
+    },
+    {
+      "candidate_id": "B15-RISK-C002",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "separate safety-management role",
+      "source_locator": "教則 第6章 6.1.1(1)3)『安全を確保するための運航体制』",
+      "proposition": "操縦と安全管理の役割を分割する目的で、操縦者に加えて安全管理者（運航管理者）を配置することが望ましい。",
+      "tested_misconception": "安全管理は常に操縦者本人だけが兼務し、別の安全管理者を置く考え方は教則にない。",
+      "reasoning_path": "identify simultaneous piloting and safety-management demands -> separate roles -> add safety/operations manager where appropriate",
+      "nearest_canonical": ["DRONE-Q-000088", "DRONE-Q-000089"],
+      "pre_screen_result": "PASS: existing CRM/assistant questions cover resource use and assistant coordination, not the explicit pilot-versus-safety-management role separation."
+    },
+    {
+      "candidate_id": "B15-RISK-C003",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "ten-minute mean wind-speed interpretation",
+      "source_locator": "教則 第6章 6.2『気象の影響』(1)2)c.『風速』",
+      "proposition": "気象観測で単に『風速』という場合は観測時の前10分間の平均風速を指し、最大瞬間風速とは区別する。",
+      "tested_misconception": "表示された風速はその瞬間の最大値を意味するため、平均値と最大瞬間風速を区別する必要はない。",
+      "reasoning_path": "read weather report term -> identify ten-minute mean versus instantaneous maximum -> interpret operational wind information correctly",
+      "nearest_canonical": ["DRONE-Q-000268", "DRONE-Q-000269"],
+      "pre_screen_result": "PASS: Q268 tests vertical wind-speed variation and Q269 gust timing; neither defines the ten-minute mean/instantaneous distinction."
+    },
+    {
+      "candidate_id": "B15-RISK-C004",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "mountain-valley wind day-night reversal",
+      "source_locator": "教則 第6章 6.2『気象の影響』(1)2)f.『山谷風』",
+      "proposition": "山岳地帯では昼間は暖められた空気が谷を這い上がる谷風、夜間は冷えた空気が山から降りる山風が生じる。",
+      "tested_misconception": "山谷風は昼夜で同じ方向に吹き、日射や夜間冷却による方向反転はない。",
+      "reasoning_path": "identify mountain terrain and time of day -> infer heating/cooling -> determine valley-up or mountain-down local wind",
+      "nearest_canonical": ["DRONE-Q-000270"],
+      "pre_screen_result": "PASS: Q270 tests sea/land-breeze reversal and calm periods; mountain/valley-wind terrain mechanism is a separate source-defined local-wind rule."
+    },
+    {
+      "candidate_id": "B15-RISK-C005",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "downburst and microburst operational hazard",
+      "source_locator": "教則 第6章 6.2『気象の影響』(1)2)i.『ダウンバースト』",
+      "proposition": "ダウンバーストは積乱雲等の強烈な下降流が地表で四方へ広がる局地現象で、マイクロバーストは直径約4km以下と小さい一方、より強烈な下降流となる場合がある。",
+      "tested_misconception": "マイクロバーストは広域現象で、範囲が小さいほど下降流も必ず弱い。",
+      "reasoning_path": "identify convective downdraft -> distinguish spatial scale -> recognize small-area microburst can be especially intense and difficult to detect",
+      "nearest_canonical": ["DRONE-Q-000094", "DRONE-Q-000269"],
+      "pre_screen_result": "PASS: current weather questions cover cold-front thunderstorms/gusts but not the downburst/microburst definition and scale-intensity boundary."
+    },
+    {
+      "candidate_id": "B15-RISK-C006",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "fixed-wing headwind takeoff-landing rule",
+      "source_locator": "教則 第6章 6.3『飛行機』(1)『飛行機の運航の特徴』",
+      "proposition": "飛行機の離陸・着陸は向かい風を受ける方向から行い、追い風での離着陸は失速のおそれがあるため行わない。",
+      "tested_misconception": "追い風なら対地速度を得やすいので、固定翼機の離着陸には向かい風より有利である。",
+      "reasoning_path": "identify wind relative to runway -> select headwind-oriented operation -> reject tailwind because of stall-risk boundary",
+      "nearest_canonical": ["DRONE-Q-000097", "DRONE-Q-000271"],
+      "pre_screen_result": "PASS: Q097 tests space/turn-radius constraints and Q271 landing speed/elevator control, not the source-defined headwind/tailwind operating rule."
+    },
+    {
+      "candidate_id": "B15-RISK-C007",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "fixed-wing airborne holding without hover",
+      "source_locator": "教則 第6章 6.3『飛行機』(1)『飛行機の運航の特徴』",
+      "proposition": "飛行機はホバリングできないため、上空待機が必要な場合はサークルを描くように旋回飛行する。",
+      "tested_misconception": "固定翼機も回転翼機と同様に、その場でホバリングして上空待機できる。",
+      "reasoning_path": "need airborne holding -> recognize fixed-wing cannot stop in air -> maintain flight by circling",
+      "nearest_canonical": ["DRONE-Q-000097"],
+      "pre_screen_result": "PASS: existing fixed-wing risk question covers runway size and minimum turn radius, not the operational consequence for airborne holding."
+    },
+    {
+      "candidate_id": "B15-RISK-C008",
+      "tier": "B_BOUNDARY_VARIANT",
+      "family": "helicopter slope downdraft climb limitation",
+      "source_locator": "教則 第6章 6.3『回転翼航空機（ヘリコプター）』(1)『運航の特徴』",
+      "proposition": "山間部又は斜面沿いでは吹き下ろし風が強いとヘリコプターが上昇できない場合があり、上昇計画で考慮する必要がある。",
+      "tested_misconception": "ヘリコプターは垂直上昇できるため、斜面の強い吹き下ろし風は上昇可否に影響しない。",
+      "reasoning_path": "mountain/slope route -> identify strong downslope airflow -> compare climb capability -> recognize possible inability to climb",
+      "nearest_canonical": ["DRONE-Q-000272"],
+      "pre_screen_result": "PASS as controlled boundary: Q272 tests forward climb as a power-saving technique; C008 tests a terrain-wind condition that can eliminate available climb performance."
+    },
+    {
+      "candidate_id": "B15-RISK-C009",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "large-aircraft noise route consideration",
+      "source_locator": "教則 第6章 6.3『大型機（最大離陸重量25kg以上）』(1)『運航の特徴』",
+      "proposition": "最大離陸重量25kg以上の大型機は一般に小型機より騒音が大きくなるため、飛行経路周囲への配慮が必要である。",
+      "tested_misconception": "大型機の運航リスクは慣性力と緊急着陸場所だけで、騒音による周辺配慮は考慮対象にならない。",
+      "reasoning_path": "identify large-aircraft operation -> account for increased noise in addition to kinetic/inertia risks -> include route-neighborhood impact",
+      "nearest_canonical": ["DRONE-Q-000099", "DRONE-Q-000273"],
+      "pre_screen_result": "PASS: Q099 tests large-aircraft inertia/avoidance and Q273 larger emergency-landing area; neither tests noise-driven route consideration."
+    }
+  ],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_PLANNING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_PLANNING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_PLANNING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "AUTHOR_AND_PERSIST_B15_400_TARGET_CANDIDATES"
+}
