@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W1",
+  "objective": "INDEPENDENT_AI_REVIEW_OTSU4_WAVE_1_B4_B5_B6_64",
+  "expected_reviewed": 64,
+  "expected_accept": 62,
+  "expected_rework": ["O4-B4-FIR-C019", "O4-B4-FIR-C020"],
+  "human_review_claimed": false
+}
