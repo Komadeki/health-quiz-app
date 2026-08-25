@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B6",
+  "wave_id": "W1",
+  "review_round": 1,
+  "reviewed_at": "2026-08-25",
+  "reviewer": {"id":"otsu4-w1-b6-independent-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked": "otsu4-b6-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "Otsu4 Question Bank Contract v0",
+    "current e-Gov Act/Order facility and inspection provisions bound by candidate source locators",
+    "all 51 current canonical Otsu4 questions",
+    "all 64 Wave 1 candidates for same-wave semantic collision and educational-value review"
+  ],
+  "summary": {"reviewed":20,"accept":20,"reject":0,"rework":0,"hold":0},
+  "decisions": [
+    {"candidate_id":"O4-B6-LAW-C001","decision":"ACCEPT","rationale":"Installation permission is a core facility-law proposition absent from the canonical baseline."},
+    {"candidate_id":"O4-B6-LAW-C002","decision":"ACCEPT","rationale":"Change permission tests a distinct pre-change legal duty from initial installation permission."},
+    {"candidate_id":"O4-B6-LAW-C003","decision":"ACCEPT","rationale":"Permission decision standards test the authority's substantive compliance/public-safety gate rather than application procedure."},
+    {"candidate_id":"O4-B6-LAW-C004","decision":"ACCEPT","rationale":"Completion-inspection-before-use is a high-value operational boundary with no canonical collision."},
+    {"candidate_id":"O4-B6-LAW-C005","decision":"ACCEPT","rationale":"Provisional use is a concrete exception to C004 and requires a distinct condition: authority approval for unaffected portions."},
+    {"candidate_id":"O4-B6-LAW-C006","decision":"ACCEPT","rationale":"Transfer notification covers ownership transition and is distinct from existing supervisor-selection notifications."},
+    {"candidate_id":"O4-B6-LAW-C007","decision":"ACCEPT","rationale":"Ten-day advance notice for name/quantity/multiple changes is a precise statutory timing boundary."},
+    {"candidate_id":"O4-B6-LAW-C008","decision":"ACCEPT","rationale":"Continuous maintenance of technical standards is distinct from initial permission and completion inspection."},
+    {"candidate_id":"O4-B6-LAW-C009","decision":"ACCEPT","rationale":"Repair/change/relocation orders test enforcement consequences of standards noncompliance."},
+    {"candidate_id":"O4-B6-LAW-C010","decision":"ACCEPT","rationale":"Completion-inspection application procedure is separate from the substantive pre-use prohibition in C004."},
+    {"candidate_id":"O4-B6-LAW-C011","decision":"ACCEPT","rationale":"Authority duty to inspect without delay is a separate statutory process step and not a wording variant of C010."},
+    {"candidate_id":"O4-B6-LAW-C012","decision":"ACCEPT","rationale":"Completion certificate issuance is the distinct outcome of a successful inspection."},
+    {"candidate_id":"O4-B6-LAW-C013","decision":"ACCEPT","rationale":"Certificate reissue after loss/destruction is a source-explicit administrative boundary with no collision."},
+    {"candidate_id":"O4-B6-LAW-C014","decision":"ACCEPT","rationale":"Ten-day return of a later-found old certificate tests a distinct post-reissue duty."},
+    {"candidate_id":"O4-B6-LAW-C015","decision":"ACCEPT","rationale":"Required class/name/maximum-quantity application fields are distinct from numerical specified-quantity calculations."},
+    {"candidate_id":"O4-B6-LAW-C016","decision":"ACCEPT","rationale":"Specified-quantity multiple as an application field tests administrative use of the metric, not the arithmetic proposition already covered canonically."},
+    {"candidate_id":"O4-B6-LAW-C017","decision":"ACCEPT","rationale":"Change-content-and-reason disclosure is a distinct application-evidence requirement from the duty to obtain change permission."},
+    {"candidate_id":"O4-B6-LAW-C018","decision":"ACCEPT","rationale":"Pre-completion inspection for applicable liquid-hazard tank work is a distinct inspection category from general completion inspection."},
+    {"candidate_id":"O4-B6-LAW-C019","decision":"ACCEPT","rationale":"The 10,000 kL outdoor-tank safety-inspection threshold is a high-value quantitative facility boundary."},
+    {"candidate_id":"O4-B6-LAW-C020","decision":"ACCEPT","rationale":"Periodic inspection plus record creation/retention is a distinct continuing compliance duty from safety inspection."}
+  ],
+  "collision_review": {"released_bank_checked":true,"canonical_drafts_checked":true,"wave_checked":true,"result":"PASS","note":"All 20 B6 candidates test distinct facility/inspection permissions, procedures, enforcement or maintenance propositions. No material collision with the 51 canonical questions or accepted B4/B5 candidates was found."},
+  "invariants": {"HUMAN_REVIEW_ROWS_CREATED":0,"CANDIDATE_STATES_CHANGED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"DIRECTOR_ADJUDICATION_PERFORMED":false},
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}
