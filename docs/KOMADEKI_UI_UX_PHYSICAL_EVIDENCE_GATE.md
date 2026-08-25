@@ -1,8 +1,8 @@
 # KOMADEKI UI/UX Physical Evidence Gate
 
 Date: 2026-08-25
-Verified repository baseline: `e93eb3de7fd02c493b8d6972a456cbf23a3e6221`
-Verified production UI baseline: `1dac5bba96ee18ae2ae919bf7b5c8d5f31e7cb33`
+Verified repository baseline: `10f0c65f825c3c25fa21f47e0fb72cb64a60e981`
+Verified production UI baseline: `10f0c65f825c3c25fa21f47e0fb72cb64a60e981`
 Control issue: #48
 Workstream: `qualification_factory_ui_ux`
 Objective: `VERIFY_PHYSICAL_UX_EVIDENCE`
@@ -10,21 +10,21 @@ Result: `HUMAN_BLOCKED`
 
 ## Scope reconciliation
 
-The previous physical-evidence contract was reconciled through the progress-dashboard baseline that introduced the completion ring, four-unit radar, and the four learner metrics.
+The physical-evidence contract now includes both the PR #287 Home/progress improvements and PR #323, `Expand Drone free tier and strengthen purchase UX`, merged as `10f0c65f825c3c25fa21f47e0fb72cb64a60e981`.
 
-GitHub `main` now additionally contains PR #287, `Polish Drone Home UX follow-up`, merged as production UI baseline `1dac5bba96ee18ae2ae919bf7b5c8d5f31e7cb33`. PR #287 preserves the existing shared Qualification runtime and the existing price-display specification while adding the following learner-facing changes:
+The resulting Drone production UI/runtime keeps the shared Qualification architecture and the existing StoreKit price-display specification while adding or preserving these learner-facing behaviors:
 
-- radar axes use concise semantic labels for Drone: `操縦体制`, `リスク`, `規則`, `システム`;
-- a responsive legend exposes each short radar label together with the formal unit title;
-- `模試ベスト` shows `未受験` before the first completed mock rather than an ambiguous dash;
-- a low-sample weakness result is labelled `要確認の単元` until the weakest unit has at least five answers; only sufficient evidence is labelled `苦手な単元`;
-- `続きから` identifies the resumed unit or mode and the exact persisted question position;
-- the locked mock-exam control is actionable and opens unlock guidance instead of remaining a dead disabled control;
-- the existing purchase price presentation is preserved unchanged.
+- radar axes use `操縦体制`, `リスク`, `規則`, `システム`, with the formal unit names exposed in a responsive legend;
+- `模試ベスト` shows `未受験` before a completed mock and is actionable when the mock route is available;
+- low-sample weakness wording remains conservative as `要確認の単元` until the minimum-answer threshold is met;
+- `続きから` identifies the unit/mode and persisted question position;
+- the free tier is 30 questions, while random practice remains a 20-question session and is regression-tested to start with 20 unique accessible questions;
+- locked mock entry opens contextual unlock guidance instead of being a dead control;
+- the mock unlock sheet explains the benefit set and uses the result-oriented CTA `全188問を解放する`;
+- the bottom full-unlock card shows free-tier learning progress, `全188問すべて利用可能`, `各単元の全問題`, the mock-exam benefit, purchase CTA, and purchase restore;
+- the displayed `$4.99` format is intentionally unchanged.
 
-PR #287 passed Quiz Apps CI run #487 (`32835361369`): scope, shared checks, qualification-app checks, health checks, and `ci-gate` all passed. The qualification checks include the Drone production seam and post-dashboard scroll interaction; shared checks include the existing compact-width, large-text, semantic, learning-state, purchase, progress, and session behavior gates.
-
-After PR #287, `main` advanced through `e93eb3de7fd02c493b8d6972a456cbf23a3e6221`. The intervening changes are limited to Drone B15 Question Bank authoring artifacts and `tooling/komadeki_autopilot/drone_state.json`; they do not touch the shared Qualification UI or Drone production composition. Therefore `e93eb3de...` is the current reconciled repository baseline and `1dac5bba...` remains the verified production UI baseline contained within it.
+PR #323 passed Quiz Apps CI run #575 (`32845647084`): scope, shared checks, qualification-app checks, and health checks all passed. The bank contract is `drone-second-class-v3-release-2026-08-25`, 188 active questions, 30 free, and 158 premium. The original 20 free questions remain free; 10 already-released questions were added to the free tier without changing question text, correct answers, Permanent IDs, or Question versions.
 
 If a later `main` changes relevant production UI before physical evidence is collected, this gate must be reconciled again.
 
@@ -33,27 +33,28 @@ If a later `main` changes relevant production UI before physical evidence is col
 Repository evidence is sufficient for the non-physical portions of this gate:
 
 - the shared Home -> learning -> feedback/result -> Home journey remains covered;
-- deterministic primary action, intentional leave/resume, practice feedback, mock feedback boundary, result/review, progress, weakness/recommendation/history, unlock/restore, loading/failure/status, source trust, and Drone-specific composition remain covered;
-- the progress dashboard and PR #287 changes are covered by shared and Drone widget tests without introducing an app-specific controller, persistence, selection, session, purchase, scoring, or Question Bank fork;
-- automated responsive gates cover compact width, 2.0x text scale, long Japanese content, scroll reachability, semantic live state, and standard Material touch behavior;
+- the 30-question entitlement contract and 20-question random-practice headroom are tested;
+- the contextual mock unlock sheet, full-unlock card, result-oriented CTA, restore control, and tappable pre-mock metric are covered by widget tests;
+- deterministic primary action, intentional leave/resume, practice feedback, mock feedback boundary, result/review, progress, weakness/recommendation/history, loading/failure/status, source trust, and Drone-specific composition remain covered;
+- automated responsive gates cover compact width, large text, long Japanese content, scroll reachability, semantics, and standard Material touch behavior;
 - repository iOS build checks are build evidence only and are not physical-device interaction evidence.
 
 Automated evidence cannot establish actual finger interaction, shipping-device readability, perceived control reachability, chart legibility, or physical scrolling behavior.
 
 ## Remaining physical evidence
 
-A single bounded pass on a physical iPhone is required. Use a build containing UI baseline `1dac5bba96ee18ae2ae919bf7b5c8d5f31e7cb33` or a later `main` that has been reconciled against this UI baseline. Debug/device installation or TestFlight is acceptable. A real purchase or restore transaction is not required by this UI/UX gate.
+A single bounded pass on a physical iPhone is required. Use a build containing baseline `10f0c65f825c3c25fa21f47e0fb72cb64a60e981` or a later `main` reconciled against it. Debug/device installation or TestFlight is acceptable. A real purchase or restore transaction is not required by this UI/UX gate.
 
 Perform these checks:
 
-1. Launch Home at normal text size. Confirm there is no clipped content or obstructed primary action. In `学習進捗`, confirm the completion ring is readable on the left; the radar on the right uses readable `操縦体制` / `リスク` / `規則` / `システム` labels; the formal-unit legend is understandable; and the four tiles `学習済み` / `正答率` / `要復習` / `模試ベスト` are legible without ambiguous overlap or truncation. Before any completed mock, `模試ベスト` should read `未受験`.
-2. With only a small number of answers in the weakest unit, confirm Home uses `要確認の単元` rather than prematurely asserting `苦手な単元`, and that the explanatory copy is understandable. Interact with learning and confirm progress, radar values, and review-related values remain visually stable during normal scrolling.
-3. Start a practice session, select and commit an answer, and confirm correctness, selected answer, correct answer, explanation, source, and `次へ` remain readable and reachable through normal scrolling.
+1. Launch Home at normal text size. Confirm the Hero states `30問を無料で体験`, there is no clipped content or obstructed primary action, and the completion ring, four-axis radar, formal-unit legend, and `学習済み / 正答率 / 要復習 / 模試ベスト` tiles are readable. Before any completed mock, `模試ベスト` should read `未受験`.
+2. Start `ランダム演習` while not fully unlocked. Confirm a 20-question session starts normally and question/choice/commit/feedback controls remain reachable through normal scrolling.
+3. With only a small number of answers in the weakest unit, confirm Home uses `要確認の単元` rather than prematurely asserting `苦手な単元`, and that the explanatory copy is understandable.
 4. Leave an in-progress practice session to Home. Confirm `続きから` names the relevant unit or mode and shows the persisted question position, then resume and confirm committed state is preserved.
-5. When the mock exam is locked, confirm the mock control is visibly actionable, tapping it opens the unlock guidance, the guidance is understandable, and dismissing it returns cleanly to Home. Also confirm the normal unlock/restore surface remains physically reachable. The existing displayed price format is intentionally not part of this UI change.
-6. When a timed mock is available in the test entitlement/build, confirm the progress/timer header is readable, leave once, verify the warning that time continues is understandable, then resume and confirm the timer remains usable.
-7. Complete a mock or use a prepared completed-mock state. Confirm result and expandable read-only review can be navigated without trapped scrolling, clipped text, or ambiguous recorded-answer/correct-answer distinction; after returning Home, confirm `模試ベスト` shows the completed result.
-8. If iOS Larger Text is already enabled on the test device, repeat the Home progress card and one question interaction there. Otherwise the automated 2.0x widget gate remains the accessibility evidence for this transition.
+5. When the mock exam is locked, tap both the normal mock control and, when visible, `模試ベスト / 未受験`. Confirm the unlock sheet opens, clearly explains full-question and mock benefits, shows the unchanged configured price format, exposes `全188問を解放する`, and can be dismissed cleanly.
+6. Scroll to the normal full-unlock card. Confirm it is physically reachable and understandable, displays `無料問題 x / 30問 学習済み`, the benefit list, `全188問を解放する`, and `購入を復元` without clipping or accidental overlap. Do not complete a real purchase for this gate.
+7. When a timed mock is available in the test entitlement/build, confirm the progress/timer header is readable, leave once, verify the warning that time continues is understandable, then resume and confirm the timer remains usable. If a completed-mock state is available, confirm result/review navigation and the updated `模試ベスト` value remain clear.
+8. If iOS Larger Text is already enabled on the test device, repeat the Home progress card and one question interaction there. Otherwise the automated large-text widget gate remains the accessibility evidence for this transition.
 
 ## Evidence contract
 
@@ -69,8 +70,6 @@ A general statement such as `looks fine` is insufficient because it cannot be ti
 
 ## Decision
 
-No production UI defect is established by repository evidence. PR #287 is accepted as repository-verified UI/UX improvement, but the workstream remains `PHYSICAL_UX / HUMAN_BLOCKED` because the remaining acceptance criterion is physical-device observation.
+No production UI defect is established by repository evidence. PR #287 and PR #323 are accepted as repository-verified UI/UX improvements, but the workstream remains `PHYSICAL_UX / HUMAN_BLOCKED` because the remaining acceptance criterion is physical-device observation.
 
-After durable physical evidence is posted, the next autonomous transition is still `VERIFY_PHYSICAL_UX_EVIDENCE`: reconcile the tested commit against then-current `main`; if all checks pass and no newer relevant UI invalidates the evidence, advance to `DONE` through the normal PR/CI gate.
-
-This reconciliation does not mutate Question Bank authoring/acceptance/content, Permanent IDs, released/runtime bank data, scoring, purchase/session semantics, the price-display specification, or `tooling/komadeki_autopilot/drone_state.json`.
+After durable physical evidence is posted, reconcile the tested commit against then-current `main`; if every check passes and no newer relevant UI invalidates the evidence, advance the UI/UX workstream to `DONE` through the normal PR/CI gate.
