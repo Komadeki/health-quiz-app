@@ -243,7 +243,9 @@ void main() {
       ),
     );
     final unit = find.byKey(const Key('unit-fixture_safety'));
-    await tester.scrollUntilVisible(unit, 160);
+    await tester.scrollUntilVisible(unit, 200);
+    await tester.ensureVisible(unit);
+    await tester.pumpAndSettle();
     await tester.tap(unit);
     await tester.pump();
     final correctIndex = controller.currentCard!.answerIndex;
