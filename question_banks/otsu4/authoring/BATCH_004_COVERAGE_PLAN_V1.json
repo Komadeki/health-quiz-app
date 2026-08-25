@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B4-PROPERTIES-2026-08-25",
+  "product": "otsu4",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_OTSU4_BATCH_4_600Q_COVERAGE_BATCH",
+  "production_target": 600,
+  "canonical_verified_baseline": 51,
+  "selected_target": "O4-FIR-KT-PROPERTIES",
+  "selected_target_total_plan": 50,
+  "candidate_ceiling": 24,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "After three law-heavy batches, the 600Q plan needs subject diversification. Class-4 properties has a 50-question target and a broad official MHLW SDS catalog already frozen in sources.json, supporting original substance-comparison and property questions without past-question copying.",
+  "source_contract": {
+    "primary_source_ids": ["O4-MHLW-SDS-GASOLINE","O4-MHLW-SDS-KEROSENE","O4-MHLW-SDS-ACETONE","O4-MHLW-SDS-ETHANOL","O4-MHLW-SDS-METHANOL","O4-MHLW-SDS-XYLENE","O4-MHLW-SDS-BENZENE","O4-MHLW-SDS-TOLUENE","O4-MHLW-SDS-ETHYL-ACETATE","O4-MHLW-SDS-CRESOL","O4-MHLW-LABEL-DIETHYL-ETHER"],
+    "locator_rule": "Every candidate must identify a specific SDS/label section and a concrete answer-defining property or safety proposition. Generic source-homepage locators are prohibited. Legal classification/quantity propositions must continue to cite O4-LAW-* rather than SDS."
+  },
+  "planned_variation_mix": {"recall": 8, "application": 12, "calculation_decision": 4},
+  "planning_invariants": {
+    "NO_COPYRIGHTED_PAST_QUESTION_TEXT": true,
+    "NO_WORDING_ONLY_VARIANTS": true,
+    "NO_QUOTA_BACKFILL": true,
+    "COLLISION_CHECK_AGAINST_ALL_51_CANONICAL_REQUIRED": true,
+    "BALANCE_CORRECT_CHOICE_POSITION_AT_AUTHORING": true,
+    "HUMAN_REVIEW_CREATED": false,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "planned_families": [
+    "gasoline volatility/vapor hazard",
+    "kerosene lower-volatility comparison",
+    "acetone water-solubility and volatility",
+    "ethanol water-miscibility and flammability",
+    "methanol water-miscibility and toxicity-aware handling",
+    "benzene/toluene/xylene aromatic-liquid comparison",
+    "ethyl-acetate ester properties",
+    "cresol higher-boiling/phenolic behavior",
+    "diethyl-ether extreme volatility",
+    "cross-substance flash/boiling/density decision boundaries"
+  ],
+  "next_gate": "AUTHOR_OTSU4_BATCH_4_AI_PRE_ACCEPT_24"
+}
