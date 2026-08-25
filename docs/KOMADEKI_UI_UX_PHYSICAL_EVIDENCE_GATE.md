@@ -1,8 +1,8 @@
 # KOMADEKI UI/UX Physical Evidence Gate
 
 Date: 2026-08-25
-Verified repository baseline: `dabdc2a4869ee41103540ee4fd3de4fbae4b0d8f`
-Verified production UI baseline: `ebce7f3b3de1d76ab778f52746bb7c8a2e0dc729`
+Verified repository baseline: `e93eb3de7fd02c493b8d6972a456cbf23a3e6221`
+Verified production UI baseline: `1dac5bba96ee18ae2ae919bf7b5c8d5f31e7cb33`
 Control issue: #48
 Workstream: `qualification_factory_ui_ux`
 Objective: `VERIFY_PHYSICAL_UX_EVIDENCE`
@@ -10,125 +10,67 @@ Result: `HUMAN_BLOCKED`
 
 ## Scope reconciliation
 
-The previous physical-evidence contract observed UI/UX baseline
-`00f19d57e11d89a742056b846759c8a8b60cdf67`.
+The previous physical-evidence contract was reconciled through the progress-dashboard baseline that introduced the completion ring, four-unit radar, and the four learner metrics.
 
-GitHub `main` now includes PR #257, `Add unit radar and actionable progress metrics`, merged
-as production UI baseline `ebce7f3b3de1d76ab778f52746bb7c8a2e0dc729`. Subsequent main
-advancement through `dabdc2a4869ee41103540ee4fd3de4fbae4b0d8f` changes only Otsu4
-Question Bank authoring/source/state artifacts and does not touch the shared Qualification UI
-or Drone production composition. Therefore `dabdc2a...` is the current reconciled repository
-baseline and `ebce7f3b...` remains the verified UI baseline contained within it.
+GitHub `main` now additionally contains PR #287, `Polish Drone Home UX follow-up`, merged as production UI baseline `1dac5bba96ee18ae2ae919bf7b5c8d5f31e7cb33`. PR #287 preserves the existing shared Qualification runtime and the existing price-display specification while adding the following learner-facing changes:
 
-The reconciled progress dashboard now provides:
+- radar axes use concise semantic labels for Drone: `操縦体制`, `リスク`, `規則`, `システム`;
+- a responsive legend exposes each short radar label together with the formal unit title;
+- `模試ベスト` shows `未受験` before the first completed mock rather than an ambiguous dash;
+- a low-sample weakness result is labelled `要確認の単元` until the weakest unit has at least five answers; only sufficient evidence is labelled `苦手な単元`;
+- `続きから` identifies the resumed unit or mode and the exact persisted question position;
+- the locked mock-exam control is actionable and opens unlock guidance instead of remaining a dead disabled control;
+- the existing purchase price presentation is preserved unchanged.
 
-- completion ring on the left;
-- unit-performance visualization on the right, with Drone's four units rendered as a radar
-  chart from actual per-unit accuracy;
-- four learner-facing metrics: `学習済み`, `正答率`, `要復習`, and `模試ベスト`;
-- `要復習` derived from the existing most-recent-incorrect practice-selection semantics,
-  respecting current access;
-- `模試ベスト` derived only from completed mock-exam history and shown as unavailable before
-  the first completed mock;
-- responsive fallback behavior for qualifications that cannot form a radar chart.
+PR #287 passed Quiz Apps CI run #487 (`32835361369`): scope, shared checks, qualification-app checks, health checks, and `ci-gate` all passed. The qualification checks include the Drone production seam and post-dashboard scroll interaction; shared checks include the existing compact-width, large-text, semantic, learning-state, purchase, progress, and session behavior gates.
 
-PR #257 passed required Quiz Apps CI run #422 (`32826160634`): scope, shared checks,
-qualification-app checks, health checks, and ci-gate all passed. The shared checks include the
-existing compact/large-text gates and new progress-dashboard behavior assertions; the Drone
-product-seam test confirms its four-unit bank uses the radar rendering path.
+After PR #287, `main` advanced through `e93eb3de7fd02c493b8d6972a456cbf23a3e6221`. The intervening changes are limited to Drone B15 Question Bank authoring artifacts and `tooling/komadeki_autopilot/drone_state.json`; they do not touch the shared Qualification UI or Drone production composition. Therefore `e93eb3de...` is the current reconciled repository baseline and `1dac5bba...` remains the verified production UI baseline contained within it.
 
-If a later `main` changes relevant production UI before physical evidence is collected, the
-physical gate must be reconciled again rather than treating this baseline as current.
+If a later `main` changes relevant production UI before physical evidence is collected, this gate must be reconciled again.
 
 ## Repository evidence already satisfied
 
-Repository evidence is sufficient for the non-physical portions of the gate:
+Repository evidence is sufficient for the non-physical portions of this gate:
 
-- Product UX Closure remains satisfied for the shared Home -> learning -> feedback/result ->
-  Home journey, including deterministic primary action, intentional leave/resume, practice
-  feedback, mock feedback boundary, result/review, progress, weakness, recommendation,
-  history, unlock/restore presentation, loading/failure/status, claims/source trust, and
-  Drone-specific composition.
-- The post-closure progress-dashboard change is covered by shared and Drone widget tests and
-  does not fork controller, persistence, selection, purchase, session, or Question Bank
-  behavior.
-- Shared widget gates cover 320 logical px, 2.0x text scale, long Japanese question/choice
-  content, scroll reachability, timed-mock header behavior, semantic live regions,
-  non-color-only correctness, and standard Material touch controls.
-- Drone remains a thin composition through `QualificationProductionBootstrap` plus the
-  optional Home supplement; no app-specific controller/persistence/selection/purchase fork
-  exists.
-- Repository iOS build checks are build evidence only; they are not evidence of human
-  interaction on a physical device.
+- the shared Home -> learning -> feedback/result -> Home journey remains covered;
+- deterministic primary action, intentional leave/resume, practice feedback, mock feedback boundary, result/review, progress, weakness/recommendation/history, unlock/restore, loading/failure/status, source trust, and Drone-specific composition remain covered;
+- the progress dashboard and PR #287 changes are covered by shared and Drone widget tests without introducing an app-specific controller, persistence, selection, session, purchase, scoring, or Question Bank fork;
+- automated responsive gates cover compact width, 2.0x text scale, long Japanese content, scroll reachability, semantic live state, and standard Material touch behavior;
+- repository iOS build checks are build evidence only and are not physical-device interaction evidence.
 
-These automated checks can establish render/layout/semantic contracts but cannot establish
-actual finger interaction, device-level readability, perceived control reachability, chart
-legibility, or physical scrolling behavior on a shipping phone.
+Automated evidence cannot establish actual finger interaction, shipping-device readability, perceived control reachability, chart legibility, or physical scrolling behavior.
 
 ## Remaining physical evidence
 
-A single pass on the primary shipping platform is required for this UI/UX gate. For the
-current Drone reference product, use a physical iPhone with a build containing this verified
-UI baseline or a later reconciled `main` commit. Debug/device installation or TestFlight is
-acceptable; App Store purchase completion is not required by this UI/UX gate.
+A single bounded pass on a physical iPhone is required. Use a build containing UI baseline `1dac5bba96ee18ae2ae919bf7b5c8d5f31e7cb33` or a later `main` that has been reconciled against this UI baseline. Debug/device installation or TestFlight is acceptable. A real purchase or restore transaction is not required by this UI/UX gate.
 
-Perform the following bounded interaction check:
+Perform these checks:
 
-1. Launch the app and confirm Home renders without clipped content, obstructed controls, or
-   an unreadable primary action at the device's normal text size. In `学習進捗`, specifically
-   confirm the completion ring is readable on the left, the four-unit radar is readable on
-   the right, and the four tiles `学習済み` / `正答率` / `要復習` / `模試ベスト` are legible
-   without ambiguous truncation or overlap.
-2. Interact with learning so the Home metrics change, return Home, and confirm progress,
-   per-unit performance, `要復習`, and `模試ベスト` present plausible values and remain
-   visually stable during normal scrolling. `模試ベスト` may remain unavailable until a
-   completed mock exists.
-3. Start a practice session, select an answer, commit it, and confirm the correctness state,
-   selected answer, correct answer, explanation, source, and `次へ` remain readable and
-   reachable by normal scrolling.
-4. Use the close/Home affordance during practice, return Home, and resume with `続きから`;
-   confirm the interaction feels intentional and the committed state is preserved.
-5. Start a timed mock when available in the test entitlement/build, confirm the progress/
-   timer header remains readable, leave once, and verify the warning that time continues is
-   understandable and the resumed timer is still usable.
-6. Complete or use a prepared completed mock state and confirm result plus the expandable
-   read-only review can be navigated without trapped scrolling, clipped text, or ambiguous
-   answer/correct-answer distinction. Return Home and confirm `模試ベスト` reflects a
-   completed mock result.
-7. Confirm the unlock/restore surface is physically reachable and understandable. A real
-   purchase or restore transaction is outside this gate unless release validation already
-   provides an authenticated store environment.
-8. If iOS Larger Text is already enabled on the test device, repeat the Home progress card
-   and one question interaction there; otherwise automated 2.0x widget coverage remains the
-   accessibility evidence for this transition.
+1. Launch Home at normal text size. Confirm there is no clipped content or obstructed primary action. In `学習進捗`, confirm the completion ring is readable on the left; the radar on the right uses readable `操縦体制` / `リスク` / `規則` / `システム` labels; the formal-unit legend is understandable; and the four tiles `学習済み` / `正答率` / `要復習` / `模試ベスト` are legible without ambiguous overlap or truncation. Before any completed mock, `模試ベスト` should read `未受験`.
+2. With only a small number of answers in the weakest unit, confirm Home uses `要確認の単元` rather than prematurely asserting `苦手な単元`, and that the explanatory copy is understandable. Interact with learning and confirm progress, radar values, and review-related values remain visually stable during normal scrolling.
+3. Start a practice session, select and commit an answer, and confirm correctness, selected answer, correct answer, explanation, source, and `次へ` remain readable and reachable through normal scrolling.
+4. Leave an in-progress practice session to Home. Confirm `続きから` names the relevant unit or mode and shows the persisted question position, then resume and confirm committed state is preserved.
+5. When the mock exam is locked, confirm the mock control is visibly actionable, tapping it opens the unlock guidance, the guidance is understandable, and dismissing it returns cleanly to Home. Also confirm the normal unlock/restore surface remains physically reachable. The existing displayed price format is intentionally not part of this UI change.
+6. When a timed mock is available in the test entitlement/build, confirm the progress/timer header is readable, leave once, verify the warning that time continues is understandable, then resume and confirm the timer remains usable.
+7. Complete a mock or use a prepared completed-mock state. Confirm result and expandable read-only review can be navigated without trapped scrolling, clipped text, or ambiguous recorded-answer/correct-answer distinction; after returning Home, confirm `模試ベスト` shows the completed result.
+8. If iOS Larger Text is already enabled on the test device, repeat the Home progress card and one question interaction there. Otherwise the automated 2.0x widget gate remains the accessibility evidence for this transition.
 
 ## Evidence contract
 
-Resume evidence must be persisted to GitHub, preferably as a comment on control issue #48,
-and include:
+Persist resume evidence to GitHub, preferably as a comment on control issue #48, containing:
 
 - device model and iOS version;
-- build source (TestFlight build or commit SHA);
-- PASS/FAIL for each numbered interaction check above;
-- any concrete defect with the affected screen/action and, when useful, a screenshot or
-  short screen recording reference;
-- confirmation that the tested commit contains the current UI/UX baseline, or a note that
-  the UI/UX gate was rerun after a newer `main` changed relevant code.
+- TestFlight build or tested commit SHA;
+- PASS/FAIL for every numbered check above;
+- concrete defect evidence for any failure, with the affected screen/action and screenshot or short recording when useful;
+- confirmation that the tested build contains the current UI baseline, or a note that the gate was reconciled after a newer relevant `main` change.
 
-A plain statement such as "looks fine" is insufficient because it cannot be reconciled to a
-build or acceptance step.
+A general statement such as `looks fine` is insufficient because it cannot be tied to a build or acceptance step.
 
 ## Decision
 
-No production defect is established by repository evidence. PR #257 is accepted as a
-repository-verified UI improvement, but the UI/UX workstream must remain
-`PHYSICAL_UX / HUMAN_BLOCKED` because the remaining acceptance criterion is physical-device
-observation.
+No production UI defect is established by repository evidence. PR #287 is accepted as repository-verified UI/UX improvement, but the workstream remains `PHYSICAL_UX / HUMAN_BLOCKED` because the remaining acceptance criterion is physical-device observation.
 
-After evidence is posted, the next autonomous transition remains
-`VERIFY_PHYSICAL_UX_EVIDENCE`; it must reconcile the tested commit against then-current
-`main` before advancing to `DONE`.
+After durable physical evidence is posted, the next autonomous transition is still `VERIFY_PHYSICAL_UX_EVIDENCE`: reconcile the tested commit against then-current `main`; if all checks pass and no newer relevant UI invalidates the evidence, advance to `DONE` through the normal PR/CI gate.
 
-This reconciliation changes only durable UI/UX evidence/control state. It does not mutate
-Question Bank authoring/acceptance/content, Permanent IDs, released/runtime bank data,
-purchase/session behavior, or `tooling/komadeki_autopilot/drone_state.json`.
+This reconciliation does not mutate Question Bank authoring/acceptance/content, Permanent IDs, released/runtime bank data, scoring, purchase/session semantics, the price-display specification, or `tooling/komadeki_autopilot/drone_state.json`.
