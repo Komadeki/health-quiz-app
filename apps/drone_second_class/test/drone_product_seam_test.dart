@@ -34,6 +34,10 @@ void main() {
     final guide = find.byKey(const Key('drone-study-guide'));
     await tester.scrollUntilVisible(guide, 160);
     expect(guide, findsOneWidget);
+    expect(
+      tester.getTopLeft(guide).dy,
+      greaterThan(tester.getTopLeft(find.byKey(const Key('progress-card'))).dy),
+    );
     expect(find.text('二等学科の学習ガイド'), findsOneWidget);
     expect(find.text('必要なときに開いて確認'), findsOneWidget);
     expect(find.byKey(const Key('drone-study-guide-source')), findsNothing);

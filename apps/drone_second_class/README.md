@@ -1,7 +1,7 @@
 # Drone second-class app
 
 This Flutter app ships the production `drone_second_class` experience for
-`二等無人航空機 学科対策`.
+`二等無人航空機`.
 
 It is the Qualification App Factory v1 Reference Product. Drone production is
 a thin generated-definition composition; shared learning, local history,

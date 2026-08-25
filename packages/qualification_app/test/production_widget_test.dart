@@ -101,6 +101,81 @@ void main() {
     );
   });
 
+  testWidgets('actionable and informational Home cards use distinct colors', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final controller = await createController(
+      entitlement: EntitlementSnapshot(
+        ownedProductIds: const {'fixture_full_unlock'},
+      ),
+    );
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      QualificationProductionApp(
+        definition: fixtureDefinition,
+        controller: controller,
+      ),
+    );
+
+    final recommendation = find.byKey(const Key('recommendation'));
+    await tester.scrollUntilVisible(recommendation, 160);
+    final history = find.byKey(const Key('session-history'));
+    await tester.scrollUntilVisible(history, 160);
+    final colors = Theme.of(tester.element(history)).colorScheme;
+
+    expect(tester.widget<Card>(recommendation).color, colors.primaryContainer);
+    expect(tester.widget<Card>(history).color, colors.surfaceContainerLow);
+    expect(
+      tester.widget<ListTile>(find.byKey(const Key('show-session-history')))
+          .onTap,
+      isNull,
+    );
+  });
+
+  testWidgets('weakness starts its unit and completed history opens details', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final controller = await createController();
+    addTearDown(controller.dispose);
+    await controller.startUnit('fixture_safety');
+    final card = controller.currentCard!;
+    final wrongAnswer = (card.answerIndex + 1) % card.choices.length;
+    await controller.commitAnswer(wrongAnswer);
+    await controller.advance();
+    controller.returnHome();
+    await tester.pumpWidget(
+      QualificationProductionApp(
+        definition: fixtureDefinition,
+        controller: controller,
+      ),
+    );
+
+    final history = find.byKey(const Key('show-session-history'));
+    await tester.scrollUntilVisible(history, 160);
+    await tester.tap(history);
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('session-history-sheet')), findsOneWidget);
+    expect(find.textContaining('1回の完了記録'), findsOneWidget);
+
+    await tester.binding.handlePopRoute();
+    await tester.pumpAndSettle();
+    final weakness = find.byKey(const Key('weakness-summary'));
+    await tester.scrollUntilVisible(weakness, 160);
+    await tester.tap(weakness);
+    await tester.pump();
+
+    expect(controller.view, QualificationProductionView.quiz);
+    expect(controller.activeSession?.unitId, 'fixture_safety');
+  });
+
   testWidgets('answer commit locks feedback and shows explanation', (
     tester,
   ) async {
