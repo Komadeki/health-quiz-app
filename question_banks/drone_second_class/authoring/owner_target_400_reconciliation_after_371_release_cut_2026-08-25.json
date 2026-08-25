@@ -3,8 +3,9 @@
   "decision_id": "DRONE-OWNER-TARGET-400-RECONCILIATION-AFTER-371-CUT-2026-08-25",
   "product": "drone_second_class",
   "decided_at": "2026-08-25",
-  "decision_authority": "OWNER_DIRECTION_CURRENT",
-  "status": "ACTIVE",
+  "decision_authority": "OWNER_DIRECTION_HISTORICAL",
+  "status": "SUPERSEDED",
+  "superseded_by": "DRONE-OWNER-DYNAMIC-RELEASE-INCLUSION-2026-08-26",
   "baseline_main": "c4074e01eb4d88e053c0817cd60158b65f3d7636",
   "supersedes": [
     "DRONE-OWNER-RELEASE-CUT-371-2026-08-25"
@@ -14,18 +15,17 @@
   ],
   "target": {
     "final_accepted_source_verified_canonical": 400,
-    "current_canonical": 371,
-    "current_released": 188,
-    "current_runtime": 188,
-    "remaining_to_400": 29,
-    "status": "ACTIVE",
-    "release_activation": "EXPLICIT_GATE_REQUIRED_AFTER_400_SOURCE_VERIFIED"
+    "current_canonical_at_decision": 371,
+    "current_released_at_decision": 188,
+    "current_runtime_at_decision": 188,
+    "remaining_to_400_at_decision": 29,
+    "status": "HISTORICAL_SUPERSEDED",
+    "release_activation": "NO_LONGER_REQUIRES_400_SOURCE_VERIFIED"
   },
   "reconciliation": {
-    "reason": "The current owner direction again requires expansion to 400 accepted/source-verified canonical questions. The prior 371 release cut was a time-to-release decision, not a demonstrated source-exhaustion finding: it explicitly closed new authoring for that release and skipped an additional residual scan. This newer owner direction supersedes that release cut and reopens Question Bank completion toward 400 without weakening any quality gate.",
-    "release_371_activation_gate": "PREPARED_BUT_NOT_EXECUTABLE_WHILE_THIS_400_TARGET_IS_ACTIVE",
-    "release_371_runtime_mutation_performed": false,
-    "next_search_scope": "Run a fresh post-371 residual gap audit across all second-class-applicable sections of the registered MLIT 第5版 source, then author only source-supported materially distinct propositions or controlled variants that survive full-canonical collision pre-screen."
+    "historical_reason": "This decision previously reopened Question Bank completion toward 400 after the 371 release cut.",
+    "supersession_reason": "The current owner direction removes hard-coded release counts. Release uses the full eligible source-verified canonical set present at activation freeze, while unfinished additional authoring must not block the current release.",
+    "release_371_runtime_mutation_performed_before_supersession": false
   },
   "authoritative_source": {
     "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
@@ -36,57 +36,6 @@
     "registered_source_url": "https://www.mlit.go.jp/common/002010810.pdf",
     "scope_rule": "Use second-class-applicable material only; exclude subsections explicitly marked 〔一等〕."
   },
-  "quality_floor": {
-    "source_first_required": true,
-    "second_class_scope_required": true,
-    "one_unambiguous_best_answer_required": true,
-    "semantic_collision_review_against_all_canonical_required": true,
-    "within_batch_collision_review_required": true,
-    "independent_ai_review_required": true,
-    "director_adjudication_required": true,
-    "content_bound_acceptance_packet_required": true,
-    "permanent_id_only_after_acceptance": true,
-    "deterministic_permanent_id_allocation_required": true,
-    "used_and_retired_id_protection_required": true,
-    "canonical_source_verification_required": true,
-    "rollback_and_partial_state_protection_required": true,
-    "released_runtime_mutation_only_after_activation_gate": true,
-    "human_review_identity_must_not_be_fabricated": true
-  },
-  "expansion_policy": {
-    "priority": [
-      "Tier A new explicit propositions",
-      "Tier B source-defined boundary or condition variants with materially different solving rules",
-      "Tier C materially distinct reasoning variants only after stronger Tier A/B opportunities are exhausted"
-    ],
-    "controlled_variant_minimum_distinct_axes": 2,
-    "controlled_variant_required_axis": [
-      "decision_boundary_or_exception",
-      "reasoning_path"
-    ],
-    "core_proposition_default_max": 3,
-    "core_proposition_absolute_max": 4,
-    "fourth_question_condition": "The authoritative source explicitly defines at least four materially different states, conditions, exceptions, thresholds, or response branches and Director adjudication records why the fourth requires a distinct decision boundary or reasoning path.",
-    "numeric_target_is_not_permission_for_filler": true,
-    "insufficient_source_support_action": "REJECT_OR_REWORK_AND_CONTINUE_SYSTEMATIC_SOURCE_COVERAGE_ELSEWHERE"
-  },
-  "hard_reject_rules": [
-    "wording-only or near-paraphrase duplicate",
-    "same answer-defining proposition with the same reasoning path and no material boundary change",
-    "first-class-only material",
-    "unsupported inference beyond explicit source support",
-    "ambiguous or multiple defensible correct answers",
-    "incidental trivia with low exam/practice value",
-    "implausible distractors that do not represent credible misconceptions",
-    "candidate created solely to satisfy the numeric target"
-  ],
-  "preserved_invariants": [
-    "Canonical/source-verified inventory remains 371 in this control-plane transition.",
-    "Released/runtime remain 188 and the prepared 371 activation is not executed.",
-    "Existing question identities, source verification, release history and free selection remain unchanged.",
-    "The immutable V0 historical validation snapshot remains unchanged.",
-    "No HUMAN review identity is created or implied.",
-    "Concurrent Otsu4, UI/UX and unrelated application work on current main is preserved."
-  ],
-  "next_atomic_objective": "AUDIT_POST_371_RESIDUAL_400_GAPS"
+  "quality_floor_preserved": true,
+  "historical_next_atomic_objective": "AUDIT_POST_371_RESIDUAL_400_GAPS"
 }
