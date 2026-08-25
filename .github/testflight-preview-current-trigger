@@ -1,0 +1,4 @@
+Drone TestFlight preview trigger
+Requested: 2026-08-25
+Purpose: physical-device UX verification of the current reconciled production UI while Question Bank completion continues independently.
+Source branch: chatgpt/drone-testflight-preview-current
