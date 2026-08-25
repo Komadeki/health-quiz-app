@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B1",
+  "adjudication_round": 2,
+  "adjudicated_at": "2026-08-25",
+  "director": {
+    "id": "otsu4-b1-director-adjudicator-r2",
+    "role": "AI_DIRECTOR"
+  },
+  "author": {
+    "id": "otsu4-b1-remediation-author-r2",
+    "role": "AI_AUTHOR"
+  },
+  "reviewer": {
+    "id": "otsu4-b1-independent-reviewer-r2",
+    "role": "AI_REVIEWER"
+  },
+  "identity_separation": "PASS",
+  "review_evidence": "independent_review_r2.json",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 5,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "O4-B1-LAW-C001",
+    "O4-B1-PHY-C001",
+    "O4-B1-PHY-C002",
+    "O4-B1-FIR-C001",
+    "O4-B1-FIR-C002"
+  ],
+  "director_rationale": "Adopt the independent round-2 review in full. The original rework condition was incomplete source reproducibility; remediation now binds each candidate to a pinpoint authoritative source and the independent reviewer reproduced the answer-defining proposition for all five. The candidates remain materially distinct from OTSU4-Q-000001 and from one another. No Human review is claimed. All five may proceed to content-bound AI-governed acceptance packets; Permanent ID allocation, canonical integration, source verification, and release remain separate gates.",
+  "invariants": {
+    "HUMAN_REVIEW_FABRICATED": false,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "RELEASED_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_REMEDIATED_5"
+}
