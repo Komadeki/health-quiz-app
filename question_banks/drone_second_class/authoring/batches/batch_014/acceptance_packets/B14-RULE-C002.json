@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B14-RULE-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "42281f0dc6adc2be1f18a855fe69c20694004e24332d412868e2395ff78dc35c",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b14-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b14-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b14-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(2)2)d「催し場所上空」"
+    },
+    "answer_defining_proposition": "予定経路下で想定外の催し又は第三者立入りのおそれが生じた場合は許可・承認の有無にかかわらず直ちに安全措置を講じる。",
+    "tested_misconception": "事前の許可・承認があれば飛行中に想定外の催しや第三者立入りが生じても予定経路を維持できる。",
+    "reasoning_path": "unexpected event/entry risk -> prior permission does not remove live safety duty -> stop reroute or land",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q105は自然発生的人混みと催しの分類を問うが本問は飛行中に想定外の催し・第三者立入りリスクが発生した後の行動義務を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source imposes a live safety duty, regardless of prior permission/approval, to stop flight and take route-change, landing or other necessary measures when an unexpected event and third-party entry risk appears below the planned route. Q105 only classifies spontaneous crowds versus events and does not test this in-flight response duty."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt all nine independent-review ACCEPT decisions because each candidate has direct current MLIT 教則第5版 support and survived the full-336 canonical collision gate. B14's pre-screen-before-authoring strategy materially improved yield relative to B13 and should be retained for later expansion batches. C001 is a source-explicit VLOS exception boundary distinct from Q048's sustained monitor/assistant BVLOS proposition. C002 and C003 add separate event-overflight decisions: live response to unexpected third-party/event conditions and the explicit 5 m/s cancellation threshold. C004 and C005 test different conjunctive indirect-participant requirements than Q002; together with Q002 they reach the default same-core density ceiling of three, so no additional variant on that core is approved without explicit override. C006 tests the Remote ID tether-exemption branch, distinct from Q030's flight-method tether exception and Q047's Remote ID special-area exemption. C007 tests the actual Remote ID broadcast payload and the exclusion of owner/user information, which is not answer-defining elsewhere in the canonical bank. C008 tests the priority of emergency-use airspace designation over ordinary airport/150m/DID permissions, distinct from Q041's sub-100g applicability rule. C009 tests straight-line measurement geometry for the 30m rule, distinct from Q104's property classification. No HUMAN review is claimed."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

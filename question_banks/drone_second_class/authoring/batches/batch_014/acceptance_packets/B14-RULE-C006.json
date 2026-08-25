@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B14-RULE-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "290038904fdd66113a9715e9114f68baeca6d4f8934d2769354e2046535db942",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b14-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b14-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b14-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(1)5)「リモートID機器の搭載」"
+    },
+    "answer_defining_proposition": "十分な強度を有する30m以内の紐等により係留して行う飛行はリモートID機器の搭載免除対象に含まれる。",
+    "tested_misconception": "係留飛行でもリモートID特定区域でなければRemote ID搭載免除にはならない。",
+    "reasoning_path": "registered aircraft -> check operation-specific Remote ID exemptions -> qualifying tether branch independently satisfies exemption",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。Q030は係留による特定飛行手続の例外を問う。Q047はリモートID特定区域による搭載免除を問う。本問は別のRemote ID免除branchである係留を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. The source independently lists flight tethered by a sufficiently strong cord or equivalent no longer than 30 m as a Remote ID equipment exemption. Q030 concerns the separate flight-method procedure exception for tethering and Q047 concerns the Remote ID special-area exemption, so the regulatory object and exemption branch differ."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt all nine independent-review ACCEPT decisions because each candidate has direct current MLIT 教則第5版 support and survived the full-336 canonical collision gate. B14's pre-screen-before-authoring strategy materially improved yield relative to B13 and should be retained for later expansion batches. C001 is a source-explicit VLOS exception boundary distinct from Q048's sustained monitor/assistant BVLOS proposition. C002 and C003 add separate event-overflight decisions: live response to unexpected third-party/event conditions and the explicit 5 m/s cancellation threshold. C004 and C005 test different conjunctive indirect-participant requirements than Q002; together with Q002 they reach the default same-core density ceiling of three, so no additional variant on that core is approved without explicit override. C006 tests the Remote ID tether-exemption branch, distinct from Q030's flight-method tether exception and Q047's Remote ID special-area exemption. C007 tests the actual Remote ID broadcast payload and the exclusion of owner/user information, which is not answer-defining elsewhere in the canonical bank. C008 tests the priority of emergency-use airspace designation over ordinary airport/150m/DID permissions, distinct from Q041's sub-100g applicability rule. C009 tests straight-line measurement geometry for the 30m rule, distinct from Q104's property classification. No HUMAN review is claimed."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
