@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B9",
+  "review_round": 1,
+  "reviewer": {
+    "id": "autopilot-b9-risk-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "chatgpt-b9-risk-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Use Chapter 6 propositions outside subsections explicitly marked 〔一等〕. The official MLIT page confirms 第5版 is the current exam basis from 2026-07-14."
+  },
+  "review_basis": [
+    "current merged B9 candidates.csv",
+    "current 255-question canonical inventory",
+    "B9 plan nearest-canonical and collision notes",
+    "current official MLIT 教則第5版 Chapter 6 source text",
+    "merged 400-question quality-preserving controlled-variant contract",
+    "answer correctness, answer uniqueness, distractor plausibility, commercial practice value, proposition/misconception/reasoning-path distinctness"
+  ],
+  "summary": {
+    "reviewed": 20,
+    "accept": 20,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {"candidate_id":"B9-RISK-C001","decision":"ACCEPT","rationale":"The source explicitly requires broad identification of concrete hazards before risk evaluation. Q001 defines hazard, Q006/Q007 quantify risk, and Q008 tests residual risk; none tests the pre-evaluation breadth step."},
+    {"candidate_id":"B9-RISK-C002","decision":"ACCEPT","rationale":"The altitude-versus-30m danger-radius rule is explicit and answer-unique. Q090 covers the general safety-margin concept while Q011/Q012 cover different third-party-overflight distance logic."},
+    {"candidate_id":"B9-RISK-C003","decision":"ACCEPT","rationale":"Geofencing as a proactive deviation-prevention control is an explicit Chapter 6 measure. Existing canonical use of geofence appears only as a distractor in a different emergency-landing proposition, not as the tested core proposition."},
+    {"candidate_id":"B9-RISK-C004","decision":"ACCEPT","rationale":"Onboard sensing to recognize and avoid obstacles is a distinct deviation-prevention control. Existing questions test route preplanning or sensor limitations, not this general collision-avoidance use."},
+    {"candidate_id":"B9-RISK-C005","decision":"ACCEPT","rationale":"Separating piloting from safety management by assigning a safety/operations manager is explicit Chapter 6 governance knowledge and differs from assistant duties or identifying the active pilot among multiple certificate holders."},
+    {"candidate_id":"B9-RISK-C006","decision":"ACCEPT","rationale":"Stakeholder/rightsholder notice or consent during route planning is distinct from checking other laws/facility rules and from integrating airspace constraints. The answer remains conditional rather than overstating universal consent."},
+    {"candidate_id":"B9-RISK-C007","decision":"ACCEPT","rationale":"Predefining emergency contacts is a preflight contingency-preparation proposition. Q052 concerns post-incident actions and Q190 concerns maintaining normal communication capability with relevant agencies."},
+    {"candidate_id":"B9-RISK-C008","decision":"ACCEPT","rationale":"The isobar-spacing-to-wind-strength relationship is explicit meteorological knowledge and absent from the current canonical inventory."},
+    {"candidate_id":"B9-RISK-C009","decision":"ACCEPT","rationale":"Northern-Hemisphere low-pressure circulation, convergence, ascent and generally poor weather form a distinct source-defined proposition not covered by the existing weather-source or cold-front items."},
+    {"candidate_id":"B9-RISK-C010","decision":"ACCEPT","rationale":"Warm-front layered cloud, increasing temperature/humidity and persistent weak rain is explicit and complements rather than duplicates Q094's cold-front hazard pattern."},
+    {"candidate_id":"B9-RISK-C011","decision":"ACCEPT","rationale":"Stationary-front persistence due to balanced air masses and resulting prolonged rain is a distinct source-defined weather proposition with no canonical collision."},
+    {"candidate_id":"B9-RISK-C012","decision":"ACCEPT","rationale":"The stratiform-versus-cumuliform precipitation-continuity distinction is explicit and not tested by the canonical fog, cold-front or thunderstorm questions."},
+    {"candidate_id":"B9-RISK-C013","decision":"ACCEPT","rationale":"Surface friction and roughness determining the vertical wind-speed gradient is materially different from canonical building-wind, average/gust wind and weather-information items."},
+    {"candidate_id":"B9-RISK-C014","decision":"ACCEPT","rationale":"Tier B PASS. Q094 identifies cold-front weather phenomena; this candidate requires temporal prediction of the gust-risk window from west-to-east weather progression. For contract evaluation, the authored temporal_prediction axis is normalized to scenario_state_or_flight_phase, with reasoning_path and tested_misconception providing additional distinctness."},
+    {"candidate_id":"B9-RISK-C015","decision":"ACCEPT","rationale":"Tier B PASS. Q127 tests daytime/nighttime sea-breeze direction; this candidate tests the transition boundary where the wind becomes nearly calm (morning/evening calm), changing both scenario state and answer-defining condition."},
+    {"candidate_id":"B9-RISK-C016","decision":"ACCEPT","rationale":"Fixed-wing landing while remaining above stall and using precise elevator control is explicit second-class Chapter 6 material. Existing fixed-wing questions test headwind takeoff/landing, holding, stall mechanics or control-surface mapping, not this landing-phase control requirement."},
+    {"candidate_id":"B9-RISK-C017","decision":"ACCEPT","rationale":"The helicopter forward-climb versus vertical-climb power relationship is a separate operating-efficiency proposition from ground effect, downwash and vortex-ring-state questions."},
+    {"candidate_id":"B9-RISK-C018","decision":"ACCEPT","rationale":"The source explicitly states that large aircraft require a broader emergency-landing area than small aircraft in the unmarked subsection (1). Q099 tests inertia/obstacle avoidance and Q044 tests generic contingency landing-site preparation."},
+    {"candidate_id":"B9-RISK-C019","decision":"ACCEPT","rationale":"The unmarked Chapter 6.4 night-flight subsection explicitly says BVLOS should not be conducted in principle. Existing night questions address visibility, training, aircraft lighting and ground illumination, not this baseline operational boundary."},
+    {"candidate_id":"B9-RISK-C020","decision":"ACCEPT","rationale":"The unmarked no-assistant-BVLOS subsection explicitly requires sufficient operation-specific flight history beyond the aircraft's initial-failure period. Existing BVLOS canonical questions test monitoring, aircraft visibility and harm-reduction functions, not maturity-by-flight-history."}
+  ],
+  "controlled_variant_gate": {
+    "reviewed_tier_b": [
+      "B9-RISK-C014",
+      "B9-RISK-C015"
+    ],
+    "accepted_tier_b": [
+      "B9-RISK-C014",
+      "B9-RISK-C015"
+    ],
+    "rejected_tier_b": [],
+    "normalized_distinctness": {
+      "B9-RISK-C014": [
+        "scenario_state_or_flight_phase",
+        "reasoning_path",
+        "tested_misconception"
+      ],
+      "B9-RISK-C015": [
+        "scenario_state_or_flight_phase",
+        "decision_boundary_or_exception"
+      ]
+    },
+    "density_policy_checked": true,
+    "minimum_distinct_axes_checked": true,
+    "wording_only_duplicates_allowed": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_20_ACCEPT"
+}
