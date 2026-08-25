@@ -1,0 +1,32 @@
+name: Scope Mock Unlock Price Test
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-home-ux-followup
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-home-ux-followup
+          fetch-depth: 0
+      - run: python3 .github/scripts/scope_mock_unlock_price_test.py
+      - run: git diff --check
+      - shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/scripts/scope_mock_unlock_price_test.py
+          rm .github/workflows/scope-mock-unlock-price-test.yml
+          git config user.name "SABRmetricsDev"
+          git config user.email "100670593+Komadeki@users.noreply.github.com"
+          git add packages/qualification_app/test/production_widget_test.dart \
+                  .github/scripts/scope_mock_unlock_price_test.py \
+                  .github/workflows/scope-mock-unlock-price-test.yml
+          git commit -m "Scope mock unlock price assertion"
+          git push origin HEAD:chatgpt/drone-home-ux-followup
