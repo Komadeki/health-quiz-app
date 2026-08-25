@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B1-LAW-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b5e4762988350c24e27c1083cc1a4fab281555aa77e86ec3aa641929e4c2bfb4",
+  "actors": {
+    "author": {
+      "id": "otsu4-b1-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "別表第三・第4類"
+    },
+    "answer_defining_proposition": "数量を指定数量で除して倍数を求める。",
+    "tested_misconception": "200Lは半分の指定数量である。",
+    "reasoning_path": "gasoline amount / 200L -> 1.0",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A: distinct single-substance boundary from C001"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov 危険物の規制に関する政令 Article 1-11 and 別表第三 support the 200 L specified quantity for gasoline; the candidate has a distinct one-quantity boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent source and collision review is adopted for this candidate."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
