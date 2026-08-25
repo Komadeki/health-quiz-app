@@ -16,12 +16,12 @@
     "SUBMIT",
     "DONE"
   ],
-  "observed_main": "c4074e01eb4d88e053c0817cd60158b65f3d7636",
-  "next_atomic_objective": "AUDIT_POST_371_RESIDUAL_400_GAPS",
+  "observed_main": "0be68171585712d69374b103253795a5975a5487",
+  "next_atomic_objective": "PLAN_B19_400_TARGET_COVERAGE_VARIANTS",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 133
+  "state_epoch": 134
 }

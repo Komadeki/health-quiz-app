@@ -1,0 +1,273 @@
+{
+  "schema_version": "1.0",
+  "audit_id": "DRONE-POST-371-RESIDUAL-400-GAP-AUDIT-2026-08-26",
+  "product": "drone_second_class",
+  "audited_at": "2026-08-26",
+  "baseline_main": "0be68171585712d69374b103253795a5975a5487",
+  "objective": "AUDIT_POST_371_RESIDUAL_400_GAPS",
+  "target_contract": "owner_target_400_reconciliation_after_371_release_cut_2026-08-25.json",
+  "inventory": {
+    "accepted_source_verified_canonical": 371,
+    "released": 188,
+    "runtime": 188,
+    "remaining_to_400": 29,
+    "next_unreserved_permanent_id": "DRONE-Q-000372"
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "issuer": "国土交通省",
+    "official_current_verified_at": "2026-08-26",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "scope_rule": "Use only second-class-applicable material. Exclude every subsection explicitly marked 〔一等〕."
+  },
+  "audit_method": {
+    "scan_scope": "Fresh residual scan across all second-class-applicable material in Chapters 2 through 6 of the registered MLIT 第5版 source after the canonical inventory reached 371.",
+    "collision_baseline": "All DRONE-Q-000001..DRONE-Q-000371 canonical questions, including unreleased accepted/source-verified drafts.",
+    "priority": [
+      "Tier A explicit propositions not yet represented",
+      "Tier B source-defined boundaries or branches requiring materially different judgment",
+      "Tier C reasoning variants only if stronger Tier A/B opportunities are exhausted"
+    ],
+    "candidate_count_policy": "Residual opportunities are evidence leads, not guaranteed accepts and not a numeric quota. Planning and authoring must fail closed on source ambiguity, semantic collision, low practice value, or scope uncertainty."
+  },
+  "audit_decision": {
+    "residual_expansion": "GO",
+    "next_batch": "B19",
+    "priority_domain": "drone_rules",
+    "priority_source_area": "Chapter 3 residual legal/airspace/logging propositions",
+    "candidate_ceiling": 15,
+    "candidate_ceiling_is_quota": false,
+    "reason": "A fresh scan found multiple explicit second-class-applicable Chapter 3 propositions that are materially distinguishable from the 371-question canonical bank. The strongest residual supply is concentrated in registration/Remote ID details, airport and model-aircraft airspace rules, event-response boundaries, accident/major-incident branches, and flight-log record content. Chapter 4 is comparatively saturated, Chapter 5 does not explicitly decompose the five CRM skill names into enough separate answer-defining propositions, and much of the remaining advanced Chapter 6 material is explicitly 〔一等〕."
+  },
+  "defensible_residual_opportunities": [
+    {
+      "gap_id": "POST371-RULE-G01",
+      "tier_preference": "A_NEW_PROPOSITION",
+      "family": "registration-mark-size-threshold",
+      "source_locator": "教則 第3章 3.1.2(1)4) 登録の手続き及び登録記号の表示",
+      "proposition": "登録記号の文字高は最大離陸重量25kg以上で25mm以上、25kg未満で3mm以上とする。",
+      "nearest_canonical": ["DRONE-Q-000108", "DRONE-Q-000220"],
+      "distinctness": "Q108は登録事項変更、Q220は登録後の安全性・表示維持義務を扱う。重量区分に応じた表示寸法の境界は別の明示要件である。",
+      "authoring_risk": "LOW"
+    },
+    {
+      "gap_id": "POST371-RULE-G02",
+      "tier_preference": "A_NEW_PROPOSITION",
+      "family": "remote-id-pre-registration-exemption",
+      "source_locator": "教則 第3章 3.1.2(1)5) リモートID機能の搭載の義務",
+      "proposition": "登録制度施行前の事前登録期間中に登録手続きを行った無人航空機は、リモートID搭載免除の対象となる。",
+      "nearest_canonical": ["DRONE-Q-000047"],
+      "distinctness": "Q047はリモートID特定区域による免除を扱う。事前登録という別の法定免除経路は異なる適用条件を持つ。",
+      "authoring_risk": "LOW"
+    },
+    {
+      "gap_id": "POST371-RULE-G03",
+      "tier_preference": "A_NEW_PROPOSITION",
+      "family": "remote-id-secret-duty-exemption",
+      "source_locator": "教則 第3章 3.1.2(1)5) リモートID機能の搭載の義務",
+      "proposition": "警察庁、都道府県警察又は海上保安庁が警備その他の特に秘匿を必要とする業務のために行う飛行は、リモートID搭載免除の対象となる。",
+      "nearest_canonical": ["DRONE-Q-000047"],
+      "distinctness": "特定区域免除とは主体・目的・成立条件が異なる法定免除経路である。",
+      "authoring_risk": "MEDIUM"
+    },
+    {
+      "gap_id": "POST371-RULE-G04",
+      "tier_preference": "A_NEW_PROPOSITION",
+      "family": "additional-airport-limitation-surfaces",
+      "source_locator": "教則 第3章 3.1.1 航空機の空域の概要 6)b. 空港の制限表面の概要",
+      "proposition": "東京・成田・中部・関西国際空港及び政令空港では、基本3表面に加えて円錐表面・延長進入表面・外側水平表面を指定できる。",
+      "nearest_canonical": ["DRONE-Q-000371"],
+      "distinctness": "Q371は全空港に設定される進入・水平・転移の基本3表面を扱う。本命題は対象空港を限定した追加3表面という別の分類境界である。",
+      "authoring_risk": "LOW"
+    },
+    {
+      "gap_id": "POST371-RULE-G05",
+      "tier_preference": "A_NEW_PROPOSITION",
+      "family": "model-aircraft-prohibited-airspace",
+      "source_locator": "教則 第3章 3.1.1 航空機の空域の概要 7) 模型航空機に対する規制 ①",
+      "proposition": "重量100g未満を含む模型航空機も、航空交通管制圏・航空交通情報圏・航空交通管制区内の特別管制空域等及び緊急用務空域では飛行禁止の対象となる。",
+      "nearest_canonical": ["DRONE-Q-000041", "DRONE-Q-000112", "DRONE-Q-000369", "DRONE-Q-000370"],
+      "distinctness": "Q041は緊急用務空域だけを扱い、Q112は小型無人機等飛行禁止法の重量境界、Q369/Q370は有人航空機の管制区域の意味を扱う。模型航空機に対する航空法上の禁止空域セットは独立した適用判断である。",
+      "authoring_risk": "MEDIUM"
+    },
+    {
+      "gap_id": "POST371-RULE-G06",
+      "tier_preference": "A_NEW_PROPOSITION",
+      "family": "model-aircraft-prior-notification",
+      "source_locator": "教則 第3章 3.1.1 航空機の空域の概要 7) 模型航空機に対する規制 ②",
+      "proposition": "禁止空域①以外でも、空港等周辺、航空路内の高度150m以上又は高度250m以上で模型航空機を飛行させる場合は国土交通省への事前届出が必要となる。",
+      "nearest_canonical": ["DRONE-Q-000041", "DRONE-Q-000112"],
+      "distinctness": "既存模型航空機問題は緊急用務空域と法体系上の重量差を扱う。本命題は飛行禁止ではなく事前届出となる別の手続境界を問う。",
+      "authoring_risk": "LOW"
+    },
+    {
+      "gap_id": "POST371-RULE-G07",
+      "tier_preference": "B_BOUNDARY_VARIANT",
+      "family": "unexpected-event-crowd-stop-action",
+      "source_locator": "教則 第3章 3.1.2(2)2)d. 催し場所上空",
+      "proposition": "許可・承認の有無にかかわらず、予定経路下に想定外の多数者集合が生じ第三者立入り等を確認した場合は、直ちに飛行を停止し、経路変更又は安全な場所への着陸等を行う。",
+      "parent_core_proposition": "event-crowd flight restriction",
+      "distinctness_axes": ["scenario_state_or_flight_phase", "response_sequence_or_priority"],
+      "nearest_canonical": ["DRONE-Q-000105"],
+      "distinctness": "Q105は催し該当性の分類を問う。本命題は飛行計画後・飛行時に想定外の集合を発見した後の即時対応を問う。",
+      "authoring_risk": "LOW"
+    },
+    {
+      "gap_id": "POST371-RULE-G08",
+      "tier_preference": "A_NEW_PROPOSITION",
+      "family": "event-flight-five-ms-boundary",
+      "source_locator": "教則 第3章 3.1.2(2)2)d. 催し場所上空",
+      "proposition": "多数の者の集合する催し場所上空の飛行では、風速5m/s以上の場合は飛行を中止し、接触時の危害を軽減する構造を用意する必要がある。",
+      "nearest_canonical": ["DRONE-Q-000105"],
+      "distinctness": "Q105は催しの該当性を扱うが、催し場所上空飛行に固有の気象中止境界と危害軽減要件は扱わない。",
+      "authoring_risk": "MEDIUM"
+    },
+    {
+      "gap_id": "POST371-RULE-G09",
+      "tier_preference": "B_BOUNDARY_VARIANT",
+      "family": "accident-third-party-property-any-damage",
+      "source_locator": "教則 第3章 3.1.2(3)1)f ア) 事故の場合の措置 a.",
+      "proposition": "第三者所有物の損壊は、損傷の規模や損害額を問わず無人航空機の事故の対象となる。",
+      "parent_core_proposition": "reportable UAS accident classification",
+      "distinctness_axes": ["affected-party_or_damage_class", "decision_boundary_or_exception"],
+      "nearest_canonical": ["DRONE-Q-000052", "DRONE-Q-000198", "DRONE-Q-000214"],
+      "distinctness": "Q052は負傷者を含む事故後措置、Q198は民事責任、Q214は事故後通報先を扱う。本命題は第三者物件損傷の規模・損害額に下限がないという事故分類境界を問う。",
+      "authoring_risk": "LOW"
+    },
+    {
+      "gap_id": "POST371-RULE-G10",
+      "tier_preference": "A_NEW_PROPOSITION",
+      "family": "aircraft-collision-accident-damage-condition",
+      "source_locator": "教則 第3章 3.1.2(3)1)f ア) 事故の場合の措置 b.",
+      "proposition": "航空機との衝突又は接触が事故となるのは、航空機又は無人航空機のいずれか又は両方に損傷が確認できる場合である。",
+      "nearest_canonical": ["DRONE-Q-000052", "DRONE-Q-000221"],
+      "distinctness": "一般的な事故後措置や重大インシデントの制御不能とは異なり、航空機接触時の損傷有無による事故分類境界を明示する。",
+      "authoring_risk": "LOW"
+    },
+    {
+      "gap_id": "POST371-RULE-G11",
+      "tier_preference": "B_BOUNDARY_VARIANT",
+      "family": "serious-incident-aircraft-near-collision",
+      "source_locator": "教則 第3章 3.1.2(3)1)f イ) 重大インシデントの報告",
+      "proposition": "飛行中航空機との衝突又は接触のおそれがあったと認めた事態は、事故に至らなくても重大インシデントとして報告対象となる。",
+      "parent_core_proposition": "reportable serious incident",
+      "distinctness_axes": ["event_branch", "decision_boundary_or_exception"],
+      "nearest_canonical": ["DRONE-Q-000051", "DRONE-Q-000221"],
+      "distinctness": "Q051は航空機を確認した際の回避、Q221は制御不能という別の重大インシデント枝を扱う。航空機とのnear-collision枝は別の報告判断である。",
+      "authoring_risk": "LOW"
+    },
+    {
+      "gap_id": "POST371-RULE-G12",
+      "tier_preference": "B_BOUNDARY_VARIANT",
+      "family": "serious-incident-inflight-fire",
+      "source_locator": "教則 第3章 3.1.2(3)1)f イ) 重大インシデントの報告",
+      "proposition": "無人航空機が飛行中に発火した事態は、事故に至らなくても重大インシデントとして報告対象となる。",
+      "parent_core_proposition": "reportable serious incident",
+      "distinctness_axes": ["event_branch", "decision_boundary_or_exception"],
+      "nearest_canonical": ["DRONE-Q-000072", "DRONE-Q-000167", "DRONE-Q-000221"],
+      "distinctness": "Q072/Q167はLiPoの発火リスク、Q221は制御不能の重大インシデント分類。本命題は実際の飛行中発火という報告分類を問う。",
+      "authoring_risk": "LOW"
+    },
+    {
+      "gap_id": "POST371-RULE-G13",
+      "tier_preference": "A_NEW_PROPOSITION",
+      "family": "daily-inspection-log-content",
+      "source_locator": "教則 第3章 3.1.2(3)2)b. 飛行日誌の携行及び記載 b. 日常点検記録",
+      "proposition": "日常点検記録には、実施年月日・場所、実施者の氏名、日常点検の結果等を記載する。",
+      "nearest_canonical": ["DRONE-Q-000042", "DRONE-Q-000225"],
+      "distinctness": "Q042は飛行日誌の3記録区分、Q225は飛行記録の具体的内容。本命題は日常点検記録の内容セットを扱う。",
+      "authoring_risk": "LOW"
+    },
+    {
+      "gap_id": "POST371-RULE-G14",
+      "tier_preference": "A_NEW_PROPOSITION",
+      "family": "maintenance-log-content",
+      "source_locator": "教則 第3章 3.1.2(3)2)b. 飛行日誌の携行及び記載 c. 点検整備記録",
+      "proposition": "点検整備記録には、実施年月日・場所、実施者の氏名、点検・修理・改造・整備の内容・理由等を記載する。",
+      "nearest_canonical": ["DRONE-Q-000042", "DRONE-Q-000225", "DRONE-Q-000227"],
+      "distinctness": "Q042は記録区分、Q225は飛行記録内容、Q227は機体認証機の整備義務。本命題は点検整備記録に残す内容そのものを扱う。",
+      "authoring_risk": "LOW"
+    },
+    {
+      "gap_id": "POST371-RULE-G15",
+      "tier_preference": "A_NEW_PROPOSITION",
+      "family": "non-specific-flight-plan-notification-recommendation",
+      "source_locator": "教則 第3章 3.1.2(3)2)a. 飛行計画の通報等",
+      "proposition": "特定飛行に該当しない無人航空機の飛行でも、飛行計画を通報することが望ましい。",
+      "nearest_canonical": ["DRONE-Q-000053", "DRONE-Q-000110", "DRONE-Q-000192", "DRONE-Q-000211"],
+      "distinctness": "Q053/Q110は特定飛行の通報・逸脱、Q192は飛行計画作成自体、Q211は非特定飛行の飛行日誌記載推奨を扱う。非特定飛行での飛行計画通報推奨は別の手続行動である。",
+      "authoring_risk": "MEDIUM"
+    }
+  ],
+  "chapter_scan_findings": [
+    {
+      "chapter": "2",
+      "status": "LOW_RESIDUAL_SUPPLY",
+      "decision": "B5/B6 and later coverage already represent most commercially useful explicit propositions; do not force additional Chapter 2 variants in B19."
+    },
+    {
+      "chapter": "3",
+      "status": "DEFENSIBLE_RESIDUAL_SUPPLY",
+      "decision": "Use as B19 priority. Plan only the strongest subset of the 15 evidence leads after exact collision recheck against all 371 canonical questions."
+    },
+    {
+      "chapter": "4",
+      "status": "HIGH_SATURATION",
+      "decision": "Recent Systems batches already cover most explicit second-class propositions. Do not reopen first-class-only transmitter-interference or flight-data-analysis material."
+    },
+    {
+      "chapter": "5",
+      "status": "LIMITED_RESIDUAL_SUPPLY",
+      "decision": "The source names five CRM skills but does not, in the scanned general section, provide enough separate answer-defining definitions to justify five new items. Do not manufacture definitions from the list."
+    },
+    {
+      "chapter": "6",
+      "status": "HIGH_SATURATION_WITH_FIRST_CLASS_RESIDUAL",
+      "decision": "Existing Risk batches are broad; advanced residual risk-assessment/mitigation material explicitly marked 〔一等〕 remains excluded. Reopen only if a later residual scan finds a new unmarked proposition with clear commercial value."
+    }
+  ],
+  "explicitly_excluded_or_deferred": [
+    "Every proposition in a subsection explicitly marked 〔一等〕.",
+    "Wording-only restatements of the 371 canonical questions.",
+    "Separate questions for each of the five CRM skill names without explicit source-defined answer rules.",
+    "Low-value penalty-amount memorization merely to increase count.",
+    "Remote-ID transmission minutiae as a standalone question unless later review establishes distinct exam/practice value beyond existing Remote-ID coverage.",
+    "Any residual lead that fails exact current-source locator verification or full-bank semantic collision review at B19 planning/authoring."
+  ],
+  "next_batch_contract": {
+    "batch_id": "B19",
+    "domain": "drone_rules",
+    "candidate_ceiling": 15,
+    "candidate_ceiling_is_quota": false,
+    "permanent_ids_at_planning_or_authoring": "PROHIBITED",
+    "required_before_acceptance": [
+      "exact current official source locator",
+      "second-class applicability",
+      "one unambiguous answer-defining proposition",
+      "tested misconception and plausible distractors",
+      "semantic collision review against all 371 canonical questions and within B19",
+      "controlled-variant distinctness axes where applicable",
+      "independent AI review",
+      "Director adjudication"
+    ],
+    "acceptance_and_integration": "Content-bound acceptance packet first; deterministic Permanent-ID allocation only after acceptance; canonical source verification after integration; explicit release activation remains separate."
+  },
+  "invariants": {
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "USED_OR_RETIRED_IDS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false,
+    "CONCURRENT_UNRELATED_WORK_OVERWRITTEN": false
+  },
+  "next_atomic_objective": "PLAN_B19_400_TARGET_COVERAGE_VARIANTS"
+}
