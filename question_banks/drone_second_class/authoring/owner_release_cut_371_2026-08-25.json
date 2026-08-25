@@ -3,8 +3,9 @@
   "decision_id": "DRONE-OWNER-RELEASE-CUT-371-2026-08-25",
   "product": "drone_second_class",
   "decided_at": "2026-08-25",
-  "decision_authority": "OWNER_DIRECTION_CURRENT",
-  "status": "ACTIVE",
+  "decision_authority": "OWNER_DIRECTION_HISTORICAL",
+  "status": "SUPERSEDED",
+  "superseded_by": "DRONE-OWNER-TARGET-400-RECONCILIATION-AFTER-371-CUT-2026-08-25",
   "supersedes": [
     "DRONE-OWNER-TARGET-400-RECONCILIATION-2026-08-25",
     "DRONE-RESIDUAL-PROPOSITION-COMPLETION-2026-08-25",
@@ -24,7 +25,7 @@
   "authoritative_source": {
     "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
     "edition": "第5版",
-    "scope_rule": "B18 completion remains second-class-applicable and source-first; no new authoring is required before this release."
+    "scope_rule": "B18 completion remains second-class-applicable and source-first; no new authoring was required before the historical 371 release cut."
   },
   "required_closeout_path": [
     "materialize B18 acceptance packets",
@@ -44,5 +45,11 @@
     "no HUMAN review identity fabrication"
   ],
   "post_release_policy": "Any later question-bank expansion is a separate post-release revision and must not block this release.",
-  "current_atomic_objective": "MATERIALIZE_B18_ACCEPTANCE_PACKETS_6"
+  "historical_outcome": {
+    "b18_completed_to_source_verified_canonical": 371,
+    "release_activation_prepared": true,
+    "release_activation_executed_before_supersession": false,
+    "supersession_reason": "A newer owner direction again requires 400 accepted/source-verified canonical questions before release progression."
+  },
+  "current_atomic_objective": "HISTORICAL_SUPERSEDED"
 }
