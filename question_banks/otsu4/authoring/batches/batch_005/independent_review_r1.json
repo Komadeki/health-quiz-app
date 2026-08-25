@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B5",
+  "wave_id": "W1",
+  "review_round": 1,
+  "reviewed_at": "2026-08-25",
+  "reviewer": {"id":"otsu4-w1-b5-independent-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked": "otsu4-b5-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "Otsu4 Question Bank Contract v0",
+    "registered MEXT Physics Basics/Chemistry Basics pinpoint source bindings",
+    "all 51 current canonical Otsu4 questions",
+    "all 64 Wave 1 candidates for same-wave semantic collision and educational-value review"
+  ],
+  "summary": {"reviewed":20,"accept":19,"reject":1,"rework":0,"hold":0},
+  "decisions": [
+    {"candidate_id":"O4-B5-PHY-C001","decision":"ACCEPT","rationale":"Temperature-to-thermal-motion relation is a foundational heat concept with no canonical collision."},
+    {"candidate_id":"O4-B5-PHY-C002","decision":"REJECT","reason_code":"SEMANTIC_WORDING_ONLY_DUPLICATE","rationale":"This tests the same temperature/thermal-motion proposition as C001 by reversing the direction to cooling. It does not add a distinct reasoning boundary and is prohibited filler under the 600Q contract."},
+    {"candidate_id":"O4-B5-PHY-C003","decision":"ACCEPT","rationale":"Mass conservation across a closed-system state change is distinct from the temperature-motion items."},
+    {"candidate_id":"O4-B5-PHY-C004","decision":"ACCEPT","rationale":"Melting point as the solid/liquid boundary is a distinct state-change definition."},
+    {"candidate_id":"O4-B5-PHY-C005","decision":"ACCEPT","rationale":"Boiling point as the liquid/gas boundary is a separate concept from melting point and directly relevant to volatile liquids."},
+    {"candidate_id":"O4-B5-PHY-C006","decision":"ACCEPT","rationale":"Particle thermal motion versus interparticle force provides an explanatory model rather than another state-name recall."},
+    {"candidate_id":"O4-B5-PHY-C007","decision":"ACCEPT","rationale":"Physical-change classification distinguishes state change from chemical change and has independent educational value."},
+    {"candidate_id":"O4-B5-PHY-C008","decision":"ACCEPT","rationale":"Chemical decomposition terminology is distinct from physical-change and state-boundary items."},
+    {"candidate_id":"O4-B5-PHY-C009","decision":"ACCEPT","rationale":"Internal-energy terminology supports later work/heat reasoning and is not represented in the canonical baseline."},
+    {"candidate_id":"O4-B5-PHY-C010","decision":"ACCEPT","rationale":"Kelvin as the SI unit of absolute temperature is a precise standalone foundation item."},
+    {"candidate_id":"O4-B5-PHY-C011","decision":"ACCEPT","rationale":"Natural heat-flow direction is distinct from the canonical combustion cooling question, which tests removal of the heat leg of combustion."},
+    {"candidate_id":"O4-B5-PHY-C012","decision":"ACCEPT","rationale":"Heat lost equals heat gained in an isolated pair is a separate conservation relation from heat-flow direction."},
+    {"candidate_id":"O4-B5-PHY-C013","decision":"ACCEPT","rationale":"Heat-capacity comparison tests whole-object thermal response and is materially distinct from specific heat."},
+    {"candidate_id":"O4-B5-PHY-C014","decision":"ACCEPT","rationale":"Specific-heat comparison explicitly uses the mass-normalized Q=mcΔT relation, creating a distinct decision boundary from C013."},
+    {"candidate_id":"O4-B5-PHY-C015","decision":"ACCEPT","rationale":"Latent heat is an independent state-change heat concept absent from the canonical baseline."},
+    {"candidate_id":"O4-B5-PHY-C016","decision":"ACCEPT","rationale":"Thermal expansion tests dimensional response to heating rather than temperature or heat-transfer terminology."},
+    {"candidate_id":"O4-B5-PHY-C017","decision":"ACCEPT","rationale":"Adiabatic rapid-compression heating is a useful hazardous-material ignition mechanism and a distinct work-to-internal-energy application."},
+    {"candidate_id":"O4-B5-PHY-C018","decision":"ACCEPT","rationale":"Mechanical-work dissipation into heat is a separate energy-conversion application from gas compression."},
+    {"candidate_id":"O4-B5-PHY-C019","decision":"ACCEPT","rationale":"Density as a characteristic property supports substance identification and complements, rather than duplicates, substance-specific B4 density values."},
+    {"candidate_id":"O4-B5-PHY-C020","decision":"ACCEPT","rationale":"Atomic structure is foundational chemistry knowledge with no canonical or Wave 1 semantic collision."}
+  ],
+  "collision_review": {"released_bank_checked":true,"canonical_drafts_checked":true,"wave_checked":true,"result":"PASS_WITH_1_REJECTION","note":"C002 is rejected as a semantic mirror of C001. The remaining 19 candidates add distinct definitions, conservation relations, thermal-property comparisons, energy-conversion applications or matter-structure knowledge."},
+  "invariants": {"HUMAN_REVIEW_ROWS_CREATED":0,"CANDIDATE_STATES_CHANGED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"DIRECTOR_ADJUDICATION_PERFORMED":false},
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}
