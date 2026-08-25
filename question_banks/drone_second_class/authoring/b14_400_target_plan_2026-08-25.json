@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B14-400-TARGET-RULES-PRESCREEN-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B14_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "6bc32bab0b9e25a92be28627e367aee56aa54240",
+  "target_contract": "target_400_quality_relaxation_contract_2026-08-25.json",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 336,
+    "accepted_source_verified_canonical": 336,
+    "remaining_to_400": 64,
+    "next_unreserved_permanent_id": "DRONE-Q-000337",
+    "derived_domain_counts": {
+      "drone_rules": 84,
+      "drone_systems": 81,
+      "drone_operations": 87,
+      "drone_risk_management": 84
+    }
+  },
+  "strategy_change": {
+    "reason": "B13 Systems authored 20 source-first candidates but independent review accepted only 4 and rejected 16, predominantly because the planning pass had underestimated collisions with the full canonical bank.",
+    "new_rule": "B14 performs explicit current-canonical pre-screening before authoring. Only propositions or controlled boundaries with named canonical neighbors and a documented non-collision reason may enter the authored set.",
+    "batch_size_decision": "Use a 9-candidate ceiling rather than the normal 20-30 guidance. The ceiling is not a quota. This intentionally spends fewer authoring/review resources after the low-yield B13 batch and prefers a smaller set of high-confidence uncovered Rules propositions.",
+    "why_rules": "Systems is numerically thinnest but showed strong canonical saturation in B13. Rules remains below the eventual 400-bank balancing horizon and has source-defined Chapter 3 decision boundaries that survived direct pre-screen against all 336 canonical questions."
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "official_current_check": "2026-08-25",
+    "scope_rule": "Use only second-class-applicable Chapter 3 propositions. Exclude every subsection explicitly marked 〔一等〕."
+  },
+  "pre_screen": {
+    "canonical_baseline": 336,
+    "canonical_file": "questions.csv",
+    "reviewed_neighbor_policy": "Every candidate below names the closest current canonical question(s). A wording-only duplicate, same-proposition/same-reasoning duplicate, first-class-only proposition, unsupported inference or low-value quota filler must be dropped before authoring.",
+    "core_density_rule": "For the indirect-participant core, Q002 plus C004 and C005 would total three accepted questions if both variants pass. No further B14 variant on that core is allowed.",
+    "b13_rejected_topics_not_reused": true
+  },
+  "batch": {
+    "batch_id": "B14",
+    "domain": "drone_rules",
+    "candidate_ceiling": 9,
+    "candidate_ceiling_is_quota": false,
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 5,
+      "B_BOUNDARY_VARIANT": 4,
+      "C_REASONING_VARIANT": 0
+    }
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B14-RULE-C001",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "visual-line-of-sight monitoring requires the pilot's own eyes rather than continuous FPV/assistant monitoring",
+      "distinctness_axes": ["decision_boundary_or_exception", "scenario_state_or_flight_phase", "reasoning_path"],
+      "family": "temporary monitor check remains VLOS",
+      "source_locator": "教則 第3章 3.1.2(2)2)b『目視による常時監視』",
+      "proposition": "安全な飛行のためバッテリー残量等を確認する目的で一時的に機体から目を離してモニターを確認する行為は、目視飛行の範囲内である。",
+      "tested_misconception": "飛行中に一瞬でもモニターを見ると必ず目視外飛行になる。",
+      "reasoning_path": "pilot otherwise maintains direct visual monitoring -> brief safety-information check -> classify temporary interruption as remaining within VLOS",
+      "nearest_canonical": ["DRONE-Q-000048"],
+      "pre_screen_result": "PASS: Q048 tests continuous monitor/assistant observation as BVLOS; it does not test the explicit temporary safety-check exception."
+    },
+    {
+      "candidate_id": "B14-RULE-C002",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "unexpected event under flight route response",
+      "source_locator": "教則 第3章 3.1.2(2)2)d『催し場所上空』",
+      "proposition": "許可・承認の有無にかかわらず、予定経路下で想定外の多数者の催し又は第三者の立入りのおそれを確認した場合は、直ちに飛行停止、経路変更又は安全な場所への着陸等の必要措置を講じる。",
+      "tested_misconception": "事前に許可・承認を得ていれば、飛行中に想定外の催しや第三者立入りが生じても予定経路を維持できる。",
+      "reasoning_path": "unexpected third-party/event condition emerges -> prior permission does not remove live safety duty -> stop/reroute/land",
+      "nearest_canonical": ["DRONE-Q-000105"],
+      "pre_screen_result": "PASS: Q105 classifies spontaneous crowds versus an event; it does not test the in-flight response after an unexpected event/entry risk appears."
+    },
+    {
+      "candidate_id": "B14-RULE-C003",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "event-overflight wind cancellation threshold",
+      "source_locator": "教則 第3章 3.1.2(2)2)d『催し場所上空』",
+      "proposition": "多数の者が集合する催し場所上空の飛行では、風速5m/s以上の場合は飛行を中止する。",
+      "tested_misconception": "催し場所上空の飛行は許可・承認済みであれば風速5m/s以上でも継続できる。",
+      "reasoning_path": "event-overflight operation -> compare wind speed with explicit 5m/s boundary -> cancel at or above threshold",
+      "nearest_canonical": ["DRONE-Q-000105"],
+      "pre_screen_result": "PASS: current canonical covers event classification but not this source-defined action-changing wind threshold."
+    },
+    {
+      "candidate_id": "B14-RULE-C004",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "a person is an indirect participant only when all source-defined participation conditions are satisfied",
+      "distinctness_axes": ["decision_boundary_or_exception", "tested_misconception", "reasoning_path"],
+      "family": "indirect participant missing emergency instruction",
+      "source_locator": "教則 第3章 3.1.2(2)4)a(1)『第三者』",
+      "proposition": "飛行目的に関与し本人が参加を決定していても、計画外挙動時に従うべき明確な指示と安全上の注意を受けていない者は間接関与者の要件を満たさない。",
+      "tested_misconception": "飛行目的に関与し任意参加であれば、安全指示を受けていなくても第三者ではなくなる。",
+      "reasoning_path": "shared purpose + voluntary participation -> check emergency-instruction condition -> missing condition keeps third-party status",
+      "nearest_canonical": ["DRONE-Q-000002"],
+      "pre_screen_result": "PASS as controlled boundary: Q002 tests failure of the self-determination condition, while C004 tests a different conjunctive condition and reasoning step."
+    },
+    {
+      "candidate_id": "B14-RULE-C005",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "a person is an indirect participant only when all source-defined participation conditions are satisfied",
+      "distinctness_axes": ["decision_boundary_or_exception", "tested_misconception", "reasoning_path"],
+      "family": "indirect participant instruction comprehension confirmation",
+      "source_locator": "教則 第3章 3.1.2(2)4)a(1)『第三者』",
+      "proposition": "操縦者は、間接関与者に与えた計画外挙動時の指示と安全上の注意が適切に理解されていることを確認する必要がある。理解確認ができないまま関与者扱いにしてはならない。",
+      "tested_misconception": "指示を一方的に伝達しさえすれば、相手の理解を確認しなくても間接関与者の要件を満たす。",
+      "reasoning_path": "instructions delivered -> verify actual understanding -> failure to confirm understanding blocks indirect-participant classification",
+      "nearest_canonical": ["DRONE-Q-000002"],
+      "pre_screen_result": "PASS as the third and final question allowed on this core for B14; it tests understanding verification rather than Q002's self-determination boundary or C004's instruction-receipt boundary."
+    },
+    {
+      "candidate_id": "B14-RULE-C006",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "specific source-defined operations are exempt from Remote ID equipment installation",
+      "distinctness_axes": ["decision_boundary_or_exception", "aircraft_or_operation_applicability", "reasoning_path"],
+      "family": "Remote ID tether exemption",
+      "source_locator": "教則 第3章 3.1.2(1)5)『リモートID機器の搭載』",
+      "proposition": "十分な強度を有する30m以内の紐等により係留して行う飛行は、リモートID機器の搭載免除対象に含まれる。",
+      "tested_misconception": "30m以内の係留飛行でも、リモートID特定区域でなければRemote ID搭載免除にはならない。",
+      "reasoning_path": "registered aircraft -> check operation-specific Remote ID exemption -> qualifying tether branch independently satisfies exemption",
+      "nearest_canonical": ["DRONE-Q-000030", "DRONE-Q-000047"],
+      "pre_screen_result": "PASS: Q030 tests the separate flight-method procedure exception for tethering; Q047 tests Remote ID exemption through a notified special area. C006 changes the regulatory object and exemption branch."
+    },
+    {
+      "candidate_id": "B14-RULE-C007",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "Remote ID transmitted information",
+      "source_locator": "教則 第3章 3.1.2(1)6)『リモートID機器の概要及び発信情報』",
+      "proposition": "Remote IDは製造番号・登録記号などの静的情報と位置・速度・高度・時刻などの動的情報を1秒に1回以上発信し、所有者・使用者の情報は発信情報に含めない。",
+      "tested_misconception": "Remote IDは所有者氏名等の個人情報を常時発信することを主目的とする。",
+      "reasoning_path": "identify Remote ID payload categories -> separate aircraft/flight state from owner identity -> determine what is and is not broadcast",
+      "nearest_canonical": ["DRONE-Q-000047"],
+      "pre_screen_result": "PASS: Q047 tests installation exemption conditions, not the content/frequency of Remote ID broadcasts."
+    },
+    {
+      "candidate_id": "B14-RULE-C008",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "emergency-use airspace permission override",
+      "source_locator": "教則 第3章 3.1.2(2)1)b『緊急用務空域』",
+      "proposition": "空港等周辺、地表・水面から150m以上又はDID上空の飛行許可を得ていても、指定された緊急用務空域を飛行することはできず、飛行開始前に該当有無を確認する義務がある。",
+      "tested_misconception": "通常の規制空域について既に許可を得ていれば、同じ区域が後から緊急用務空域に指定されても飛行できる。",
+      "reasoning_path": "existing ordinary-airspace permission -> check current emergency designation -> emergency-use prohibition supersedes ordinary permission",
+      "nearest_canonical": ["DRONE-Q-000041"],
+      "pre_screen_result": "PASS: Q041 tests that sub-100g model aircraft are also prohibited in emergency-use airspace; it does not test the separate ordinary-permission override."
+    },
+    {
+      "candidate_id": "B14-RULE-C009",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "30m distance straight-line measurement",
+      "source_locator": "教則 第3章 3.1.2(2)2)c『人又は物件との距離』",
+      "proposition": "人又は物件との30m距離は、水平距離だけではなく無人航空機と人又は物件との間の直線距離で判定する。",
+      "tested_misconception": "30m規制は常に地図上の水平距離だけで判定する。",
+      "reasoning_path": "identify relevant person/property -> measure actual straight-line separation -> compare with 30m boundary",
+      "nearest_canonical": ["DRONE-Q-000104"],
+      "pre_screen_result": "PASS: Q104 tests whether natural objects versus a utility pole count as property; it does not test the measurement geometry of the 30m rule."
+    }
+  ],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_PLANNING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_PLANNING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_PLANNING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "AUTHOR_AND_PERSIST_B14_400_TARGET_CANDIDATES"
+}
