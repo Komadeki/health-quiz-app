@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B15-RISK-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d8af89f390642b5879f53ea83fa7cced1a55718ded1f49789a321ab836d62efd",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b15-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b15-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b15-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「気象の影響」(1)2)f.「山谷風」"
+    },
+    "answer_defining_proposition": "山岳地帯では昼間は谷風、夜間は山風が吹く。",
+    "tested_misconception": "山谷風は昼夜で方向が変わらない。",
+    "reasoning_path": "mountain terrain + time of day -> heating/cooling -> valley-up day or mountain-down night wind",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q270は海陸風と朝凪・夕凪を問う。本問は山岳地形に固有の山谷風の昼夜反転を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Mountain/valley wind has a terrain-specific day/night reversal mechanism distinct from Q270's sea/land-breeze mechanism and calm transition periods."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 9 / REJECT 0. All nine answer-defining propositions are directly supported by second-class-applicable Chapter 6 source text and remain distinct from their named canonical neighbors. The two Tier B items preserve independent decision boundaries rather than wording-only variants. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B15-RISK-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "95d8041b57c51d9a996177b12925aab881e4fee50c7b1dc8bd72ec76772547f0",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b15-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b15-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b15-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「飛行機」(1)「飛行機の運航の特徴」"
+    },
+    "answer_defining_proposition": "飛行機の離着陸は向かい風方向から行い、追い風での離着陸は失速のおそれがあるため行わない。",
+    "tested_misconception": "追い風は固定翼機の離着陸に有利である。",
+    "reasoning_path": "identify wind relative to runway -> select headwind -> reject tailwind due stall risk",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q097は離着陸エリアと旋回半径、Q271は着陸速度とエレベーター操作を問う。本問は風向に対する離着陸規則を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Fixed-wing takeoff/landing into headwind and prohibition of tailwind operation because of stall risk is source-defined and distinct from existing runway-size/turn-radius and landing-speed/elevator questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 9 / REJECT 0. All nine answer-defining propositions are directly supported by second-class-applicable Chapter 6 source text and remain distinct from their named canonical neighbors. The two Tier B items preserve independent decision boundaries rather than wording-only variants. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

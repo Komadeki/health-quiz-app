@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B15-RISK-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "71614dce11737ffd59c2d1c73c4484cc73239b7cb602e8059cdbdb8acac5352b",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b15-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b15-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b15-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.1.1(1)3)「安全を確保するための運航体制」"
+    },
+    "answer_defining_proposition": "操縦と安全管理の役割を分割するため、操縦者に加えて安全管理者（運航管理者）を配置することが望ましい。",
+    "tested_misconception": "安全管理は常に操縦者本人だけが兼務することが望ましい。",
+    "reasoning_path": "simultaneous piloting and safety-management demands -> separate roles -> add safety manager",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q088はCRM資源活用、Q089は補助者の役割・連絡方法を問う。本問は操縦者と安全管理者の役割分割という別の運航体制原則を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Explicit Chapter 6 operational-organization proposition not answer-defining elsewhere. Existing CRM and assistant questions do not test the recommendation to separate piloting and safety management by assigning a safety/operations manager."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 9 / REJECT 0. All nine answer-defining propositions are directly supported by second-class-applicable Chapter 6 source text and remain distinct from their named canonical neighbors. The two Tier B items preserve independent decision boundaries rather than wording-only variants. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

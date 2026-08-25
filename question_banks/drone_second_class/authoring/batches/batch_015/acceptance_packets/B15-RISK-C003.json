@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B15-RISK-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c1e9a86bdc9a8b27a81e0ffb15901d15fddf8d37bf4191de96d59ba481b8842a",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b15-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b15-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b15-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「気象の影響」(1)2)c.「風速」"
+    },
+    "answer_defining_proposition": "単に風速と言う場合は、観測時の前10分間における平均風速を指す。",
+    "tested_misconception": "気象情報の「風速」は最大瞬間風速を意味する。",
+    "reasoning_path": "read weather term -> distinguish ten-minute mean from maximum instantaneous wind -> interpret operational data",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q268は高度による風速変化、Q269は突風発生時間帯の予測を問う。本問は観測値「風速」の定義を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Explicit meteorological interpretation rule: unqualified wind speed means the preceding 10-minute mean and differs from maximum instantaneous wind. Existing wind questions address vertical profile and gust timing, not this measurement definition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 9 / REJECT 0. All nine answer-defining propositions are directly supported by second-class-applicable Chapter 6 source text and remain distinct from their named canonical neighbors. The two Tier B items preserve independent decision boundaries rather than wording-only variants. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B15-RISK-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "27a466484ab1d4726acef05d53bf46a6ffdc4fc061646fa5394d5c5717b2f0e8",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b15-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b15-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b15-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.1.1(1)1)「安全マージン」"
+    },
+    "answer_defining_proposition": "飛行領域に加える危険半径は、飛行高度と同じ数値又は30mのいずれか長い方とする。",
+    "tested_misconception": "安全マージンの危険半径は飛行高度にかかわらず常に30mである。",
+    "reasoning_path": "flight height 50m -> compare with 30m -> use larger value as hazard radius",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。Q090は飛行領域の外側にも安全マージンを加える原則を問う。本問は教則が明示するmax(高度,30m)の数値境界を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Q090 establishes that a safety margin extends beyond the flight area, while C001 tests the distinct source-defined quantitative boundary: use the longer of height-equivalent distance or 30m. At 50m the required reasoning changes the answer to 50m."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 9 / REJECT 0. All nine answer-defining propositions are directly supported by second-class-applicable Chapter 6 source text and remain distinct from their named canonical neighbors. The two Tier B items preserve independent decision boundaries rather than wording-only variants. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
