@@ -2415,6 +2415,69 @@
       "source_version": "5",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000346",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000347",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000348",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000349",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000350",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000351",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000352",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000353",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000354",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
     }
   ]
 }
