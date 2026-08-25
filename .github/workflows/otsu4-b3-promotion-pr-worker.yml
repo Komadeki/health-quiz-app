@@ -1,0 +1,45 @@
+name: Otsu4 B3 Promotion PR Worker
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ['question_banks/otsu4/authoring/batches/batch_003/promotion_request.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: otsu4-b3-promotion-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    if: github.head_ref == 'chatgpt/otsu4-b3-promotion'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout promotion branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/otsu4-b3-promotion
+          fetch-depth: 0
+      - name: Reconcile to current main
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Promote accepted Otsu4 Batch 3 candidates
+        run: python3 tooling/komadeki_autopilot/otsu4_b3_promotion_transition.py
+      - name: Validate promotion and repository gates
+        run: |
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/otsu4_state.json
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/otsu4 --check-generated
+      - name: Commit durable Otsu4 Batch 3 promotion transition
+        run: |
+          rm -f question_banks/otsu4/authoring/batches/batch_003/promotion_request.json
+          git add -A
+          git diff --cached --check
+          git commit -m 'Promote Otsu4 Batch 3 accepted candidates'
+          git push --force-with-lease origin HEAD:chatgpt/otsu4-b3-promotion
