@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "audit_id": "DRONE-B10-RULES-PRE-AUTHORING-COLLISION-AUDIT-2026-08-25",
+  "baseline_canonical_count": 275,
+  "result": "REPLAN_REQUIRED",
+  "finding": "All 20 B10 planning families already have one or more canonical questions testing the same answer-defining rule. The plan recorded broad chapter coverage families rather than proven unrepresented propositions.",
+  "representative_collisions": {
+    "definition_and_registration": ["DRONE-Q-000046", "DRONE-Q-000101", "DRONE-Q-000102", "DRONE-Q-000108"],
+    "regulated_airspace_and_methods": ["DRONE-Q-000026", "DRONE-Q-000027", "DRONE-Q-000041", "DRONE-Q-000048", "DRONE-Q-000103", "DRONE-Q-000104", "DRONE-Q-000105", "DRONE-Q-000106", "DRONE-Q-000107"],
+    "exceptions_and_third_party": ["DRONE-Q-000002", "DRONE-Q-000011", "DRONE-Q-000012", "DRONE-Q-000013", "DRONE-Q-000030", "DRONE-Q-000031", "DRONE-Q-000050", "DRONE-Q-000117", "DRONE-Q-000118", "DRONE-Q-000229", "DRONE-Q-000230"],
+    "operational_duties": ["DRONE-Q-000051", "DRONE-Q-000052", "DRONE-Q-000053", "DRONE-Q-000110", "DRONE-Q-000111", "DRONE-Q-000216", "DRONE-Q-000227"],
+    "skills_and_other_laws": ["DRONE-Q-000054", "DRONE-Q-000055", "DRONE-Q-000056", "DRONE-Q-000057", "DRONE-Q-000058", "DRONE-Q-000059", "DRONE-Q-000109", "DRONE-Q-000112", "DRONE-Q-000116", "DRONE-Q-000231", "DRONE-Q-000235"]
+  },
+  "action_taken": "No B10 candidate rows, acceptance packets, IDs, canonical questions, source verifications, released questions, or runtime output were created or changed.",
+  "next_atomic_objective": "REPLAN_B10_WITH_UNREPRESENTED_SOURCE_PROPOSITIONS"
+}
