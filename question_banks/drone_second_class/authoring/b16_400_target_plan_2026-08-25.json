@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B16-400-TARGET-OPERATIONS-PRESCREEN-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B16_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "ca2690d1b5f8fea9f67530b1b15c880ce01d97db",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 354,
+    "accepted_source_verified_canonical": 354,
+    "remaining_to_400": 46,
+    "next_unreserved_permanent_id": "DRONE-Q-000355",
+    "derived_domain_counts": {
+      "drone_rules": 93,
+      "drone_systems": 81,
+      "drone_operations": 87,
+      "drone_risk_management": 93
+    }
+  },
+  "strategy": {
+    "domain": "drone_operations",
+    "reason": "Systems remains numerically thinnest but B13 demonstrated severe canonical saturation (4/20 accepted). Operations is the next-thinnest domain and B12 demonstrated high yield (19/20 accepted). B16 therefore applies pre-screen-first authoring to Operations to maximize quality-adjusted yield.",
+    "candidate_ceiling": 6,
+    "candidate_ceiling_is_quota": false,
+    "pre_screen_rule": "Every candidate must have explicit current Chapter 5 support, a named nearest canonical neighbor, and a material distinction in flight phase, aircraft applicability, action boundary, or reasoning path. No backfill for count."
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "official_current_check": "2026-08-25",
+    "scope_rule": "Use only second-class-applicable Chapter 5 propositions; exclude every subsection explicitly marked 〔一等〕."
+  },
+  "batch": {
+    "batch_id": "B16",
+    "domain": "drone_operations",
+    "candidate_ceiling": 6,
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 4,
+      "B_BOUNDARY_VARIANT": 2,
+      "C_REASONING_VARIANT": 0
+    }
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B16-OPS-C001",
+      "tier": "B_BOUNDARY_VARIANT",
+      "family": "GNSS-disabled landing control",
+      "source_locator": "教則 第5章 5.2.1(1)7)「GNSSを使用しない着陸」",
+      "proposition": "GNSSを使用しない着陸では、ホバリングを安定させながらスロットルで降下し、ボルテックス・リング・ステートや地面効果を抑えるため細かなエレベーター又はエルロン操作を行って着地する。",
+      "nearest_canonical": ["DRONE-Q-000180", "DRONE-Q-000085"],
+      "pre_screen_result": "PASS: Q180 tests GNSS-disabled hovering only; Q085 tests generic multirotor VRS prevention during descent. C001 tests the distinct GNSS-disabled landing phase and combined control sequence."
+    },
+    {
+      "candidate_id": "B16-OPS-C002",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "multirotor post-touchdown rotor stop",
+      "source_locator": "教則 第5章 5.2.1(1)4)「着陸」",
+      "proposition": "マルチローターは着地後、コントローラーでローターの回転を停止させる。",
+      "nearest_canonical": ["DRONE-Q-000183"],
+      "pre_screen_result": "PASS: Q183 is a helicopter-specific human-approach prohibition until rotor stop; C002 tests the pilot's post-touchdown shutdown action for a multirotor."
+    },
+    {
+      "candidate_id": "B16-OPS-C003",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "helicopter tail-rotor takeoff tilt anticipation",
+      "source_locator": "教則 第5章 5.2.1(2)2)「離陸方法」",
+      "proposition": "ヘリコプターはテールローターの作用で離陸時に左右いずれかへ傾く場合があり、ローター回転方向に応じた傾く方向を事前に確認して離陸する。",
+      "nearest_canonical": ["DRONE-Q-000068", "DRONE-Q-000182"],
+      "pre_screen_result": "PASS: Q068 tests tail-rotor counter-torque/yaw function and Q182 tests sufficient rotor RPM before takeoff; neither tests anticipated lateral tilt and the required pre-takeoff check."
+    },
+    {
+      "candidate_id": "B16-OPS-C004",
+      "tier": "B_BOUNDARY_VARIANT",
+      "family": "helicopter takeoff ground-effect exit",
+      "source_locator": "教則 第5章 5.2.1(2)2)「離陸方法」",
+      "proposition": "ヘリコプターはローター半径以下の高度で地面効果により不安定になりやすいため、離陸後は速やかに地面効果外まで上昇させる。",
+      "nearest_canonical": ["DRONE-Q-000132", "DRONE-Q-000325"],
+      "pre_screen_result": "PASS: Q132 recognizes helicopter ground effect and Q325 tests landing-phase avoidance of prolonged ground-effect hover. C004 is the separate takeoff-phase exit action."
+    },
+    {
+      "candidate_id": "B16-OPS-C005",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "helicopter rapid vertical climb avoidance",
+      "source_locator": "教則 第5章 5.2.1(2)2)「離陸方法」",
+      "proposition": "ヘリコプターは、やむを得ない場合を除き垂直方向の急上昇を避ける。ローター回転が低下して機体が不安定になるおそれがある。",
+      "nearest_canonical": ["DRONE-Q-000182"],
+      "pre_screen_result": "PASS: Q182 concerns insufficient rotor RPM before takeoff; C005 concerns the in-flight climb-rate decision after takeoff and the RPM-loss mechanism."
+    },
+    {
+      "candidate_id": "B16-OPS-C006",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "TEM threat-error-UAS chain management",
+      "source_locator": "教則 第5章 5.4.1「CRM / TEM」",
+      "proposition": "TEMは、気象変化・疲労・機材不具合などのThreatを早期把握・管理し、Errorや安全マージンが低下したUASに至っても事故へ進まないよう、相互確認・警報・最新情報など利用可能なリソースで対処する。",
+      "nearest_canonical": ["DRONE-Q-000088", "DRONE-Q-000187"],
+      "pre_screen_result": "PASS: Q088 tests the broad CRM resource concept and Q187 asks for the five CRM skills. Neither makes the Threat -> Error -> UAS -> accident prevention chain answer-defining."
+    }
+  ],
+  "excluded_after_prescreen": [
+    "emergency landing / return-home propositions already covered by Q195-Q196",
+    "auto-to-manual switch propositions already covered by Q019-Q021",
+    "assistant staffing/assignment already covered by Q089 and emergency/landing support by Q331-Q332",
+    "stress management already covered by Q034",
+    "fixed-wing takeoff/landing actions already covered by Q184 and Q326-Q328"
+  ],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_PLANNING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_PLANNING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_PLANNING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "AUTHOR_AND_PERSIST_B16_400_TARGET_CANDIDATES"
+}
