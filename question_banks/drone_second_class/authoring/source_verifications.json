@@ -2520,6 +2520,41 @@
       "source_version": "5",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000361",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000362",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000363",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000364",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "DRONE-Q-000365",
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
     }
   ]
 }
