@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d56a1a52c90195a566ee7be124d00e8b7b882957d173dccc4b564e7ab2503cfe",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.2.2(3)「アマチュア無線局」"
+    },
+    "answer_defining_proposition": "無人航空機でアマチュア無線を使用する場合は、アマチュア無線技士の資格とアマチュア無線局免許の双方が必要である。",
+    "tested_misconception": "アマチュア無線技士の資格があれば無線局免許は不要、又は無線局免許があれば資格は不要である。",
+    "reasoning_path": "amateur-radio use -> operator qualification gate + station-license gate -> both required",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q115は資格・局免許の双方を持つことをinputとして有償業務利用禁止を問う。本問は資格と局免許のprerequisite pair自体を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The dual requirement for amateur operator qualification and station license is distinct from Q115, which assumes both and tests prohibition on profit-motivated business use."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

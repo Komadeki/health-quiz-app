@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C012",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5e2ee1e57800b7d06c191e04f3cb2018df1d3e9be652a57cad9ec29d5234601e",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.2「飛行自粛要請空域」"
+    },
+    "answer_defining_proposition": "飛行自粛要請空域は法令に基づく規制そのものではないが、飛行前に国土交通省の公示を確認し、要請内容に基づき適切に対応する。",
+    "tested_misconception": "法的な飛行禁止空域でなければ、国土交通省の飛行自粛要請を飛行前確認の対象にする必要はない。",
+    "reasoning_path": "preflight current-information check -> restraint request exists -> respond to request despite non-statutory status",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q058は条例・施設規則、Q091は複数の法令等制約の統合。本問は法定規制ではないが運航上確認・対応すべき飛行自粛要請というstatusを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The item tests the non-statutory but operationally relevant flight-restraint-request status and preflight response. Existing local-rule and general-constraint questions do not test this status distinction."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

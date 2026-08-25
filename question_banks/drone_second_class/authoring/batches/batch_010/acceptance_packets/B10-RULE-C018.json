@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9c892fae76d9b75c5f1f1d77bd365a459d4f06d41e956486eeef82b0da4f7be9",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(5)5)「技能証明の取消し等」"
+    },
+    "answer_defining_proposition": "技能証明取得後に飛行支障の病気・身体障害、中毒、航空法等違反、非行又は重大な過失が判明した場合、取消し又は1年以内の効力停止を受け得る。",
+    "tested_misconception": "これらの事情は技能証明申請前だけ問題となり、交付後は取消し・効力停止の理由にならない。",
+    "reasoning_path": "certificate already issued -> disqualifying condition/event arises -> cancellation/suspension branch",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=certificate enforcement depends on lifecycle state。distinct axes=scenario_state_or_flight_phase + decision_boundary_or_exception + reasoning_path。Q199は行政処分等の種類を一般的に列挙、Q231は申請前の年齢要件。本問は交付後の取消し・効力停止triggerを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. The post-issuance lifecycle state changes the solving rule: specified health, conduct or legal grounds can trigger cancellation or suspension after certificate issuance. This differs from Q199's generic sanction list and pre-application eligibility questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

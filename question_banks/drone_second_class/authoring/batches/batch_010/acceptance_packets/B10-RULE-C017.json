@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8da308ca479d76c950c07464b8a928cc2d62e74622c835873e7f6a6f5670492b",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(5)4)「技能証明を受けた者の義務」"
+    },
+    "answer_defining_proposition": "国土交通大臣が身体状態に応じ眼鏡・コンタクトレンズ・補聴器等の条件を付した技能証明では、その条件の範囲内で特定飛行を行う必要がある。",
+    "tested_misconception": "技能証明を取得した後は、証明に付された身体条件を満たさなくても特定飛行できる。",
+    "reasoning_path": "certificate has physical-condition restriction -> operation condition check -> special-flight eligibility",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q235は無人航空機の種類・飛行方法の限定範囲。本問は身体状態に基づき証明へ付される別種のconditionを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Physical-condition restrictions attached to a certificate are a distinct operational condition from Q235 aircraft-type/flight-method limitations."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
