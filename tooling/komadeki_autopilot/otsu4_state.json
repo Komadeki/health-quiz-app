@@ -6,12 +6,12 @@
   "status": "ACTIVE",
   "current_phase": "QUESTION_BANK_COMPLETION",
   "phase_order": ["QUESTION_BANK_COMPLETION","FEATURE_COMPLETION","PRODUCT_CLOSURE","PHYSICAL_DEVICE","STOREKIT_TESTFLIGHT","APP_STORE_CONNECT","FINAL_RELEASE_GATE","SUBMIT","DONE"],
-  "observed_main": "7e4315c083e854cf5c2d96d2ceecbae3aa7360ce",
-  "next_atomic_objective": "FREEZE_OTSU4_PHY_AND_FIRE_AUTHORITATIVE_SOURCE_LOCATORS_V0",
+  "observed_main": "1eb0cf20486e69212c0e3e811a1c9fc8416a1656",
+  "next_atomic_objective": "AUTHOR_AND_PERSIST_OTSU4_BATCH_1_AI_PRE_ACCEPT",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 5
+  "state_epoch": 6
 }
