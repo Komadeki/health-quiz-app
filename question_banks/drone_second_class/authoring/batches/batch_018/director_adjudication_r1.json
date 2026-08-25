@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B18",
+  "adjudication_round": 1,
+  "director": {"id":"chatgpt-primary-director-b18-residual-r1","role":"AI_DIRECTOR"},
+  "author_identity": "chatgpt-b18-rules-author-r1",
+  "reviewer_identity": "autopilot-b18-residual-reviewer-r1",
+  "identity_separation_checked": true,
+  "adjudicated_at": "2026-08-25",
+  "governance_contract": "residual_proposition_completion_contract_2026-08-25.json",
+  "summary": {"accept":6,"reject":0,"rework":0,"hold":0},
+  "accepted_candidate_ids": ["B18-RULE-C001","B18-RULE-C002","B18-RULE-C003","B18-RULE-C004","B18-RULE-C005","B18-RULE-C006"],
+  "rejected_candidate_ids": [],
+  "rework_candidate_ids": [],
+  "hold_candidate_ids": [],
+  "director_findings": [
+    "Adopt the independent residual-only review at ACCEPT 6 / REJECT 0.",
+    "All six candidates are eligible because their explicit second-class-applicable answer-defining propositions are absent from the 365-question canonical inventory; no numeric target is used.",
+    "C003 is accepted as the previously unrepresented aircraft-over-UAS right-of-way concept and source-defined rationale, not as a controlled scenario or reasoning variant of Q051/Q216/Q218.",
+    "IFR/VFR, sub-150m manned-aircraft cases, control area, control zone and the three basic airport restriction-surface purposes are likewise new answer-defining propositions in canonical inventory.",
+    "Future authoring remains residual-only: if a proposition is already answer-defining, a changed scenario, threshold or reasoning path does not make it eligible."
+  ],
+  "invariants": {"HUMAN_REVIEW_CREATED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"REGISTRY_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false},
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_6"
+}
