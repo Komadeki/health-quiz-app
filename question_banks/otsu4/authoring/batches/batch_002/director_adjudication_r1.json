@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B2",
+  "adjudication_round": 1,
+  "adjudicated_at": "2026-08-25",
+  "director": {
+    "id": "otsu4-b2-director-adjudicator-r1",
+    "role": "AI_DIRECTOR"
+  },
+  "author": {
+    "id": "otsu4-b2-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "reviewer": {
+    "id": "otsu4-b2-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "identity_separation": "PASS",
+  "review_evidence": "independent_review_r1.json",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 23,
+    "reject": 1,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "O4-B2-LAW-C001","O4-B2-LAW-C002","O4-B2-LAW-C003","O4-B2-LAW-C004","O4-B2-LAW-C005","O4-B2-LAW-C006","O4-B2-LAW-C007","O4-B2-LAW-C008","O4-B2-LAW-C009","O4-B2-LAW-C010","O4-B2-LAW-C011","O4-B2-LAW-C012","O4-B2-LAW-C013","O4-B2-LAW-C014","O4-B2-LAW-C015","O4-B2-LAW-C017","O4-B2-LAW-C018","O4-B2-LAW-C019","O4-B2-LAW-C020","O4-B2-LAW-C021","O4-B2-LAW-C022","O4-B2-LAW-C023","O4-B2-LAW-C024"
+  ],
+  "rejected": [
+    {
+      "candidate_id": "O4-B2-LAW-C016",
+      "reason_code": "SEMANTIC_COLLISION_LOW_VALUE",
+      "director_rationale": "Adopted. The examination-type item has correct source support, but commercially it duplicates C007's three-class enumeration, distractor structure, and solving rule too closely. It is rejected without replacement or quota backfill."
+    }
+  ],
+  "director_rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 23 accepted candidates cover distinct statutory roles, duties, authorities, temporal boundaries, eligibility routes, enforcement triggers, or emergency obligations. C016 adds insufficient incremental practice value and must not proceed merely to preserve the planned count.",
+  "invariants": {
+    "HUMAN_REVIEW_FABRICATED": false,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "RELEASED_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_23"
+}
