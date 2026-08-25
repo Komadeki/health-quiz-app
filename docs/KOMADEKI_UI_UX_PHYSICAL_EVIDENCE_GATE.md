@@ -1,7 +1,7 @@
 # KOMADEKI UI/UX Physical Evidence Gate
 
 Date: 2026-08-25
-Verified repository baseline: `10f0c65f825c3c25fa21f47e0fb72cb64a60e981`
+Verified repository baseline: `188a8425e837d5fc5cb6db4bc63c7c11f063b2d4`
 Verified production UI baseline: `10f0c65f825c3c25fa21f47e0fb72cb64a60e981`
 Control issue: #48
 Workstream: `qualification_factory_ui_ux`
@@ -10,7 +10,9 @@ Result: `HUMAN_BLOCKED`
 
 ## Scope reconciliation
 
-The physical-evidence contract now includes both the PR #287 Home/progress improvements and PR #323, `Expand Drone free tier and strengthen purchase UX`, merged as `10f0c65f825c3c25fa21f47e0fb72cb64a60e981`.
+The physical-evidence contract now includes both the PR #287 Home/progress improvements and PR #323, `Expand Drone free tier and strengthen purchase UX`, merged as production UI baseline `10f0c65f825c3c25fa21f47e0fb72cb64a60e981`.
+
+Repository `main` subsequently advanced through `188a8425e837d5fc5cb6db4bc63c7c11f063b2d4` via B17 authoring/review and Drone autopilot-state evidence. Those intervening changes do not touch the shared Qualification production UI, Drone production composition, or released runtime bank, so `10f0c65f...` remains the verified production UI baseline contained in the current repository baseline.
 
 The resulting Drone production UI/runtime keeps the shared Qualification architecture and the existing StoreKit price-display specification while adding or preserving these learner-facing behaviors:
 
@@ -43,7 +45,7 @@ Automated evidence cannot establish actual finger interaction, shipping-device r
 
 ## Remaining physical evidence
 
-A single bounded pass on a physical iPhone is required. Use a build containing baseline `10f0c65f825c3c25fa21f47e0fb72cb64a60e981` or a later `main` reconciled against it. Debug/device installation or TestFlight is acceptable. A real purchase or restore transaction is not required by this UI/UX gate.
+A single bounded pass on a physical iPhone is required. Use a build containing production UI baseline `10f0c65f825c3c25fa21f47e0fb72cb64a60e981` or a later `main` reconciled against it. Debug/device installation or TestFlight is acceptable. A real purchase or restore transaction is not required by this UI/UX gate.
 
 Perform these checks:
 
@@ -64,7 +66,7 @@ Persist resume evidence to GitHub, preferably as a comment on control issue #48,
 - TestFlight build or tested commit SHA;
 - PASS/FAIL for every numbered check above;
 - concrete defect evidence for any failure, with the affected screen/action and screenshot or short recording when useful;
-- confirmation that the tested build contains the current UI baseline, or a note that the gate was reconciled after a newer relevant `main` change.
+- confirmation that the tested build contains the current production UI baseline, or a note that the gate was reconciled after a newer relevant `main` change.
 
 A general statement such as `looks fine` is insufficient because it cannot be tied to a build or acceptance step.
 
