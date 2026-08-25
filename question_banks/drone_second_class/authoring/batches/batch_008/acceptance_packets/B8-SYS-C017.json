@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "cb86bef189e6e46e5aeeba63427c7edfcbc97bd230d7dc29f0b1ae2f40af5986",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.6「リチウムポリマーバッテリーの保管方法」（教則表示ページ51 / PDF viewer 56）"
+    },
+    "answer_defining_proposition": "LiPoは35℃を超える高温環境で保管しない。",
+    "tested_misconception": "LiPoの保管温度は充電率だけ管理すればよく、35℃を超えても問題ない。",
+    "reasoning_path": "storage environment -> temperature threshold >35C -> reject storage condition",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q032は長期保管時の充電率、Q045は低温飛行時の航続時間。本問は明示された高温保管境界35℃超を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The explicit >35°C LiPo storage threshold is source-defined, answer-unique, and distinct from long-term charge-state management or cold-weather flight effects."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C012",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8ecc6a2d5110c408caf609277a382b30b89a290be70a191a11976ee86b2ca64f",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.5「GNSS」(2)GNSSとRTKの精度（教則表示ページ50 / PDF viewer 55）"
+    },
+    "answer_defining_proposition": "単独GPS測位は数十m程度、RTK・DGPSは数cm～数mレベルの高精度測位が可能である。",
+    "tested_misconception": "RTKやDGPSを用いても、単独GPS測位と同じ数十m程度の精度にとどまる。",
+    "reasoning_path": "positioning architecture -> single receiver versus differential/reference receiver -> expected accuracy class",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q015は必要衛星数、Q077は自動操縦で高精度測位が必要なことを扱う。本問は単独測位とRTK/DGPSの精度階級比較を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source gives distinct positioning accuracy classes for standalone GPS versus RTK/DGPS. Existing GNSS items test satellite count or the need for high-accuracy positioning, not this architecture-to-accuracy comparison."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

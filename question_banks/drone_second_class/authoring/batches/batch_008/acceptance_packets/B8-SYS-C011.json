@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C011",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4ecf06edada2669e2b5dc74a321005cde49315d6f51c3b0293a005fa076a8f2d",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.5「電波」(1)2)マルチパス（教則表示ページ47 / PDF viewer 52）"
+    },
+    "answer_defining_proposition": "マルチパス起因の一時的操縦不能では、送信機を高くしアンテナ方向を変えて復帰を試みる。",
+    "tested_misconception": "マルチパスで一時的に操縦不能になったら、送信機の位置・アンテナ向きを変えても復帰には影響しない。",
+    "reasoning_path": "identify multipath-related weak link -> alter transmitter height/orientation -> attempt control recovery",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=multipath can weaken the control link。distinct axes=response_sequence_or_priority + reasoning_path。Q075はマルチパスの機序と結果を問うが、本問は発生後の具体的復帰行動を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Q075 tests multipath mechanism/result; this item tests the source-defined recovery action after control degradation—raise transmitter position and change antenna orientation—so response sequence and reasoning path are materially different."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

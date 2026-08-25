@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C019",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "03b064d859629d34d636be97f89616949e271b9f6bfa68a90dab9ba990521eb8",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.4「物件投下のために装備される機器」（教則表示ページ46 / PDF viewer 51）"
+    },
+    "answer_defining_proposition": "ウインチで物件を吊り下げる場合は、物件の揺れと投下前後の重心変化に注意する。",
+    "tested_misconception": "ウインチで物件を吊り下げる場合、投下装置が正常なら物件の揺れや投下前後の重心変化は飛行特性上考慮不要である。",
+    "reasoning_path": "winch-suspended payload -> pendulum motion plus mass-location/removal change -> manage stability before/after release",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=payload-drop equipment requires device-specific safe handling。distinct axes=aircraft_or_operation_applicability + scenario_state_or_flight_phase + reasoning_path。Q073は一般的な投下装置の搭載・手順、Q069は静的なペイロード重心。本問はウインチ吊下げの動的揺れと投下前後の重心変化を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. The winch-suspended-load branch requires reasoning about dynamic swing plus center-of-gravity change before/after release. Q073 is generic drop-device procedure and Q069 static payload CG; operation applicability and dynamics are materially distinct."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

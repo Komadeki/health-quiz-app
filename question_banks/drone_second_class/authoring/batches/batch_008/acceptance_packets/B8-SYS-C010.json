@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d96ea5602b5524b81085178e1da2145fe68efdb8a85af601cb26063fb13ddf90",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.5「電波」(1)1)減衰（教則表示ページ47 / PDF viewer 52）"
+    },
+    "answer_defining_proposition": "電波は周波数による差はあるが、水中では吸収されて大きく減衰する。",
+    "tested_misconception": "水は電波をほとんど吸収しないため、水中でも空中と同程度の伝搬を期待できる。",
+    "reasoning_path": "radio path enters water -> absorption -> substantial attenuation",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q074/Q075は障害物回折・マルチパス。本問は伝搬媒質としての水による吸収・大幅減衰を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Water absorption causing substantial radio attenuation is an explicit propagation-medium proposition absent from the current canonical diffraction/multipath coverage."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

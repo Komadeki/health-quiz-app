@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C020",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "3650a9dbcd889097d335b4188157eadbb44ab33c9dd83383baffd6c5fc9ce1ff",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.4「物件投下のために装備される機器」（教則表示ページ46 / PDF viewer 51）"
+    },
+    "answer_defining_proposition": "農薬散布装置は定められた飛行速度・高度等を守り、風などによる対象区域外への飛散を防ぐ。",
+    "tested_misconception": "農薬散布装置は散布量だけ合えば、メーカー等が定める飛行速度・高度や風による区域外飛散を考慮しなくてよい。",
+    "reasoning_path": "agricultural dispensing device -> prescribed speed/altitude envelope + wind drift risk -> operate within both constraints",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q073は一般的な物件投下装置、Q050/Q107は農薬散布に関する法令・手続論点。本問は散布装置固有の飛行速度・高度の使用条件と区域外飛散防止を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Agricultural spray-device operation within prescribed speed/altitude plus wind-drift prevention is device-specific operational-envelope knowledge distinct from general drop-device or legal-procedure questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

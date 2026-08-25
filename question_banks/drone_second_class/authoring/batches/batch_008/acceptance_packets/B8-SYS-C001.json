@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "00dbc97f2f4314fc52266f57025c5dac8ce65e9981e6d0aa91afa77372ebd210",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.1「飛行機」(1)機体の特徴（教則表示ページ34 / PDF viewer 39）"
+    },
+    "answer_defining_proposition": "離着陸を含む飛行機型の自動飛行では、発射装置・回収装置等の地上設備が必要となる場合がある。",
+    "tested_misconception": "自動飛行であれば飛行機型でも離着陸用の地上設備は常に不要である。",
+    "reasoning_path": "fixed-wing mission -> automated takeoff/landing -> assess launcher/recovery ground equipment",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q143/Q144/Q145は最低速度・推力喪失後の滑空・操舵面を扱う。本問は離着陸まで自動化した場合の地上設備要件を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "4.1 explicitly notes that fixed-wing automated takeoff/landing may require launcher/recovery ground equipment. Existing fixed-wing items test minimum speed, glide and control surfaces, not ground-equipment requirements."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

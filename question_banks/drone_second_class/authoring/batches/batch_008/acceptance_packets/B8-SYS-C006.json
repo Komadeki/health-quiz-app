@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "21b01f68fdd37ca63e8b111e4a9a6fb637c749fe46962431854752143a82b057",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.4「フライトコントロールシステム」(1)一般的デバイス（教則表示ページ42 / PDF viewer 47）"
+    },
+    "answer_defining_proposition": "送信機は操作指令の送信に加え、機体情報を受信するデバイスでもある。",
+    "tested_misconception": "送信機は操縦指令の送信専用で、機体情報を受信する役割は持たない。",
+    "reasoning_path": "ground transmitter -> outbound command channel plus inbound aircraft telemetry role",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q004は送信機→受信機→メインコントローラーの指令経路を扱う。本問は送信機の機体情報受信という逆方向の役割を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The transmitter role includes outbound commands and, in some systems, inbound aircraft information. Q004 covers the outbound command path; the telemetry-reception direction is materially distinct."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C015",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "7f3f42481a0288c0b5d9966d3d15c999b648670c81cf4a0ae1943c55971a56fc",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.6「リチウムポリマーバッテリーの保管方法」（教則表示ページ50-51 / PDF viewer 55-56）"
+    },
+    "answer_defining_proposition": "LiPo保管時は端子短絡を防ぎ、機体コネクタとバッテリーを接続したままにしない。",
+    "tested_misconception": "飛行していない保管中なら機体コネクタとLiPoを接続したままでも短絡火災リスク管理上問題ない。",
+    "reasoning_path": "post-operation storage -> prevent conductive short path -> disconnect aircraft connector and protect terminals",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=LiPo short circuit can cause fire。distinct axes=scenario_state_or_flight_phase + response_sequence_or_priority + decision_boundary_or_exception。Q072は短絡発生後の危険を問う。本問は保管時・接続状態という予防境界で、端子短絡防止と機体コネクタ切離しを判断させる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Q072 tests the hazard after short-circuit; this item tests the storage-phase preventive boundary—disconnect aircraft connector and prevent terminal shorting. Flight phase plus preventive action are materially distinct."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

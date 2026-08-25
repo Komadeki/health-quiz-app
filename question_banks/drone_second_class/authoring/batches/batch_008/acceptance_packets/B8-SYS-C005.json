@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f4662cc252063cdd7f8aa3ceb08b62e49eaec18dd466c10bd6fde5f4d449ae95",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.4「フライトコントロールシステム」(1)基礎（教則表示ページ41 / PDF viewer 46）"
+    },
+    "answer_defining_proposition": "多くのセンサは、各機体で指定された方法による正しいキャリブレーションが必要である。",
+    "tested_misconception": "センサのキャリブレーション方法は機体によらず共通で、一度実施すれば以後確認不要である。",
+    "reasoning_path": "sensor-dependent FCS -> calibration-sensitive device -> follow aircraft-specific calibration method and verify",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q043は地磁気センサの磁気キャリブレーションを個別に扱う。本問はFCS全体における機体指定方法でのセンサ校正原則を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source states that many FCS sensors require aircraft-specific calibration. Q043 is the narrower geomagnetic-sensor calibration case, so the system-level calibration discipline is a separate proposition rather than a wording variant."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

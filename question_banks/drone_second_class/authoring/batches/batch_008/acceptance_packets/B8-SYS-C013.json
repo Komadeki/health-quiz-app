@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B8-SYS-C013",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "71b78eb710c2706fb9bed143136b563b30baeedf8b1c88b47a74f994eb7eea2a",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b8-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b8-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b8-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章 4.5「GNSS」(3)GNSSを使用した飛行における注意事項（教則表示ページ50 / PDF viewer 55）"
+    },
+    "answer_defining_proposition": "GNSS受信機は、周囲の地形や障害物の状況を考慮して設置する。",
+    "tested_misconception": "GNSS受信機の設置位置は機体上で固定できればよく、周囲の地形・障害物による受信環境は考慮不要である。",
+    "reasoning_path": "GNSS receiver installation -> local obstruction/multipath environment -> choose placement considering terrain/obstacles",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q014/Q016/Q017はマルチパスやWaypoint誤差など運用中の影響を扱う。本問は受信環境を考慮した予防的な設置判断を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The item tests preventive GNSS-receiver installation considering terrain/obstacles. Existing GNSS questions test operational effects such as multipath or waypoint error, not installation-site selection."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B8 source-first plan and the 235-question canonical baseline. All four controlled Tier B candidates C002, C011, C015 and C019 retain material source-defined distinctions in aircraft applicability, response sequence, storage phase, or dynamic-load reasoning path rather than wording-only variation. C009 is retained because the inverse-square attenuation relationship is explicit second-class-applicable Chapter 4 material and is not the excluded first-class or Category III calculation material. No accepted B8 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
