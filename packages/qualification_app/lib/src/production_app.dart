@@ -164,7 +164,7 @@ final class QualificationProductionApp extends StatelessWidget {
   }
 }
 
-final class QualificationHome extends StatelessWidget {
+final class QualificationHome extends StatefulWidget {
   const QualificationHome({
     required this.controller,
     required this.urlLauncher,
@@ -177,11 +177,21 @@ final class QualificationHome extends StatelessWidget {
   final QualificationHomeSupplementBuilder? homeSupplementBuilder;
 
   @override
+  State<QualificationHome> createState() => _QualificationHomeState();
+}
+
+final class _QualificationHomeState extends State<QualificationHome> {
+  String? _dismissedNotice;
+
+  @override
   Widget build(BuildContext context) {
+    final controller = widget.controller;
     final definition = controller.definition;
     final bank = controller.bank!;
+    final notice = controller.storeMessage == _dismissedNotice
+        ? null
+        : controller.storeMessage;
     return Scaffold(
-      appBar: AppBar(title: Text(definition.displayName)),
       body: SafeArea(
         child: Align(
           alignment: Alignment.topCenter,
@@ -190,30 +200,27 @@ final class QualificationHome extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                Text(
-                  definition.learningProduct.homeHeadline,
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  controller.hasFullUnlock
-                      ? '全${bank.cards.length}問を利用できます'
-                      : '${controller.freeQuestionCount}問を無料で利用できます',
+                _HomeHero(
+                  controller: controller,
+                  totalQuestions: bank.cards.length,
                 ),
                 const SizedBox(height: 16),
                 _PrimaryLearningAction(controller: controller),
-                if (controller.storeMessage != null) ...[
+                if (notice != null) ...[
                   const SizedBox(height: 16),
                   _NonfatalStatus(
-                    message: _learnerFacingStatus(controller.storeMessage!),
+                    message: _learnerFacingStatus(notice),
+                    onDismiss: () => setState(() {
+                      _dismissedNotice = notice;
+                    }),
                   ),
                 ],
-                if (homeSupplementBuilder != null) ...[
+                if (widget.homeSupplementBuilder != null) ...[
                   const SizedBox(height: 16),
                   Builder(
                     key: const Key('home-supplement'),
                     builder: (context) =>
-                        homeSupplementBuilder!(context, controller),
+                        widget.homeSupplementBuilder!(context, controller),
                   ),
                 ],
                 if (definition.learningProduct.progressEnabled) ...[
@@ -254,11 +261,126 @@ final class QualificationHome extends StatelessWidget {
                 ),
                 _InformationLinks(
                   urls: definition.urls,
-                  urlLauncher: urlLauncher,
+                  urlLauncher: widget.urlLauncher,
                 ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+final class _HomeHero extends StatelessWidget {
+  const _HomeHero({required this.controller, required this.totalQuestions});
+
+  final QualificationProductionController controller;
+  final int totalQuestions;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+    final definition = controller.definition;
+    final availableText = controller.hasFullUnlock
+        ? '全$totalQuestions問を収録'
+        : '${controller.freeQuestionCount}問を無料で体験';
+    return Semantics(
+      container: true,
+      header: true,
+      label:
+          '${definition.displayName}。${definition.learningProduct.homeHeadline}。$availableText',
+      child: Container(
+        key: const Key('home-hero'),
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(28),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [colors.primary, colors.tertiary],
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: colors.primary.withValues(alpha: 0.24),
+              blurRadius: 24,
+              offset: const Offset(0, 12),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: colors.onPrimary.withValues(alpha: 0.14),
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.flight_takeoff,
+                      size: 18,
+                      color: colors.onPrimary,
+                    ),
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: Text(
+                        definition.displayName,
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          color: colors.onPrimary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              definition.learningProduct.homeHeadline,
+              style: theme.textTheme.headlineMedium?.copyWith(
+                color: colors.onPrimary,
+                fontWeight: FontWeight.w800,
+                height: 1.25,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              '合格に必要な知識を、問題演習で一歩ずつ。',
+              style: theme.textTheme.bodyLarge?.copyWith(
+                color: colors.onPrimary.withValues(alpha: 0.9),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Icon(
+                  Icons.verified_outlined,
+                  size: 20,
+                  color: colors.onPrimary,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    availableText,
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      color: colors.onPrimary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -422,9 +544,10 @@ _PrimaryActionSpec _resolvePrimaryAction(
 }
 
 final class _NonfatalStatus extends StatelessWidget {
-  const _NonfatalStatus({required this.message});
+  const _NonfatalStatus({required this.message, required this.onDismiss});
 
   final String message;
+  final VoidCallback onDismiss;
 
   @override
   Widget build(BuildContext context) {
@@ -437,6 +560,12 @@ final class _NonfatalStatus extends StatelessWidget {
           leading: const Icon(Icons.info_outline),
           title: const Text('お知らせ'),
           subtitle: Text(message, key: const Key('nonfatal-status-message')),
+          trailing: IconButton(
+            key: const Key('dismiss-nonfatal-status'),
+            tooltip: 'お知らせを閉じる',
+            onPressed: onDismiss,
+            icon: const Icon(Icons.close),
+          ),
         ),
       ),
     );
@@ -468,7 +597,7 @@ final class _WeaknessCard extends StatelessWidget {
       key: const Key('weakness-summary'),
       child: ListTile(
         leading: const Icon(Icons.insights),
-        title: const Text('学習状況の確認'),
+        title: const Text('苦手な単元'),
         subtitle: weakest == null
             ? const Text('回答履歴がたまると単元別の傾向を確認できます。')
             : Text(
@@ -490,26 +619,241 @@ final class _ProgressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final progress = controller.progress!.overall;
     final percent = (progress.completion * 100).round();
+    final remaining = progress.totalQuestions - progress.completedQuestions;
+    final accuracy = progress.accuracy == null
+        ? '—'
+        : '${(progress.accuracy! * 100).round()}%';
     return Card(
+      key: const Key('progress-card'),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('学習進捗', style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 8),
-            LinearProgressIndicator(value: progress.completion),
-            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '学習進捗',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
+                ),
+                const Icon(Icons.auto_graph),
+              ],
+            ),
+            const SizedBox(height: 20),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final compact = constraints.maxWidth < 420;
+                final chart = _ProgressRing(
+                  completion: progress.completion,
+                  percent: percent,
+                );
+                final metrics = Expanded(
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      _ProgressMetric(
+                        icon: Icons.check_circle_outline,
+                        value: '${progress.completedQuestions}問',
+                        label: '学習済み',
+                      ),
+                      _ProgressMetric(
+                        icon: Icons.flag_outlined,
+                        value: '$remaining問',
+                        label: '残り',
+                      ),
+                      _ProgressMetric(
+                        icon: Icons.track_changes,
+                        value: accuracy,
+                        label: '正答率',
+                      ),
+                    ],
+                  ),
+                );
+                if (compact) {
+                  return Column(
+                    children: [
+                      chart,
+                      const SizedBox(height: 20),
+                      Row(children: [metrics]),
+                    ],
+                  );
+                }
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [chart, const SizedBox(width: 24), metrics],
+                );
+              },
+            ),
+            const SizedBox(height: 16),
             Text(
-              '$percent% ・ ${progress.completedQuestions} / '
-              '${progress.totalQuestions}問 ・ ${progress.attemptCount}回答',
+              '${progress.completedQuestions} / ${progress.totalQuestions}問 ・ '
+              '${progress.attemptCount}回答',
               key: const Key('overall-progress'),
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                key: const Key('show-learning-status'),
+                onPressed: () => _showLearningStatus(context, controller),
+                icon: const Icon(Icons.insights),
+                label: const Text('学習状況を詳しく見る'),
+              ),
             ),
           ],
         ),
       ),
     );
   }
+}
+
+final class _ProgressRing extends StatelessWidget {
+  const _ProgressRing({required this.completion, required this.percent});
+
+  final double completion;
+  final int percent;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.square(
+      dimension: 112,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox.square(
+            dimension: 104,
+            child: CircularProgressIndicator(
+              key: const Key('overall-progress-ring'),
+              value: completion,
+              strokeWidth: 10,
+              strokeCap: StrokeCap.round,
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            ),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '$percent%',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
+              ),
+              Text('完了', style: Theme.of(context).textTheme.labelMedium),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+final class _ProgressMetric extends StatelessWidget {
+  const _ProgressMetric({
+    required this.icon,
+    required this.value,
+    required this.label,
+  });
+
+  final IconData icon;
+  final String value;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    return Container(
+      constraints: const BoxConstraints(minWidth: 92),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: colors.secondaryContainer.withValues(alpha: 0.65),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 18, color: colors.onSecondaryContainer),
+          const SizedBox(height: 6),
+          Text(
+            value,
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+          ),
+          Text(label, style: Theme.of(context).textTheme.labelMedium),
+        ],
+      ),
+    );
+  }
+}
+
+Future<void> _showLearningStatus(
+  BuildContext context,
+  QualificationProductionController controller,
+) {
+  final overall = controller.progress!.overall;
+  return showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    isScrollControlled: true,
+    builder: (context) => SafeArea(
+      child: FractionallySizedBox(
+        heightFactor: 0.78,
+        child: ListView(
+          key: const Key('learning-status-sheet'),
+          padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
+          children: [
+            Text('学習状況', style: Theme.of(context).textTheme.headlineSmall),
+            const SizedBox(height: 4),
+            Text(
+              '${overall.completedQuestions}/${overall.totalQuestions}問を学習済み。'
+              '単元ごとの進み具合を確認できます。',
+            ),
+            const SizedBox(height: 20),
+            for (final unit in controller.bank!.units) ...[
+              Builder(
+                builder: (context) {
+                  final metric = controller.progress!.byUnit[unit.id];
+                  final completed = metric?.completedQuestions ?? 0;
+                  final total = metric?.totalQuestions ?? unit.cards.length;
+                  final completion = metric?.completion ?? 0;
+                  final accuracy = metric?.accuracy;
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            unit.title,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 10),
+                          LinearProgressIndicator(value: completion),
+                          const SizedBox(height: 8),
+                          Text(
+                            '$completed/$total問を学習済み'
+                            '${accuracy == null ? '' : ' ・ 正答率${(accuracy * 100).round()}%'}',
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
+            ],
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 final class _UnitCard extends StatelessWidget {

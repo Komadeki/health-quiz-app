@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "O4-B1",
+  "review_round": 1,
+  "reviewer": {
+    "id": "otsu4-b1-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "otsu4-b1-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "GitHub main at 90637c110a2df188e63421a28cbf6ae8b510d01f",
+    "Otsu4 Batch 1 candidates and same-batch collision notes",
+    "Otsu4 Question Bank Contract v0 and Source Verification Protocol v0",
+    "current e-Gov 危険物の規制に関する政令, 別表第三",
+    "current MEXT 高等学校学習指導要領解説・理科編 PDF landing page",
+    "current KHK official hazardous-material safety landing page"
+  ],
+  "source_current_checks": {
+    "O4-LAW-2": "PASS: e-Gov current text identifies Article 1-11 and 別表第三; the table lists Class 4 first petroleum, non-water-soluble liquids at 200 L.",
+    "O4-PHY-1": "REWORK: the registered MEXT document endpoint is current, but each candidate lacks the required chapter and page pinpoint locator.",
+    "O4-FIR-1": "REWORK: the registered KHK endpoint is current, but the candidate locators name only a broad heading and do not identify a proposition-supporting document or section."
+  },
+  "summary": {
+    "reviewed": 6,
+    "accept": 1,
+    "rework": 5,
+    "reject": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "O4-B1-LAW-C001",
+      "decision": "REWORK",
+      "reason_code": "SOURCE_LOCATOR_INCOMPLETE",
+      "rationale": "別表第三 confirms the individual specified quantities, but the recorded locator does not pinpoint the provision supporting aggregation of multiple hazardous materials at one place. Add the exact current legal/regulatory provision and re-verify the explanation before acceptance."
+    },
+    {
+      "candidate_id": "O4-B1-LAW-C002",
+      "decision": "ACCEPT",
+      "rationale": "Current e-Gov 危険物の規制に関する政令 Article 1-11 and 別表第三 support gasoline (Class 4, first petroleum, non-water-soluble) having a 200 L specified quantity. The original wording and one-quantity boundary are distinct within this batch."
+    },
+    {
+      "candidate_id": "O4-B1-PHY-C001",
+      "decision": "REWORK",
+      "reason_code": "SOURCE_LOCATOR_INCOMPLETE",
+      "rationale": "The locator is only a broad 燃焼 heading. The Otsu4 source locator catalog requires the MEXT chapter and page for every physics/chemistry candidate, so the stated proposition cannot yet be independently reproduced from the persisted evidence."
+    },
+    {
+      "candidate_id": "O4-B1-PHY-C002",
+      "decision": "REWORK",
+      "reason_code": "SOURCE_LOCATOR_INCOMPLETE",
+      "rationale": "The locator is only a broad 燃焼 heading. Supply the MEXT chapter and page that supports the cooling/heat-removal proposition, then re-check the terminology used for the combustion element."
+    },
+    {
+      "candidate_id": "O4-B1-FIR-C001",
+      "decision": "REWORK",
+      "reason_code": "SOURCE_LOCATOR_INCOMPLETE",
+      "rationale": "危険物施設等の保安／危険物事故防止 is a broad heading rather than a pinpoint source. Persist an official document and section that supports this particular liquid-fire response boundary before it can be accepted."
+    },
+    {
+      "candidate_id": "O4-B1-FIR-C002",
+      "decision": "REWORK",
+      "reason_code": "SOURCE_LOCATOR_INCOMPLETE",
+      "rationale": "危険物施設等の保安／危険物事故防止 is a broad heading rather than a pinpoint source. Persist an official document and section that supports the foam-blanket mechanism before it can be accepted."
+    }
+  ],
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}

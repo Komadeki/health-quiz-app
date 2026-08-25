@@ -26,7 +26,7 @@ void main() {
       isNot(matches(RegExp(r'全\d+問'))),
     );
     expect(
-      find.text('${controller.freeQuestionCount}問を無料で利用できます'),
+      find.text('${controller.freeQuestionCount}問を無料で体験'),
       findsOneWidget,
     );
     expect(find.byKey(const Key('overall-progress')), findsOneWidget);

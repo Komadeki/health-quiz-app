@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import json
 import shutil
 import sys
 import tempfile
@@ -95,6 +96,30 @@ class TransactionHelperTest(unittest.TestCase):
     def test_used_and_retired_ids_are_not_reused(self) -> None:
         mapping = self._transaction().dry_run()
         self.assertNotIn(mapping["B1-C001"], {"FIXTURE-Q-000001", "FIXTURE-Q-000002", "FIXTURE-Q-000003"})
+
+    def test_empty_registry_uses_explicit_initial_bank_prefix(self) -> None:
+        registry_path = self.bank / "authoring" / "question_id_registry.csv"
+        fields, _ = read_csv(registry_path)
+        with registry_path.open("w", newline="", encoding="utf-8") as handle:
+            csv.DictWriter(handle, fieldnames=fields).writeheader()
+        metadata_path = self.bank / "authoring" / "bank.json"
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        metadata["question_id_prefix"] = "FIXTURE"
+        metadata_path.write_text(json.dumps(metadata), encoding="utf-8")
+
+        self.assertEqual(
+            {"B1-C001": "FIXTURE-Q-000001", "B1-C002": "FIXTURE-Q-000002"},
+            self._transaction().dry_run(),
+        )
+
+    def test_empty_registry_requires_explicit_initial_bank_prefix(self) -> None:
+        registry_path = self.bank / "authoring" / "question_id_registry.csv"
+        fields, _ = read_csv(registry_path)
+        with registry_path.open("w", newline="", encoding="utf-8") as handle:
+            csv.DictWriter(handle, fieldnames=fields).writeheader()
+
+        with self.assertRaisesRegex(TransactionError, "question_id_prefix"):
+            self._transaction().dry_run()
 
     def test_apply_updates_all_targets_and_repeat_is_rejected(self) -> None:
         mapping = self._transaction(factory=self._factory).apply()

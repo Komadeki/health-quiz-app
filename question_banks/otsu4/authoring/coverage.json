@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "target_bank_size": {"approved_question_count": 300, "rationale": "OTSU4_PRODUCT_SPEC_V0で確定した初期300問目標（法令130、物化80、性消90）。"},
+  "knowledge_targets": [
+    {"knowledge_target_id": "O4-LAW-KT-QUANTITY", "unit_id": "otsu4_law", "title": "指定数量", "statement": "危険物の指定数量と倍数を判定できる。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "O4-PHY-KT-COMBUSTION", "unit_id": "otsu4_physics", "title": "燃焼", "statement": "燃焼と消火の基礎原理を判定できる。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "O4-FIR-KT-EXTINGUISHING", "unit_id": "otsu4_fire", "title": "消火", "statement": "第4類危険物の火災予防と消火方法を判定できる。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []}
+  ],
+  "question_bindings": []
+}

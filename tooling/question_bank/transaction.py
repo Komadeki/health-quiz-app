@@ -15,7 +15,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Iterable
 
-from contract import QUESTION_FIELDS, QUESTION_ID_PATTERN, read_csv
+from contract import QUESTION_FIELDS, QUESTION_ID_PATTERN, read_csv, read_json
 from expansion import CANDIDATE_COLUMNS
 
 
@@ -152,7 +152,11 @@ class QuestionExpansionTransaction:
         return sorted(rows, key=_candidate_sort_key)
 
     @staticmethod
-    def _allocate(registry: list[dict[str, str]], count: int) -> list[str]:
+    def _allocate(
+        registry: list[dict[str, str]],
+        count: int,
+        initial_question_id_prefix: str = "",
+    ) -> list[str]:
         occupied: set[int] = set()
         prefix: str | None = None
         for row in registry:
@@ -165,7 +169,12 @@ class QuestionExpansionTransaction:
             if current_prefix == prefix:
                 occupied.add(int(suffix))
         if prefix is None:
-            raise TransactionError("cannot determine permanent-ID prefix from registry")
+            prefix = initial_question_id_prefix.strip()
+            if not QUESTION_ID_PATTERN.fullmatch(f"{prefix}-Q-000001"):
+                raise TransactionError(
+                    "cannot determine permanent-ID prefix from registry; "
+                    "bank.json question_id_prefix is required for an empty registry"
+                )
         allocated: list[str] = []
         candidate = 1
         while len(allocated) < count:
@@ -178,7 +187,12 @@ class QuestionExpansionTransaction:
     def plan(self) -> TransactionPlan:
         candidate_fields, candidates, registry_fields, registry, question_fields, questions = self._load()
         selected = self._validate_pre_state(candidates, registry, questions)
-        ids = self._allocate(registry, len(selected))
+        metadata = read_json(self.bank_root / "authoring" / "bank.json")
+        ids = self._allocate(
+            registry,
+            len(selected),
+            str(metadata.get("question_id_prefix", "")),
+        )
         allocations = tuple(Allocation(row["candidate_id"], question_id) for row, question_id in zip(selected, ids))
         mapping = {item.candidate_id: item.permanent_question_id for item in allocations}
         updated_candidates = []

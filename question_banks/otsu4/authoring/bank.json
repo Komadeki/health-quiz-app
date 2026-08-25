@@ -1,0 +1,17 @@
+{
+  "app_key": "otsu4",
+  "bank_revision": "otsu4-bank-bootstrap-2026-08-25",
+  "content_as_of": "2026-08-25",
+  "decks": [
+    {"deck_id": "otsu4_law", "title": "法令", "units": [{"unit_id": "otsu4_law", "title": "法令"}]},
+    {"deck_id": "otsu4_physics", "title": "物理・化学", "units": [{"unit_id": "otsu4_physics", "title": "物理・化学"}]},
+    {"deck_id": "otsu4_fire", "title": "性質・消火", "units": [{"unit_id": "otsu4_fire", "title": "性質・消火"}]}
+  ],
+  "exam_profile_version": "otsu4-product-spec-v0",
+  "manifest_output": "generated/bank_manifest.json",
+  "question_id_prefix": "OTSU4",
+  "question_identity_policy": "explicit_v1",
+  "review_due_days": 365,
+  "runtime_output": "generated/otsu4_bank.json",
+  "schema_version": 2
+}

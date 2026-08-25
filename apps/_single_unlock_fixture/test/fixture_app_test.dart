@@ -12,9 +12,15 @@ void main() {
 
       expect(find.text(GeneratedAppManifest.displayName), findsOneWidget);
       expect(find.text('架空資格のFactory検証'), findsOneWidget);
-      expect(find.text('1問を無料で利用できます'), findsOneWidget);
-      expect(find.byKey(const Key('unit-fixture_safety')), findsOneWidget);
-      expect(find.byKey(const Key('unit-fixture_operations')), findsOneWidget);
+      expect(find.text('1問を無料で体験'), findsOneWidget);
+      for (final unitKey in [
+        'unit-fixture_safety',
+        'unit-fixture_operations',
+      ]) {
+        final unit = find.byKey(Key(unitKey));
+        await tester.scrollUntilVisible(unit, 160);
+        expect(unit, findsOneWidget);
+      }
 
       final random = find.byKey(const Key('start-random'));
       await tester.scrollUntilVisible(random, 200);
