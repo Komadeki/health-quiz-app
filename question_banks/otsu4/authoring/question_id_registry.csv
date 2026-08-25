@@ -1,2 +1,7 @@
 question_id,status,first_used_bank_revision,retired_at,replacement_id,notes
 OTSU4-Q-000001,used,,,,Expansion pre-release allocation: O4-B1-LAW-C002
+OTSU4-Q-000002,used,,,,Expansion pre-release allocation: O4-B1-FIR-C001
+OTSU4-Q-000003,used,,,,Expansion pre-release allocation: O4-B1-FIR-C002
+OTSU4-Q-000004,used,,,,Expansion pre-release allocation: O4-B1-LAW-C001
+OTSU4-Q-000005,used,,,,Expansion pre-release allocation: O4-B1-PHY-C001
+OTSU4-Q-000006,used,,,,Expansion pre-release allocation: O4-B1-PHY-C002
