@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B9-RISK-C019",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "10d50940d2163790457b8ba6b01a3da77e527b044e49e268b342188e2ee4b267",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b9-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b9-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b9-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.4「夜間飛行」(1)夜間飛行の運航"
+    },
+    "answer_defining_proposition": "夜間飛行では原則として目視外飛行を実施しない。",
+    "tested_misconception": "機体灯火を装備していれば夜間でも目視外飛行を通常の前提として計画してよい。",
+    "reasoning_path": "night visibility limitation -> apply baseline operational rule -> do not plan BVLOS in principle",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q100/Q136/Q137/Q151は夜間の視認性・訓練・灯火等。本問は夜間に原則BVLOSを行わない運航境界を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The unmarked Chapter 6.4 night-flight subsection explicitly says BVLOS should not be conducted in principle. Existing night questions address visibility, training, aircraft lighting and ground illumination, not this baseline operational boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B9 source-first Chapter 6 plan and the 255-question canonical baseline. Both controlled Tier B candidates C014 and C015 retain material source-defined distinctions rather than wording-only variation. For C014, the authoring label temporal_prediction is normalized for governance purposes to scenario_state_or_flight_phase; reasoning_path and tested_misconception provide additional recognized distinctness axes. C015 changes the sea-breeze proposition from daytime/nighttime direction to the source-defined wind-reversal boundary state of morning/evening calm. C018, C019 and C020 are supported by unmarked second-class-applicable Chapter 6 subsections; adjacent risk-mitigation subsections marked 〔一等〕 are not used as the answer-defining source. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

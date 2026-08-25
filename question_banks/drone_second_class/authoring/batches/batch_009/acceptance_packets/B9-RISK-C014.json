@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B9-RISK-C014",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "cdfcaa42cd736ae881d2819da5b4cf540eaaf29e9f544f65ce5c70aea77c3635",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b9-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b9-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b9-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「気象の影響」(1)2)d.突風"
+    },
+    "answer_defining_proposition": "寒冷前線を伴う低気圧の西からの接近情報と天気の東進を用いて突風リスクの時間帯を予測できる。",
+    "tested_misconception": "寒冷前線による突風は局地的なので前線を伴う低気圧の接近情報から時間帯を予測することはできない。",
+    "reasoning_path": "west-to-east weather progression -> approaching low with cold front -> estimate gust-risk time window",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=寒冷前線付近では突風・雷・強雨が生じ得る。distinct axes=temporal_prediction + reasoning_path。Q094は現象分類、本問は接近情報から時間帯を予測する。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Q094 identifies cold-front weather phenomena; this candidate requires temporal prediction of the gust-risk window from west-to-east weather progression. For contract evaluation, the authored temporal_prediction axis is normalized to scenario_state_or_flight_phase, with reasoning_path and tested_misconception providing additional distinctness."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B9 source-first Chapter 6 plan and the 255-question canonical baseline. Both controlled Tier B candidates C014 and C015 retain material source-defined distinctions rather than wording-only variation. For C014, the authoring label temporal_prediction is normalized for governance purposes to scenario_state_or_flight_phase; reasoning_path and tested_misconception provide additional recognized distinctness axes. C015 changes the sea-breeze proposition from daytime/nighttime direction to the source-defined wind-reversal boundary state of morning/evening calm. C018, C019 and C020 are supported by unmarked second-class-applicable Chapter 6 subsections; adjacent risk-mitigation subsections marked 〔一等〕 are not used as the answer-defining source. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

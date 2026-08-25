@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B9-RISK-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "57e7095a7f2c51db18bed62ec57c022d45b2e99a94f7ddc86a32d8a117b50cb8",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b9-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b9-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b9-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「気象の重要性及び情報源」(3)10)b.温暖前線"
+    },
+    "answer_defining_proposition": "温暖前線では層状雲が広がり気温・湿度が高まり連続的な弱い雨となる傾向がある。",
+    "tested_misconception": "温暖前線は寒冷前線と同様に発達した積乱雲による短時間の強雨だけが典型である。",
+    "reasoning_path": "front type -> warm-front cloud progression -> temperature/humidity trend -> continuous weak rain",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q094は寒冷前線。本問は温暖前線固有の層状雲と連続的な弱雨を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Warm-front layered cloud, increasing temperature/humidity and persistent weak rain is explicit and complements rather than duplicates Q094's cold-front hazard pattern."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B9 source-first Chapter 6 plan and the 255-question canonical baseline. Both controlled Tier B candidates C014 and C015 retain material source-defined distinctions rather than wording-only variation. For C014, the authoring label temporal_prediction is normalized for governance purposes to scenario_state_or_flight_phase; reasoning_path and tested_misconception provide additional recognized distinctness axes. C015 changes the sea-breeze proposition from daytime/nighttime direction to the source-defined wind-reversal boundary state of morning/evening calm. C018, C019 and C020 are supported by unmarked second-class-applicable Chapter 6 subsections; adjacent risk-mitigation subsections marked 〔一等〕 are not used as the answer-defining source. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

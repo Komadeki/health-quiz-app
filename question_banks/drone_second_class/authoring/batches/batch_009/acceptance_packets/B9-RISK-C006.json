@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B9-RISK-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "222c77ac46d8f2ef5cf323967cdbfc93200976a7a00078b9b65fac424f8a6040",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b9-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b9-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b9-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.1「飛行計画」(1)飛行計画策定時の確認事項"
+    },
+    "answer_defining_proposition": "運航条件に応じて関係者・権利者への周知や承諾の要否を確認する。",
+    "tested_misconception": "航空法上の手続を終えれば飛行場所の関係者・権利者への周知や承諾は飛行計画の検討対象外である。",
+    "reasoning_path": "planned route/range -> identify affected stakeholders/rightsholders -> determine notice/consent need",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q058は条例・施設規則、Q091は複数制約の統合。本問は関係者・権利者への周知や承諾そのものを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Stakeholder/rightsholder notice or consent during route planning is distinct from checking other laws/facility rules and from integrating airspace constraints. The answer remains conditional rather than overstating universal consent."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B9 source-first Chapter 6 plan and the 255-question canonical baseline. Both controlled Tier B candidates C014 and C015 retain material source-defined distinctions rather than wording-only variation. For C014, the authoring label temporal_prediction is normalized for governance purposes to scenario_state_or_flight_phase; reasoning_path and tested_misconception provide additional recognized distinctness axes. C015 changes the sea-breeze proposition from daytime/nighttime direction to the source-defined wind-reversal boundary state of morning/evening calm. C018, C019 and C020 are supported by unmarked second-class-applicable Chapter 6 subsections; adjacent risk-mitigation subsections marked 〔一等〕 are not used as the answer-defining source. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
