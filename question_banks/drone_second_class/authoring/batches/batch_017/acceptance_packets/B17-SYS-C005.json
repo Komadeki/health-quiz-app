@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B17-SYS-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "70d7059e32c656fe7461f7b217d6ffe3c67b2ce90d44aab94a67936720c5ab45",
+  "actors": {
+    "author": {"id":"chatgpt-b17-systems-author-r1","role":"AI_AUTHOR"},
+    "reviewer": {"id":"autopilot-b17-systems-reviewer-r1","role":"AI_REVIEWER"},
+    "director": {"id":"chatgpt-primary-director-b17-r1","role":"AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","source_locator":"教則 第4章「機体の動力源」(2)1)リチウムポリマーバッテリーの特徴"},
+    "answer_defining_proposition": "LiPoはエネルギー密度が高く電圧が高く自己放電が少なくメモリ効果が小さい一方で電解質が可燃物であるという特徴を持つ。",
+    "tested_misconception": "LiPoは自己放電やメモリ効果が大きく電解質も不燃性である。",
+    "reasoning_path": "identify battery chemistry -> distinguish source-listed performance characteristics from handling hazards -> select correct characteristic set",
+    "collision": {"released_bank_checked":true,"canonical_drafts_checked":true,"batch_checked":true,"note":"Tier A。現行LiPo問は電圧低下・劣化・衝撃発火・保管交換等の運用結果を主に問う。本問は教則が列挙するLiPo基本特性セット自体をanswer-defining propositionとし中心的なbattery propertyであってincidental triviaではない。"}
+  },
+  "independent_review": {"decision":"ACCEPT","rationale":"The source centrally lists LiPo performance and hazard characteristics: high energy density and voltage, low self-discharge, small memory effect, and combustible electrolyte. Existing LiPo questions test operational consequences and handling decisions rather than this characteristic set. The proposition is core battery knowledge, not incidental trivia, and the correct option is uniquely supported."},
+  "director_adjudication": {"decision":"ACCEPT","rationale":"Adopt the independent review at ACCEPT 5 / REJECT 0. All five propositions are directly supported by second-class-applicable Chapter 4 source text. C001 and C004 satisfy the controlled-variant distinctness contract; C002, C003 and C005 add new answer-defining propositions. No quota backfill is required or permitted."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
