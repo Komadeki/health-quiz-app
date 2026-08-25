@@ -86,6 +86,16 @@ Widget _buildProgressDashboard(
             accuracy: accuracy,
             review: '$reviewCount問',
             mockBest: mockBest,
+            onMockBestTap: bestMock == null &&
+                    controller.modeEnabled(LearningModeV1.mockExam)
+                ? () {
+                    if (controller.isMockExamLocked) {
+                      unawaited(_showMockExamUnlockSheet(context, controller));
+                    } else {
+                      unawaited(controller.startMockExam());
+                    }
+                  }
+                : null,
           ),
           const SizedBox(height: 16),
           Text(
@@ -138,12 +148,14 @@ final class _ProgressMetrics extends StatelessWidget {
     required this.accuracy,
     required this.review,
     required this.mockBest,
+    this.onMockBestTap,
   });
 
   final String completed;
   final String accuracy;
   final String review;
   final String mockBest;
+  final VoidCallback? onMockBestTap;
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +179,7 @@ final class _ProgressMetrics extends StatelessWidget {
         keyName: 'progress-metric-mock-best',
         icon: Icons.fact_check_outlined,
         label: '模試ベスト',
-      ).build(mockBest),
+      ).build(mockBest, onTap: onMockBestTap),
     ];
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -199,9 +211,19 @@ final class _MetricDescriptor {
   final IconData icon;
   final String label;
 
-  Widget build(String value) => KeyedSubtree(
+  Widget build(String value, {VoidCallback? onTap}) => KeyedSubtree(
     key: Key(keyName),
-    child: _ProgressMetric(icon: icon, value: value, label: label),
+    child: onTap == null
+        ? _ProgressMetric(icon: icon, value: value, label: label)
+        : Semantics(
+            button: true,
+            label: '$label $value。模擬試験を開く',
+            child: InkWell(
+              borderRadius: BorderRadius.circular(16),
+              onTap: onTap,
+              child: _ProgressMetric(icon: icon, value: value, label: label),
+            ),
+          ),
   );
 }
 
@@ -295,7 +317,7 @@ final class _UnitPerformanceLegend extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final textScale = MediaQuery.textScalerOf(context).scale(1.0);
-        final columns = constraints.maxWidth < 430 || textScale > 1.35 ? 1 : 2;
+        final columns = constraints.maxWidth < 300 || textScale > 1.35 ? 1 : 2;
         const spacing = 8.0;
         final width =
             (constraints.maxWidth - spacing * (columns - 1)) / columns;

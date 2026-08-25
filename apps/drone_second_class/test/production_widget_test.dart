@@ -109,4 +109,17 @@ void main() {
     expect(find.text('正解'), findsOneWidget);
     expect(find.text('解説（Explanation）'), findsOneWidget);
   });
+
+  test('Drone free tier has headroom for a 20-question random session', () async {
+    final controller = createProductionController();
+    await controller.initialize();
+    addTearDown(controller.dispose);
+
+    expect(controller.freeQuestionCount, 30);
+    expect(controller.accessibleQuestionCount, 30);
+    final started = await controller.startRandom();
+    expect(started, isTrue);
+    expect(controller.activeSession?.questionIds.length, 20);
+    expect(controller.activeSession?.questionIds.toSet().length, 20);
+  });
 }

@@ -952,6 +952,7 @@ Future<void> _showMockExamUnlockSheet(
   QualificationProductionController controller,
 ) {
   final price = controller.fullUnlockProduct?.price;
+  final total = controller.bank!.cards.length;
   return showModalBottomSheet<void>(
     context: context,
     showDragHandle: true,
@@ -968,8 +969,14 @@ Future<void> _showMockExamUnlockSheet(
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            const Text('模擬試験は全問解放後に利用できます。'),
-            const SizedBox(height: 8),
+            const Text('本番を想定した模擬試験は全問解放後に利用できます。'),
+            const SizedBox(height: 14),
+            _UnlockBenefitRow(label: '全$total問すべて利用可能'),
+            const SizedBox(height: 6),
+            const _UnlockBenefitRow(label: '各単元の全問題'),
+            const SizedBox(height: 6),
+            _UnlockBenefitRow(label: _mockExamUnlockLabel(controller)),
+            const SizedBox(height: 14),
             Text(price == null ? '価格を確認できません' : '買い切り $price'),
             const SizedBox(height: 16),
             FilledButton(
@@ -980,7 +987,7 @@ Future<void> _showMockExamUnlockSheet(
                       Navigator.of(sheetContext).pop();
                       unawaited(controller.purchaseFullUnlock());
                     },
-              child: const Text('全問を解放'),
+              child: Text('全$total問を解放する'),
             ),
             TextButton(
               onPressed: () => Navigator.of(sheetContext).pop(),
@@ -991,6 +998,34 @@ Future<void> _showMockExamUnlockSheet(
       ),
     ),
   );
+}
+
+String _mockExamUnlockLabel(QualificationProductionController controller) {
+  final profile = controller.definition.examProfile;
+  if (profile == null) return '模擬試験';
+  final minutes = profile.timeLimitMinutes;
+  if (minutes == null) return '模擬試験（${profile.questionCount}問）';
+  return '模擬試験（${profile.questionCount}問・$minutes分）';
+}
+
+final class _UnlockBenefitRow extends StatelessWidget {
+  const _UnlockBenefitRow({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) => Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            Icons.check_circle_outline,
+            size: 18,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          const SizedBox(width: 8),
+          Expanded(child: Text(label)),
+        ],
+      );
 }
 
 final class _RecommendationCard extends StatelessWidget {
@@ -1130,13 +1165,30 @@ final class _UnlockCard extends StatelessWidget {
       );
     }
     final price = controller.fullUnlockProduct?.price;
+    final completedFree = math.min(
+      controller.progress?.overall.completedQuestions ?? 0,
+      controller.freeQuestionCount,
+    );
     return Card(
+      key: const Key('full-unlock-card'),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('全$total問を解放', style: Theme.of(context).textTheme.titleMedium),
+            Text('全問解放', style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: 4),
+            Text(
+              '無料問題 $completedFree / ${controller.freeQuestionCount}問 学習済み',
+              key: const Key('free-tier-progress'),
+            ),
+            const SizedBox(height: 14),
+            _UnlockBenefitRow(label: '全$total問すべて利用可能'),
+            const SizedBox(height: 6),
+            const _UnlockBenefitRow(label: '各単元の全問題'),
+            const SizedBox(height: 6),
+            _UnlockBenefitRow(label: _mockExamUnlockLabel(controller)),
+            const SizedBox(height: 12),
             Text(price == null ? '価格を確認できません' : '買い切り $price'),
             const SizedBox(height: 12),
             FilledButton(
@@ -1144,7 +1196,9 @@ final class _UnlockCard extends StatelessWidget {
               onPressed: controller.purchasePending || price == null
                   ? null
                   : controller.purchaseFullUnlock,
-              child: Text(controller.purchasePending ? '確認中…' : '購入する'),
+              child: Text(
+                controller.purchasePending ? '確認中…' : '全$total問を解放する',
+              ),
             ),
             TextButton(
               key: const Key('restore-purchases'),

@@ -9,20 +9,17 @@ import 'production_test_support.dart';
 
 void main() {
   test(
-    'Reference Product preserves the 188Q/20Q bank and neutral mock profile',
+    'Reference Product preserves the 188Q/30Q bank and neutral mock profile',
     () {
       final bank = loadProductionBank();
       final profile = GeneratedAppManifest.definition.examProfile;
 
-      expect(bank.bankRevision, 'drone-second-class-v2-release-2026-08-24');
+      expect(bank.bankRevision, 'drone-second-class-v3-release-2026-08-25');
       expect(bank.examProfileVersion, 'drone-second-class-v1');
       expect(bank.cards, hasLength(188));
       expect(bank.cardsById, hasLength(188));
       expect(bank.units, hasLength(4));
-      expect(bank.cards.where((card) => !card.isPremium), hasLength(20));
-      for (final unit in bank.units) {
-        expect(unit.cards.where((card) => !card.isPremium), hasLength(5));
-      }
+      expect(bank.cards.where((card) => !card.isPremium), hasLength(30));
       expect(profile, isNotNull);
       final resolvedProfile = profile!;
       expect(resolvedProfile.profileVersion, 'drone-second-class-v1');
@@ -60,7 +57,7 @@ void main() {
     () async {
       final free = createProductionController();
       await free.initialize();
-      expect(free.accessibleQuestionCount, 20);
+      expect(free.accessibleQuestionCount, 30);
       expect(await free.startUnit('drone_rules'), isTrue);
       final questionId = free.activeSession!.currentQuestionId;
       expect(await free.commitAnswer(free.currentCard!.answerIndex), isTrue);
