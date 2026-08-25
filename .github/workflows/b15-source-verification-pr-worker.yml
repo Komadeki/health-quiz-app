@@ -1,0 +1,45 @@
+name: B15 Source Verification PR Worker
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/b15-source-verification-trigger']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b15-source-verification-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: github.head_ref == 'chatgpt/drone-b15-source-verify-9'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout source verification branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-b15-source-verify-9
+          fetch-depth: 0
+      - name: Reconcile to current main
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Verify exact B15 canonical sources
+        run: python3 tooling/komadeki_autopilot/b15_source_verification_transition.py
+      - name: Validate source verification and repository gates
+        run: |
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class --check-generated
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+      - name: Commit durable B15 source verification
+        run: |
+          rm -f .github/b15-source-verification-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Verify B15 canonical sources'
+          git push --force-with-lease origin HEAD:chatgpt/drone-b15-source-verify-9
