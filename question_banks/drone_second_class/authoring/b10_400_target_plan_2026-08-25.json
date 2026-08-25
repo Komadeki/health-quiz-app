@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B10-400-TARGET-RULES-COVERAGE-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B10_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "9563554afc9d464daaa12613b49c41a6c3416965",
+  "target_contract": "target_400_quality_relaxation_contract_2026-08-25.json",
+  "inventory": {"released_runtime": 188, "canonical": 275, "accepted_source_verified_canonical": 275, "remaining_to_400": 125, "next_unreserved_permanent_id": "DRONE-Q-000276"},
+  "coverage_rationale": {
+    "selected_domain": "drone_rules",
+    "selection_basis": "Rules is the thinnest canonical domain at 64 questions after B9; B10 restores breadth before adding material to the 66/68/77-question domains.",
+    "source_chapter": "第3章 無人航空機に関する規則",
+    "candidate_ceiling": 20,
+    "candidate_ceiling_is_quota": false
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "scope_rule": "Use only Chapter 3 propositions applicable to second-class knowledge. Exclude every subsection explicitly marked 〔一等〕 and reject any wording-only or same-solving-rule collision with the current 275-question canonical inventory."
+  },
+  "batch": {
+    "batch_id": "B10",
+    "domain": "drone_rules",
+    "candidate_ceiling": 20,
+    "candidate_ceiling_is_quota": false,
+    "authoring_priority": ["Tier A unrepresented explicit Chapter 3 propositions", "Tier B source-defined exception, recipient, timing, or procedure variants with at least two recorded distinctness axes", "No Tier C candidate unless independent review confirms stronger Tier A/B supply is exhausted"]
+  },
+  "planned_candidates": [
+    {"candidate_id":"B10-RULE-C001","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.1(1)","coverage_family":"aircraft, unmanned-aircraft, and model-aircraft classification boundary"},
+    {"candidate_id":"B10-RULE-C002","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(1)1)","coverage_family":"registration subject and owner responsibility"},
+    {"candidate_id":"B10-RULE-C003","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(1)2)","coverage_family":"registration renewal timing and validity"},
+    {"candidate_id":"B10-RULE-C004","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(1)4)","coverage_family":"registration-mark display boundary"},
+    {"candidate_id":"B10-RULE-C005","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(1)5)","coverage_family":"remote-ID obligation and exemption"},
+    {"candidate_id":"B10-RULE-C006","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(2)1)","coverage_family":"regulated-airspace approval boundary"},
+    {"candidate_id":"B10-RULE-C007","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(2)2)","coverage_family":"regulated-method approval boundary"},
+    {"candidate_id":"B10-RULE-C008","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(2)2)c","coverage_family":"third-party object and 30-metre distance"},
+    {"candidate_id":"B10-RULE-C009","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(2)2)d","coverage_family":"event definition and temporary crowd boundary"},
+    {"candidate_id":"B10-RULE-C010","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(2)2)e-f","coverage_family":"payload classification and permitted exception"},
+    {"candidate_id":"B10-RULE-C011","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(2)3)a","coverage_family":"search-and-rescue exception condition"},
+    {"candidate_id":"B10-RULE-C012","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(2)3)b-c","coverage_family":"structure-proximity and tethered-flight exception"},
+    {"candidate_id":"B10-RULE-C013","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(2)4)","coverage_family":"third-party, fall-area, and protected-vehicle judgment"},
+    {"candidate_id":"B10-RULE-C014","tier":"B_BOUNDARY_VARIANT","source_locator":"教則 第3章 3.1.2(2)4)c","coverage_family":"level-3.5 route-crossing condition","required_distinctness_axes":["decision_boundary_or_exception","reasoning_path"]},
+    {"candidate_id":"B10-RULE-C015","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(3)1)c","coverage_family":"preflight versus inflight collision-avoidance sequence"},
+    {"candidate_id":"B10-RULE-C016","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(3)1)f","coverage_family":"reportable occurrence and immediate response"},
+    {"candidate_id":"B10-RULE-C017","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(3)2)a-b","coverage_family":"flight-notice exception and flight-log boundary"},
+    {"candidate_id":"B10-RULE-C018","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(3)3)","coverage_family":"certified-aircraft use condition and maintenance"},
+    {"candidate_id":"B10-RULE-C019","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.1.2(5)","coverage_family":"qualification, examination, renewal, and limitation"},
+    {"candidate_id":"B10-RULE-C020","tier":"A_NEW_PROPOSITION","source_locator":"教則 第3章 3.2","coverage_family":"important-facility, radio, carrier, and local-rule compliance"}
+  ],
+  "required_gates_before_authoring": ["Recheck the official MLIT 第5版 source and each exact locator.", "Compare every proposed answer-defining proposition with all 275 canonical questions, including B9 Q256-Q275.", "Persist no candidate that only changes wording, distractors, or context while retaining the same solving rule.", "Do not create or imply HUMAN review."],
+  "invariants": {"CANONICAL_CHANGED_AT_PLANNING": false, "PERMANENT_IDS_ALLOCATED_AT_PLANNING": 0, "SOURCE_VERIFICATIONS_CHANGED_AT_PLANNING": false, "RELEASED_CHANGED": false, "RUNTIME_CHANGED": false, "HUMAN_REVIEW_CREATED": false},
+  "next_atomic_objective": "AUTHOR_AND_PERSIST_B10_400_TARGET_CANDIDATES"
+}
