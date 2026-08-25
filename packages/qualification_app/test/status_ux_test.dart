@@ -91,6 +91,11 @@ void main() {
       find.text('模擬試験は全問解放後に利用できます。'),
       findsOneWidget,
     );
+
+    await tester.tap(find.byKey(const Key('dismiss-nonfatal-status')));
+    await tester.pump();
+
+    expect(find.byKey(const Key('nonfatal-status')), findsNothing);
   });
 
   testWidgets('unknown internal status is replaced with stable generic copy', (

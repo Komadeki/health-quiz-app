@@ -44,6 +44,8 @@ void main() {
     );
 
     expect(find.byKey(const Key('overall-progress')), findsOneWidget);
+    expect(find.byKey(const Key('home-hero')), findsOneWidget);
+    expect(find.byKey(const Key('overall-progress-ring')), findsOneWidget);
     expect(find.byKey(const Key('unit-fixture_safety')), findsOneWidget);
     expect(find.byKey(const Key('start-random')), findsOneWidget);
     expect(find.byKey(const Key('start-unanswered')), findsOneWidget);
@@ -65,6 +67,40 @@ void main() {
     }
   });
 
+  testWidgets('learning status action explains progress by unit', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final controller = await createController();
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      QualificationProductionApp(
+        definition: fixtureDefinition,
+        controller: controller,
+      ),
+    );
+
+    final action = find.byKey(const Key('show-learning-status'));
+    await tester.scrollUntilVisible(action, 160);
+    await tester.tap(action);
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('learning-status-sheet')), findsOneWidget);
+    expect(find.text('学習状況'), findsOneWidget);
+    final sheet = find.byKey(const Key('learning-status-sheet'));
+    expect(
+      find.descendant(of: sheet, matching: find.text('架空の安全原則')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: sheet, matching: find.text('架空の運用原則')),
+      findsOneWidget,
+    );
+  });
+
   testWidgets('answer commit locks feedback and shows explanation', (
     tester,
   ) async {
@@ -76,7 +112,9 @@ void main() {
         controller: controller,
       ),
     );
-    await tester.tap(find.byKey(const Key('unit-fixture_safety')));
+    final unit = find.byKey(const Key('unit-fixture_safety'));
+    await tester.scrollUntilVisible(unit, 160);
+    await tester.tap(unit);
     await tester.pump();
     final correctIndex = controller.currentCard!.answerIndex;
     await tester.tap(find.byKey(Key('choice-$correctIndex')));
