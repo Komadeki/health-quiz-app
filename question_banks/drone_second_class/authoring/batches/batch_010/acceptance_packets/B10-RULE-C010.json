@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ba928f427186588fd39bdb869cc85a43546f5aa968d8b33e313826b785c32f83",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.2.2(3)「アマチュア無線局」"
+    },
+    "answer_defining_proposition": "5GHz帯のアマチュア無線は二次業務であるため、同一帯域の一次業務の無線局へ妨害を与えないよう運用する。",
+    "tested_misconception": "アマチュア無線局免許があれば、同一帯域の一次業務への妨害を考慮せずFPV画像伝送できる。",
+    "reasoning_path": "amateur FPV band -> secondary-service status -> protect primary service from interference",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=amateur FPV radio must coexist with primary services。distinct axes=aircraft_or_operation_applicability + decision_boundary_or_exception + reasoning_path。Q115は利益目的利用可否、本問は周波数優先順位と干渉回避責任を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. The secondary-service interference rule changes operation applicability and the decision boundary from business-purpose eligibility to spectrum-priority protection."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

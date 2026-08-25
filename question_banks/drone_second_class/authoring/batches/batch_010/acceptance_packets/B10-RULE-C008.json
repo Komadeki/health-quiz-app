@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "21b27d30e015a42ea8ced05f531f8655bd8498fd16a91f56ea88c077b01974ef",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.2.2(2)②「一部の小電力の無線局」"
+    },
+    "answer_defining_proposition": "Wi-FiやBluetooth等の一定の小電力無線局は免許・登録や無線従事者資格が不要でも、技術基準適合証明等を受けた適合表示無線設備でなければならない。",
+    "tested_misconception": "無線局免許が不要なWi-Fi等は、技術基準適合証明や技適表示も不要である。",
+    "reasoning_path": "license-free low-power category -> separate equipment-conformity gate -> verify technical-conformity marking",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q057は技適等を満たす小電力systemを前提に免許・資格を問う。本問は技術基準適合そのものをdecision gateとして問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The item correctly separates license-free operation from equipment technical-conformity obligations. Q057 assumes conformity and tests a different license comparison."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

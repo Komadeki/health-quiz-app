@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C014",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "569edbb4ca19474eed695333ab4fa23f4ee8afdf6438fdf61183f4f2c4506f3f",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(5)2)「技能証明の資格要件」"
+    },
+    "answer_defining_proposition": "一定の航空法違反等に係り技能証明を取り消された日から2年以内の者又は技能証明の効力を停止されている者は申請できない。",
+    "tested_misconception": "取消しを受けた者は1年経過すれば必ず再申請でき、現在効力停止中でも申請できる。",
+    "reasoning_path": "prior cancellation/suspension -> two-year/current-status boundary -> application eligibility",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q231は年齢要件。本問は取消し・効力停止後の2年/current-status boundaryを問う。C013の拒否後1年branchとも異なる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The two-year post-cancellation/current-suspension application boundary is source-defined, answer-unique and materially distinct from the one-year refusal branch."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

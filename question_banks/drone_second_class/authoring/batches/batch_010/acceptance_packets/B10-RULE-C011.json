@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C011",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "227554d52f50743505bdb469567e2398e517cb6e9d3570295bad3c77f53641cb",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.2.2(3)「アマチュア無線局」"
+    },
+    "answer_defining_proposition": "5.7GHz帯の無人移動体画像伝送システムや5.8GHz帯のDSRC/ETC等の近くでは、アマチュアFPVの運用を避ける等の配慮が必要である。",
+    "tested_misconception": "アマチュアFPVの周波数が使える機器なら、ETC等の既存システム付近でも干渉を考慮する必要はない。",
+    "reasoning_path": "planned FPV location -> identify co-channel/adjacent primary systems -> avoid/interference-mitigate operation",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。既存アマチュア無線問は有償業務利用禁止を問う。本問は特定の既存無線system付近でのlocation-specificな干渉回避行動を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Location-specific coexistence action near 5.7GHz image systems and 5.8GHz DSRC/ETC is a distinct operational response not tested by existing amateur-radio questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
