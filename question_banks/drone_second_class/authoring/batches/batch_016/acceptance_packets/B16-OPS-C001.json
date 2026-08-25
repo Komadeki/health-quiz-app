@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B16-OPS-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9ecdd1eba83e654023a5a09491973534f3bf4cb5dd84a7b8d55e426051a46cd7",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b16-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b16-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b16-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.2.1(1)7)「GNSSを使用しない着陸」"
+    },
+    "answer_defining_proposition": "GNSSを使用しない着陸ではホバリングを安定させつつスロットルで降下し細かなエレベーター又はエルロン操作を加えて着地する。",
+    "tested_misconception": "GNSSを使わない着陸では水平操作を止めて完全な垂直降下だけを行う。",
+    "reasoning_path": "GNSS disabled -> stabilize hover manually -> descend with throttle -> fine lateral control to suppress VRS/ground effect",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。Q180はGNSSなしホバリングの水平位置維持。Q085は通常降下時のVRS対策。本問はGNSSなし着陸という別飛行フェーズで両操作を統合して判断させる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Q180 ends at GNSS-disabled hover stability and Q085 tests generic VRS prevention during descent. C001 is the source-explicit GNSS-disabled landing sequence that combines stabilized hover, throttle descent, and fine elevator/aileron input through touchdown, changing both flight phase and required control sequence."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 6 / REJECT 0. All six answer-defining propositions are directly supported by second-class-applicable Chapter 5 source text and remain distinct from their named canonical neighbors. C001 and C004 are controlled boundary variants with distinct flight phases and required actions, not wording-only variants. C006 adds the TEM Threat-to-Error-to-UAS causal management chain rather than repeating broad CRM resources or the five CRM skills. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
