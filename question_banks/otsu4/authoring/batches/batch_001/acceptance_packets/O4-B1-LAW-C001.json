@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B1-LAW-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "825cdc59347cd01862ce4133a71ded48a195213943de4cdd731c31166d9bdf58",
+  "actors": {
+    "author": {"id": "otsu4-b1-remediation-author-r2", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "otsu4-b1-independent-reviewer-r2", "role": "AI_REVIEWER"},
+    "director": {"id": "otsu4-b1-director-adjudicator-r2", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id": "O4-LAW-1", "source_version": "2026-08-25", "source_locator": "消防法 第10条第2項"},
+    "answer_defining_proposition": "同一場所の複数危険物は各数量を指定数量で除した商を合算し、その和が1以上なら指定数量以上として扱う。",
+    "tested_misconception": "各危険物が単独で1倍未満なら合算しなくてよい。",
+    "reasoning_path": "normalize each quantity ratio -> sum ratios -> compare sum with 1.0",
+    "collision": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "note": "R2 remediation: aggregation rule is distinct from C002 single-substance specified-quantity boundary"}
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "消防法第10条第2項 directly defines aggregation of quotients for multiple hazardous materials with different specified quantities at the same place and the >=1 boundary. The 0.4 + 0.6 scenario is an original arithmetic application of that proposition and is materially distinct from C002's single-substance specified-quantity boundary."
+  },
+  "director_adjudication": {"decision": "ACCEPT", "rationale": "Independent review round 2 is adopted; the remediated source binding and collision evidence satisfy the AI-governed acceptance gate."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

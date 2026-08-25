@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B1-FIR-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "33413dd65da97f803b2b291ea02d9710200c68a523005ae0441c8ddd8312df2d",
+  "actors": {
+    "author": {"id": "otsu4-b1-remediation-author-r2", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "otsu4-b1-independent-reviewer-r2", "role": "AI_REVIEWER"},
+    "director": {"id": "otsu4-b1-director-adjudicator-r2", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id": "O4-MHLW-SDS-ETHYL-ACETATE", "source_version": "2020-03-13", "source_locator": "Section 5「火災時の措置」使ってはならない消火剤"},
+    "answer_defining_proposition": "酢酸エチル火災では棒状注水は不適切である。",
+    "tested_misconception": "水を使う方法なら放水形態に関係なく適切である。",
+    "reasoning_path": "identify chemical-specific SDS -> distinguish suitable media from prohibited straight-stream water -> reject straight-stream application",
+    "collision": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "note": "R2 remediation: chemical-specific extinguishing-suitability decision; distinct from C002 foam mechanism"}
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The registered MHLW ethyl-acetate model SDS Section 5 explicitly lists alcohol-resistant foam, foam, powder, carbon dioxide and fine-spray water as suitable extinguishing media and straight-stream water as unsuitable. The candidate is fully reproducible from one pinpoint source and tests a chemical-specific media-selection boundary."
+  },
+  "director_adjudication": {"decision": "ACCEPT", "rationale": "Independent review round 2 is adopted; the remediated source binding and collision evidence satisfy the AI-governed acceptance gate."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
