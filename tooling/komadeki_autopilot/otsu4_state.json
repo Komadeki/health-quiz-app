@@ -6,7 +6,7 @@
   "status": "ACTIVE",
   "current_phase": "QUESTION_BANK_COMPLETION",
   "phase_order": ["QUESTION_BANK_COMPLETION","FEATURE_COMPLETION","PRODUCT_CLOSURE","PHYSICAL_DEVICE","STOREKIT_TESTFLIGHT","APP_STORE_CONNECT","FINAL_RELEASE_GATE","SUBMIT","DONE"],
-  "observed_main": "effbac1b70993c72f0b707ccc8f9b05883b44b55",
+  "observed_main": "bc09540f972ca28349503b6e436fca41b02d1529",
   "next_atomic_objective": "REMEDIATE_OTSU4_B1_REWORK_5_WITH_PINPOINT_SOURCES",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
