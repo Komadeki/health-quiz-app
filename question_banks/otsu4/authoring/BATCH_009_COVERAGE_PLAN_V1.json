@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B9-HAZARDS-PREVENTION-2026-08-26",
+  "product": "otsu4",
+  "wave_id": "W2",
+  "planned_at": "2026-08-26",
+  "objective": "AUTHOR_OTSU4_WAVE_2_AI_PRE_ACCEPT",
+  "production_target": 600,
+  "canonical_verified_baseline": 111,
+  "selected_target": "O4-FIR-KT-HAZARDS-PREVENTION",
+  "selected_target_total_plan": 40,
+  "verified_target_count_before_batch": 0,
+  "remaining_target_gap_before_batch": 40,
+  "candidate_ceiling": 24,
+  "candidate_ceiling_is_quota": false,
+  "source_contract": {
+    "primary_source_ids": ["O4-FDMA-STATIC-1", "O4-FDMA-INCIDENT-1", "O4-MHLW-SDS-GASOLINE", "O4-MHLW-SDS-KEROSENE", "O4-MHLW-SDS-ACETONE", "O4-MHLW-SDS-ETHANOL", "O4-MHLW-SDS-METHANOL", "O4-MHLW-SDS-XYLENE", "O4-MHLW-SDS-BENZENE", "O4-MHLW-SDS-TOLUENE", "O4-MHLW-SDS-ETHYL-ACETATE", "O4-MHLW-SDS-CRESOL", "O4-MHLW-LABEL-DIETHYL-ETHER"],
+    "pinpoint_scope": ["FDMA gasoline-vapor/static-electricity notice body and 別紙1", "FDMA named incident subsections on ignition/leak/ventilation/grounding/fire-source management", "MHLW model SDS Sections 2, 7 and 10"],
+    "locator_rule": "Every candidate must bind to one registered source/version and one exact named subsection or SDS field. Multi-source answer-defining comparisons are prohibited without a source-bundle contract."
+  },
+  "planned_families": [
+    "static-electricity ignition prevention",
+    "grounding and charge-control decisions",
+    "ventilation and vapor-accumulation prevention",
+    "fire-source and hot-work control",
+    "handling/storage precaution decisions",
+    "incompatible-material and reactivity prevention",
+    "leak/spill ignition-prevention decisions",
+    "equipment/cleaning/maintenance prevention points"
+  ],
+  "planning_invariants": {
+    "NO_COPYRIGHTED_PAST_QUESTION_TEXT": true,
+    "NO_WORDING_ONLY_VARIANTS": true,
+    "NO_QUOTA_BACKFILL": true,
+    "COLLISION_CHECK_AGAINST_ALL_111_CANONICAL_REQUIRED": true,
+    "SINGLE_SOURCE_BINDING_REQUIRED": true,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "AUTHOR_B9_AI_PRE_ACCEPT_UP_TO_24"
+}
