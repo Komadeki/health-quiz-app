@@ -9,9 +9,10 @@ from expansion import validate_expansion_batch
 BANK=REPO/'question_banks'/'drone_second_class'; AUTHORING=BANK/'authoring'; BATCH=AUTHORING/'batches'/'batch_018'; STATE_PATH=REPO/'tooling'/'komadeki_autopilot'/'drone_state.json'
 ALL=tuple(f'B18-RULE-C{i:03d}' for i in range(1,7)); AUTHOR_ID='chatgpt-b18-rules-author-r1'; REVIEWER_ID='autopilot-b18-residual-reviewer-r1'; DIRECTOR_ID='chatgpt-primary-director-b18-residual-r1'
 state=json.loads(STATE_PATH.read_text(encoding='utf-8'))
-if state.get('state_epoch')!=126 or state.get('next_atomic_objective')!='MATERIALIZE_B18_ACCEPTANCE_PACKETS_6': raise SystemExit(f"unexpected state: {state.get('state_epoch')} / {state.get('next_atomic_objective')}")
-contract=json.loads((AUTHORING/'residual_proposition_completion_contract_2026-08-25.json').read_text(encoding='utf-8'))
-if contract.get('completion_target',{}).get('fixed_question_count') is not None or contract.get('tier_policy',{}).get('future_authoring')!='TIER_A_NEW_PROPOSITION_ONLY': raise SystemExit('residual-only contract drift')
+if state.get('state_epoch')!=128 or state.get('next_atomic_objective')!='MATERIALIZE_B18_ACCEPTANCE_PACKETS_6': raise SystemExit(f"unexpected state: {state.get('state_epoch')} / {state.get('next_atomic_objective')}")
+contract=json.loads((AUTHORING/'owner_release_cut_371_2026-08-25.json').read_text(encoding='utf-8'))
+cut=contract.get('release_cut',{})
+if contract.get('status')!='ACTIVE' or cut.get('final_source_verified_canonical_after_b18')!=371 or cut.get('b18_final_accepted_candidates')!=6 or cut.get('new_authoring_after_b18')!='CLOSED_FOR_THIS_RELEASE' or cut.get('fixed_400_target') is not False: raise SystemExit('371 release-cut contract drift')
 with (BATCH/'candidates.csv').open(encoding='utf-8',newline='') as h: rows={r['candidate_id']:r for r in csv.DictReader(h)}
 if set(rows)!=set(ALL) or any(rows[c]['state']!='AI_PRE_ACCEPT' or rows[c]['permanent_question_id'].strip() for c in ALL): raise SystemExit('unexpected B18 candidate set/state')
 review=json.loads((BATCH/'independent_review_r1.json').read_text(encoding='utf-8')); review_by={d['candidate_id']:d for d in review['decisions']}
@@ -37,6 +38,6 @@ with (AUTHORING/'questions.csv').open(encoding='utf-8',newline='') as h:
 if len(json.loads((AUTHORING/'released_questions.json').read_text(encoding='utf-8'))['released_questions'])!=188: raise SystemExit('released baseline changed')
 meta=json.loads((AUTHORING/'bank.json').read_text(encoding='utf-8')); runtime=json.loads((BANK/meta['runtime_output']).read_text(encoding='utf-8'))
 if sum(len(u.get('cards',[])) for d in runtime.get('decks',[]) for u in d.get('units',[]))!=188: raise SystemExit('runtime baseline changed')
-state['observed_main']=subprocess.check_output(['git','rev-parse','origin/main'],text=True).strip(); state['state_epoch']=127; state['next_atomic_objective']='ALLOCATE_AND_INTEGRATE_B18_ACCEPTED_6'; STATE_PATH.write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+state['observed_main']=subprocess.check_output(['git','rev-parse','origin/main'],text=True).strip(); state['state_epoch']=129; state['next_atomic_objective']='ALLOCATE_AND_INTEGRATE_B18_ACCEPTED_6'; STATE_PATH.write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 errors=validate_expansion_batch(BATCH)
 if errors: raise SystemExit('B18 expansion validation failed: '+' | '.join(errors))

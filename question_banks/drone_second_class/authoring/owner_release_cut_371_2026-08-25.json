@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "decision_id": "DRONE-OWNER-RELEASE-CUT-371-2026-08-25",
+  "product": "drone_second_class",
+  "decided_at": "2026-08-25",
+  "decision_authority": "OWNER_DIRECTION_CURRENT",
+  "status": "ACTIVE",
+  "supersedes": [
+    "DRONE-OWNER-TARGET-400-RECONCILIATION-2026-08-25",
+    "DRONE-RESIDUAL-PROPOSITION-COMPLETION-2026-08-25",
+    "DRONE-PRODUCTION-TARGET-400-QUALITY-RELAXATION-2026-08-25"
+  ],
+  "release_cut": {
+    "baseline_source_verified_canonical": 365,
+    "b18_final_accepted_candidates": 6,
+    "final_source_verified_canonical_after_b18": 371,
+    "current_released_runtime": 188,
+    "new_authoring_after_b18": "CLOSED_FOR_THIS_RELEASE",
+    "additional_residual_scan_before_release": false,
+    "fixed_400_target": false,
+    "release_activation": "EXPLICIT_GATE_REQUIRED"
+  },
+  "owner_direction": "Finish the six already Director-accepted B18 residual propositions, source-verify them, stop question authoring at 371 for this release, and proceed to release rather than spending more time searching for additional questions.",
+  "authoritative_source": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "edition": "第5版",
+    "scope_rule": "B18 completion remains second-class-applicable and source-first; no new authoring is required before this release."
+  },
+  "required_closeout_path": [
+    "materialize B18 acceptance packets",
+    "allocate DRONE-Q-000366..DRONE-Q-000371 and integrate six canonical drafts",
+    "source-verify DRONE-Q-000366..DRONE-Q-000371",
+    "close QUESTION_BANK_COMPLETION at 371 source-verified canonical questions",
+    "execute explicit 371-question release activation under a new bank revision",
+    "advance to FEATURE_COMPLETION"
+  ],
+  "preserved_quality_gates": [
+    "independent AI review already completed for B18",
+    "Director adjudication already completed for B18",
+    "content-bound acceptance packets required before Permanent IDs",
+    "deterministic Permanent-ID allocation and used/retired ID protection",
+    "canonical source verification before release activation",
+    "released/runtime remain unchanged until explicit activation gate",
+    "no HUMAN review identity fabrication"
+  ],
+  "post_release_policy": "Any later question-bank expansion is a separate post-release revision and must not block this release.",
+  "current_atomic_objective": "MATERIALIZE_B18_ACCEPTANCE_PACKETS_6"
+}

@@ -3,7 +3,9 @@
   "decision_id": "DRONE-OWNER-TARGET-400-RECONCILIATION-2026-08-25",
   "product": "drone_second_class",
   "decided_at": "2026-08-25",
-  "decision_authority": "OWNER_DIRECTION_CURRENT",
+  "decision_authority": "OWNER_DIRECTION_CURRENT_AT_TIME",
+  "status": "SUPERSEDED",
+  "superseded_by": "DRONE-OWNER-RELEASE-CUT-371-2026-08-25",
   "supersedes": [
     "DRONE-RESIDUAL-PROPOSITION-COMPLETION-2026-08-25"
   ],
@@ -15,7 +17,7 @@
     "current_canonical": 365,
     "current_released": 188,
     "remaining_to_400": 35,
-    "status": "ACTIVE",
+    "status": "SUPERSEDED",
     "release_activation": "EXPLICIT_GATE_REQUIRED"
   },
   "authoritative_source": {
@@ -72,28 +74,13 @@
     "candidate created solely to satisfy the numeric target"
   ],
   "reconciliation": {
-    "reason": "The current owner direction again fixes the final accepted/source-verified canonical Production target at 400. The prior residual-proposition contract is therefore superseded only as to its no-fixed-count completion rule.",
-    "preserved_from_residual_contract": [
-      "explicit source support",
-      "second-class-only scope",
-      "full-canonical semantic collision rejection",
-      "independent AI review",
-      "Director adjudication",
-      "commercial practice value",
-      "one unambiguous best answer",
-      "Permanent ID only after acceptance",
-      "canonical source verification",
-      "no filler or wording-only duplication"
-    ],
-    "b18_status": "The six Director-accepted B18 residual propositions remain eligible for the existing acceptance-packet objective; this reconciliation does not alter their content or decisions."
+    "reason": "Historical record of the temporary 400-question reconciliation. It is no longer active because the owner subsequently directed release after B18, with no further question-authoring search before this release.",
+    "b18_status": "The six Director-accepted B18 propositions remain eligible and are the final authoring batch for the 371-question release cut."
   },
   "preserved_invariants": [
-    "Canonical inventory remains 365 in this control-plane transition.",
-    "Released/runtime remain 188 until an explicit release activation gate.",
+    "This historical contract itself does not mutate canonical or released/runtime payloads.",
     "Existing question identities, release history and free selection remain unchanged.",
     "The immutable V0 historical validation snapshot remains unchanged.",
-    "No candidate content, acceptance packet, Permanent ID, registry row or source-verification record is changed by this transition.",
     "No HUMAN review identity is created or implied."
-  ],
-  "current_atomic_objective_preserved": "MATERIALIZE_B18_ACCEPTANCE_PACKETS_6"
+  ]
 }
