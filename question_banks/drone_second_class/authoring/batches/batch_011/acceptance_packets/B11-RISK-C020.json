@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B11-RISK-C020",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "343f58158c2d410474ff622709cb18d8223a516974cbd2841f7649b8737f0801",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b11-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b11-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b11-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.4「目視外飛行」(1)1)補助者を配置する場合"
+    },
+    "answer_defining_proposition": "目視外飛行の地上位置把握は正常飛行中だけでなく、不具合で不時着した場合も含む。",
+    "tested_misconception": "地上での位置把握要件は正常飛行中だけを対象とし、不時着後の位置は把握できなくてもよい。",
+    "reasoning_path": "BVLOS flight -> failure/forced-landing state -> extend position awareness beyond airborne phase -> locate aircraft after landing",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。Q138は位置・異常把握を含む装備要件の束、Q141は補助者なし目視外飛行の針路・姿勢等と計画経路差。本問は不時着後まで位置把握を継続するlifecycle boundaryを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. The explicit requirement to retain ground awareness of aircraft location even after an abnormal forced landing changes the lifecycle state relative to Q138's bundled normal/abnormal equipment requirement and Q141's telemetry/path-delta checks."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B11 source-first plan, current Chapter 6 source and the 295-question canonical baseline. C004 is rejected because its answer-defining proposition converts source examples of probability and consequence mitigation into a stronger mandatory dual-consideration duty that is not explicit enough to accept under fail-closed source support. C010 is rejected because Q266 already tests stationary-front persistence and explicitly identifies Baiu/Autumn-rain fronts as examples; the proposed subtype framing adds insufficient solving-rule distinctness for the 400-target quality floor. The five accepted Tier B candidates C014, C017, C018, C019 and C020 retain material source-defined distinctions in temporal start-gate, GNSS failure, battery failure, explicit exception boundary and forced-landing lifecycle state. No accepted B11 candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota. Two candidates are deliberately dropped without backfill. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B11-RISK-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4c3aac72a9eb389cc05d51e987f337a20290cfe70420a8c7042f4793c8b2b3ee",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b11-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b11-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b11-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.4「目視外飛行」(1)1)フェールセーフ機能の例②"
+    },
+    "answer_defining_proposition": "GNSS電波異常時には、位置維持・安全な自動着陸・代替位置情報取得などのフェールセーフが例示される。",
+    "tested_misconception": "GNSS異常時には位置維持・安全着陸・代替測位は不要で、同じ経路を継続すればよい。",
+    "reasoning_path": "GNSS anomaly -> navigation degradation -> hold/land/alternate-position-source response branch",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。Q138はBVLOS装備要件の束、Q139は操縦用電波断絶時の帰還/位置維持。本問はGNSS異常という別failure triggerと固有のresponse branchを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. GNSS anomaly is a separate failure trigger from Q139 radio-link loss, with its own source-defined response branch of position hold, safe auto-landing or alternative positioning."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B11 source-first plan, current Chapter 6 source and the 295-question canonical baseline. C004 is rejected because its answer-defining proposition converts source examples of probability and consequence mitigation into a stronger mandatory dual-consideration duty that is not explicit enough to accept under fail-closed source support. C010 is rejected because Q266 already tests stationary-front persistence and explicitly identifies Baiu/Autumn-rain fronts as examples; the proposed subtype framing adds insufficient solving-rule distinctness for the 400-target quality floor. The five accepted Tier B candidates C014, C017, C018, C019 and C020 retain material source-defined distinctions in temporal start-gate, GNSS failure, battery failure, explicit exception boundary and forced-landing lifecycle state. No accepted B11 candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota. Two candidates are deliberately dropped without backfill. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

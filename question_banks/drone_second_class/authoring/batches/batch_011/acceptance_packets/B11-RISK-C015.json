@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B11-RISK-C015",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ab1e0404bec6d0aa792c4d2467e41d3716467666c9a9be39915c10662aac3c87",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b11-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b11-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b11-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「大型機（最大離陸重量25kg以上）」(1)運航の特徴"
+    },
+    "answer_defining_proposition": "大型機は事故影響が大きいため、操縦者には十分に高い運航習熟度と安全運航意識が要求される。",
+    "tested_misconception": "大型機でも技能証明があれば、小型機と同程度以下の習熟度・安全意識で足りる。",
+    "reasoning_path": "large aircraft -> greater accident consequence -> elevated operator proficiency/safety-awareness requirement",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q099は大型機の慣性と障害物回避、Q273/B9-C018は緊急着陸地点の広さ。本問は事故影響から操縦者側に要求される習熟度・安全意識を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The elevated proficiency and safety-awareness requirement for aircraft at or above 25 kg follows explicitly from greater accident consequence and differs from inertia/avoidance and emergency-landing-area questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B11 source-first plan, current Chapter 6 source and the 295-question canonical baseline. C004 is rejected because its answer-defining proposition converts source examples of probability and consequence mitigation into a stronger mandatory dual-consideration duty that is not explicit enough to accept under fail-closed source support. C010 is rejected because Q266 already tests stationary-front persistence and explicitly identifies Baiu/Autumn-rain fronts as examples; the proposed subtype framing adds insufficient solving-rule distinctness for the 400-target quality floor. The five accepted Tier B candidates C014, C017, C018, C019 and C020 retain material source-defined distinctions in temporal start-gate, GNSS failure, battery failure, explicit exception boundary and forced-landing lifecycle state. No accepted B11 candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota. Two candidates are deliberately dropped without backfill. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

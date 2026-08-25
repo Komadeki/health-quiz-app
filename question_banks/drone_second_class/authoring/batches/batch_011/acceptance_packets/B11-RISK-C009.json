@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B11-RISK-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "3e95898bdea6524c1013a13b108ae89a5162f27bf6ce9fcc39354114c076a21e",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b11-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b11-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b11-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「気象の重要性及び情報源」(3)9)春と秋の天気"
+    },
+    "answer_defining_proposition": "春秋の気団交代時には前線が停滞し、長雨・低い雲高・視程障害をもたらすことがある。",
+    "tested_misconception": "春秋の気団交代時の前線は速やかに通過し、長雨や低雲・視程障害にはつながらない。",
+    "reasoning_path": "seasonal high-pressure transition -> stationary boundary -> prolonged rain + low ceiling/visibility",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q266は停滞前線一般の位置維持と長雨を問う。本問は春秋の気団交代という原因から低雲・視程障害まで運航影響を推定する。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The item binds spring/autumn air-mass transition to a stationary boundary, prolonged rain, low cloud base and visibility degradation. Q266 only tests stationary-front persistence/long rain, so the causal weather-to-operational-risk path is materially distinct."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B11 source-first plan, current Chapter 6 source and the 295-question canonical baseline. C004 is rejected because its answer-defining proposition converts source examples of probability and consequence mitigation into a stronger mandatory dual-consideration duty that is not explicit enough to accept under fail-closed source support. C010 is rejected because Q266 already tests stationary-front persistence and explicitly identifies Baiu/Autumn-rain fronts as examples; the proposed subtype framing adds insufficient solving-rule distinctness for the 400-target quality floor. The five accepted Tier B candidates C014, C017, C018, C019 and C020 retain material source-defined distinctions in temporal start-gate, GNSS failure, battery failure, explicit exception boundary and forced-landing lifecycle state. No accepted B11 candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota. Two candidates are deliberately dropped without backfill. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

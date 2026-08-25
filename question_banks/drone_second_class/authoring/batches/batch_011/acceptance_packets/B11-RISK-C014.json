@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B11-RISK-C014",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c718095df647ad505eb562dd699a44023fd53e230e04b282a98e32df4d072960",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b11-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b11-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b11-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.2「気象の重要性及び情報源」(1)無人航空機における気象の重要性"
+    },
+    "answer_defining_proposition": "飛行開始前に、離陸から着陸までの全運航時間に支障のある気象状況にならないことを確認する。",
+    "tested_misconception": "離陸時点の天気だけ問題なければ、飛行中から着陸までの悪化予報を考慮せず開始してよい。",
+    "reasoning_path": "mission duration/environment -> analyze relevant weather -> cover takeoff-through-landing window -> start/no-start decision",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。Q093は情報源・情報種別の選択、Q096/Q126は現在すでに霧・雷鳴がある状態の延期判断。本問は将来の運航時間帯まで含めた開始ゲートというtime boundaryとreasoning pathが異なる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. The source explicitly requires pre-start confirmation that weather will not interfere from takeoff through landing. Q093 tests information-source selection and Q096/Q126 test already-present fog/thunder. This candidate changes the temporal decision boundary and reasoning path."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B11 source-first plan, current Chapter 6 source and the 295-question canonical baseline. C004 is rejected because its answer-defining proposition converts source examples of probability and consequence mitigation into a stronger mandatory dual-consideration duty that is not explicit enough to accept under fail-closed source support. C010 is rejected because Q266 already tests stationary-front persistence and explicitly identifies Baiu/Autumn-rain fronts as examples; the proposed subtype framing adds insufficient solving-rule distinctness for the 400-target quality floor. The five accepted Tier B candidates C014, C017, C018, C019 and C020 retain material source-defined distinctions in temporal start-gate, GNSS failure, battery failure, explicit exception boundary and forced-landing lifecycle state. No accepted B11 candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota. Two candidates are deliberately dropped without backfill. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
