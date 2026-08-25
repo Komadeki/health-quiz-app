@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B19-RULE-C015",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4e1d3178c81e8f08a3c122a71f0c2b9db27a5d7acf400985dd2084ed28e4f95d",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b19-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "chatgpt-b19-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b19-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)2)a.「飛行計画の通報等」（教則表示ページ23 / PDF viewer 28）"
+    },
+    "answer_defining_proposition": "特定飛行に該当しない無人航空機の飛行でも、飛行計画を通報することが望ましいが、特定飛行と同じ法的義務ではない。",
+    "tested_misconception": "特定飛行でなければ飛行計画の通報は不要というだけでなく、通報すること自体が認められていない、又は逆に義務である。",
+    "reasoning_path": "classify flight as non-specific -> distinguish mandatory rule from recommendation -> choose recommended notification",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q053/Q110は特定飛行の計画遵守・事後通報、Q192は飛行計画作成、Q211は非特定飛行の日誌記載推奨。本問は非特定飛行の飛行計画『通報』の推奨という別命題で、sourceの規範強度を『望ましい』に限定する。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Source and norm-strength PASS. The source distinguishes the mandatory flight-plan notification for specific flights from the recommendation that non-specific flights also notify a flight plan. The candidate correctly tests the recommendation/obligation boundary and does not overstate it as a legal duty."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent B19 review at ACCEPT 15 / REJECT 0 / REWORK 0 / HOLD 0. The decision is quality-driven rather than target-driven: all fifteen candidates have explicit current MLIT 教則第5版 support, one best answer and either a new answer-defining proposition or a materially distinct source-defined state, boundary, response action or reportable branch. The four Tier B candidates C007, C009, C011 and C012 survive because they test distinct flight-state/response or legal-reportability branches; no wording-only variant is accepted. B19 is the sole permitted in-flight batch under the active dynamic release policy. No B20 planning or authoring may begin before the current release set is frozen. After B19 acceptance, Permanent-ID integration and source verification, every VERIFIED B19 survivor must be included in the current release freeze; if any candidate failed a later gate it would be excluded without blocking release."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

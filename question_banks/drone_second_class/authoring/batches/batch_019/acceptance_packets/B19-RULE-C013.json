@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B19-RULE-C013",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "61dbe42ec4ad2176a254f4b5ea8f5683fd31bdeadbd8de9f6d7acb7d6b0cc165",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b19-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "chatgpt-b19-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b19-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)2)b.「飛行日誌の携行及び記載」b.日常点検記録（教則表示ページ23 / PDF viewer 28）"
+    },
+    "answer_defining_proposition": "日常点検記録には、実施年月日・場所、実施者の氏名、日常点検の結果等を記載する。",
+    "tested_misconception": "日常点検記録には点検結果だけを残せばよく、実施年月日・場所や実施者の氏名は不要である。",
+    "reasoning_path": "identify flight-log subrecord type -> recall required daily-inspection fields -> select complete field set",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q042は飛行日誌の3記録区分、Q225は飛行記録の内容を問う。本問は日常点検記録の内部項目を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Source and record-content PASS. The source separately specifies daily-inspection record contents: date and place, inspector name and inspection result. Existing log questions identify record categories or flight-record contents, so the internal daily-inspection fields are a distinct answer-defining proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent B19 review at ACCEPT 15 / REJECT 0 / REWORK 0 / HOLD 0. The decision is quality-driven rather than target-driven: all fifteen candidates have explicit current MLIT 教則第5版 support, one best answer and either a new answer-defining proposition or a materially distinct source-defined state, boundary, response action or reportable branch. The four Tier B candidates C007, C009, C011 and C012 survive because they test distinct flight-state/response or legal-reportability branches; no wording-only variant is accepted. B19 is the sole permitted in-flight batch under the active dynamic release policy. No B20 planning or authoring may begin before the current release set is frozen. After B19 acceptance, Permanent-ID integration and source verification, every VERIFIED B19 survivor must be included in the current release freeze; if any candidate failed a later gate it would be excluded without blocking release."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

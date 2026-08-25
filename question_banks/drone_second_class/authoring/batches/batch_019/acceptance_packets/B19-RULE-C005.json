@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B19-RULE-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f5bc7aaa116f381edfed3b134cdd244cf0d27282428855f4aead5e4f58adf10c",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b19-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "chatgpt-b19-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b19-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.1 7)「模型航空機に対する規制」①（教則表示ページ12-13 / PDF viewer 17-18）"
+    },
+    "answer_defining_proposition": "重量100g未満を含む模型航空機も、航空交通管制圏・航空交通情報圏・航空交通管制区内の特別管制空域等では飛行禁止の対象となる。",
+    "tested_misconception": "100g未満の模型航空機には、航空交通管制圏等の航空機安全確保のための禁止空域規制が適用されない。",
+    "reasoning_path": "classify <100g aircraft as model aircraft -> identify special controlled airspace -> apply model-aircraft prohibition",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q041は100g未満模型航空機の緊急用務空域、Q112は小型無人機等飛行禁止法上の重量を問う。本問は航空交通管制区内の特別管制空域等という別の禁止空域をanswer-definingにする。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Source, scope and boundary PASS. The source expressly applies the model-aircraft prohibition to aircraft under 100 g in air traffic control zones, air traffic information zones, special control airspace within control areas and related airspace. This is distinct from the existing emergency-airspace and weight-definition questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent B19 review at ACCEPT 15 / REJECT 0 / REWORK 0 / HOLD 0. The decision is quality-driven rather than target-driven: all fifteen candidates have explicit current MLIT 教則第5版 support, one best answer and either a new answer-defining proposition or a materially distinct source-defined state, boundary, response action or reportable branch. The four Tier B candidates C007, C009, C011 and C012 survive because they test distinct flight-state/response or legal-reportability branches; no wording-only variant is accepted. B19 is the sole permitted in-flight batch under the active dynamic release policy. No B20 planning or authoring may begin before the current release set is frozen. After B19 acceptance, Permanent-ID integration and source verification, every VERIFIED B19 survivor must be included in the current release freeze; if any candidate failed a later gate it would be excluded without blocking release."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
