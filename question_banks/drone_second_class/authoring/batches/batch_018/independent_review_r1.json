@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B18",
+  "review_round": 1,
+  "reviewer": {"id":"autopilot-b18-residual-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked": "chatgpt-b18-rules-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "governance_contract": "residual_proposition_completion_contract_2026-08-25.json",
+  "source_contract": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","edition":"第5版","official_current_check":"2026-08-25","official_pdf":"https://www.mlit.go.jp/common/002010810.pdf","second_class_scope_rule":"Use only second-class-applicable Chapter 3 propositions; exclude subsections explicitly marked 〔一等〕."},
+  "review_basis": [
+    "current merged B18 candidates.csv",
+    "current 365-question canonical inventory",
+    "residual-only completion contract superseding the fixed 400-question target",
+    "current MLIT 教則第5版 Chapter 3.1.2(3) official source text",
+    "exact canonical term checks for 計器飛行方式, 有視界飛行方式, 進路権, 航空交通管制区, 航空交通管制圏, 進入表面, 水平表面 and 転移表面",
+    "source fidelity, answer uniqueness, new answer-defining proposition, second-class applicability, commercial practice value, plausible distractors and explanation correctness"
+  ],
+  "summary": {"reviewed":6,"accept":6,"reject":0,"rework":0,"hold":0},
+  "decisions": [
+    {"candidate_id":"B18-RULE-C001","decision":"ACCEPT","rationale":"Residual proposition PASS. The official source explicitly distinguishes IFR from VFR and states the airport-area ATC exception for VFR. Neither 計器飛行方式 nor 有視界飛行方式 is answer-defining in the 365-question canonical inventory. The correct option is uniquely supported and the item does not reuse an existing proposition."},
+    {"candidate_id":"B18-RULE-C002","decision":"ACCEPT","rationale":"Residual proposition PASS. The source explicitly lists cases in which manned aircraft may fly at or below 150 m outside ordinary takeoff/landing continuation, including search/rescue, doctor helicopters, approved low-level operations and sparsely inhabited or broad-water areas. Q120 only uses doctor-helicopter traffic as one route-planning factor and Q216 tests a UAS no-start action when an aircraft is seen; neither makes the sub-150 m manned-aircraft cases answer-defining."},
+    {"candidate_id":"B18-RULE-C003","decision":"ACCEPT","rationale":"Residual proposition PASS under the new owner rule, not under the former Tier-B allowance. Q051/Q216/Q218 test concrete UAS avoidance behavior, but the canonical inventory does not make the explicit aircraft-over-UAS right-of-way concept or its source-defined rationale answer-defining. The source states that aircraft navigation safety is prioritized, aircraft have difficulty visually detecting/avoiding small UAS, and UAS generally have higher maneuverability; therefore aircraft are treated as having right-of-way over UAS."},
+    {"candidate_id":"B18-RULE-C004","decision":"ACCEPT","rationale":"Residual proposition PASS. The source explicitly defines an air traffic control area as designated airspace at or above 200 m above ground/water and requires IFR aircraft in it to remain in communication with ATC and follow instructions. 航空交通管制区 is not answer-defining in canonical inventory."},
+    {"candidate_id":"B18-RULE-C005","decision":"ACCEPT","rationale":"Residual proposition PASS. The source explicitly defines the air traffic control zone around airports with frequent takeoffs/landings and requires all aircraft, regardless of IFR/VFR, to communicate with ATC and follow flight-method and takeoff/landing-order instructions. 航空交通管制圏 is not answer-defining in canonical inventory."},
+    {"candidate_id":"B18-RULE-C006","decision":"ACCEPT","rationale":"Residual proposition PASS. The source explicitly distinguishes the three basic restriction surfaces used at all airports: approach surface for final approach/takeoff safety, horizontal surface for low-altitude circling around the airport, and transitional surface for lateral flight such as a go-around. None of 進入表面, 水平表面 or 転移表面 is answer-defining in canonical inventory. The mapping task is central operational airspace knowledge and has one uniquely supported option."}
+  ],
+  "residual_only_gate": {"new_answer_defining_proposition_required":true,"controlled_variant_allowance_used":false,"numeric_quota_used":false,"accepted_candidate_ids":["B18-RULE-C001","B18-RULE-C002","B18-RULE-C003","B18-RULE-C004","B18-RULE-C005","B18-RULE-C006"],"rejected_as_existing_proposition":[]},
+  "canonical_collision_reconciliation": {"full_inventory_basis":365,"exact_term_absence_confirmed":true,"nearest_neighbor_checks_performed":true,"quota_backfill":false},
+  "invariants": {"HUMAN_REVIEW_ROWS_CREATED":0,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"REGISTRY_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false},
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_6_ACCEPT_0_REJECT"
+}
