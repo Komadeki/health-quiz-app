@@ -1,0 +1,12 @@
+{
+  "app_key": "otsu4",
+  "bank_revision": "otsu4-bank-bootstrap-2026-08-25",
+  "content_as_of": "2026-08-25",
+  "content_hash": "sha256:228f5a5b285f83df30d5c4776a840ed89b93009c6c8751b87ddcdfd6dacb8f65",
+  "exam_profile_version": "otsu4-product-spec-v0",
+  "free_question_count": 0,
+  "generated_file_notice": "GENERATED FILE - DO NOT EDIT",
+  "question_count": 0,
+  "schema_version": 1,
+  "source_versions": {}
+}
