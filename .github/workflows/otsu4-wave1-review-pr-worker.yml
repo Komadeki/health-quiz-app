@@ -1,0 +1,47 @@
+name: Otsu4 Wave 1 Independent Review PR Worker
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'question_banks/otsu4/authoring/waves/wave_001_review_request.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: otsu4-wave1-review-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  review:
+    if: github.head_ref == 'chatgpt/otsu4-wave1-independent-review-64'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Wave 1 review branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/otsu4-wave1-independent-review-64
+          fetch-depth: 0
+      - name: Reconcile to current main
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Validate and persist Otsu4 Wave 1 independent review
+        run: python3 tooling/komadeki_autopilot/otsu4_wave1_review_transition.py
+      - name: Validate review transition and repository gates
+        run: |
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/otsu4_state.json
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/otsu4 --check-generated
+          tooling/ci/check_otsu4_question_bank.sh
+      - name: Commit durable Otsu4 Wave 1 review transition
+        run: |
+          rm -f question_banks/otsu4/authoring/waves/wave_001_review_request.json
+          git add -A
+          git diff --cached --check
+          git commit -m 'Review Otsu4 Wave 1 candidates'
+          git push --force-with-lease origin HEAD:chatgpt/otsu4-wave1-independent-review-64
