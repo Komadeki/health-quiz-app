@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W1",
+  "verification_date": "2026-08-26",
+  "verified_candidate_count": 60,
+  "canonical_verified_count": 111,
+  "permanent_id_range": {
+    "first": "OTSU4-Q-000052",
+    "last": "OTSU4-Q-000111"
+  },
+  "source_verification_state": "author_source_verified",
+  "nonaccepted_preserved": {
+    "reject": ["O4-B5-PHY-C002"],
+    "rework": ["O4-B4-FIR-C019", "O4-B4-FIR-C020", "O4-B5-PHY-C003"]
+  },
+  "release_runtime_unchanged": true,
+  "machine_state_epoch": 49,
+  "next_atomic_objective": "PLAN_OTSU4_WAVE_2_600Q_COVERAGE"
+}
