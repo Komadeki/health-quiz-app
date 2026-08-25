@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "decision_id": "DRONE-OWNER-DYNAMIC-RELEASE-INCLUSION-2026-08-26",
+  "product": "drone_second_class",
+  "decided_at": "2026-08-26",
+  "decision_authority": "OWNER_DIRECTION_CURRENT",
+  "status": "ACTIVE",
+  "supersedes": [
+    "DRONE-OWNER-TARGET-400-RECONCILIATION-AFTER-371-CUT-2026-08-25"
+  ],
+  "release_policy": {
+    "fixed_release_question_count": null,
+    "minimum_already_qualified_source_verified_canonical": 371,
+    "release_progression_blocked_by_400_target": false,
+    "activation_set_rule": "At the release activation freeze point, include every canonical question on authoritative current main that is eligible for Production release: it has a permanent question_id, canonical source verification matching the current registered source version, no retired/replaced identity conflict, and any governed expansion candidate bound to it has reached VERIFIED. Existing already-released questions remain included without rewriting release identity.",
+    "late_arrival_rule": "If additional questions become fully eligible before the activation set is frozen, include them in the same release and recompute the target count. If they become eligible after the freeze, or are not yet source-verified, they do not block the current release and move to a later bank revision.",
+    "drift_rule": "Any change to eligible canonical/source-verification inputs between activation preparation and execution invalidates the prepared gate and requires automatic re-freeze/re-prepare against current main; do not silently drop newly eligible questions and do not release partially verified questions.",
+    "authoring_rule": "Additional authoring/review may continue, but a numeric target and unfinished candidate work must not block the current release once the existing source-verified Production set is commercially sufficient.",
+    "free_selection_rule": "Preserve the current 30-question free selection unless a separate monetization decision changes it.",
+    "release_revision_rule": "Every activation uses a new bank_revision and preserves all prior question identity and first-use release history."
+  },
+  "eligibility_gates": [
+    "canonical question has permanent question_id and is not retired",
+    "canonical source verification exists and matches current source_id/source_version",
+    "governed expansion candidate, when applicable, is VERIFIED before activation mutation",
+    "question content and correct-answer identity are unchanged from the accepted/source-verified canonical row",
+    "released/runtime mutation occurs atomically through an explicit activation gate",
+    "generated runtime and bundled app asset are byte-identical after generation",
+    "all required Question Bank, Autopilot State and Quiz Apps CI gates pass"
+  ],
+  "explicit_exclusions": [
+    "AI_PRE_ACCEPT candidates",
+    "READY_FOR_ID candidates",
+    "INTEGRATED candidates lacking canonical source verification",
+    "REWORK, HOLD or REJECT candidates",
+    "first-class-only or unsupported material",
+    "questions added after the activation set freeze unless the gate is deliberately invalidated and re-prepared"
+  ],
+  "current_facts": {
+    "source_verified_canonical_floor": 371,
+    "released_runtime": 188,
+    "prepared_fixed_371_activation": "SUPERSEDED_NOT_EXECUTABLE",
+    "b19_plan_or_authoring": "NON_BLOCKING_FOR_CURRENT_RELEASE",
+    "fixed_400_completion_requirement": "SUPERSEDED"
+  },
+  "next_atomic_objective": "FREEZE_CURRENT_SOURCE_VERIFIED_SET_FOR_RELEASE_ACTIVATION"
+}
