@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B17-400-TARGET-SYSTEMS-PRESCREEN-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B17_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "b6951ec810f543b6dcae88f32294830ded03e135",
+  "target_contract": "target_400_quality_relaxation_contract_2026-08-25.json",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 360,
+    "accepted_source_verified_canonical": 360,
+    "remaining_to_400": 40,
+    "next_unreserved_permanent_id": "DRONE-Q-000361",
+    "derived_domain_counts": {
+      "drone_rules": 93,
+      "drone_systems": 81,
+      "drone_operations": 93,
+      "drone_risk_management": 93
+    }
+  },
+  "strategy": {
+    "domain": "drone_systems",
+    "reason": "After B16 verification, Systems is the only materially underrepresented domain at 81 versus 93 in Rules, Operations and Risk. B13 nevertheless demonstrated severe Systems saturation (4/20 accepted), so B17 does not repeat broad 20-candidate harvesting. It uses a five-candidate pre-screen-first batch limited to explicit current Chapter 4 propositions that are absent or materially distinct in the full 360-question canonical inventory.",
+    "candidate_ceiling": 5,
+    "candidate_ceiling_is_quota": false,
+    "pre_screen_rule": "Every candidate must have explicit current Chapter 4 support, a named nearest canonical neighbor, and either a genuinely new answer-defining proposition or a controlled variant satisfying the target-400 distinctness axes. No count backfill."
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "official_current_check": "2026-08-25",
+    "scope_rule": "Use only second-class-applicable Chapter 4 propositions; exclude every subsection explicitly marked 〔一等〕."
+  },
+  "batch": {
+    "batch_id": "B17",
+    "domain": "drone_systems",
+    "candidate_ceiling": 5,
+    "candidate_ceiling_is_quota": false,
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 3,
+      "B_BOUNDARY_VARIANT": 2,
+      "C_REASONING_VARIANT": 0
+    }
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B17-SYS-C001",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "high discharge current can cause LiPo voltage sag",
+      "distinctness_axes": ["quantitative_threshold_side", "causal_mechanism", "reasoning_path"],
+      "family": "battery voltage-drop internal-resistance relationship",
+      "source_locator": "教則 第4章 4.4「無人航空機の主たる構成要素」(1)バッテリー",
+      "proposition": "バッテリーの電圧降下は抵抗×電流で表され、放電中の電圧降下はバッテリー内部抵抗によって決まる。したがって同じ内部抵抗なら放電電流が大きいほど電圧降下は大きくなる。",
+      "tested_misconception": "放電中の電圧降下はセル数や残量だけで決まり、内部抵抗や放電電流には左右されない。",
+      "reasoning_path": "identify Vdrop = R × I -> hold internal resistance constant -> compare discharge current -> infer relative voltage drop",
+      "nearest_canonical": ["DRONE-Q-000157", "DRONE-Q-000158", "DRONE-Q-000164"],
+      "pre_screen_result": "PASS: Q157 tests nominal pack voltage from cell voltage and count; Q158 tests current increase required to maintain constant output as discharge voltage falls; Q164 identifies large-current transient sag after rapid ascent. C001 makes the source-defined Vdrop = R × I relationship and internal resistance answer-defining, requiring a distinct calculation/causal reasoning step."
+    },
+    {
+      "candidate_id": "B17-SYS-C002",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "battery energy-capacity Wh relationship",
+      "source_locator": "教則 第4章 4.4「無人航空機の主たる構成要素」(1)バッテリー",
+      "proposition": "バッテリーのエネルギー容量Whは、放電時電圧V×電流A×時間hで求める。",
+      "tested_misconception": "エネルギー容量WhはAh容量だけで決まり、放電時電圧を考慮しない。",
+      "reasoning_path": "identify requested quantity as energy capacity Wh -> multiply discharge voltage by current and time -> distinguish from output W and capacity Ah",
+      "nearest_canonical": ["DRONE-Q-000158", "DRONE-Q-000335"],
+      "pre_screen_result": "PASS: Q158 tests output W = voltage × current in an operational consequence; Q335 tests capacity Ah = current × time. No canonical item makes the distinct Wh = V × A × h relationship answer-defining."
+    },
+    {
+      "candidate_id": "B17-SYS-C003",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "magnetic north map-north declination",
+      "source_locator": "教則 第4章 4.5「磁気方位」(1)地磁気センサの役割",
+      "proposition": "磁力線が示す北である磁北と地図の北には偏角が生じるため、地磁気センサの方位を地図上の北と常に同一とは扱えない。",
+      "tested_misconception": "磁北と地図の北は常に一致するため、偏角を考慮する必要はない。",
+      "reasoning_path": "distinguish magnetic north from map north -> recognize source-defined declination -> reject assumption of identical headings",
+      "nearest_canonical": ["DRONE-Q-000043", "DRONE-Q-000076"],
+      "pre_screen_result": "PASS: Q043 tests the purpose of magnetic calibration and uses declination only as a distractor; Q076 tests local magnetic interference from iron/current. Neither makes the magnetic-north versus map-north declination relationship answer-defining."
+    },
+    {
+      "candidate_id": "B17-SYS-C004",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "multi-cell LiPo charging requires cell balance correction",
+      "distinctness_axes": ["scenario_state_or_flight_phase", "causal_mechanism", "reasoning_path"],
+      "family": "multi-cell imbalance degradation chain",
+      "source_locator": "教則 第4章「機体の動力源」(2)3)複数のセルで構成されたリチウムポリマーバッテリーの取扱上の注意",
+      "proposition": "複数セルLiPoでセル間の充電量のバランスが著しく崩れたまま充電するとセル間の電圧差が生じ、セルによって過放電となる現象が起こり、急速な劣化につながる。",
+      "tested_misconception": "セル間の充電量が著しく不均衡でも、充電を続ければ各セルの電圧差は自動的に解消され、劣化にはつながらない。",
+      "reasoning_path": "severe cell imbalance during charging -> voltage difference develops -> cell-level overdischarge phenomenon -> rapid degradation",
+      "nearest_canonical": ["DRONE-Q-000166"],
+      "pre_screen_result": "PASS: Q166 tests the required action of connecting a balance connector to correct cell balance. C004 tests the separate source-defined failure chain when charging proceeds with severe imbalance; scenario state, causal mechanism and reasoning path differ."
+    },
+    {
+      "candidate_id": "B17-SYS-C005",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "LiPo characteristic set",
+      "source_locator": "教則 第4章「機体の動力源」(2)1)リチウムポリマーバッテリーの特徴",
+      "proposition": "LiPoはエネルギー密度が高く、電圧が高く、自己放電が少なく、メモリ効果が小さい一方、電解質が可燃物であるという特徴を持つ。",
+      "tested_misconception": "LiPoは自己放電やメモリ効果が大きく、電解質も不燃性である。",
+      "reasoning_path": "identify battery chemistry -> distinguish the source-listed performance characteristics from handling hazards -> select the correct characteristic set",
+      "nearest_canonical": ["DRONE-Q-000163", "DRONE-Q-000164", "DRONE-Q-000165", "DRONE-Q-000167"],
+      "pre_screen_result": "PASS: current LiPo questions test operational consequences such as voltage sag, degradation, impact/fire and handling. No canonical item makes the source-listed LiPo characteristic set itself answer-defining. This is a central battery-property proposition rather than incidental trivia."
+    }
+  ],
+  "excluded_after_prescreen": [
+    "VTOL, fixed-wing lateral movement, swashplate, tail-rotor, multirotor reaction-torque, night-vision sensor, periodic maintenance, IMU, altitude-sensor, motor/ESC, propeller-direction and antenna-orientation propositions already collided or were consumed in B13/current canonical",
+    "nominal pack voltage, output/current relationship, Ah capacity, state-of-charge, engine fuel, radio propagation, GNSS accuracy/installation and LiPo storage/disposal propositions already answer-defining in canonical questions",
+    "first-class-only Chapter 4 calculation and radio subsections remain excluded",
+    "no candidate is added solely to restore a numeric Systems quota"
+  ],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_PLANNING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_PLANNING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_PLANNING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "AUTHOR_AND_PERSIST_B17_400_TARGET_CANDIDATES"
+}

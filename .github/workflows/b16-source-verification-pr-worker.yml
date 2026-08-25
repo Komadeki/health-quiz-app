@@ -1,0 +1,148 @@
+name: B16 Source Verification PR Worker
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/b16-source-verification-trigger']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b16-source-verification-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: github.head_ref == 'chatgpt/drone-b16-source-verify-6'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout source verification branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-b16-source-verify-6
+          fetch-depth: 0
+      - name: Reconcile to current main
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Verify exact B16 canonical sources
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+          import csv, json, subprocess, sys
+          from pathlib import Path
+
+          repo = Path.cwd()
+          sys.path.insert(0, str(repo / "tooling" / "question_bank"))
+          from expansion import validate_expansion_batch
+
+          bank = repo / "question_banks" / "drone_second_class"
+          authoring = bank / "authoring"
+          batch = authoring / "batches" / "batch_016"
+          state_path = repo / "tooling" / "komadeki_autopilot" / "drone_state.json"
+          accepted = tuple(f"B16-OPS-C{i:03d}" for i in range(1, 7))
+          mapping = {cid: f"DRONE-Q-{n:06d}" for cid, n in zip(accepted, range(355, 361))}
+          expected_locators = {
+              "B16-OPS-C001": "教則 第5章 5.2.1(1)7)「GNSSを使用しない着陸」",
+              "B16-OPS-C002": "教則 第5章 5.2.1(1)4)「着陸」",
+              "B16-OPS-C003": "教則 第5章 5.2.1(2)2)「離陸方法」",
+              "B16-OPS-C004": "教則 第5章 5.2.1(2)2)「離陸方法」",
+              "B16-OPS-C005": "教則 第5章 5.2.1(2)2)「離陸方法」",
+              "B16-OPS-C006": "教則 第5章 5.4.1「CRM / TEM」",
+          }
+
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          if state.get("next_atomic_objective") != "VERIFY_B16_CANONICAL_SOURCES_6" or state.get("state_epoch") != 114:
+              raise SystemExit(f"unexpected state: {state.get('state_epoch')} / {state.get('next_atomic_objective')}")
+
+          def read_csv(path: Path):
+              with path.open(encoding="utf-8", newline="") as h:
+                  return list(csv.DictReader(h))
+
+          with (batch / "candidates.csv").open(encoding="utf-8", newline="") as h:
+              reader = csv.DictReader(h)
+              fields = list(reader.fieldnames or [])
+              rows = list(reader)
+          by_id = {r["candidate_id"]: r for r in rows}
+          if set(by_id) != set(accepted):
+              raise SystemExit("unexpected B16 candidate set")
+          for cid, qid in mapping.items():
+              r = by_id[cid]
+              if r["state"] != "INTEGRATED" or r["permanent_question_id"] != qid:
+                  raise SystemExit(f"integration binding mismatch: {cid}")
+              if r["source_id"] != "MLIT-UAS-SAFETY-GUIDE-5" or r["source_version"] != "5":
+                  raise SystemExit(f"source contract mismatch: {cid}")
+              if r["source_locator"] != expected_locators[cid] or "〔一等〕" in r["source_locator"]:
+                  raise SystemExit(f"source locator/scope mismatch: {cid}")
+
+          questions = {r["question_id"]: r for r in read_csv(authoring / "questions.csv")}
+          if len(questions) != 360:
+              raise SystemExit(f"canonical inventory expected 360, got {len(questions)}")
+          for cid, qid in mapping.items():
+              q = questions[qid]
+              c = by_id[cid]
+              if q["status"] != "draft" or q["unit_id"] != "drone_operations":
+                  raise SystemExit(f"canonical draft mismatch: {qid}")
+              for qfield, cfield in (("question","question"),("choice1","choice1"),("choice2","choice2"),("choice3","choice3"),("choice4","choice4"),("correct_choice","proposed_correct"),("explanation","explanation"),("source_id","source_id"),("source_locator","source_locator")):
+                  if q[qfield] != c[cfield]:
+                      raise SystemExit(f"canonical binding mismatch: {qid}:{qfield}")
+
+          sources = json.loads((authoring / "sources.json").read_text(encoding="utf-8"))["sources"]
+          source = next(s for s in sources if s["source_id"] == "MLIT-UAS-SAFETY-GUIDE-5")
+          if str(source["source_version"]) != "5" or source.get("edition") != "第5版" or source.get("url") != "https://www.mlit.go.jp/common/002010810.pdf":
+              raise SystemExit("unexpected current source contract")
+
+          verification_path = authoring / "source_verifications.json"
+          verification_doc = json.loads(verification_path.read_text(encoding="utf-8"))
+          existing = {r["question_id"] for r in verification_doc["verifications"]}
+          if any(qid in existing for qid in mapping.values()):
+              raise SystemExit("partial/duplicate B16 source verification detected")
+          verification_doc["verifications"].extend({
+              "question_id": qid,
+              "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+              "source_version": "5",
+              "verification_state": "author_source_verified",
+              "verified_at": "2026-08-25"
+          } for qid in mapping.values())
+          verification_doc["verifications"].sort(key=lambda r: r["question_id"])
+          verification_path.write_text(json.dumps(verification_doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          for cid in accepted:
+              by_id[cid]["state"] = "VERIFIED"
+          with (batch / "candidates.csv").open("w", encoding="utf-8", newline="") as h:
+              writer = csv.DictWriter(h, fieldnames=fields, lineterminator="\n")
+              writer.writeheader()
+              writer.writerows(rows)
+
+          released = json.loads((authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"]
+          if len(released) != 188:
+              raise SystemExit("released baseline changed")
+          meta = json.loads((authoring / "bank.json").read_text(encoding="utf-8"))
+          runtime = json.loads((bank / meta["runtime_output"]).read_text(encoding="utf-8"))
+          if sum(len(u.get("cards", [])) for d in runtime.get("decks", []) for u in d.get("units", [])) != 188:
+              raise SystemExit("runtime baseline changed")
+
+          state["observed_main"] = subprocess.check_output(["git", "rev-parse", "origin/main"], text=True).strip()
+          state["next_atomic_objective"] = "PLAN_B17_400_TARGET_COVERAGE_VARIANTS"
+          state["state_epoch"] = 115
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          errors = validate_expansion_batch(batch)
+          if errors:
+              raise SystemExit("B16 expansion validation failed: " + " | ".join(errors))
+          PY
+      - name: Validate source verification and repository gates
+        run: |
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class --check-generated
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+      - name: Commit durable B16 source verification
+        run: |
+          rm -f .github/b16-source-verification-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Verify B16 canonical sources'
+          git push --force-with-lease origin HEAD:chatgpt/drone-b16-source-verify-6
