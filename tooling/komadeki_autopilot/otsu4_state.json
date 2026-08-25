@@ -6,12 +6,12 @@
   "status": "ACTIVE",
   "current_phase": "QUESTION_BANK_COMPLETION",
   "phase_order": ["QUESTION_BANK_COMPLETION","FEATURE_COMPLETION","PRODUCT_CLOSURE","PHYSICAL_DEVICE","STOREKIT_TESTFLIGHT","APP_STORE_CONNECT","FINAL_RELEASE_GATE","SUBMIT","DONE"],
-  "observed_main": "7964dab060000e187b13cc244ebdb9cd1d2166c2",
-  "next_atomic_objective": "INDEPENDENT_REVIEW_OTSU4_BATCH_1_AI_PRE_ACCEPT",
+  "observed_main": "90637c110a2df188e63421a28cbf6ae8b510d01f",
+  "next_atomic_objective": "DIRECTOR_ADJUDICATE_OTSU4_BATCH_1_REVIEW_R1",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 7
+  "state_epoch": 8
 }
