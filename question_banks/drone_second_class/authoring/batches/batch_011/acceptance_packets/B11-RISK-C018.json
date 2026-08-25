@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B11-RISK-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "985ea02b785afe3deb17dd2fe919b947ab3501e383f7c6a452bb6210b9a6cfeb",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b11-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b11-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b11-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.4「目視外飛行」(1)1)フェールセーフ機能の例③"
+    },
+    "answer_defining_proposition": "電池異常時には発煙・発火を防止し、自動帰還又は安全な自動着陸を可能とする機能が例示される。",
+    "tested_misconception": "電池異常時は残量表示だけあればよく、熱的危険の防止や帰還・着陸機能は不要である。",
+    "reasoning_path": "battery voltage/capacity/temperature anomaly -> thermal hazard control + endurance response -> return or safe land",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。Q138は一般のBVLOS装備要件、Q139は電波断絶、Q045は低温環境での飛行可能時間短縮。本問は飛行中の電池異常triggerに対する発煙・発火防止と帰還/着陸branchを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Battery voltage/capacity/temperature abnormality defines a separate failure branch requiring smoke/fire prevention plus return or safe landing; Q045 only covers low-temperature endurance reduction."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B11 source-first plan, current Chapter 6 source and the 295-question canonical baseline. C004 is rejected because its answer-defining proposition converts source examples of probability and consequence mitigation into a stronger mandatory dual-consideration duty that is not explicit enough to accept under fail-closed source support. C010 is rejected because Q266 already tests stationary-front persistence and explicitly identifies Baiu/Autumn-rain fronts as examples; the proposed subtype framing adds insufficient solving-rule distinctness for the 400-target quality floor. The five accepted Tier B candidates C014, C017, C018, C019 and C020 retain material source-defined distinctions in temporal start-gate, GNSS failure, battery failure, explicit exception boundary and forced-landing lifecycle state. No accepted B11 candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota. Two candidates are deliberately dropped without backfill. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B11-RISK-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "451f9f180212c045fea926e96f6727d40f8ca71d885f30bcc994dd43e5e7c277",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b11-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b11-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b11-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.1「飛行計画」(1)飛行計画策定時の確認事項"
+    },
+    "answer_defining_proposition": "飛行計画では離陸前から着陸後まで全工程で安全管理を優先し、工程ごとの状況に応じた安全対策を講じる。",
+    "tested_misconception": "安全管理は機体が飛行経路上にいる時間だけを対象にすればよい。",
+    "reasoning_path": "operation lifecycle -> enumerate pre-takeoff/takeoff/route/landing/post-landing -> apply phase-specific safety controls",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q091は既知の離着陸・経路・時間制約の計画統合、Q121は予想可能な状況変化を確認事項へ含める問題。本問は安全管理が運航ライフサイクル全体に及ぶことを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The end-to-end safety-management lifecycle from pre-takeoff through post-landing is explicit in the source and distinct from Q091 constraint integration and Q121 anticipated-condition checks."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B11 source-first plan, current Chapter 6 source and the 295-question canonical baseline. C004 is rejected because its answer-defining proposition converts source examples of probability and consequence mitigation into a stronger mandatory dual-consideration duty that is not explicit enough to accept under fail-closed source support. C010 is rejected because Q266 already tests stationary-front persistence and explicitly identifies Baiu/Autumn-rain fronts as examples; the proposed subtype framing adds insufficient solving-rule distinctness for the 400-target quality floor. The five accepted Tier B candidates C014, C017, C018, C019 and C020 retain material source-defined distinctions in temporal start-gate, GNSS failure, battery failure, explicit exception boundary and forced-landing lifecycle state. No accepted B11 candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota. Two candidates are deliberately dropped without backfill. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
