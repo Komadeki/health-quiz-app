@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B9-RISK-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ba55b063de781a5793f355258999a38b61d92c0e187738065c33257768aa9056",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b9-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b9-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b9-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.1 (1)「安全確保のための基礎」2)飛行の逸脱防止"
+    },
+    "answer_defining_proposition": "ジオフェンスで飛行禁止空域を設定することは飛行の逸脱防止に有効である。",
+    "tested_misconception": "ジオフェンスは飛行後の記録確認用であり飛行禁止空域への逸脱防止には使わない。",
+    "reasoning_path": "deviation risk -> configure geofence -> encode prohibited airspace before flight",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q090/Q091/Q122は安全マージンや規制確認を扱う。本問はジオフェンスを逸脱防止策として直接問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Geofencing as a proactive deviation-prevention control is an explicit Chapter 6 measure. Existing canonical use of geofence appears only as a distractor in a different emergency-landing proposition, not as the tested core proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B9 source-first Chapter 6 plan and the 255-question canonical baseline. Both controlled Tier B candidates C014 and C015 retain material source-defined distinctions rather than wording-only variation. For C014, the authoring label temporal_prediction is normalized for governance purposes to scenario_state_or_flight_phase; reasoning_path and tested_misconception provide additional recognized distinctness axes. C015 changes the sea-breeze proposition from daytime/nighttime direction to the source-defined wind-reversal boundary state of morning/evening calm. C018, C019 and C020 are supported by unmarked second-class-applicable Chapter 6 subsections; adjacent risk-mitigation subsections marked 〔一等〕 are not used as the answer-defining source. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

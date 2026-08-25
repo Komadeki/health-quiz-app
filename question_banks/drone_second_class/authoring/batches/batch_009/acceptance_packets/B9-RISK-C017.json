@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B9-RISK-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8c8f41db053f959d2d3b1ab253e5069f11c52af4d87523aab992a14419e2eca3",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b9-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b9-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b9-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「回転翼航空機（ヘリコプター）」(1)運航の特徴"
+    },
+    "answer_defining_proposition": "ヘリコプターは前進上昇の方が必要パワーを削減できるため可能なら垂直上昇を避ける。",
+    "tested_misconception": "ヘリコプターは垂直上昇の方が前進上昇より必要パワーが小さいため可能な限り垂直上昇を選ぶ。",
+    "reasoning_path": "helicopter climb choice -> compare vertical vs forward climb power -> prefer forward climb when feasible",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q132/Q133/Q134は地面効果・吹き下ろし・VRS。本問は上昇方式と必要パワーの関係を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The helicopter forward-climb versus vertical-climb power relationship is a separate operating-efficiency proposition from ground effect, downwash and vortex-ring-state questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the B9 source-first Chapter 6 plan and the 255-question canonical baseline. Both controlled Tier B candidates C014 and C015 retain material source-defined distinctions rather than wording-only variation. For C014, the authoring label temporal_prediction is normalized for governance purposes to scenario_state_or_flight_phase; reasoning_path and tested_misconception provide additional recognized distinctness axes. C015 changes the sea-breeze proposition from daytime/nighttime direction to the source-defined wind-reversal boundary state of morning/evening calm. C018, C019 and C020 are supported by unmarked second-class-applicable Chapter 6 subsections; adjacent risk-mitigation subsections marked 〔一等〕 are not used as the answer-defining source. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
