@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B13-SYS-C014",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "6caa02c1c4bf36812e755b59657fca63d9e49347ac7c45f05657460ae9e9a41b",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b13-systems-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b13-systems-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b13-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第4章「電源・バッテリー」容量"
+    },
+    "answer_defining_proposition": "バッテリー容量Ahは電流と時間の積で表され実際に取り出せる容量は放電電流や温度条件の影響を受ける。",
+    "tested_misconception": "Ah容量は温度や放電電流に関係なく常に公称値どおり取り出せる。",
+    "reasoning_path": "current draw × time -> nominal Ah capacity -> adjust expectation for discharge-current/temperature conditions",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q158/Q164は電圧・電流挙動を問うがAh容量の定義と条件依存性は別命題。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The explicit Ah = current A × time h capacity relationship is not answer-defining in the canonical bank. Q159 tests conditions that change usable capacity, while C014 requires recognition of the Ah definition; the overlap about temperature/discharge conditions is explanatory context rather than the new core relation."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review because it applies the full-canonical collision gate required by the 400-question quality contract. Drop the 16 rejected candidates without replacement; the B13 ceiling is not a quota. Retain C002 for the source-defined fixed-wing lateral-movement constraint and bank-turn solution. Retain C009 as a materially distinct large-multirotor ground-effect boundary variant relative to Q132. Retain C014 because the Ah = A × h relationship is not answer-defining in the current canonical bank; Q159 overlap is contextual only. Retain C020 for source-defined antenna directionality and operational orientation. Reject C007 because Q149 already embeds the same opposite-rotation reaction-torque balance mechanism and the extra density is not justified. No HUMAN review is claimed."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
