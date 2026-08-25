@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B14",
+  "adjudication_round": 1,
+  "director": {
+    "id": "chatgpt-primary-director-b14-r1",
+    "role": "DECISION_OWNER"
+  },
+  "adjudicated_at": "2026-08-25",
+  "author_identity": "chatgpt-b14-rules-author-r1",
+  "reviewer_identity": "autopilot-b14-rules-reviewer-r1",
+  "identity_separation_checked": true,
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 9,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "B14-RULE-C001",
+    "B14-RULE-C002",
+    "B14-RULE-C003",
+    "B14-RULE-C004",
+    "B14-RULE-C005",
+    "B14-RULE-C006",
+    "B14-RULE-C007",
+    "B14-RULE-C008",
+    "B14-RULE-C009"
+  ],
+  "rejected_candidate_ids": [],
+  "director_findings": [
+    "Adopt all nine independent-review ACCEPT decisions because each candidate has direct current MLIT 教則第5版 support and survived the full-336 canonical collision gate.",
+    "B14's pre-screen-before-authoring strategy materially improved yield relative to B13 and should be retained for later expansion batches.",
+    "C001 is a source-explicit VLOS exception boundary distinct from Q048's sustained monitor/assistant BVLOS proposition.",
+    "C002 and C003 add separate event-overflight decisions: live response to unexpected third-party/event conditions and the explicit 5 m/s cancellation threshold.",
+    "C004 and C005 test different conjunctive indirect-participant requirements than Q002; together with Q002 they reach the default same-core density ceiling of three, so no additional variant on that core is approved without explicit override.",
+    "C006 tests the Remote ID tether-exemption branch, distinct from Q030's flight-method tether exception and Q047's Remote ID special-area exemption.",
+    "C007 tests the actual Remote ID broadcast payload and the exclusion of owner/user information, which is not answer-defining elsewhere in the canonical bank.",
+    "C008 tests the priority of emergency-use airspace designation over ordinary airport/150m/DID permissions, distinct from Q041's sub-100g applicability rule.",
+    "C009 tests straight-line measurement geometry for the 30m rule, distinct from Q104's property classification.",
+    "No HUMAN review is claimed."
+  ],
+  "invariants": {
+    "HUMAN_REVIEW_FABRICATED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_9"
+}
