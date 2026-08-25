@@ -1,0 +1,392 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B9-400-TARGET-COVERAGE-VARIANTS-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B9_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "43ad3f2ab7c78e34aa6a15fbfb8651a97ce78f28",
+  "target_contract": "target_400_quality_relaxation_contract_2026-08-25.json",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 255,
+    "accepted_source_verified_canonical": 255,
+    "remaining_to_400": 145,
+    "next_unreserved_permanent_id": "DRONE-Q-000256"
+  },
+  "coverage_rationale": {
+    "selected_domain": "drone_risk_management",
+    "selection_basis": "Risk Management is the thinnest current domain after B7 Rules and B8 Systems expansion; B9 restores breadth before additional variants in thicker domains.",
+    "source_chapter": "第6章 運航上のリスク管理",
+    "candidate_ceiling": 20,
+    "candidate_ceiling_is_quota": false
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "scope_rule": "Use only propositions applicable to the second-class knowledge scope in Chapter 6. Exclude every subsection explicitly marked 〔一等〕, including Category III-specific risk evaluation and the 〔一等〕 risk-mitigation/planning subsections under 6.3 and 6.4."
+  },
+  "batch": {
+    "batch_id": "B9",
+    "domain": "drone_risk_management",
+    "candidate_ceiling": 20,
+    "candidate_ceiling_is_quota": false,
+    "authoring_priority": [
+      "Tier A new explicit Chapter 6 propositions",
+      "Tier B source-defined boundary/action variants with materially different solving rules",
+      "Tier C reasoning variants only if stronger A/B opportunities are exhausted"
+    ],
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 18,
+      "B_BOUNDARY_VARIANT": 2,
+      "C_REASONING_VARIANT": 0
+    },
+    "planned_section_counts": {
+      "6.1": 7,
+      "6.2": 8,
+      "6.3": 3,
+      "6.4": 2
+    }
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B9-RISK-C001",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "hazard identification breadth",
+      "source_locator": "教則 第6章 6.1「安全に配慮した飛行」",
+      "proposition": "運航形態に応じ、事故等につながり得る具体的なハザードを可能な限り多く特定してから、それらが生むリスクを評価する。",
+      "tested_misconception": "代表的なハザードを1つ特定すれば、他の潜在的ハザードを洗い出さずにリスク評価へ進んでよい。",
+      "reasoning_path": "operation profile -> enumerate concrete hazards broadly -> evaluate resulting risks",
+      "nearest_canonical": [
+        "DRONE-Q-000001",
+        "DRONE-Q-000006",
+        "DRONE-Q-000008"
+      ],
+      "distinctness": "Q001はハザードの定義、Q006は頻度×重大性、Q008は対策後の残余リスクを問う。本候補は評価前に具体的ハザードを可能な限り広く特定するプロセスを問う。"
+    },
+    {
+      "candidate_id": "B9-RISK-C002",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "danger-radius safety margin",
+      "source_locator": "教則 第6章 6.1 (1)「安全確保のための基礎」1)安全マージン",
+      "proposition": "飛行領域には、飛行高度と同じ数値又は30mのいずれか長い方を危険半径として加え、その範囲に立入管理措置を講じて無人地帯としてから飛行する。",
+      "tested_misconception": "安全マージンの危険半径は高度に関係なく常に30m固定である。",
+      "reasoning_path": "flight altitude -> compare altitude with 30m -> choose larger danger radius -> establish managed uninhabited area",
+      "nearest_canonical": [
+        "DRONE-Q-000090",
+        "DRONE-Q-000011",
+        "DRONE-Q-000012"
+      ],
+      "distinctness": "Q090は安全マージンを飛行領域外へ加える原則のみ。Q011/Q012は第三者上空の保証落下距離判定であり、本候補の危険半径算定ルールとは別。"
+    },
+    {
+      "candidate_id": "B9-RISK-C003",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "geofence deviation prevention",
+      "source_locator": "教則 第6章 6.1 (1)「安全確保のための基礎」2)飛行の逸脱防止",
+      "proposition": "飛行の逸脱防止策として、ジオフェンス機能により飛行禁止空域を設定することが有効である。",
+      "tested_misconception": "ジオフェンスは飛行後の記録確認用であり、飛行禁止空域への逸脱防止には使わない。",
+      "reasoning_path": "deviation risk -> configure geofence -> encode prohibited airspace before flight",
+      "nearest_canonical": [
+        "DRONE-Q-000090",
+        "DRONE-Q-000091",
+        "DRONE-Q-000122"
+      ],
+      "distinctness": "既存問は安全マージンや計画上の規制確認を扱うが、ジオフェンスを逸脱防止の具体策として正答定義する問はない。"
+    },
+    {
+      "candidate_id": "B9-RISK-C004",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "sensor obstacle recognition and avoidance",
+      "source_locator": "教則 第6章 6.1 (1)「安全確保のための基礎」2)飛行の逸脱防止",
+      "proposition": "衝突防止機能として機体に取り付けたセンサを用い、周囲の障害物を認識・回避することが逸脱防止に有効である。",
+      "tested_misconception": "障害物回避は事前の経路設定だけで行い、機体センサによる飛行中の認識・回避は逸脱防止策にならない。",
+      "reasoning_path": "obstacle/deviation risk -> onboard collision-avoidance sensing -> recognize obstacle -> avoid",
+      "nearest_canonical": [
+        "DRONE-Q-000092",
+        "DRONE-Q-000063"
+      ],
+      "distinctness": "Q092は事前の経路設定と安全距離、Q063は夜間非対応ビジョンセンサの制限。本候補は衝突防止センサを逸脱防止策として用いる一般原則を問う。"
+    },
+    {
+      "candidate_id": "B9-RISK-C005",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "safety-manager role separation",
+      "source_locator": "教則 第6章 6.1 (1)「安全確保のための基礎」3)安全を確保するための運航体制",
+      "proposition": "操縦と安全管理の役割を分割するため、操縦者に加えて安全管理者（運航管理者）を配置することが望ましい。",
+      "tested_misconception": "操縦者が技能証明を持っていれば、安全管理の役割を分ける運航体制は検討不要である。",
+      "reasoning_path": "pilot workload and safety governance -> separate control and safety-management roles -> assign safety manager",
+      "nearest_canonical": [
+        "DRONE-Q-000089",
+        "DRONE-Q-000188",
+        "DRONE-Q-000189"
+      ],
+      "distinctness": "既存問は補助者の配置・役割又は複数操縦者間の責任者指定。本候補は操縦と安全管理を分離する安全管理者配置の目的を問う。"
+    },
+    {
+      "candidate_id": "B9-RISK-C006",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "stakeholder notice and consent",
+      "source_locator": "教則 第6章 6.1「飛行計画」(1)飛行計画策定時の確認事項",
+      "proposition": "飛行経路・飛行範囲を決める際、運航条件によっては自治体などの関係者・権利者への周知や承諾が必要となる。",
+      "tested_misconception": "航空法上の手続を終えれば、飛行場所の関係者・権利者への周知や承諾は飛行計画の検討対象外である。",
+      "reasoning_path": "planned route/range -> identify affected stakeholders/rightsholders -> determine notice/consent need",
+      "nearest_canonical": [
+        "DRONE-Q-000058",
+        "DRONE-Q-000091"
+      ],
+      "distinctness": "Q058は航空法以外の条例・施設規則確認、Q091は複数の飛行制約統合。本候補は関係者・権利者への周知/承諾そのものを扱う。"
+    },
+    {
+      "candidate_id": "B9-RISK-C007",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "predefined emergency contacts",
+      "source_locator": "教則 第6章 6.1「飛行計画」(2)事故・インシデントへの対応",
+      "proposition": "運航中の事故・インシデント発生を想定し、緊急連絡先を事前に定義しておく。",
+      "tested_misconception": "事故・インシデントが起きてから最寄りの連絡先を調べればよく、飛行前に緊急連絡先を定義する必要はない。",
+      "reasoning_path": "credible accident/incident -> preflight preparedness -> define emergency contacts before operation",
+      "nearest_canonical": [
+        "DRONE-Q-000052",
+        "DRONE-Q-000190"
+      ],
+      "distinctness": "Q052は事故発生後の中止・救護・報告、Q190は通常時の関係機関連絡体制。本候補は事故前の緊急連絡先定義を問う。"
+    },
+    {
+      "candidate_id": "B9-RISK-C008",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "isobar spacing and wind strength",
+      "source_locator": "教則 第6章 6.2「気象の重要性及び情報源」(3)天気図の見方",
+      "proposition": "天気図では等圧線の間隔が狭いほど風が強まる。",
+      "tested_misconception": "等圧線の間隔が広いほど気圧差が急になるため、風は強くなる。",
+      "reasoning_path": "synoptic chart -> compare isobar spacing -> infer relative wind strength",
+      "nearest_canonical": [
+        "DRONE-Q-000093",
+        "DRONE-Q-000036"
+      ],
+      "distinctness": "Q093は気象情報源の選択、Q036は平均風速と瞬間風速の区別。天気図の等圧線間隔から風の強弱を読む命題は未出。"
+    },
+    {
+      "candidate_id": "B9-RISK-C009",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "low-pressure circulation and weather",
+      "source_locator": "教則 第6章 6.2「気象の重要性及び情報源」(3)7)低気圧",
+      "proposition": "北半球の低気圧では反時計回りに中心へ風が吹き込み、中心部では上昇気流により雲が発生して一般に天気が悪い。",
+      "tested_misconception": "北半球の低気圧では時計回りに中心から風が吹き出し、下降気流で一般に晴れやすい。",
+      "reasoning_path": "identify low pressure in Northern Hemisphere -> circulation/convergence -> ascending air -> cloud/bad-weather tendency",
+      "nearest_canonical": [
+        "DRONE-Q-000093",
+        "DRONE-Q-000094"
+      ],
+      "distinctness": "既存問は気象情報の収集や寒冷前線の変化を扱う。低気圧そのものの循環・上昇流・天候傾向は未出。"
+    },
+    {
+      "candidate_id": "B9-RISK-C010",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "warm-front weather progression",
+      "source_locator": "教則 第6章 6.2「気象の重要性及び情報源」(3)10)b.温暖前線",
+      "proposition": "温暖前線では層状の厚い雲が広がり、接近につれて気温・湿度が高まり、弱い雨が絶え間なく降る傾向がある。",
+      "tested_misconception": "温暖前線は寒冷前線と同様、発達した積乱雲による短時間の強雨だけが典型である。",
+      "reasoning_path": "front type -> warm-front cloud progression -> temperature/humidity trend -> continuous weak rain",
+      "nearest_canonical": [
+        "DRONE-Q-000094"
+      ],
+      "distinctness": "Q094は寒冷前線の突風・雷・強雨・通過後の変化。本候補は温暖前線固有の層状雲と連続的な弱雨を問う。"
+    },
+    {
+      "candidate_id": "B9-RISK-C011",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "stationary-front persistence",
+      "source_locator": "教則 第6章 6.2「気象の重要性及び情報源」(3)10)d.停滞前線",
+      "proposition": "停滞前線は気団同士の勢力が拮抗してほぼ同じ位置に留まり、梅雨前線や秋雨前線のように長雨をもたらす。",
+      "tested_misconception": "停滞前線は一方の気団が急速に押し込むため短時間で移動し、長雨にはつながりにくい。",
+      "reasoning_path": "balanced air masses -> front remains nearly stationary -> prolonged precipitation risk",
+      "nearest_canonical": [
+        "DRONE-Q-000094",
+        "DRONE-Q-000126"
+      ],
+      "distinctness": "既存問は寒冷前線と雷鳴時の飛行判断を扱い、停滞前線の持続性と長雨の関係は未出。"
+    },
+    {
+      "candidate_id": "B9-RISK-C012",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "cloud-type precipitation tendency",
+      "source_locator": "教則 第6章 6.2「気象の影響」(1)1)雲と降水",
+      "proposition": "層雲系の雲は連続的な降水、積雲系の雲は断続的でしゅう雨性の降水を伴う傾向がある。",
+      "tested_misconception": "層雲系は主に断続的なしゅう雨、積雲系は連続的な降水を伴う。",
+      "reasoning_path": "identify cloud family -> infer precipitation continuity/type -> assess operational weather trend",
+      "nearest_canonical": [
+        "DRONE-Q-000094",
+        "DRONE-Q-000095"
+      ],
+      "distinctness": "Q094は寒冷前線、Q095は濃霧による視程低下。本候補は雲系から降水の連続性を推定する命題を問う。"
+    },
+    {
+      "candidate_id": "B9-RISK-C013",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "vertical wind gradient and surface roughness",
+      "source_locator": "教則 第6章 6.2「気象の影響」(1)2)c.風速",
+      "proposition": "地面摩擦のため一般に上空ほど風が強く地表近くほど弱く、地表の粗度が大きいほど高さによる風速変化が大きくなる。",
+      "tested_misconception": "地表の粗度が大きいほど高度による風速差は小さくなり、地上風をそのまま上空へ適用しやすい。",
+      "reasoning_path": "surface friction/roughness -> vertical wind profile -> anticipate stronger aloft and larger gradient over rough terrain",
+      "nearest_canonical": [
+        "DRONE-Q-000035",
+        "DRONE-Q-000036",
+        "DRONE-Q-000093"
+      ],
+      "distinctness": "既存問はビル風、平均/瞬間風速、情報収集。本候補は地表摩擦・粗度による鉛直風速勾配を問う。"
+    },
+    {
+      "candidate_id": "B9-RISK-C014",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "寒冷前線付近では積乱雲により突風・雷・強雨が生じ得る。",
+      "distinctness_axes": [
+        "temporal_prediction",
+        "reasoning_path"
+      ],
+      "family": "cold-front gust timing forecast",
+      "source_locator": "教則 第6章 6.2「気象の影響」(1)2)d.突風",
+      "proposition": "西から寒冷前線を伴う低気圧が接近するとき、日本付近では天気が西から東へ変わることを利用し、突風が発生する時間帯を予測できる。",
+      "tested_misconception": "寒冷前線による突風は局地的なので、前線を伴う低気圧の接近情報から時間帯を予測することはできない。",
+      "reasoning_path": "west-to-east weather progression -> approaching low with cold front -> estimate gust-risk time window",
+      "nearest_canonical": [
+        "DRONE-Q-000094",
+        "DRONE-Q-000126"
+      ],
+      "distinctness": "Q094は寒冷前線接近・通過時の気象現象を分類する。本候補は同じhazard familyでも、接近情報から突風リスクの時間帯を予測する時系列推論を要求する。"
+    },
+    {
+      "candidate_id": "B9-RISK-C015",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "海陸風は日中は陸向き、夜間は海向きに反転する。",
+      "distinctness_axes": [
+        "scenario_state_or_flight_phase",
+        "decision_boundary_or_exception"
+      ],
+      "family": "sea-breeze reversal calm",
+      "source_locator": "教則 第6章 6.2「気象の影響」(1)2)e.海陸風",
+      "proposition": "海陸風が日中の陸向きから夜間の海向きへ入れ替わる時間帯には、ほぼ無風となる朝凪・夕凪が生じる。",
+      "tested_misconception": "海陸風の向きが入れ替わる時間帯ほど風が最も強くなり、無風に近づくことはない。",
+      "reasoning_path": "diurnal sea-land temperature cycle -> wind reversal transition -> near-calm boundary state",
+      "nearest_canonical": [
+        "DRONE-Q-000127"
+      ],
+      "distinctness": "Q127は昼夜の風向を問う。本候補は反転途中という境界状態でほぼ無風になる朝凪・夕凪を問うため、答えを規定する条件と推論が異なる。"
+    },
+    {
+      "candidate_id": "B9-RISK-C016",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "fixed-wing landing elevator control",
+      "source_locator": "教則 第6章 6.3「飛行機」(1)飛行機の運航の特徴",
+      "proposition": "飛行機の着陸は失速しない程度まで速度を下げて行うため、高度なエレベーター操作が必要となる。",
+      "tested_misconception": "着陸時は速度を十分に下げさえすればよく、失速余裕やエレベーター操作は重要でない。",
+      "reasoning_path": "fixed-wing landing -> reduce speed while remaining above stall -> manage pitch precisely with elevator",
+      "nearest_canonical": [
+        "DRONE-Q-000130",
+        "DRONE-Q-000131",
+        "DRONE-Q-000067"
+      ],
+      "distinctness": "Q130は向かい風離着陸、Q131は上空待機、Q067は迎角過大失速。本候補は着陸フェーズで失速余裕を保つエレベーター操作を問う。"
+    },
+    {
+      "candidate_id": "B9-RISK-C017",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "helicopter forward-climb power efficiency",
+      "source_locator": "教則 第6章 6.3「回転翼航空機（ヘリコプター）」(1)運航の特徴",
+      "proposition": "ヘリコプターは前進させながら上昇させた方が必要パワーを削減できるため、垂直上昇は避けることが望ましい。",
+      "tested_misconception": "ヘリコプターは垂直上昇の方が前進上昇より必要パワーが小さいため、可能な限り垂直上昇を選ぶ。",
+      "reasoning_path": "helicopter climb choice -> compare vertical vs forward climb power -> prefer forward climb when feasible",
+      "nearest_canonical": [
+        "DRONE-Q-000132",
+        "DRONE-Q-000133",
+        "DRONE-Q-000134"
+      ],
+      "distinctness": "既存問は地面効果、吹き下ろし、VRS。本候補は上昇方式と必要パワーの関係を扱う。"
+    },
+    {
+      "candidate_id": "B9-RISK-C018",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "large-aircraft emergency landing footprint",
+      "source_locator": "教則 第6章 6.3「大型機（最大離陸重量25kg以上）」(1)運航の特徴",
+      "proposition": "最大離陸重量25kg以上の大型機では、緊急着陸地点として小型機より広い範囲が要求される。",
+      "tested_misconception": "大型機でも緊急着陸地点に必要な広さは小型機と同程度でよい。",
+      "reasoning_path": "large-aircraft size/inertia -> contingency landing footprint -> require broader emergency landing area",
+      "nearest_canonical": [
+        "DRONE-Q-000099",
+        "DRONE-Q-000044"
+      ],
+      "distinctness": "Q099は大型機の慣性による加減速・障害物回避、Q044は一般的な緊急着陸地点の事前確保。本候補は大型機固有の必要面積拡大を問う。"
+    },
+    {
+      "candidate_id": "B9-RISK-C019",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "night-flight BVLOS principle",
+      "source_locator": "教則 第6章 6.4「夜間飛行」(1)夜間飛行の運航",
+      "proposition": "夜間飛行では、原則として目視外飛行を実施しない。",
+      "tested_misconception": "機体灯火を装備していれば、夜間でも目視外飛行を通常の前提として計画してよい。",
+      "reasoning_path": "night visibility limitation -> apply baseline operational rule -> do not plan BVLOS in principle",
+      "nearest_canonical": [
+        "DRONE-Q-000100",
+        "DRONE-Q-000136",
+        "DRONE-Q-000137",
+        "DRONE-Q-000151"
+      ],
+      "distinctness": "既存問は夜間の視認性・訓練・灯火/地上照明を扱うが、夜間は原則BVLOSを実施しないという運航方法の境界は未出。"
+    },
+    {
+      "candidate_id": "B9-RISK-C020",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "no-assistant BVLOS proven-airframe history",
+      "source_locator": "教則 第6章 6.4「目視外飛行」(1)2)補助者を配置しない場合",
+      "proposition": "補助者を配置しない目視外飛行では、想定運用に基づく十分な飛行実績を有し、その実績が機体の初期故障期間を超えている機体を使用する。",
+      "tested_misconception": "補助者なし目視外飛行では、機体が新品で飛行実績がなくても、地上監視機能だけ備えていればよい。",
+      "reasoning_path": "no-assistant BVLOS -> elevated reliance on aircraft reliability -> require sufficient operation-specific flight history beyond infant-failure period",
+      "nearest_canonical": [
+        "DRONE-Q-000140",
+        "DRONE-Q-000141",
+        "DRONE-Q-000153",
+        "DRONE-Q-000154"
+      ],
+      "distinctness": "既存問は視認性、全経路航空機監視、第三者危害低減機能、地上telemetryを扱う。機体の十分な飛行実績と初期故障期間超過は未出。"
+    }
+  ],
+  "collision_and_quality_gates": {
+    "canonical_collision_scope": "Compare every authored B9 candidate against all 255 canonical questions, not only the 46 Risk questions.",
+    "tier_b_rule": "Each Tier B candidate must preserve at least two distinctness axes and include decision-boundary/exception or reasoning-path distinctness as required by the 400-target contract.",
+    "core_proposition_cap": "Default maximum accepted variants per core proposition is 3; absolute maximum 4 requires source-defined separate branches and explicit Director rationale.",
+    "hard_rejects": [
+      "wording-only duplicate",
+      "same proposition with same reasoning path",
+      "first-class-only proposition",
+      "unsupported inference",
+      "ambiguous answer",
+      "quota filler"
+    ],
+    "human_review_fabrication": false
+  },
+  "mutation_scope": {
+    "this_transition": [
+      "create b9_400_target_plan_2026-08-25.json",
+      "advance durable Autopilot state to B9 authoring"
+    ],
+    "explicitly_not_mutated": [
+      "canonical questions.csv",
+      "question_id_registry.csv",
+      "released snapshot",
+      "runtime/generated question assets",
+      "candidate rows",
+      "acceptance packets",
+      "source-verification artifacts",
+      "Permanent IDs"
+    ]
+  },
+  "completion_criteria": [
+    "exactly this plan and machine-state transition are durable on GitHub",
+    "required CI is green",
+    "no production/released/runtime question count changes",
+    "no HUMAN review is claimed or fabricated"
+  ],
+  "next_atomic_objective": "AUTHOR_AND_PERSIST_B9_400_TARGET_CANDIDATES"
+}
