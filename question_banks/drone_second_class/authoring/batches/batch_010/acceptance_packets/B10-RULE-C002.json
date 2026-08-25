@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5d0d7208423ae40cb41d3d3f85731213cfffc19a744f6e4d7ce3658a1ef9fece",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.2.1(3)「飛行禁止の対象となる重要施設」"
+    },
+    "answer_defining_proposition": "外国要人が参加する国際会議の準備又は運営に使用される会議場施設等は、外務大臣指定の対象外国公館等に含まれ得る。",
+    "tested_misconception": "対象外国公館等は大使館等に限られ、国際会議の会議場施設は含まれない。",
+    "reasoning_path": "foreign-dignitary conference use -> designated facility category -> flight-prohibition applicability",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q113は外国要人来日等に伴う一時的な追加指定を一般論として問う。本問は国際会議の準備・運営施設という明示categoryを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The international-conference preparation/operation facility category is source-defined and distinct from generic temporary designation coverage."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

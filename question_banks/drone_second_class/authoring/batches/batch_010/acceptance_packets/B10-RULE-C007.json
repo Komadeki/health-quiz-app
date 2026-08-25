@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "508feaf0fc2a240f19c3881438338eabdb616b104620c493591d60210d92cfe4",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.2.2(2)①「微弱無線局（ラジコン用）」"
+    },
+    "answer_defining_proposition": "ラジコン用の微弱無線局は500mの距離で電界強度200μV/m以下という基準が示され、無線局免許・無線従事者資格が不要である。",
+    "tested_misconception": "微弱無線局でも無人航空機に使う限り必ず無線局免許と無線従事者資格が必要である。",
+    "reasoning_path": "radio emission strength at 500m -> weak-station classification -> license/qualification consequence",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q057は適合済み小電力data systemと1W画像伝送systemの免許・資格比較。本問は微弱無線局の電界強度classificationと免許結果を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The weak-radio field-strength threshold determines classification and license/qualification consequence, making the quantitative value action-defining rather than low-value trivia."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

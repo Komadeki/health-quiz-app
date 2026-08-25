@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C013",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "2178ac8ab5775bd7ce80760b7a216678958860e1fe4db6ad1ca4166d546e1c9e",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(5)2)「技能証明の資格要件」"
+    },
+    "answer_defining_proposition": "一定の航空法違反等に係り技能証明を拒否された日から1年以内の者又は技能証明を保留されている者は申請できない。",
+    "tested_misconception": "技能証明を一度拒否されても、翌日から再申請できる。",
+    "reasoning_path": "prior refusal/hold status -> elapsed-time/status check -> application eligibility",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q231は16歳未満の年齢要件。本問は過去の拒否・保留と1年のtemporal eligibility boundaryを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The one-year post-refusal/current-hold application boundary is source-defined and distinct from Q231 age eligibility and from the separate cancellation branch in C014."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

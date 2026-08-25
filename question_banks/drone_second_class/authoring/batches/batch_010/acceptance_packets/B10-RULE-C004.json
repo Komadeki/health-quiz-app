@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fc6f8b158b0e8e05c66aed03549f746cfd402adf5b510933b81a81354cf7a132",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.2.1(4)「飛行禁止の例外及びその手続き」"
+    },
+    "answer_defining_proposition": "一般の対象施設周辺では、施設管理者又は同意を得た者、土地所有者等又は同意を得た者による当該土地上空、国又は地方公共団体の業務という法定例外がある。",
+    "tested_misconception": "同法の例外は対象施設管理者自身の飛行だけで、土地所有者や国・地方公共団体の業務には例外がない。",
+    "reasoning_path": "who operates / whose land / government duty -> match statutory exception category",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q056は例外に該当しても通報が必要な点、Q114は対象防衛関係施設・対象空港Red Zoneで例外が狭まる点を問う。本問は一般的な例外category自体を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The general statutory exception set is answer-unique and differs from Q056, which assumes an exception and tests notification, and Q114, which tests a narrowed airport/defense red-zone branch."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

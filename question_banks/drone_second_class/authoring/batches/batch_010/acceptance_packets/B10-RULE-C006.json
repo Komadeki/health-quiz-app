@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B10-RULE-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8cf053d44dc73344d5e813c7dfd00935acdfb9c8d0622228a524b01113da8658",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b10-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b10-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b10-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.2.1(5)「違反に対する措置等」"
+    },
+    "answer_defining_proposition": "対象施設の敷地・区域上空（レッド・ゾーン）の違反等は1年以下の拘禁刑又は50万円以下の罰金、周囲おおむね1，000mのイエロー・ゾーン違反は6月以下の拘禁刑又は50万円以下の罰金となる。",
+    "tested_misconception": "レッド・ゾーンとイエロー・ゾーンでは違反時の拘禁刑上限も同一である。",
+    "reasoning_path": "zone classification -> statutory penalty branch -> distinguish imprisonment ceiling",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q055はRed/Yellow Zoneの地理的構造を問う。本問はそのclassificationに応じて異なる罰則branchを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The red/yellow penalty distinction is tied to a source-defined legal classification and consequence boundary, not a number-only substitution. Q055 tests geography, not sanctions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B10 source-first plan and the 275-question canonical baseline. All three controlled Tier B candidates C003, C010 and C018 retain material source-defined distinctions in legal authority/exception reasoning, spectrum-priority operating responsibility, or certificate lifecycle state rather than wording-only variation. C006 and C007 retain quantitative values only because those values alter legal classification, penalty or radio-license consequences; they are not number-only substitutions. No accepted B10 candidate relies on a subsection explicitly marked 〔一等〕. No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source-plan, answer-uniqueness, collision and commercial-practice-value gates. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
