@@ -1,0 +1,107 @@
+name: Drone Free30 Contract Reconcile
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-free30-monetization-ux
+    paths:
+      - '.github/drone-free30-contract-reconcile-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-free30-monetization-ux
+          fetch-depth: 0
+      - name: Reconcile contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "100670593+Komadeki@users.noreply.github.com"
+          git fetch origin main
+          git merge --no-edit origin/main
+          python3 - <<'PY'
+          import csv
+          import io
+          import re
+          from pathlib import Path
+
+          selected = {
+              'DRONE-Q-000010','DRONE-Q-000017','DRONE-Q-000022','DRONE-Q-000023',
+              'DRONE-Q-000027','DRONE-Q-000028','DRONE-Q-000032','DRONE-Q-000033',
+              'DRONE-Q-000035','DRONE-Q-000043',
+          }
+          qpath = Path('question_banks/drone_second_class/authoring/questions.csv')
+          with qpath.open(encoding='utf-8', newline='') as f:
+              reader = csv.DictReader(f)
+              fields = list(reader.fieldnames or [])
+              rows = list(reader)
+          seen = set()
+          for row in rows:
+              if row['question_id'] in selected:
+                  assert row['is_free'] == 'true', row['question_id']
+                  assert row['question_version'] in {'1','2'}, row['question_id']
+                  row['question_version'] = '1'
+                  seen.add(row['question_id'])
+          assert seen == selected, selected - seen
+          out = io.StringIO(newline='')
+          writer = csv.DictWriter(out, fieldnames=fields, lineterminator='\n')
+          writer.writeheader(); writer.writerows(rows)
+          qpath.write_text(out.getvalue(), encoding='utf-8')
+
+          release = Path('tooling/question_bank/tests/test_drone_release_activation_188.py')
+          text = release.read_text(encoding='utf-8')
+          text = text.replace(
+              'REV="drone-second-class-v2-release-2026-08-24"\nOLD="drone-second-class-v1-release-2026-08-20"',
+              'CURRENT_REV="drone-second-class-v3-release-2026-08-25"\nEXPANSION_REV="drone-second-class-v2-release-2026-08-24"\nOLD="drone-second-class-v1-release-2026-08-20"',
+              1,
+          )
+          text = text.replace('self.assertEqual(REV,meta["bank_revision"])', 'self.assertEqual(CURRENT_REV,meta["bank_revision"])', 1)
+          text = text.replace('reg[i]["first_used_bank_revision"]==REV for i in ids[100:]', 'reg[i]["first_used_bank_revision"]==EXPANSION_REV for i in ids[100:]', 1)
+          text = text.replace('self.assertEqual(20,sum(not c["isPremium"] for c in cards))', 'self.assertEqual(30,sum(not c["isPremium"] for c in cards))', 1)
+          text = text.replace('self.assertEqual(20,manifest["free_question_count"]); self.assertEqual(REV,manifest["bank_revision"])', 'self.assertEqual(30,manifest["free_question_count"]); self.assertEqual(CURRENT_REV,manifest["bank_revision"])', 1)
+          if 'REV' in re.sub(r'CURRENT_REV|EXPANSION_REV', '', text):
+              raise RuntimeError('unreconciled REV token in release test')
+          release.write_text(text, encoding='utf-8')
+
+          contract = Path('tooling/question_bank/tests/test_question_bank.py')
+          text = contract.read_text(encoding='utf-8')
+          old = '    CURRENT_PRODUCTION_REVISION = "drone-second-class-v2-release-2026-08-24"\n    FREE_QUESTION_IDS = {'
+          new = '    EXPANSION_RELEASE_REVISION = "drone-second-class-v2-release-2026-08-24"\n    CURRENT_PRODUCTION_REVISION = "drone-second-class-v3-release-2026-08-25"\n    FREE_QUESTION_IDS = {'
+          assert text.count(old) == 1, text.count(old)
+          text = text.replace(old, new, 1)
+          marker = '    FREE_QUESTION_IDS = {'
+          start = text.index(marker)
+          end = text.index('    }', start)
+          block = text[start:end]
+          additions = ''.join(f'        "{qid}",\n' for qid in sorted(selected) if qid not in block)
+          text = text[:end] + additions + text[end:]
+          count = text.count('else self.CURRENT_PRODUCTION_REVISION)')
+          assert count == 2, count
+          text = text.replace('else self.CURRENT_PRODUCTION_REVISION)', 'else self.EXPANSION_RELEASE_REVISION)')
+          old_q101 = 'next(entry for entry in inputs.id_registry if entry["question_id"] == "DRONE-Q-000101")["first_used_bank_revision"],\n            self.CURRENT_PRODUCTION_REVISION,'
+          assert text.count(old_q101) == 1
+          text = text.replace(old_q101, old_q101.replace('self.CURRENT_PRODUCTION_REVISION', 'self.EXPANSION_RELEASE_REVISION'), 1)
+          assert text.count('self.assertEqual(sum(not card["isPremium"] for card in cards), 20)') == 1
+          text = text.replace('self.assertEqual(sum(not card["isPremium"] for card in cards), 20)', 'self.assertEqual(sum(not card["isPremium"] for card in cards), 30)', 1)
+          assert text.count('self.assertEqual(manifest["free_question_count"], 20)') == 2
+          text = text.replace('self.assertEqual(manifest["free_question_count"], 20)', 'self.assertEqual(manifest["free_question_count"], 30)')
+          contract.write_text(text, encoding='utf-8')
+          PY
+          python3 tooling/question_bank/generate.py --bank question_banks/drone_second_class
+          cp question_banks/drone_second_class/generated/drone_second_class_bank.json apps/drone_second_class/assets/question_bank/drone_second_class_bank.json
+          python3 -m unittest tooling.question_bank.tests.test_drone_release_activation_188 tooling.question_bank.tests.test_question_bank
+          git diff --check
+      - name: Commit reconciliation
+        run: |
+          rm -f .github/workflows/drone-free30-contract-reconcile.yml .github/drone-free30-contract-reconcile-trigger
+          git add -A
+          git commit -m "Reconcile Drone 30-question free-tier contracts"
+          git push origin HEAD:chatgpt/drone-free30-monetization-ux
