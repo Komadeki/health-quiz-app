@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B2",
+  "review_round": 1,
+  "reviewed_at": "2026-08-25",
+  "reviewer": {
+    "id": "otsu4-b2-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "otsu4-b2-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "GitHub main at dc72ebb4d31dd74b2f01efb98c97e0e7f451f082",
+    "Batch 2 candidates and BATCH_002_COVERAGE_PLAN_V1.json",
+    "Current canonical Otsu4 bank OTSU4-Q-000001..000006",
+    "Current e-Gov Fire Service Act Article 13 through Article 13-24",
+    "Current Regulation concerning the Control of Hazardous Materials Article 48",
+    "OTSU4_600Q_PRODUCTION_TARGET_DECISION_V1 and pinpoint-source contract"
+  ],
+  "summary": {
+    "reviewed": 24,
+    "accept": 23,
+    "reject": 1,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {"candidate_id":"O4-B2-LAW-C001","decision":"ACCEPT","rationale":"Article 13(1) directly supports Kou/Otsu supervisor eligibility; distinct from the experience-duration and supervision-scope candidates."},
+    {"candidate_id":"O4-B2-LAW-C002","decision":"ACCEPT","rationale":"Article 13(1) directly supports the six-month practical-experience floor; the threshold scenario is independently reproducible."},
+    {"candidate_id":"O4-B2-LAW-C003","decision":"ACCEPT","rationale":"Article 13(1) supports supervision only for hazardous materials the supervisor is authorized to handle; distinct scope proposition."},
+    {"candidate_id":"O4-B2-LAW-C004","decision":"ACCEPT","rationale":"Article 13(2) directly supports appointment notification without delay; appointment is a distinct statutory trigger."},
+    {"candidate_id":"O4-B2-LAW-C005","decision":"ACCEPT","rationale":"Article 13(2) separately covers dismissal notification; this tests the commonly missed dismissal branch rather than a wording-only restatement of C004."},
+    {"candidate_id":"O4-B2-LAW-C006","decision":"ACCEPT","rationale":"Article 13(3) directly requires Kou/Otsu attendance for an unlicensed handler; distinct operational eligibility rule."},
+    {"candidate_id":"O4-B2-LAW-C007","decision":"ACCEPT","rationale":"Article 13-2(1) directly defines the three license classes and provides useful baseline knowledge for later scope questions."},
+    {"candidate_id":"O4-B2-LAW-C008","decision":"ACCEPT","rationale":"Article 13-2(2) supports license-dependent handling/attendance scope; tests delegated scope rather than class enumeration."},
+    {"candidate_id":"O4-B2-LAW-C009","decision":"ACCEPT","rationale":"Article 13-2(3) directly identifies the prefectural governor as license issuer; distinct authority proposition."},
+    {"candidate_id":"O4-B2-LAW-C010","decision":"ACCEPT","rationale":"Article 13-2(4)(1) directly supports the one-year post-return-order boundary; the ten-month scenario is a material decision boundary."},
+    {"candidate_id":"O4-B2-LAW-C011","decision":"ACCEPT","rationale":"Article 13-2(4)(2) directly supports the two-year qualifying-conviction boundary; distinct from C010 in trigger and duration."},
+    {"candidate_id":"O4-B2-LAW-C012","decision":"ACCEPT","rationale":"Article 13-2(5) identifies the issuing governor as return-order authority; distinct from cross-prefecture notification."},
+    {"candidate_id":"O4-B2-LAW-C013","decision":"ACCEPT","rationale":"Article 13-2(6) directly supports notification to the issuing governor when another prefecture detects a violation; distinct jurisdiction branch."},
+    {"candidate_id":"O4-B2-LAW-C014","decision":"ACCEPT","rationale":"Article 13-2(7) delegates license write/reissue details to Cabinet Order; distinct legal-instrument knowledge."},
+    {"candidate_id":"O4-B2-LAW-C015","decision":"ACCEPT","rationale":"Article 13-3(1) defines the examination purpose as safety knowledge and skill for hazardous-material handling; distinct proposition."},
+    {"candidate_id":"O4-B2-LAW-C016","decision":"REJECT","reason_code":"SEMANTIC_COLLISION_LOW_VALUE","rationale":"Although Article 13-3(2) is correct, the item repeats C007's same three-label enumeration with effectively the same distractor structure and solving rule. The object changes from license to examination, but the commercial practice value is too low to justify both in the same bank. Reject without quota backfill."},
+    {"candidate_id":"O4-B2-LAW-C017","decision":"ACCEPT","rationale":"Article 13-3(3) directly supports at least one examination of each type every year; the two-year non-execution scenario tests application."},
+    {"candidate_id":"O4-B2-LAW-C018","decision":"ACCEPT","rationale":"Article 13-3(4)(1) supports the chemistry-education route to Kou examination eligibility; distinct from experience route."},
+    {"candidate_id":"O4-B2-LAW-C019","decision":"ACCEPT","rationale":"Article 13-3(4)(2) supports the Otsu-license plus two-year experience route; the 18-month boundary is independently reproducible."},
+    {"candidate_id":"O4-B2-LAW-C020","decision":"ACCEPT","rationale":"Article 13-3(5) delegates examination details to MIC ordinance; distinct from C014's Cabinet Order delegation for licenses."},
+    {"candidate_id":"O4-B2-LAW-C021","decision":"ACCEPT","rationale":"Article 13-23 directly supports the safety-training obligation for licensed handlers engaged in work at facilities; distinct lifecycle duty."},
+    {"candidate_id":"O4-B2-LAW-C022","decision":"ACCEPT","rationale":"Article 13-24(1) supports dismissal order when a supervisor violates the Act or orders; distinct enforcement trigger."},
+    {"candidate_id":"O4-B2-LAW-C023","decision":"ACCEPT","rationale":"Article 13-24(1) also provides a separate public-safety/disaster-prevention risk trigger without requiring an explicit violation; materially distinct decision boundary from C022."},
+    {"candidate_id":"O4-B2-LAW-C024","decision":"ACCEPT","rationale":"Regulation Article 48 item 2 directly requires both emergency-measure direction and immediate notification in a fire/disaster; distinct operational duty."}
+  ],
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "same_batch_checked": true,
+    "result": "PASS_WITH_ONE_REJECTION",
+    "rejected_candidate_id": "O4-B2-LAW-C016",
+    "nearest_collision": "O4-B2-LAW-C007",
+    "note": "The remaining 23 candidates have materially different answer-defining propositions, triggers, thresholds, authorities, or lifecycle duties."
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}
