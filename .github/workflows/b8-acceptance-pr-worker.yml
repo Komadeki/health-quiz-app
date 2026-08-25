@@ -1,0 +1,193 @@
+name: B8 AI Acceptance PR Worker
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/b8-acceptance-trigger'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b8-ai-acceptance-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  accept:
+    if: github.head_ref == 'chatgpt/drone-b8-acceptance'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout acceptance branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-b8-acceptance
+          fetch-depth: 0
+
+      - name: Reconcile to current main
+        shell: bash
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+
+      - name: Materialize and validate B8 AI acceptance packets
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+          import csv
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          repo = Path.cwd()
+          sys.path.insert(0, str(repo / "tooling" / "question_bank"))
+          from ai_governance import candidate_fingerprint, promote_ai_governed_candidates
+          from expansion import validate_expansion_batch
+
+          bank = repo / "question_banks" / "drone_second_class"
+          authoring = bank / "authoring"
+          batch = authoring / "batches" / "batch_008"
+          state_path = repo / "tooling" / "komadeki_autopilot" / "drone_state.json"
+          accepted = tuple(f"B8-SYS-C{i:03d}" for i in range(1, 21))
+
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          if state.get("next_atomic_objective") != "MATERIALIZE_B8_ACCEPTANCE_PACKETS_20" or state.get("state_epoch") != 56:
+              raise SystemExit(f"unexpected state: {state.get('state_epoch')} / {state.get('next_atomic_objective')}")
+
+          with (batch / "candidates.csv").open(encoding="utf-8", newline="") as h:
+              rows = {r["candidate_id"]: r for r in csv.DictReader(h)}
+          if set(rows) != set(accepted):
+              raise SystemExit("unexpected B8 candidate set")
+          if any(rows[c]["state"] != "AI_PRE_ACCEPT" or rows[c]["permanent_question_id"].strip() for c in accepted):
+              raise SystemExit("unexpected B8 pre-acceptance candidate state")
+
+          review = json.loads((batch / "independent_review_r1.json").read_text(encoding="utf-8"))
+          review_by = {d["candidate_id"]: d for d in review["decisions"]}
+          if review["summary"] != {"reviewed":20,"accept":20,"reject":0,"rework":0,"hold":0}:
+              raise SystemExit("unexpected B8 independent-review summary")
+          if set(review_by) != set(accepted) or any(review_by[c].get("decision") != "ACCEPT" for c in accepted):
+              raise SystemExit("B8 independent-review accepted set drift")
+          if review.get("identity_separation") != "PASS":
+              raise SystemExit("B8 reviewer identity separation not confirmed")
+
+          director = json.loads((batch / "director_adjudication_r1.json").read_text(encoding="utf-8"))
+          if director["summary"] != {"accept":20,"reject":0,"rework":0,"hold":0}:
+              raise SystemExit("unexpected B8 Director summary")
+          if set(director["accepted_candidate_ids"]) != set(accepted):
+              raise SystemExit("B8 Director accepted set drift")
+          if director.get("identity_separation_checked") is not True:
+              raise SystemExit("B8 Director identity separation not confirmed")
+          director_rationale = " ".join(
+              str(item).strip() for item in director.get("director_findings", []) if str(item).strip()
+          )
+          if not director_rationale:
+              raise SystemExit("B8 Director rationale missing")
+
+          author_id = "chatgpt-b8-systems-author-r1"
+          reviewer_id = "autopilot-b8-systems-reviewer-r1"
+          director_id = "chatgpt-primary-director-b8-r1"
+          if len({author_id, reviewer_id, director_id}) != 3:
+              raise SystemExit("B8 actor identity collision")
+          if review.get("author_identity_checked") != author_id or review.get("reviewer", {}).get("id") != reviewer_id:
+              raise SystemExit("B8 review actor identity drift")
+          if director.get("author_identity") != author_id or director.get("reviewer_identity") != reviewer_id or director.get("director", {}).get("id") != director_id:
+              raise SystemExit("B8 Director actor identity drift")
+
+          packets = batch / "acceptance_packets"
+          packets.mkdir(exist_ok=True)
+          if list(packets.glob("*.json")):
+              raise SystemExit("partial B8 acceptance packet state detected")
+
+          for candidate_id in accepted:
+              candidate = rows[candidate_id]
+              review_decision = review_by[candidate_id]
+              packet = {
+                  "schema_version": "1.0",
+                  "candidate_id": candidate_id,
+                  "candidate_state": "AI_PRE_ACCEPT",
+                  "candidate_fingerprint": candidate_fingerprint(candidate),
+                  "actors": {
+                      "author": {"id": author_id, "role": "AI_AUTHOR"},
+                      "reviewer": {"id": reviewer_id, "role": "AI_REVIEWER"},
+                      "director": {"id": director_id, "role": "AI_DIRECTOR"},
+                  },
+                  "evidence": {
+                      "source": {
+                          "source_id": candidate["source_id"],
+                          "source_version": candidate["source_version"],
+                          "source_locator": candidate["source_locator"],
+                      },
+                      "answer_defining_proposition": candidate["answer_defining_proposition"],
+                      "tested_misconception": candidate["tested_misconception"],
+                      "reasoning_path": candidate["reasoning_path"],
+                      "collision": {
+                          "released_bank_checked": True,
+                          "canonical_drafts_checked": True,
+                          "batch_checked": True,
+                          "note": candidate["collision_note"],
+                      },
+                  },
+                  "independent_review": {
+                      "decision": "ACCEPT",
+                      "rationale": review_decision["rationale"],
+                  },
+                  "director_adjudication": {
+                      "decision": "ACCEPT",
+                      "rationale": director_rationale,
+                  },
+                  "requested_state": "AI_GOVERNED_ACCEPT",
+              }
+              (packets / f"{candidate_id}.json").write_text(
+                  json.dumps(packet, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+              )
+
+          promote_ai_governed_candidates(batch, accepted)
+
+          with (batch / "candidates.csv").open(encoding="utf-8", newline="") as h:
+              after = {r["candidate_id"]: r for r in csv.DictReader(h)}
+          if any(after[c]["state"] != "READY_FOR_ID" or after[c]["permanent_question_id"] for c in accepted):
+              raise SystemExit("B8 accepted promotion failed")
+          if {p.stem for p in packets.glob("*.json")} != set(accepted):
+              raise SystemExit("B8 acceptance packet set drift")
+
+          released = json.loads((authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"]
+          if len(released) != 188:
+              raise SystemExit("released baseline changed")
+          bank_meta = json.loads((authoring / "bank.json").read_text(encoding="utf-8"))
+          runtime = json.loads((bank / bank_meta["runtime_output"]).read_text(encoding="utf-8"))
+          runtime_count = sum(len(u.get("cards", [])) for d in runtime.get("decks", []) for u in d.get("units", []))
+          if runtime_count != 188:
+              raise SystemExit("runtime baseline changed")
+
+          observed_main = subprocess.check_output(["git", "rev-parse", "origin/main"], text=True).strip()
+          state["observed_main"] = observed_main
+          state["next_atomic_objective"] = "ALLOCATE_AND_INTEGRATE_B8_ACCEPTED_20"
+          state["state_epoch"] = 57
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          errors = validate_expansion_batch(batch)
+          if errors:
+              raise SystemExit("B8 expansion validation failed: " + " | ".join(errors))
+          PY
+
+      - name: Validate acceptance and repository gates
+        shell: bash
+        run: |
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class --check-generated
+
+      - name: Commit durable B8 acceptance transition
+        shell: bash
+        run: |
+          rm -f .github/b8-acceptance-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Materialize B8 AI acceptance packets'
+          git push --force-with-lease origin HEAD:chatgpt/drone-b8-acceptance
