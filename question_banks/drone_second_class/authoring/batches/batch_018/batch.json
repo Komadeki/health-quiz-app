@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B18",
+  "directory_slug": "batch_018",
+  "baseline_sha": "01217fa164e2bbf57797b5135cd381ccb094e244",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id":"chatgpt-b18-rules-author-r1","role":"AI_AUTHOR"},
+  "expansion_trigger": "Continue from 365 accepted/source-verified canonical questions under the owner-directed residual-proposition completion contract. B18 contains only second-class-applicable Chapter 3 propositions whose answer-defining content was not represented in the 365-question canonical inventory.",
+  "governance_contract": "residual_proposition_completion_contract_2026-08-25.json",
+  "source_contract": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","edition":"第5版","official_current_check":"2026-08-25","official_pdf":"https://www.mlit.go.jp/common/002010810.pdf","second_class_scope_rule":"Use only second-class-applicable Chapter 3 propositions and exclude every subsection explicitly marked 〔一等〕."},
+  "evidence": [
+    "Merged PR #342 persisted a six-candidate Chapter 3 pre-screen from canonical/source-verified 365.",
+    "Owner direction on 2026-08-25 superseded the fixed 400-question target and requires residual propositions only.",
+    "Official MLIT 第5版 Chapter 3.1.2(3) explicitly defines IFR/VFR, sub-150m manned-aircraft operations, aircraft right-of-way rationale, control area/control zone rules and airport restriction surfaces.",
+    "Canonical search across all 365 questions found no answer-defining IFR/VFR, aircraft right-of-way concept/rationale, 航空交通管制区, 航空交通管制圏, 進入表面, 水平表面 or 転移表面 proposition.",
+    "C003 is not retained by controlled-variant allowance; it must pass review solely because the explicit aircraft right-of-way concept and rationale are not answer-defining in canonical inventory."
+  ],
+  "target_size_decisions": [{"decision_id":"B18-RESIDUAL-001","fixed_target":null,"current_released_count":188,"current_source_verified_canonical":365,"completion_mode":"EXHAUSTIVE_RESIDUAL_PROPOSITIONS","rationale":"Stop when no explicit second-class-applicable answer-defining proposition remains; do not backfill to a numeric target.","decision_date":"2026-08-25","evidence":"Owner direction and residual_proposition_completion_contract_2026-08-25.json."}],
+  "planned_scope": {"area":"Rules","candidate_batch_identity":"B18","candidate_ids":["B18-RULE-C001","B18-RULE-C002","B18-RULE-C003","B18-RULE-C004","B18-RULE-C005","B18-RULE-C006"],"candidate_count":6,"candidate_count_is_quota":false,"eligibility":"NEW_ANSWER_DEFINING_PROPOSITION_ONLY","known_rejected_ids":[]},
+  "coverage_limit_decisions": [
+    {"decision_id":"B18-COVERAGE-LIMIT-001","status":"RESIDUAL_ONLY","scope":"Chapter 3 aircraft-operations/airspace propositions","evidence":"Only explicit answer-defining propositions absent from the 365-question canonical inventory may survive."},
+    {"decision_id":"B18-COVERAGE-LIMIT-002","status":"NO_CONTROLLED_VARIANT_BACKFILL","scope":"Future expansion","evidence":"Tier B/C reuse of an already represented answer-defining proposition is prohibited even if scenario, threshold, or reasoning path differs."}
+  ],
+  "migration_blockers": [],
+  "invariants": {"CANONICAL_CHANGED_AT_AUTHORING":false,"PERMANENT_IDS_ALLOCATED_AT_AUTHORING":0,"SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false,"FREE_SELECTION_CHANGED":false,"V0_SNAPSHOT_CHANGED":false,"HUMAN_REVIEW_CREATED":false},
+  "next_gate": "INDEPENDENT_AI_REVIEW_RESIDUAL_PROPOSITIONS"
+}

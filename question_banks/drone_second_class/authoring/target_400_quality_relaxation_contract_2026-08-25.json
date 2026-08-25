@@ -7,6 +7,7 @@
   "supersedes": [
     "DRONE-PRODUCTION-TARGET-350-2026-08-25"
   ],
+  "superseded_by": "DRONE-RESIDUAL-PROPOSITION-COMPLETION-2026-08-25",
   "target": {
     "final_production_question_count": 400,
     "current_released_count": 188,
@@ -14,7 +15,7 @@
     "projected_canonical_after_b5_integration": 196,
     "additional_from_released_baseline": 212,
     "additional_after_b5": 204,
-    "status": "ACTIVE",
+    "status": "SUPERSEDED",
     "release_activation": "EXPLICIT_GATE_REQUIRED"
   },
   "authoritative_source": {
