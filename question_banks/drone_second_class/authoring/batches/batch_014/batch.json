@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B14",
+  "directory_slug": "batch_014",
+  "baseline_sha": "fdb040fb21299dd71fc59d9289692866eec318d8",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "chatgpt-b14-rules-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Continue from 336 accepted/source-verified canonical questions toward the owner-directed 400-question Production target. B14 intentionally authors only the 9 Chapter 3 Rules candidates that survived explicit pre-screen against all 336 canonical questions after B13 demonstrated a high collision rate.",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Use only second-class-applicable Chapter 3 propositions and exclude every subsection explicitly marked 〔一等〕."
+  },
+  "evidence": [
+    "Merged PR #272 persisted the B14 pre-screened Rules plan from canonical/source-verified 336.",
+    "B13 review accepted 4/20 and rejected 16/20, mainly for canonical collisions; B14 therefore reduced the authored ceiling to the 9 candidates with named canonical neighbors and explicit non-collision reasoning.",
+    "PR #143 adopted the quality-preserving 400-question target contract.",
+    "No B14 candidate is authored solely to meet a numerical quota."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B14-TARGET-001",
+      "previous_approved_target": 400,
+      "current_released_count": 188,
+      "proposed_target_min": 400,
+      "proposed_target_max": 400,
+      "approved_new_target": 400,
+      "rationale": "Continue the owner-directed 400-question target without changing the release baseline until explicit release activation.",
+      "decision_date": "2026-08-25",
+      "evidence": "Merged PR #143 and PR #272."
+    }
+  ],
+  "planned_scope": {
+    "area": "Rules",
+    "candidate_batch_identity": "B14",
+    "candidate_ids": [
+      "B14-RULE-C001",
+      "B14-RULE-C002",
+      "B14-RULE-C003",
+      "B14-RULE-C004",
+      "B14-RULE-C005",
+      "B14-RULE-C006",
+      "B14-RULE-C007",
+      "B14-RULE-C008",
+      "B14-RULE-C009"
+    ],
+    "candidate_count": 9,
+    "candidate_count_is_quota": false,
+    "tier_counts": {
+      "A_NEW_PROPOSITION": 5,
+      "B_BOUNDARY_VARIANT": 4,
+      "C_REASONING_VARIANT": 0
+    },
+    "tier_b_candidate_ids": ["B14-RULE-C001", "B14-RULE-C004", "B14-RULE-C005", "B14-RULE-C006"],
+    "known_rejected_ids": []
+  },
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B14-COVERAGE-LIMIT-001",
+      "status": "PRESCREENED_SMALL_BATCH",
+      "scope": "Chapter 3 Rules propositions and controlled boundaries",
+      "evidence": "The normal 20-30 candidate guidance was deliberately not used. Only nine candidates survived the current-canonical pre-screen; rejected planning ideas were not backfilled."
+    },
+    {
+      "decision_id": "B14-COVERAGE-LIMIT-002",
+      "status": "ACTIVE_POLICY",
+      "scope": "Indirect-participant core density",
+      "evidence": "Q002 plus C004 and C005 would reach the default density ceiling of three on the indirect-participant core if both pass. B14 authors no further variant on that core."
+    }
+  ],
+  "migration_blockers": [],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_AUTHORING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
