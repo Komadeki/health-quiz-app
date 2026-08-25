@@ -6,7 +6,8 @@ import 'package:quiz_engine/quiz_engine.dart';
 import 'test_support.dart';
 
 void main() {
-  testWidgets('optional Home supplement composes without changing shared runtime', (
+  testWidgets(
+      'optional Home supplement composes without changing shared runtime', (
     tester,
   ) async {
     tester.view.physicalSize = const Size(640, 1600);
@@ -44,6 +45,11 @@ void main() {
           );
         },
       ),
+    );
+
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('fixture-home-supplement')),
+      160,
     );
 
     expect(find.byKey(const Key('home-supplement')), findsOneWidget);

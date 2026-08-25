@@ -48,27 +48,26 @@ final class DroneHomeSupplement extends StatelessWidget {
 
     return Card(
       key: const Key('drone-study-guide'),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              '二等学科の学習ガイド',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '基準資料: ${definition.learningProduct.sourceLabel}',
-              key: const Key('drone-study-guide-source'),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              examSummary,
-              key: const Key('drone-study-guide-path'),
-            ),
-          ],
-        ),
+      clipBehavior: Clip.antiAlias,
+      child: ExpansionTile(
+        key: const Key('drone-study-guide-toggle'),
+        initiallyExpanded: false,
+        leading: const Icon(Icons.menu_book_outlined),
+        title: const Text('二等学科の学習ガイド'),
+        subtitle: const Text('必要なときに開いて確認'),
+        childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            '基準資料: ${definition.learningProduct.sourceLabel}',
+            key: const Key('drone-study-guide-source'),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            examSummary,
+            key: const Key('drone-study-guide-path'),
+          ),
+        ],
       ),
     );
   }

@@ -7,7 +7,8 @@ import 'package:qualification_app/qualification_app.dart';
 import 'production_test_support.dart';
 
 void main() {
-  testWidgets('Drone composes official-source and mock-profile study guidance', (
+  testWidgets('Drone composes official-source and mock-profile study guidance',
+      (
     tester,
   ) async {
     tester.view.physicalSize = const Size(640, 1600);
@@ -29,9 +30,20 @@ void main() {
       ),
     );
 
+    expect(find.byKey(const Key('primary-learning-action')), findsOneWidget);
     final guide = find.byKey(const Key('drone-study-guide'));
+    await tester.scrollUntilVisible(guide, 160);
     expect(guide, findsOneWidget);
     expect(find.text('二等学科の学習ガイド'), findsOneWidget);
+    expect(find.text('必要なときに開いて確認'), findsOneWidget);
+    expect(find.byKey(const Key('drone-study-guide-source')), findsNothing);
+
+    final toggle = find.byKey(const Key('drone-study-guide-toggle'));
+    await tester.ensureVisible(toggle);
+    await tester.pumpAndSettle();
+    await tester.tap(toggle);
+    await tester.pumpAndSettle();
+
     expect(
       find.text(
         '基準資料: ${GeneratedAppManifest.definition.learningProduct.sourceLabel}',
@@ -42,7 +54,6 @@ void main() {
       find.text('単元別・復習で確認した後、このアプリの模擬試験（50問・30分）で仕上げます。'),
       findsOneWidget,
     );
-    expect(find.byKey(const Key('primary-learning-action')), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }
