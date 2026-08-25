@@ -1,0 +1,113 @@
+name: Temporary Radar Fallback Fix Worker
+
+on:
+  push:
+    branches: [chatgpt/drone-progress-radar-metrics]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-radar-fallback-fix-worker
+  cancel-in-progress: false
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-progress-radar-metrics
+          fetch-depth: 0
+
+      - name: Remove nested Scrollable from unit fallback
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('packages/qualification_app/lib/src/progress_dashboard.dart')
+          text = path.read_text()
+
+          old = "    final supportsRadar = data.length >= 3 && data.length <= 6;"
+          new = "    final supportsRadar = data.length >= 3;"
+          if text.count(old) != 1:
+              raise SystemExit('supportsRadar anchor mismatch')
+          text = text.replace(old, new, 1)
+
+          old = '''    return ListView(
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            children: [
+              for (final item in data)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 64,
+                        child: Text(
+                          _shortRadarLabel(item.label),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Expanded(child: LinearProgressIndicator(value: item.value)),
+                      const SizedBox(width: 6),
+                      SizedBox(
+                        width: 32,
+                        child: Text(
+                          item.hasData ? '${(item.value * 100).round()}%' : '—',
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          );'''
+          new = '''    return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              for (final item in data)
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 64,
+                      child: Text(
+                        _shortRadarLabel(item.label),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(child: LinearProgressIndicator(value: item.value)),
+                    const SizedBox(width: 6),
+                    SizedBox(
+                      width: 32,
+                      child: Text(
+                        item.hasData ? '${(item.value * 100).round()}%' : '—',
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          );'''
+          if text.count(old) != 1:
+              raise SystemExit('fallback ListView anchor mismatch')
+          path.write_text(text.replace(old, new, 1))
+          PY
+
+      - name: Commit fix and self-delete worker
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          rm -f .github/workflows/tmp-progress-dashboard-scroll-fix.yml
+          git add -A
+          git diff --cached --check
+          git commit -m 'Remove nested progress fallback scrolling'
+          git push origin HEAD:chatgpt/drone-progress-radar-metrics
