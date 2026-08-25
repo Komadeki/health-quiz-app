@@ -1,0 +1,326 @@
+name: Drone TestFlight Free30 Preview
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-testflight-free30-preview
+    paths:
+      - '.github/testflight-free30-preview-trigger'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: drone-testflight-free30-preview
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    env:
+      APP_DIR: apps/drone_second_class
+      APP_BUNDLE_ID: com.komadeki.dronesecondclass
+      APP_VERSION: 1.0.0
+      APPLE_TEAM_ID: 3LRFUN9SAM
+      SOURCE_MAIN_SHA: 5b06a30d167a8d53ae5b5edd6bdc9fbf6b02f8de
+      APPLE_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64 }}
+      APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD }}
+      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+      APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+      APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+
+    steps:
+      - name: Validate required Apple credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          missing=0
+          for name in \
+            APPLE_DISTRIBUTION_CERTIFICATE_BASE64 \
+            APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD \
+            APP_STORE_CONNECT_API_KEY_ID \
+            APP_STORE_CONNECT_API_ISSUER_ID \
+            APP_STORE_CONNECT_API_KEY_BASE64
+          do
+            if [[ -z "${!name:-}" ]]; then
+              echo "::error::Missing required repository secret: ${name}"
+              missing=1
+            fi
+          done
+          if [[ "$missing" -ne 0 ]]; then
+            exit 78
+          fi
+
+      - name: Checkout exact main baseline
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.SOURCE_MAIN_SHA }}
+
+      - name: Verify Free30 production baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$SOURCE_MAIN_SHA"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path('question_banks/drone_second_class/generated/bank_manifest.json').read_text())
+          assert manifest['bank_revision'] == 'drone-second-class-v3-release-2026-08-25', manifest
+          assert manifest['question_count'] == 188, manifest
+          assert manifest['free_question_count'] == 30, manifest
+          print('SOURCE_MAIN_SHA=' + Path('.git/HEAD').read_text().strip())
+          print('BANK_REVISION=' + manifest['bank_revision'])
+          print('QUESTION_COUNT=' + str(manifest['question_count']))
+          print('FREE_QUESTION_COUNT=' + str(manifest['free_question_count']))
+          PY
+
+      - name: Install Flutter stable
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch stable https://github.com/flutter/flutter.git "$HOME/flutter"
+          echo "$HOME/flutter/bin" >> "$GITHUB_PATH"
+
+      - name: Resolve build number
+        id: build
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_NUMBER="$(date -u +%Y%m%d%H%M)"
+          echo "number=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> "$GITHUB_ENV"
+          echo "TestFlight preview build: ${APP_VERSION}+${BUILD_NUMBER}"
+
+      - name: Configure App Store Connect API key
+        id: asc
+        shell: bash
+        run: |
+          set -euo pipefail
+          KEY_DIR="$HOME/.appstoreconnect/private_keys"
+          mkdir -p "$KEY_DIR"
+          KEY_PATH="$KEY_DIR/AuthKey_${APP_STORE_CONNECT_API_KEY_ID}.p8"
+          printf '%s' "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode > "$KEY_PATH"
+          chmod 600 "$KEY_PATH"
+          echo "key_path=$KEY_PATH" >> "$GITHUB_OUTPUT"
+          echo "ASC_KEY_PATH=$KEY_PATH" >> "$GITHUB_ENV"
+
+      - name: Import Apple Distribution certificate
+        shell: bash
+        run: |
+          set -euo pipefail
+          CERT_PATH="$RUNNER_TEMP/distribution.p12"
+          KEYCHAIN_PATH="$RUNNER_TEMP/testflight-signing.keychain-db"
+          KEYCHAIN_PASSWORD="$(uuidgen)$(uuidgen)"
+          printf '%s' "$APPLE_DISTRIBUTION_CERTIFICATE_BASE64" | base64 --decode > "$CERT_PATH"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security import "$CERT_PATH" -P "$APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH" login.keychain-db
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH"
+
+      - name: Prepare Flutter iOS project
+        working-directory: ${{ env.APP_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          flutter --version
+          flutter pub get
+          flutter build ios \
+            --release \
+            --no-codesign \
+            --build-name "$APP_VERSION" \
+            --build-number "$BUILD_NUMBER"
+
+      - name: Archive signed iOS app
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$APP_DIR/ios"
+          xcodebuild \
+            -workspace Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/Runner.xcarchive" \
+            archive \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+            PRODUCT_BUNDLE_IDENTIFIER="$APP_BUNDLE_ID" \
+            MARKETING_VERSION="$APP_VERSION" \
+            CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "${{ steps.asc.outputs.key_path }}" \
+            -authenticationKeyID "$APP_STORE_CONNECT_API_KEY_ID" \
+            -authenticationKeyIssuerID "$APP_STORE_CONNECT_API_ISSUER_ID"
+
+      - name: Export App Store Connect IPA
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>app-store-connect</string>
+            <key>signingStyle</key>
+            <string>automatic</string>
+            <key>teamID</key>
+            <string>${APPLE_TEAM_ID}</string>
+            <key>manageAppVersionAndBuildNumber</key>
+            <false/>
+            <key>uploadSymbols</key>
+            <true/>
+          </dict>
+          </plist>
+          PLIST
+          xcodebuild \
+            -exportArchive \
+            -archivePath "$RUNNER_TEMP/Runner.xcarchive" \
+            -exportPath "$RUNNER_TEMP/export" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "${{ steps.asc.outputs.key_path }}" \
+            -authenticationKeyID "$APP_STORE_CONNECT_API_KEY_ID" \
+            -authenticationKeyIssuerID "$APP_STORE_CONNECT_API_ISSUER_ID"
+          IPA_PATH="$(find "$RUNNER_TEMP/export" -maxdepth 1 -name '*.ipa' -print -quit)"
+          if [[ -z "$IPA_PATH" ]]; then
+            echo "::error::No IPA produced"
+            exit 1
+          fi
+          echo "IPA produced: $(basename "$IPA_PATH")"
+          echo "IPA_PATH=$IPA_PATH" >> "$GITHUB_ENV"
+
+      - name: Install Apple Transporter
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL \
+            "https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/resources/download/public/Transporter__OSX/bin/" \
+            -o "$RUNNER_TEMP/itmstransporter.pkg"
+          sudo installer -pkg "$RUNNER_TEMP/itmstransporter.pkg" -target /
+          /usr/local/itms/bin/iTMSTransporter -help
+
+      - name: Upload IPA to App Store Connect / TestFlight
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/local/itms/bin/iTMSTransporter \
+            -m upload \
+            -assetFile "$IPA_PATH" \
+            -apiKey "$APP_STORE_CONNECT_API_KEY_ID" \
+            -apiIssuer "$APP_STORE_CONNECT_API_ISSUER_ID"
+
+      - name: Upload signed IPA as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: drone-second-class-testflight-${{ steps.build.outputs.number }}
+          path: ${{ env.IPA_PATH }}
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Wait for App Store Connect processing
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet pyjwt cryptography
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          import jwt
+
+          key_id = os.environ['APP_STORE_CONNECT_API_KEY_ID']
+          issuer_id = os.environ['APP_STORE_CONNECT_API_ISSUER_ID']
+          key_path = os.environ['ASC_KEY_PATH']
+          bundle_id = os.environ['APP_BUNDLE_ID']
+          build_number = os.environ['BUILD_NUMBER']
+
+          with open(key_path, 'r', encoding='utf-8') as fh:
+              private_key = fh.read()
+
+          def token():
+              now = int(time.time())
+              return jwt.encode(
+                  {'iss': issuer_id, 'iat': now, 'exp': now + 900, 'aud': 'appstoreconnect-v1'},
+                  private_key,
+                  algorithm='ES256',
+                  headers={'kid': key_id, 'typ': 'JWT'},
+              )
+
+          def get(path, params=None):
+              url = 'https://api.appstoreconnect.apple.com' + path
+              if params:
+                  url += '?' + urllib.parse.urlencode(params, doseq=True)
+              req = urllib.request.Request(url, headers={'Authorization': 'Bearer ' + token()})
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as response:
+                      return json.load(response)
+              except urllib.error.HTTPError as exc:
+                  body = exc.read().decode('utf-8', errors='replace')
+                  print(f'HTTP {exc.code} for {url}: {body}', file=sys.stderr)
+                  raise
+
+          apps = get('/v1/apps', {'filter[bundleId]': bundle_id, 'limit': '1'})
+          if not apps.get('data'):
+              print(f'::error::App not found for bundle ID {bundle_id}')
+              sys.exit(1)
+          app_id = apps['data'][0]['id']
+          print('APP_STORE_CONNECT_APP_ID=' + app_id)
+
+          build = None
+          for attempt in range(31):
+              builds = get(
+                  '/v1/builds',
+                  {
+                      'filter[app]': app_id,
+                      'filter[version]': build_number,
+                      'fields[builds]': 'version,uploadedDate,processingState,expired,usesNonExemptEncryption',
+                      'limit': '10',
+                  },
+              )
+              data = builds.get('data', [])
+              if data:
+                  build = data[0]
+                  state = build.get('attributes', {}).get('processingState')
+                  print(f'Attempt {attempt + 1}: build {build_number} processingState={state}')
+                  if state != 'PROCESSING':
+                      break
+              else:
+                  print(f'Attempt {attempt + 1}: build {build_number} not visible yet')
+              time.sleep(20)
+
+          if build is None:
+              print(f'::error::Build {build_number} did not appear in App Store Connect')
+              sys.exit(1)
+
+          attrs = build.get('attributes', {})
+          state = attrs.get('processingState')
+          print('BUILD_ID=' + build['id'])
+          print('BUILD_VERSION=' + str(attrs.get('version')))
+          print('UPLOADED_DATE=' + str(attrs.get('uploadedDate')))
+          print('PROCESSING_STATE=' + str(state))
+          print('EXPIRED=' + str(attrs.get('expired')))
+          print('USES_NON_EXEMPT_ENCRYPTION=' + str(attrs.get('usesNonExemptEncryption')))
+
+          if state != 'VALID':
+              print(f'::error::Build processing did not reach VALID: {state}')
+              sys.exit(1)
+
+          detail = get(
+              f"/v1/builds/{build['id']}/buildBetaDetail",
+              {'fields[buildBetaDetails]': 'internalBuildState,externalBuildState,autoNotifyEnabled'},
+          )
+          detail_attrs = detail.get('data', {}).get('attributes', {})
+          print('INTERNAL_BUILD_STATE=' + str(detail_attrs.get('internalBuildState')))
+          print('EXTERNAL_BUILD_STATE=' + str(detail_attrs.get('externalBuildState')))
+          print('AUTO_NOTIFY_ENABLED=' + str(detail_attrs.get('autoNotifyEnabled')))
+          PY
