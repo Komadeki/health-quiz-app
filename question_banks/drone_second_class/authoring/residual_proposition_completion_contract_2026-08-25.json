@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "decision_id": "DRONE-RESIDUAL-PROPOSITION-COMPLETION-2026-08-25",
+  "product": "drone_second_class",
+  "decided_at": "2026-08-25",
+  "decision_authority": "OWNER_DIRECTION",
+  "supersedes": [
+    "DRONE-PRODUCTION-TARGET-400-QUALITY-RELAXATION-2026-08-25"
+  ],
+  "completion_target": {
+    "mode": "EXHAUSTIVE_RESIDUAL_PROPOSITIONS",
+    "fixed_question_count": null,
+    "baseline_source_verified_canonical": 365,
+    "current_released_count": 188,
+    "release_activation": "EXPLICIT_GATE_REQUIRED",
+    "completion_condition": "No additional second-class-applicable explicit answer-defining proposition in the authoritative source survives full-canonical pre-screen and independent review."
+  },
+  "authoritative_source": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "edition": "第5版",
+    "issuer": "国土交通省",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "registered_source_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "scope_rule": "Use second-class-applicable material only; exclude subsections explicitly marked 〔一等〕."
+  },
+  "inclusion_rule": {
+    "explicit_source_support_required": true,
+    "new_answer_defining_proposition_required": true,
+    "semantic_collision_review_against_all_canonical_required": true,
+    "independent_ai_review_required": true,
+    "director_adjudication_required": true,
+    "commercial_practice_value_required": true,
+    "one_unambiguous_best_answer_required": true,
+    "permanent_id_only_after_acceptance": true,
+    "canonical_source_verification_required": true
+  },
+  "prohibited_expansion": [
+    "wording-only or near-paraphrase duplication",
+    "scenario-only variation when the answer-defining proposition is already represented",
+    "threshold/boundary variation when the answer-defining proposition is already represented",
+    "reasoning-path variation when the answer-defining proposition is already represented",
+    "controlled Tier B or Tier C variants used only to increase question count",
+    "first-class-only material",
+    "unsupported inference beyond explicit source support",
+    "ambiguous or multiple defensible correct answers",
+    "incidental trivia with low exam/practice value",
+    "candidate created to satisfy any numeric quota"
+  ],
+  "tier_policy": {
+    "future_authoring": "TIER_A_NEW_PROPOSITION_ONLY",
+    "definition": "A candidate is eligible only when its source-defined answer-defining proposition is not already represented in canonical inventory. Topic adjacency to existing questions is allowed only when the proposition itself is distinct.",
+    "b18_transition_rule": "Re-review all six already-authored B18 candidates under this residual-proposition rule. B18-RULE-C003 may survive only if the explicit aircraft right-of-way concept and rationale are absent as an answer-defining proposition in canonical inventory; prior Tier-B labeling gives it no special allowance."
+  },
+  "execution_strategy": {
+    "mode": "SOURCE_INVENTORY_EXHAUSTION",
+    "method": [
+      "scan all second-class-applicable source sections for explicit propositions",
+      "compare each proposition against all canonical questions before authoring",
+      "author only propositions that are not already answer-defining",
+      "independently review each authored candidate under the same residual-only rule",
+      "Director accepts only surviving residual propositions",
+      "allocate IDs, integrate canonical drafts, and source-verify accepted questions",
+      "repeat until no eligible residual proposition remains",
+      "close Question Bank Completion without manufacturing a numeric target"
+    ]
+  },
+  "preserved_invariants": [
+    "Released/runtime remain 188 until an explicit release activation gate.",
+    "Existing question identities and release history remain unchanged.",
+    "The existing free selection remains unchanged until a separate monetization decision.",
+    "The immutable V0 100-question historical validation snapshot remains unchanged.",
+    "No HUMAN review identity is fabricated."
+  ],
+  "next_atomic_objective": "INDEPENDENT_AI_REVIEW_B18_RESIDUAL_PROPOSITIONS_6"
+}
