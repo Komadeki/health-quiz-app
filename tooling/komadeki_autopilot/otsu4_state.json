@@ -5,13 +5,23 @@
   "control_issue": 185,
   "status": "ACTIVE",
   "current_phase": "QUESTION_BANK_COMPLETION",
-  "phase_order": ["QUESTION_BANK_COMPLETION","FEATURE_COMPLETION","PRODUCT_CLOSURE","PHYSICAL_DEVICE","STOREKIT_TESTFLIGHT","APP_STORE_CONNECT","FINAL_RELEASE_GATE","SUBMIT","DONE"],
-  "observed_main": "ca2690d1b5f8fea9f67530b1b15c880ce01d97db",
-  "next_atomic_objective": "MATERIALIZE_OTSU4_BATCH_2_ACCEPTANCE_PACKETS_23",
+  "phase_order": [
+    "QUESTION_BANK_COMPLETION",
+    "FEATURE_COMPLETION",
+    "PRODUCT_CLOSURE",
+    "PHYSICAL_DEVICE",
+    "STOREKIT_TESTFLIGHT",
+    "APP_STORE_CONNECT",
+    "FINAL_RELEASE_GATE",
+    "SUBMIT",
+    "DONE"
+  ],
+  "observed_main": "ed5be68e7ae4e24fcb940408c94033e7963a56d0",
+  "next_atomic_objective": "PROMOTE_OTSU4_BATCH_2_ACCEPTED_23_TO_READY_FOR_ID",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 29
+  "state_epoch": 30
 }

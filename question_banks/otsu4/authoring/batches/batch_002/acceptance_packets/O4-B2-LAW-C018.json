@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B2-LAW-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f3a5eb6f6779e1cb3a9aab1a4762a8c7d52ad2b30206b480de0f7c2ba57108d6",
+  "actors": {
+    "author": {
+      "id": "otsu4-b2-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b2-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第13条の3第4項第1号"
+    },
+    "answer_defining_proposition": "甲種試験の受験資格には、大学等で化学に関する学科・課程を修めて卒業した者等のルートがある。",
+    "tested_misconception": "甲種試験は乙種免状保有者しか受験できない。",
+    "reasoning_path": "Kou eligibility -> chemistry education route -> eligible",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Batch 2 Tier A; distinct from C019 Otsu-license practical-experience route."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Article 13-3(4)(1) supports the chemistry-education route to Kou examination eligibility; distinct from experience route."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 23 accepted candidates cover distinct statutory roles, duties, authorities, temporal boundaries, eligibility routes, enforcement triggers, or emergency obligations. C016 adds insufficient incremental practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

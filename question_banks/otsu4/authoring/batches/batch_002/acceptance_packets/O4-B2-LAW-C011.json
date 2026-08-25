@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B2-LAW-C011",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4380a739c0365909de12632e502ae55a76737d6f905c3891b788617aacaeb2c4",
+  "actors": {
+    "author": {
+      "id": "otsu4-b2-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b2-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第13条の2第4項第2号"
+    },
+    "answer_defining_proposition": "消防法等違反で罰金以上の刑を受け、執行終了等から2年を経過しない者には免状を交付しないことができる。",
+    "tested_misconception": "刑の執行終了から1年経てば必ず交付対象になる。",
+    "reasoning_path": "qualifying conviction -> elapsed 18 months -> compare with two-year boundary -> discretionary non-issuance applies",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Batch 2 Tier B temporal boundary distinct from C010."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Article 13-2(4)(2) directly supports the two-year qualifying-conviction boundary; distinct from C010 in trigger and duration."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 23 accepted candidates cover distinct statutory roles, duties, authorities, temporal boundaries, eligibility routes, enforcement triggers, or emergency obligations. C016 adds insufficient incremental practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

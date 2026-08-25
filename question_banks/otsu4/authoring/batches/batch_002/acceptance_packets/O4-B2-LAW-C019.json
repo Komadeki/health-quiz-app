@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B2-LAW-C019",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0ff73e7edc12fdef00ca60e436c404be4d0f475002cab046e21da780fea105ed",
+  "actors": {
+    "author": {
+      "id": "otsu4-b2-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b2-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第13条の3第4項第2号"
+    },
+    "answer_defining_proposition": "乙種免状交付後2年以上の危険物取扱い実務経験は甲種試験受験資格ルートの一つである。",
+    "tested_misconception": "乙種免状取得後1年の実務経験で甲種受験資格を満たす。",
+    "reasoning_path": "Otsu license -> elapsed practical experience 18 months -> compare with two-year floor -> not eligible under this route",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Batch 2 Tier B temporal boundary; distinct from C018 education route and C002 six-month supervisor threshold."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Article 13-3(4)(2) supports the Otsu-license plus two-year experience route; the 18-month boundary is independently reproducible."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 23 accepted candidates cover distinct statutory roles, duties, authorities, temporal boundaries, eligibility routes, enforcement triggers, or emergency obligations. C016 adds insufficient incremental practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

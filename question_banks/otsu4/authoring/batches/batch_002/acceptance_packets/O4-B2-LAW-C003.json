@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B2-LAW-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "51a4f6b9cee3d74a6da022add8b3841dcc92bff56ed61942875106fc1e9c9688",
+  "actors": {
+    "author": {
+      "id": "otsu4-b2-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b2-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第13条第1項"
+    },
+    "answer_defining_proposition": "危険物保安監督者の監督対象は、その者が取り扱うことができる危険物の取扱作業である。",
+    "tested_misconception": "監督者に選任されれば免状の取扱範囲を超えて全危険物を監督できる。",
+    "reasoning_path": "supervisor license scope -> handling scope -> supervision scope",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Batch 2 Tier A; distinct from C001/C002 by testing supervision scope rather than qualification."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Article 13(1) supports supervision only for hazardous materials the supervisor is authorized to handle; distinct scope proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 23 accepted candidates cover distinct statutory roles, duties, authorities, temporal boundaries, eligibility routes, enforcement triggers, or emergency obligations. C016 adds insufficient incremental practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
