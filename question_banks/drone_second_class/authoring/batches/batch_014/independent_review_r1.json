@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B14",
+  "review_round": 1,
+  "reviewer": {
+    "id": "autopilot-b14-rules-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "chatgpt-b14-rules-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Use only second-class-applicable Chapter 3 propositions; exclude subsections explicitly marked 〔一等〕."
+  },
+  "review_basis": [
+    "current merged B14 candidates.csv",
+    "current 336-question canonical inventory rather than only neighboring Rules batches",
+    "merged B14 pre-screen plan",
+    "current MLIT 教則第5版 Chapter 3 source text, including Remote ID, emergency-use airspace, VLOS, 30m distance, event-overflight and third-party definitions",
+    "400-question quality-preserving controlled-variant contract",
+    "source fidelity, second-class applicability, answer uniqueness, semantic distinctness, commercial practice value, plausible distractors and explanation correctness"
+  ],
+  "summary": {
+    "reviewed": 9,
+    "accept": 9,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "B14-RULE-C001",
+      "decision": "ACCEPT",
+      "rationale": "The source explicitly states that briefly looking away from the aircraft to check battery level or similar safety information remains within visual-line-of-sight flight. Q048 tests sustained monitor/assistant observation as BVLOS, so this is a source-defined exception boundary rather than a wording variant."
+    },
+    {
+      "candidate_id": "B14-RULE-C002",
+      "decision": "ACCEPT",
+      "rationale": "The source imposes a live safety duty, regardless of prior permission/approval, to stop flight and take route-change, landing or other necessary measures when an unexpected event and third-party entry risk appears below the planned route. Q105 only classifies spontaneous crowds versus events and does not test this in-flight response duty."
+    },
+    {
+      "candidate_id": "B14-RULE-C003",
+      "decision": "ACCEPT",
+      "rationale": "The source gives an explicit action-changing boundary for event-overflight: flight is cancelled at wind speed 5 m/s or more. The current canonical bank does not make this threshold answer-defining, and the exact-boundary scenario has direct exam-practice value."
+    },
+    {
+      "candidate_id": "B14-RULE-C004",
+      "decision": "ACCEPT",
+      "rationale": "Tier B PASS. Indirect-participant status is conjunctive. This candidate tests the separate condition that the person must receive clear abnormal-behavior instructions and safety cautions. Q002 tests the person's ability to decide participation for themselves, so the decision boundary and reasoning step differ materially."
+    },
+    {
+      "candidate_id": "B14-RULE-C005",
+      "decision": "ACCEPT",
+      "rationale": "Tier B PASS. The source separately requires the operator to confirm that instructions and safety cautions are properly understood. This is distinct from Q002's self-determination condition and C004's receipt-of-instructions condition. Q002 plus C004 plus C005 reaches the default density ceiling of three on this core, so no further same-core variant should be added without stronger evidence."
+    },
+    {
+      "candidate_id": "B14-RULE-C006",
+      "decision": "ACCEPT",
+      "rationale": "Tier B PASS. The source independently lists flight tethered by a sufficiently strong cord or equivalent no longer than 30 m as a Remote ID equipment exemption. Q030 concerns the separate flight-method procedure exception for tethering and Q047 concerns the Remote ID special-area exemption, so the regulatory object and exemption branch differ."
+    },
+    {
+      "candidate_id": "B14-RULE-C007",
+      "decision": "ACCEPT",
+      "rationale": "The source explicitly defines Remote ID broadcast content: aircraft serial/registration plus dynamic position, speed, altitude and time information, excluding owner/user information, with transmission at least once per second. Q047 tests exemption conditions rather than payload. The proposition is not mere trivia because it defines what identification data the system actually broadcasts and what personal data it does not."
+    },
+    {
+      "candidate_id": "B14-RULE-C008",
+      "decision": "ACCEPT",
+      "rationale": "The source explicitly states that ordinary permissions for airport-adjacent, 150 m or higher, or DID airspace do not authorize flight in an emergency-use airspace and requires a preflight designation check. Q041 tests the separate applicability of the emergency-use prohibition to sub-100 g model aircraft."
+    },
+    {
+      "candidate_id": "B14-RULE-C009",
+      "decision": "ACCEPT",
+      "rationale": "The source explicitly defines the 30 m separation as the straight-line distance between the aircraft and the person/property. Q104 tests what counts as property, not measurement geometry. The candidate therefore adds a distinct operational rule with a unique best answer."
+    }
+  ],
+  "controlled_variant_gate": {
+    "reviewed_tier_b": [
+      "B14-RULE-C001",
+      "B14-RULE-C004",
+      "B14-RULE-C005",
+      "B14-RULE-C006"
+    ],
+    "accepted_tier_b": [
+      "B14-RULE-C001",
+      "B14-RULE-C004",
+      "B14-RULE-C005",
+      "B14-RULE-C006"
+    ],
+    "rejected_tier_b": [],
+    "density_policy_checked": true,
+    "indirect_participant_core_after_acceptance": 3,
+    "additional_indirect_participant_variant_allowed_without_explicit_override": false,
+    "minimum_distinct_axes_checked": true,
+    "wording_only_duplicates_allowed": false
+  },
+  "canonical_collision_reconciliation": {
+    "pre_screen_strategy_validated": true,
+    "hard_rejected_count": 0,
+    "quota_backfill": false,
+    "accepted_candidate_ids": [
+      "B14-RULE-C001",
+      "B14-RULE-C002",
+      "B14-RULE-C003",
+      "B14-RULE-C004",
+      "B14-RULE-C005",
+      "B14-RULE-C006",
+      "B14-RULE-C007",
+      "B14-RULE-C008",
+      "B14-RULE-C009"
+    ]
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_9_ACCEPT_0_REJECT"
+}
