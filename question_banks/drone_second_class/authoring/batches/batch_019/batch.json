@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B19",
+  "directory_slug": "batch_019",
+  "baseline_sha": "5b6b52da96826e084483bff5be1d236c5ac36711",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "chatgpt-b19-rules-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Continue from 371 accepted/source-verified canonical questions toward the active owner-directed 400-question target. B19 authors only the 15 Chapter 3 Rules candidates persisted by the merged post-371 residual audit and B19 plan; the ceiling is not a quota and no additional candidate is backfilled.",
+  "governance_contract": "owner_target_400_reconciliation_after_371_release_cut_2026-08-25.json",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-26",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Use only second-class-applicable Chapter 3 material and exclude every subsection explicitly marked 〔一等〕."
+  },
+  "evidence": [
+    "PR #378 persisted a fresh post-371 residual audit and selected Chapter 3 Rules as the strongest residual source area.",
+    "PR #379 persisted a fail-closed B19 ceiling of 15 audited leads from canonical/source-verified 371, with 11 planned Tier A and 4 planned Tier B candidates.",
+    "Official MLIT 教則第5版 was rechecked on 2026-08-26 before authoring; the source still reports 第5版 公布日 2026-07-07 and 適用日 2026-07-14.",
+    "All authored source locators are within Chapter 3 material not marked 〔一等〕 and retain explicit source support.",
+    "B19-RULE-C008 is deliberately narrowed to the single inclusive 5m/s event-flight stop boundary; the separate harm-mitigation-structure obligation is not bundled into the same question.",
+    "No candidate receives Permanent ID, canonical integration, source-verification status, release activation or HUMAN review at authoring."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B19-TARGET-001",
+      "previous_approved_target": 400,
+      "current_released_count": 188,
+      "proposed_target_min": 400,
+      "proposed_target_max": 400,
+      "approved_new_target": 400,
+      "rationale": "Current owner direction and the active post-371 reconciliation require continued expansion toward 400 without weakening source, collision, review, ID, verification or activation gates.",
+      "decision_date": "2026-08-26",
+      "evidence": "owner_target_400_reconciliation_after_371_release_cut_2026-08-25.json / merged PR #379 B19 plan."
+    }
+  ],
+  "planned_scope": {
+    "area": "Rules",
+    "candidate_batch_identity": "B19",
+    "candidate_ids": [
+      "B19-RULE-C001",
+      "B19-RULE-C002",
+      "B19-RULE-C003",
+      "B19-RULE-C004",
+      "B19-RULE-C005",
+      "B19-RULE-C006",
+      "B19-RULE-C007",
+      "B19-RULE-C008",
+      "B19-RULE-C009",
+      "B19-RULE-C010",
+      "B19-RULE-C011",
+      "B19-RULE-C012",
+      "B19-RULE-C013",
+      "B19-RULE-C014",
+      "B19-RULE-C015"
+    ],
+    "candidate_count": 15,
+    "candidate_count_is_quota": false,
+    "tier_counts": {
+      "A_NEW_PROPOSITION": 11,
+      "B_BOUNDARY_VARIANT": 4,
+      "C_REASONING_VARIANT": 0
+    },
+    "tier_b_candidate_ids": [
+      "B19-RULE-C007",
+      "B19-RULE-C009",
+      "B19-RULE-C011",
+      "B19-RULE-C012"
+    ],
+    "known_rejected_ids": []
+  },
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B19-COVERAGE-LIMIT-001",
+      "status": "PARTIAL",
+      "scope": "Chapter 3 residual legal/airspace/logging propositions",
+      "evidence": "Authoring is limited to the 15 audited B19 plan leads. No candidate is added merely to reduce the remaining numeric gap."
+    },
+    {
+      "decision_id": "B19-COVERAGE-LIMIT-002",
+      "status": "ACTIVE_POLICY",
+      "scope": "Controlled variants",
+      "evidence": "Four Tier B candidates are retained only where the current source defines a different flight state, decision boundary, response action or reportable branch and the B19 plan records material distinctness from nearest canonical neighbors."
+    }
+  ],
+  "migration_blockers": [],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_AUTHORING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
