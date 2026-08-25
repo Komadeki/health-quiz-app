@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B11",
+  "adjudication_round": 1,
+  "director": {
+    "id": "chatgpt-primary-director-b11-r1",
+    "role": "DECISION_OWNER"
+  },
+  "adjudicated_at": "2026-08-25",
+  "author_identity": "chatgpt-b11-risk-author-r1",
+  "reviewer_identity": "autopilot-b11-risk-reviewer-r1",
+  "identity_separation_checked": true,
+  "basis": [
+    "current GitHub main and Drone machine state",
+    "merged B11 batch contract and candidates.csv",
+    "merged independent_review_r1.json",
+    "current 295-question accepted/source-verified canonical baseline",
+    "MLIT-UAS-SAFETY-GUIDE-5 source contract, edition 5",
+    "merged 400-question quality-preserving controlled-variant contract"
+  ],
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 18,
+    "reject": 2,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "B11-RISK-C001",
+    "B11-RISK-C002",
+    "B11-RISK-C003",
+    "B11-RISK-C005",
+    "B11-RISK-C006",
+    "B11-RISK-C007",
+    "B11-RISK-C008",
+    "B11-RISK-C009",
+    "B11-RISK-C011",
+    "B11-RISK-C012",
+    "B11-RISK-C013",
+    "B11-RISK-C014",
+    "B11-RISK-C015",
+    "B11-RISK-C016",
+    "B11-RISK-C017",
+    "B11-RISK-C018",
+    "B11-RISK-C019",
+    "B11-RISK-C020"
+  ],
+  "rejected_candidate_ids": [
+    "B11-RISK-C004",
+    "B11-RISK-C010"
+  ],
+  "director_findings": [
+    "The independent review is consistent with the merged B11 source-first plan, current Chapter 6 source and the 295-question canonical baseline.",
+    "C004 is rejected because its answer-defining proposition converts source examples of probability and consequence mitigation into a stronger mandatory dual-consideration duty that is not explicit enough to accept under fail-closed source support.",
+    "C010 is rejected because Q266 already tests stationary-front persistence and explicitly identifies Baiu/Autumn-rain fronts as examples; the proposed subtype framing adds insufficient solving-rule distinctness for the 400-target quality floor.",
+    "The five accepted Tier B candidates C014, C017, C018, C019 and C020 retain material source-defined distinctions in temporal start-gate, GNSS failure, battery failure, explicit exception boundary and forced-landing lifecycle state.",
+    "No accepted B11 candidate relies on a subsection explicitly marked 〔一等〕.",
+    "The 20-candidate ceiling is not a quota. Two candidates are deliberately dropped without backfill.",
+    "No HUMAN review is claimed or fabricated."
+  ],
+  "controlled_variant_result": {
+    "accepted_tier_b": ["B11-RISK-C014","B11-RISK-C017","B11-RISK-C018","B11-RISK-C019","B11-RISK-C020"],
+    "rejected_tier_b": ["B11-RISK-C004"],
+    "wording_only_duplicate_retained": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_FABRICATED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_18"
+}
