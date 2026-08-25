@@ -1,0 +1,181 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B13",
+  "review_round": 1,
+  "reviewer": {
+    "id": "autopilot-b13-systems-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "chatgpt-b13-systems-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Use only second-class-applicable Chapter 4 propositions and exclude subsections explicitly marked 〔一等〕."
+  },
+  "review_basis": [
+    "current merged B13 candidates.csv",
+    "current 332-question canonical inventory",
+    "B13 source-first plan and candidate collision notes",
+    "registered MLIT 教則第5版 Chapter 4 source contract",
+    "merged 400-question quality-preserving controlled-variant contract",
+    "answer correctness, answer uniqueness, source fidelity, commercial practice value, semantic distinctness and distractor quality"
+  ],
+  "summary": {
+    "reviewed": 20,
+    "accept": 5,
+    "reject": 15,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "B13-SYS-C001",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000142",
+      "rationale": "Semantic collision. Q142 already makes the same powered-lift/VTOL combination of vertical takeoff/landing and airplane-like forward cruise answer-defining."
+    },
+    {
+      "candidate_id": "B13-SYS-C002",
+      "decision": "ACCEPT",
+      "rationale": "Distinct explicit fixed-wing motion constraint. Existing questions cover minimum speed, glide, control surfaces and inability to hover for holding, but not the bank-turn requirement instead of lateral translation."
+    },
+    {
+      "candidate_id": "B13-SYS-C003",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000146",
+      "rationale": "Semantic collision. Q146 already makes loss of control-surface effectiveness in stall answer-defining; the proposed causal wording does not create a materially different solving rule."
+    },
+    {
+      "candidate_id": "B13-SYS-C004",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000061",
+      "rationale": "Direct collision. Q061 already tests the swashplate mechanism for rotor-disk tilt and rotor-pitch control."
+    },
+    {
+      "candidate_id": "B13-SYS-C005",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000068",
+      "rationale": "Direct collision. Q068 already tests tail-rotor anti-torque and yaw-control functions."
+    },
+    {
+      "candidate_id": "B13-SYS-C006",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000148",
+      "rationale": "Direct collision. Q148 already tests increased rotor count as improving failure tolerance and payload under the same motor-performance premise."
+    },
+    {
+      "candidate_id": "B13-SYS-C007",
+      "decision": "ACCEPT",
+      "rationale": "Static multirotor configuration proposition is distinct. Q149 tests deliberate imbalance for yaw; C007 tests the normal opposite-rotation pairing required to cancel net reaction torque before any yaw command."
+    },
+    {
+      "candidate_id": "B13-SYS-C008",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000149",
+      "rationale": "Direct collision. Q149 already makes yaw by breaking clockwise/counter-clockwise reaction-torque balance answer-defining."
+    },
+    {
+      "candidate_id": "B13-SYS-C009",
+      "decision": "ACCEPT",
+      "rationale": "Tier B PASS. Existing Q132 and Q322/Q325 concern helicopter ground effect and helicopter takeoff/landing actions. C009 changes aircraft applicability to large multirotor and tests the broader ground-effect envelope and resulting takeoff/hover control demand."
+    },
+    {
+      "candidate_id": "B13-SYS-C010",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000063",
+      "rationale": "Direct collision. Q063 already tests the loss of vision-sensor-dependent collision avoidance and attitude-stabilization functions at night."
+    },
+    {
+      "candidate_id": "B13-SYS-C011",
+      "decision": "ACCEPT",
+      "rationale": "Distinct maintenance-lifecycle gate. Q294 merely includes periodic maintenance as flight-manual content and existing checks are pre/postflight; no canonical item makes elapsed period or cumulative flight time the scheduled-maintenance trigger."
+    },
+    {
+      "candidate_id": "B13-SYS-C012",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000070",
+      "rationale": "Direct collision. Q070 already tests IMU composition as three-axis gyros plus three-direction accelerometers measuring angular velocity and acceleration."
+    },
+    {
+      "candidate_id": "B13-SYS-C013",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000156",
+      "rationale": "Direct collision. Q156 already tests barometric, ultrasonic and LiDAR altitude-sensing modalities and their principles."
+    },
+    {
+      "candidate_id": "B13-SYS-C014",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000159",
+      "rationale": "Semantic collision. Although the candidate mentions the Ah current-times-time definition, the answer is already solvable from Q159's answer-defining proposition that usable capacity varies with discharge current and temperature, so the proposed item does not create enough new practice value."
+    },
+    {
+      "candidate_id": "B13-SYS-C015",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000161",
+      "rationale": "Direct collision. Q161 already tests brushless-motor maintenance, quietness and long-life characteristics."
+    },
+    {
+      "candidate_id": "B13-SYS-C016",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000162",
+      "rationale": "Direct collision. Q162 already tests matching CW/CCW propeller shape to motor rotation direction."
+    },
+    {
+      "candidate_id": "B13-SYS-C017",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000071",
+      "rationale": "Direct collision. Q071 already makes ESC motor-RPM control and resulting lift/thrust adjustment answer-defining."
+    },
+    {
+      "candidate_id": "B13-SYS-C018",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000163",
+      "rationale": "Direct collision. Q163 already tests the electric-versus-engine tradeoff in vibration/noise and endurance/range."
+    },
+    {
+      "candidate_id": "B13-SYS-C019",
+      "decision": "REJECT",
+      "collided_question_id": "DRONE-Q-000166",
+      "rationale": "Direct collision. Q166 already tests use of the balance connector to correct multi-cell LiPo charge imbalance."
+    },
+    {
+      "candidate_id": "B13-SYS-C020",
+      "decision": "ACCEPT",
+      "rationale": "Distinct normal-operation radio proposition. Q246 tests abnormal multipath recovery by changing transmitter position/antenna direction; C020 tests the underlying antenna directionality and proactive orientation decision during normal link setup."
+    }
+  ],
+  "controlled_variant_gate": {
+    "reviewed_tier_b": [
+      "B13-SYS-C003",
+      "B13-SYS-C008",
+      "B13-SYS-C009"
+    ],
+    "accepted_tier_b": [
+      "B13-SYS-C009"
+    ],
+    "rejected_tier_b": [
+      "B13-SYS-C003",
+      "B13-SYS-C008"
+    ],
+    "density_policy_checked": true,
+    "minimum_distinct_axes_checked": true,
+    "wording_only_duplicates_allowed": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_5_ACCEPT_15_REJECT"
+}
