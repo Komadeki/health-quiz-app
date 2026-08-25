@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B18-RULE-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "978176e2060c8a6abb984a77507463807d6b678bf8ab71601c438a79447f3c2c",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b18-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b18-residual-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b18-residual-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)3)「航空機の飛行高度」"
+    },
+    "answer_defining_proposition": "航空機は離着陸時以外でも捜索救助・ドクターヘリ・低空飛行許可業務・人家のない地域や広い水面上空等で150m以下を飛行する場合がある。",
+    "tested_misconception": "150m以下の空域では離着陸時を除き有人航空機は飛行しないため無人航空機側の航空機監視は不要である。",
+    "reasoning_path": "recognize low-altitude operating exception -> reject assumption that sub-150m airspace is UAS-only -> maintain aircraft conflict awareness",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Residual proposition。Q120はドクターヘリ往来を飛行経路選定の一要素として扱いQ216は飛行前に航空機を確認した場合の不開始判断を問う。本問は150m以下でも有人航空機が飛行するsource-defined cases自体をanswer-defining propositionとする。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Residual proposition PASS. The source explicitly lists cases in which manned aircraft may fly at or below 150 m outside ordinary takeoff/landing continuation, including search/rescue, doctor helicopters, approved low-level operations and sparsely inhabited or broad-water areas. Q120 only uses doctor-helicopter traffic as one route-planning factor and Q216 tests a UAS no-start action when an aircraft is seen; neither makes the sub-150 m manned-aircraft cases answer-defining."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent residual-only review at ACCEPT 6 / REJECT 0. All six candidates are eligible because their explicit second-class-applicable answer-defining propositions are absent from the 365-question canonical inventory; no numeric target is used. C003 is accepted as the previously unrepresented aircraft-over-UAS right-of-way concept and source-defined rationale, not as a controlled scenario or reasoning variant of Q051/Q216/Q218. IFR/VFR, sub-150m manned-aircraft cases, control area, control zone and the three basic airport restriction-surface purposes are likewise new answer-defining propositions in canonical inventory. Future authoring remains residual-only: if a proposition is already answer-defining, a changed scenario, threshold or reasoning path does not make it eligible."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

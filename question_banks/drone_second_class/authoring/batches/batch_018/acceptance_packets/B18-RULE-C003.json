@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B18-RULE-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c78fe912ad05b4b171da1d027ec02a7828814632e6387f89f8b3b08f5fcf0227",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b18-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b18-residual-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b18-residual-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)1)「無人航空機の操縦者が航空機の運航ルールを理解する必要性」"
+    },
+    "answer_defining_proposition": "航空機の航行安全の優先・航空機側からの無人航空機の視認回避困難性・無人航空機の高い機動性を理由として航空機は無人航空機に対して進路権を有するとされる。",
+    "tested_misconception": "航空機にも見張り義務があるため接近時の優先度は双方同じで無人航空機が優先的に回避する必要はない。",
+    "reasoning_path": "compare safety consequence and detectability/maneuverability -> infer priority relationship -> identify aircraft right-of-way",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Residual proposition。Q051/Q216/Q218は具体的な回避行動を問うが進路権というsource-defined legal conceptとその理由はanswer-definingになっていない。旧Tier B allowanceではなく未出命題としてのみreview対象とする。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Residual proposition PASS under the new owner rule, not under the former Tier-B allowance. Q051/Q216/Q218 test concrete UAS avoidance behavior, but the canonical inventory does not make the explicit aircraft-over-UAS right-of-way concept or its source-defined rationale answer-defining. The source states that aircraft navigation safety is prioritized, aircraft have difficulty visually detecting/avoiding small UAS, and UAS generally have higher maneuverability; therefore aircraft are treated as having right-of-way over UAS."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent residual-only review at ACCEPT 6 / REJECT 0. All six candidates are eligible because their explicit second-class-applicable answer-defining propositions are absent from the 365-question canonical inventory; no numeric target is used. C003 is accepted as the previously unrepresented aircraft-over-UAS right-of-way concept and source-defined rationale, not as a controlled scenario or reasoning variant of Q051/Q216/Q218. IFR/VFR, sub-150m manned-aircraft cases, control area, control zone and the three basic airport restriction-surface purposes are likewise new answer-defining propositions in canonical inventory. Future authoring remains residual-only: if a proposition is already answer-defining, a changed scenario, threshold or reasoning path does not make it eligible."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
