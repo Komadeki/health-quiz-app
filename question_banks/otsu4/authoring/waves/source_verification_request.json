@@ -1,8 +1,0 @@
-{
-  "schema_version": "1.0",
-  "wave_id": "W1",
-  "expected_state_epoch": 48,
-  "expected_objective": "VERIFY_OTSU4_WAVE_1_CANONICAL_SOURCES_60",
-  "expected_integrated_count": 60,
-  "verified_at": "2026-08-26"
-}

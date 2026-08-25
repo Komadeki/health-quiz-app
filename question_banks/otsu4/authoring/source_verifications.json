@@ -357,6 +357,426 @@
       "source_version": "2026-08-25",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-25"
+    },
+    {
+      "question_id": "OTSU4-Q-000052",
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000053",
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000054",
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000055",
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000056",
+      "source_id": "O4-MHLW-SDS-KEROSENE",
+      "source_version": "2019-03-15",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000057",
+      "source_id": "O4-MHLW-SDS-KEROSENE",
+      "source_version": "2019-03-15",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000058",
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000059",
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000060",
+      "source_id": "O4-MHLW-SDS-ETHANOL",
+      "source_version": "2014-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000061",
+      "source_id": "O4-MHLW-SDS-ETHANOL",
+      "source_version": "2014-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000062",
+      "source_id": "O4-MHLW-SDS-METHANOL",
+      "source_version": "2010-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000063",
+      "source_id": "O4-MHLW-SDS-METHANOL",
+      "source_version": "2010-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000064",
+      "source_id": "O4-MHLW-SDS-TOLUENE",
+      "source_version": "2013-02-22",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000065",
+      "source_id": "O4-MHLW-SDS-TOLUENE",
+      "source_version": "2013-02-22",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000066",
+      "source_id": "O4-MHLW-SDS-BENZENE",
+      "source_version": "2023-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000067",
+      "source_id": "O4-MHLW-SDS-XYLENE",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000068",
+      "source_id": "O4-MHLW-SDS-ETHYL-ACETATE",
+      "source_version": "2020-03-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000069",
+      "source_id": "O4-MHLW-SDS-ETHYL-ACETATE",
+      "source_version": "2020-03-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000070",
+      "source_id": "O4-MHLW-SDS-BENZENE",
+      "source_version": "2023-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000071",
+      "source_id": "O4-MHLW-SDS-XYLENE",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000072",
+      "source_id": "O4-MHLW-SDS-ETHYL-ACETATE",
+      "source_version": "2020-03-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000073",
+      "source_id": "O4-MHLW-LABEL-DIETHYL-ETHER",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000074",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000075",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000076",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000077",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000078",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000079",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000080",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000081",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000082",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000083",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000084",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000085",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000086",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000087",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000088",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000089",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000090",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000091",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000092",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000093",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000094",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000095",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000096",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000097",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000098",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000099",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000100",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000101",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000102",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000103",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000104",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000105",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000106",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000107",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000108",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000109",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000110",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000111",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
     }
   ]
 }
