@@ -1,0 +1,164 @@
+name: B13 Integration PR Worker
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/b13-integration-trigger'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b13-integration-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  integrate:
+    if: github.head_ref == 'chatgpt/drone-b13-integrate-4'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout integration branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-b13-integrate-4
+          fetch-depth: 0
+      - name: Reconcile to current main
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Apply deterministic B13 integration transaction
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+          import csv
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          repo = Path.cwd()
+          sys.path.insert(0, str(repo / "tooling" / "question_bank"))
+          from expansion import validate_expansion_batch
+          from transaction import QuestionExpansionTransaction
+
+          all_ids = tuple(f"B13-SYS-C{i:03d}" for i in range(1, 21))
+          accepted = ("B13-SYS-C002", "B13-SYS-C009", "B13-SYS-C014", "B13-SYS-C020")
+          rejected = tuple(cid for cid in all_ids if cid not in accepted)
+          expected = {cid: f"DRONE-Q-{n:06d}" for cid, n in zip(accepted, range(333, 337))}
+          bank = repo / "question_banks" / "drone_second_class"
+          authoring = bank / "authoring"
+          batch = authoring / "batches" / "batch_013"
+          state_path = repo / "tooling" / "komadeki_autopilot" / "drone_state.json"
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          if state.get("next_atomic_objective") != "ALLOCATE_AND_INTEGRATE_B13_ACCEPTED_4" or state.get("state_epoch") != 92:
+              raise SystemExit(f"unexpected state: {state.get('state_epoch')} / {state.get('next_atomic_objective')}")
+
+          def read_csv(path: Path):
+              with path.open(encoding="utf-8", newline="") as h:
+                  return list(csv.DictReader(h))
+
+          before = {r["candidate_id"]: r for r in read_csv(batch / "candidates.csv")}
+          if set(before) != set(all_ids):
+              raise SystemExit("unexpected B13 candidate set")
+          if any(before[c]["state"] != "READY_FOR_ID" or before[c]["permanent_question_id"] for c in accepted):
+              raise SystemExit("accepted B13 pre-ID state mismatch")
+          if any(before[c]["state"] != "AI_PRE_ACCEPT" or before[c]["permanent_question_id"] for c in rejected):
+              raise SystemExit("rejected B13 state mismatch")
+          packet_ids = {p.stem for p in (batch / "acceptance_packets").glob("*.json")}
+          if packet_ids != set(accepted):
+              raise SystemExit("unexpected B13 acceptance packet set")
+
+          def canonical_row(candidate: dict[str, str], question_id: str) -> dict[str, str]:
+              return {
+                  "question_id": question_id,
+                  "question_version": "1",
+                  "status": "draft",
+                  "deck_id": "drone_second_class_exam",
+                  "unit_id": "drone_systems",
+                  "question": candidate["question"],
+                  "choice1": candidate["choice1"],
+                  "choice2": candidate["choice2"],
+                  "choice3": candidate["choice3"],
+                  "choice4": candidate["choice4"],
+                  "correct_choice": candidate["proposed_correct"],
+                  "explanation": candidate["explanation"],
+                  "source_id": candidate["source_id"],
+                  "source_locator": candidate["source_locator"],
+                  "difficulty": "2",
+                  "importance": "2",
+                  "is_free": "false",
+                  "valid_from": "",
+                  "valid_until": "",
+                  "last_reviewed_at": "",
+                  "supersedes_id": "",
+                  "tags": "",
+                  "notes_internal": "",
+              }
+
+          tx = QuestionExpansionTransaction(bank, batch, accepted, question_factory=canonical_row)
+          plan = tx.plan()
+          if plan.mapping != expected:
+              raise SystemExit(f"unexpected allocation: {plan.mapping}")
+          if tx.apply() != expected:
+              raise SystemExit("applied mapping drift")
+
+          after = {r["candidate_id"]: r for r in read_csv(batch / "candidates.csv")}
+          questions = {r["question_id"]: r for r in read_csv(authoring / "questions.csv")}
+          registry = {r["question_id"]: r for r in read_csv(authoring / "question_id_registry.csv")}
+          for cid, qid in expected.items():
+              c = after[cid]
+              q = questions[qid]
+              reg = registry[qid]
+              if c["state"] != "INTEGRATED" or c["permanent_question_id"] != qid:
+                  raise SystemExit(f"candidate integration mismatch: {cid}")
+              if q["status"] != "draft" or q["unit_id"] != "drone_systems":
+                  raise SystemExit(f"canonical draft mismatch: {qid}")
+              if q["question"] != c["question"] or q["correct_choice"] != c["proposed_correct"] or q["source_locator"] != c["source_locator"]:
+                  raise SystemExit(f"canonical content mismatch: {qid}")
+              if reg["status"] != "used" or reg["first_used_bank_revision"] or reg["retired_at"]:
+                  raise SystemExit(f"registry mismatch: {qid}")
+          for cid in rejected:
+              if after[cid]["state"] != "AI_PRE_ACCEPT" or after[cid]["permanent_question_id"]:
+                  raise SystemExit(f"rejected candidate mutated: {cid}")
+          if len(questions) != 336:
+              raise SystemExit(f"canonical inventory must be 336, got {len(questions)}")
+
+          verifications = json.loads((authoring / "source_verifications.json").read_text(encoding="utf-8"))["verifications"]
+          verified_ids = {r["question_id"] for r in verifications}
+          if any(qid in verified_ids for qid in expected.values()):
+              raise SystemExit("source verification must not occur during integration")
+          released = json.loads((authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"]
+          if len(released) != 188:
+              raise SystemExit("released baseline changed")
+          meta = json.loads((authoring / "bank.json").read_text(encoding="utf-8"))
+          runtime = json.loads((bank / meta["runtime_output"]).read_text(encoding="utf-8"))
+          runtime_count = sum(len(u.get("cards", [])) for d in runtime.get("decks", []) for u in d.get("units", []))
+          if runtime_count != 188:
+              raise SystemExit("runtime baseline changed")
+
+          state["observed_main"] = subprocess.check_output(["git", "rev-parse", "origin/main"], text=True).strip()
+          state["next_atomic_objective"] = "VERIFY_B13_CANONICAL_SOURCES_4"
+          state["state_epoch"] = 93
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          errors = validate_expansion_batch(batch)
+          if errors:
+              raise SystemExit("B13 expansion validation failed: " + " | ".join(errors))
+          PY
+      - name: Validate integration and repository gates
+        run: |
+          python3 tooling/question_bank/tests/test_transaction.py
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class --check-generated
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+      - name: Commit durable B13 integration transition
+        run: |
+          rm -f .github/b13-integration-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Integrate B13 accepted drafts'
+          git push --force-with-lease origin HEAD:chatgpt/drone-b13-integrate-4
