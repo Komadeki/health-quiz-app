@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B16-OPS-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fd0e8d66e9ae7b1b0506b0ed97ef5a18d59085bf23dc77f928a91aa275fc635c",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b16-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b16-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b16-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.2.1(2)2)「離陸方法」"
+    },
+    "answer_defining_proposition": "ヘリコプターは離陸後ローター半径以下の地面効果が顕著な高度帯から速やかに上昇して離脱する。",
+    "tested_misconception": "離陸直後は地面効果内で長くホバリングするほど安全である。",
+    "reasoning_path": "liftoff -> identify ground-effect altitude band -> avoid lingering instability -> climb promptly beyond it",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。Q132は地面効果のリスク認識。Q325は着陸フェーズで地面効果内ホバリングを避ける操作。本問は離陸直後の地面効果離脱という別フェーズ・別行動。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Q132 recognizes helicopter ground effect and Q325 covers landing-phase avoidance of lingering in ground effect. C004 tests the separate takeoff-phase action to climb promptly beyond the ground-effect band after liftoff."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 6 / REJECT 0. All six answer-defining propositions are directly supported by second-class-applicable Chapter 5 source text and remain distinct from their named canonical neighbors. C001 and C004 are controlled boundary variants with distinct flight phases and required actions, not wording-only variants. C006 adds the TEM Threat-to-Error-to-UAS causal management chain rather than repeating broad CRM resources or the five CRM skills. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
