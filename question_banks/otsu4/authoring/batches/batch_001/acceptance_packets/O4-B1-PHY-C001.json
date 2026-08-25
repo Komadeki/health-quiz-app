@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B1-PHY-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "428a9cd4830aca7bcae8ebf765441fb6b90ad3d2a7e2b31c6566a1b85aa72d94",
+  "actors": {
+    "author": {"id": "otsu4-b1-remediation-author-r2", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "otsu4-b1-independent-reviewer-r2", "role": "AI_REVIEWER"},
+    "director": {"id": "otsu4-b1-director-adjudicator-r2", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id": "O4-FDMA-COMBUSTION-1", "source_version": "2026-08-25-retrieved", "source_locator": "燃焼の3要素／通常の燃焼"},
+    "answer_defining_proposition": "通常の燃焼では空気中の酸素が支燃物に当たる。",
+    "tested_misconception": "酸素の供給を減らす操作は可燃物を断つ操作である。",
+    "reasoning_path": "identify ordinary combustion -> oxygen is supporter -> reduce air supply -> supporter becomes insufficient",
+    "collision": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "note": "R2 remediation: source-defined application of the supporter element; distinct from C002 heat-removal boundary"}
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The FDMA Fire Research Institute explicitly defines the combustion elements and states that, in ordinary combustion, oxygen in air is the supporter. Restricting air inflow to reduce oxygen is a direct application of that proposition. The revised wording avoids unsupported extinguishing-method terminology."
+  },
+  "director_adjudication": {"decision": "ACCEPT", "rationale": "Independent review round 2 is adopted; the remediated source binding and collision evidence satisfy the AI-governed acceptance gate."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

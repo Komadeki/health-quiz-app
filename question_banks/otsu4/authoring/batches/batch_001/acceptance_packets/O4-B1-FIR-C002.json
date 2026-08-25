@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B1-FIR-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "318f5d634ba139d9ad90b46e1ac72828bbf86423ce7ac76a702e340023d59581",
+  "actors": {
+    "author": {"id": "otsu4-b1-remediation-author-r2", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "otsu4-b1-independent-reviewer-r2", "role": "AI_REVIEWER"},
+    "director": {"id": "otsu4-b1-director-adjudicator-r2", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id": "O4-FDMA-FOAM-1", "source_version": "2018-03", "source_locator": "第2章 第3節 4「泡消火剤の使用方法」p.43-44"},
+    "answer_defining_proposition": "泡による液面被覆は空気を遮断し引火性蒸気の蒸発を抑える。",
+    "tested_misconception": "泡は液体の法的分類を変えることで消火する。",
+    "reasoning_path": "flammable liquid surface -> foam blanket -> isolate air and suppress vapor generation -> extinguishing effect",
+    "collision": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "note": "R2 remediation: source-pinned foam mechanism distinct from C001 chemical-specific prohibited-media decision"}
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The FDMA-hosted fire-response text explains that foam floats on and covers flammable liquid, blocks air, and suppresses evaporation of flammable vapor, with additional cooling from its water content. The candidate states the principal mechanism without changing legal classification and is materially distinct from C001."
+  },
+  "director_adjudication": {"decision": "ACCEPT", "rationale": "Independent review round 2 is adopted; the remediated source binding and collision evidence satisfy the AI-governed acceptance gate."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

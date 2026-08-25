@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B1-PHY-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ee0e424e2333f51430a7880bb5a8dcd7222b8e58cf2cec3cd12dc39471d8421b",
+  "actors": {
+    "author": {"id": "otsu4-b1-remediation-author-r2", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "otsu4-b1-independent-reviewer-r2", "role": "AI_REVIEWER"},
+    "director": {"id": "otsu4-b1-director-adjudicator-r2", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id": "O4-FDMA-COMBUSTION-1", "source_version": "2026-08-25-retrieved", "source_locator": "火の三角形／熱"},
+    "answer_defining_proposition": "燃焼の成立には可燃物・酸素・熱が必要である。",
+    "tested_misconception": "冷却は酸素を遮断する操作である。",
+    "reasoning_path": "combustion triangle -> identify heat requirement -> cooling lowers temperature -> heat requirement becomes insufficient",
+    "collision": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "note": "R2 remediation: corrects prior point-source terminology and contrasts with C001 supporter-removal boundary"}
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The FDMA Fire Research Institute fire-triangle section explicitly identifies combustible material, oxygen, and heat as necessary items. Cooling to lower temperature is a direct boundary application to the heat element. The prior terminology concern has been removed and the reasoning is distinct from C001."
+  },
+  "director_adjudication": {"decision": "ACCEPT", "rationale": "Independent review round 2 is adopted; the remediated source binding and collision evidence satisfy the AI-governed acceptance gate."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
