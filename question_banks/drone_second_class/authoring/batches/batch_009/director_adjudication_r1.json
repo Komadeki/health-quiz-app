@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B9",
+  "adjudication_round": 1,
+  "director": {
+    "id": "chatgpt-primary-director-b9-r1",
+    "role": "DECISION_OWNER"
+  },
+  "adjudicated_at": "2026-08-25",
+  "author_identity": "chatgpt-b9-risk-author-r1",
+  "reviewer_identity": "autopilot-b9-risk-reviewer-r1",
+  "identity_separation_checked": true,
+  "basis": [
+    "current GitHub main and Drone machine state",
+    "merged B9 batch contract and candidates.csv",
+    "merged independent_review_r1.json",
+    "current 255-question canonical baseline",
+    "MLIT-UAS-SAFETY-GUIDE-5 source contract, edition 5",
+    "merged 400-question quality-preserving controlled-variant contract"
+  ],
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 20,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "B9-RISK-C001","B9-RISK-C002","B9-RISK-C003","B9-RISK-C004","B9-RISK-C005",
+    "B9-RISK-C006","B9-RISK-C007","B9-RISK-C008","B9-RISK-C009","B9-RISK-C010",
+    "B9-RISK-C011","B9-RISK-C012","B9-RISK-C013","B9-RISK-C014","B9-RISK-C015",
+    "B9-RISK-C016","B9-RISK-C017","B9-RISK-C018","B9-RISK-C019","B9-RISK-C020"
+  ],
+  "director_findings": [
+    "The independent review is consistent with the B9 source-first Chapter 6 plan and the 255-question canonical baseline.",
+    "Both controlled Tier B candidates C014 and C015 retain material source-defined distinctions rather than wording-only variation.",
+    "For C014, the authoring label temporal_prediction is normalized for governance purposes to scenario_state_or_flight_phase; reasoning_path and tested_misconception provide additional recognized distinctness axes.",
+    "C015 changes the sea-breeze proposition from daytime/nighttime direction to the source-defined wind-reversal boundary state of morning/evening calm.",
+    "C018, C019 and C020 are supported by unmarked second-class-applicable Chapter 6 subsections; adjacent risk-mitigation subsections marked 〔一等〕 are not used as the answer-defining source.",
+    "No candidate is accepted merely to satisfy the 20-candidate ceiling; all 20 passed source, answer-uniqueness, collision and commercial-practice-value gates.",
+    "No HUMAN review is claimed or fabricated."
+  ],
+  "controlled_variant_result": {
+    "accepted_tier_b": ["B9-RISK-C014","B9-RISK-C015"],
+    "rejected_tier_b": [],
+    "wording_only_duplicate_retained": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_FABRICATED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_20"
+}
