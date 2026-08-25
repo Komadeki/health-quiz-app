@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B8-CONCENTRATION-2026-08-26",
+  "product": "otsu4",
+  "wave_id": "W2",
+  "planned_at": "2026-08-26",
+  "objective": "AUTHOR_OTSU4_WAVE_2_AI_PRE_ACCEPT",
+  "production_target": 600,
+  "canonical_verified_baseline": 111,
+  "selected_target": "O4-PHY-KT-CONCENTRATION",
+  "selected_target_total_plan": 30,
+  "verified_target_count_before_batch": 0,
+  "remaining_target_gap_before_batch": 30,
+  "candidate_ceiling": 24,
+  "candidate_ceiling_is_quota": false,
+  "source_contract": {
+    "primary_source_ids": ["O4-PHY-1"],
+    "pinpoint_scope": ["MEXT 理科編 第2章 第4節 化学基礎 printed p.91 onward『物質量と化学反応式』", "molar concentration and quantitative chemistry pages within the frozen permitted range"],
+    "locator_rule": "Every candidate must identify the exact printed MEXT page and subheading supporting the concentration or amount-of-substance relationship used."
+  },
+  "planned_families": [
+    "molar concentration definition and unit decisions",
+    "amount-of-substance from concentration and volume",
+    "concentration from amount and solution volume",
+    "dilution/concentration proportional reasoning only where source-defined",
+    "mass-to-mole-to-concentration chained calculations",
+    "unit-conversion and boundary-error misconceptions"
+  ],
+  "planning_invariants": {
+    "NO_COPYRIGHTED_PAST_QUESTION_TEXT": true,
+    "NO_WORDING_ONLY_VARIANTS": true,
+    "NO_QUOTA_BACKFILL": true,
+    "COLLISION_CHECK_AGAINST_ALL_111_CANONICAL_REQUIRED": true,
+    "SOURCE_DEFINED_CALCULATIONS_ONLY": true,
+    "SINGLE_SOURCE_BINDING_REQUIRED": true,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "AUTHOR_B8_AI_PRE_ACCEPT_UP_TO_24"
+}
