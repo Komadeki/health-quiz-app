@@ -3,7 +3,7 @@ name: Otsu4 B2 Integration PR Worker
 on:
   pull_request:
     branches: [main]
-    paths: ['.github/otsu4-b2-integration-trigger']
+    paths: ['question_banks/otsu4/authoring/batches/batch_002/integration_request.json']
 
 permissions:
   contents: write
@@ -39,7 +39,7 @@ jobs:
           python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/otsu4_state.json
       - name: Commit durable Otsu4 Batch 2 integration transition
         run: |
-          rm -f .github/otsu4-b2-integration-trigger
+          rm -f question_banks/otsu4/authoring/batches/batch_002/integration_request.json
           git add -A
           git diff --cached --check
           git commit -m 'Integrate Otsu4 Batch 2 accepted drafts'
