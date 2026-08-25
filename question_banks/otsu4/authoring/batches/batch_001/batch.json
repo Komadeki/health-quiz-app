@@ -7,10 +7,13 @@
   "batch_status": "AI_GOVERNED_ACCEPTANCE_MATERIALIZED",
   "author": {"id": "otsu4-b1-author-r1", "role": "AI_AUTHOR"},
   "expansion_trigger": "Initialize the Otsu4 canonical bank through the adopted AI-governed Question Factory lifecycle.",
-  "evidence": ["docs/OTSU4_PRODUCT_SPEC_V0.md", "question_banks/otsu4/QUESTION_BANK_CONTRACT_V0.md"],
-  "target_size_decisions": [{"decision_id": "O4-TARGET-001", "previous_approved_target": 0, "current_released_count": 0, "proposed_target_min": 300, "proposed_target_max": 300, "approved_new_target": 300, "rationale": "OTSU4_PRODUCT_SPEC_V0 fixes the initial production target at 300 original accepted questions.", "decision_date": "2026-08-25", "evidence": "docs/OTSU4_PRODUCT_SPEC_V0.md"}],
+  "evidence": ["docs/OTSU4_PRODUCT_SPEC_V0.md", "docs/OTSU4_600Q_PRODUCTION_TARGET_DECISION_V1.md", "question_banks/otsu4/QUESTION_BANK_CONTRACT_V0.md"],
+  "target_size_decisions": [
+    {"decision_id": "O4-TARGET-001", "previous_approved_target": 0, "current_released_count": 0, "proposed_target_min": 300, "proposed_target_max": 300, "approved_new_target": 300, "rationale": "Initial Otsu4 production target adopted before commercial target expansion.", "decision_date": "2026-08-25", "evidence": "Merged PR #189 / historical OTSU4_PRODUCT_SPEC_V0 decision."},
+    {"decision_id": "O4-TARGET-002", "previous_approved_target": 300, "current_released_count": 0, "proposed_target_min": 600, "proposed_target_max": 600, "approved_new_target": 600, "rationale": "Adopt a stronger commercial depth signal while retaining structured completion; 600 remains quality-gated and is not a quota.", "decision_date": "2026-08-25", "evidence": "docs/OTSU4_600Q_PRODUCTION_TARGET_DECISION_V1.md"}
+  ],
   "coverage_limit_decisions": [],
   "planned_scope": {"candidate_count": 6, "subject_counts": {"law": 2, "physics_chemistry": 2, "properties_fire": 2}},
   "invariants": {"PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0, "HUMAN_REVIEW_CREATED": false, "RELEASED_CHANGED": false},
-  "next_gate": "PROMOTE_AI_GOVERNED_CANDIDATE_TO_READY_FOR_ID"
+  "next_gate": "ALLOCATE_AND_INTEGRATE_ACCEPTED_CANDIDATE"
 }
