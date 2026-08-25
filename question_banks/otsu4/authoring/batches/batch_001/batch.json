@@ -4,9 +4,9 @@
   "batch_id": "O4-B1",
   "directory_slug": "batch_001",
   "baseline_sha": "7964dab060000e187b13cc244ebdb9cd1d2166c2",
-  "batch_status": "INDEPENDENT_AI_REVIEWED",
+  "batch_status": "DIRECTOR_ADJUDICATED",
   "author": {"id": "otsu4-b1-author-r1", "role": "AI_AUTHOR"},
   "planned_scope": {"candidate_count": 6, "subject_counts": {"law": 2, "physics_chemistry": 2, "properties_fire": 2}},
   "invariants": {"PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0, "HUMAN_REVIEW_CREATED": false, "RELEASED_CHANGED": false},
-  "next_gate": "DIRECTOR_ADJUDICATION"
+  "next_gate": "MATERIALIZE_AI_GOVERNED_ACCEPTANCE_PACKET"
 }
