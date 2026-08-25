@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B10",
+  "directory_slug": "batch_010",
+  "baseline_sha": "b4c574c1bc72475de9cc17f2a8527c0522cd8201",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "chatgpt-b10-rules-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Continue from 275 accepted/source-verified canonical questions toward the owner-directed 400-question Production target under the quality-preserving relaxation contract. B10 authors the 20 source-first Rules candidates persisted by merged PR #210: 17 Tier A new explicit propositions and 3 Tier B source-defined boundary variants; no Tier C variant is authored.",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Use only second-class-applicable Chapter 3 propositions and exclude every subsection explicitly marked 〔一等〕."
+  },
+  "evidence": [
+    "PR #210 persisted the B10 Rules coverage plan and established the next atomic objective as B10 candidate authoring from a 275-question accepted/source-verified canonical baseline.",
+    "PR #143 adopted the quality-preserving 400-question target contract.",
+    "The B10 plan binds all 20 candidates to registered MLIT 教則第5版 Chapter 3 locators and excludes first-class-only subsections.",
+    "All Tier B candidates change source-defined authority, lifecycle or interference-boundary reasoning relative to their nearest canonical neighbors; wording-only and near-paraphrase variants remain prohibited."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B10-TARGET-001",
+      "previous_approved_target": 400,
+      "current_released_count": 188,
+      "proposed_target_min": 400,
+      "proposed_target_max": 400,
+      "approved_new_target": 400,
+      "rationale": "Continue the owner-directed 400-question target without changing the release baseline until explicit 400 release activation.",
+      "decision_date": "2026-08-25",
+      "evidence": "Merged PR #143 and PR #210."
+    }
+  ],
+  "planned_scope": {
+    "area": "Rules",
+    "candidate_batch_identity": "B10",
+    "candidate_ids": [
+      "B10-RULE-C001",
+      "B10-RULE-C002",
+      "B10-RULE-C003",
+      "B10-RULE-C004",
+      "B10-RULE-C005",
+      "B10-RULE-C006",
+      "B10-RULE-C007",
+      "B10-RULE-C008",
+      "B10-RULE-C009",
+      "B10-RULE-C010",
+      "B10-RULE-C011",
+      "B10-RULE-C012",
+      "B10-RULE-C013",
+      "B10-RULE-C014",
+      "B10-RULE-C015",
+      "B10-RULE-C016",
+      "B10-RULE-C017",
+      "B10-RULE-C018",
+      "B10-RULE-C019",
+      "B10-RULE-C020"
+    ],
+    "candidate_count": 20,
+    "candidate_count_is_quota": false,
+    "tier_counts": {
+      "A_NEW_PROPOSITION": 17,
+      "B_BOUNDARY_VARIANT": 3,
+      "C_REASONING_VARIANT": 0
+    },
+    "tier_b_candidate_ids": [
+      "B10-RULE-C003",
+      "B10-RULE-C010",
+      "B10-RULE-C018"
+    ],
+    "section_counts": {
+      "3.1.2(4)-(5)": 8,
+      "3.2.1": 6,
+      "3.2.2_and_other": 6
+    },
+    "known_rejected_ids": []
+  },
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B10-COVERAGE-LIMIT-001",
+      "status": "PARTIAL",
+      "scope": "Chapter 3 Rules propositions and controlled variants",
+      "evidence": "Authoring is limited to the 20 propositions persisted by PR #210. No candidate is backfilled merely to increase count."
+    },
+    {
+      "decision_id": "B10-COVERAGE-LIMIT-002",
+      "status": "ACTIVE_POLICY",
+      "scope": "Controlled variants",
+      "evidence": "Three Tier B variants are authored. Each changes contract-recognized decision authority, operation applicability, lifecycle state, decision boundary or reasoning path relative to its nearest canonical neighbor."
+    }
+  ],
+  "migration_blockers": [],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_AUTHORING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
