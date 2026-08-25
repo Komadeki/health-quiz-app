@@ -39,7 +39,7 @@ released_path.write_bytes(pretty_json_bytes(released_doc))
     text = replace_exact(
         text,
         '("self.assertEqual(188,len(cards))","self.assertEqual(386,len(cards)"))',
-        '("self.assertEqual(188,len(cards))","self.assertEqual(386,len(cards))")',
+        '("self.assertEqual(188,len(cards))","self.assertEqual(386,len(cards))"))',
         1,
         "B5 generated assertion repair",
     )
