@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "app_key": "otsu4",
+  "batch_id": "B5",
+  "directory_slug": "batch_005",
+  "baseline_sha": "2e0b667b9b88dff438b855acbfaa4ed5d5abe010",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "otsu4-b5-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Author Wave 1 B5 original matter-and-heat candidates from the frozen MEXT Physics Basics and Chemistry Basics pinpoint ranges.",
+  "evidence": [
+    "docs/OTSU4_QUESTION_FACTORY_WAVE_MODE_V1.md",
+    "docs/OTSU4_600Q_PINPOINT_SOURCE_CATALOG_V1.md",
+    "question_banks/otsu4/authoring/coverage_plan_600q_v1.json",
+    "question_banks/otsu4/authoring/waves/wave_001.json",
+    "question_banks/otsu4/QUESTION_BANK_CONTRACT_V0.md"
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "O4-TARGET-002",
+      "previous_approved_target": 300,
+      "current_released_count": 0,
+      "proposed_target_min": 600,
+      "proposed_target_max": 600,
+      "approved_new_target": 600,
+      "rationale": "Current commercial target; quality-gated and not a quota.",
+      "decision_date": "2026-08-25",
+      "evidence": "docs/OTSU4_600Q_PRODUCTION_TARGET_DECISION_V1.md"
+    }
+  ],
+  "coverage_limit_decisions": [],
+  "planned_scope": {
+    "candidate_count": 20,
+    "candidate_count_is_quota": false,
+    "subject_counts": {
+      "law": 0,
+      "physics_chemistry": 20,
+      "properties_fire": 0
+    },
+    "knowledge_target_id": "O4-PHY-KT-MATTER-HEAT"
+  },
+  "invariants": {
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "HUMAN_REVIEW_CREATED": false,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
