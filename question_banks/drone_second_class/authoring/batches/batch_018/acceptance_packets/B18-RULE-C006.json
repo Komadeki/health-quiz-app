@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B18-RULE-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f8efed80a3d9f70ea90c24216c480b2c260c4bb2acf260c8c4da7e01b139f63d",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b18-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b18-residual-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b18-residual-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)6)b「空港の制限表面の概要」"
+    },
+    "answer_defining_proposition": "全ての空港に設定される進入表面・水平表面・転移表面はそれぞれ最終進入離陸・周辺旋回等低空飛行・進入やり直し等側面飛行の安全確保を目的とする。",
+    "tested_misconception": "進入表面・水平表面・転移表面は用途の区別がなくいずれも空港上空の巡航高度だけを規制する表面である。",
+    "reasoning_path": "identify flight phase or maneuver -> map to corresponding restriction surface -> distinguish three safety purposes",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Residual proposition。365問のcanonicalに進入表面・水平表面・転移表面をanswer-defining propositionとする問題はない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Residual proposition PASS. The source explicitly distinguishes the three basic restriction surfaces used at all airports: approach surface for final approach/takeoff safety, horizontal surface for low-altitude circling around the airport, and transitional surface for lateral flight such as a go-around. None of 進入表面, 水平表面 or 転移表面 is answer-defining in canonical inventory. The mapping task is central operational airspace knowledge and has one uniquely supported option."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent residual-only review at ACCEPT 6 / REJECT 0. All six candidates are eligible because their explicit second-class-applicable answer-defining propositions are absent from the 365-question canonical inventory; no numeric target is used. C003 is accepted as the previously unrepresented aircraft-over-UAS right-of-way concept and source-defined rationale, not as a controlled scenario or reasoning variant of Q051/Q216/Q218. IFR/VFR, sub-150m manned-aircraft cases, control area, control zone and the three basic airport restriction-surface purposes are likewise new answer-defining propositions in canonical inventory. Future authoring remains residual-only: if a proposition is already answer-defining, a changed scenario, threshold or reasoning path does not make it eligible."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

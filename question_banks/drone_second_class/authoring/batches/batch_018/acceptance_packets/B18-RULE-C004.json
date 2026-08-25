@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B18-RULE-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fac4e42a5a2ee9dc410e1916c4464a0d9050593e2fe5f869f4628cb1745e7f24",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b18-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b18-residual-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b18-residual-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)6)a「航空機の管制区域」"
+    },
+    "answer_defining_proposition": "航空交通管制区は地表又は水面から200m以上の国指定空域でありIFR航空機は管制機関と常時連絡し指示に従う。",
+    "tested_misconception": "航空交通管制区ではIFR航空機も管制機関との常時連絡を要せず操縦者判断だけで飛行できる。",
+    "reasoning_path": "identify airspace type -> apply altitude/designation definition -> apply IFR communication/control requirement",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Residual proposition。365問のcanonicalに航空交通管制区又は管制区域をanswer-defining propositionとする問題はない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Residual proposition PASS. The source explicitly defines an air traffic control area as designated airspace at or above 200 m above ground/water and requires IFR aircraft in it to remain in communication with ATC and follow instructions. 航空交通管制区 is not answer-defining in canonical inventory."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent residual-only review at ACCEPT 6 / REJECT 0. All six candidates are eligible because their explicit second-class-applicable answer-defining propositions are absent from the 365-question canonical inventory; no numeric target is used. C003 is accepted as the previously unrepresented aircraft-over-UAS right-of-way concept and source-defined rationale, not as a controlled scenario or reasoning variant of Q051/Q216/Q218. IFR/VFR, sub-150m manned-aircraft cases, control area, control zone and the three basic airport restriction-surface purposes are likewise new answer-defining propositions in canonical inventory. Future authoring remains residual-only: if a proposition is already answer-defining, a changed scenario, threshold or reasoning path does not make it eligible."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

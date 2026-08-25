@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B18-RULE-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "7d9522a4cabf45bad367e80e598ed862022226cc43be405b0a651fcda898dea4",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b18-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b18-residual-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b18-residual-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(3)2)「計器飛行方式及び有視界飛行方式」"
+    },
+    "answer_defining_proposition": "IFRは航空交通管制機関の指示等に常時従う飛行方式でありVFRは原則として操縦者判断に基づくが空港及びその周辺ではVFR航空機も管制機関の指示等に従う。",
+    "tested_misconception": "VFR航空機は空港周辺でも常に操縦者判断だけで飛行し航空交通管制機関の指示には従わない。",
+    "reasoning_path": "identify flight-rule type -> distinguish default decision authority -> apply airport-area ATC exception",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Residual proposition。365問のcanonicalにIFR/計器飛行方式又はVFR/有視界飛行方式をanswer-defining propositionとする問題はない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Residual proposition PASS. The official source explicitly distinguishes IFR from VFR and states the airport-area ATC exception for VFR. Neither 計器飛行方式 nor 有視界飛行方式 is answer-defining in the 365-question canonical inventory. The correct option is uniquely supported and the item does not reuse an existing proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent residual-only review at ACCEPT 6 / REJECT 0. All six candidates are eligible because their explicit second-class-applicable answer-defining propositions are absent from the 365-question canonical inventory; no numeric target is used. C003 is accepted as the previously unrepresented aircraft-over-UAS right-of-way concept and source-defined rationale, not as a controlled scenario or reasoning variant of Q051/Q216/Q218. IFR/VFR, sub-150m manned-aircraft cases, control area, control zone and the three basic airport restriction-surface purposes are likewise new answer-defining propositions in canonical inventory. Future authoring remains residual-only: if a proposition is already answer-defining, a changed scenario, threshold or reasoning path does not make it eligible."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
