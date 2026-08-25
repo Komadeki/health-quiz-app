@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B19",
+  "review_round": 1,
+  "reviewer": {
+    "id": "chatgpt-b19-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "chatgpt-b19-rules-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-26",
+  "governance_contract": "owner_dynamic_release_inclusion_2026-08-26.json",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-26",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Use only second-class-applicable Chapter 3 material and exclude every subsection explicitly marked 〔一等〕."
+  },
+  "review_basis": [
+    "current merged B19 candidates.csv and batch plan",
+    "current 371-question canonical inventory and recorded nearest-neighbor collision notes",
+    "current dynamic release policy: B19 is the sole permitted in-flight batch before release freeze",
+    "MLIT 教則第5版 Chapter 3 source text rechecked on 2026-08-26",
+    "source fidelity, second-class applicability, answer uniqueness, semantic distinctness, commercial study value, plausible misconception targeting and explanation correctness",
+    "Tier B candidates accepted only where the source defines a materially different state, boundary, action or reportable branch rather than wording-only variation"
+  ],
+  "summary": {
+    "reviewed": 15,
+    "accept": 15,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "B19-RULE-C001",
+      "decision": "ACCEPT",
+      "rationale": "Source and boundary PASS. The source explicitly sets registration-mark character height at 25 mm or more for MTOW 25 kg or more and 3 mm or more below 25 kg. The exact 25 kg inclusive boundary is unambiguous and is not answer-defining in the existing registration questions."
+    },
+    {
+      "candidate_id": "B19-RULE-C002",
+      "decision": "ACCEPT",
+      "rationale": "Source and distinct-exemption PASS. The source explicitly exempts aircraft registered during the pre-enforcement advance-registration period from Remote ID carriage. Existing Remote ID coverage focuses on the notified-area exemption and does not make this registration-timing exemption answer-defining."
+    },
+    {
+      "candidate_id": "B19-RULE-C003",
+      "decision": "ACCEPT",
+      "rationale": "Source and distinct-exemption PASS. The source explicitly exempts flights by the National Police Agency, prefectural police or Japan Coast Guard for security or other duties requiring particular secrecy. This is a separate explicit Remote ID exemption category with one uniquely supported answer."
+    },
+    {
+      "candidate_id": "B19-RULE-C004",
+      "decision": "ACCEPT",
+      "rationale": "Source and residual-airspace PASS. The source distinguishes the three additional limitation surfaces that may be designated at the named major and ordinance airports: conical, extended approach and outer horizontal surfaces. Q371 covers the basic three surfaces, so this item adds a different source-defined set."
+    },
+    {
+      "candidate_id": "B19-RULE-C005",
+      "decision": "ACCEPT",
+      "rationale": "Source, scope and boundary PASS. The source expressly applies the model-aircraft prohibition to aircraft under 100 g in air traffic control zones, air traffic information zones, special control airspace within control areas and related airspace. This is distinct from the existing emergency-airspace and weight-definition questions."
+    },
+    {
+      "candidate_id": "B19-RULE-C006",
+      "decision": "ACCEPT",
+      "rationale": "Source, scope and threshold PASS. Outside the outright-prohibited model-aircraft airspace, the source explicitly requires prior notification for flight at 250 m or more, and separately identifies airport surroundings and airway airspace at 150 m or more. The 260 m scenario uniquely triggers the 250 m branch."
+    },
+    {
+      "candidate_id": "B19-RULE-C007",
+      "decision": "ACCEPT",
+      "rationale": "Controlled Tier B PASS. Existing event coverage tests whether a gathering qualifies as an event; this candidate tests the later in-flight state where an unexpected event and third-party entry becomes apparent. The source requires immediate stop plus reroute, safe landing or other necessary measures regardless of prior permission, giving a distinct flight-phase and response-priority decision path."
+    },
+    {
+      "candidate_id": "B19-RULE-C008",
+      "decision": "ACCEPT",
+      "rationale": "Source-defined threshold PASS. The source explicitly states that flight over an event gathering is to be stopped at wind speed 5 m/s or more. The candidate correctly isolates the inclusive 5.0 m/s boundary and does not bundle the separate harm-mitigation-structure obligation."
+    },
+    {
+      "candidate_id": "B19-RULE-C009",
+      "decision": "ACCEPT",
+      "rationale": "Controlled Tier B PASS. The source defines third-party property damage as an accident without a minimum damage scale or monetary loss threshold. Existing accident questions cover response, civil liability or reporting destinations rather than this no-de-minimis classification boundary."
+    },
+    {
+      "candidate_id": "B19-RULE-C010",
+      "decision": "ACCEPT",
+      "rationale": "Source-defined accident boundary PASS. For collision or contact with a manned aircraft, the source requires damage to either aircraft or both, not damage to both. The one-sided-damage scenario directly tests that explicit condition and is not duplicated by existing general accident-response coverage."
+    },
+    {
+      "candidate_id": "B19-RULE-C011",
+      "decision": "ACCEPT",
+      "rationale": "Controlled Tier B PASS. The source expressly lists a recognized risk of collision or contact with an aircraft during flight as a serious incident even when no accident or damage occurs. This is a distinct reportable branch from collision-avoidance behavior and control-loss serious-incident coverage."
+    },
+    {
+      "candidate_id": "B19-RULE-C012",
+      "decision": "ACCEPT",
+      "rationale": "Controlled Tier B PASS. The source expressly lists an unmanned aircraft fire occurring during flight as a serious incident, without requiring injury or property damage. Existing battery/fire questions test technical risk rather than the legal reportability classification."
+    },
+    {
+      "candidate_id": "B19-RULE-C013",
+      "decision": "ACCEPT",
+      "rationale": "Source and record-content PASS. The source separately specifies daily-inspection record contents: date and place, inspector name and inspection result. Existing log questions identify record categories or flight-record contents, so the internal daily-inspection fields are a distinct answer-defining proposition."
+    },
+    {
+      "candidate_id": "B19-RULE-C014",
+      "decision": "ACCEPT",
+      "rationale": "Source and record-content PASS. The source separately specifies maintenance-record fields including date/place, person, and the content and reason for inspection, repair, modification or maintenance. This is distinct from flight-record contents and the general maintenance duty."
+    },
+    {
+      "candidate_id": "B19-RULE-C015",
+      "decision": "ACCEPT",
+      "rationale": "Source and norm-strength PASS. The source distinguishes the mandatory flight-plan notification for specific flights from the recommendation that non-specific flights also notify a flight plan. The candidate correctly tests the recommendation/obligation boundary and does not overstate it as a legal duty."
+    }
+  ],
+  "controlled_variant_gate": {
+    "tier_b_candidate_ids": [
+      "B19-RULE-C007",
+      "B19-RULE-C009",
+      "B19-RULE-C011",
+      "B19-RULE-C012"
+    ],
+    "accepted_tier_b_candidate_ids": [
+      "B19-RULE-C007",
+      "B19-RULE-C009",
+      "B19-RULE-C011",
+      "B19-RULE-C012"
+    ],
+    "wording_only_variants_accepted": 0,
+    "numeric_quota_used": false
+  },
+  "release_policy_reconciliation": {
+    "b19_is_in_flight_batch": true,
+    "b19_completion_may_increase_current_release_count": true,
+    "b20_may_start_before_current_release_freeze": false,
+    "release_count_is_fixed": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_15_ACCEPT_0_REJECT"
+}
