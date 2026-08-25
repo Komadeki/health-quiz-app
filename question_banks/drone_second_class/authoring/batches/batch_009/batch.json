@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B9",
+  "directory_slug": "batch_009",
+  "baseline_sha": "4f9a436f99063e13eecc37e1867d5a4c8bbcf8df",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "chatgpt-b9-risk-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Continue from 255 accepted/source-verified canonical questions toward the owner-directed 400-question Production target under the quality-preserving relaxation contract. B9 authors the 20 source-first Chapter 6 Risk Management candidates persisted by the merged B9 plan: 18 Tier A new explicit propositions and 2 Tier B source-defined boundary variants; no Tier C variant is authored.",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Exclude every subsection explicitly marked 〔一等〕. B9 uses only the unmarked Chapter 6 material persisted by the B9 plan."
+  },
+  "evidence": [
+    "PR #182 persisted the B9 Chapter 6 Risk Management coverage plan and established the next atomic objective as B9 candidate authoring from a 255-question accepted/source-verified canonical baseline.",
+    "PR #143 adopted the quality-preserving 400-question target contract.",
+    "Official MLIT 教則第5版 Chapter 6 source text was rechecked on 2026-08-25 before authoring.",
+    "All B9 candidate source locators are in Chapter 6 material not marked 〔一等〕; Category III-specific risk-evaluation and 〔一等〕 risk-mitigation/planning subsections remain excluded.",
+    "Every B9 candidate was compared against the 255-question canonical inventory using the persisted nearest-neighbor analysis and full-bank semantic review; no wording-only or same-reasoning duplicate was retained.",
+    "Both Tier B candidates preserve at least two material distinctness axes and a different decision boundary or reasoning path from their nearest canonical neighbor."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B9-TARGET-001",
+      "previous_approved_target": 350,
+      "current_released_count": 188,
+      "proposed_target_min": 400,
+      "proposed_target_max": 400,
+      "approved_new_target": 400,
+      "rationale": "Owner explicitly directed expansion to 400 while preserving the merged source, review, collision, Permanent-ID, source-verification, and release gates.",
+      "decision_date": "2026-08-25",
+      "evidence": "Merged PR #143 / target_400_quality_relaxation_contract_2026-08-25.json."
+    }
+  ],
+  "planned_scope": {
+    "area": "Risk Management",
+    "candidate_batch_identity": "B9",
+    "candidate_ids": [
+      "B9-RISK-C001",
+      "B9-RISK-C002",
+      "B9-RISK-C003",
+      "B9-RISK-C004",
+      "B9-RISK-C005",
+      "B9-RISK-C006",
+      "B9-RISK-C007",
+      "B9-RISK-C008",
+      "B9-RISK-C009",
+      "B9-RISK-C010",
+      "B9-RISK-C011",
+      "B9-RISK-C012",
+      "B9-RISK-C013",
+      "B9-RISK-C014",
+      "B9-RISK-C015",
+      "B9-RISK-C016",
+      "B9-RISK-C017",
+      "B9-RISK-C018",
+      "B9-RISK-C019",
+      "B9-RISK-C020"
+    ],
+    "candidate_count": 20,
+    "candidate_count_is_quota": false,
+    "tier_counts": {
+      "A_NEW_PROPOSITION": 18,
+      "B_BOUNDARY_VARIANT": 2,
+      "C_REASONING_VARIANT": 0
+    },
+    "tier_b_candidate_ids": [
+      "B9-RISK-C014",
+      "B9-RISK-C015"
+    ],
+    "section_counts": {
+      "6.1": 7,
+      "6.2": 8,
+      "6.3": 3,
+      "6.4": 2
+    },
+    "known_rejected_ids": []
+  },
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B9-COVERAGE-LIMIT-001",
+      "status": "PARTIAL",
+      "scope": "Chapter 6 Risk Management propositions and controlled variants",
+      "evidence": "Authoring is limited to the 20 propositions persisted by PR #182. No candidate is backfilled merely to increase count."
+    },
+    {
+      "decision_id": "B9-COVERAGE-LIMIT-002",
+      "status": "ACTIVE_POLICY",
+      "scope": "Controlled variants",
+      "evidence": "Two Tier B variants are authored: cold-front gust timing forecast and sea-breeze reversal calm. Each changes a source-defined temporal or boundary state and requires materially different reasoning from its nearest canonical neighbor."
+    }
+  ],
+  "migration_blockers": [],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_AUTHORING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
