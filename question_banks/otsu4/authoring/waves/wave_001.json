@@ -1,9 +1,10 @@
 {
   "schema_version": "1.0",
   "wave_id": "W1",
-  "status": "AI_PRE_ACCEPT_AUTHORED",
+  "status": "INDEPENDENT_AI_REVIEWED",
   "planned_at": "2026-08-25",
   "authored_at": "2026-08-25",
+  "reviewed_at": "2026-08-25",
   "production_target": 600,
   "canonical_verified_baseline": 51,
   "candidate_ceiling": 72,
@@ -14,25 +15,30 @@
     "B6": 20,
     "total": 64
   },
+  "review_summary": {
+    "reviewed": 64,
+    "accept": 60,
+    "reject": 1,
+    "rework": 3,
+    "hold": 0,
+    "reviewer_id": "otsu4-wave1-independent-reviewer-r1",
+    "identity_separation": "PASS"
+  },
+  "non_accepted_candidate_ids": {
+    "reject": ["O4-B5-PHY-C002"],
+    "rework": ["O4-B4-FIR-C019","O4-B4-FIR-C020","O4-B5-PHY-C003"]
+  },
   "authors": {
-    "B4": {
-      "id": "otsu4-b4-author-r1",
-      "role": "AI_AUTHOR"
-    },
-    "B5": {
-      "id": "otsu4-b5-author-r1",
-      "role": "AI_AUTHOR"
-    },
-    "B6": {
-      "id": "otsu4-b6-author-r1",
-      "role": "AI_AUTHOR"
-    }
+    "B4": {"id":"otsu4-b4-author-r1","role":"AI_AUTHOR"},
+    "B5": {"id":"otsu4-b5-author-r1","role":"AI_AUTHOR"},
+    "B6": {"id":"otsu4-b6-author-r1","role":"AI_AUTHOR"}
   },
   "batches": [
     {
       "batch_id": "B4",
       "candidate_ceiling": 24,
       "actual_candidate_count": 24,
+      "review_accept_count": 22,
       "knowledge_target_id": "O4-FIR-KT-PROPERTIES",
       "target_total_plan": 50,
       "source_path": "MHLW model SDS/label Sections 2 and 9",
@@ -42,6 +48,7 @@
       "batch_id": "B5",
       "candidate_ceiling": 24,
       "actual_candidate_count": 20,
+      "review_accept_count": 18,
       "knowledge_target_id": "O4-PHY-KT-MATTER-HEAT",
       "target_total_plan": 30,
       "source_path": "MEXT Physics Basics pp.48-60 and Chemistry Basics pp.85-95",
@@ -51,19 +58,21 @@
       "batch_id": "B6",
       "candidate_ceiling": 24,
       "actual_candidate_count": 20,
+      "review_accept_count": 20,
       "knowledge_target_id": "O4-LAW-KT-FACILITIES-INSPECTION",
       "target_total_plan": 50,
       "source_path": "current e-Gov Fire Service Act/Decree/Rule facility, completion-inspection and safety-inspection articles",
       "purpose": "facility permission, completion inspection, technical-standard and safety-inspection decision boundaries"
     }
   ],
-  "authoring_rule": "All three batches are persisted as AI_PRE_ACCEPT before independent review. No Permanent IDs, canonical rows, source-verification rows, released rows or runtime rows are created during wave authoring.",
-  "collision_rule": "Each candidate is checked against all 51 baseline canonical questions plus every earlier authored candidate in W1. Independent review must recheck the full 64-candidate W1 set.",
-  "post_review_transaction": "DIRECTOR_ACCEPT_AND_PROMOTE combines Director adjudication, content-bound Acceptance Packet materialization and promotion to READY_FOR_ID for reviewer-accepted candidates only.",
+  "authoring_rule": "All three batches were persisted as AI_PRE_ACCEPT before independent review. No Permanent IDs, canonical rows, source-verification rows, released rows or runtime rows were created during wave authoring or review.",
+  "collision_rule": "Independent review rechecked all 64 candidates against all 51 canonical questions and the full Wave 1 peer set.",
+  "post_review_transaction": "DIRECTOR_ACCEPT_AND_PROMOTE combines Director adjudication, content-bound Acceptance Packet materialization and promotion to READY_FOR_ID for the 60 reviewer-accepted candidates only.",
   "permanent_id_and_source_verification_separate": true,
   "filler_prohibited": true,
   "activated_state_epoch": 43,
   "authored_state_epoch": 44,
   "count_reconciled_state_epoch": 45,
-  "next_gate": "INDEPENDENT_AI_REVIEW_W1_B4_B5_B6_64"
+  "reviewed_state_epoch": 46,
+  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_W1_ACCEPTED_60"
 }

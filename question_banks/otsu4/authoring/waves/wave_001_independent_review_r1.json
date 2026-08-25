@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W1",
+  "review_round": 1,
+  "reviewed_at": "2026-08-25",
+  "reviewer": {"id":"otsu4-wave1-independent-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identities_checked": ["otsu4-b4-author-r1","otsu4-b5-author-r1","otsu4-b6-author-r1"],
+  "identity_separation": "PASS",
+  "summary": {"reviewed":64,"accept":60,"reject":1,"rework":3,"hold":0},
+  "batch_summaries": {
+    "B4": {"reviewed":24,"accept":22,"reject":0,"rework":2,"hold":0},
+    "B5": {"reviewed":20,"accept":18,"reject":1,"rework":1,"hold":0},
+    "B6": {"reviewed":20,"accept":20,"reject":0,"rework":0,"hold":0}
+  },
+  "rejected": [
+    {"candidate_id":"O4-B5-PHY-C002","reason_code":"WITHIN_WAVE_REDUNDANT_INVERSE","disposition":"Do not quota-backfill. The same answer-defining relationship is retained in C001."}
+  ],
+  "rework": [
+    {"candidate_id":"O4-B4-FIR-C019","reason_code":"MULTI_SOURCE_BINDING_INCOMPLETE","resume_condition":"Adopt an approved multi-source bundle or rewrite to one registered source."},
+    {"candidate_id":"O4-B4-FIR-C020","reason_code":"MULTI_SOURCE_BINDING_INCOMPLETE","resume_condition":"Adopt an approved multi-source bundle or rewrite to one registered source."},
+    {"candidate_id":"O4-B5-PHY-C003","reason_code":"ANSWER_PROPOSITION_NOT_DIRECTLY_PINPOINTED","resume_condition":"Bind mass conservation to an explicit source or rewrite to a directly stated state-change proposition."}
+  ],
+  "collision_review": {
+    "canonical_question_count": 51,
+    "wave_candidate_count": 64,
+    "all_pairs_reviewed_semantically": true,
+    "accepted_collision_result": "PASS",
+    "note": "No accepted candidate materially duplicates a canonical answer-defining proposition or another accepted Wave 1 candidate. One inverse duplicate was rejected."
+  },
+  "quality_policy": {
+    "candidate_ceiling_is_quota": false,
+    "filler_prohibited": true,
+    "human_review_created": false,
+    "source_verification_separate": true,
+    "permanent_id_allocation_separate": true
+  },
+  "invariants": {
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_W1_ACCEPTED_60"
+}
