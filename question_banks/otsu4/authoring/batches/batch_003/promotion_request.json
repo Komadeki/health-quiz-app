@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "objective": "PROMOTE_OTSU4_BATCH_3_ACCEPTED_22_TO_READY_FOR_ID",
+  "requested_at": "2026-08-25",
+  "expected_candidate_count": 22,
+  "excluded_candidate_ids": ["O4-B3-LAW-C016", "O4-B3-LAW-C017"]
+}
