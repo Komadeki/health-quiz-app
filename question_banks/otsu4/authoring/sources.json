@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {"source_id":"O4-EXAM-1","title":"危険物取扱者試験","source_version":"2026-08-25","issuer":"一般財団法人消防試験研究センター","retrieved_at":"2026-08-25","url":"https://www.shoubo-shiken.or.jp/","usage_basis":"facts_only_independently_authored"},
+    {"source_id":"O4-LAW-1","title":"消防法","source_version":"2026-08-25","issuer":"e-Gov法令検索","retrieved_at":"2026-08-25","url":"https://laws.e-gov.go.jp/law/323AC0000000186","usage_basis":"public_legal_text"},
+    {"source_id":"O4-LAW-2","title":"危険物の規制に関する政令","source_version":"2026-08-25","issuer":"e-Gov法令検索","retrieved_at":"2026-08-25","url":"https://laws.e-gov.go.jp/","usage_basis":"public_legal_text"},
+    {"source_id":"O4-LAW-3","title":"危険物の規制に関する規則","source_version":"2026-08-25","issuer":"e-Gov法令検索","retrieved_at":"2026-08-25","url":"https://laws.e-gov.go.jp/","usage_basis":"public_legal_text"}
+  ]
+}
