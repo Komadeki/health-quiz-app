@@ -82,7 +82,11 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('mock-exam-unlock-sheet')), findsOneWidget);
     expect(find.text('全問解放で利用可能'), findsOneWidget);
-    expect(find.text('買い切り Fixture'), findsOneWidget);
+    final unlockSheet = find.byKey(const Key('mock-exam-unlock-sheet'));
+    expect(
+      find.descendant(of: unlockSheet, matching: find.text('買い切り Fixture')),
+      findsOneWidget,
+    );
     await tester.binding.handlePopRoute();
     await tester.pumpAndSettle();
 
