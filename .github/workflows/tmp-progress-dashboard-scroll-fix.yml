@@ -35,71 +35,58 @@ jobs:
               raise SystemExit('supportsRadar anchor mismatch')
           text = text.replace(old, new, 1)
 
-          old = '''    return ListView(
-            physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            children: [
-              for (final item in data)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 64,
-                        child: Text(
-                          _shortRadarLabel(item.label),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.labelSmall,
+          class_marker = 'final class _UnitPerformanceFallback extends StatelessWidget {'
+          next_marker = 'final class _RadarPainter extends CustomPainter {'
+          start = text.find(class_marker)
+          end = text.find(next_marker)
+          if start < 0 or end < 0 or end <= start:
+              raise SystemExit('fallback class anchors missing')
+
+          replacement = r'''final class _UnitPerformanceFallback extends StatelessWidget {
+            const _UnitPerformanceFallback({required this.data});
+
+            final List<_RadarDatum> data;
+
+            @override
+            Widget build(BuildContext context) {
+              if (data.isEmpty) {
+                return const Center(child: Text('単元データなし'));
+              }
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  for (final item in data)
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 64,
+                          child: Text(
+                            _shortRadarLabel(item.label),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      Expanded(child: LinearProgressIndicator(value: item.value)),
-                      const SizedBox(width: 6),
-                      SizedBox(
-                        width: 32,
-                        child: Text(
-                          item.hasData ? '${(item.value * 100).round()}%' : '—',
-                          style: Theme.of(context).textTheme.labelSmall,
+                        const SizedBox(width: 6),
+                        Expanded(child: LinearProgressIndicator(value: item.value)),
+                        const SizedBox(width: 6),
+                        SizedBox(
+                          width: 32,
+                          child: Text(
+                            item.hasData ? '${(item.value * 100).round()}%' : '—',
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-            ],
-          );'''
-          new = '''    return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              for (final item in data)
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 64,
-                      child: Text(
-                        _shortRadarLabel(item.label),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.labelSmall,
-                      ),
+                      ],
                     ),
-                    const SizedBox(width: 6),
-                    Expanded(child: LinearProgressIndicator(value: item.value)),
-                    const SizedBox(width: 6),
-                    SizedBox(
-                      width: 32,
-                      child: Text(
-                        item.hasData ? '${(item.value * 100).round()}%' : '—',
-                        style: Theme.of(context).textTheme.labelSmall,
-                      ),
-                    ),
-                  ],
-                ),
-            ],
-          );'''
-          if text.count(old) != 1:
-              raise SystemExit('fallback ListView anchor mismatch')
-          path.write_text(text.replace(old, new, 1))
+                ],
+              );
+            }
+          }
+
+          '''
+          text = text[:start] + replacement + text[end:]
+          path.write_text(text)
           PY
 
       - name: Commit fix and self-delete worker
