@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B1",
+  "review_round": 2,
+  "reviewed_at": "2026-08-25",
+  "reviewer": {
+    "id": "otsu4-b1-independent-reviewer-r2",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "otsu4-b1-remediation-author-r2",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "Current GitHub main and the five remediated AI_PRE_ACCEPT candidate rows",
+    "question_banks/otsu4/authoring/batches/batch_001/remediation_r2.json",
+    "docs/OTSU4_600Q_PINPOINT_SOURCE_CATALOG_V1.md",
+    "current e-Gov Fire Service Act Article 10(2)",
+    "FDMA Fire Research Institute 'ものはなぜ燃えるのか' sections on the fire triangle, combustion elements, and ordinary combustion",
+    "MHLW model SDS for ethyl acetate, Section 5",
+    "FDMA-hosted '見て解る危険物火災消火活動', Chapter 2 Section 3 item 4, pp.43-44",
+    "current canonical Otsu4 bank containing only OTSU4-Q-000001 plus the same-batch candidates"
+  ],
+  "summary": {
+    "reviewed": 5,
+    "accept": 5,
+    "rework": 0,
+    "reject": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "O4-B1-LAW-C001",
+      "decision": "ACCEPT",
+      "rationale": "消防法第10条第2項 directly defines aggregation of quotients for multiple hazardous materials with different specified quantities at the same place and the >=1 boundary. The 0.4 + 0.6 scenario is an original arithmetic application of that proposition and is materially distinct from C002's single-substance specified-quantity boundary."
+    },
+    {
+      "candidate_id": "O4-B1-PHY-C001",
+      "decision": "ACCEPT",
+      "rationale": "The FDMA Fire Research Institute explicitly defines the combustion elements and states that, in ordinary combustion, oxygen in air is the supporter. Restricting air inflow to reduce oxygen is a direct application of that proposition. The revised wording avoids unsupported extinguishing-method terminology."
+    },
+    {
+      "candidate_id": "O4-B1-PHY-C002",
+      "decision": "ACCEPT",
+      "rationale": "The FDMA Fire Research Institute fire-triangle section explicitly identifies combustible material, oxygen, and heat as necessary items. Cooling to lower temperature is a direct boundary application to the heat element. The prior terminology concern has been removed and the reasoning is distinct from C001."
+    },
+    {
+      "candidate_id": "O4-B1-FIR-C001",
+      "decision": "ACCEPT",
+      "rationale": "The registered MHLW ethyl-acetate model SDS Section 5 explicitly lists alcohol-resistant foam, foam, powder, carbon dioxide and fine-spray water as suitable extinguishing media and straight-stream water as unsuitable. The candidate is fully reproducible from one pinpoint source and tests a chemical-specific media-selection boundary."
+    },
+    {
+      "candidate_id": "O4-B1-FIR-C002",
+      "decision": "ACCEPT",
+      "rationale": "The FDMA-hosted fire-response text explains that foam floats on and covers flammable liquid, blocks air, and suppresses evaporation of flammable vapor, with additional cooling from its water content. The candidate states the principal mechanism without changing legal classification and is materially distinct from C001."
+    }
+  ],
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "batch_checked": true,
+    "result": "PASS",
+    "note": "The canonical Otsu4 bank currently contains OTSU4-Q-000001 only. All five remediated candidates test different propositions or decision boundaries from OTSU4-Q-000001 and from one another."
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}
