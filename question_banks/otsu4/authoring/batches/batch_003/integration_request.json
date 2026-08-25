@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "objective": "ALLOCATE_AND_INTEGRATE_OTSU4_BATCH_3_ACCEPTED_22",
+  "requested_at": "2026-08-25",
+  "expected_candidate_count": 22,
+  "expected_question_id_first": "OTSU4-Q-000030",
+  "expected_question_id_last": "OTSU4-Q-000051",
+  "excluded_candidate_ids": ["O4-B3-LAW-C016", "O4-B3-LAW-C017"]
+}
