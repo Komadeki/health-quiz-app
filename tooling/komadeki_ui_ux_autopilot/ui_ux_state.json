@@ -15,13 +15,13 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "dabdc2a4869ee41103540ee4fd3de4fbae4b0d8f",
+  "observed_main": "e93eb3de7fd02c493b8d6972a456cbf23a3e6221",
   "next_atomic_objective": "VERIFY_PHYSICAL_UX_EVIDENCE",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": {
-    "action": "Run the physical-device interaction checklist in docs/KOMADEKI_UI_UX_PHYSICAL_EVIDENCE_GATE.md on a physical iPhone using a build containing the reconciled progress-dashboard baseline or a later reconciled main commit, then persist the evidence to GitHub issue #48.",
-    "resume_evidence": "Issue #48 must identify device model, iOS version, build or commit SHA, PASS/FAIL for every numbered physical interaction check including the Home progress dashboard, and concrete defect evidence when any check fails; the tested commit must be reconciled against then-current main before the workstream can advance."
+    "action": "Run the bounded physical-device interaction checklist in docs/KOMADEKI_UI_UX_PHYSICAL_EVIDENCE_GATE.md on a physical iPhone using a build containing UI baseline 1dac5bba96ee18ae2ae919bf7b5c8d5f31e7cb33 or a later reconciled main commit, then persist the evidence to GitHub issue #48.",
+    "resume_evidence": "Issue #48 must identify device model, iOS version, build or commit SHA, PASS/FAIL for every numbered physical interaction check, including radar/legend readability, conservative low-sample weakness wording, contextual resume copy, actionable locked-mock unlock guidance, and concrete defect evidence when any check fails; the tested commit must be reconciled against then-current main before the workstream can advance."
   },
-  "state_epoch": 18
+  "state_epoch": 19
 }
