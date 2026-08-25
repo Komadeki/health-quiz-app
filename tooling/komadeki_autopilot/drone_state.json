@@ -16,12 +16,12 @@
     "SUBMIT",
     "DONE"
   ],
-  "observed_main": "b2856675deb7ea8c763d41f611a54d86acc7d901",
-  "next_atomic_objective": "VERIFY_B16_CANONICAL_SOURCES_6",
+  "observed_main": "9c0b40f685943c5fb6bcecbedfb14d9407a278bd",
+  "next_atomic_objective": "PLAN_B17_400_TARGET_COVERAGE_VARIANTS",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 114
+  "state_epoch": 115
 }
