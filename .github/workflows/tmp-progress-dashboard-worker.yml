@@ -70,31 +70,6 @@ jobs:
           if text.count(old) != 1:
               raise SystemExit('progress metric container anchor mismatch')
           text = text.replace(old, new, 1)
-
-          old = '''          Text(
-                    value,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
-                  ),
-                  Text(label, style: Theme.of(context).textTheme.labelMedium),'''
-          new = '''          Text(
-                    value,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800),
-                  ),
-                  Text(
-                    label,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),'''
-          if text.count(old) != 1:
-              raise SystemExit('progress metric text anchor mismatch')
-          text = text.replace(old, new, 1)
           production.write_text(text)
 
           dashboard = Path('packages/qualification_app/lib/src/progress_dashboard.dart')
@@ -198,10 +173,10 @@ jobs:
           drone_test.write_text(drone_text.replace(drone_anchor, drone_insert, 1))
           PY
 
-      - name: Format changed Dart files
+      - name: Set up Dart formatter
         uses: dart-lang/setup-dart@v1
 
-      - name: Run Dart formatter
+      - name: Format changed Dart files
         run: |
           dart format \
             packages/qualification_app/lib/src/production_app.dart \
