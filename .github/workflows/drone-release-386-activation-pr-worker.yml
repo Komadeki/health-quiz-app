@@ -29,6 +29,35 @@ jobs:
           git config user.email "autopilot@users.noreply.github.com"
           git fetch origin main
           git rebase origin/main
+      - name: Preserve historical released snapshot prefix
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('tooling/komadeki_autopilot/drone_release_activation_386_transition.py')
+          text = path.read_text(encoding='utf-8')
+          old = '''inputs = load_bank_inputs(BANK)
+          released_doc = build_released_questions_document(inputs)
+          released_after = released_doc.get("released_questions", [])
+          if len(released_after) != 386 or [x["question_id"] for x in released_after] != list(ALL): fail("staged released snapshot drift")
+          if released_after[:188] != released_before: fail("historical release prefix changed")
+          released_path.write_bytes(pretty_json_bytes(released_doc))
+          '''
+          new = '''inputs = load_bank_inputs(BANK)
+          released_doc = build_released_questions_document(inputs)
+          generated_rows = released_doc.get("released_questions", [])
+          if len(generated_rows) != 386 or [x["question_id"] for x in generated_rows] != list(ALL): fail("staged generated release snapshot drift")
+          generated_by_id = {row["question_id"]: row for row in generated_rows}
+          released_doc["released_questions"] = released_before + [generated_by_id[qid] for qid in NEW]
+          released_after = released_doc["released_questions"]
+          if len(released_after) != 386 or [x["question_id"] for x in released_after] != list(ALL): fail("staged released snapshot drift")
+          if released_after[:188] != released_before: fail("historical release prefix changed")
+          released_path.write_bytes(pretty_json_bytes(released_doc))
+          '''
+          if text.count(old) != 1:
+              raise SystemExit('expected one historical-prefix block to patch')
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          PY
       - name: Execute frozen 386 release activation
         run: python3 tooling/komadeki_autopilot/drone_release_activation_386_transition.py
       - name: Validate release and repository gates
