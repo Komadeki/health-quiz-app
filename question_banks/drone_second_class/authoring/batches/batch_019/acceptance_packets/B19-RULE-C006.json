@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B19-RULE-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "389d199c039c2ab5067615e471c6c008d73f8d8ba5096e7373c4c2e90df364f5",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b19-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "chatgpt-b19-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b19-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.1 7)「模型航空機に対する規制」②（教則表示ページ13 / PDF viewer 18）"
+    },
+    "answer_defining_proposition": "禁止空域①以外でも、高度250m以上の空域で模型航空機を飛行させる場合は国土交通省への事前届出が必要となる。",
+    "tested_misconception": "100g未満の模型航空機なら、高度250m以上でも国土交通省への事前届出は不要である。",
+    "reasoning_path": "classify model aircraft -> confirm outside outright-prohibited airspace -> identify >=250m notification condition -> require prior notice",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q041/Q112は模型航空機の別規制を扱うが、高度250m以上等での事前届出要件は未出。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Source, scope and threshold PASS. Outside the outright-prohibited model-aircraft airspace, the source explicitly requires prior notification for flight at 250 m or more, and separately identifies airport surroundings and airway airspace at 150 m or more. The 260 m scenario uniquely triggers the 250 m branch."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent B19 review at ACCEPT 15 / REJECT 0 / REWORK 0 / HOLD 0. The decision is quality-driven rather than target-driven: all fifteen candidates have explicit current MLIT 教則第5版 support, one best answer and either a new answer-defining proposition or a materially distinct source-defined state, boundary, response action or reportable branch. The four Tier B candidates C007, C009, C011 and C012 survive because they test distinct flight-state/response or legal-reportability branches; no wording-only variant is accepted. B19 is the sole permitted in-flight batch under the active dynamic release policy. No B20 planning or authoring may begin before the current release set is frozen. After B19 acceptance, Permanent-ID integration and source verification, every VERIFIED B19 survivor must be included in the current release freeze; if any candidate failed a later gate it would be excluded without blocking release."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
