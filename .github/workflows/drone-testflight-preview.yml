@@ -172,11 +172,21 @@ jobs:
           echo "IPA produced: $(basename "$IPA_PATH")"
           echo "IPA_PATH=$IPA_PATH" >> "$GITHUB_ENV"
 
+      - name: Install Apple Transporter
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL \
+            "https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/resources/download/public/Transporter__OSX/bin/" \
+            -o "$RUNNER_TEMP/itmstransporter.pkg"
+          sudo installer -pkg "$RUNNER_TEMP/itmstransporter.pkg" -target /
+          /usr/local/itms/bin/iTMSTransporter -help
+
       - name: Upload IPA to App Store Connect / TestFlight
         shell: bash
         run: |
           set -euo pipefail
-          xcrun iTMSTransporter \
+          /usr/local/itms/bin/iTMSTransporter \
             -m upload \
             -assetFile "$IPA_PATH" \
             -apiKey "$APP_STORE_CONNECT_API_KEY_ID" \
