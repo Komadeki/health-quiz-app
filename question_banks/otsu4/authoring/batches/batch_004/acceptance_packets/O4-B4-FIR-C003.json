@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9d3279166e6b73d8f880291dd401d8ea1c7b10ef1f8336180081a90ca0335db6",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "source_locator": "SDS 第9項 物理的及び化学的性質（比重）"
+    },
+    "answer_defining_proposition": "ガソリンの比重は約0.72〜0.76で1より小さい。",
+    "tested_misconception": "ガソリンは水より必ず重い。",
+    "reasoning_path": "gasoline -> relative density -> compare with 1",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier B numeric density boundary."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Gasoline liquid relative-density boundary is exact and distinct from vapor density."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

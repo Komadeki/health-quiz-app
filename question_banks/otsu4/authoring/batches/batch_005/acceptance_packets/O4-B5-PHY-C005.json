@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B5-PHY-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f1c7656e554296b79e919dbdee3b94a785c59a1ff31846a941f7a18649ce8601",
+  "actors": {
+    "author": {
+      "id": "otsu4-b5-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第4節 化学基礎 p.87「熱運動と物質の三態」"
+    },
+    "answer_defining_proposition": "沸点は液体と気体の状態境界を示す。",
+    "tested_misconception": "沸点は固体と液体の境界である。",
+    "reasoning_path": "identify boiling point -> liquid/gas boundary",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B5 boiling-point definition; distinct from C004."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Boiling point as the liquid/gas boundary is distinct from melting point and source-explicit."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C023",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d06d4ccb3c2f62562d59fd5a6b58a0600e62121ca162405e4cc778173530c786",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ETHYL-ACETATE",
+      "source_version": "2020-03-13",
+      "source_locator": "SDS 第9項 物理的及び化学的性質（密度及び／又は相対密度）"
+    },
+    "answer_defining_proposition": "酢酸エチルの液体密度は約0.90 g/cm³である。",
+    "tested_misconception": "酢酸エチルの液体密度は相対ガス密度3.04と同じである。",
+    "reasoning_path": "ethyl acetate -> distinguish liquid density from vapor density",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier B density distinction."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Ethyl acetate liquid density is independently testable and explicitly separated from vapor density."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

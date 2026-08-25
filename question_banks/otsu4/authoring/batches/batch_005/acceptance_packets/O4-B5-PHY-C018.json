@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B5-PHY-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "cd4a06d066e805bb73299beabd748ddaeffe20c2bd86d119a43cfaa3e2efabf9",
+  "actors": {
+    "author": {
+      "id": "otsu4-b5-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第2節 物理基礎 p.56「熱の利用」"
+    },
+    "answer_defining_proposition": "機械的仕事は熱に変換され、温度上昇を生じ得る。",
+    "tested_misconception": "仕事と熱は相互に関係しない。",
+    "reasoning_path": "mechanical work -> dissipation -> heat -> temperature rise",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B5 energy-conversion application; distinct from rapid compression."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Mechanical work dissipating into heat is related but materially distinct from gas compression."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

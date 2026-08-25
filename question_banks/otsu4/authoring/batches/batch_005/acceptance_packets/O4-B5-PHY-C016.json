@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B5-PHY-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "2a54160746e1d88d80c53dd108855df9dd6bc83aaf23df8f9dc2ba142b55ae3a",
+  "actors": {
+    "author": {
+      "id": "otsu4-b5-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第2節 物理基礎 p.56「熱の利用」"
+    },
+    "answer_defining_proposition": "多くの物質は加熱により寸法又は体積が増加する。",
+    "tested_misconception": "熱膨張とは質量が増える現象である。",
+    "reasoning_path": "heating -> particle spacing effect -> dimension/volume increase",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B5 thermal-expansion proposition; absent from canonical."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Thermal expansion tests dimension/volume change rather than mass change."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C022",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f65a67bf2242e4f425f205b474f57a91b67d699a0a2bf9b886ba324b4fbe8cb2",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-XYLENE",
+      "source_version": "2015-03-31",
+      "source_locator": "SDS 第9項 物理的及び化学的性質（引火点）"
+    },
+    "answer_defining_proposition": "キシレンの引火点は約25℃である。",
+    "tested_misconception": "キシレンの引火点は沸点113.6〜140℃とほぼ同じである。",
+    "reasoning_path": "xylene -> distinguish flash point from boiling range",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier B numeric property."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Xylene flash point is exact and tests distinction from its boiling range."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

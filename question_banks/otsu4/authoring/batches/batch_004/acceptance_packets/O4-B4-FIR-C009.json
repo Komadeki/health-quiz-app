@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ca15a36ed991bc174d94bce2dcecf795bebd9ba06fbe39f5c484c4a215ed5a4a",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ETHANOL",
+      "source_version": "2014-03-31",
+      "source_locator": "SDS 第9項 物理的及び化学的性質（引火点）"
+    },
+    "answer_defining_proposition": "エタノールの引火点は約13℃である。",
+    "tested_misconception": "エタノールは水と混和するため引火しない。",
+    "reasoning_path": "ethanol -> flash point -> select 13C",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier B; flash point distinct from solubility."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Ethanol flash point is source-explicit and distinct from its water miscibility."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

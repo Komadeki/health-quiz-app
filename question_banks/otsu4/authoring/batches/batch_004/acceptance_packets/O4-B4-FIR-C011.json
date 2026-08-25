@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C011",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "61ada9da70cb80e665b581b15555c5e4fe9658e2d4d2c5d92e3fede419f4e78a",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-METHANOL",
+      "source_version": "2010-03-31",
+      "source_locator": "SDS 第9項 物理的及び化学的性質（引火点）"
+    },
+    "answer_defining_proposition": "メタノールの引火点は約12℃である。",
+    "tested_misconception": "メタノールは常温では引火性を示さない。",
+    "reasoning_path": "methanol -> flash point -> select 12C",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier B; numeric property."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Methanol flash point is exact and educationally distinct from ethanol despite similar magnitude."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

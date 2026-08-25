@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C013",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c5b81a1ab19357a0bf543519d9c963ddc1230107d755ccb91ca43a3c0c47f367",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第8条第4項"
+    },
+    "answer_defining_proposition": "完成検査済証を亡失・滅失した場合は再交付申請ができる。",
+    "tested_misconception": "検査済証を失うと再交付制度はない。",
+    "reasoning_path": "certificate lost/destroyed -> apply for reissue",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 document-reissue proposition; distinct from issuance."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Completion-certificate reissue after loss/destruction is source-explicit and independently testable."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

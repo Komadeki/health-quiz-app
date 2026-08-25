@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C020",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0c78155548f6605ab1eb649190ea98bc5b77e4c69bd29c4f1adc0572b79c10a2",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第14条の3の2"
+    },
+    "answer_defining_proposition": "指定された製造所等では定期点検を実施し記録を作成・保存する。",
+    "tested_misconception": "定期点検をしても記録は不要である。",
+    "reasoning_path": "designated facility -> periodic inspection -> create and retain record",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 periodic-inspection duty; distinct from safety inspection C019."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Periodic inspection plus record creation/retention is distinct from statutory safety inspection."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

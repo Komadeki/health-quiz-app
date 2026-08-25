@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C011",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "302579e0b825c162679136f996ccc44bbf8c1a04c7f576a4163390244f4c6dad",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第8条第2項"
+    },
+    "answer_defining_proposition": "完成検査申請後、市町村長等は遅滞なく検査する。",
+    "tested_misconception": "行政は完成検査を無期限に行わなくてよい。",
+    "reasoning_path": "application received -> authority acts without delay -> inspect",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 authority-timing proposition; distinct from application requirement."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The authority's duty to inspect without delay is a separate procedural proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

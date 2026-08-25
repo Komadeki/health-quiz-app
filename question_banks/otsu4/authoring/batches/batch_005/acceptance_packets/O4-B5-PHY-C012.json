@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B5-PHY-C012",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d2197c67f438d3840b3cd54ef4b226f8df36e79c370482c939324e1d1c87ddb9",
+  "actors": {
+    "author": {
+      "id": "otsu4-b5-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第2節 物理基礎 p.56「熱の利用」"
+    },
+    "answer_defining_proposition": "断熱された二物体間では失われた熱量と受け取った熱量が等しい。",
+    "tested_misconception": "熱移動では熱量が必ず消滅する。",
+    "reasoning_path": "isolated pair -> heat lost equals heat gained",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B5 heat-conservation equation concept; absent from canonical."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Equality of heat lost and gained in an isolated pair is a distinct conservation relationship."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

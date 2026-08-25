@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W1",
-  "status": "INDEPENDENT_AI_REVIEWED",
+  "status": "DIRECTOR_ACCEPTED_AND_PROMOTED",
   "planned_at": "2026-08-25",
   "authored_at": "2026-08-25",
   "reviewed_at": "2026-08-25",
@@ -25,13 +25,28 @@
     "identity_separation": "PASS"
   },
   "non_accepted_candidate_ids": {
-    "reject": ["O4-B5-PHY-C002"],
-    "rework": ["O4-B4-FIR-C019","O4-B4-FIR-C020","O4-B5-PHY-C003"]
+    "reject": [
+      "O4-B5-PHY-C002"
+    ],
+    "rework": [
+      "O4-B4-FIR-C019",
+      "O4-B4-FIR-C020",
+      "O4-B5-PHY-C003"
+    ]
   },
   "authors": {
-    "B4": {"id":"otsu4-b4-author-r1","role":"AI_AUTHOR"},
-    "B5": {"id":"otsu4-b5-author-r1","role":"AI_AUTHOR"},
-    "B6": {"id":"otsu4-b6-author-r1","role":"AI_AUTHOR"}
+    "B4": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B5": {
+      "id": "otsu4-b5-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B6": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    }
   },
   "batches": [
     {
@@ -74,5 +89,15 @@
   "authored_state_epoch": 44,
   "count_reconciled_state_epoch": 45,
   "reviewed_state_epoch": 46,
-  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_W1_ACCEPTED_60"
+  "next_gate": "ALLOCATE_AND_INTEGRATE_W1_ACCEPTED_60",
+  "director_adjudication": {
+    "artifact": "wave_001_director_adjudication_r1.json",
+    "decision": "ADOPT_REVIEWER_DECISIONS",
+    "accept": 60,
+    "reject": 1,
+    "rework": 3,
+    "hold": 0
+  },
+  "accepted_candidate_state": "READY_FOR_ID",
+  "accept_promote_state_epoch": 47
 }

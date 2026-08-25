@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "012e8c0fb3646280cb2065f75379700f3e0e0b16ef6c4186a593c0424c3a2a07",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第11条第1項"
+    },
+    "answer_defining_proposition": "製造所等の設置には市町村長等の許可が必要である。",
+    "tested_misconception": "基準を守れば設置許可は不要である。",
+    "reasoning_path": "new facility -> installation plan -> obtain authority permission before installation",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 first facility-permission proposition; distinct from canonical licensing/storage questions."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Installation permission is a core facility-control proposition and absent from canonical 51."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C014",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "60ea535480fede86f921d6ad24d773063d55918b38f47dac2ca39085964ecf38",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第8条第5項"
+    },
+    "answer_defining_proposition": "再交付後に旧完成検査済証を発見した場合は10日以内に提出する。",
+    "tested_misconception": "再交付後に旧証を発見しても提出不要である。",
+    "reasoning_path": "reissued certificate -> old certificate found -> submit within 10 days",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 precise 10-day boundary; no canonical collision."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The ten-day return duty for a later-found old certificate is a precise administrative boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

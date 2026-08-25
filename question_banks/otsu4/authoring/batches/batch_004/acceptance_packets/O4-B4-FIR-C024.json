@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C024",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d9aeecfa22c7d5dd9c64a14460baf650c1dd9c07244ea4ff03940ba29f772136",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-LABEL-DIETHYL-ETHER",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "モデルラベル「危険有害性情報」"
+    },
+    "answer_defining_proposition": "ジエチルエーテルは極めて引火性の高い液体及び蒸気である。",
+    "tested_misconception": "エーテルは揮発しやすいが引火性は低い。",
+    "reasoning_path": "identify diethyl ether -> read hazard statement -> extreme flammability",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier A; label-backed property distinct from numeric SDS questions."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The model-label extreme-flammability statement is direct, high-value and independently reproducible."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

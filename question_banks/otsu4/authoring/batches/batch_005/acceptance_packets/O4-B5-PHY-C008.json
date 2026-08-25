@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B5-PHY-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "331d32fa37b177ba0117e5af82de2f871a8c49ca287201a33f443570463ea2ab",
+  "actors": {
+    "author": {
+      "id": "otsu4-b5-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第4節 化学基礎 p.87「物質の変化」"
+    },
+    "answer_defining_proposition": "一つの物質が複数の別物質に変わる化学変化は分解である。",
+    "tested_misconception": "分解は単なる状態変化である。",
+    "reasoning_path": "one substance -> multiple different substances -> decomposition",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B5 chemical-change foundation; distinct from state-change items."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Decomposition is a separate chemical-change definition, not a wording variant of C007."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
