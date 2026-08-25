@@ -45,6 +45,11 @@ evidence, not a value a generator may replace when the current bank revision
 changes. Retired rows remain tombstones; a declared `replacement_id` must point
 to another allocated permanent ID.
 
+For a newly bootstrapped bank with an empty registry, set
+`question_id_prefix` in `authoring/bank.json` (for example, `OTSU4`). The
+expansion transaction then allocates the first ID as `<PREFIX>-Q-000001`.
+Existing banks continue to derive the prefix from their registry.
+
 ## Authoring schema v2
 
 `questions.csv` has these columns:
