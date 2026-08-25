@@ -1,0 +1,33 @@
+name: Drone Free30 Cleanup
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-free30-monetization-ux
+    paths:
+      - '.github/drone-free30-cleanup-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-free30-monetization-ux
+          fetch-depth: 0
+      - run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "100670593+Komadeki@users.noreply.github.com"
+          git fetch origin main
+          git checkout origin/main -- \
+            apps/drone_second_class/analysis_options.yaml \
+            apps/drone_second_class/pubspec.lock \
+            packages/qualification_app/analysis_options.yaml \
+            packages/qualification_app/pubspec.lock
+          rm -f .github/workflows/drone-free30-cleanup.yml .github/drone-free30-cleanup-trigger
+          git add -A
+          git commit -m "Remove incidental Flutter toolchain changes"
+          git push origin HEAD:chatgpt/drone-free30-monetization-ux
