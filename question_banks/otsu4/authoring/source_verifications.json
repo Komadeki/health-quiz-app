@@ -1,1 +1,12 @@
-{"schema_version": 1, "verifications": []}
+{
+  "schema_version": 1,
+  "verifications": [
+    {
+      "question_id": "OTSU4-Q-000001",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-25"
+    }
+  ]
+}
