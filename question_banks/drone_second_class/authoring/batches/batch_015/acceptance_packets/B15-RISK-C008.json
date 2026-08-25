@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B15-RISK-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ae361e1644370de3083517f0b89364cce6f8a9227227b3343defa39913c63bfc",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b15-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b15-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b15-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「回転翼航空機（ヘリコプター）」(1)「運航の特徴」"
+    },
+    "answer_defining_proposition": "山間部又は斜面沿いでは、強い吹き下ろし風によりヘリコプターが上昇できない場合がある。",
+    "tested_misconception": "ヘリコプターは垂直上昇できるため斜面の吹き下ろし風は上昇可否に影響しない。",
+    "reasoning_path": "mountain/slope route -> strong downslope airflow -> compare climb capability -> possible inability to climb",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。Q272は前進しながら上昇すると必要パワーを削減できる点を問う。本問は地形・風条件により上昇能力自体が不足し得る別の判断境界を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Q272 tests forward climb as a power-saving technique; C008 changes the operating condition to strong downslope wind in mountain/slope flight and tests possible loss of climb capability."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 9 / REJECT 0. All nine answer-defining propositions are directly supported by second-class-applicable Chapter 6 source text and remain distinct from their named canonical neighbors. The two Tier B items preserve independent decision boundaries rather than wording-only variants. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

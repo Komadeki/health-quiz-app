@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B15-RISK-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fe75151561b5342899d564b052de902f0bac7ce1c0172537b6b908e7bd481a11",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b15-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b15-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b15-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「飛行機」(1)「飛行機の運航の特徴」"
+    },
+    "answer_defining_proposition": "飛行機はホバリングできないため、上空待機ではサークル状の旋回飛行を行う。",
+    "tested_misconception": "固定翼機も回転翼機のようにその場でホバリングできる。",
+    "reasoning_path": "need airborne holding -> fixed-wing cannot hover -> maintain flight with circle",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q097は固定翼機の最小旋回半径が大きいことを問うが、上空待機方法は問わない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Fixed-wing inability to hover and the resulting circular-turn holding method is an operational consequence not tested by the existing minimum-turn-radius question or B13 fixed-wing lateral-motion constraint."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 9 / REJECT 0. All nine answer-defining propositions are directly supported by second-class-applicable Chapter 6 source text and remain distinct from their named canonical neighbors. The two Tier B items preserve independent decision boundaries rather than wording-only variants. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

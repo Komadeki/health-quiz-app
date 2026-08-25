@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B15-RISK-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "16efd4afa7b16393b9460507c7a30fd8ba1a5e932f5a80bc1ee0ddcea92d8530",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b15-risk-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b15-risk-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b15-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第6章 6.3「大型機（最大離陸重量25kg以上）」(1)「運航の特徴」"
+    },
+    "answer_defining_proposition": "大型機は一般に小型機より騒音が大きくなるため、飛行経路周囲への配慮が必要である。",
+    "tested_misconception": "大型機のリスク管理では騒音による周辺配慮は不要である。",
+    "reasoning_path": "identify large-aircraft operation -> add noise impact to route-neighborhood risk assessment",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q099は大型機の慣性と障害物回避、Q273は広い緊急着陸地点を問う。本問は騒音による経路周辺配慮を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Large-aircraft noise-driven route-neighborhood consideration is explicitly stated and distinct from current large-aircraft inertia/avoidance and emergency-landing-area questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 9 / REJECT 0. All nine answer-defining propositions are directly supported by second-class-applicable Chapter 6 source text and remain distinct from their named canonical neighbors. The two Tier B items preserve independent decision boundaries rather than wording-only variants. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
