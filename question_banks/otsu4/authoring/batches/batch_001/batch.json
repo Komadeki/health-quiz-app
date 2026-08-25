@@ -1,11 +1,15 @@
 {
   "schema_version": "1.0",
   "app_key": "otsu4",
-  "batch_id": "O4-B1",
+  "batch_id": "B1",
   "directory_slug": "batch_001",
   "baseline_sha": "7964dab060000e187b13cc244ebdb9cd1d2166c2",
   "batch_status": "AI_GOVERNED_ACCEPTANCE_MATERIALIZED",
   "author": {"id": "otsu4-b1-author-r1", "role": "AI_AUTHOR"},
+  "expansion_trigger": "Initialize the Otsu4 canonical bank through the adopted AI-governed Question Factory lifecycle.",
+  "evidence": ["docs/OTSU4_PRODUCT_SPEC_V0.md", "question_banks/otsu4/QUESTION_BANK_CONTRACT_V0.md"],
+  "target_size_decisions": [{"decision_id": "O4-TARGET-001", "previous_approved_target": 0, "current_released_count": 0, "proposed_target_min": 300, "proposed_target_max": 300, "approved_new_target": 300, "rationale": "OTSU4_PRODUCT_SPEC_V0 fixes the initial production target at 300 original accepted questions.", "decision_date": "2026-08-25", "evidence": "docs/OTSU4_PRODUCT_SPEC_V0.md"}],
+  "coverage_limit_decisions": [],
   "planned_scope": {"candidate_count": 6, "subject_counts": {"law": 2, "physics_chemistry": 2, "properties_fire": 2}},
   "invariants": {"PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0, "HUMAN_REVIEW_CREATED": false, "RELEASED_CHANGED": false},
   "next_gate": "PROMOTE_AI_GOVERNED_CANDIDATE_TO_READY_FOR_ID"
