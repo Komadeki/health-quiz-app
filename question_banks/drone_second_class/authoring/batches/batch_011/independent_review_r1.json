@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B11",
+  "review_round": 1,
+  "reviewer": {
+    "id": "autopilot-b11-risk-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "chatgpt-b11-risk-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Use Chapter 6 propositions outside subsections explicitly marked 〔一等〕."
+  },
+  "review_basis": [
+    "current merged B11 candidates.csv",
+    "current 295-question canonical inventory",
+    "B11 plan nearest-canonical and collision notes",
+    "current MLIT 教則第5版 Chapter 6 source contract",
+    "merged 400-question quality-preserving controlled-variant contract",
+    "answer correctness, answer uniqueness, source support, distractor plausibility, commercial practice value, proposition/misconception/reasoning-path distinctness"
+  ],
+  "summary": {
+    "reviewed": 20,
+    "accept": 18,
+    "reject": 2,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {"candidate_id":"B11-RISK-C001","decision":"ACCEPT","rationale":"The item directly tests the source-defined landing-site condition of a level location with no surrounding or overhead obstacle. Q090 tests the flight-area safety margin and Q119 tests compass-error structures, so the proposition is materially distinct."},
+    {"candidate_id":"B11-RISK-C002","decision":"ACCEPT","rationale":"The end-to-end safety-management lifecycle from pre-takeoff through post-landing is explicit in the source and distinct from Q091 constraint integration and Q121 anticipated-condition checks."},
+    {"candidate_id":"B11-RISK-C003","decision":"ACCEPT","rationale":"The source explicitly states that risk-management thinking remains applicable outside Category III. Existing canonical items test components of risk assessment, not this applicability boundary."},
+    {"candidate_id":"B11-RISK-C004","decision":"REJECT","rationale":"Fail closed on source support. The source states that risk may be reduced through probability-reduction measures and/or consequence-mitigation measures, but it does not explicitly require every risk decision to consider both measure classes before selecting controls. The candidate makes that combined-review duty answer-defining and therefore overstates the cited proposition relative to Q009/Q010."},
+    {"candidate_id":"B11-RISK-C005","decision":"ACCEPT","rationale":"High-pressure clockwise outward circulation, central subsidence and generally fair weather are explicit and are the distinct counterpart to Q264's low-pressure circulation."},
+    {"candidate_id":"B11-RISK-C006","decision":"ACCEPT","rationale":"The west-high/east-low winter pattern and Sea-of-Japan snowfall consequence are source-defined and absent from the canonical bank."},
+    {"candidate_id":"B11-RISK-C007","decision":"ACCEPT","rationale":"The surface-intersection definition of a front is explicit and distinct from existing items on individual cold, warm and stationary-front behavior."},
+    {"candidate_id":"B11-RISK-C008","decision":"ACCEPT","rationale":"Occluded-front formation by a cold front catching a warm front and subsequent low-pressure weakening are both explicit and not otherwise tested."},
+    {"candidate_id":"B11-RISK-C009","decision":"ACCEPT","rationale":"The item binds spring/autumn air-mass transition to a stationary boundary, prolonged rain, low cloud base and visibility degradation. Q266 only tests stationary-front persistence/long rain, so the causal weather-to-operational-risk path is materially distinct."},
+    {"candidate_id":"B11-RISK-C010","decision":"REJECT","rationale":"Semantic collision/low incremental value. Q266 already defines stationary fronts and explicitly identifies Baiu and autumn-rain fronts as examples that bring prolonged rain. Recasting Baiu as the prominent prolonged/heavy-rain stationary-front subtype adds too little solving-rule distinctness for the 400-target quality floor."},
+    {"candidate_id":"B11-RISK-C011","decision":"ACCEPT","rationale":"The high-to-low pressure direction of horizontal air flow is a foundational explicit wind proposition not tested by Q263's isobar-spacing strength rule or Q264's low-pressure circulation."},
+    {"candidate_id":"B11-RISK-C012","decision":"ACCEPT","rationale":"The wind-direction naming convention tests origin-versus-destination interpretation and is distinct from sea/land wind and mountain/valley wind direction-change questions."},
+    {"candidate_id":"B11-RISK-C013","decision":"ACCEPT","rationale":"The approximately 4 km microburst classification boundary and potentially stronger downdraft characteristic are source-defined; Q129 tests short duration/local detectability instead."},
+    {"candidate_id":"B11-RISK-C014","decision":"ACCEPT","rationale":"Tier B PASS. The source explicitly requires pre-start confirmation that weather will not interfere from takeoff through landing. Q093 tests information-source selection and Q096/Q126 test already-present fog/thunder. This candidate changes the temporal decision boundary and reasoning path."},
+    {"candidate_id":"B11-RISK-C015","decision":"ACCEPT","rationale":"The elevated proficiency and safety-awareness requirement for aircraft at or above 25 kg follows explicitly from greater accident consequence and differs from inertia/avoidance and emergency-landing-area questions."},
+    {"candidate_id":"B11-RISK-C016","decision":"ACCEPT","rationale":"Large-aircraft noise and route-neighborhood consideration are explicit. Q163 tests power-source-related noise differences, not size-related route impact."},
+    {"candidate_id":"B11-RISK-C017","decision":"ACCEPT","rationale":"Tier B PASS. GNSS anomaly is a separate failure trigger from Q139 radio-link loss, with its own source-defined response branch of position hold, safe auto-landing or alternative positioning."},
+    {"candidate_id":"B11-RISK-C018","decision":"ACCEPT","rationale":"Tier B PASS. Battery voltage/capacity/temperature abnormality defines a separate failure branch requiring smoke/fire prevention plus return or safe landing; Q045 only covers low-temperature endurance reduction."},
+    {"candidate_id":"B11-RISK-C019","decision":"ACCEPT","rationale":"Tier B PASS. Q154 tests the certified third-party-harm-prevention function as the baseline no-assistant BVLOS requirement; this item tests the source's explicit controlled-area/continuous-monitoring exception boundary."},
+    {"candidate_id":"B11-RISK-C020","decision":"ACCEPT","rationale":"Tier B PASS. The explicit requirement to retain ground awareness of aircraft location even after an abnormal forced landing changes the lifecycle state relative to Q138's bundled normal/abnormal equipment requirement and Q141's telemetry/path-delta checks."}
+  ],
+  "controlled_variant_gate": {
+    "reviewed_tier_b": ["B11-RISK-C004","B11-RISK-C014","B11-RISK-C017","B11-RISK-C018","B11-RISK-C019","B11-RISK-C020"],
+    "accepted_tier_b": ["B11-RISK-C014","B11-RISK-C017","B11-RISK-C018","B11-RISK-C019","B11-RISK-C020"],
+    "rejected_tier_b": ["B11-RISK-C004"],
+    "density_policy_checked": true,
+    "minimum_distinct_axes_checked": true,
+    "wording_only_duplicates_allowed": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_18_ACCEPT_2_REJECT"
+}
