@@ -116,23 +116,9 @@ jobs:
               'self.assertEqual(manifest["free_question_count"], 30)',
           )
 
-          protected_snapshot_fields = '''            for field in (
-                "correct_choice",
-                "source_id",
-                "difficulty",
-                "importance",
-                "is_free",
-            ):
-                self.assertEqual(str(released[field]), question[field])'''
-          mutable_access_fields = '''            for field in (
-                "correct_choice",
-                "source_id",
-                "difficulty",
-                "importance",
-            ):
-                self.assertEqual(str(released[field]), question[field])'''
-          assert text.count(protected_snapshot_fields) == 1
-          text = text.replace(protected_snapshot_fields, mutable_access_fields, 1)
+          access_snapshot_pair = '                "importance",\n                "is_free",\n'
+          assert text.count(access_snapshot_pair) == 1, text.count(access_snapshot_pair)
+          text = text.replace(access_snapshot_pair, '                "importance",\n', 1)
 
           old_units = '''            {
                 "drone_rules": 5,
@@ -146,7 +132,7 @@ jobs:
                 "drone_operations": 7,
                 "drone_risk_management": 7,
             },'''
-          assert text.count(old_units) == 1
+          assert text.count(old_units) == 1, text.count(old_units)
           text = text.replace(old_units, new_units, 1)
           contract.write_text(text, encoding='utf-8')
           PY
