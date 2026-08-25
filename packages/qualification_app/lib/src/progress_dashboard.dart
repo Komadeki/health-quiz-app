@@ -1,0 +1,614 @@
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+import 'package:quiz_engine/quiz_engine.dart';
+
+import 'production_controller.dart';
+
+final class QualificationProgressDashboard extends StatelessWidget {
+  const QualificationProgressDashboard({required this.controller, super.key});
+
+  final QualificationProductionController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final progress = controller.progress!;
+    final overall = progress.overall;
+    final bank = controller.bank!;
+    final percent = (overall.completion * 100).round();
+    final accuracy = overall.accuracy == null
+        ? '—'
+        : '${(overall.accuracy! * 100).round()}%';
+    final selectionEngine = PracticeSelectionEngine(
+      canAccess: (candidate) =>
+          controller.canAccess(bank.cardsById[candidate.questionId]!),
+      randomizer: const IdentityQuestionRandomizer(),
+    );
+    final reviewCount = selectionEngine
+        .selectIncorrect(bank.candidates, controller.events)
+        .length;
+    final bestMock = _bestMockHistory(controller.history);
+    final mockBest = bestMock == null
+        ? '—'
+        : '${bestMock.correctCount}/${bestMock.totalCount}';
+    final radarData = <_RadarDatum>[
+      for (final unit in bank.units)
+        _RadarDatum(
+          label: unit.title,
+          value: (progress.byUnit[unit.id]?.accuracy ?? 0)
+              .clamp(0.0, 1.0)
+              .toDouble(),
+          hasData: progress.byUnit[unit.id]?.accuracy != null,
+        ),
+    ];
+
+    return Card(
+      key: const Key('progress-card'),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '学習進捗',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
+                ),
+                const Icon(Icons.auto_graph),
+              ],
+            ),
+            const SizedBox(height: 20),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final textScale =
+                    MediaQuery.textScalerOf(context).scale(1.0);
+                final stackCharts =
+                    constraints.maxWidth < 260 || textScale > 1.7;
+                final ring = _ProgressRing(
+                  completion: overall.completion,
+                  percent: percent,
+                );
+                final radar = _UnitPerformanceChart(data: radarData);
+                if (stackCharts) {
+                  return Column(
+                    children: [
+                      ring,
+                      const SizedBox(height: 16),
+                      radar,
+                    ],
+                  );
+                }
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(child: Center(child: ring)),
+                    const SizedBox(width: 12),
+                    Expanded(child: radar),
+                  ],
+                );
+              },
+            ),
+            const SizedBox(height: 20),
+            _ProgressMetrics(
+              completed: '${overall.completedQuestions}問',
+              accuracy: accuracy,
+              review: '$reviewCount問',
+              mockBest: mockBest,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              '${overall.completedQuestions} / ${overall.totalQuestions}問 ・ '
+              '${overall.attemptCount}回答',
+              key: const Key('overall-progress'),
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                key: const Key('show-learning-status'),
+                onPressed: () => _showLearningStatus(context, controller),
+                icon: const Icon(Icons.insights),
+                label: const Text('学習状況を詳しく見る'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+SessionHistoryV1? _bestMockHistory(List<SessionHistoryV1> history) {
+  SessionHistoryV1? best;
+  for (final item in history) {
+    if (item.mode != LearningModeV1.mockExam) continue;
+    if (best == null) {
+      best = item;
+      continue;
+    }
+    final itemRate = item.totalCount == 0
+        ? 0.0
+        : item.correctCount / item.totalCount;
+    final bestRate = best.totalCount == 0
+        ? 0.0
+        : best.correctCount / best.totalCount;
+    if (itemRate > bestRate ||
+        (itemRate == bestRate && item.correctCount > best.correctCount)) {
+      best = item;
+    }
+  }
+  return best;
+}
+
+final class _ProgressRing extends StatelessWidget {
+  const _ProgressRing({required this.completion, required this.percent});
+
+  final double completion;
+  final int percent;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.square(
+      dimension: 120,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox.square(
+            dimension: 112,
+            child: CircularProgressIndicator(
+              key: const Key('overall-progress-ring'),
+              value: completion,
+              strokeWidth: 10,
+              strokeCap: StrokeCap.round,
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            ),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '$percent%',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
+              ),
+              Text('完了', style: Theme.of(context).textTheme.labelMedium),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+final class _ProgressMetrics extends StatelessWidget {
+  const _ProgressMetrics({
+    required this.completed,
+    required this.accuracy,
+    required this.review,
+    required this.mockBest,
+  });
+
+  final String completed;
+  final String accuracy;
+  final String review;
+  final String mockBest;
+
+  @override
+  Widget build(BuildContext context) {
+    final metrics = <Widget>[
+      _MetricTile(
+        key: const Key('progress-metric-completed'),
+        icon: Icons.check_circle_outline,
+        value: completed,
+        label: '学習済み',
+      ),
+      _MetricTile(
+        key: const Key('progress-metric-accuracy'),
+        icon: Icons.track_changes,
+        value: accuracy,
+        label: '正答率',
+      ),
+      _MetricTile(
+        key: const Key('progress-metric-review'),
+        icon: Icons.replay,
+        value: review,
+        label: '要復習',
+      ),
+      _MetricTile(
+        key: const Key('progress-metric-mock-best'),
+        icon: Icons.fact_check_outlined,
+        value: mockBest,
+        label: '模試ベスト',
+      ),
+    ];
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final textScale = MediaQuery.textScalerOf(context).scale(1.0);
+        final columns = constraints.maxWidth < 280 || textScale > 1.35 ? 2 : 4;
+        const spacing = 8.0;
+        final width =
+            (constraints.maxWidth - spacing * (columns - 1)) / columns;
+        return Wrap(
+          spacing: spacing,
+          runSpacing: spacing,
+          children: [
+            for (final metric in metrics) SizedBox(width: width, child: metric),
+          ],
+        );
+      },
+    );
+  }
+}
+
+final class _MetricTile extends StatelessWidget {
+  const _MetricTile({
+    required this.icon,
+    required this.value,
+    required this.label,
+    super.key,
+  });
+
+  final IconData icon;
+  final String value;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    return Semantics(
+      label: '$label $value',
+      child: Container(
+        constraints: const BoxConstraints(minHeight: 104),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+        decoration: BoxDecoration(
+          color: colors.secondaryContainer.withValues(alpha: 0.65),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(icon, size: 18, color: colors.onSecondaryContainer),
+            const Spacer(),
+            Text(
+              value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+final class _RadarDatum {
+  const _RadarDatum({
+    required this.label,
+    required this.value,
+    required this.hasData,
+  });
+
+  final String label;
+  final double value;
+  final bool hasData;
+}
+
+final class _UnitPerformanceChart extends StatelessWidget {
+  const _UnitPerformanceChart({required this.data});
+
+  final List<_RadarDatum> data;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final semanticSummary = data
+        .map(
+          (item) => item.hasData
+              ? '${item.label}${(item.value * 100).round()}%'
+              : '${item.label}未回答',
+        )
+        .join('、');
+    final supportsRadar = data.length >= 3 && data.length <= 6;
+    return Semantics(
+      key: const Key('unit-performance-chart'),
+      label: '単元別の正答率。$semanticSummary',
+      child: ExcludeSemantics(
+        child: SizedBox(
+          height: 170,
+          child: Column(
+            children: [
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: colors.secondaryContainer.withValues(alpha: 0.55),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  child: Text(
+                    '単元別',
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: colors.onSecondaryContainer,
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 4),
+              Expanded(
+                child: supportsRadar
+                    ? CustomPaint(
+                        painter: _RadarPainter(
+                          data: data,
+                          gridColor: colors.outlineVariant,
+                          axisColor: colors.outlineVariant,
+                          fillColor: colors.primary.withValues(alpha: 0.16),
+                          strokeColor: colors.primary,
+                          textColor: colors.onSurface,
+                        ),
+                        child: const SizedBox.expand(),
+                      )
+                    : _UnitPerformanceFallback(data: data),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+final class _UnitPerformanceFallback extends StatelessWidget {
+  const _UnitPerformanceFallback({required this.data});
+
+  final List<_RadarDatum> data;
+
+  @override
+  Widget build(BuildContext context) {
+    if (data.isEmpty) {
+      return const Center(child: Text('単元データなし'));
+    }
+    return ListView(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      children: [
+        for (final item in data)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 6),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 64,
+                  child: Text(
+                    _shortRadarLabel(item.label),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Expanded(child: LinearProgressIndicator(value: item.value)),
+                const SizedBox(width: 6),
+                SizedBox(
+                  width: 32,
+                  child: Text(
+                    item.hasData ? '${(item.value * 100).round()}%' : '—',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+final class _RadarPainter extends CustomPainter {
+  const _RadarPainter({
+    required this.data,
+    required this.gridColor,
+    required this.axisColor,
+    required this.fillColor,
+    required this.strokeColor,
+    required this.textColor,
+  });
+
+  final List<_RadarDatum> data;
+  final Color gridColor;
+  final Color axisColor;
+  final Color fillColor;
+  final Color strokeColor;
+  final Color textColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (data.length < 3) return;
+    final center = Offset(size.width / 2, size.height / 2 + 2);
+    final radius = math.min(size.width, size.height) * 0.29;
+    final count = data.length;
+    final gridPaint = Paint()
+      ..color = gridColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+    final axisPaint = Paint()
+      ..color = axisColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+
+    Offset pointAt(int index, double scale) {
+      final angle = -math.pi / 2 + (math.pi * 2 * index / count);
+      return Offset(
+        center.dx + math.cos(angle) * radius * scale,
+        center.dy + math.sin(angle) * radius * scale,
+      );
+    }
+
+    for (final level in [0.25, 0.5, 0.75, 1.0]) {
+      final path = Path()..moveTo(pointAt(0, level).dx, pointAt(0, level).dy);
+      for (var index = 1; index < count; index += 1) {
+        final point = pointAt(index, level);
+        path.lineTo(point.dx, point.dy);
+      }
+      path.close();
+      canvas.drawPath(path, gridPaint);
+    }
+
+    for (var index = 0; index < count; index += 1) {
+      canvas.drawLine(center, pointAt(index, 1), axisPaint);
+    }
+
+    final valuePath = Path();
+    for (var index = 0; index < count; index += 1) {
+      final point = pointAt(index, data[index].value);
+      if (index == 0) {
+        valuePath.moveTo(point.dx, point.dy);
+      } else {
+        valuePath.lineTo(point.dx, point.dy);
+      }
+    }
+    valuePath.close();
+    canvas.drawPath(
+      valuePath,
+      Paint()
+        ..color = fillColor
+        ..style = PaintingStyle.fill,
+    );
+    canvas.drawPath(
+      valuePath,
+      Paint()
+        ..color = strokeColor
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2,
+    );
+    for (var index = 0; index < count; index += 1) {
+      final point = pointAt(index, data[index].value);
+      canvas.drawCircle(
+        point,
+        3.5,
+        Paint()
+          ..color = strokeColor
+          ..style = PaintingStyle.fill,
+      );
+    }
+
+    for (var index = 0; index < count; index += 1) {
+      final angle = -math.pi / 2 + (math.pi * 2 * index / count);
+      final anchor = Offset(
+        center.dx + math.cos(angle) * radius * 1.48,
+        center.dy + math.sin(angle) * radius * 1.48,
+      );
+      final datum = data[index];
+      final label = datum.hasData
+          ? '${_shortRadarLabel(datum.label)} ${(datum.value * 100).round()}%'
+          : '${_shortRadarLabel(datum.label)} —';
+      final painter = TextPainter(
+        text: TextSpan(
+          text: label,
+          style: TextStyle(
+            color: textColor,
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr,
+        maxLines: 2,
+      )..layout(maxWidth: 68);
+      final rawX = anchor.dx - painter.width / 2;
+      final rawY = anchor.dy - painter.height / 2;
+      final x = rawX.clamp(0.0, math.max(0.0, size.width - painter.width));
+      final y = rawY.clamp(0.0, math.max(0.0, size.height - painter.height));
+      painter.paint(canvas, Offset(x.toDouble(), y.toDouble()));
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _RadarPainter oldDelegate) => true;
+}
+
+String _shortRadarLabel(String label) {
+  final trimmed = label.trim();
+  if (trimmed.length <= 6) return trimmed;
+  return '${trimmed.substring(0, 6)}…';
+}
+
+Future<void> _showLearningStatus(
+  BuildContext context,
+  QualificationProductionController controller,
+) {
+  final overall = controller.progress!.overall;
+  return showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    isScrollControlled: true,
+    builder: (context) => SafeArea(
+      child: FractionallySizedBox(
+        heightFactor: 0.78,
+        child: ListView(
+          key: const Key('learning-status-sheet'),
+          padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
+          children: [
+            Text('学習状況', style: Theme.of(context).textTheme.headlineSmall),
+            const SizedBox(height: 4),
+            Text(
+              '${overall.completedQuestions}/${overall.totalQuestions}問を学習済み。'
+              '単元ごとの進み具合を確認できます。',
+            ),
+            const SizedBox(height: 20),
+            for (final unit in controller.bank!.units) ...[
+              Builder(
+                builder: (context) {
+                  final metric = controller.progress!.byUnit[unit.id];
+                  final completed = metric?.completedQuestions ?? 0;
+                  final total = metric?.totalQuestions ?? unit.cards.length;
+                  final completion = metric?.completion ?? 0;
+                  final accuracy = metric?.accuracy;
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            unit.title,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 10),
+                          LinearProgressIndicator(value: completion),
+                          const SizedBox(height: 8),
+                          Text(
+                            '$completed/$total問を学習済み'
+                            '${accuracy == null ? '' : ' ・ 正答率${(accuracy * 100).round()}%'}',
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
+            ],
+          ],
+        ),
+      ),
+    ),
+  );
+}
