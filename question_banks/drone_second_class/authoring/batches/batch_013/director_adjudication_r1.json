@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B13",
+  "adjudication_round": 1,
+  "director": {"id": "chatgpt-primary-director-b13-r1", "role": "DECISION_OWNER"},
+  "adjudicated_at": "2026-08-25",
+  "author_identity": "chatgpt-b13-systems-author-r1",
+  "reviewer_identity": "autopilot-b13-systems-reviewer-r1",
+  "identity_separation_checked": true,
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {"accept": 4, "reject": 16, "rework": 0, "hold": 0},
+  "accepted_candidate_ids": ["B13-SYS-C002", "B13-SYS-C009", "B13-SYS-C014", "B13-SYS-C020"],
+  "rejected_candidate_ids": ["B13-SYS-C001", "B13-SYS-C003", "B13-SYS-C004", "B13-SYS-C005", "B13-SYS-C006", "B13-SYS-C007", "B13-SYS-C008", "B13-SYS-C010", "B13-SYS-C011", "B13-SYS-C012", "B13-SYS-C013", "B13-SYS-C015", "B13-SYS-C016", "B13-SYS-C017", "B13-SYS-C018", "B13-SYS-C019"],
+  "director_findings": [
+    "Adopt the independent review because it applies the full-canonical collision gate required by the 400-question quality contract.",
+    "Drop the 16 rejected candidates without replacement; the B13 ceiling is not a quota.",
+    "Retain C002 for the source-defined fixed-wing lateral-movement constraint and bank-turn solution.",
+    "Retain C009 as a materially distinct large-multirotor ground-effect boundary variant relative to Q132.",
+    "Retain C014 because the Ah = A × h relationship is not answer-defining in the current canonical bank; Q159 overlap is contextual only.",
+    "Retain C020 for source-defined antenna directionality and operational orientation.",
+    "Reject C007 because Q149 already embeds the same opposite-rotation reaction-torque balance mechanism and the extra density is not justified.",
+    "No HUMAN review is claimed."
+  ],
+  "invariants": {"HUMAN_REVIEW_FABRICATED": false, "ACCEPTANCE_PACKETS_CREATED": 0, "PERMANENT_IDS_ALLOCATED": 0, "CANONICAL_CHANGED": false, "REGISTRY_CHANGED": false, "SOURCE_VERIFICATIONS_CHANGED": false, "RELEASED_CHANGED": false, "RUNTIME_CHANGED": false, "BANK_REVISION_CHANGED": false},
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_4"
+}
