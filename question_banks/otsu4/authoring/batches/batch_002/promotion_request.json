@@ -1,7 +1,0 @@
-{
-  "schema_version": "1.0",
-  "objective": "PROMOTE_OTSU4_BATCH_2_ACCEPTED_23_TO_READY_FOR_ID",
-  "requested_at": "2026-08-25",
-  "expected_candidate_count": 23,
-  "excluded_candidate_id": "O4-B2-LAW-C016"
-}
