@@ -16,6 +16,7 @@
     "late_arrival_rule": "If additional questions become fully eligible before the activation set is frozen, include them in the same release and recompute the target count. If they become eligible after the freeze, or are not yet source-verified, they do not block the current release and move to a later bank revision.",
     "drift_rule": "Any change to eligible canonical/source-verification inputs between activation preparation and execution invalidates the prepared gate and requires automatic re-freeze/re-prepare against current main; do not silently drop newly eligible questions and do not release partially verified questions.",
     "authoring_rule": "Additional authoring/review may continue, but a numeric target and unfinished candidate work must not block the current release once the existing source-verified Production set is commercially sufficient.",
+    "in_flight_batch_rule": "B19 was already authored before this decision. Allow that one in-flight batch to complete independent review, Director adjudication, acceptance, ID integration and source verification. After B19 source verification, freeze the release set before planning or authoring any B20 batch.",
     "free_selection_rule": "Preserve the current 30-question free selection unless a separate monetization decision changes it.",
     "release_revision_rule": "Every activation uses a new bank_revision and preserves all prior question identity and first-use release history."
   },
@@ -29,8 +30,8 @@
     "all required Question Bank, Autopilot State and Quiz Apps CI gates pass"
   ],
   "explicit_exclusions": [
-    "AI_PRE_ACCEPT candidates",
-    "READY_FOR_ID candidates",
+    "AI_PRE_ACCEPT candidates at release freeze",
+    "READY_FOR_ID candidates at release freeze",
     "INTEGRATED candidates lacking canonical source verification",
     "REWORK, HOLD or REJECT candidates",
     "first-class-only or unsupported material",
@@ -39,10 +40,11 @@
   "current_facts": {
     "source_verified_canonical_floor": 371,
     "released_runtime": 188,
-    "b19_candidates_currently_ai_pre_accept": 15,
-    "b19_current_release_treatment": "NON_BLOCKING_UNLESS_FULLY_VERIFIED_BEFORE_FREEZE",
+    "b19_candidates_authored": 15,
+    "b19_current_release_treatment": "COMPLETE_IN_FLIGHT_THEN_INCLUDE_ONLY_VERIFIED_SURVIVORS",
+    "b20_before_current_release": "PROHIBITED",
     "prepared_fixed_371_activation": "SUPERSEDED_NOT_EXECUTABLE",
     "fixed_400_completion_requirement": "SUPERSEDED"
   },
-  "next_atomic_objective": "FREEZE_CURRENT_SOURCE_VERIFIED_SET_FOR_RELEASE_ACTIVATION"
+  "handoff_after_b19": "FREEZE_CURRENT_SOURCE_VERIFIED_SET_FOR_RELEASE_ACTIVATION"
 }
