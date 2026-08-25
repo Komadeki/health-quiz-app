@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B15",
+  "directory_slug": "batch_015",
+  "baseline_sha": "3723a7aa973274750a1246eb0b6bb7a7e3885d7d",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id":"chatgpt-b15-risk-author-r1","role":"AI_AUTHOR"},
+  "expansion_trigger": "Continue from 345 accepted/source-verified canonical questions toward the owner-directed 400-question Production target. B15 authors only the nine Chapter 6 Risk candidates that survived explicit current-canonical pre-screening; no quota backfill is allowed.",
+  "source_contract": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","edition":"第5版","official_current_check":"2026-08-25","official_pdf":"https://www.mlit.go.jp/common/002010809.pdf","second_class_scope_rule":"Use only second-class-applicable Chapter 6 propositions and exclude every subsection explicitly marked 〔一等〕."},
+  "evidence": [
+    "Merged PR #288 persisted the B15 pre-screened Risk plan from canonical/source-verified 345.",
+    "B13 demonstrated high canonical collision in Systems; B15 therefore uses a nine-item pre-screened small batch instead of authoring to a numerical quota.",
+    "Each B15 candidate has a named nearest canonical question or explicit gap rationale before authoring.",
+    "PR #143 adopted the quality-preserving 400-question target contract."
+  ],
+  "target_size_decisions": [{"decision_id":"B15-TARGET-001","previous_approved_target":400,"current_released_count":188,"proposed_target_min":400,"proposed_target_max":400,"approved_new_target":400,"rationale":"Continue the owner-directed 400-question target without changing the released baseline until explicit activation.","decision_date":"2026-08-25","evidence":"Merged PR #143 and PR #288."}],
+  "planned_scope": {"area":"Risk Management","candidate_batch_identity":"B15","candidate_ids":["B15-RISK-C001","B15-RISK-C002","B15-RISK-C003","B15-RISK-C004","B15-RISK-C005","B15-RISK-C006","B15-RISK-C007","B15-RISK-C008","B15-RISK-C009"],"candidate_count":9,"candidate_count_is_quota":false,"tier_counts":{"A_NEW_PROPOSITION":7,"B_BOUNDARY_VARIANT":2,"C_REASONING_VARIANT":0},"tier_b_candidate_ids":["B15-RISK-C001","B15-RISK-C008"],"known_rejected_ids":[]},
+  "coverage_limit_decisions": [
+    {"decision_id":"B15-COVERAGE-LIMIT-001","status":"PRESCREENED_SMALL_BATCH","scope":"Chapter 6 Risk propositions and controlled boundaries","evidence":"Only nine candidates survived the current-canonical planning pre-screen; no backfill is permitted merely to increase count."},
+    {"decision_id":"B15-COVERAGE-LIMIT-002","status":"ACTIVE_POLICY","scope":"Controlled variants","evidence":"Tier B items must retain a source-defined distinct decision boundary and separate reasoning path from their named canonical neighbors."}
+  ],
+  "migration_blockers": [],
+  "invariants": {"CANONICAL_CHANGED_AT_AUTHORING":false,"PERMANENT_IDS_ALLOCATED_AT_AUTHORING":0,"SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false,"FREE_SELECTION_CHANGED":false,"V0_SNAPSHOT_CHANGED":false,"HUMAN_REVIEW_CREATED":false},
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
