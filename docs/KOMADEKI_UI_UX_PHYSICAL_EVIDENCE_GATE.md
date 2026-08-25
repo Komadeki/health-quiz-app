@@ -1,7 +1,8 @@
 # KOMADEKI UI/UX Physical Evidence Gate
 
 Date: 2026-08-25
-Verified repository baseline: `ebce7f3b3de1d76ab778f52746bb7c8a2e0dc729`
+Verified repository baseline: `dabdc2a4869ee41103540ee4fd3de4fbae4b0d8f`
+Verified production UI baseline: `ebce7f3b3de1d76ab778f52746bb7c8a2e0dc729`
 Control issue: #48
 Workstream: `qualification_factory_ui_ux`
 Objective: `VERIFY_PHYSICAL_UX_EVIDENCE`
@@ -13,9 +14,11 @@ The previous physical-evidence contract observed UI/UX baseline
 `00f19d57e11d89a742056b846759c8a8b60cdf67`.
 
 GitHub `main` now includes PR #257, `Add unit radar and actionable progress metrics`, merged
-as `ebce7f3b3de1d76ab778f52746bb7c8a2e0dc729`. That production UI transition intentionally
-changes the shared Home progress dashboard while preserving the existing Factory runtime
-architecture and the Drone thin-composition boundary.
+as production UI baseline `ebce7f3b3de1d76ab778f52746bb7c8a2e0dc729`. Subsequent main
+advancement through `dabdc2a4869ee41103540ee4fd3de4fbae4b0d8f` changes only Otsu4
+Question Bank authoring/source/state artifacts and does not touch the shared Qualification UI
+or Drone production composition. Therefore `dabdc2a...` is the current reconciled repository
+baseline and `ebce7f3b...` remains the verified UI baseline contained within it.
 
 The reconciled progress dashboard now provides:
 
@@ -33,10 +36,6 @@ PR #257 passed required Quiz Apps CI run #422 (`32826160634`): scope, shared che
 qualification-app checks, health checks, and ci-gate all passed. The shared checks include the
 existing compact/large-text gates and new progress-dashboard behavior assertions; the Drone
 product-seam test confirms its four-unit bank uses the radar rendering path.
-
-Concurrent Question Bank / worker transitions between the CI base and merge changed no
-`packages/qualification_app` or Drone production UI files. The merge was reconciled against
-then-current `main` before acceptance.
 
 If a later `main` changes relevant production UI before physical evidence is collected, the
 physical gate must be reconciled again rather than treating this baseline as current.
@@ -70,7 +69,7 @@ legibility, or physical scrolling behavior on a shipping phone.
 
 A single pass on the primary shipping platform is required for this UI/UX gate. For the
 current Drone reference product, use a physical iPhone with a build containing this verified
-baseline or a later reconciled `main` commit. Debug/device installation or TestFlight is
+UI baseline or a later reconciled `main` commit. Debug/device installation or TestFlight is
 acceptable; App Store purchase completion is not required by this UI/UX gate.
 
 Perform the following bounded interaction check:
