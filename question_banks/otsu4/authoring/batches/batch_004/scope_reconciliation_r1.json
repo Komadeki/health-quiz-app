@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "app_key": "otsu4",
+  "batch_id": "B4",
+  "wave_id": "W1",
+  "reconciliation_id": "O4-W1-B4-COUNT-R1",
+  "reconciled_at": "2026-08-25",
+  "reason": "Authoring commit persisted 24 AI_PRE_ACCEPT rows while batch and wave metadata contractually recorded an actual candidate count of 20.",
+  "authoritative_expected_count": 20,
+  "observed_pre_reconciliation_count": 24,
+  "post_reconciliation_count": 20,
+  "removed_candidate_ids": [
+    "O4-B4-FIR-C021",
+    "O4-B4-FIR-C022",
+    "O4-B4-FIR-C023",
+    "O4-B4-FIR-C024"
+  ],
+  "removed_candidate_disposition": "UNREVIEWED_SCOPE_SPILLOVER_REMOVED",
+  "semantic_rejection": false,
+  "permanent_ids_affected": 0,
+  "canonical_rows_affected": 0,
+  "released_rows_affected": 0,
+  "runtime_affected": false,
+  "evidence": [
+    "question_banks/otsu4/authoring/batches/batch_004/batch.json",
+    "question_banks/otsu4/authoring/waves/wave_001.json",
+    "PR #367 / commit 9483eeee31c264b098d24c23fd4a4fd9e9c1b954"
+  ],
+  "next_gate": "INDEPENDENT_AI_REVIEW_W1_B4_B5_B6_60"
+}
