@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B16",
+  "directory_slug": "batch_016",
+  "baseline_sha": "7788b3bbbf65e2f75389e6cf0c99016ab8f6be7a",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id":"chatgpt-b16-operations-author-r1","role":"AI_AUTHOR"},
+  "expansion_trigger": "Continue from 354 accepted/source-verified canonical questions toward the owner-directed 400-question Production target. B16 authors only six Chapter 5 Operations candidates that survived explicit pre-screen against all 354 canonical questions; no quota backfill is allowed.",
+  "source_contract": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","edition":"第5版","official_current_check":"2026-08-25","official_pdf":"https://www.mlit.go.jp/common/002010810.pdf","second_class_scope_rule":"Use only second-class-applicable Chapter 5 propositions and exclude every subsection explicitly marked 〔一等〕."},
+  "evidence": [
+    "Merged PR #304 persisted the B16 pre-screened Operations plan from canonical/source-verified 354.",
+    "B13 demonstrated high canonical collision in Systems while B12 Operations produced high acceptance yield; B16 therefore uses a six-item pre-screened Operations batch.",
+    "Each B16 candidate has a named nearest canonical question and explicit non-collision reasoning before authoring.",
+    "PR #143 adopted the quality-preserving 400-question target contract."
+  ],
+  "target_size_decisions": [{"decision_id":"B16-TARGET-001","previous_approved_target":400,"current_released_count":188,"proposed_target_min":400,"proposed_target_max":400,"approved_new_target":400,"rationale":"Continue the owner-directed 400-question target without changing the released baseline until explicit activation.","decision_date":"2026-08-25","evidence":"Merged PR #143 and PR #304."}],
+  "planned_scope": {"area":"Operations","candidate_batch_identity":"B16","candidate_ids":["B16-OPS-C001","B16-OPS-C002","B16-OPS-C003","B16-OPS-C004","B16-OPS-C005","B16-OPS-C006"],"candidate_count":6,"candidate_count_is_quota":false,"tier_counts":{"A_NEW_PROPOSITION":4,"B_BOUNDARY_VARIANT":2,"C_REASONING_VARIANT":0},"tier_b_candidate_ids":["B16-OPS-C001","B16-OPS-C004"],"known_rejected_ids":[]},
+  "coverage_limit_decisions": [
+    {"decision_id":"B16-COVERAGE-LIMIT-001","status":"PRESCREENED_SMALL_BATCH","scope":"Chapter 5 Operations propositions and controlled boundaries","evidence":"Only six candidates survived the current-canonical planning pre-screen; no backfill is permitted merely to increase count."},
+    {"decision_id":"B16-COVERAGE-LIMIT-002","status":"ACTIVE_POLICY","scope":"Controlled variants","evidence":"Tier B items must retain a distinct flight phase, aircraft applicability, action boundary, or reasoning path from their named canonical neighbors."}
+  ],
+  "migration_blockers": [],
+  "invariants": {"CANONICAL_CHANGED_AT_AUTHORING":false,"PERMANENT_IDS_ALLOCATED_AT_AUTHORING":0,"SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false,"FREE_SELECTION_CHANGED":false,"V0_SNAPSHOT_CHANGED":false,"HUMAN_REVIEW_CREATED":false},
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
