@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B13",
+  "review_round": 1,
+  "reviewer": {"id":"autopilot-b13-systems-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked": "chatgpt-b13-systems-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {
+    "source_id":"MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version":"5",
+    "edition":"第5版",
+    "official_current_check":"2026-08-25",
+    "official_pdf":"https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule":"Use only second-class-applicable Chapter 4 propositions; exclude subsections explicitly marked 〔一等〕."
+  },
+  "review_basis": [
+    "current merged B13 candidates.csv from PR #251",
+    "current 332-question canonical inventory, not only B8/B13 neighboring batches",
+    "B13 plan from PR #249",
+    "current MLIT 教則第5版 Chapter 4 source text",
+    "400-question quality-preserving controlled-variant contract",
+    "source fidelity, second-class applicability, answer uniqueness, semantic distinctness, commercial practice value, plausible distractors and explanation correctness"
+  ],
+  "summary": {"reviewed":20,"accept":4,"reject":16,"rework":0,"hold":0},
+  "decisions": [
+    {"candidate_id":"B13-SYS-C001","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000142","rationale":"Same answer-defining Powered-lift/VTOL proposition: vertical takeoff/landing combined with fixed-wing-style forward flight."},
+    {"candidate_id":"B13-SYS-C002","decision":"ACCEPT","rationale":"Explicit fixed-wing motion constraint not answer-defining elsewhere: no direct lateral translation; horizontal direction change requires a banked turn. Existing fixed-wing questions cover minimum speed, glide and control-surface axes, not this lateral-movement rule."},
+    {"candidate_id":"B13-SYS-C003","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000146","rationale":"Q146 already directly tests that stall makes control-surface operation ineffective/difficult. Adding airflow-separation wording does not create a materially different decision boundary."},
+    {"candidate_id":"B13-SYS-C004","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000061","rationale":"Q061 already directly tests swashplate control of rotor-disk tilt and rotor pitch."},
+    {"candidate_id":"B13-SYS-C005","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000068","rationale":"Existing canonical question already directly tests the tail rotor as counter-torque and heading/yaw control."},
+    {"candidate_id":"B13-SYS-C006","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000148","rationale":"Q148 already directly tests increased rotor count as improving failure tolerance and payload under equivalent motor performance."},
+    {"candidate_id":"B13-SYS-C007","decision":"REJECT","reason_code":"SAME_CORE_REASONING_COLLISION","collided_question_id":"DRONE-Q-000149","rationale":"Q149 already requires recognition of clockwise/counter-clockwise reaction-torque balance and its deliberate imbalance for yaw. C007 isolates the prerequisite balance statement but does not add enough independent decision-boundary value to justify another item under the density policy."},
+    {"candidate_id":"B13-SYS-C008","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000149","rationale":"Same answer-defining yaw-by-reaction-torque-imbalance proposition as Q149."},
+    {"candidate_id":"B13-SYS-C009","decision":"ACCEPT","rationale":"Tier B PASS. Q132 is helicopter-specific ground-effect recognition near approximately rotor-radius altitude. C009 applies the separate source-defined large-multirotor boundary: broader ground-effect influence near takeoff/hover and higher control demand. Aircraft applicability, operating state and reasoning path materially differ."},
+    {"candidate_id":"B13-SYS-C010","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000063","rationale":"Existing canonical question already directly tests loss/unavailability of vision-sensor-dependent functions at night when the sensor is not night-capable."},
+    {"candidate_id":"B13-SYS-C011","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000078","rationale":"Existing canonical question already directly tests manufacturer-defined periodic maintenance by elapsed period or accumulated flight time."},
+    {"candidate_id":"B13-SYS-C012","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000070","rationale":"Existing canonical question already directly tests IMU composition from three-axis gyros and accelerometers and the motion information they provide."},
+    {"candidate_id":"B13-SYS-C013","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000156","rationale":"Q156 already directly tests barometric, ultrasonic and LiDAR altitude-sensing modalities and their principles."},
+    {"candidate_id":"B13-SYS-C014","decision":"ACCEPT","rationale":"The explicit Ah = current A × time h capacity relationship is not answer-defining in the canonical bank. Q159 tests conditions that change usable capacity, while C014 requires recognition of the Ah definition; the overlap about temperature/discharge conditions is explanatory context rather than the new core relation."},
+    {"candidate_id":"B13-SYS-C015","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000161","rationale":"Q161 already directly tests brushless-motor maintenance, noise and longevity characteristics."},
+    {"candidate_id":"B13-SYS-C016","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000162","rationale":"Q162 already directly tests matching CW/CCW propeller shape/orientation to motor rotation direction."},
+    {"candidate_id":"B13-SYS-C017","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000071","rationale":"Existing canonical question already directly tests ESC control of motor speed/thrust from controller commands."},
+    {"candidate_id":"B13-SYS-C018","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000163","rationale":"Q163 already directly tests the electric-versus-engine endurance/noise tradeoff."},
+    {"candidate_id":"B13-SYS-C019","decision":"REJECT","reason_code":"CANONICAL_COLLISION","collided_question_id":"DRONE-Q-000166","rationale":"Q166 already directly tests multi-cell LiPo balance charging and use of the balance connector."},
+    {"candidate_id":"B13-SYS-C020","decision":"ACCEPT","rationale":"Antenna radiation/reception strength directionality and operational orientation based on transmitter handling plus aircraft position are explicitly source-defined and not answer-defining in the canonical bank. Existing radio items test multipath/Fresnel/interference rather than antenna orientation."}
+  ],
+  "controlled_variant_gate": {
+    "reviewed_tier_b": ["B13-SYS-C003","B13-SYS-C008","B13-SYS-C009"],
+    "accepted_tier_b": ["B13-SYS-C009"],
+    "rejected_tier_b": ["B13-SYS-C003","B13-SYS-C008"],
+    "additional_same_core_candidate_rejected": ["B13-SYS-C007"],
+    "density_policy_checked": true,
+    "minimum_distinct_axes_checked": true,
+    "wording_only_duplicates_allowed": false
+  },
+  "canonical_collision_reconciliation": {
+    "planning_claim_corrected": true,
+    "hard_rejected_count": 16,
+    "quota_backfill": false,
+    "accepted_candidate_ids": ["B13-SYS-C002","B13-SYS-C009","B13-SYS-C014","B13-SYS-C020"]
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED":0,
+    "ACCEPTANCE_PACKETS_CREATED":0,
+    "PERMANENT_IDS_ALLOCATED":0,
+    "CANONICAL_CHANGED":false,
+    "REGISTRY_CHANGED":false,
+    "SOURCE_VERIFICATIONS_CHANGED":false,
+    "RELEASED_CHANGED":false,
+    "RUNTIME_CHANGED":false,
+    "BANK_REVISION_CHANGED":false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_4_ACCEPT_16_REJECT"
+}
