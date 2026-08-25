@@ -185,8 +185,7 @@ void main() {
     expect(tester.widget<Card>(recommendation).color, colors.primaryContainer);
     expect(tester.widget<Card>(history).color, colors.surfaceContainerLow);
     expect(
-      tester
-          .widget<ListTile>(find.byKey(const Key('show-session-history')))
+      tester.widget<ListTile>(find.byKey(const Key('show-session-history')))
           .onTap,
       isNull,
     );
@@ -259,42 +258,42 @@ void main() {
   });
 
   testWidgets(
-    'support and privacy links use definition URLs without fatal failure',
-    (tester) async {
-      final controller = await createController();
-      addTearDown(controller.dispose);
-      final opened = <Uri>[];
-      await tester.pumpWidget(
-        QualificationProductionApp(
-          definition: fixtureDefinition,
-          controller: controller,
-          urlLauncher: (url) async {
-            opened.add(url);
-            return false;
-          },
-        ),
-      );
+      'support and privacy links use definition URLs without fatal failure', (
+    tester,
+  ) async {
+    final controller = await createController();
+    addTearDown(controller.dispose);
+    final opened = <Uri>[];
+    await tester.pumpWidget(
+      QualificationProductionApp(
+        definition: fixtureDefinition,
+        controller: controller,
+        urlLauncher: (url) async {
+          opened.add(url);
+          return false;
+        },
+      ),
+    );
 
-      final support = find.byKey(const Key('support-link'));
-      await tester.scrollUntilVisible(support, 100);
-      await tester.ensureVisible(support);
-      await tester.pumpAndSettle();
-      await tester.tap(support);
-      await tester.pump();
-      final privacy = find.byKey(const Key('privacy-link'));
-      await tester.ensureVisible(privacy);
-      await tester.pumpAndSettle();
-      await tester.tap(privacy);
-      await tester.pump();
+    final support = find.byKey(const Key('support-link'));
+    await tester.scrollUntilVisible(support, 100);
+    await tester.ensureVisible(support);
+    await tester.pumpAndSettle();
+    await tester.tap(support);
+    await tester.pump();
+    final privacy = find.byKey(const Key('privacy-link'));
+    await tester.ensureVisible(privacy);
+    await tester.pumpAndSettle();
+    await tester.tap(privacy);
+    await tester.pump();
 
-      expect(opened, [
-        Uri.parse('https://example.invalid/support'),
-        Uri.parse('https://example.invalid/privacy'),
-      ]);
-      expect(controller.fatalError, isNull);
-      expect(controller.view, QualificationProductionView.home);
-    },
-  );
+    expect(opened, [
+      Uri.parse('https://example.invalid/support'),
+      Uri.parse('https://example.invalid/privacy'),
+    ]);
+    expect(controller.fatalError, isNull);
+    expect(controller.view, QualificationProductionView.home);
+  });
 
   testWidgets('null support and privacy URLs hide their in-app links', (
     tester,
@@ -306,9 +305,7 @@ void main() {
     addTearDown(controller.dispose);
     await tester.pumpWidget(
       QualificationProductionApp(
-        definition: definition,
-        controller: controller,
-      ),
+          definition: definition, controller: controller),
     );
 
     expect(find.byKey(const Key('support-link')), findsNothing);
@@ -351,9 +348,7 @@ void main() {
     addTearDown(controller.dispose);
     await tester.pumpWidget(
       QualificationProductionApp(
-        definition: definition,
-        controller: controller,
-      ),
+          definition: definition, controller: controller),
     );
 
     expect(find.text('残り 1:00'), findsOneWidget);
@@ -386,37 +381,36 @@ void main() {
   });
 
   testWidgets(
-    'mock result without a pass rule explains that score is reference only',
-    (tester) async {
-      final controller = await createController(
-        entitlement: EntitlementSnapshot(
-          ownedProductIds: const {'fixture_full_unlock'},
-        ),
-      );
-      addTearDown(controller.dispose);
-      await tester.pumpWidget(
-        QualificationProductionApp(
-          definition: fixtureDefinition,
-          controller: controller,
-        ),
-      );
-      await controller.startMockExam();
-      while (controller.activeSession != null) {
-        await controller.commitAnswer(controller.currentCard!.answerIndex);
-        await controller.advance();
-      }
-      await tester.pump();
-
-      expect(find.byKey(const Key('session-result')), findsOneWidget);
-      expect(find.byKey(const Key('mock-no-pass-rule')), findsOneWidget);
-      expect(find.text('合格'), findsNothing);
-      expect(find.text('不合格'), findsNothing);
-    },
-  );
-
-  testWidgets('configured pass rules keep the existing pass result', (
+      'mock result without a pass rule explains that score is reference only', (
     tester,
   ) async {
+    final controller = await createController(
+      entitlement: EntitlementSnapshot(
+        ownedProductIds: const {'fixture_full_unlock'},
+      ),
+    );
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      QualificationProductionApp(
+        definition: fixtureDefinition,
+        controller: controller,
+      ),
+    );
+    await controller.startMockExam();
+    while (controller.activeSession != null) {
+      await controller.commitAnswer(controller.currentCard!.answerIndex);
+      await controller.advance();
+    }
+    await tester.pump();
+
+    expect(find.byKey(const Key('session-result')), findsOneWidget);
+    expect(find.byKey(const Key('mock-no-pass-rule')), findsOneWidget);
+    expect(find.text('合格'), findsNothing);
+    expect(find.text('不合格'), findsNothing);
+  });
+
+  testWidgets('configured pass rules keep the existing pass result',
+      (tester) async {
     final profile = MockExamProfileV1(
       profileVersion: 'fixture-pass-v1',
       questionCount: 2,
@@ -439,9 +433,7 @@ void main() {
     addTearDown(controller.dispose);
     await tester.pumpWidget(
       QualificationProductionApp(
-        definition: definition,
-        controller: controller,
-      ),
+          definition: definition, controller: controller),
     );
     await controller.startMockExam();
     while (controller.activeSession != null) {

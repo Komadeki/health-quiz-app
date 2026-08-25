@@ -30,7 +30,10 @@ void main() {
       GeneratedAppManifest.definition.learningProduct.homeHeadline,
       isNot(matches(RegExp(r'全\d+問'))),
     );
-    expect(find.text('${controller.freeQuestionCount}問を無料で体験'), findsOneWidget);
+    expect(
+      find.text('${controller.freeQuestionCount}問を無料で体験'),
+      findsOneWidget,
+    );
     expect(find.byKey(const Key('overall-progress')), findsOneWidget);
     final performanceChart = find.byKey(const Key('unit-performance-chart'));
     expect(performanceChart, findsOneWidget);
@@ -58,7 +61,10 @@ void main() {
       expect(unit, findsOneWidget);
     }
 
-    await tester.scrollUntilVisible(find.byKey(const Key('start-random')), 300);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('start-random')),
+      300,
+    );
     expect(find.byKey(const Key('start-random')), findsOneWidget);
     expect(find.byKey(const Key('start-unanswered')), findsOneWidget);
     expect(find.byKey(const Key('start-incorrect')), findsOneWidget);
