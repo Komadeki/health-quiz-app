@@ -27,5 +27,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Validate Drone autopilot state
         run: python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+      - name: Validate Otsu4 autopilot state
+        run: python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/otsu4_state.json
+      - name: Test autopilot state invariants
+        run: python3 -m unittest tooling/komadeki_autopilot/tests/test_state.py
       - name: Diff hygiene
         run: git diff --check HEAD^ HEAD || git diff --check

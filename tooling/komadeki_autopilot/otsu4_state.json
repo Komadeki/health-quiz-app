@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "project": "03｜KOMADEKI 資格試験アプリ量産",
+  "product": "otsu4",
+  "control_issue": 185,
+  "status": "ACTIVE",
+  "current_phase": "QUESTION_BANK_COMPLETION",
+  "phase_order": ["QUESTION_BANK_COMPLETION","FEATURE_COMPLETION","PRODUCT_CLOSURE","PHYSICAL_DEVICE","STOREKIT_TESTFLIGHT","APP_STORE_CONNECT","FINAL_RELEASE_GATE","SUBMIT","DONE"],
+  "observed_main": "e529e4fa6b354ae2306cd202616aed45c9734ebc",
+  "next_atomic_objective": "FREEZE_OTSU4_AUTHORITATIVE_SOURCE_SET_AND_PRODUCT_SPEC_V0",
+  "autonomous_acceptance": "MIGRATION_REQUIRED",
+  "review_identity_policy": "NEVER_FABRICATE_HUMAN",
+  "local_only_state_authoritative": false,
+  "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
+  "human_blocker": null,
+  "state_epoch": 1
+}
