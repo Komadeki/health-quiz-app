@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5750b744c0dfce111bc80a1478141996e88859d528b1738d0902dd1fdb507988",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-KEROSENE",
+      "source_version": "2019-03-15",
+      "source_locator": "SDS 第9項 物理的及び化学的性質（溶解度）"
+    },
+    "answer_defining_proposition": "灯油は水に不溶である。",
+    "tested_misconception": "灯油は名称に油が付くが水と完全に混和する。",
+    "reasoning_path": "kerosene -> water solubility -> insoluble",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier A; substance-specific property."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Kerosene water insolubility is an independently testable substance property."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0158e8f88fb85a19a7660819f92f901af74adfd40460b87aa1cdc9f4224d78fe",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第7条第1項"
+    },
+    "answer_defining_proposition": "変更許可申請には変更内容と理由を記載する。",
+    "tested_misconception": "変更許可申請では何をなぜ変えるか示す必要がない。",
+    "reasoning_path": "planned facility change -> describe content and reason -> attach required plans",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 change-application evidence; distinct from C002 permission duty."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Change content and reason are exact change-application evidence requirements."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

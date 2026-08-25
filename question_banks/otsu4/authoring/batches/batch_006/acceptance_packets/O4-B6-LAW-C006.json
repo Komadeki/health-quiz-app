@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ad0b19420f4c965a768110c4e0c9926729bf9d43605e981343ebc02d18f5dcf8",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第11条第6項"
+    },
+    "answer_defining_proposition": "製造所等の譲渡・引渡しを受けた者は遅滞なく届け出る。",
+    "tested_misconception": "施設の所有者が変わっても届出は不要である。",
+    "reasoning_path": "facility transfer/delivery -> successor -> notify authority without delay",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 ownership-transition duty; distinct from B2 supervisor notifications."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Transfer/delivery notification is a separate facility-status duty."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C015",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0b3f7cf217212bdc6ec85b4140cc12d607fe7c50ea72b956e38d2521565cb917",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-BENZENE",
+      "source_version": "2023-03-31",
+      "source_locator": "SDS 第9項 物理的及び化学的性質（引火点）"
+    },
+    "answer_defining_proposition": "ベンゼンの引火点は約-11℃である。",
+    "tested_misconception": "ベンゼンの引火点は沸点80℃付近である。",
+    "reasoning_path": "benzene -> flash point -> distinguish from boiling point",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier B numeric decision."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Benzene flash point is exact and tests a common boiling-point/flash-point misconception."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d630654c623fe3e83ff72167ce352ecfe0c1f339871c4c4e35f06af219a1a2d6",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第12条第1項"
+    },
+    "answer_defining_proposition": "製造所等の位置・構造・設備は技術上の基準に適合するよう維持する。",
+    "tested_misconception": "許可時だけ適合していれば、その後の維持は不要である。",
+    "reasoning_path": "facility in service -> maintain position/structure/equipment standards continuously",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 continuing maintenance duty; no canonical collision."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Continuous maintenance of technical-standard compliance is distinct from permission-time review."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C015",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fa9d885b2f143dfa77e6b913a9898ec54f21c8452594412a59deffaf45a64b39",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第6条第1項第4号"
+    },
+    "answer_defining_proposition": "設置許可申請書には危険物の類・品名・最大数量を記載する。",
+    "tested_misconception": "設置申請には危険物の種類や数量を記載しない。",
+    "reasoning_path": "installation application -> identify hazardous material class/name/max quantity -> record",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 application-field recall; distinct from canonical quantity calculations."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Class/name/maximum-quantity application fields are exact and distinct from quantity arithmetic."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

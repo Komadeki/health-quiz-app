@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fd545a9ecc302042d90c5da7d64df6cd00eed764b8a6cfee95b26f365ec75e58",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ETHYL-ACETATE",
+      "source_version": "2020-03-13",
+      "source_locator": "SDS 第9項 物理的及び化学的性質（相対ガス密度）"
+    },
+    "answer_defining_proposition": "酢酸エチル蒸気の相対ガス密度は空気=1に対し約3.04である。",
+    "tested_misconception": "酢酸エチル液体の密度0.9003と蒸気密度は同じである。",
+    "reasoning_path": "ethyl acetate -> vapor density -> separate from liquid density",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier B density distinction."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Ethyl acetate vapor density is a separate answer-defining proposition from flash point and extinguishing media."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

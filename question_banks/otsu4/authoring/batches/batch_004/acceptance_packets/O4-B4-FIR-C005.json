@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "6f80705deda4fc7aa0f76e0800367e4e2b8c61dbda107220d336b645dea64855",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-KEROSENE",
+      "source_version": "2019-03-15",
+      "source_locator": "SDS 第9項 物理的及び化学的性質（引火点）"
+    },
+    "answer_defining_proposition": "灯油の引火点は代表値としておおむね37〜65℃の範囲で示される。",
+    "tested_misconception": "灯油の引火点はガソリンと同様に-40℃前後である。",
+    "reasoning_path": "kerosene -> flash point range -> select range",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier B; distinct from gasoline flash point."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Kerosene flash-point range is source-defined and materially contrasts with low-flash-point liquids."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

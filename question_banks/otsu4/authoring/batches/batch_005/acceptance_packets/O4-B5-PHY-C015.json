@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B5-PHY-C015",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9feb1089a0dacbdf5e70efce1b1a90314f46a6f52038ca8f13a7069c30280be0",
+  "actors": {
+    "author": {
+      "id": "otsu4-b5-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第2節 物理基礎 p.56「熱の利用」"
+    },
+    "answer_defining_proposition": "状態変化に伴う熱は潜熱と呼ばれる。",
+    "tested_misconception": "潜熱は温度差そのものの名称である。",
+    "reasoning_path": "state change -> heat transfer without ordinary temperature rise -> latent heat",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B5 latent-heat terminology; no canonical collision."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Latent heat is a direct state-change term and does not collide with C004/C005."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

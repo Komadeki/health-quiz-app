@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B5-PHY-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "938c8d1a3fc92c5e4f686900bbeb0c405d9b52f322cb9a2175ca019b637e22fd",
+  "actors": {
+    "author": {
+      "id": "otsu4-b5-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第2節 物理基礎 p.55「熱と温度」"
+    },
+    "answer_defining_proposition": "同じ物質では温度が高いほど粒子の熱運動は一般に活発になる。",
+    "tested_misconception": "加熱すると粒子の運動は弱くなる。",
+    "reasoning_path": "temperature rise -> thermal motion becomes more vigorous",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B5 first thermal-motion proposition; distinct from canonical combustion questions."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Temperature increase and stronger thermal motion is a direct foundational proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

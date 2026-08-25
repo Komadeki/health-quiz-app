@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C012",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e12ff79fa0bb172ec590d74fa512e73cb347ce290e5ef974012ac7877e96e393",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第8条第3項"
+    },
+    "answer_defining_proposition": "完成検査で基準適合が認められれば完成検査済証が交付される。",
+    "tested_misconception": "基準適合でも検査済証は交付されない。",
+    "reasoning_path": "inspection -> standards compliant -> issue completion certificate",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 certificate issuance; no canonical collision."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Certificate issuance after compliance confirmation is a distinct completion-inspection outcome."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

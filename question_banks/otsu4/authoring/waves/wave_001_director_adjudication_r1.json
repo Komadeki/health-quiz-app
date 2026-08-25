@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W1",
+  "adjudication_round": 1,
+  "adjudicated_at": "2026-08-26",
+  "director": {
+    "id": "otsu4-wave1-director-adjudicator-r1",
+    "role": "AI_DIRECTOR"
+  },
+  "authors": {
+    "B4": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B5": {
+      "id": "otsu4-b5-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B6": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
+  "reviewers": {
+    "B4": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "B5": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "B6": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    }
+  },
+  "identity_separation": "PASS",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 60,
+    "reject": 1,
+    "rework": 3,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "O4-B4-FIR-C001",
+    "O4-B4-FIR-C002",
+    "O4-B4-FIR-C003",
+    "O4-B4-FIR-C004",
+    "O4-B4-FIR-C005",
+    "O4-B4-FIR-C006",
+    "O4-B4-FIR-C007",
+    "O4-B4-FIR-C008",
+    "O4-B4-FIR-C009",
+    "O4-B4-FIR-C010",
+    "O4-B4-FIR-C011",
+    "O4-B4-FIR-C012",
+    "O4-B4-FIR-C013",
+    "O4-B4-FIR-C014",
+    "O4-B4-FIR-C015",
+    "O4-B4-FIR-C016",
+    "O4-B4-FIR-C017",
+    "O4-B4-FIR-C018",
+    "O4-B4-FIR-C021",
+    "O4-B4-FIR-C022",
+    "O4-B4-FIR-C023",
+    "O4-B4-FIR-C024",
+    "O4-B5-PHY-C001",
+    "O4-B5-PHY-C004",
+    "O4-B5-PHY-C005",
+    "O4-B5-PHY-C006",
+    "O4-B5-PHY-C007",
+    "O4-B5-PHY-C008",
+    "O4-B5-PHY-C009",
+    "O4-B5-PHY-C010",
+    "O4-B5-PHY-C011",
+    "O4-B5-PHY-C012",
+    "O4-B5-PHY-C013",
+    "O4-B5-PHY-C014",
+    "O4-B5-PHY-C015",
+    "O4-B5-PHY-C016",
+    "O4-B5-PHY-C017",
+    "O4-B5-PHY-C018",
+    "O4-B5-PHY-C019",
+    "O4-B5-PHY-C020",
+    "O4-B6-LAW-C001",
+    "O4-B6-LAW-C002",
+    "O4-B6-LAW-C003",
+    "O4-B6-LAW-C004",
+    "O4-B6-LAW-C005",
+    "O4-B6-LAW-C006",
+    "O4-B6-LAW-C007",
+    "O4-B6-LAW-C008",
+    "O4-B6-LAW-C009",
+    "O4-B6-LAW-C010",
+    "O4-B6-LAW-C011",
+    "O4-B6-LAW-C012",
+    "O4-B6-LAW-C013",
+    "O4-B6-LAW-C014",
+    "O4-B6-LAW-C015",
+    "O4-B6-LAW-C016",
+    "O4-B6-LAW-C017",
+    "O4-B6-LAW-C018",
+    "O4-B6-LAW-C019",
+    "O4-B6-LAW-C020"
+  ],
+  "nonaccepted": [
+    {
+      "candidate_id": "O4-B4-FIR-C019",
+      "batch_id": "B4",
+      "decision": "REWORK",
+      "reason_code": "MULTI_SOURCE_BINDING_INCOMPLETE",
+      "rationale": "The four-substance ranking depends on four SDS records, but the candidate contract binds only one source_id/version. Rework into a single-source proposition or adopt an explicit source-bundle contract before acceptance.",
+      "resume_condition": "Persist reproducible versioned evidence for every compared flash point under an authoritative multi-source binding mechanism, or rewrite as a single-source question."
+    },
+    {
+      "candidate_id": "O4-B4-FIR-C020",
+      "batch_id": "B4",
+      "decision": "REWORK",
+      "reason_code": "MULTI_SOURCE_BINDING_INCOMPLETE",
+      "rationale": "The four-substance solubility grouping cannot be independently reconstructed from the single bound source_id alone. The locator text is not a substitute for versioned source bindings.",
+      "resume_condition": "Bind every compared substance through an approved source bundle, or reduce the question to a proposition supported by one registered source."
+    },
+    {
+      "candidate_id": "O4-B5-PHY-C002",
+      "batch_id": "B5",
+      "decision": "REJECT",
+      "reason_code": "WITHIN_WAVE_REDUNDANT_INVERSE",
+      "rationale": "This is the exact inverse of C001 and tests the same answer-defining temperature/thermal-motion relationship without adding a distinct misconception or decision boundary.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B5-PHY-C003",
+      "batch_id": "B5",
+      "decision": "REWORK",
+      "reason_code": "ANSWER_PROPOSITION_NOT_DIRECTLY_PINPOINTED",
+      "rationale": "The cited three-state subsection supports state changes, but the locator as persisted does not independently establish the closed-system mass-conservation proposition used to define the answer.",
+      "resume_condition": "Bind the mass-conservation claim to an explicit registered source/locator, or rewrite to a state-change proposition directly stated by the cited subsection."
+    }
+  ],
+  "director_rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction.",
+  "invariants_before_transaction": {
+    "candidate_states": "ALL_AI_PRE_ACCEPT",
+    "acceptance_packets": 0,
+    "permanent_ids_allocated": 0,
+    "canonical_count": 51,
+    "registry_count": 51,
+    "source_verification_count": 51,
+    "released_count": 0,
+    "runtime_unchanged_required": true,
+    "human_review_fabricated": false
+  },
+  "final_gate": "READY_TO_ALLOCATE_AND_INTEGRATE_W1_ACCEPTED_60"
+}

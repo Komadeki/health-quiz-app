@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "65a542df43a7ef23df9bbf84f3fc249a17b5669fdfbfd182c6502cf54b683679",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第8条の2第1項"
+    },
+    "answer_defining_proposition": "一定の液体危険物タンク工事には完成検査前検査が必要である。",
+    "tested_misconception": "タンク工事には完成後の検査以外は一切存在しない。",
+    "reasoning_path": "liquid hazardous tank work -> applicable tank/inspection category -> pre-completion inspection",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 pre-inspection concept; distinct from general completion inspection."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Completion pre-inspection for applicable liquid-hazardous-material tanks is a distinct inspection layer."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

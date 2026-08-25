@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B5-PHY-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "23c2d1d17da5aead166db03d6579f6e67de51af39a3d0b3a1d3476b24015c2c4",
+  "actors": {
+    "author": {
+      "id": "otsu4-b5-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第2節 物理基礎 p.56「熱の利用」"
+    },
+    "answer_defining_proposition": "気体への急速圧縮仕事は温度上昇をもたらし得る。",
+    "tested_misconception": "圧縮しても気体の温度は変化しない。",
+    "reasoning_path": "rapid compression -> work done on gas -> internal energy/temperature rises",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B5 work-to-heat decision; no canonical collision."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Rapid gas compression converting work into internal-energy/temperature rise is a distinct application."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

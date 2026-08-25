@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4409561c5830f277b0df1f3e70f70c155929f7305cd94f478d940c378307dc1b",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第11条第5項ただし書"
+    },
+    "answer_defining_proposition": "変更工事に係らない部分の仮使用には市町村長等の承認が必要である。",
+    "tested_misconception": "変更工事中でも未変更部分は無承認で自由に使用できる。",
+    "reasoning_path": "change work -> identify unaffected portion -> obtain provisional-use approval -> limited use",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 provisional-use exception; distinct from C004 general prohibition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Approved provisional use of unaffected portions is a distinct exception to C004."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

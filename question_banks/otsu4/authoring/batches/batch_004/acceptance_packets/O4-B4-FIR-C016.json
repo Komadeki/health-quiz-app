@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1e9801a79666dd9ad17b56f32af6d4998ceced7139931a0b0d8acb5a79b6493d",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-XYLENE",
+      "source_version": "2015-03-31",
+      "source_locator": "SDS 第9項 物理的及び化学的性質（蒸気密度）"
+    },
+    "answer_defining_proposition": "キシレン蒸気の相対密度は空気=1に対し約3.66である。",
+    "tested_misconception": "キシレン液体の比重0.88と蒸気密度は同じ値である。",
+    "reasoning_path": "xylene -> distinguish vapor density from liquid density",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier B numeric vapor-density proposition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Xylene vapor density is source-explicit and operationally relevant to low-area vapor accumulation."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

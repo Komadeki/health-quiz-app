@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B4-FIR-C021",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "2d3b6cb404d4d92630a0a116a6d35abaf45d33801728112470dccc49ac6039b7",
+  "actors": {
+    "author": {
+      "id": "otsu4-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-BENZENE",
+      "source_version": "2023-03-31",
+      "source_locator": "SDS 第9項 物理的及び化学的性質（密度及び／又は相対密度）"
+    },
+    "answer_defining_proposition": "ベンゼンの液体密度は約0.88 g/cm³である。",
+    "tested_misconception": "ベンゼンは水より大幅に密度が大きい。",
+    "reasoning_path": "benzene -> liquid density -> compare numeric choices",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W1 Tier B density property; distinct from benzene flash point."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Benzene liquid density is source-explicit and distinct from its flash-point question."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

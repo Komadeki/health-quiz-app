@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B5-PHY-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fe334d95276dc02d5ae6ca49963aa1b7379dbd71a189835aec9c2097ab1cac1c",
+  "actors": {
+    "author": {
+      "id": "otsu4-b5-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第2節 物理基礎 p.55「熱と温度」"
+    },
+    "answer_defining_proposition": "物質が内部にもつ微視的エネルギーを内部エネルギーという。",
+    "tested_misconception": "物質内部のエネルギーには名称がない。",
+    "reasoning_path": "identify energy held inside matter -> internal energy",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B5 energy terminology; absent from canonical."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Internal energy is a direct foundational term relevant to heat and work."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

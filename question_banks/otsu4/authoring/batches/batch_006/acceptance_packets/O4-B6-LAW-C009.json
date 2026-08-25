@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c14080045c68959d26fcb288a0ff4b5406be8905137d31fe58f8ac68ed5265cf",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第12条第2項"
+    },
+    "answer_defining_proposition": "基準不適合の製造所等には修理・改造・移転命令が可能である。",
+    "tested_misconception": "基準不適合でも行政は是正を命じられない。",
+    "reasoning_path": "detect standards noncompliance -> authority -> repair/change/relocation order",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 enforcement proposition; distinct from permission review."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Repair/change/relocation order is a direct enforcement consequence of noncompliance."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

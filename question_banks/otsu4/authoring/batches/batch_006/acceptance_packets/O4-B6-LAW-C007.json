@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B6-LAW-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5a4a729bf92ef4fa1e91c5c372d553304d3438394cb51bb9a3007290de7b4b0c",
+  "actors": {
+    "author": {
+      "id": "otsu4-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave1-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave1-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第11条の4第1項"
+    },
+    "answer_defining_proposition": "危険物の品名・数量・指定数量倍数の変更は10日前までに届け出る。",
+    "tested_misconception": "数量変更は実施後に届け出ればよい。",
+    "reasoning_path": "planned name/quantity/multiple change -> count back 10 days -> notify",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 advance-notice boundary; distinct from B1 quantity calculations."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The ten-day advance-notice threshold for name/quantity/multiple changes is precise and useful."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
