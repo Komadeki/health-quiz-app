@@ -77,11 +77,11 @@ class B4IntegrationTests(unittest.TestCase):
             self.assertEqual("RELEASED", self.candidates[candidate_id]["state"])
             self.assertIn(question_id, verified_ids)
         released = json.loads((self.authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"]
-        self.assertEqual(188, len(released))
+        self.assertEqual(386, len(released))
         bank = json.loads((self.authoring / "bank.json").read_text(encoding="utf-8"))
         runtime = json.loads((self.bank_root / bank["runtime_output"]).read_text(encoding="utf-8"))
         runtime_count = sum(len(unit.get("cards", [])) for deck in runtime.get("decks", []) for unit in deck.get("units", []))
-        self.assertEqual(188, runtime_count)
+        self.assertEqual(386, runtime_count)
 
 
 if __name__ == "__main__":

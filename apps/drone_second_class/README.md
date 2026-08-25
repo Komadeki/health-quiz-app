@@ -8,12 +8,12 @@ a thin generated-definition composition; shared learning, local history,
 practice, progress, mock exam, recommendation, and purchase behavior live in
 `packages/quiz_engine` and `packages/qualification_app`.
 
-The production entrypoint is `lib/main.dart`. It loads the generated 188-question
+The production entrypoint is `lib/main.dart`. It loads the generated 386-question
 runtime, offers four unit sessions, keeps progress on-device, and uses one
 non-consumable full unlock:
 
-- Free: 20 questions, five in each unit.
-- Full unlock: all 188 questions (20 free + 168 premium).
+- Free: 30 questions.
+- Full unlock: all 386 questions (30 free + 356 premium).
 - Product ID: `drone_second_class_full_unlock`.
 - Backend, login, external telemetry, and Prediction: none.
 

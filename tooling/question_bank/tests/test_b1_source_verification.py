@@ -36,7 +36,7 @@ class B1SourceVerificationTest(unittest.TestCase):
         released = json.loads(
             (AUTHORING / "released_questions.json").read_text(encoding="utf-8")
         )["released_questions"]
-        self.assertEqual(188, len(released))
+        self.assertEqual(386, len(released))
 
 
 if __name__ == "__main__":
