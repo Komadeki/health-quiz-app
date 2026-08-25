@@ -14,14 +14,14 @@ concurrency:
 
 jobs:
   verify:
-    if: github.head_ref == 'chatgpt/otsu4-b3-source-verification'
+    if: startsWith(github.head_ref, 'chatgpt/otsu4-b3-source-verification')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout source-verification branch
         uses: actions/checkout@v4
         with:
-          ref: chatgpt/otsu4-b3-source-verification
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
       - name: Reconcile to current main
         run: |
@@ -42,4 +42,4 @@ jobs:
           git add -A
           git diff --cached --check
           git commit -m 'Verify Otsu4 Batch 3 canonical sources'
-          git push --force-with-lease origin HEAD:chatgpt/otsu4-b3-source-verification
+          git push --force-with-lease origin HEAD:${{ github.head_ref }}
