@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "reconciliation_id": "OTSU4-W1-COUNT-RECONCILIATION-2026-08-25",
+  "wave_id": "W1",
+  "reconciled_at": "2026-08-25",
+  "reason": "The merged Wave 1 authoring payload contains 24 B4 candidates and 20 candidates each in B5 and B6. Batch and Wave metadata incorrectly recorded B4 as 20 and the Wave total as 60.",
+  "authoritative_counts": {
+    "B4": 24,
+    "B5": 20,
+    "B6": 20,
+    "total": 64
+  },
+  "evidence": {
+    "B4_candidate_range": "O4-B4-FIR-C001..O4-B4-FIR-C024",
+    "B5_candidate_range": "O4-B5-PHY-C001..O4-B5-PHY-C020",
+    "B6_candidate_range": "O4-B6-LAW-C001..O4-B6-LAW-C020",
+    "merged_authoring_pr": 367
+  },
+  "mutations": [
+    "Correct batch_004 planned_scope candidate and subject counts from 20 to 24.",
+    "Correct Wave 1 actual counts and review gate from 60 to 64.",
+    "Advance machine state to the 64-candidate independent-review objective."
+  ],
+  "invariants": {
+    "CANDIDATE_CONTENT_CHANGED": false,
+    "CANDIDATE_STATE_CHANGED": false,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  }
+}
