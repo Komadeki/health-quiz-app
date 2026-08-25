@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B18",
+  "directory_slug": "batch_018",
+  "baseline_sha": "01217fa164e2bbf57797b5135cd381ccb094e244",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id":"chatgpt-b18-rules-author-r1","role":"AI_AUTHOR"},
+  "expansion_trigger": "Continue from 365 accepted/source-verified canonical questions toward the owner-directed 400-question Production target. Do not force numerically thinner Systems after B13/B17 saturation; B18 authors only six second-class-applicable Chapter 3 aircraft-operations and airspace propositions that survived full-canonical pre-screen.",
+  "source_contract": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","edition":"第5版","official_current_check":"2026-08-25","official_pdf":"https://www.mlit.go.jp/common/002010810.pdf","second_class_scope_rule":"Use only second-class-applicable Chapter 3 propositions and exclude every subsection explicitly marked 〔一等〕."},
+  "evidence": [
+    "Merged PR #342 persisted the B18 six-candidate Rules pre-screen plan from canonical/source-verified 365.",
+    "Official MLIT 第5版 Chapter 3.1.2(3) explicitly defines IFR/VFR, sub-150m manned-aircraft operations, aircraft right-of-way rationale, control area/control zone rules and airport restriction surfaces.",
+    "Canonical search across all 365 questions found no answer-defining IFR/VFR, 航空交通管制区, 航空交通管制圏, 進入表面, 水平表面 or 転移表面 proposition.",
+    "The right-of-way item is retained only as a controlled variant because existing Q051/Q216/Q218 test concrete UAS encounter actions rather than the source-defined right-of-way concept and rationale.",
+    "PR #143 adopted the quality-preserving 400-question target contract."
+  ],
+  "target_size_decisions": [{"decision_id":"B18-TARGET-001","previous_approved_target":400,"current_released_count":188,"proposed_target_min":400,"proposed_target_max":400,"approved_new_target":400,"rationale":"Continue the owner-directed 400-question target without changing released/runtime until explicit activation.","decision_date":"2026-08-25","evidence":"Merged PR #143 and PR #342."}],
+  "planned_scope": {"area":"Rules","candidate_batch_identity":"B18","candidate_ids":["B18-RULE-C001","B18-RULE-C002","B18-RULE-C003","B18-RULE-C004","B18-RULE-C005","B18-RULE-C006"],"candidate_count":6,"candidate_count_is_quota":false,"tier_counts":{"A_NEW_PROPOSITION":5,"B_BOUNDARY_VARIANT":1,"C_REASONING_VARIANT":0},"tier_b_candidate_ids":["B18-RULE-C003"],"known_rejected_ids":[]},
+  "coverage_limit_decisions": [
+    {"decision_id":"B18-COVERAGE-LIMIT-001","status":"PRESCREENED_SMALL_BATCH","scope":"Chapter 3 aircraft-operations/airspace propositions","evidence":"Only six candidates survived the full-canonical pre-screen; no backfill is permitted merely to reduce the remaining count to 400."},
+    {"decision_id":"B18-COVERAGE-LIMIT-002","status":"ACTIVE_POLICY","scope":"Controlled variants","evidence":"C003 must retain distinct legal concept, causal rationale and reasoning path from Q051/Q216/Q218; wording-only yield-to-aircraft duplication is prohibited."}
+  ],
+  "migration_blockers": [],
+  "invariants": {"CANONICAL_CHANGED_AT_AUTHORING":false,"PERMANENT_IDS_ALLOCATED_AT_AUTHORING":0,"SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false,"FREE_SELECTION_CHANGED":false,"V0_SNAPSHOT_CHANGED":false,"HUMAN_REVIEW_CREATED":false},
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
