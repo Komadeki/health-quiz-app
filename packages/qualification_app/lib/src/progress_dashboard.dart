@@ -21,7 +21,7 @@ Widget _buildProgressDashboard(
       .length;
   final bestMock = _bestMockHistory(controller.history);
   final mockBest = bestMock == null
-      ? '—'
+      ? '未受験'
       : '${bestMock.correctCount}/${bestMock.totalCount}';
   final radarData = <_RadarDatum>[
     for (final unit in bank.units)
@@ -78,6 +78,8 @@ Widget _buildProgressDashboard(
               );
             },
           ),
+          const SizedBox(height: 10),
+          _UnitPerformanceLegend(data: radarData),
           const SizedBox(height: 20),
           _ProgressMetrics(
             completed: '${overall.completedQuestions}問',
@@ -282,6 +284,40 @@ final class _UnitPerformanceChart extends StatelessWidget {
   }
 }
 
+final class _UnitPerformanceLegend extends StatelessWidget {
+  const _UnitPerformanceLegend({required this.data});
+
+  final List<_RadarDatum> data;
+
+  @override
+  Widget build(BuildContext context) {
+    if (data.isEmpty) return const SizedBox.shrink();
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final textScale = MediaQuery.textScalerOf(context).scale(1.0);
+        final columns = constraints.maxWidth < 430 || textScale > 1.35 ? 1 : 2;
+        const spacing = 8.0;
+        final width =
+            (constraints.maxWidth - spacing * (columns - 1)) / columns;
+        return Wrap(
+          spacing: spacing,
+          runSpacing: 4,
+          children: [
+            for (final item in data)
+              SizedBox(
+                width: width,
+                child: Text(
+                  '${_shortRadarLabel(item.label)}：${item.label}',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+              ),
+          ],
+        );
+      },
+    );
+  }
+}
+
 final class _UnitPerformanceFallback extends StatelessWidget {
   const _UnitPerformanceFallback({required this.data});
 
@@ -452,6 +488,12 @@ final class _RadarPainter extends CustomPainter {
 
 String _shortRadarLabel(String label) {
   final trimmed = label.trim();
+  if (trimmed.contains('リスク')) return 'リスク';
+  if (trimmed.contains('規則')) return '規則';
+  if (trimmed.contains('システム')) return 'システム';
+  if (trimmed.contains('操縦者') || trimmed.contains('運航体制')) {
+    return '操縦体制';
+  }
   if (trimmed.length <= 6) return trimmed;
   return '${trimmed.substring(0, 6)}…';
 }

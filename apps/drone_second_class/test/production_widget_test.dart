@@ -96,6 +96,8 @@ void main() {
     );
     final rulesUnit = find.byKey(const Key('unit-drone_rules'));
     await tester.scrollUntilVisible(rulesUnit, 200);
+    await tester.ensureVisible(rulesUnit);
+    await tester.pumpAndSettle();
     await tester.tap(rulesUnit);
     await tester.pump();
     final correctIndex = controller.currentCard!.answerIndex;

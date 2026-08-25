@@ -68,8 +68,27 @@ void main() {
       tester
           .widget<OutlinedButton>(find.byKey(const Key('start-mock-exam')))
           .onPressed,
-      isNull,
+      isNotNull,
     );
+    final mockBest = find.byKey(const Key('progress-metric-mock-best'));
+    expect(
+      find.descendant(of: mockBest, matching: find.text('未受験')),
+      findsOneWidget,
+    );
+
+    final lockedMock = find.byKey(const Key('start-mock-exam'));
+    await tester.scrollUntilVisible(lockedMock, 160);
+    await tester.tap(lockedMock);
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('mock-exam-unlock-sheet')), findsOneWidget);
+    expect(find.text('全問解放で利用可能'), findsOneWidget);
+    final unlockSheet = find.byKey(const Key('mock-exam-unlock-sheet'));
+    expect(
+      find.descendant(of: unlockSheet, matching: find.text('買い切り Fixture')),
+      findsOneWidget,
+    );
+    await tester.binding.handlePopRoute();
+    await tester.pumpAndSettle();
 
     for (final unsupported in ['合格可能性', 'AI合否', '本番力']) {
       expect(find.textContaining(unsupported), findsNothing);
@@ -224,6 +243,11 @@ void main() {
     await tester.pumpAndSettle();
     final weakness = find.byKey(const Key('weakness-summary'));
     await tester.scrollUntilVisible(weakness, 160);
+    expect(find.text('要確認の単元'), findsOneWidget);
+    expect(
+      find.textContaining('まだ回答数が少ないため確認がおすすめ'),
+      findsOneWidget,
+    );
     await tester.tap(weakness);
     await tester.pump();
 

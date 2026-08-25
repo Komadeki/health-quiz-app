@@ -449,11 +449,18 @@ final class _PrimaryActionSpec {
 _PrimaryActionSpec _resolvePrimaryAction(
   QualificationProductionController controller,
 ) {
-  if (controller.activeSession != null) {
+  final resumableSession = controller.activeSession;
+  if (resumableSession != null) {
+    final resumeUnit = resumableSession.unitId == null
+        ? null
+        : controller.bank!.unitById(resumableSession.unitId!);
+    final resumeContext = resumeUnit?.title ?? _modeLabel(resumableSession.mode);
     return _PrimaryActionSpec(
       key: 'resume-session',
       label: '続きから',
-      description: '中断した学習をそのまま再開します。',
+      description:
+          '$resumeContext・${resumableSession.currentIndex + 1}/'
+          '${resumableSession.questionIds.length}問目から再開します。',
       icon: Icons.play_arrow,
       onPressed: () => unawaited(controller.resume()),
     );
@@ -583,6 +590,8 @@ final class _NonfatalStatus extends StatelessWidget {
   }
 }
 
+const _weaknessConfidenceAttemptThreshold = 5;
+
 final class _WeaknessCard extends StatelessWidget {
   const _WeaknessCard({required this.controller});
 
@@ -604,6 +613,9 @@ final class _WeaknessCard extends StatelessWidget {
         weakest == null ? null : controller.bank!.unitById(weakest.key);
     final score =
         weakest?.value.recentCorrectness ?? weakest?.value.correctness;
+    final attemptCount = weakest?.value.attemptCount ?? 0;
+    final hasEnoughEvidence = weakest != null &&
+        attemptCount >= _weaknessConfidenceAttemptThreshold;
     final canOpen = unit != null && controller.accessibleCardsFor(unit).isNotEmpty;
     final colors = Theme.of(context).colorScheme;
     return Card(
@@ -612,14 +624,20 @@ final class _WeaknessCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: ListTile(
         leading: const Icon(Icons.insights),
-        title: const Text('苦手な単元'),
+        title: Text(hasEnoughEvidence ? '苦手な単元' : '要確認の単元'),
         subtitle: weakest == null
             ? const Text('回答履歴がたまると単元別の傾向を確認できます。')
-            : Text(
-                '${unit?.title ?? weakest.key} ・ '
-                '直近正答率${((score ?? 0) * 100).round()}% ・ '
-                '${weakest.value.attemptCount}回答',
-              ),
+            : hasEnoughEvidence
+                ? Text(
+                    '${unit?.title ?? weakest.key} ・ '
+                    '直近正答率${((score ?? 0) * 100).round()}% ・ '
+                    '$attemptCount回答\n'
+                    '直近正答率が最も低い単元',
+                  )
+                : Text(
+                    '${unit?.title ?? weakest.key} ・ $attemptCount回答\n'
+                    'まだ回答数が少ないため確認がおすすめ',
+                  ),
         trailing: canOpen ? const Icon(Icons.chevron_right) : null,
         onTap: canOpen ? () => unawaited(controller.startUnit(unit.id)) : null,
       ),
@@ -883,26 +901,36 @@ final class _PracticeModes extends StatelessWidget {
     final profile = controller.definition.examProfile;
     if (controller.modeEnabled(LearningModeV1.mockExam)) {
       final locked = controller.isMockExamLocked;
-      buttons.add(
-        OutlinedButton(
-          key: const Key('start-mock-exam'),
-          onPressed: locked ? null : controller.startMockExam,
-          child: Text(
-            locked
-                ? '模擬試験（全問解放後に利用可能）'
-                : profile == null
-                ? '模擬試験'
-                : '模擬試験（${profile.questionCount}問）',
-          ),
-        ),
-      );
       if (locked) {
         buttons.add(
-          const Padding(
-            padding: EdgeInsets.only(top: 4),
+          OutlinedButton.icon(
+            key: const Key('start-mock-exam'),
+            onPressed: () => unawaited(
+              _showMockExamUnlockSheet(context, controller),
+            ),
+            icon: const Icon(Icons.lock_outline),
+            label: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text('模擬試験'),
+                Text(
+                  '全問解放で利用可能',
+                  key: const Key('mock-exam-locked'),
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+              ],
+            ),
+          ),
+        );
+      } else {
+        buttons.add(
+          OutlinedButton(
+            key: const Key('start-mock-exam'),
+            onPressed: controller.startMockExam,
             child: Text(
-              '模擬試験はFull Unlockで全問を解放すると利用できます。',
-              key: Key('mock-exam-locked'),
+              profile == null
+                  ? '模擬試験'
+                  : '模擬試験（${profile.questionCount}問）',
             ),
           ),
         );
@@ -917,6 +945,52 @@ final class _PracticeModes extends StatelessWidget {
       ],
     );
   }
+}
+
+Future<void> _showMockExamUnlockSheet(
+  BuildContext context,
+  QualificationProductionController controller,
+) {
+  final price = controller.fullUnlockProduct?.price;
+  return showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    builder: (sheetContext) => SafeArea(
+      child: Padding(
+        key: const Key('mock-exam-unlock-sheet'),
+        padding: const EdgeInsets.fromLTRB(20, 4, 20, 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              '模擬試験を解放',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 8),
+            const Text('模擬試験は全問解放後に利用できます。'),
+            const SizedBox(height: 8),
+            Text(price == null ? '価格を確認できません' : '買い切り $price'),
+            const SizedBox(height: 16),
+            FilledButton(
+              key: const Key('mock-exam-unlock-purchase'),
+              onPressed: controller.purchasePending || price == null
+                  ? null
+                  : () {
+                      Navigator.of(sheetContext).pop();
+                      unawaited(controller.purchaseFullUnlock());
+                    },
+              child: const Text('全問を解放'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(sheetContext).pop(),
+              child: const Text('あとで'),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 final class _RecommendationCard extends StatelessWidget {
