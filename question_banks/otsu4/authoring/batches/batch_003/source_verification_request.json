@@ -1,9 +1,0 @@
-{
-  "schema_version": "1.0",
-  "batch_id": "B3",
-  "objective": "VERIFY_OTSU4_BATCH_3_CANONICAL_SOURCES_22",
-  "expected_question_ids": "OTSU4-Q-000030..OTSU4-Q-000051",
-  "exclude_candidates": ["O4-B3-LAW-C016", "O4-B3-LAW-C017"],
-  "source_policy": "registered current source id/version and pinpoint locator",
-  "release_activation": false
-}
