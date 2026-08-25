@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B12",
+  "directory_slug": "batch_012",
+  "baseline_sha": "2f52937078cf3cc66490204f066c09ab79f88ae0",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id":"chatgpt-b12-operations-author-r1","role":"AI_AUTHOR"},
+  "expansion_trigger": "Continue from 313 accepted/source-verified canonical questions toward the owner-directed 400-question Production target. B12 authors 20 source-first Operations candidates under merged PR #237. The clerical C002 tier label is reconciled to Tier A so the intended mix remains 13 Tier A / 7 Tier B / 0 Tier C.",
+  "source_contract": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","edition":"第5版","official_current_check":"2026-08-25","official_pdf":"https://www.mlit.go.jp/common/002010810.pdf","second_class_scope_rule":"Use only second-class-applicable Chapter 5 propositions and exclude every subsection explicitly marked 〔一等〕."},
+  "evidence": [
+    "PR #237 persisted the B12 Operations coverage plan from a 313-question accepted/source-verified canonical baseline.",
+    "PR #143 adopted the quality-preserving 400-question target contract.",
+    "B12 focuses on unused operational lifecycle and aircraft-specific action branches in Chapter 5 after excluding existing B5/B6 and original-bank coverage.",
+    "b12_400_target_plan_reconciliation_2026-08-25.json corrects only the clerical tier label for C002 from Tier B to Tier A; candidate identity, source locator and proposition are unchanged."
+  ],
+  "target_size_decisions": [{"decision_id":"B12-TARGET-001","previous_approved_target":400,"current_released_count":188,"proposed_target_min":400,"proposed_target_max":400,"approved_new_target":400,"rationale":"Continue the owner-directed 400-question target without changing the released baseline until explicit activation.","decision_date":"2026-08-25","evidence":"Merged PR #143 and PR #237."}],
+  "planned_scope": {"area":"Operations","candidate_batch_identity":"B12","candidate_ids":["B12-OPS-C001","B12-OPS-C002","B12-OPS-C003","B12-OPS-C004","B12-OPS-C005","B12-OPS-C006","B12-OPS-C007","B12-OPS-C008","B12-OPS-C009","B12-OPS-C010","B12-OPS-C011","B12-OPS-C012","B12-OPS-C013","B12-OPS-C014","B12-OPS-C015","B12-OPS-C016","B12-OPS-C017","B12-OPS-C018","B12-OPS-C019","B12-OPS-C020"],"candidate_count":20,"candidate_count_is_quota":false,"tier_counts":{"A_NEW_PROPOSITION":13,"B_BOUNDARY_VARIANT":7,"C_REASONING_VARIANT":0},"tier_b_candidate_ids":["B12-OPS-C006","B12-OPS-C007","B12-OPS-C008","B12-OPS-C010","B12-OPS-C013","B12-OPS-C018","B12-OPS-C020"],"known_rejected_ids":[]},
+  "coverage_limit_decisions": [
+    {"decision_id":"B12-COVERAGE-LIMIT-001","status":"PARTIAL","scope":"Chapter 5 Operations propositions and controlled variants","evidence":"Authoring is limited to the 20 propositions persisted by PR #237. No backfill is permitted merely to increase count."},
+    {"decision_id":"B12-COVERAGE-LIMIT-002","status":"ACTIVE_POLICY","scope":"Controlled variants","evidence":"Each Tier B item must retain source-defined lifecycle, aircraft, failure or decision-boundary distinctness against the 313-question canonical bank."}
+  ],
+  "migration_blockers": [],
+  "invariants": {"CANONICAL_CHANGED_AT_AUTHORING":false,"PERMANENT_IDS_ALLOCATED_AT_AUTHORING":0,"SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false,"FREE_SELECTION_CHANGED":false,"V0_SNAPSHOT_CHANGED":false,"HUMAN_REVIEW_CREATED":false},
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}

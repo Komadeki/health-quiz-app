@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "reconciliation_id": "DRONE-B12-TIER-RECONCILIATION-2026-08-25",
+  "plan_id": "DRONE-B12-400-TARGET-COVERAGE-VARIANTS-2026-08-25",
+  "reason": "The merged B12 plan correctly fixed planned_tier_counts at Tier A 13 / Tier B 7 / Tier C 0, but the C002 candidate entry was clerically labeled B_BOUNDARY_VARIANT, producing an 8-item Tier B list. C002 tests the explicit post-flight abnormal-heat inspection proposition and does not require controlled-variant treatment.",
+  "correction": {
+    "candidate_id": "B12-OPS-C002",
+    "from": "B_BOUNDARY_VARIANT",
+    "to": "A_NEW_PROPOSITION",
+    "proposition_changed": false,
+    "source_locator_changed": false,
+    "candidate_ceiling_changed": false,
+    "target_changed": false
+  },
+  "authoritative_tier_counts_after_reconciliation": {"A_NEW_PROPOSITION":13,"B_BOUNDARY_VARIANT":7,"C_REASONING_VARIANT":0},
+  "authoritative_tier_b_candidate_ids": ["B12-OPS-C006","B12-OPS-C007","B12-OPS-C008","B12-OPS-C010","B12-OPS-C013","B12-OPS-C018","B12-OPS-C020"],
+  "no_human_review_claimed": true
+}
