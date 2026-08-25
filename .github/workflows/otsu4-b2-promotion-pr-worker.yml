@@ -3,7 +3,7 @@ name: Otsu4 B2 Promotion PR Worker
 on:
   pull_request:
     branches: [main]
-    paths: ['.github/otsu4-b2-promotion-trigger']
+    paths: ['question_banks/otsu4/authoring/batches/batch_002/promotion_request.json']
 
 permissions:
   contents: write
@@ -38,7 +38,7 @@ jobs:
           python3 tooling/question_bank/validate.py --bank question_banks/otsu4 --check-generated
       - name: Commit durable Otsu4 Batch 2 promotion transition
         run: |
-          rm -f .github/otsu4-b2-promotion-trigger
+          rm -f question_banks/otsu4/authoring/batches/batch_002/promotion_request.json
           git add -A
           git diff --cached --check
           git commit -m 'Promote Otsu4 Batch 2 accepted candidates'
