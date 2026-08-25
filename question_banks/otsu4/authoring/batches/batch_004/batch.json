@@ -32,12 +32,12 @@
   ],
   "coverage_limit_decisions": [],
   "planned_scope": {
-    "candidate_count": 20,
+    "candidate_count": 24,
     "candidate_count_is_quota": false,
     "subject_counts": {
       "law": 0,
       "physics_chemistry": 0,
-      "properties_fire": 20
+      "properties_fire": 24
     },
     "knowledge_target_id": "O4-FIR-KT-PROPERTIES"
   },
