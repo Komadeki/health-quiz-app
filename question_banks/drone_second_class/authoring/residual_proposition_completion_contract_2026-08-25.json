@@ -4,9 +4,11 @@
   "product": "drone_second_class",
   "decided_at": "2026-08-25",
   "decision_authority": "OWNER_DIRECTION",
+  "status": "SUPERSEDED",
   "supersedes": [
     "DRONE-PRODUCTION-TARGET-400-QUALITY-RELAXATION-2026-08-25"
   ],
+  "superseded_by": "DRONE-OWNER-TARGET-400-RECONCILIATION-2026-08-25",
   "completion_target": {
     "mode": "EXHAUSTIVE_RESIDUAL_PROPOSITIONS",
     "fixed_question_count": null,

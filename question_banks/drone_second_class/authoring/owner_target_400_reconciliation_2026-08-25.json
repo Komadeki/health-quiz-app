@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "decision_id": "DRONE-OWNER-TARGET-400-RECONCILIATION-2026-08-25",
+  "product": "drone_second_class",
+  "decided_at": "2026-08-25",
+  "decision_authority": "OWNER_DIRECTION_CURRENT",
+  "supersedes": [
+    "DRONE-RESIDUAL-PROPOSITION-COMPLETION-2026-08-25"
+  ],
+  "reaffirms": [
+    "DRONE-PRODUCTION-TARGET-400-QUALITY-RELAXATION-2026-08-25"
+  ],
+  "target": {
+    "final_accepted_source_verified_canonical": 400,
+    "current_canonical": 365,
+    "current_released": 188,
+    "remaining_to_400": 35,
+    "status": "ACTIVE",
+    "release_activation": "EXPLICIT_GATE_REQUIRED"
+  },
+  "authoritative_source": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "edition": "第5版",
+    "issuer": "国土交通省",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "registered_source_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "scope_rule": "Use second-class-applicable material only; exclude subsections explicitly marked 〔一等〕."
+  },
+  "quality_floor": {
+    "source_first_required": true,
+    "second_class_scope_required": true,
+    "one_unambiguous_best_answer_required": true,
+    "semantic_collision_review_against_all_canonical_required": true,
+    "within_batch_collision_review_required": true,
+    "independent_ai_review_required": true,
+    "director_adjudication_required": true,
+    "content_bound_acceptance_packet_required": true,
+    "permanent_id_only_after_acceptance": true,
+    "deterministic_permanent_id_allocation_required": true,
+    "used_and_retired_id_protection_required": true,
+    "canonical_source_verification_required": true,
+    "rollback_and_partial_state_protection_required": true,
+    "released_runtime_mutation_only_after_activation_gate": true,
+    "human_review_identity_must_not_be_fabricated": true
+  },
+  "expansion_policy": {
+    "priority": [
+      "Tier A new explicit propositions",
+      "materially distinct source-defined boundary/condition variants",
+      "materially distinct reasoning variants only after stronger coverage opportunities are exhausted"
+    ],
+    "controlled_variant_minimum_distinct_axes": 2,
+    "controlled_variant_required_axis": [
+      "decision_boundary_or_exception",
+      "reasoning_path"
+    ],
+    "core_proposition_default_max": 3,
+    "core_proposition_absolute_max": 4,
+    "fourth_question_condition": "The authoritative source explicitly defines at least four materially different states, conditions, exceptions, thresholds, or response branches and Director adjudication records why the fourth requires a distinct decision boundary or reasoning path.",
+    "numeric_target_is_not_permission_for_filler": true,
+    "insufficient_source_support_action": "REJECT_OR_REWORK_AND_CONTINUE_SYSTEMATIC_SOURCE_COVERAGE_ELSEWHERE"
+  },
+  "hard_reject_rules": [
+    "wording-only or near-paraphrase duplicate",
+    "same answer-defining proposition with the same reasoning path and no material boundary change",
+    "first-class-only material",
+    "unsupported inference beyond explicit source support",
+    "ambiguous or multiple defensible correct answers",
+    "incidental trivia with low exam/practice value",
+    "implausible distractors that do not represent credible misconceptions",
+    "candidate created solely to satisfy the numeric target"
+  ],
+  "reconciliation": {
+    "reason": "The current owner direction again fixes the final accepted/source-verified canonical Production target at 400. The prior residual-proposition contract is therefore superseded only as to its no-fixed-count completion rule.",
+    "preserved_from_residual_contract": [
+      "explicit source support",
+      "second-class-only scope",
+      "full-canonical semantic collision rejection",
+      "independent AI review",
+      "Director adjudication",
+      "commercial practice value",
+      "one unambiguous best answer",
+      "Permanent ID only after acceptance",
+      "canonical source verification",
+      "no filler or wording-only duplication"
+    ],
+    "b18_status": "The six Director-accepted B18 residual propositions remain eligible for the existing acceptance-packet objective; this reconciliation does not alter their content or decisions."
+  },
+  "preserved_invariants": [
+    "Canonical inventory remains 365 in this control-plane transition.",
+    "Released/runtime remain 188 until an explicit release activation gate.",
+    "Existing question identities, release history and free selection remain unchanged.",
+    "The immutable V0 historical validation snapshot remains unchanged.",
+    "No candidate content, acceptance packet, Permanent ID, registry row or source-verification record is changed by this transition.",
+    "No HUMAN review identity is created or implied."
+  ],
+  "current_atomic_objective_preserved": "MATERIALIZE_B18_ACCEPTANCE_PACKETS_6"
+}
