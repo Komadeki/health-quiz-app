@@ -91,9 +91,11 @@ batch_ids = [str(item.get("batch_id", "")).strip() for item in wave.get("batches
 if not batch_ids:
     raise SystemExit("wave batch set missing")
 seen_accepted: set[str] = set()
+touched_batches: list[Path] = []
 
 for batch_id in batch_ids:
     batch_dir = find_batch_dir(batch_id)
+    touched_batches.append(batch_dir)
     candidate_path = batch_dir / "candidates.csv"
     fields, rows = read_csv_with_fields(candidate_path)
     by_id = {r["candidate_id"]: r for r in rows}
@@ -139,9 +141,6 @@ for batch_id in batch_ids:
         writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
-    errors = validate_expansion_batch(batch_dir)
-    if errors:
-        raise SystemExit(f"{batch_id}: expansion validation failed: " + " | ".join(errors))
 
 if seen_accepted != accepted_set:
     raise SystemExit("wave accepted verification set drift")
@@ -149,6 +148,13 @@ verification_doc["verifications"] = verifications
 verification_path.write_text(json.dumps(verification_doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 if len(verifications) != baseline + expected_count or len({str(r.get('question_id', '')) for r in verifications}) != baseline + expected_count:
     raise SystemExit("source verification final inventory mismatch")
+
+# Batch validation must run only after the canonical verification ledger is durable in the
+# working tree. VERIFIED candidate validation intentionally requires the matching ledger row.
+for batch_dir in touched_batches:
+    errors = validate_expansion_batch(batch_dir)
+    if errors:
+        raise SystemExit(f"{batch_dir.name}: expansion validation failed: " + " | ".join(errors))
 
 released = read_json(AUTHORING / "released_questions.json").get("released_questions", [])
 meta = read_json(AUTHORING / "bank.json")
