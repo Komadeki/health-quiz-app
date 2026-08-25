@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,8 @@ import 'production_bank.dart';
 import 'production_controller.dart';
 import 'production_persistence.dart';
 import 'production_purchase.dart';
+
+part 'progress_dashboard.dart';
 
 typedef QualificationExternalUrlLauncher = Future<bool> Function(Uri url);
 typedef QualificationHomeSupplementBuilder = Widget Function(
@@ -48,7 +51,8 @@ final class QualificationProductionBootstrap extends StatefulWidget {
 }
 
 final class _QualificationProductionBootstrapState
-    extends State<QualificationProductionBootstrap> with WidgetsBindingObserver {
+    extends State<QualificationProductionBootstrap>
+    with WidgetsBindingObserver {
   late final QualificationProductionController controller;
 
   @override
@@ -63,17 +67,21 @@ final class _QualificationProductionBootstrapState
     }
     controller = QualificationProductionController(
       definition: definition,
-      bankLoader: widget.bankLoader ??
+      bankLoader:
+          widget.bankLoader ??
           AssetQualificationBankLoader(
             definition: definition,
             assetBundle: rootBundle,
           ),
-      sessionStore: widget.sessionStore ??
+      sessionStore:
+          widget.sessionStore ??
           SharedPreferencesQualificationSessionStore(appKey: definition.appKey),
-      learningRepository: widget.learningRepository ??
+      learningRepository:
+          widget.learningRepository ??
           JsonLinesLearningRepository(appKey: definition.appKey),
       purchaseGateway: widget.purchaseGateway ?? StorePurchaseGateway(),
-      entitlementCache: widget.entitlementCache ??
+      entitlementCache:
+          widget.entitlementCache ??
           SharedPreferencesFullUnlockEntitlementCache(
             appKey: definition.appKey,
             productId: productId,
@@ -99,11 +107,11 @@ final class _QualificationProductionBootstrapState
 
   @override
   Widget build(BuildContext context) => QualificationProductionApp(
-        definition: widget.definition,
-        controller: controller,
-        urlLauncher: widget.urlLauncher,
-        homeSupplementBuilder: widget.homeSupplementBuilder,
-      );
+    definition: widget.definition,
+    controller: controller,
+    urlLauncher: widget.urlLauncher,
+    homeSupplementBuilder: widget.homeSupplementBuilder,
+  );
 }
 
 final class QualificationProductionApp extends StatelessWidget {
@@ -464,8 +472,10 @@ _PrimaryActionSpec _resolvePrimaryAction(
   );
 
   if (controller.modeEnabled(LearningModeV1.incorrectPractice)) {
-    final incorrect =
-        selectionEngine.selectIncorrect(bank.candidates, controller.events);
+    final incorrect = selectionEngine.selectIncorrect(
+      bank.candidates,
+      controller.events,
+    );
     if (incorrect.isNotEmpty) {
       return _PrimaryActionSpec(
         key: 'primary-action-incorrect',
@@ -499,8 +509,10 @@ _PrimaryActionSpec _resolvePrimaryAction(
   }
 
   if (controller.modeEnabled(LearningModeV1.unansweredPractice)) {
-    final unanswered =
-        selectionEngine.selectUnanswered(bank.candidates, controller.events);
+    final unanswered = selectionEngine.selectUnanswered(
+      bank.candidates,
+      controller.events,
+    );
     if (unanswered.isNotEmpty) {
       return _PrimaryActionSpec(
         key: 'primary-action-unanswered',
@@ -597,11 +609,13 @@ final class _WeaknessCard extends StatelessWidget {
         return order != 0 ? order : left.key.compareTo(right.key);
       });
     final weakest = entries.isEmpty ? null : entries.first;
-    final unit =
-        weakest == null ? null : controller.bank!.unitById(weakest.key);
+    final unit = weakest == null
+        ? null
+        : controller.bank!.unitById(weakest.key);
     final score =
         weakest?.value.recentCorrectness ?? weakest?.value.correctness;
-    final canOpen = unit != null && controller.accessibleCardsFor(unit).isNotEmpty;
+    final canOpen =
+        unit != null && controller.accessibleCardsFor(unit).isNotEmpty;
     final colors = Theme.of(context).colorScheme;
     return Card(
       key: const Key('weakness-summary'),
@@ -630,101 +644,8 @@ final class _ProgressCard extends StatelessWidget {
   final QualificationProductionController controller;
 
   @override
-  Widget build(BuildContext context) {
-    final progress = controller.progress!.overall;
-    final percent = (progress.completion * 100).round();
-    final remaining = progress.totalQuestions - progress.completedQuestions;
-    final accuracy = progress.accuracy == null
-        ? '—'
-        : '${(progress.accuracy! * 100).round()}%';
-    return Card(
-      key: const Key('progress-card'),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    '学習進捗',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
-                ),
-                const Icon(Icons.auto_graph),
-              ],
-            ),
-            const SizedBox(height: 20),
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final compact = constraints.maxWidth < 420;
-                final chart = _ProgressRing(
-                  completion: progress.completion,
-                  percent: percent,
-                );
-                final metrics = Expanded(
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      _ProgressMetric(
-                        icon: Icons.check_circle_outline,
-                        value: '${progress.completedQuestions}問',
-                        label: '学習済み',
-                      ),
-                      _ProgressMetric(
-                        icon: Icons.flag_outlined,
-                        value: '$remaining問',
-                        label: '残り',
-                      ),
-                      _ProgressMetric(
-                        icon: Icons.track_changes,
-                        value: accuracy,
-                        label: '正答率',
-                      ),
-                    ],
-                  ),
-                );
-                if (compact) {
-                  return Column(
-                    children: [
-                      chart,
-                      const SizedBox(height: 20),
-                      Row(children: [metrics]),
-                    ],
-                  );
-                }
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [chart, const SizedBox(width: 24), metrics],
-                );
-              },
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '${progress.completedQuestions} / ${progress.totalQuestions}問 ・ '
-              '${progress.attemptCount}回答',
-              key: const Key('overall-progress'),
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                key: const Key('show-learning-status'),
-                onPressed: () => _showLearningStatus(context, controller),
-                icon: const Icon(Icons.insights),
-                label: const Text('学習状況を詳しく見る'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) =>
+      _buildProgressDashboard(context, controller);
 }
 
 final class _ProgressRing extends StatelessWidget {
@@ -755,9 +676,8 @@ final class _ProgressRing extends StatelessWidget {
             children: [
               Text(
                 '$percent%',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w800,
-                    ),
+                style: Theme.of(context).textTheme.headlineSmall
+                    ?.copyWith(fontWeight: FontWeight.w800),
               ),
               Text('完了', style: Theme.of(context).textTheme.labelMedium),
             ],
@@ -783,8 +703,8 @@ final class _ProgressMetric extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return Container(
-      constraints: const BoxConstraints(minWidth: 92),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      constraints: const BoxConstraints(minHeight: 96),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       decoration: BoxDecoration(
         color: colors.secondaryContainer.withValues(alpha: 0.65),
         borderRadius: BorderRadius.circular(16),
@@ -796,9 +716,8 @@ final class _ProgressMetric extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             value,
-            style: Theme.of(
-              context,
-            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+            style: Theme.of(context).textTheme.titleMedium
+                ?.copyWith(fontWeight: FontWeight.w800),
           ),
           Text(label, style: Theme.of(context).textTheme.labelMedium),
         ],
@@ -937,10 +856,7 @@ final class _PracticeModes extends StatelessWidget {
         buttons.add(
           Padding(
             padding: const EdgeInsets.only(top: 4, bottom: 8),
-            child: Text(
-              unavailableReason,
-              key: Key('$key-unavailable'),
-            ),
+            child: Text(unavailableReason, key: Key('$key-unavailable')),
           ),
         );
       }
@@ -1019,7 +935,8 @@ final class _RecommendationCard extends StatelessWidget {
     final recommendation = controller.recommendation;
     if (recommendation == null) return const SizedBox.shrink();
     final unit = controller.bank!.unitById(recommendation.unitId);
-    final canOpen = unit != null && controller.accessibleCardsFor(unit).isNotEmpty;
+    final canOpen =
+        unit != null && controller.accessibleCardsFor(unit).isNotEmpty;
     final reason = recommendation.reasonCode == 'unanswered_unit'
         ? 'まだ回答履歴がないため'
         : '直近の正答率が最も低いため';
@@ -1252,16 +1169,14 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
     final controller = widget.controller;
     final session = controller.activeSession;
     if (session == null) return;
-    final timedMock = session.mode == LearningModeV1.mockExam &&
-        controller.hasTimedMockExam;
+    final timedMock =
+        session.mode == LearningModeV1.mockExam && controller.hasTimedMockExam;
     if (timedMock) {
       final confirmed = await showDialog<bool>(
         context: context,
         builder: (dialogContext) => AlertDialog(
           title: const Text('模擬試験を中断しますか？'),
-          content: const Text(
-            'ホームに戻っても制限時間は止まりません。後で「続きから」再開できます。',
-          ),
+          content: const Text('ホームに戻っても制限時間は止まりません。後で「続きから」再開できます。'),
           actions: [
             TextButton(
               key: const Key('stay-in-session'),
@@ -1345,9 +1260,11 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                   },
                   child: Column(
                     children: [
-                      for (var index = 0;
-                          index < card.choices.length;
-                          index += 1)
+                      for (
+                        var index = 0;
+                        index < card.choices.length;
+                        index += 1
+                      )
                         Card(
                           child: RadioListTile<int>(
                             key: Key('choice-$index'),
@@ -1383,12 +1300,12 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                       child: Text(
                         correct ? '正解' : '不正解',
                         key: const Key('answer-feedback'),
-                        style:
-                            Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  color: correct
-                                      ? Colors.green.shade800
-                                      : Theme.of(context).colorScheme.error,
-                                ),
+                        style: Theme.of(context).textTheme.headlineSmall
+                            ?.copyWith(
+                              color: correct
+                                  ? Colors.green.shade800
+                                  : Theme.of(context).colorScheme.error,
+                            ),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -1461,17 +1378,11 @@ final class _QuestionSourceProvenance extends StatelessWidget {
               ],
               if (version != null) ...[
                 const SizedBox(height: 4),
-                Text(
-                  '版: $version',
-                  key: const Key('question-source-version'),
-                ),
+                Text('版: $version', key: const Key('question-source-version')),
               ],
               if (section != null) ...[
                 const SizedBox(height: 4),
-                Text(
-                  '箇所: $section',
-                  key: const Key('question-source-section'),
-                ),
+                Text('箇所: $section', key: const Key('question-source-section')),
               ],
             ],
           ),
@@ -1493,8 +1404,9 @@ final class QualificationResultPage extends StatelessWidget {
     final matchingHistory = controller.history
         .where((item) => item.sessionId == result.sessionId)
         .toList(growable: false);
-    final completedHistory =
-        matchingHistory.isEmpty ? null : matchingHistory.first;
+    final completedHistory = matchingHistory.isEmpty
+        ? null
+        : matchingHistory.first;
     return Scaffold(
       appBar: AppBar(title: const Text('結果')),
       body: SafeArea(
@@ -1513,10 +1425,7 @@ final class QualificationResultPage extends StatelessWidget {
                 ),
                 if (pass != null) ...[
                   const SizedBox(height: 8),
-                  Text(
-                    pass ? '合格' : '不合格',
-                    textAlign: TextAlign.center,
-                  ),
+                  Text(pass ? '合格' : '不合格', textAlign: TextAlign.center),
                 ],
                 if (result.mode == LearningModeV1.mockExam && pass == null) ...[
                   const SizedBox(height: 8),
@@ -1559,10 +1468,7 @@ final class QualificationResultPage extends StatelessWidget {
 }
 
 final class _MockExamReview extends StatelessWidget {
-  const _MockExamReview({
-    required this.controller,
-    required this.history,
-  });
+  const _MockExamReview({required this.controller, required this.history});
 
   final QualificationProductionController controller;
   final SessionHistoryV1 history;
@@ -1621,8 +1527,8 @@ final class _MockExamReviewItem extends StatelessWidget {
     final status = selectedChoice == null
         ? '未回答'
         : selectedChoice == card.answerIndex
-            ? '正解'
-            : '不正解';
+        ? '正解'
+        : '不正解';
     final explanation = card.explanation?.trim();
 
     return Card(
@@ -1791,10 +1697,10 @@ String _remainingTimeLabel(Duration remaining) {
 }
 
 String _modeLabel(LearningModeV1 mode) => switch (mode) {
-      LearningModeV1.unitPractice => '単元別学習',
-      LearningModeV1.randomPractice => 'ランダム演習',
-      LearningModeV1.unansweredPractice => '未回答演習',
-      LearningModeV1.incorrectPractice => '間違い演習',
-      LearningModeV1.retry => '再挑戦',
-      LearningModeV1.mockExam => '模擬試験',
-    };
+  LearningModeV1.unitPractice => '単元別学習',
+  LearningModeV1.randomPractice => 'ランダム演習',
+  LearningModeV1.unansweredPractice => '未回答演習',
+  LearningModeV1.incorrectPractice => '間違い演習',
+  LearningModeV1.retry => '再挑戦',
+  LearningModeV1.mockExam => '模擬試験',
+};

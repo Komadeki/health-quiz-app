@@ -46,6 +46,15 @@ void main() {
     expect(find.byKey(const Key('overall-progress')), findsOneWidget);
     expect(find.byKey(const Key('home-hero')), findsOneWidget);
     expect(find.byKey(const Key('overall-progress-ring')), findsOneWidget);
+    expect(find.byKey(const Key('unit-performance-chart')), findsOneWidget);
+    for (final metricKey in [
+      'progress-metric-completed',
+      'progress-metric-accuracy',
+      'progress-metric-review',
+      'progress-metric-mock-best',
+    ]) {
+      expect(find.byKey(Key(metricKey)), findsOneWidget);
+    }
     expect(find.byKey(const Key('unit-fixture_safety')), findsOneWidget);
     expect(find.byKey(const Key('start-random')), findsOneWidget);
     expect(find.byKey(const Key('start-unanswered')), findsOneWidget);
@@ -101,6 +110,52 @@ void main() {
     );
   });
 
+  testWidgets('progress dashboard shows review count and best mock score', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final controller = await createController(
+      entitlement: EntitlementSnapshot(
+        ownedProductIds: const {'fixture_full_unlock'},
+      ),
+    );
+    addTearDown(controller.dispose);
+
+    await controller.startMockExam();
+    while (controller.activeSession != null) {
+      await controller.commitAnswer(controller.currentCard!.answerIndex);
+      await controller.advance();
+    }
+    controller.returnHome();
+
+    await controller.startUnit('fixture_safety');
+    final card = controller.currentCard!;
+    final wrongAnswer = (card.answerIndex + 1) % card.choices.length;
+    await controller.commitAnswer(wrongAnswer);
+    controller.returnHome();
+
+    await tester.pumpWidget(
+      QualificationProductionApp(
+        definition: fixtureDefinition,
+        controller: controller,
+      ),
+    );
+
+    final review = find.byKey(const Key('progress-metric-review'));
+    final mockBest = find.byKey(const Key('progress-metric-mock-best'));
+    expect(
+      find.descendant(of: review, matching: find.text('1問')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: mockBest, matching: find.text('2/2')),
+      findsOneWidget,
+    );
+  });
+
   testWidgets('actionable and informational Home cards use distinct colors', (
     tester,
   ) async {
@@ -130,7 +185,8 @@ void main() {
     expect(tester.widget<Card>(recommendation).color, colors.primaryContainer);
     expect(tester.widget<Card>(history).color, colors.surfaceContainerLow);
     expect(
-      tester.widget<ListTile>(find.byKey(const Key('show-session-history')))
+      tester
+          .widget<ListTile>(find.byKey(const Key('show-session-history')))
           .onTap,
       isNull,
     );
@@ -203,42 +259,42 @@ void main() {
   });
 
   testWidgets(
-      'support and privacy links use definition URLs without fatal failure', (
-    tester,
-  ) async {
-    final controller = await createController();
-    addTearDown(controller.dispose);
-    final opened = <Uri>[];
-    await tester.pumpWidget(
-      QualificationProductionApp(
-        definition: fixtureDefinition,
-        controller: controller,
-        urlLauncher: (url) async {
-          opened.add(url);
-          return false;
-        },
-      ),
-    );
+    'support and privacy links use definition URLs without fatal failure',
+    (tester) async {
+      final controller = await createController();
+      addTearDown(controller.dispose);
+      final opened = <Uri>[];
+      await tester.pumpWidget(
+        QualificationProductionApp(
+          definition: fixtureDefinition,
+          controller: controller,
+          urlLauncher: (url) async {
+            opened.add(url);
+            return false;
+          },
+        ),
+      );
 
-    final support = find.byKey(const Key('support-link'));
-    await tester.scrollUntilVisible(support, 100);
-    await tester.ensureVisible(support);
-    await tester.pumpAndSettle();
-    await tester.tap(support);
-    await tester.pump();
-    final privacy = find.byKey(const Key('privacy-link'));
-    await tester.ensureVisible(privacy);
-    await tester.pumpAndSettle();
-    await tester.tap(privacy);
-    await tester.pump();
+      final support = find.byKey(const Key('support-link'));
+      await tester.scrollUntilVisible(support, 100);
+      await tester.ensureVisible(support);
+      await tester.pumpAndSettle();
+      await tester.tap(support);
+      await tester.pump();
+      final privacy = find.byKey(const Key('privacy-link'));
+      await tester.ensureVisible(privacy);
+      await tester.pumpAndSettle();
+      await tester.tap(privacy);
+      await tester.pump();
 
-    expect(opened, [
-      Uri.parse('https://example.invalid/support'),
-      Uri.parse('https://example.invalid/privacy'),
-    ]);
-    expect(controller.fatalError, isNull);
-    expect(controller.view, QualificationProductionView.home);
-  });
+      expect(opened, [
+        Uri.parse('https://example.invalid/support'),
+        Uri.parse('https://example.invalid/privacy'),
+      ]);
+      expect(controller.fatalError, isNull);
+      expect(controller.view, QualificationProductionView.home);
+    },
+  );
 
   testWidgets('null support and privacy URLs hide their in-app links', (
     tester,
@@ -250,7 +306,9 @@ void main() {
     addTearDown(controller.dispose);
     await tester.pumpWidget(
       QualificationProductionApp(
-          definition: definition, controller: controller),
+        definition: definition,
+        controller: controller,
+      ),
     );
 
     expect(find.byKey(const Key('support-link')), findsNothing);
@@ -293,7 +351,9 @@ void main() {
     addTearDown(controller.dispose);
     await tester.pumpWidget(
       QualificationProductionApp(
-          definition: definition, controller: controller),
+        definition: definition,
+        controller: controller,
+      ),
     );
 
     expect(find.text('残り 1:00'), findsOneWidget);
@@ -326,36 +386,37 @@ void main() {
   });
 
   testWidgets(
-      'mock result without a pass rule explains that score is reference only', (
+    'mock result without a pass rule explains that score is reference only',
+    (tester) async {
+      final controller = await createController(
+        entitlement: EntitlementSnapshot(
+          ownedProductIds: const {'fixture_full_unlock'},
+        ),
+      );
+      addTearDown(controller.dispose);
+      await tester.pumpWidget(
+        QualificationProductionApp(
+          definition: fixtureDefinition,
+          controller: controller,
+        ),
+      );
+      await controller.startMockExam();
+      while (controller.activeSession != null) {
+        await controller.commitAnswer(controller.currentCard!.answerIndex);
+        await controller.advance();
+      }
+      await tester.pump();
+
+      expect(find.byKey(const Key('session-result')), findsOneWidget);
+      expect(find.byKey(const Key('mock-no-pass-rule')), findsOneWidget);
+      expect(find.text('合格'), findsNothing);
+      expect(find.text('不合格'), findsNothing);
+    },
+  );
+
+  testWidgets('configured pass rules keep the existing pass result', (
     tester,
   ) async {
-    final controller = await createController(
-      entitlement: EntitlementSnapshot(
-        ownedProductIds: const {'fixture_full_unlock'},
-      ),
-    );
-    addTearDown(controller.dispose);
-    await tester.pumpWidget(
-      QualificationProductionApp(
-        definition: fixtureDefinition,
-        controller: controller,
-      ),
-    );
-    await controller.startMockExam();
-    while (controller.activeSession != null) {
-      await controller.commitAnswer(controller.currentCard!.answerIndex);
-      await controller.advance();
-    }
-    await tester.pump();
-
-    expect(find.byKey(const Key('session-result')), findsOneWidget);
-    expect(find.byKey(const Key('mock-no-pass-rule')), findsOneWidget);
-    expect(find.text('合格'), findsNothing);
-    expect(find.text('不合格'), findsNothing);
-  });
-
-  testWidgets('configured pass rules keep the existing pass result',
-      (tester) async {
     final profile = MockExamProfileV1(
       profileVersion: 'fixture-pass-v1',
       questionCount: 2,
@@ -378,7 +439,9 @@ void main() {
     addTearDown(controller.dispose);
     await tester.pumpWidget(
       QualificationProductionApp(
-          definition: definition, controller: controller),
+        definition: definition,
+        controller: controller,
+      ),
     );
     await controller.startMockExam();
     while (controller.activeSession != null) {

@@ -46,9 +46,8 @@ Widget _buildProgressDashboard(
               Expanded(
                 child: Text(
                   '学習進捗',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                  style: Theme.of(context).textTheme.titleLarge
+                      ?.copyWith(fontWeight: FontWeight.w700),
                 ),
               ),
               const Icon(Icons.auto_graph),
@@ -58,8 +57,7 @@ Widget _buildProgressDashboard(
           LayoutBuilder(
             builder: (context, constraints) {
               final textScale = MediaQuery.textScalerOf(context).scale(1.0);
-              final stackCharts =
-                  constraints.maxWidth < 260 || textScale > 1.7;
+              final stackCharts = constraints.maxWidth < 260 || textScale > 1.7;
               final ring = _ProgressRing(
                 completion: overall.completion,
                 percent: percent,
@@ -67,11 +65,7 @@ Widget _buildProgressDashboard(
               final radar = _UnitPerformanceChart(data: radarData);
               if (stackCharts) {
                 return Column(
-                  children: [
-                    ring,
-                    const SizedBox(height: 16),
-                    radar,
-                  ],
+                  children: [ring, const SizedBox(height: 16), radar],
                 );
               }
               return Row(
@@ -152,22 +146,22 @@ final class _ProgressMetrics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final metrics = <Widget>[
-      const _MetricDescriptor(
+      _MetricDescriptor(
         keyName: 'progress-metric-completed',
         icon: Icons.check_circle_outline,
         label: '学習済み',
       ).build(completed),
-      const _MetricDescriptor(
+      _MetricDescriptor(
         keyName: 'progress-metric-accuracy',
         icon: Icons.track_changes,
         label: '正答率',
       ).build(accuracy),
-      const _MetricDescriptor(
+      _MetricDescriptor(
         keyName: 'progress-metric-review',
         icon: Icons.replay,
         label: '要復習',
       ).build(review),
-      const _MetricDescriptor(
+      _MetricDescriptor(
         keyName: 'progress-metric-mock-best',
         icon: Icons.fact_check_outlined,
         label: '模試ベスト',
@@ -204,9 +198,9 @@ final class _MetricDescriptor {
   final String label;
 
   Widget build(String value) => KeyedSubtree(
-        key: Key(keyName),
-        child: _ProgressMetric(icon: icon, value: value, label: label),
-      );
+    key: Key(keyName),
+    child: _ProgressMetric(icon: icon, value: value, label: label),
+  );
 }
 
 final class _RadarDatum {
@@ -251,14 +245,16 @@ final class _UnitPerformanceChart extends StatelessWidget {
                   borderRadius: BorderRadius.circular(999),
                 ),
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   child: Text(
                     '単元別',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: colors.onSecondaryContainer,
-                          fontWeight: FontWeight.w700,
-                        ),
+                      color: colors.onSecondaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),
