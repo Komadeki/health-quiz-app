@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B12",
+  "adjudication_round": 1,
+  "director": {"id":"chatgpt-primary-director-b12-r1","role":"DECISION_OWNER"},
+  "adjudicated_at": "2026-08-25",
+  "author_identity": "chatgpt-b12-operations-author-r1",
+  "reviewer_identity": "autopilot-b12-operations-reviewer-r1",
+  "identity_separation_checked": true,
+  "basis": [
+    "current GitHub main and Drone machine state",
+    "merged B12 batch contract, tier reconciliation and candidates.csv",
+    "merged independent_review_r1.json",
+    "current 313-question accepted/source-verified canonical baseline",
+    "MLIT-UAS-SAFETY-GUIDE-5 edition 5 Chapter 5 source contract",
+    "merged 400-question quality-preserving controlled-variant contract"
+  ],
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {"accept":19,"reject":1,"rework":0,"hold":0},
+  "accepted_candidate_ids": [
+    "B12-OPS-C001","B12-OPS-C002","B12-OPS-C003","B12-OPS-C005","B12-OPS-C006",
+    "B12-OPS-C007","B12-OPS-C008","B12-OPS-C009","B12-OPS-C010","B12-OPS-C011",
+    "B12-OPS-C012","B12-OPS-C013","B12-OPS-C014","B12-OPS-C015","B12-OPS-C016",
+    "B12-OPS-C017","B12-OPS-C018","B12-OPS-C019","B12-OPS-C020"
+  ],
+  "rejected_candidate_ids": ["B12-OPS-C004"],
+  "director_findings": [
+    "The independent review is consistent with the merged B12 plan, reconciliation and current Chapter 5 source text.",
+    "C004 is correctly rejected: the cited source defines abnormal-event checks for crisis avoidance and safe landing during the event, not the stronger post-landing event-specific inspection duty written into the candidate.",
+    "The seven accepted Tier B candidates C006, C007, C008, C010, C013, C018 and C020 retain material source-defined distinctions in flight phase, operating-condition gate, ground-effect action branch, sensor-failure response or post-landing lifecycle state.",
+    "C002 is correctly treated as Tier A under the merged reconciliation because abnormal heating is an explicit post-flight inspection proposition rather than a reuse of a canonical core proposition.",
+    "No accepted candidate relies on a subsection explicitly marked 〔一等〕.",
+    "The 20-candidate ceiling is not a quota; C004 is dropped without replacement.",
+    "No HUMAN review is claimed or fabricated."
+  ],
+  "controlled_variant_result": {"accepted_tier_b":["B12-OPS-C006","B12-OPS-C007","B12-OPS-C008","B12-OPS-C010","B12-OPS-C013","B12-OPS-C018","B12-OPS-C020"],"rejected_tier_b":[],"wording_only_duplicate_retained":false},
+  "invariants": {"HUMAN_REVIEW_FABRICATED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"REGISTRY_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false},
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_19"
+}
