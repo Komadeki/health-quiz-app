@@ -1,0 +1,46 @@
+name: Otsu4 Wave Accept and Promote PR Worker
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'question_banks/otsu4/authoring/waves/acceptance_request.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: otsu4-wave-accept-promote-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  accept-promote:
+    if: github.head_ref == 'chatgpt/otsu4-wave-accept-promote'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Wave transaction branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/otsu4-wave-accept-promote
+          fetch-depth: 0
+      - name: Reconcile to current main
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Execute Otsu4 Wave Director accept and promote transaction
+        run: python3 tooling/komadeki_autopilot/otsu4_wave_accept_promote_transition.py
+      - name: Validate transaction and repository gates
+        run: |
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/otsu4_state.json
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/otsu4 --check-generated
+      - name: Commit durable Otsu4 Wave transaction
+        run: |
+          rm -f question_banks/otsu4/authoring/waves/acceptance_request.json
+          git add -A
+          git diff --cached --check
+          git commit -m 'Accept and promote Otsu4 reviewed Wave candidates'
+          git push --force-with-lease origin HEAD:chatgpt/otsu4-wave-accept-promote
