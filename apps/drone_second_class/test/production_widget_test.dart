@@ -110,8 +110,7 @@ void main() {
     expect(find.text('解説（Explanation）'), findsOneWidget);
   });
 
-
-  test('Drone free tier supports a 20-question random session', () async {
+  test('Drone free tier has headroom for a 20-question random session', () async {
     final controller = createProductionController();
     await controller.initialize();
     addTearDown(controller.dispose);
@@ -121,6 +120,6 @@ void main() {
     final started = await controller.startRandom();
     expect(started, isTrue);
     expect(controller.activeSession?.questionIds.length, 20);
+    expect(controller.activeSession?.questionIds.toSet().length, 20);
   });
-
 }
