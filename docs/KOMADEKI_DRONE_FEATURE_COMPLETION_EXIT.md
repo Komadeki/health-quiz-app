@@ -1,6 +1,6 @@
 # KOMADEKI Drone Feature Completion Exit Verification
 
-Verified against GitHub `main` at `93a9489bbd3acbdecc86b95c0bf28033ecbdf144`.
+Verified against the 386-question production baseline on GitHub `main` at `5649b5522f8c8476195a9462b363291074cfc2d8`.
 
 Control issue: #40  
 Product: `drone_second_class`  
@@ -11,7 +11,7 @@ Result: `PASS`
 
 This gate asks whether the Drone Reference Product has the repository-declared production feature set needed to leave `FEATURE_COMPLETION`. It does not certify physical-device behavior, StoreKit/TestFlight, App Store Connect metadata, final release readiness, or submission; those remain later phases in `docs/KOMADEKI_AUTOPILOT.md`.
 
-Question Bank expansion is not reopened by this gate. Current `main` already carries the frozen 188-question Production Bank activated by PR #121, and this verification preserves all Question Bank identity, acceptance, released/runtime, and V0 validation invariants.
+Question Bank expansion is not reopened by this gate. Current `main` carries the frozen 386-question Production Bank activated by PR #401, and this verification preserves all Question Bank identity, acceptance, released/runtime, and V0 validation invariants.
 
 ## Repository-declared feature contract — PASS
 
@@ -38,16 +38,16 @@ The production entrypoint remains `apps/drone_second_class/lib/main.dart`, which
 
 `apps/drone_second_class/test/production_controller_test.dart` verifies on the current production bank that:
 
-- bank revision is `drone-second-class-v2-release-2026-08-24`;
-- 188 permanent questions are available in the canonical production runtime;
-- exactly 20 questions remain free, five per unit;
-- the full unlock exposes all 188 questions;
+- bank revision is `drone-second-class-v4-release-2026-08-26`;
+- 386 permanent questions are available in the canonical production runtime;
+- exactly 30 questions remain free;
+- the full unlock exposes all 386 questions;
 - the production mock profile remains 50 questions / 30 minutes with no invented pass threshold;
 - learning events bind to the current bank revision;
 - Drone production composes the shared Factory architecture rather than forking a Drone controller;
 - the historical validation entrypoint is not routed by the production entrypoint.
 
-PR #121 also established that the generated Production runtime and app asset are synchronized for the 188-question release while preserving the immutable V0 formal snapshot, permanent-ID first-use history, and `DRONE-Q-000189+` unreserved boundary.
+PR #401 established that the generated Production runtime and app asset are byte-identical for the 386-question release while preserving the immutable V0 formal snapshot, historical permanent-ID first-use history, and the `DRONE-Q-000387+` unreserved boundary.
 
 ## Learner-facing feature coverage — PASS
 
@@ -66,7 +66,7 @@ The durable UI/UX backlog records every P0 and P1 finding as `CLOSED`. Remaining
 
 ## CI evidence — PASS
 
-The PR #121 activation head `e39aff94b00d51ae59bb63e30b1dd9d1df3ca927`, whose merge produced the verified `main`, completed both repository workflows successfully:
+The PR #401 activation head `53705e45839c5624d6d092cdbe5a0bb94a3422ac`, whose merge produced the verified baseline, completed both repository workflows successfully:
 
 - `KOMADEKI Autopilot State` — PASS;
 - `Quiz Apps CI` — PASS.
@@ -75,9 +75,9 @@ This exit transition itself must also pass those repository CI gates before merg
 
 ## Non-blocking closure findings
 
-Feature completion does not mean product closure. At least one repository-facing product consistency item remains for the next phase: `apps/drone_second_class/README.md` still describes the earlier 100-question runtime even though authoritative production main is now 188. Product-facing copy, support/privacy/legal/metadata consistency, build/release hygiene, and other closure checks belong to `PRODUCT_CLOSURE` and must be reconciled there before advancing to physical-device work.
+Feature completion does not mean product closure. Product-facing copy, support/privacy/legal/metadata consistency, build/release hygiene, and other closure checks belong to `PRODUCT_CLOSURE` and must be reconciled there before advancing to physical-device work.
 
-This stale README does not alter production runtime behavior, Question Bank identity, or enabled learner features, so it is not a `FEATURE_COMPLETION` blocker.
+The 386-question activation updates the Drone README's runtime and free/premium counts; this exit verification does not treat any remaining closure audit item as a missing learner-facing feature.
 
 ## Exit decision
 
