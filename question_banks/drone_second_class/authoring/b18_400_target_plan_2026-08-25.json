@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B18-400-TARGET-RULES-AIRCRAFT-OPS-GAP-HARVEST-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B18_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "bce74c6ffca543c3dfd657a6331d5761130f3905",
+  "target_contract": "target_400_quality_relaxation_contract_2026-08-25.json",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 365,
+    "accepted_source_verified_canonical": 365,
+    "remaining_to_400": 35,
+    "next_unreserved_permanent_id": "DRONE-Q-000366",
+    "derived_domain_counts": {
+      "drone_rules": 93,
+      "drone_systems": 86,
+      "drone_operations": 93,
+      "drone_risk_management": 93
+    }
+  },
+  "strategy": {
+    "domain": "drone_rules",
+    "reason": "Systems remains numerically thinnest but B13 and the B17 pre-screen show that Chapter 4 is now heavily saturated. B18 therefore does not chase numeric balance. A fresh full-bank gap check found six explicit, second-class-applicable Chapter 3 aircraft-operations propositions that remain absent or materially distinct in the 365-question canonical inventory. These propositions are directly within the official syllabus section explaining why UAS pilots must understand aircraft operations and airspace, and have higher examination/safety value than forcing additional near-duplicate Systems variants.",
+    "candidate_ceiling": 6,
+    "candidate_ceiling_is_quota": false,
+    "pre_screen_rule": "Every candidate must be explicitly supported by current Chapter 3 source text, remain second-class applicable, and survive comparison against all 365 canonical questions. No candidate may be added solely because 35 questions remain to the target."
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "official_current_check": "2026-08-25",
+    "scope_rule": "Use only second-class-applicable Chapter 3 propositions; exclude every subsection explicitly marked 〔一等〕."
+  },
+  "batch": {
+    "batch_id": "B18",
+    "domain": "drone_rules",
+    "candidate_ceiling": 6,
+    "candidate_ceiling_is_quota": false,
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 5,
+      "B_BOUNDARY_VARIANT": 1,
+      "C_REASONING_VARIANT": 0
+    }
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B18-RULE-C001",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "IFR VFR distinction and airport ATC exception",
+      "source_locator": "教則 第3章 3.1.2(3)2)「計器飛行方式及び有視界飛行方式」",
+      "proposition": "IFRは航空交通管制機関の指示等に常時従う飛行方式であり、VFRは原則として操縦者の判断に基づくが、空港及びその周辺ではVFR航空機も管制機関の指示等に従う必要がある。",
+      "tested_misconception": "VFR航空機は空港周辺でも常に操縦者判断だけで飛行し、航空交通管制機関の指示には従わない。",
+      "reasoning_path": "identify flight-rule type -> distinguish default decision authority -> apply airport-area ATC exception",
+      "nearest_canonical": [],
+      "pre_screen_result": "PASS: no canonical question contains IFR/計器飛行方式 or VFR/有視界飛行方式 as an answer-defining proposition."
+    },
+    {
+      "candidate_id": "B18-RULE-C002",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "manned aircraft below 150m exceptions",
+      "source_locator": "教則 第3章 3.1.2(3)3)「航空機の飛行高度」",
+      "proposition": "航空機は離着陸時以外でも、捜索救助、ドクターヘリ、低空飛行許可を受けた物資輸送・送電線巡視・薬剤散布、人家のない地域や広い水面上空等では150m以下を飛行する場合がある。",
+      "tested_misconception": "150m以下の空域では離着陸時を除き有人航空機は飛行しないため、無人航空機側の航空機監視は不要である。",
+      "reasoning_path": "recognize low-altitude operating exception -> reject assumption that sub-150m airspace is UAS-only -> maintain aircraft conflict awareness",
+      "nearest_canonical": ["DRONE-Q-000120", "DRONE-Q-000216"],
+      "pre_screen_result": "PASS: Q120 uses doctor-helicopter traffic as one route-planning factor and Q216 tests not starting a UAS flight when an aircraft is already observed. Neither makes the source-defined set of sub-150m manned-aircraft operations answer-defining."
+    },
+    {
+      "candidate_id": "B18-RULE-C003",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "UAS yields to manned aircraft",
+      "distinctness_axes": ["legal_operational_concept", "causal_rationale", "reasoning_path"],
+      "family": "aircraft right-of-way over UAS rationale",
+      "source_locator": "教則 第3章 3.1.2(3)1)「無人航空機の操縦者が航空機の運航ルールを理解する必要性」",
+      "proposition": "航空機の航行安全を最大限優先し、航空機側から小さな無人航空機を視認・回避しにくく、一般に無人航空機の方が機動性が高いことから、航空機は無人航空機に対して進路権を有するとされる。",
+      "tested_misconception": "航空機にも見張り義務があるため、接近時は航空機側と無人航空機側が同等に回避責任を負い、無人航空機が優先的に回避する必要はない。",
+      "reasoning_path": "compare safety consequence and detectability/maneuverability -> infer priority relationship -> identify aircraft right-of-way",
+      "nearest_canonical": ["DRONE-Q-000051", "DRONE-Q-000216", "DRONE-Q-000218"],
+      "pre_screen_result": "PASS as controlled variant: Q051/Q216/Q218 test concrete UAS actions before or during encounters. C003 instead makes the source-defined right-of-way concept and its three-part rationale answer-defining; legal concept, causal rationale and reasoning path differ."
+    },
+    {
+      "candidate_id": "B18-RULE-C004",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "air traffic control area IFR communication rule",
+      "source_locator": "教則 第3章 3.1.2(3)6)a「航空機の管制区域」",
+      "proposition": "航空交通管制区は地表又は水面から200m以上の高さの空域のうち国が指定した空域であり、そこをIFRで飛行する航空機は管制機関と常時連絡し指示に従う。",
+      "tested_misconception": "航空交通管制区は空港地表面から150m未満の空域を指し、IFR航空機も管制機関との常時連絡を要しない。",
+      "reasoning_path": "identify airspace type -> apply altitude/designation definition -> apply IFR communication/control requirement",
+      "nearest_canonical": [],
+      "pre_screen_result": "PASS: no canonical question contains 航空交通管制区/管制区域 as an answer-defining proposition."
+    },
+    {
+      "candidate_id": "B18-RULE-C005",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "air traffic control zone all-aircraft rule",
+      "source_locator": "教則 第3章 3.1.2(3)6)a「航空機の管制区域」",
+      "proposition": "航空交通管制圏は航空機の離着陸が頻繁な空港等及びその周辺の空域であり、そこを飛行する全ての航空機は管制機関と連絡し、飛行方法や離着陸順序等の指示に従う。",
+      "tested_misconception": "航空交通管制圏で管制機関の指示に従うのはIFR航空機だけで、VFR航空機には連絡義務がない。",
+      "reasoning_path": "identify control-zone context -> distinguish from IFR-only control-area rule -> apply requirement to all aircraft",
+      "nearest_canonical": [],
+      "pre_screen_result": "PASS: no canonical question contains 航空交通管制圏 or makes the all-aircraft ATC requirement answer-defining."
+    },
+    {
+      "candidate_id": "B18-RULE-C006",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "airport restriction surfaces core purposes",
+      "source_locator": "教則 第3章 3.1.2(3)6)b「空港の制限表面の概要」",
+      "proposition": "全ての空港に設定される基本的な制限表面は、進入表面（最終進入・離陸時の安全）、水平表面（空港周辺の旋回等低空飛行の安全）、転移表面（進入やり直し等の側面方向飛行の安全）である。",
+      "tested_misconception": "進入表面・水平表面・転移表面は用途の区別がなく、いずれも空港上空の巡航高度だけを規制するための表面である。",
+      "reasoning_path": "identify flight phase or maneuver -> map to the corresponding restriction surface -> distinguish three safety purposes",
+      "nearest_canonical": [],
+      "pre_screen_result": "PASS: no canonical question contains 進入表面/水平表面/転移表面 as an answer-defining proposition."
+    }
+  ],
+  "excluded_after_prescreen": [
+    "Chapter 6 weather, aircraft-type and BVLOS propositions were not selected because the 365-question canonical bank already covers the major second-class branches at high density.",
+    "Chapter 4 Systems was not selected despite the numeric deficit because B13/B17 demonstrated severe saturation and no equally strong new Chapter 4 set survived the current pre-screen.",
+    "Concrete encounter actions such as not starting a flight when an aircraft is observed, descending during an encounter, and coordinating with other UAS pilots are already answer-defining in Q051/Q216-Q218 and are not duplicated.",
+    "First-class-only material and wording-only variants remain prohibited; no quota backfill is allowed."
+  ],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_PLANNING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_PLANNING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_PLANNING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "AUTHOR_AND_PERSIST_B18_400_TARGET_CANDIDATES"
+}
