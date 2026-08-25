@@ -16,12 +16,12 @@
     "SUBMIT",
     "DONE"
   ],
-  "observed_main": "c1096a60284a651cff09679d77f0246892a73f2a",
-  "next_atomic_objective": "DIRECTOR_ADJUDICATE_B11_400_TARGET_CANDIDATES",
+  "observed_main": "57a8f6d5cd93f66bfdc61a570ce0cf45f07f4c50",
+  "next_atomic_objective": "MATERIALIZE_B11_ACCEPTANCE_PACKETS_18",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 76
+  "state_epoch": 77
 }
