@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B17-SYS-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5d02cac86d7d182ac2e6537abb08984a75d6a15b5ec0c4ddb579fe057e60f898",
+  "actors": {
+    "author": {"id":"chatgpt-b17-systems-author-r1","role":"AI_AUTHOR"},
+    "reviewer": {"id":"autopilot-b17-systems-reviewer-r1","role":"AI_REVIEWER"},
+    "director": {"id":"chatgpt-primary-director-b17-r1","role":"AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","source_locator":"教則 第4章「機体の動力源」(2)3)複数のセルで構成されたリチウムポリマーバッテリーの取扱上の注意"},
+    "answer_defining_proposition": "複数セルLiPoでセル間の充電量のバランスが著しく崩れたまま充電するとセル間の電圧差が生じセルによって過放電となる現象が起こり急速な劣化につながる。",
+    "tested_misconception": "セル間の充電量が著しく不均衡でも充電を続ければ各セルの電圧差は自動的に解消され劣化にはつながらない。",
+    "reasoning_path": "severe cell imbalance during charging -> voltage difference develops -> cell-level overdischarge phenomenon -> rapid degradation",
+    "collision": {"released_bank_checked":true,"canonical_drafts_checked":true,"batch_checked":true,"note":"Tier B。Q166はバランスコネクタを接続して充電量を補正する必要行動。本問は著しい不均衡のまま充電したときの電圧差→過放電現象→急速劣化という別のscenario stateと因果連鎖を問う。"}
+  },
+  "independent_review": {"decision":"ACCEPT","rationale":"Tier B PASS. Q166 asks for the preventive action of connecting a balance connector. C004 begins from the different state of severe cell imbalance during charging and tests the source-defined voltage-difference -> cell-level overdischarge phenomenon -> rapid-degradation chain. Scenario state, causal mechanism and reasoning path are distinct."},
+  "director_adjudication": {"decision":"ACCEPT","rationale":"Adopt the independent review at ACCEPT 5 / REJECT 0. All five propositions are directly supported by second-class-applicable Chapter 4 source text. C001 and C004 satisfy the controlled-variant distinctness contract; C002, C003 and C005 add new answer-defining propositions. No quota backfill is required or permitted."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
