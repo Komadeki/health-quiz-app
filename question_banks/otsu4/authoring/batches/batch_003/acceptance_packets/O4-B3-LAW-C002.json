@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B3-LAW-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1f388d342eaf66f38a3b6cf87b3846d7867a39087b0ee12cc318ba933d797b3e",
+  "actors": {
+    "author": {
+      "id": "otsu4-b3-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b3-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第24条第2号"
+    },
+    "answer_defining_proposition": "製造所等ではみだりに火気を使用しない。",
+    "tested_misconception": "容器が密閉されていれば火気使用制限はない。",
+    "reasoning_path": "common storage/handling rule -> identify fire-use restriction",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B3 Tier A; first common fire-use rule."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Direct common fire-use prohibition with independent operational value."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 22 accepted candidates test concrete storage and handling duties, quantitative boundaries, Class-4-specific controls, or explicit sale/record obligations without material collision with the 29 canonical Otsu4 questions. C016 and C017 are too abstract to add sufficient practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B3-LAW-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "571f2a344195ffa8fc3c8d819bd3e0f4557c7e645e11bf804a10044045c47f13",
+  "actors": {
+    "author": {
+      "id": "otsu4-b3-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b3-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第39条の2"
+    },
+    "answer_defining_proposition": "第四類の特殊引火物は危険等級Iに区分される。",
+    "tested_misconception": "特殊引火物は危険等級IIIである。",
+    "reasoning_path": "Class 4 item -> map special inflammable -> hazard grade I",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B3 Tier A; risk-grade taxonomy."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Special inflammables -> hazard grade I is an exact Class-4 classification boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 22 accepted candidates test concrete storage and handling duties, quantitative boundaries, Class-4-specific controls, or explicit sale/record obligations without material collision with the 29 canonical Otsu4 questions. C016 and C017 are too abstract to add sufficient practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B3-LAW-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b4a71c1a415530e723ba0931ec951a267217b7721bfaa2f103e8eba4756c7b4a",
+  "actors": {
+    "author": {
+      "id": "otsu4-b3-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b3-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第24条第4号の2"
+    },
+    "answer_defining_proposition": "貯留設備・油分離装置にたまった危険物は、あふれないよう随時くみ上げる。",
+    "tested_misconception": "満杯になるまで回収不要である。",
+    "reasoning_path": "retained hazardous material -> overflow risk -> pump out as needed",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B3 Tier A; overflow-control proposition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Overflow-control duty for retention/oil-separation equipment is exact and distinct."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 22 accepted candidates test concrete storage and handling duties, quantitative boundaries, Class-4-specific controls, or explicit sale/record obligations without material collision with the 29 canonical Otsu4 questions. C016 and C017 are too abstract to add sufficient practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

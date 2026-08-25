@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B3-LAW-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c2fd7cc30dff7b2484979c2da240c8687822368ea661cef4525155eddb867403",
+  "actors": {
+    "author": {
+      "id": "otsu4-b3-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b3-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第24条第8号"
+    },
+    "answer_defining_proposition": "危険物が漏れ・あふれ・飛散しないよう必要な措置を講じる。",
+    "tested_misconception": "少量の漏えいなら防止措置は不要である。",
+    "reasoning_path": "handling operation -> identify leak/overflow/dispersion risk -> preventive measures",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B3 Tier A; loss-of-containment prevention."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Leak/overflow/dispersion prevention is a direct common handling standard."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 22 accepted candidates test concrete storage and handling duties, quantitative boundaries, Class-4-specific controls, or explicit sale/record obligations without material collision with the 29 canonical Otsu4 questions. C016 and C017 are too abstract to add sufficient practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

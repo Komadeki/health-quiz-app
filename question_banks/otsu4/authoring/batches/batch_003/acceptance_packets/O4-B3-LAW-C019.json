@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B3-LAW-C019",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "985f59b90227a769dc03a19f475989761e2af2799d7068fd76dbdb0f53130eeb",
+  "actors": {
+    "author": {
+      "id": "otsu4-b3-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b3-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第39条の2"
+    },
+    "answer_defining_proposition": "第四類の第一石油類及びアルコール類は危険等級IIに区分される。",
+    "tested_misconception": "第一石油類とアルコール類は危険等級IIIである。",
+    "reasoning_path": "Class 4 item -> first petroleum/alcohol -> hazard grade II",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B3 Tier A; distinct from C018 grade-I item."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "First petroleum/alcohol -> hazard grade II is exact and distinct from C018."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 22 accepted candidates test concrete storage and handling duties, quantitative boundaries, Class-4-specific controls, or explicit sale/record obligations without material collision with the 29 canonical Otsu4 questions. C016 and C017 are too abstract to add sufficient practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
