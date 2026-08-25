@@ -1,0 +1,46 @@
+name: Otsu4 B3 AI Acceptance PR Worker
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'question_banks/otsu4/authoring/batches/batch_003/acceptance_request.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: otsu4-b3-ai-acceptance-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  accept:
+    if: github.head_ref == 'chatgpt/otsu4-b3-acceptance'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout acceptance branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/otsu4-b3-acceptance
+          fetch-depth: 0
+      - name: Reconcile to current main
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Materialize Otsu4 Batch 3 AI acceptance packets
+        run: python3 tooling/komadeki_autopilot/otsu4_b3_acceptance_transition.py
+      - name: Validate acceptance and repository gates
+        run: |
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/otsu4_state.json
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/otsu4 --check-generated
+      - name: Commit durable Otsu4 Batch 3 acceptance transition
+        run: |
+          rm -f question_banks/otsu4/authoring/batches/batch_003/acceptance_request.json
+          git add -A
+          git diff --cached --check
+          git commit -m 'Materialize Otsu4 Batch 3 AI acceptance packets'
+          git push --force-with-lease origin HEAD:chatgpt/otsu4-b3-acceptance
