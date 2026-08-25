@@ -110,5 +110,6 @@ void main() {
     expect(find.byKey(const Key('resume-session')), findsOneWidget);
     expect(find.byKey(const Key('primary-action-incorrect')), findsNothing);
     expect(find.text('続きから'), findsOneWidget);
+    expect(find.textContaining('1/1問目から再開します。'), findsOneWidget);
   });
 }
