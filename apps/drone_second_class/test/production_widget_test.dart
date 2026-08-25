@@ -9,6 +9,10 @@ void main() {
   testWidgets('Drone renders shared practice/progress/history without V0 UX', (
     tester,
   ) async {
+    tester.view.physicalSize = const Size(800, 2400);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
     final controller = createProductionController();
     await controller.initialize();
     addTearDown(controller.dispose);
@@ -19,8 +23,9 @@ void main() {
       ),
     );
 
-    expect(find.text('二等無人航空機 学科対策'), findsOneWidget);
-    expect(find.text('教則第5版を基にした学科試験対策'), findsOneWidget);
+    expect(find.text('二等無人航空機'), findsOneWidget);
+    expect(find.text('教則第5版準拠'), findsOneWidget);
+    expect(find.text('学科試験対策'), findsOneWidget);
     expect(
       GeneratedAppManifest.definition.learningProduct.homeHeadline,
       isNot(matches(RegExp(r'全\d+問'))),

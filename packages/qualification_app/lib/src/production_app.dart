@@ -215,6 +215,10 @@ final class _QualificationHomeState extends State<QualificationHome> {
                     }),
                   ),
                 ],
+                if (definition.learningProduct.progressEnabled) ...[
+                  const SizedBox(height: 16),
+                  _ProgressCard(controller: controller),
+                ],
                 if (widget.homeSupplementBuilder != null) ...[
                   const SizedBox(height: 16),
                   Builder(
@@ -222,10 +226,6 @@ final class _QualificationHomeState extends State<QualificationHome> {
                     builder: (context) =>
                         widget.homeSupplementBuilder!(context, controller),
                   ),
-                ],
-                if (definition.learningProduct.progressEnabled) ...[
-                  const SizedBox(height: 16),
-                  _ProgressCard(controller: controller),
                 ],
                 const SizedBox(height: 16),
                 Text('単元別学習', style: Theme.of(context).textTheme.titleLarge),
@@ -333,7 +333,7 @@ final class _HomeHero extends StatelessWidget {
                     const SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        definition.displayName,
+                        '学科試験対策',
                         style: theme.textTheme.labelLarge?.copyWith(
                           color: colors.onPrimary,
                           fontWeight: FontWeight.w700,
@@ -346,14 +346,22 @@ final class _HomeHero extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              definition.learningProduct.homeHeadline,
+              definition.displayName,
               style: theme.textTheme.headlineMedium?.copyWith(
                 color: colors.onPrimary,
                 fontWeight: FontWeight.w800,
                 height: 1.25,
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
+            Text(
+              definition.learningProduct.homeHeadline,
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: colors.onPrimary,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 16),
             Text(
               '合格に必要な知識を、問題演習で一歩ずつ。',
               style: theme.textTheme.bodyLarge?.copyWith(
@@ -593,8 +601,12 @@ final class _WeaknessCard extends StatelessWidget {
         weakest == null ? null : controller.bank!.unitById(weakest.key);
     final score =
         weakest?.value.recentCorrectness ?? weakest?.value.correctness;
+    final canOpen = unit != null && controller.accessibleCardsFor(unit).isNotEmpty;
+    final colors = Theme.of(context).colorScheme;
     return Card(
       key: const Key('weakness-summary'),
+      color: canOpen ? colors.primaryContainer : colors.surfaceContainerLow,
+      clipBehavior: Clip.antiAlias,
       child: ListTile(
         leading: const Icon(Icons.insights),
         title: const Text('苦手な単元'),
@@ -605,6 +617,8 @@ final class _WeaknessCard extends StatelessWidget {
                 '直近正答率${((score ?? 0) * 100).round()}% ・ '
                 '${weakest.value.attemptCount}回答',
               ),
+        trailing: canOpen ? const Icon(Icons.chevron_right) : null,
+        onTap: canOpen ? () => unawaited(controller.startUnit(unit.id)) : null,
       ),
     );
   }
@@ -1005,16 +1019,21 @@ final class _RecommendationCard extends StatelessWidget {
     final recommendation = controller.recommendation;
     if (recommendation == null) return const SizedBox.shrink();
     final unit = controller.bank!.unitById(recommendation.unitId);
+    final canOpen = unit != null && controller.accessibleCardsFor(unit).isNotEmpty;
     final reason = recommendation.reasonCode == 'unanswered_unit'
         ? 'まだ回答履歴がないため'
         : '直近の正答率が最も低いため';
+    final colors = Theme.of(context).colorScheme;
     return Card(
       key: const Key('recommendation'),
+      color: canOpen ? colors.primaryContainer : colors.surfaceContainerLow,
+      clipBehavior: Clip.antiAlias,
       child: ListTile(
         leading: const Icon(Icons.route),
         title: Text('次のおすすめ: ${unit?.title ?? recommendation.unitId}'),
         subtitle: Text(reason),
-        onTap: unit == null ? null : () => controller.startUnit(unit.id),
+        trailing: canOpen ? const Icon(Icons.chevron_right) : null,
+        onTap: canOpen ? () => unawaited(controller.startUnit(unit.id)) : null,
       ),
     );
   }
@@ -1027,38 +1046,87 @@ final class _HistoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final history = controller.history.take(5).toList(growable: false);
+    final history = controller.history;
+    final latest = history.firstOrNull;
+    final colors = Theme.of(context).colorScheme;
     return Card(
       key: const Key('session-history'),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      color: latest == null
+          ? colors.surfaceContainerLow
+          : colors.primaryContainer,
+      clipBehavior: Clip.antiAlias,
+      child: ListTile(
+        key: const Key('show-session-history'),
+        leading: const Icon(Icons.history),
+        title: const Text('学習履歴'),
+        subtitle: Text(
+          latest == null
+              ? '完了した学習はまだありません。'
+              : '${history.length}回完了 ・ 直近 ${latest.correctCount}/${latest.totalCount}問正解',
+        ),
+        trailing: latest == null ? null : const Icon(Icons.chevron_right),
+        onTap: latest == null
+            ? null
+            : () => _showSessionHistory(context, controller),
+      ),
+    );
+  }
+}
+
+Future<void> _showSessionHistory(
+  BuildContext context,
+  QualificationProductionController controller,
+) {
+  return showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    isScrollControlled: true,
+    builder: (context) => SafeArea(
+      child: FractionallySizedBox(
+        heightFactor: 0.78,
+        child: ListView(
+          key: const Key('session-history-sheet'),
+          padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
           children: [
-            Text('学習履歴', style: Theme.of(context).textTheme.titleMedium),
-            if (history.isEmpty)
-              const Padding(
-                padding: EdgeInsets.only(top: 8),
-                child: Text('完了した学習はまだありません。'),
-              )
-            else
-              for (final item in history)
-                ListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(_modeLabel(item.mode)),
+            Text('学習履歴', style: Theme.of(context).textTheme.headlineSmall),
+            const SizedBox(height: 4),
+            Text('${controller.history.length}回の完了記録'),
+            const SizedBox(height: 16),
+            for (final item in controller.history)
+              Card(
+                child: ListTile(
+                  title: Text(_historyTitle(item, controller)),
                   subtitle: Text(
-                    '${item.correctCount} / ${item.totalCount} 正解',
+                    '${item.correctCount}/${item.totalCount}問正解 ・ '
+                    '${_historyDateLabel(item.completedAt)}',
                   ),
                   trailing: item.passed == null
                       ? null
                       : Text(item.passed! ? '合格' : '不合格'),
                 ),
+              ),
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
+String _historyTitle(
+  SessionHistoryV1 history,
+  QualificationProductionController controller,
+) {
+  final unitId = history.unitId;
+  if (unitId == null) return _modeLabel(history.mode);
+  final unit = controller.bank!.unitById(unitId);
+  return '${_modeLabel(history.mode)}：${unit?.title ?? unitId}';
+}
+
+String _historyDateLabel(DateTime completedAt) {
+  final local = completedAt.toLocal();
+  String twoDigits(int value) => value.toString().padLeft(2, '0');
+  return '${local.year}/${twoDigits(local.month)}/${twoDigits(local.day)} '
+      '${twoDigits(local.hour)}:${twoDigits(local.minute)}';
 }
 
 final class _UnlockCard extends StatelessWidget {
