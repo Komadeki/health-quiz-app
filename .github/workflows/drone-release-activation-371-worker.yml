@@ -1,0 +1,56 @@
+name: Drone Production Bank 371 Release Activation Worker
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/drone-release-activation-371-trigger']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: drone-release-activation-371-worker
+  cancel-in-progress: false
+
+jobs:
+  activate:
+    if: github.head_ref == 'chatgpt/drone-release-activate-371'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout activation branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-release-activate-371
+          fetch-depth: 0
+      - name: Reconcile to authoritative current main
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Execute atomic Production Bank 371 activation
+        run: python3 tooling/komadeki_autopilot/drone_release_activation_371_transition.py
+      - name: Validate Question Bank and lifecycle regressions
+        run: |
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class --check-generated
+          cmp question_banks/drone_second_class/generated/drone_second_class_bank.json apps/drone_second_class/assets/question_bank/drone_second_class_bank.json
+      - name: Validate Drone machine state and protected boundaries
+        run: |
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+          if git diff --name-only | grep '^question_banks/drone_second_class/validation/formal_snapshot/'; then
+            echo 'V0 formal snapshot mutation is prohibited' >&2
+            exit 1
+          fi
+          if git diff --name-only | grep -E '^question_banks/drone_second_class/validation/(generated|protocol\.json|manifest\.json)'; then
+            echo 'V0 validation artifact mutation is prohibited' >&2
+            exit 1
+          fi
+      - name: Commit durable 371 activation transition
+        run: |
+          rm -f .github/drone-release-activation-371-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Activate Drone Production Bank 371'
+          git push --force-with-lease origin HEAD:chatgpt/drone-release-activate-371
