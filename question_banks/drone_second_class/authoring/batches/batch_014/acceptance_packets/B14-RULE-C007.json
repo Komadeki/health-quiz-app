@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B14-RULE-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "69bf16b5019a17effd2353a87aa346c915427d211c3d73d6c70df9180dca516b",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b14-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b14-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b14-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(1)6)「リモートID機器の概要及び発信情報」"
+    },
+    "answer_defining_proposition": "リモートIDは機体識別情報と飛行状態情報を発信するが所有者・使用者の情報は含めない。",
+    "tested_misconception": "リモートIDは所有者氏名等の個人情報を常時発信することを主目的とする。",
+    "reasoning_path": "identify Remote ID payload -> separate aircraft and flight-state data from owner identity -> choose supported broadcast content",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q047は搭載免除条件を問う。current canonicalにRemote IDの発信内容をanswer-defining propositionとする設問は確認されていない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source explicitly defines Remote ID broadcast content: aircraft serial/registration plus dynamic position, speed, altitude and time information, excluding owner/user information, with transmission at least once per second. Q047 tests exemption conditions rather than payload. The proposition is not mere trivia because it defines what identification data the system actually broadcasts and what personal data it does not."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt all nine independent-review ACCEPT decisions because each candidate has direct current MLIT 教則第5版 support and survived the full-336 canonical collision gate. B14's pre-screen-before-authoring strategy materially improved yield relative to B13 and should be retained for later expansion batches. C001 is a source-explicit VLOS exception boundary distinct from Q048's sustained monitor/assistant BVLOS proposition. C002 and C003 add separate event-overflight decisions: live response to unexpected third-party/event conditions and the explicit 5 m/s cancellation threshold. C004 and C005 test different conjunctive indirect-participant requirements than Q002; together with Q002 they reach the default same-core density ceiling of three, so no additional variant on that core is approved without explicit override. C006 tests the Remote ID tether-exemption branch, distinct from Q030's flight-method tether exception and Q047's Remote ID special-area exemption. C007 tests the actual Remote ID broadcast payload and the exclusion of owner/user information, which is not answer-defining elsewhere in the canonical bank. C008 tests the priority of emergency-use airspace designation over ordinary airport/150m/DID permissions, distinct from Q041's sub-100g applicability rule. C009 tests straight-line measurement geometry for the 30m rule, distinct from Q104's property classification. No HUMAN review is claimed."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

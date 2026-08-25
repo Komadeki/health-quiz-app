@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B14-RULE-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "bd612823363c2075e5c638da25b8d56d24ef5879eb5cd6a57182648989ddc192",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b14-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b14-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b14-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(2)1)b「緊急用務空域」"
+    },
+    "answer_defining_proposition": "通常の規制空域に関する許可があっても指定された緊急用務空域を飛行することはできない。",
+    "tested_misconception": "通常の規制空域について許可済みなら後から緊急用務空域に指定されても飛行できる。",
+    "reasoning_path": "ordinary-airspace permission -> check current emergency designation -> emergency-use prohibition overrides ordinary permission",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q041は100g未満の模型航空機も緊急用務空域の飛行禁止対象になることを問う。本問は通常空域許可との優先関係を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source explicitly states that ordinary permissions for airport-adjacent, 150 m or higher, or DID airspace do not authorize flight in an emergency-use airspace and requires a preflight designation check. Q041 tests the separate applicability of the emergency-use prohibition to sub-100 g model aircraft."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt all nine independent-review ACCEPT decisions because each candidate has direct current MLIT 教則第5版 support and survived the full-336 canonical collision gate. B14's pre-screen-before-authoring strategy materially improved yield relative to B13 and should be retained for later expansion batches. C001 is a source-explicit VLOS exception boundary distinct from Q048's sustained monitor/assistant BVLOS proposition. C002 and C003 add separate event-overflight decisions: live response to unexpected third-party/event conditions and the explicit 5 m/s cancellation threshold. C004 and C005 test different conjunctive indirect-participant requirements than Q002; together with Q002 they reach the default same-core density ceiling of three, so no additional variant on that core is approved without explicit override. C006 tests the Remote ID tether-exemption branch, distinct from Q030's flight-method tether exception and Q047's Remote ID special-area exemption. C007 tests the actual Remote ID broadcast payload and the exclusion of owner/user information, which is not answer-defining elsewhere in the canonical bank. C008 tests the priority of emergency-use airspace designation over ordinary airport/150m/DID permissions, distinct from Q041's sub-100g applicability rule. C009 tests straight-line measurement geometry for the 30m rule, distinct from Q104's property classification. No HUMAN review is claimed."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

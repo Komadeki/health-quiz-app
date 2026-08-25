@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B14-RULE-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fc12e8c7070fa4e15228a74f916b6f908969761b5d56f3567f4af32f0c20351a",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b14-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b14-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b14-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(2)4)a(1)「第三者」"
+    },
+    "answer_defining_proposition": "操縦者は間接関与者に与えた計画外挙動時の指示と安全上の注意が適切に理解されていることを確認する必要がある。",
+    "tested_misconception": "指示を一方的に伝達すれば相手の理解を確認しなくても間接関与者の要件を満たす。",
+    "reasoning_path": "instructions delivered -> verify actual understanding -> confirmation is required before relying on indirect-participant status",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。Q002は自己決定条件。C004は指示自体の欠如。本問は指示後の理解確認という操縦者側の確認義務を問う。B14ではこのcoreの追加variantをこれ以上作らない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. The source separately requires the operator to confirm that instructions and safety cautions are properly understood. This is distinct from Q002's self-determination condition and C004's receipt-of-instructions condition. Q002 plus C004 plus C005 reaches the default density ceiling of three on this core, so no further same-core variant should be added without stronger evidence."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt all nine independent-review ACCEPT decisions because each candidate has direct current MLIT 教則第5版 support and survived the full-336 canonical collision gate. B14's pre-screen-before-authoring strategy materially improved yield relative to B13 and should be retained for later expansion batches. C001 is a source-explicit VLOS exception boundary distinct from Q048's sustained monitor/assistant BVLOS proposition. C002 and C003 add separate event-overflight decisions: live response to unexpected third-party/event conditions and the explicit 5 m/s cancellation threshold. C004 and C005 test different conjunctive indirect-participant requirements than Q002; together with Q002 they reach the default same-core density ceiling of three, so no additional variant on that core is approved without explicit override. C006 tests the Remote ID tether-exemption branch, distinct from Q030's flight-method tether exception and Q047's Remote ID special-area exemption. C007 tests the actual Remote ID broadcast payload and the exclusion of owner/user information, which is not answer-defining elsewhere in the canonical bank. C008 tests the priority of emergency-use airspace designation over ordinary airport/150m/DID permissions, distinct from Q041's sub-100g applicability rule. C009 tests straight-line measurement geometry for the 30m rule, distinct from Q104's property classification. No HUMAN review is claimed."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

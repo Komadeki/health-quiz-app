@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B14-RULE-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "3640c9c53e11217ccf6f9de16e02486da5d546a2df2b0ee466072e3009776a73",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b14-rules-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b14-rules-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b14-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第3章 3.1.2(2)4)a(1)「第三者」"
+    },
+    "answer_defining_proposition": "飛行目的への関与と任意参加だけでは足りず計画外挙動時の明確な指示と安全上の注意を受けていることが間接関与者の要件である。",
+    "tested_misconception": "飛行目的に関与し任意参加であれば安全指示を受けていなくても第三者ではなくなる。",
+    "reasoning_path": "shared purpose + voluntary participation -> check emergency-instruction condition -> missing condition keeps third-party status",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。Q002は本人が参加を自ら決定できる条件の欠如を問う。本問は別の列挙条件である安全指示の欠如を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Indirect-participant status is conjunctive. This candidate tests the separate condition that the person must receive clear abnormal-behavior instructions and safety cautions. Q002 tests the person's ability to decide participation for themselves, so the decision boundary and reasoning step differ materially."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt all nine independent-review ACCEPT decisions because each candidate has direct current MLIT 教則第5版 support and survived the full-336 canonical collision gate. B14's pre-screen-before-authoring strategy materially improved yield relative to B13 and should be retained for later expansion batches. C001 is a source-explicit VLOS exception boundary distinct from Q048's sustained monitor/assistant BVLOS proposition. C002 and C003 add separate event-overflight decisions: live response to unexpected third-party/event conditions and the explicit 5 m/s cancellation threshold. C004 and C005 test different conjunctive indirect-participant requirements than Q002; together with Q002 they reach the default same-core density ceiling of three, so no additional variant on that core is approved without explicit override. C006 tests the Remote ID tether-exemption branch, distinct from Q030's flight-method tether exception and Q047's Remote ID special-area exemption. C007 tests the actual Remote ID broadcast payload and the exclusion of owner/user information, which is not answer-defining elsewhere in the canonical bank. C008 tests the priority of emergency-use airspace designation over ordinary airport/150m/DID permissions, distinct from Q041's sub-100g applicability rule. C009 tests straight-line measurement geometry for the 30m rule, distinct from Q104's property classification. No HUMAN review is claimed."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
