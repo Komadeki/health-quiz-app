@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B12-OPS-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1c0fe66def64a41186504ecd7a8cfd084d0111f7ad9ff597535bca5f249a8ec0",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b12-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b12-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b12-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.2.2(1)「手動操縦・自動操縦の特徴とメリット」"
+    },
+    "answer_defining_proposition": "機体の飛行を自動操縦に任せながら、カメラ等のペイロード操作を手動で行うなど自動・手動を組み合わせられる。",
+    "tested_misconception": "自動操縦を選んだ場合はペイロード操作もすべて自動化しなければならない。",
+    "reasoning_path": "separate aircraft-control and payload tasks -> choose automation per task -> combined operation",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q086は作業全体に対する手動/自動の適性比較。本問は一運航内の機体制御とペイロード制御の分離を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Chapter 5 explicitly permits combined operation in which aircraft flight is automatic while a camera or other payload is operated by a person. This is distinct from choosing manual versus automatic control for an entire task."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B12 plan, reconciliation and current Chapter 5 source text. C004 is correctly rejected: the cited source defines abnormal-event checks for crisis avoidance and safe landing during the event, not the stronger post-landing event-specific inspection duty written into the candidate. The seven accepted Tier B candidates C006, C007, C008, C010, C013, C018 and C020 retain material source-defined distinctions in flight phase, operating-condition gate, ground-effect action branch, sensor-failure response or post-landing lifecycle state. C002 is correctly treated as Tier A under the merged reconciliation because abnormal heating is an explicit post-flight inspection proposition rather than a reuse of a canonical core proposition. No accepted candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota; C004 is dropped without replacement. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

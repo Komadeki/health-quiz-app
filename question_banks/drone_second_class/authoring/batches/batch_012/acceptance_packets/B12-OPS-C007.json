@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B12-OPS-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5ce523d2022b1a1539f4a84d9fbe379cdf6bb7fd2530e677b33b05e4d720ac46",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b12-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b12-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b12-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.1.2「飛行前の準備」"
+    },
+    "answer_defining_proposition": "技能証明の有効性だけでなく、予定する飛行に必要な操縦能力・経験・訓練状況を飛行前に確認する。",
+    "tested_misconception": "有効な技能証明があれば、当該飛行に必要な経験や訓練状況は確認不要である。",
+    "reasoning_path": "certificate valid -> mission-specific capability check -> go/no-go readiness",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier B。parent=performance-aware flight planning。axes=flight_phase + decision_boundary。Q201は計画段階の能力適合、本問は飛行直前のmission-specific readinessを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tier B PASS. Chapter 5 explicitly includes pilot skill, flight experience and training status in preflight preparation. A valid certificate does not substitute for this mission-readiness check."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is consistent with the merged B12 plan, reconciliation and current Chapter 5 source text. C004 is correctly rejected: the cited source defines abnormal-event checks for crisis avoidance and safe landing during the event, not the stronger post-landing event-specific inspection duty written into the candidate. The seven accepted Tier B candidates C006, C007, C008, C010, C013, C018 and C020 retain material source-defined distinctions in flight phase, operating-condition gate, ground-effect action branch, sensor-failure response or post-landing lifecycle state. C002 is correctly treated as Tier A under the merged reconciliation because abnormal heating is an explicit post-flight inspection proposition rather than a reuse of a canonical core proposition. No accepted candidate relies on a subsection explicitly marked 〔一等〕. The 20-candidate ceiling is not a quota; C004 is dropped without replacement. No HUMAN review is claimed or fabricated."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
