@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B2-LAW-C023",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9f77f094d20aed8988c32090a64906ab1c287863c1f4c9a0e85dc4fa3779c25b",
+  "actors": {
+    "author": {
+      "id": "otsu4-b2-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b2-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第13条の24第1項"
+    },
+    "answer_defining_proposition": "法令違反がなくても、公共安全維持・災害防止に支障を及ぼすおそれがあれば解任命令が可能である。",
+    "tested_misconception": "危険物保安監督者の解任命令には必ず明示的な法令違反が必要である。",
+    "reasoning_path": "no explicit violation -> assess public-safety/disaster-prevention risk -> dismissal order may still apply",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Batch 2 source-defined alternate trigger; materially distinct from C022 violation trigger."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Article 13-24(1) also provides a separate public-safety/disaster-prevention risk trigger without requiring an explicit violation; materially distinct decision boundary from C022."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 23 accepted candidates cover distinct statutory roles, duties, authorities, temporal boundaries, eligibility routes, enforcement triggers, or emergency obligations. C016 adds insufficient incremental practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
