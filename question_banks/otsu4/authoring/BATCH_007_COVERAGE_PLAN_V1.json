@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B7-QUANTITY-2026-08-26",
+  "product": "otsu4",
+  "wave_id": "W2",
+  "planned_at": "2026-08-26",
+  "objective": "AUTHOR_OTSU4_WAVE_2_AI_PRE_ACCEPT",
+  "production_target": 600,
+  "canonical_verified_baseline": 111,
+  "selected_target": "O4-LAW-KT-QUANTITY",
+  "selected_target_total_plan": 60,
+  "verified_target_count_before_batch": 2,
+  "remaining_target_gap_before_batch": 58,
+  "candidate_ceiling": 24,
+  "candidate_ceiling_is_quota": false,
+  "source_contract": {
+    "primary_source_ids": ["O4-LAW-1", "O4-LAW-2", "O4-LAW-3"],
+    "pinpoint_scope": ["消防法 第10条第2項", "危険物の規制に関する政令 別表第三 第四類", "危険物の規制に関する政令の指定数量・倍数に直接関係する条項"],
+    "locator_rule": "Every candidate must cite the exact current e-Gov article/paragraph/table row that defines the classification, specified quantity, aggregation or decision boundary used."
+  },
+  "planned_families": [
+    "single-substance specified-quantity boundaries not duplicating canonical gasoline 200L",
+    "mixed-hazardous-material aggregate multiple calculations",
+    "below/equal/above one-times decision boundaries",
+    "Class-4 category-specific quantity decisions",
+    "ratio and inverse-quantity calculation decisions",
+    "classification-versus-quantity misconception decisions"
+  ],
+  "planning_invariants": {
+    "NO_COPYRIGHTED_PAST_QUESTION_TEXT": true,
+    "NO_WORDING_ONLY_VARIANTS": true,
+    "NO_QUOTA_BACKFILL": true,
+    "COLLISION_CHECK_AGAINST_ALL_111_CANONICAL_REQUIRED": true,
+    "SINGLE_SOURCE_BINDING_REQUIRED": true,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "AUTHOR_B7_AI_PRE_ACCEPT_UP_TO_24"
+}
