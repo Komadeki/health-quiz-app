@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B19",
+  "adjudication_round": 1,
+  "director": {
+    "id": "chatgpt-primary-director-b19-r1",
+    "role": "AI_DIRECTOR"
+  },
+  "author_identity": "chatgpt-b19-rules-author-r1",
+  "reviewer_identity": "chatgpt-b19-independent-reviewer-r1",
+  "identity_separation_checked": true,
+  "adjudicated_at": "2026-08-26",
+  "governance_contract": "owner_dynamic_release_inclusion_2026-08-26.json",
+  "summary": {
+    "accept": 15,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "B19-RULE-C001",
+    "B19-RULE-C002",
+    "B19-RULE-C003",
+    "B19-RULE-C004",
+    "B19-RULE-C005",
+    "B19-RULE-C006",
+    "B19-RULE-C007",
+    "B19-RULE-C008",
+    "B19-RULE-C009",
+    "B19-RULE-C010",
+    "B19-RULE-C011",
+    "B19-RULE-C012",
+    "B19-RULE-C013",
+    "B19-RULE-C014",
+    "B19-RULE-C015"
+  ],
+  "rejected_candidate_ids": [],
+  "rework_candidate_ids": [],
+  "hold_candidate_ids": [],
+  "director_findings": [
+    "Adopt the independent B19 review at ACCEPT 15 / REJECT 0 / REWORK 0 / HOLD 0.",
+    "The decision is quality-driven rather than target-driven: all fifteen candidates have explicit current MLIT 教則第5版 support, one best answer and either a new answer-defining proposition or a materially distinct source-defined state, boundary, response action or reportable branch.",
+    "The four Tier B candidates C007, C009, C011 and C012 survive because they test distinct flight-state/response or legal-reportability branches; no wording-only variant is accepted.",
+    "B19 is the sole permitted in-flight batch under the active dynamic release policy. No B20 planning or authoring may begin before the current release set is frozen.",
+    "After B19 acceptance, Permanent-ID integration and source verification, every VERIFIED B19 survivor must be included in the current release freeze; if any candidate failed a later gate it would be excluded without blocking release."
+  ],
+  "release_policy_reconciliation": {
+    "fixed_release_question_count": null,
+    "fixed_400_requirement": false,
+    "b19_in_flight": true,
+    "b20_before_release_freeze": false,
+    "post_b19_next_phase": "FREEZE_CURRENT_SOURCE_VERIFIED_SET_FOR_RELEASE_ACTIVATION"
+  },
+  "invariants": {
+    "HUMAN_REVIEW_CREATED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_15"
+}
