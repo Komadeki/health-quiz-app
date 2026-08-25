@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B15",
+  "adjudication_round": 1,
+  "director": {"id":"chatgpt-primary-director-b15-r1","role":"AI_DIRECTOR"},
+  "author_identity": "chatgpt-b15-risk-author-r1",
+  "reviewer_identity": "autopilot-b15-risk-reviewer-r1",
+  "identity_separation_checked": true,
+  "adjudicated_at": "2026-08-25",
+  "summary": {"accept":9,"reject":0,"rework":0,"hold":0},
+  "accepted_candidate_ids": ["B15-RISK-C001","B15-RISK-C002","B15-RISK-C003","B15-RISK-C004","B15-RISK-C005","B15-RISK-C006","B15-RISK-C007","B15-RISK-C008","B15-RISK-C009"],
+  "rejected_candidate_ids": [],
+  "rework_candidate_ids": [],
+  "hold_candidate_ids": [],
+  "director_findings": [
+    "Adopt the independent review at ACCEPT 9 / REJECT 0.",
+    "All nine answer-defining propositions are directly supported by second-class-applicable Chapter 6 source text and remain distinct from their named canonical neighbors.",
+    "The two Tier B items preserve independent decision boundaries rather than wording-only variants.",
+    "No quota backfill is required or permitted."
+  ],
+  "invariants": {"HUMAN_REVIEW_CREATED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"REGISTRY_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false},
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_9"
+}
