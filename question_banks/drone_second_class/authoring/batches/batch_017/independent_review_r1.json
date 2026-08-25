@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B17",
+  "review_round": 1,
+  "reviewer": {"id":"autopilot-b17-systems-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked": "chatgpt-b17-systems-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","edition":"第5版","official_current_check":"2026-08-25","official_pdf":"https://www.mlit.go.jp/common/002010810.pdf","second_class_scope_rule":"Use only second-class-applicable Chapter 4 propositions; exclude subsections explicitly marked 〔一等〕."},
+  "review_basis": [
+    "current merged B17 candidates.csv",
+    "current 360-question canonical inventory",
+    "merged B17 pre-screen plan",
+    "current MLIT 教則第5版 Chapter 4 source text",
+    "400-question quality-preserving controlled-variant contract",
+    "source fidelity, answer uniqueness, semantic distinctness, commercial practice value, plausible distractors and explanation correctness"
+  ],
+  "summary": {"reviewed":5,"accept":5,"reject":0,"rework":0,"hold":0},
+  "decisions": [
+    {"candidate_id":"B17-SYS-C001","decision":"ACCEPT","rationale":"Tier B PASS. Q164 identifies a qualitative transient voltage sag after rapid ascent, while Q157 and Q158 cover nominal pack voltage and the constant-output current consequence. C001 instead requires the source-defined Vdrop = R × I relationship, holds internal resistance constant and compares discharge current quantitatively. Calculation relationship, causal mechanism and reasoning path are materially distinct."},
+    {"candidate_id":"B17-SYS-C002","decision":"ACCEPT","rationale":"The source explicitly defines energy capacity Wh = discharge voltage × current × time. Q158 tests output W and Q335 tests capacity Ah; neither tests Wh. The candidate is unambiguous, second-class applicable and uses a distinct quantity and calculation relationship."},
+    {"candidate_id":"B17-SYS-C003","decision":"ACCEPT","rationale":"The source explicitly distinguishes magnetic north from map north through declination. Q043 tests magnetic calibration and Q076 tests local magnetic interference from iron/current. Declination itself is not answer-defining elsewhere, so C003 adds a distinct source proposition without extending beyond the source wording."},
+    {"candidate_id":"B17-SYS-C004","decision":"ACCEPT","rationale":"Tier B PASS. Q166 asks for the preventive action of connecting a balance connector. C004 begins from the different state of severe cell imbalance during charging and tests the source-defined voltage-difference -> cell-level overdischarge phenomenon -> rapid-degradation chain. Scenario state, causal mechanism and reasoning path are distinct."},
+    {"candidate_id":"B17-SYS-C005","decision":"ACCEPT","rationale":"The source centrally lists LiPo performance and hazard characteristics: high energy density and voltage, low self-discharge, small memory effect, and combustible electrolyte. Existing LiPo questions test operational consequences and handling decisions rather than this characteristic set. The proposition is core battery knowledge, not incidental trivia, and the correct option is uniquely supported."}
+  ],
+  "controlled_variant_gate": {"reviewed_tier_b":["B17-SYS-C001","B17-SYS-C004"],"accepted_tier_b":["B17-SYS-C001","B17-SYS-C004"],"rejected_tier_b":[],"density_policy_checked":true,"minimum_distinct_axes_checked":true,"wording_only_duplicates_allowed":false},
+  "canonical_collision_reconciliation": {"pre_screen_strategy_validated":true,"hard_rejected_count":0,"quota_backfill":false,"accepted_candidate_ids":["B17-SYS-C001","B17-SYS-C002","B17-SYS-C003","B17-SYS-C004","B17-SYS-C005"]},
+  "invariants": {"HUMAN_REVIEW_ROWS_CREATED":0,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"REGISTRY_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false},
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_5_ACCEPT_0_REJECT"
+}
