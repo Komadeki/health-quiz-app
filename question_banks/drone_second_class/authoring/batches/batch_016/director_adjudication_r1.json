@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B16",
+  "adjudication_round": 1,
+  "director": {"id":"chatgpt-primary-director-b16-r1","role":"AI_DIRECTOR"},
+  "author_identity": "chatgpt-b16-operations-author-r1",
+  "reviewer_identity": "autopilot-b16-operations-reviewer-r1",
+  "identity_separation_checked": true,
+  "adjudicated_at": "2026-08-25",
+  "summary": {"accept":6,"reject":0,"rework":0,"hold":0},
+  "accepted_candidate_ids": ["B16-OPS-C001","B16-OPS-C002","B16-OPS-C003","B16-OPS-C004","B16-OPS-C005","B16-OPS-C006"],
+  "rejected_candidate_ids": [],
+  "rework_candidate_ids": [],
+  "hold_candidate_ids": [],
+  "director_findings": [
+    "Adopt the independent review at ACCEPT 6 / REJECT 0.",
+    "All six answer-defining propositions are directly supported by second-class-applicable Chapter 5 source text and remain distinct from their named canonical neighbors.",
+    "The two Tier B items preserve independent flight phases and action sequences rather than wording-only variants.",
+    "No quota backfill is required or permitted."
+  ],
+  "invariants": {"HUMAN_REVIEW_CREATED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"REGISTRY_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false},
+  "final_gate": "READY_TO_MATERIALIZE_ACCEPTANCE_PACKETS_FOR_6"
+}
