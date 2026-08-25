@@ -14,6 +14,7 @@ class Scope:
     shared: bool
     health: bool
     qualification_apps: bool
+    question_bank: bool
     docs_only: bool
     reason: str
 
@@ -22,6 +23,7 @@ class Scope:
             f"shared={str(self.shared).lower()}",
             f"health={str(self.health).lower()}",
             f"qualification_apps={str(self.qualification_apps).lower()}",
+            f"question_bank={str(self.question_bank).lower()}",
             f"docs_only={str(self.docs_only).lower()}",
             f"reason={self.reason}",
         ]
@@ -34,7 +36,11 @@ def classify(paths: list[str], *, force_all: bool = False) -> Scope:
     if not normalized:
         return _all("empty_change_list")
     if all(_is_documentation(path) for path in normalized):
-        return Scope(False, False, False, True, "documentation_only")
+        return Scope(False, False, False, False, True, "documentation_only")
+
+    non_docs = [path for path in normalized if not _is_documentation(path)]
+    if non_docs and all(_is_otsu4_question_bank_fast_path(path) for path in non_docs):
+        return Scope(False, False, False, True, False, "otsu4_question_bank_fast_path")
 
     shared = False
     health = False
@@ -56,7 +62,7 @@ def classify(paths: list[str], *, force_all: bool = False) -> Scope:
         return _all("shared_change")
     if unknown:
         return _all("unknown_path")
-    return Scope(False, health, qualification_apps, False, "app_change")
+    return Scope(False, health, qualification_apps, False, False, "app_change")
 
 
 def _normalize(path: str) -> str:
@@ -72,6 +78,18 @@ def _is_documentation(path: str) -> bool:
     return path.startswith(("apps/", "packages/", "question_banks/", "tooling/"))
 
 
+def _is_otsu4_question_bank_fast_path(path: str) -> bool:
+    if path == "tooling/komadeki_autopilot/otsu4_state.json":
+        return True
+    if path.startswith("question_banks/otsu4/authoring/batches/"):
+        return True
+    if path.startswith("question_banks/otsu4/authoring/waves/"):
+        return True
+    if path.startswith("question_banks/otsu4/authoring/BATCH_"):
+        return True
+    return False
+
+
 def _is_shared(path: str) -> bool:
     return path == ".gitignore" or path.startswith(
         ("packages/", "tooling/", "question_banks/", ".github/")
@@ -79,7 +97,7 @@ def _is_shared(path: str) -> bool:
 
 
 def _all(reason: str) -> Scope:
-    return Scope(True, True, True, False, reason)
+    return Scope(True, True, True, False, False, reason)
 
 
 def main() -> int:
