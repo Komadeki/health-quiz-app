@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B6",
+  "wave_id": "W1",
+  "review_round": 1,
+  "reviewed_at": "2026-08-25",
+  "reviewer": {"id":"otsu4-wave1-independent-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked": "otsu4-b6-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "current registered e-Gov Fire Service Act and Cabinet Order source versions with article/item locators",
+    "all 51 current canonical Otsu4 questions",
+    "all 64 Wave 1 candidates across B4/B5/B6",
+    "semantic distinctness, statutory reproducibility and exam relevance"
+  ],
+  "summary": {"reviewed":20,"accept":20,"reject":0,"rework":0,"hold":0},
+  "decisions": [
+    {"candidate_id":"O4-B6-LAW-C001","decision":"ACCEPT","rationale":"Installation permission is a core facility-control proposition and absent from canonical 51."},
+    {"candidate_id":"O4-B6-LAW-C002","decision":"ACCEPT","rationale":"Change permission is a separate pre-action duty from initial installation permission."},
+    {"candidate_id":"O4-B6-LAW-C003","decision":"ACCEPT","rationale":"Technical-standard and public-safety permission criteria are exact and independently testable."},
+    {"candidate_id":"O4-B6-LAW-C004","decision":"ACCEPT","rationale":"Completion inspection before use is a high-value statutory sequence boundary."},
+    {"candidate_id":"O4-B6-LAW-C005","decision":"ACCEPT","rationale":"Approved provisional use of unaffected portions is a distinct exception to C004."},
+    {"candidate_id":"O4-B6-LAW-C006","decision":"ACCEPT","rationale":"Transfer/delivery notification is a separate facility-status duty."},
+    {"candidate_id":"O4-B6-LAW-C007","decision":"ACCEPT","rationale":"The ten-day advance-notice threshold for name/quantity/multiple changes is precise and useful."},
+    {"candidate_id":"O4-B6-LAW-C008","decision":"ACCEPT","rationale":"Continuous maintenance of technical-standard compliance is distinct from permission-time review."},
+    {"candidate_id":"O4-B6-LAW-C009","decision":"ACCEPT","rationale":"Repair/change/relocation order is a direct enforcement consequence of noncompliance."},
+    {"candidate_id":"O4-B6-LAW-C010","decision":"ACCEPT","rationale":"Completion-inspection application procedure is exact and distinct from the substantive use prohibition."},
+    {"candidate_id":"O4-B6-LAW-C011","decision":"ACCEPT","rationale":"The authority's duty to inspect without delay is a separate procedural proposition."},
+    {"candidate_id":"O4-B6-LAW-C012","decision":"ACCEPT","rationale":"Certificate issuance after compliance confirmation is a distinct completion-inspection outcome."},
+    {"candidate_id":"O4-B6-LAW-C013","decision":"ACCEPT","rationale":"Completion-certificate reissue after loss/destruction is source-explicit and independently testable."},
+    {"candidate_id":"O4-B6-LAW-C014","decision":"ACCEPT","rationale":"The ten-day return duty for a later-found old certificate is a precise administrative boundary."},
+    {"candidate_id":"O4-B6-LAW-C015","decision":"ACCEPT","rationale":"Class/name/maximum-quantity application fields are exact and distinct from quantity arithmetic."},
+    {"candidate_id":"O4-B6-LAW-C016","decision":"ACCEPT","rationale":"Specified-quantity multiple as an application field tests administrative use of the value, not recalculation of B1 propositions."},
+    {"candidate_id":"O4-B6-LAW-C017","decision":"ACCEPT","rationale":"Change content and reason are exact change-application evidence requirements."},
+    {"candidate_id":"O4-B6-LAW-C018","decision":"ACCEPT","rationale":"Completion pre-inspection for applicable liquid-hazardous-material tanks is a distinct inspection layer."},
+    {"candidate_id":"O4-B6-LAW-C019","decision":"ACCEPT","rationale":"The outdoor-tank safety-inspection capacity threshold is a high-value facility classification boundary."},
+    {"candidate_id":"O4-B6-LAW-C020","decision":"ACCEPT","rationale":"Periodic inspection plus record creation/retention is distinct from statutory safety inspection."}
+  ],
+  "collision_review": {"released_bank_checked":true,"canonical_drafts_checked":true,"full_wave_checked":true,"result":"PASS","note":"All 20 B6 candidates are source-explicit, materially distinct from canonical 51 and non-colliding with accepted B4/B5 propositions."},
+  "source_review_scope": "This gate checks source registration, locator reproducibility and answer-binding completeness. Final canonical source verification remains separate.",
+  "invariants": {"HUMAN_REVIEW_ROWS_CREATED":0,"CANDIDATE_STATES_CHANGED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"DIRECTOR_ADJUDICATION_PERFORMED":false},
+  "final_gate": "READY_FOR_WAVE_DIRECTOR_ACCEPT_AND_PROMOTE"
+}

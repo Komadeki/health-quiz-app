@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B5",
+  "wave_id": "W1",
+  "review_round": 1,
+  "reviewed_at": "2026-08-25",
+  "reviewer": {"id":"otsu4-wave1-independent-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked": "otsu4-b5-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "registered MEXT Physics Basics/Chemistry Basics source version and printed-page locators",
+    "all 51 current canonical Otsu4 questions",
+    "all 64 Wave 1 candidates across B4/B5/B6",
+    "semantic distinctness, direct source support and educational value"
+  ],
+  "summary": {"reviewed":20,"accept":18,"reject":1,"rework":1,"hold":0},
+  "decisions": [
+    {"candidate_id":"O4-B5-PHY-C001","decision":"ACCEPT","rationale":"Temperature increase and stronger thermal motion is a direct foundational proposition."},
+    {"candidate_id":"O4-B5-PHY-C002","decision":"REJECT","reason_code":"WITHIN_WAVE_REDUNDANT_INVERSE","rationale":"This is the exact inverse of C001 and tests the same answer-defining temperature/thermal-motion relationship without adding a distinct misconception or decision boundary."},
+    {"candidate_id":"O4-B5-PHY-C003","decision":"REWORK","reason_code":"ANSWER_PROPOSITION_NOT_DIRECTLY_PINPOINTED","rationale":"The cited three-state subsection supports state changes, but the locator as persisted does not independently establish the closed-system mass-conservation proposition used to define the answer.","resume_condition":"Bind the mass-conservation claim to an explicit registered source/locator, or rewrite to a state-change proposition directly stated by the cited subsection."},
+    {"candidate_id":"O4-B5-PHY-C004","decision":"ACCEPT","rationale":"Melting point as the solid/liquid boundary is direct and independently testable."},
+    {"candidate_id":"O4-B5-PHY-C005","decision":"ACCEPT","rationale":"Boiling point as the liquid/gas boundary is distinct from melting point and source-explicit."},
+    {"candidate_id":"O4-B5-PHY-C006","decision":"ACCEPT","rationale":"The particle-model relationship between thermal motion and interparticle forces is a useful synthesis proposition."},
+    {"candidate_id":"O4-B5-PHY-C007","decision":"ACCEPT","rationale":"Melting as physical change directly tests substance identity versus state."},
+    {"candidate_id":"O4-B5-PHY-C008","decision":"ACCEPT","rationale":"Decomposition is a separate chemical-change definition, not a wording variant of C007."},
+    {"candidate_id":"O4-B5-PHY-C009","decision":"ACCEPT","rationale":"Internal energy is a direct foundational term relevant to heat and work."},
+    {"candidate_id":"O4-B5-PHY-C010","decision":"ACCEPT","rationale":"Kelvin as the SI unit of absolute temperature is precise and distinct."},
+    {"candidate_id":"O4-B5-PHY-C011","decision":"ACCEPT","rationale":"Natural heat transfer from higher to lower temperature is a core directional boundary."},
+    {"candidate_id":"O4-B5-PHY-C012","decision":"ACCEPT","rationale":"Equality of heat lost and gained in an isolated pair is a distinct conservation relationship."},
+    {"candidate_id":"O4-B5-PHY-C013","decision":"ACCEPT","rationale":"Heat capacity and temperature-change comparison is a high-value quantitative decision."},
+    {"candidate_id":"O4-B5-PHY-C014","decision":"ACCEPT","rationale":"Specific heat under fixed mass and heat is distinct from total heat capacity and uses an explicit relationship."},
+    {"candidate_id":"O4-B5-PHY-C015","decision":"ACCEPT","rationale":"Latent heat is a direct state-change term and does not collide with C004/C005."},
+    {"candidate_id":"O4-B5-PHY-C016","decision":"ACCEPT","rationale":"Thermal expansion tests dimension/volume change rather than mass change."},
+    {"candidate_id":"O4-B5-PHY-C017","decision":"ACCEPT","rationale":"Rapid gas compression converting work into internal-energy/temperature rise is a distinct application."},
+    {"candidate_id":"O4-B5-PHY-C018","decision":"ACCEPT","rationale":"Mechanical work dissipating into heat is related but materially distinct from gas compression."},
+    {"candidate_id":"O4-B5-PHY-C019","decision":"ACCEPT","rationale":"Density as a characteristic property is source-explicit and relevant to material identification."},
+    {"candidate_id":"O4-B5-PHY-C020","decision":"ACCEPT","rationale":"Atomic structure is a direct matter-foundation proposition and absent from canonical 51."}
+  ],
+  "collision_review": {"released_bank_checked":true,"canonical_drafts_checked":true,"full_wave_checked":true,"result":"PASS_WITH_1_REJECT_AND_1_REWORK","note":"C002 is rejected as an inverse duplicate of C001. C003 requires a direct mass-conservation source binding. No accepted B5 candidate materially collides with canonical 51 or accepted B4/B6 propositions."},
+  "source_review_scope": "This gate checks source registration, locator reproducibility and answer-binding completeness. Final canonical source verification remains separate.",
+  "invariants": {"HUMAN_REVIEW_ROWS_CREATED":0,"CANDIDATE_STATES_CHANGED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"DIRECTOR_ADJUDICATION_PERFORMED":false},
+  "final_gate": "READY_FOR_WAVE_DIRECTOR_ACCEPT_AND_PROMOTE"
+}
