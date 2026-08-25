@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B16-OPS-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "410091717ba21c8c94b86615216d28728a6098c83c94fc63dd0209c2634bd572",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b16-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b16-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b16-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.2.1(2)2)「離陸方法」"
+    },
+    "answer_defining_proposition": "ヘリコプターではテールローターの作用による離陸時の傾き方向をローター回転方向に応じて事前確認する。",
+    "tested_misconception": "テールローターは離陸時の左右の傾きに影響しない。",
+    "reasoning_path": "tail-rotor effect -> infer rotation-dependent tilt direction -> confirm expected tilt before liftoff",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q068はテールローターの反トルク相殺とヨー制御。Q182はローター回転数の離陸前確認。本問は離陸時の左右傾斜の予測・事前確認という別命題。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source explicitly requires anticipating the helicopter's tail-rotor-induced takeoff tilt direction from rotor rotation direction. Q068 concerns counter-torque/yaw function and Q182 concerns sufficient rotor RPM; neither tests the pre-liftoff lateral-tilt anticipation step."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 6 / REJECT 0. All six answer-defining propositions are directly supported by second-class-applicable Chapter 5 source text and remain distinct from their named canonical neighbors. C001 and C004 are controlled boundary variants with distinct flight phases and required actions, not wording-only variants. C006 adds the TEM Threat-to-Error-to-UAS causal management chain rather than repeating broad CRM resources or the five CRM skills. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
