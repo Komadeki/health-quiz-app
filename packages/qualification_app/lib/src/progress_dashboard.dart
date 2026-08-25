@@ -230,7 +230,7 @@ final class _UnitPerformanceChart extends StatelessWidget {
               : '${item.label}未回答',
         )
         .join('、');
-    final supportsRadar = data.length >= 3 && data.length <= 6;
+    final supportsRadar = data.length >= 3;
     return Semantics(
       key: const Key('unit-performance-chart'),
       label: '単元別の正答率。$semanticSummary',
@@ -292,36 +292,32 @@ final class _UnitPerformanceFallback extends StatelessWidget {
     if (data.isEmpty) {
       return const Center(child: Text('単元データなし'));
     }
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.symmetric(vertical: 4),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         for (final item in data)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 6),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 64,
-                  child: Text(
-                    _shortRadarLabel(item.label),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
+          Row(
+            children: [
+              SizedBox(
+                width: 64,
+                child: Text(
+                  _shortRadarLabel(item.label),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
-                const SizedBox(width: 6),
-                Expanded(child: LinearProgressIndicator(value: item.value)),
-                const SizedBox(width: 6),
-                SizedBox(
-                  width: 32,
-                  child: Text(
-                    item.hasData ? '${(item.value * 100).round()}%' : '—',
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
+              ),
+              const SizedBox(width: 6),
+              Expanded(child: LinearProgressIndicator(value: item.value)),
+              const SizedBox(width: 6),
+              SizedBox(
+                width: 32,
+                child: Text(
+                  item.hasData ? '${(item.value * 100).round()}%' : '—',
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
       ],
     );
