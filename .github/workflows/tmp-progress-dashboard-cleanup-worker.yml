@@ -1,0 +1,178 @@
+name: Temporary Progress Dashboard Cleanup Worker
+
+on:
+  push:
+    branches: [chatgpt/drone-progress-radar-metrics]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-progress-dashboard-cleanup-worker
+  cancel-in-progress: false
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-progress-radar-metrics
+          fetch-depth: 0
+
+      - name: Reconcile current main and minimize existing-file diff
+        run: |
+          git fetch origin main
+          git merge --no-edit origin/main
+          git checkout origin/main -- \
+            packages/qualification_app/lib/src/production_app.dart \
+            packages/qualification_app/test/production_widget_test.dart \
+            apps/drone_second_class/test/production_widget_test.dart
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          production = Path('packages/qualification_app/lib/src/production_app.dart')
+          text = production.read_text()
+          anchor = "import 'dart:async';\n\n"
+          if text.count(anchor) != 1:
+              raise SystemExit('production import anchor mismatch')
+          text = text.replace(anchor, "import 'dart:async';\nimport 'dart:math' as math;\n\n", 1)
+
+          anchor = "import 'production_purchase.dart';\n\n"
+          if text.count(anchor) != 1:
+              raise SystemExit('production part anchor mismatch')
+          text = text.replace(anchor, "import 'production_purchase.dart';\n\npart 'progress_dashboard.dart';\n\n", 1)
+
+          start_marker = 'final class _ProgressCard extends StatelessWidget {'
+          end_marker = 'final class _ProgressRing extends StatelessWidget {'
+          start = text.find(start_marker)
+          end = text.find(end_marker)
+          if start < 0 or end < 0 or end <= start:
+              raise SystemExit('progress card anchors missing')
+          replacement = '''final class _ProgressCard extends StatelessWidget {
+            const _ProgressCard({required this.controller});
+
+            final QualificationProductionController controller;
+
+            @override
+            Widget build(BuildContext context) =>
+                _buildProgressDashboard(context, controller);
+          }
+
+          '''
+          text = text[:start] + replacement + text[end:]
+
+          anchor = '''    return Container(
+                constraints: const BoxConstraints(minWidth: 92),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),'''
+          replacement = '''    return Container(
+                constraints: const BoxConstraints(minHeight: 96),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),'''
+          if text.count(anchor) != 1:
+              raise SystemExit('progress metric sizing anchor mismatch')
+          text = text.replace(anchor, replacement, 1)
+          production.write_text(text)
+
+          shared = Path('packages/qualification_app/test/production_widget_test.dart')
+          text = shared.read_text()
+          anchor = "    expect(find.byKey(const Key('overall-progress-ring')), findsOneWidget);\n"
+          insertion = anchor + """    expect(find.byKey(const Key('unit-performance-chart')), findsOneWidget);
+              for (final metricKey in [
+                'progress-metric-completed',
+                'progress-metric-accuracy',
+                'progress-metric-review',
+                'progress-metric-mock-best',
+              ]) {
+                expect(find.byKey(Key(metricKey)), findsOneWidget);
+              }
+          """
+          if text.count(anchor) != 1:
+              raise SystemExit('shared assertion anchor mismatch')
+          text = text.replace(anchor, insertion, 1)
+
+          anchor = "  testWidgets('actionable and informational Home cards use distinct colors', (\n"
+          new_test = """  testWidgets('progress dashboard shows review count and best mock score', (
+              tester,
+            ) async {
+              tester.view.physicalSize = const Size(800, 1800);
+              tester.view.devicePixelRatio = 1;
+              addTearDown(tester.view.resetPhysicalSize);
+              addTearDown(tester.view.resetDevicePixelRatio);
+              final controller = await createController(
+                entitlement: EntitlementSnapshot(
+                  ownedProductIds: const {'fixture_full_unlock'},
+                ),
+              );
+              addTearDown(controller.dispose);
+
+              await controller.startMockExam();
+              while (controller.activeSession != null) {
+                await controller.commitAnswer(controller.currentCard!.answerIndex);
+                await controller.advance();
+              }
+              controller.returnHome();
+
+              await controller.startUnit('fixture_safety');
+              final card = controller.currentCard!;
+              final wrongAnswer = (card.answerIndex + 1) % card.choices.length;
+              await controller.commitAnswer(wrongAnswer);
+              controller.returnHome();
+
+              await tester.pumpWidget(
+                QualificationProductionApp(
+                  definition: fixtureDefinition,
+                  controller: controller,
+                ),
+              );
+
+              final review = find.byKey(const Key('progress-metric-review'));
+              final mockBest = find.byKey(const Key('progress-metric-mock-best'));
+              expect(
+                find.descendant(of: review, matching: find.text('1問')),
+                findsOneWidget,
+              );
+              expect(
+                find.descendant(of: mockBest, matching: find.text('2/2')),
+                findsOneWidget,
+              );
+            });
+
+          """
+          if text.count(anchor) != 1:
+              raise SystemExit('shared new test anchor mismatch')
+          shared.write_text(text.replace(anchor, new_test + anchor, 1))
+
+          drone = Path('apps/drone_second_class/test/production_widget_test.dart')
+          text = drone.read_text()
+          anchor = "    expect(find.byKey(const Key('overall-progress')), findsOneWidget);\n"
+          insertion = anchor + """    final performanceChart = find.byKey(const Key('unit-performance-chart'));
+              expect(performanceChart, findsOneWidget);
+              expect(
+                find.descendant(of: performanceChart, matching: find.byType(CustomPaint)),
+                findsOneWidget,
+              );
+              for (final metricKey in [
+                'progress-metric-completed',
+                'progress-metric-accuracy',
+                'progress-metric-review',
+                'progress-metric-mock-best',
+              ]) {
+                expect(find.byKey(Key(metricKey)), findsOneWidget);
+              }
+          """
+          if text.count(anchor) != 1:
+              raise SystemExit('drone assertion anchor mismatch')
+          drone.write_text(text.replace(anchor, insertion, 1))
+          PY
+
+      - name: Commit clean reconciliation
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          rm -f .github/workflows/tmp-progress-dashboard-cleanup-worker.yml
+          git add -A
+          git diff --cached --check
+          git commit -m 'Reconcile progress dashboard cleanly with current main'
+          git push origin HEAD:chatgpt/drone-progress-radar-metrics
