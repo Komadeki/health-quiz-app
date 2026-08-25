@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B12",
+  "review_round": 1,
+  "reviewer": {"id":"autopilot-b12-operations-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked": "chatgpt-b12-operations-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","edition":"第5版","official_current_check":"2026-08-25","official_pdf":"https://www.mlit.go.jp/common/002010810.pdf","second_class_scope_rule":"Use Chapter 5 propositions outside subsections explicitly marked 〔一等〕."},
+  "review_basis": [
+    "current merged B12 candidates.csv",
+    "current 313-question canonical inventory",
+    "B12 plan, reconciliation and candidate collision notes",
+    "current MLIT 教則第5版 Chapter 5 text, including 5.1 operational checks, 5.2 takeoff/landing and manual/automatic control, and 5.4.2 assistant duties",
+    "merged 400-question quality-preserving controlled-variant contract",
+    "answer correctness, answer uniqueness, source fidelity, commercial practice value, semantic distinctness and plausible distractors"
+  ],
+  "summary": {"reviewed":20,"accept":19,"reject":1,"rework":0,"hold":0},
+  "decisions": [
+    {"candidate_id":"B12-OPS-C001","decision":"ACCEPT","rationale":"Post-flight wear/condition inspection is explicitly source-defined at a different lifecycle phase from preflight inspection and scheduled maintenance."},
+    {"candidate_id":"B12-OPS-C002","decision":"ACCEPT","rationale":"The source explicitly lists abnormal equipment heating as a post-flight inspection item. The C002 reconciliation to Tier A is appropriate; no controlled-variant claim is needed."},
+    {"candidate_id":"B12-OPS-C003","decision":"ACCEPT","rationale":"Operation-end safe storage plus flight-log creation is explicitly source-defined as an end-of-day process and differs from questions that test only statutory log contents or carriage requirements."},
+    {"candidate_id":"B12-OPS-C004","decision":"REJECT","rationale":"Fail-closed source-fidelity rejection. Chapter 5 defines abnormal-event checks as checks for crisis-avoidance action and safe landing while the event is occurring; this candidate strengthens that into a post-landing event-specific inspection duty that the cited source text does not explicitly state."},
+    {"candidate_id":"B12-OPS-C005","decision":"ACCEPT","rationale":"The source explicitly states that aircraft characteristics and operation method may require additional checks beyond the example list. This is a distinct process-design proposition."},
+    {"candidate_id":"B12-OPS-C006","decision":"ACCEPT","rationale":"Tier B PASS. The source explicitly makes registration-mark display a preflight inspection item. Q220/Q080 concern ongoing display/validity rather than the preflight go/no-go check; flight phase and decision boundary differ."},
+    {"candidate_id":"B12-OPS-C007","decision":"ACCEPT","rationale":"Tier B PASS. Chapter 5 explicitly includes pilot skill, flight experience and training status in preflight preparation. A valid certificate does not substitute for this mission-readiness check."},
+    {"candidate_id":"B12-OPS-C008","decision":"ACCEPT","rationale":"Tier B PASS. Chapter 5 explicitly requires checking aircraft certification validity and conditions/operating limitations in preflight preparation. Q226 tests legal operation beyond conditions; this item tests the preflight verification gate."},
+    {"candidate_id":"B12-OPS-C009","decision":"ACCEPT","rationale":"Helicopter takeoff lateral tendency from tail-rotor action, including direction depending on rotor rotation, is explicitly stated and is not already answer-defining in the canonical bank."},
+    {"candidate_id":"B12-OPS-C010","decision":"ACCEPT","rationale":"Tier B PASS. The source explicitly requires prompt climb out of the ground-effect range after helicopter takeoff. Q132 tests the ground-effect phenomenon; this item tests a source-defined takeoff action branch."},
+    {"candidate_id":"B12-OPS-C011","decision":"ACCEPT","rationale":"The source explicitly says to avoid rapid vertical climb except when unavoidable because rotor speed can decrease and the aircraft can become unstable."},
+    {"candidate_id":"B12-OPS-C012","decision":"ACCEPT","rationale":"Helicopter landing descent-rate reduction near the ground is an explicit source-defined touchdown-energy control and differs from VRS and post-touchdown rotor-safety questions."},
+    {"candidate_id":"B12-OPS-C013","decision":"ACCEPT","rationale":"Tier B PASS. The source explicitly says to avoid hovering within the ground-effect range and land promptly. Landing-phase action is materially different from general ground-effect recognition and takeoff-phase departure."},
+    {"candidate_id":"B12-OPS-C014","decision":"ACCEPT","rationale":"Fixed-wing takeoff power, climb-angle and stall-margin management are explicitly stated and form a distinct action sequence from runway-direction selection and generic stall physics."},
+    {"candidate_id":"B12-OPS-C015","decision":"ACCEPT","rationale":"Fixed-wing landing descent-rate reduction near the ground is explicit and distinct from the existing item about maintaining speed above stall and elevator control."},
+    {"candidate_id":"B12-OPS-C016","decision":"ACCEPT","rationale":"The source explicitly warns that visual-estimation error can cause runway excursion. This is a distinct landing consequence branch from runway-site physical-condition selection and generic manual distance training."},
+    {"candidate_id":"B12-OPS-C017","decision":"ACCEPT","rationale":"Chapter 5 explicitly permits combined operation in which aircraft flight is automatic while a camera or other payload is operated by a person. This is distinct from choosing manual versus automatic control for an entire task."},
+    {"candidate_id":"B12-OPS-C018","decision":"ACCEPT","rationale":"Tier B PASS. Chapter 5 explicitly states that failure of GNSS receivers, electronic compass or barometric sensors can require manual hazard avoidance. This is materially broader than GNSS-free operation alone and differs from the generic automatic-to-manual transition trigger."},
+    {"candidate_id":"B12-OPS-C019","decision":"ACCEPT","rationale":"Chapter 5.4.2 explicitly assigns assistants hazard-warning communication and guidance to an emergency landing point. This abnormal-state duty is distinct from normal third-party/access management and preflight coordination."},
+    {"candidate_id":"B12-OPS-C020","decision":"ACCEPT","rationale":"Tier B PASS. Chapter 5.4.2 explicitly includes aircraft recovery and safety-inspection assistance after landing. The post-landing lifecycle state and response sequence differ from normal in-flight assistant duties."}
+  ],
+  "controlled_variant_gate": {
+    "reviewed_tier_b": ["B12-OPS-C006","B12-OPS-C007","B12-OPS-C008","B12-OPS-C010","B12-OPS-C013","B12-OPS-C018","B12-OPS-C020"],
+    "accepted_tier_b": ["B12-OPS-C006","B12-OPS-C007","B12-OPS-C008","B12-OPS-C010","B12-OPS-C013","B12-OPS-C018","B12-OPS-C020"],
+    "rejected_tier_b": [],
+    "density_policy_checked": true,
+    "minimum_distinct_axes_checked": true,
+    "wording_only_duplicates_allowed": false
+  },
+  "invariants": {"HUMAN_REVIEW_ROWS_CREATED":0,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"REGISTRY_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false},
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_19_ACCEPT_1_REJECT"
+}
