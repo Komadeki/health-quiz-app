@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B3-LAW-C011",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9bd5e8b11979ef1fe1bafa68749ada407d4f525b3ef39ff782c4e96b0c88dc68",
+  "actors": {
+    "author": {
+      "id": "otsu4-b3-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b3-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第24条第10号"
+    },
+    "answer_defining_proposition": "危険物が残存又は残存のおそれのある設備等の修理は、安全な場所で完全除去後に行う。",
+    "tested_misconception": "火気を使わなければ危険物を残したまま修理できる。",
+    "reasoning_path": "repair need -> residual hazardous material risk -> move to safe place/remove completely -> repair",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B3 Tier A; repair-precondition proposition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Repair-after-complete-removal precondition is an exact actionable boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 22 accepted candidates test concrete storage and handling duties, quantitative boundaries, Class-4-specific controls, or explicit sale/record obligations without material collision with the 29 canonical Otsu4 questions. C016 and C017 are too abstract to add sufficient practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

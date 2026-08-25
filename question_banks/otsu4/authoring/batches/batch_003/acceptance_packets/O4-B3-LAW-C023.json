@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B3-LAW-C023",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ce88e3a53c165e7eadbfca40e764fe3a9abd530f0a731549c5ef673df109565c",
+  "actors": {
+    "author": {
+      "id": "otsu4-b3-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-b3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-b3-director-adjudicator-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第39条の3の2"
+    },
+    "answer_defining_proposition": "ガソリンを容器に詰め替えて販売した場合は販売記録を作成する。",
+    "tested_misconception": "本人・目的確認をすれば販売記録は不要である。",
+    "reasoning_path": "gasoline container sale -> perform required confirmations -> create sales record",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B3 Tier A; recordkeeping branch distinct from C021/C022."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Sales-record creation is a separate post-sale statutory duty."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review correctly applies the 600Q quality-not-quota contract. The 22 accepted candidates test concrete storage and handling duties, quantitative boundaries, Class-4-specific controls, or explicit sale/record obligations without material collision with the 29 canonical Otsu4 questions. C016 and C017 are too abstract to add sufficient practice value and must not proceed merely to preserve the planned count."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
