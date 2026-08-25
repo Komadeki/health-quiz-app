@@ -1,0 +1,45 @@
+name: Drone 386 Release Activation PR Worker
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/drone-release-386-activation-trigger']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: drone-release-386-activation-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  activate:
+    if: github.head_ref == 'chatgpt/drone-release-386-activate'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout activation branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-release-386-activate
+          fetch-depth: 0
+      - name: Reconcile to current main
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Execute frozen 386 release activation
+        run: python3 tooling/komadeki_autopilot/drone_release_activation_386_transition.py
+      - name: Validate release and repository gates
+        run: |
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class --check-generated
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+      - name: Commit durable 386 release activation
+        run: |
+          rm -f .github/drone-release-386-activation-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Activate Drone 386-question production bank'
+          git push --force-with-lease origin HEAD:chatgpt/drone-release-386-activate
