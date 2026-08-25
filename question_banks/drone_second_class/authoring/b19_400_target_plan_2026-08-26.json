@@ -1,0 +1,241 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B19-400-TARGET-RULES-PRESCREEN-2026-08-26",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-26",
+  "objective": "PLAN_B19_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "c9a2413e4a5ecc2cc67d2ebde6aa5e322d78a862",
+  "target_contract": "owner_target_400_reconciliation_after_371_release_cut_2026-08-25.json",
+  "residual_audit": "post_371_residual_400_gap_audit_2026-08-26.json",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 371,
+    "accepted_source_verified_canonical": 371,
+    "remaining_to_400": 29,
+    "next_unreserved_permanent_id": "DRONE-Q-000372"
+  },
+  "strategy": {
+    "domain": "drone_rules",
+    "source_area": "Chapter 3 residual legal/airspace/logging propositions",
+    "candidate_ceiling": 15,
+    "candidate_ceiling_is_quota": false,
+    "reason": "The merged post-371 residual audit identifies Chapter 3 Rules as the strongest remaining second-class-applicable source area. B19 converts only the 15 audited evidence leads into a fail-closed planning ceiling and does not backfill toward 400.",
+    "pre_screen_rule": "Every authored candidate must preserve exact current-source support, remain second-class-applicable, survive semantic collision review against all 371 canonical questions and within B19, and have one unambiguous best answer. Medium-risk leads may be reworked or rejected rather than forced."
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "official_current_check": "2026-08-26",
+    "scope_rule": "Use only second-class-applicable Chapter 3 material; exclude every subsection explicitly marked 〔一等〕."
+  },
+  "batch": {
+    "batch_id": "B19",
+    "domain": "drone_rules",
+    "candidate_ceiling": 15,
+    "candidate_ceiling_is_quota": false,
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 11,
+      "B_BOUNDARY_VARIANT": 4,
+      "C_REASONING_VARIANT": 0
+    },
+    "medium_risk_candidate_ids": [
+      "B19-RULE-C003",
+      "B19-RULE-C005",
+      "B19-RULE-C008",
+      "B19-RULE-C015"
+    ]
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B19-RULE-C001",
+      "audit_gap_id": "POST371-RULE-G01",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "registration-mark-size-threshold",
+      "source_locator": "教則 第3章 3.1.2(1)4) 登録の手続き及び登録記号の表示",
+      "proposition": "登録記号の文字高は最大離陸重量25kg以上で25mm以上、25kg未満で3mm以上とする。",
+      "nearest_canonical": ["DRONE-Q-000108", "DRONE-Q-000220"],
+      "authoring_risk": "LOW"
+    },
+    {
+      "candidate_id": "B19-RULE-C002",
+      "audit_gap_id": "POST371-RULE-G02",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "remote-id-pre-registration-exemption",
+      "source_locator": "教則 第3章 3.1.2(1)5) リモートID機能の搭載の義務",
+      "proposition": "登録制度施行前の事前登録期間中に登録手続きを行った無人航空機は、リモートID搭載免除の対象となる。",
+      "nearest_canonical": ["DRONE-Q-000047"],
+      "authoring_risk": "LOW"
+    },
+    {
+      "candidate_id": "B19-RULE-C003",
+      "audit_gap_id": "POST371-RULE-G03",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "remote-id-secret-duty-exemption",
+      "source_locator": "教則 第3章 3.1.2(1)5) リモートID機能の搭載の義務",
+      "proposition": "警察庁、都道府県警察又は海上保安庁が警備その他の特に秘匿を必要とする業務のために行う飛行は、リモートID搭載免除の対象となる。",
+      "nearest_canonical": ["DRONE-Q-000047"],
+      "authoring_risk": "MEDIUM"
+    },
+    {
+      "candidate_id": "B19-RULE-C004",
+      "audit_gap_id": "POST371-RULE-G04",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "additional-airport-limitation-surfaces",
+      "source_locator": "教則 第3章 3.1.1 航空機の空域の概要 6)b. 空港の制限表面の概要",
+      "proposition": "東京・成田・中部・関西国際空港及び政令空港では、基本3表面に加えて円錐表面・延長進入表面・外側水平表面を指定できる。",
+      "nearest_canonical": ["DRONE-Q-000371"],
+      "authoring_risk": "LOW"
+    },
+    {
+      "candidate_id": "B19-RULE-C005",
+      "audit_gap_id": "POST371-RULE-G05",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "model-aircraft-prohibited-airspace",
+      "source_locator": "教則 第3章 3.1.1 航空機の空域の概要 7) 模型航空機に対する規制 ①",
+      "proposition": "重量100g未満を含む模型航空機も、航空交通管制圏・航空交通情報圏・航空交通管制区内の特別管制空域等及び緊急用務空域では飛行禁止の対象となる。",
+      "nearest_canonical": ["DRONE-Q-000041", "DRONE-Q-000112", "DRONE-Q-000369", "DRONE-Q-000370"],
+      "authoring_risk": "MEDIUM"
+    },
+    {
+      "candidate_id": "B19-RULE-C006",
+      "audit_gap_id": "POST371-RULE-G06",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "model-aircraft-prior-notification",
+      "source_locator": "教則 第3章 3.1.1 航空機の空域の概要 7) 模型航空機に対する規制 ②",
+      "proposition": "禁止空域①以外でも、空港等周辺、航空路内の高度150m以上又は高度250m以上で模型航空機を飛行させる場合は国土交通省への事前届出が必要となる。",
+      "nearest_canonical": ["DRONE-Q-000041", "DRONE-Q-000112"],
+      "authoring_risk": "LOW"
+    },
+    {
+      "candidate_id": "B19-RULE-C007",
+      "audit_gap_id": "POST371-RULE-G07",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "event-crowd flight restriction",
+      "distinctness_axes": ["scenario_state_or_flight_phase", "response_sequence_or_priority"],
+      "family": "unexpected-event-crowd-stop-action",
+      "source_locator": "教則 第3章 3.1.2(2)2)d. 催し場所上空",
+      "proposition": "許可・承認の有無にかかわらず、予定経路下に想定外の多数者集合が生じ第三者立入り等を確認した場合は、直ちに飛行を停止し、経路変更又は安全な場所への着陸等を行う。",
+      "nearest_canonical": ["DRONE-Q-000105"],
+      "authoring_risk": "LOW"
+    },
+    {
+      "candidate_id": "B19-RULE-C008",
+      "audit_gap_id": "POST371-RULE-G08",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "event-flight-five-ms-boundary",
+      "source_locator": "教則 第3章 3.1.2(2)2)d. 催し場所上空",
+      "proposition": "多数の者の集合する催し場所上空の飛行では、風速5m/s以上の場合は飛行を中止し、接触時の危害を軽減する構造を用意する必要がある。",
+      "nearest_canonical": ["DRONE-Q-000105"],
+      "authoring_risk": "MEDIUM",
+      "authoring_note": "Do not force two independent answer-defining obligations into one ambiguous item; split or rework if necessary."
+    },
+    {
+      "candidate_id": "B19-RULE-C009",
+      "audit_gap_id": "POST371-RULE-G09",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "reportable UAS accident classification",
+      "distinctness_axes": ["decision_boundary_or_exception", "tested_misconception"],
+      "family": "accident-third-party-property-any-damage",
+      "source_locator": "教則 第3章 3.1.2(3)1)f ア) 事故の場合の措置 a.",
+      "proposition": "第三者所有物の損壊は、損傷の規模や損害額を問わず無人航空機の事故の対象となる。",
+      "nearest_canonical": ["DRONE-Q-000052", "DRONE-Q-000198", "DRONE-Q-000214"],
+      "authoring_risk": "LOW"
+    },
+    {
+      "candidate_id": "B19-RULE-C010",
+      "audit_gap_id": "POST371-RULE-G10",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "aircraft-collision-accident-damage-condition",
+      "source_locator": "教則 第3章 3.1.2(3)1)f ア) 事故の場合の措置 b.",
+      "proposition": "航空機との衝突又は接触が事故となるのは、航空機又は無人航空機のいずれか又は両方に損傷が確認できる場合である。",
+      "nearest_canonical": ["DRONE-Q-000052", "DRONE-Q-000221"],
+      "authoring_risk": "LOW"
+    },
+    {
+      "candidate_id": "B19-RULE-C011",
+      "audit_gap_id": "POST371-RULE-G11",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "reportable serious incident",
+      "distinctness_axes": ["decision_boundary_or_exception", "reasoning_path"],
+      "family": "serious-incident-aircraft-near-collision",
+      "source_locator": "教則 第3章 3.1.2(3)1)f イ) 重大インシデントの報告",
+      "proposition": "飛行中航空機との衝突又は接触のおそれがあったと認めた事態は、事故に至らなくても重大インシデントとして報告対象となる。",
+      "nearest_canonical": ["DRONE-Q-000051", "DRONE-Q-000221"],
+      "authoring_risk": "LOW"
+    },
+    {
+      "candidate_id": "B19-RULE-C012",
+      "audit_gap_id": "POST371-RULE-G12",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "reportable serious incident",
+      "distinctness_axes": ["decision_boundary_or_exception", "reasoning_path"],
+      "family": "serious-incident-inflight-fire",
+      "source_locator": "教則 第3章 3.1.2(3)1)f イ) 重大インシデントの報告",
+      "proposition": "無人航空機が飛行中に発火した事態は、事故に至らなくても重大インシデントとして報告対象となる。",
+      "nearest_canonical": ["DRONE-Q-000072", "DRONE-Q-000167", "DRONE-Q-000221"],
+      "authoring_risk": "LOW"
+    },
+    {
+      "candidate_id": "B19-RULE-C013",
+      "audit_gap_id": "POST371-RULE-G13",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "daily-inspection-log-content",
+      "source_locator": "教則 第3章 3.1.2(3)2)b. 飛行日誌の携行及び記載 b. 日常点検記録",
+      "proposition": "日常点検記録には、実施年月日・場所、実施者の氏名、日常点検の結果等を記載する。",
+      "nearest_canonical": ["DRONE-Q-000042", "DRONE-Q-000225"],
+      "authoring_risk": "LOW"
+    },
+    {
+      "candidate_id": "B19-RULE-C014",
+      "audit_gap_id": "POST371-RULE-G14",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "maintenance-log-content",
+      "source_locator": "教則 第3章 3.1.2(3)2)b. 飛行日誌の携行及び記載 c. 点検整備記録",
+      "proposition": "点検整備記録には、実施年月日・場所、実施者の氏名、点検・修理・改造・整備の内容・理由等を記載する。",
+      "nearest_canonical": ["DRONE-Q-000042", "DRONE-Q-000225", "DRONE-Q-000227"],
+      "authoring_risk": "LOW"
+    },
+    {
+      "candidate_id": "B19-RULE-C015",
+      "audit_gap_id": "POST371-RULE-G15",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "non-specific-flight-plan-notification-recommendation",
+      "source_locator": "教則 第3章 3.1.2(3)2)a. 飛行計画の通報等",
+      "proposition": "特定飛行に該当しない無人航空機の飛行でも、飛行計画を通報することが望ましい。",
+      "nearest_canonical": ["DRONE-Q-000053", "DRONE-Q-000110", "DRONE-Q-000192", "DRONE-Q-000211"],
+      "authoring_risk": "MEDIUM",
+      "authoring_note": "Preserve the source's normative strength: recommended, not mandatory."
+    }
+  ],
+  "authoring_gate": {
+    "required_before_independent_review": [
+      "exact official source locator and wording-strength confirmation",
+      "second-class applicability confirmation",
+      "one answer-defining proposition per item",
+      "plausible tested misconception and distractors",
+      "material reasoning path",
+      "semantic collision check against DRONE-Q-000001..000371",
+      "within-B19 collision check"
+    ],
+    "controlled_variant_rule": "B candidates require at least two material distinctness axes and at least one decision-boundary/exception or reasoning-path axis; wording-only variants are prohibited.",
+    "no_filler": true,
+    "permanent_id_allocation_at_authoring": "PROHIBITED"
+  },
+  "invariants": {
+    "CANONICAL_CHANGED_AT_PLANNING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_PLANNING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_PLANNING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false,
+    "CONCURRENT_UNRELATED_WORK_OVERWRITTEN": false
+  },
+  "next_gate": "AUTHOR_AND_PERSIST_B19_400_TARGET_CANDIDATES"
+}
