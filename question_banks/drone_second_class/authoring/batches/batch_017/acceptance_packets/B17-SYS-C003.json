@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B17-SYS-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f4b59165bb10bb62f3f97369784622f46563d23b6acb9499e21125166456462e",
+  "actors": {
+    "author": {"id":"chatgpt-b17-systems-author-r1","role":"AI_AUTHOR"},
+    "reviewer": {"id":"autopilot-b17-systems-reviewer-r1","role":"AI_REVIEWER"},
+    "director": {"id":"chatgpt-primary-director-b17-r1","role":"AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","source_locator":"教則 第4章 4.5「磁気方位」(1)地磁気センサの役割"},
+    "answer_defining_proposition": "磁力線が示す北である磁北と地図の北には偏角が生じるため地磁気センサの方位を地図上の北と常に同一とは扱えない。",
+    "tested_misconception": "磁北と地図の北は常に一致するため偏角を考慮する必要はない。",
+    "reasoning_path": "distinguish magnetic north from map north -> recognize source-defined declination -> reject assumption of identical headings",
+    "collision": {"released_bank_checked":true,"canonical_drafts_checked":true,"batch_checked":true,"note":"Tier A。Q043は磁気キャリブレーションの目的で偏角はdistractorのみ。Q076は鉄や電流による局所的磁気干渉。本問は磁北と地図北の偏角そのものをanswer-defining propositionとする。"}
+  },
+  "independent_review": {"decision":"ACCEPT","rationale":"The source explicitly distinguishes magnetic north from map north through declination. Q043 tests magnetic calibration and Q076 tests local magnetic interference from iron/current. Declination itself is not answer-defining elsewhere, so C003 adds a distinct source proposition without extending beyond the source wording."},
+  "director_adjudication": {"decision":"ACCEPT","rationale":"Adopt the independent review at ACCEPT 5 / REJECT 0. All five propositions are directly supported by second-class-applicable Chapter 4 source text. C001 and C004 satisfy the controlled-variant distinctness contract; C002, C003 and C005 add new answer-defining propositions. No quota backfill is required or permitted."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
