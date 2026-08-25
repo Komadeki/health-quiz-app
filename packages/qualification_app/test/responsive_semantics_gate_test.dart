@@ -58,6 +58,8 @@ void main() {
     addTearDown(controller.dispose);
     await pumpCompact(tester, controller);
 
+    await tester.drag(find.byType(ListView), const Offset(0, -320));
+    await tester.pumpAndSettle();
     expect(find.byKey(const Key('primary-learning-action')), findsOneWidget);
     expect(tester.takeException(), isNull);
 

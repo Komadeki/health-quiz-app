@@ -1,0 +1,325 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "DRONE-B10-400-TARGET-COVERAGE-VARIANTS-2026-08-25",
+  "product": "drone_second_class",
+  "planned_at": "2026-08-25",
+  "objective": "PLAN_B10_400_TARGET_COVERAGE_VARIANTS",
+  "baseline_main": "2c063d51bd021168ff78786c99b3cef02b1eee00",
+  "target_contract": "target_400_quality_relaxation_contract_2026-08-25.json",
+  "inventory": {
+    "released_runtime": 188,
+    "canonical": 275,
+    "accepted_source_verified_canonical": 275,
+    "remaining_to_400": 125,
+    "next_unreserved_permanent_id": "DRONE-Q-000276"
+  },
+  "coverage_rationale": {
+    "selected_domain": "drone_rules",
+    "selection_basis": "After B7 Rules, B8 Systems and B9 Risk verification, Rules is the thinnest current domain. Derived current canonical distribution is Rules 64, Risk 66, Operations 68, Systems 77; B10 therefore restores breadth before further expansion of thicker domains.",
+    "source_chapter": "第3章 無人航空機に関する規則",
+    "focus": "B7-unused Chapter 3.2 law/radio propositions plus remaining second-class-applicable skill-certificate propositions in 3.1.2(5).",
+    "candidate_ceiling": 20,
+    "candidate_ceiling_is_quota": false
+  },
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_url": "https://www.mlit.go.jp/common/002010810.pdf",
+    "published_at": "2026-07-07",
+    "effective_from": "2026-07-14",
+    "scope_rule": "Use only second-class-applicable Chapter 3 propositions. Exclude every subsection explicitly marked 〔一等〕 and any proposition already answer-defining in the 275-question canonical inventory."
+  },
+  "planning_evidence": [
+    "B7 already consumed twenty Chapter 3 Rules propositions, including collision-prevention branches, nuisance flight, registered-aircraft maintenance, serious-incident reporting, flight-plan/log requirements, certified-aircraft operating conditions, Category II-A, level 3.5, minimum age, exam order, registered-training practical-test exemption, powered-lift qualification and certificate limitation compliance.",
+    "Current canonical Q054-Q058 and Q112-Q116 already cover small-UAS/aviation-device classification, red/yellow zone structure, exception notification, radio-system license comparison, local rules, under-100g scope, temporary facility designation, airport/defense red-zone exception, amateur-radio commercial-use prohibition and mobile-network airborne-use procedure.",
+    "Current MLIT 第5版 Chapter 3.2 and current NPA information were cross-checked on 2026-08-25. The current Small UAV Act yellow-zone radius is approximately 1,000m, so existing Q055 is not source drift. NPA is planning corroboration only; authored candidates remain bound to MLIT-UAS-SAFETY-GUIDE-5."
+  ],
+  "batch": {
+    "batch_id": "B10",
+    "domain": "drone_rules",
+    "candidate_ceiling": 20,
+    "candidate_ceiling_is_quota": false,
+    "authoring_priority": [
+      "Tier A new explicit Chapter 3 propositions",
+      "Tier B source-defined lifecycle/exception variants with materially different solving rules",
+      "Tier C reasoning variants only if stronger A/B opportunities are exhausted"
+    ],
+    "planned_tier_counts": {
+      "A_NEW_PROPOSITION": 17,
+      "B_BOUNDARY_VARIANT": 3,
+      "C_REASONING_VARIANT": 0
+    },
+    "planned_section_counts": {
+      "3.1.2(4)-(5)": 8,
+      "3.2.1": 6,
+      "3.2.2_and_other": 6
+    }
+  },
+  "planned_candidates": [
+    {
+      "candidate_id": "B10-RULE-C001",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "special-dignitary protected facility",
+      "source_locator": "教則 第3章 3.2.1(3)「飛行禁止の対象となる重要施設」",
+      "proposition": "天皇又は内閣総理大臣が所在し国内要人が出席する行事会場等は、小型無人機等飛行禁止法の対象となる重要施設に含まれ得る。",
+      "tested_misconception": "恒常的な庁舎だけが対象であり、国内要人が出席する行事会場等は対象施設にならない。",
+      "reasoning_path": "facility purpose/status -> protected-facility category -> Small UAV Act applicability",
+      "nearest_canonical": ["DRONE-Q-000113"],
+      "distinctness": "Q113 tests temporary additions around foreign dignitary visits; this candidate tests the explicit domestic-dignitary protected-facility category added in the current Chapter 3.2.1 list."
+    },
+    {
+      "candidate_id": "B10-RULE-C002",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "international-conference protected facility",
+      "source_locator": "教則 第3章 3.2.1(3)「飛行禁止の対象となる重要施設」",
+      "proposition": "外国要人が参加する国際会議の準備又は運営に使用される会議場施設等は、外務大臣指定の対象外国公館等に含まれ得る。",
+      "tested_misconception": "対象外国公館等は大使館等に限られ、国際会議の会議場施設は含まれない。",
+      "reasoning_path": "foreign-dignitary conference use -> designated facility category -> flight-prohibition applicability",
+      "nearest_canonical": ["DRONE-Q-000113"],
+      "distinctness": "Q113 tests temporary additions generally; this candidate tests the explicit international-conference facility category."
+    },
+    {
+      "candidate_id": "B10-RULE-C003",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "Small UAV Act restrictions operate independently from Aviation Act permissions",
+      "distinctness_axes": ["decision_authority", "decision_boundary_or_exception", "reasoning_path"],
+      "family": "aviation-permit non-override",
+      "source_locator": "教則 第3章 3.2.1(4)「飛行禁止の例外及びその手続き」",
+      "proposition": "航空法上の飛行許可・承認や機体認証・技能証明を取得していても、それだけで小型無人機等飛行禁止法の禁止を解除することはできない。",
+      "tested_misconception": "航空法の許可・承認又は技能証明があれば、小型無人機等飛行禁止法上の対象施設周辺でも別の例外要件なく飛行できる。",
+      "reasoning_path": "Aviation Act authorization -> separate statute check -> Small UAV Act exception still required",
+      "nearest_canonical": ["DRONE-Q-000056", "DRONE-Q-000114"],
+      "distinctness": "Existing items test notification after a valid exception and an airport red-zone exception boundary; this candidate tests non-substitution between separate legal regimes."
+    },
+    {
+      "candidate_id": "B10-RULE-C004",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "Small UAV Act statutory exception categories",
+      "source_locator": "教則 第3章 3.2.1(4)「飛行禁止の例外及びその手続き」",
+      "proposition": "一般の対象施設周辺では、施設管理者又は同意を得た者、土地所有者等又は同意を得た者による当該土地上空、国又は地方公共団体の業務という法定例外がある。",
+      "tested_misconception": "同法の例外は対象施設管理者自身の飛行だけで、土地所有者や国・地方公共団体の業務には例外がない。",
+      "reasoning_path": "who operates / whose land / government duty -> match statutory exception category",
+      "nearest_canonical": ["DRONE-Q-000056", "DRONE-Q-000114"],
+      "distinctness": "Q056 assumes an exception and tests notification; Q114 tests the defense/airport red-zone narrowing. This candidate tests the general exception set itself."
+    },
+    {
+      "candidate_id": "B10-RULE-C005",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "police protective measures",
+      "source_locator": "教則 第3章 3.2.1(5)「違反に対する措置等」",
+      "proposition": "警察官等は違反飛行に対して機器の退去等を命じ、やむを得ない限度で飛行妨害・破損等の必要な措置をとることができる。",
+      "tested_misconception": "同法違反に対して警察官等ができるのは事後の罰則手続だけで、飛行中の退去命令や妨害等はできない。",
+      "reasoning_path": "prohibited flight detected -> immediate enforcement authority -> order/remedial interference",
+      "nearest_canonical": [],
+      "distinctness": "No canonical question directly tests the immediate enforcement powers stated in 3.2.1(5)."
+    },
+    {
+      "candidate_id": "B10-RULE-C006",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "red-yellow penalty distinction",
+      "source_locator": "教則 第3章 3.2.1(5)「違反に対する措置等」",
+      "proposition": "対象施設の敷地・区域上空（レッド・ゾーン）の違反等は1年以下の拘禁刑又は50万円以下の罰金、周囲おおむね1,000mのイエロー・ゾーン違反は6月以下の拘禁刑又は50万円以下の罰金となる。",
+      "tested_misconception": "レッド・ゾーンとイエロー・ゾーンでは違反時の拘禁刑上限も同一である。",
+      "reasoning_path": "zone classification -> statutory penalty branch -> distinguish imprisonment ceiling",
+      "nearest_canonical": ["DRONE-Q-000055"],
+      "distinctness": "Q055 tests geographic zone structure; this candidate tests the separate consequence branch triggered by that classification."
+    },
+    {
+      "candidate_id": "B10-RULE-C007",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "weak-radio threshold",
+      "source_locator": "教則 第3章 3.2.2(2)①「微弱無線局（ラジコン用）」",
+      "proposition": "ラジコン用の微弱無線局は500mの距離で電界強度200μV/m以下という基準が示され、無線局免許・無線従事者資格が不要である。",
+      "tested_misconception": "微弱無線局でも無人航空機に使う限り必ず無線局免許と無線従事者資格が必要である。",
+      "reasoning_path": "radio emission strength at 500m -> weak-station classification -> license/qualification consequence",
+      "nearest_canonical": ["DRONE-Q-000057"],
+      "distinctness": "Q057 compares a low-power data system with a licensed image-transmission system; it does not test the weak-radio field-strength threshold."
+    },
+    {
+      "candidate_id": "B10-RULE-C008",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "license-free low-power conformity",
+      "source_locator": "教則 第3章 3.2.2(2)②「一部の小電力の無線局」",
+      "proposition": "Wi-FiやBluetooth等の一定の小電力無線局は免許・登録や無線従事者資格が不要でも、技術基準適合証明等を受けた適合表示無線設備でなければならない。",
+      "tested_misconception": "無線局免許が不要なWi-Fi等は、技術基準適合証明や技適表示も不要である。",
+      "reasoning_path": "license-free low-power category -> separate equipment-conformity gate -> verify technical-conformity marking",
+      "nearest_canonical": ["DRONE-Q-000057"],
+      "distinctness": "Q057 states a conforming low-power system as an input and tests license/qualification; this candidate makes conformity itself the decision gate."
+    },
+    {
+      "candidate_id": "B10-RULE-C009",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "amateur-radio qualification and station license",
+      "source_locator": "教則 第3章 3.2.2(3)「アマチュア無線局」",
+      "proposition": "無人航空機でアマチュア無線を使用する場合は、アマチュア無線技士の資格とアマチュア無線局免許の双方が必要である。",
+      "tested_misconception": "アマチュア無線技士の資格があれば無線局免許は不要、又は無線局免許があれば資格は不要である。",
+      "reasoning_path": "amateur-radio use -> operator qualification gate + station-license gate -> both required",
+      "nearest_canonical": ["DRONE-Q-000115"],
+      "distinctness": "Q115 assumes both credentials and tests the commercial-use prohibition; this candidate tests the prerequisite credential pair."
+    },
+    {
+      "candidate_id": "B10-RULE-C010",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "amateur FPV radio must coexist with primary services",
+      "distinctness_axes": ["aircraft_or_operation_applicability", "decision_boundary_or_exception", "reasoning_path"],
+      "family": "amateur-FPV secondary-service protection",
+      "source_locator": "教則 第3章 3.2.2(3)「アマチュア無線局」",
+      "proposition": "5GHz帯のアマチュア無線は二次業務であるため、同一帯域の一次業務の無線局へ妨害を与えないよう運用する。",
+      "tested_misconception": "アマチュア無線局免許があれば、同一帯域の一次業務への妨害を考慮せずFPV画像伝送できる。",
+      "reasoning_path": "amateur FPV band -> secondary-service status -> protect primary service from interference",
+      "nearest_canonical": ["DRONE-Q-000115"],
+      "distinctness": "Q115 tests business-purpose eligibility; this candidate tests spectrum-priority operating responsibility."
+    },
+    {
+      "candidate_id": "B10-RULE-C011",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "5GHz coexistence avoidance",
+      "source_locator": "教則 第3章 3.2.2(3)「アマチュア無線局」",
+      "proposition": "5.7GHz帯の無人移動体画像伝送システムや5.8GHz帯のDSRC/ETC等の近くでは、アマチュアFPVの運用を避ける等の配慮が必要である。",
+      "tested_misconception": "アマチュアFPVの周波数が使える機器なら、ETC等の既存システム付近でも干渉を考慮する必要はない。",
+      "reasoning_path": "planned FPV location -> identify co-channel/adjacent primary systems -> avoid/interference-mitigate operation",
+      "nearest_canonical": ["DRONE-Q-000115"],
+      "distinctness": "Existing amateur-radio coverage tests commercial-use eligibility, not location-specific coexistence action."
+    },
+    {
+      "candidate_id": "B10-RULE-C012",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "flight-restraint request area",
+      "source_locator": "教則 第3章 3.2「飛行自粛要請空域」",
+      "proposition": "飛行自粛要請空域は法令に基づく規制そのものではないが、飛行前に国土交通省の公示を確認し、要請内容に基づき適切に対応する。",
+      "tested_misconception": "法的な飛行禁止空域でなければ、国土交通省の飛行自粛要請を飛行前確認の対象にする必要はない。",
+      "reasoning_path": "preflight current-information check -> restraint request exists -> respond to request despite non-statutory status",
+      "nearest_canonical": ["DRONE-Q-000058", "DRONE-Q-000091"],
+      "distinctness": "Q058 tests ordinances/facility rules and Q091 integrates legal constraints; this candidate tests the non-statutory but operationally relevant restraint-request status."
+    },
+    {
+      "candidate_id": "B10-RULE-C013",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "certificate-application one-year bar",
+      "source_locator": "教則 第3章 3.1.2(5)2)「技能証明の資格要件」",
+      "proposition": "一定の航空法違反等に係り技能証明を拒否された日から1年以内の者又は技能証明を保留されている者は申請できない。",
+      "tested_misconception": "技能証明を一度拒否されても、翌日から再申請できる。",
+      "reasoning_path": "prior refusal/hold status -> elapsed-time/status check -> application eligibility",
+      "nearest_canonical": ["DRONE-Q-000231"],
+      "distinctness": "Q231 tests the age floor; this candidate tests prior-enforcement status and a one-year temporal eligibility boundary."
+    },
+    {
+      "candidate_id": "B10-RULE-C014",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "certificate-application two-year bar",
+      "source_locator": "教則 第3章 3.1.2(5)2)「技能証明の資格要件」",
+      "proposition": "一定の航空法違反等に係り技能証明を取り消された日から2年以内の者又は技能証明の効力を停止されている者は申請できない。",
+      "tested_misconception": "取消しを受けた者は1年経過すれば必ず再申請でき、現在効力停止中でも申請できる。",
+      "reasoning_path": "prior cancellation/suspension -> two-year/current-status boundary -> application eligibility",
+      "nearest_canonical": ["DRONE-Q-000231"],
+      "distinctness": "Q231 is age eligibility; this candidate tests a different post-enforcement temporal/status branch."
+    },
+    {
+      "candidate_id": "B10-RULE-C015",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "post-exam refusal or hold grounds",
+      "source_locator": "教則 第3章 3.1.2(5)2)「技能証明の資格要件」",
+      "proposition": "試験等に合格しても、飛行に支障を及ぼす病気、中毒、航空法等違反、飛行上の非行又は重大な過失がある場合は技能証明を拒否又は保留され得る。",
+      "tested_misconception": "技能証明試験に合格すれば、健康状態や航空法違反等に関係なく必ず技能証明が交付される。",
+      "reasoning_path": "exam pass -> statutory refusal/hold grounds check -> certificate issuance decision",
+      "nearest_canonical": ["DRONE-Q-000232", "DRONE-Q-000233"],
+      "distinctness": "Existing items test exam order and practical-test exemption; neither tests issuance discretion after exam success."
+    },
+    {
+      "candidate_id": "B10-RULE-C016",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "exam misconduct consequence",
+      "source_locator": "教則 第3章 3.1.2(5)3)「技能証明の交付手続き」",
+      "proposition": "技能証明試験で不正行為が認められた場合、試験停止又は合格無効に加え、一定期間試験を拒否され得る。",
+      "tested_misconception": "技能証明試験の不正行為はその回の試験結果にだけ影響し、その後の受験制限はない。",
+      "reasoning_path": "exam misconduct -> immediate test/result consequence -> possible future testing bar",
+      "nearest_canonical": ["DRONE-Q-000232", "DRONE-Q-000233"],
+      "distinctness": "Existing exam questions test sequence and exemption, not misconduct consequences."
+    },
+    {
+      "candidate_id": "B10-RULE-C017",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "physical-condition certificate condition",
+      "source_locator": "教則 第3章 3.1.2(5)4)「技能証明を受けた者の義務」",
+      "proposition": "国土交通大臣が身体状態に応じ眼鏡・コンタクトレンズ・補聴器等の条件を付した技能証明では、その条件の範囲内で特定飛行を行う必要がある。",
+      "tested_misconception": "技能証明を取得した後は、証明に付された身体条件を満たさなくても特定飛行できる。",
+      "reasoning_path": "certificate has physical-condition restriction -> operation condition check -> special-flight eligibility",
+      "nearest_canonical": ["DRONE-Q-000235"],
+      "distinctness": "Q235 tests aircraft-type/flight-method limitations; this candidate tests a different certificate condition based on physical state."
+    },
+    {
+      "candidate_id": "B10-RULE-C018",
+      "tier": "B_BOUNDARY_VARIANT",
+      "parent_core_proposition": "certificate enforcement depends on lifecycle state",
+      "distinctness_axes": ["scenario_state_or_flight_phase", "decision_boundary_or_exception", "reasoning_path"],
+      "family": "post-issuance cancellation-or-suspension",
+      "source_locator": "教則 第3章 3.1.2(5)5)「技能証明の取消し等」",
+      "proposition": "技能証明取得後に飛行支障の病気・身体障害、中毒、航空法等違反、非行又は重大な過失が判明した場合、取消し又は1年以内の効力停止を受け得る。",
+      "tested_misconception": "これらの事情は技能証明申請前だけ問題となり、交付後は取消し・効力停止の理由にならない。",
+      "reasoning_path": "certificate already issued -> disqualifying condition/event arises -> cancellation/suspension branch",
+      "nearest_canonical": ["DRONE-Q-000199", "DRONE-Q-000231"],
+      "distinctness": "Q199 lists generic administrative-action types and Q231 tests pre-application age eligibility; this candidate tests post-issuance statutory enforcement triggers."
+    },
+    {
+      "candidate_id": "B10-RULE-C019",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "Category-II-B flight-manual content",
+      "source_locator": "教則 第3章 3.1.2(4)1)「安全確保措置等」",
+      "proposition": "カテゴリーII-Bの手続省略ルートでも、定期点検整備、操縦技能維持、飛行前確認、安全管理体制、事故時連絡体制等を記載した飛行マニュアルを作成・遵守する。",
+      "tested_misconception": "カテゴリーII-Bで技能証明と機体認証がそろえば、飛行マニュアルの内容や遵守は不要である。",
+      "reasoning_path": "Category II-B procedural route -> safety-assurance obligation -> verify flight-manual content and compliance",
+      "nearest_canonical": ["DRONE-Q-000049"],
+      "distinctness": "Q049 tests the top-level conditions for the no-individual-permission route; this candidate tests the concrete safety-management content required inside that route."
+    },
+    {
+      "candidate_id": "B10-RULE-C020",
+      "tier": "A_NEW_PROPOSITION",
+      "family": "skill-certificate validity duration",
+      "source_locator": "教則 第3章 3.1.2(5)3)「技能証明の交付手続き」",
+      "proposition": "技能証明の有効期間は3年であり、継続には所定の更新手続が必要である。",
+      "tested_misconception": "技能証明は一度交付されれば期限なく有効である。",
+      "reasoning_path": "certificate issue date -> three-year validity horizon -> renewal required for continued validity",
+      "nearest_canonical": ["DRONE-Q-000109"],
+      "distinctness": "Q109 tests the timing windows for renewal course and application; this candidate tests the underlying three-year validity state boundary."
+    }
+  ],
+  "collision_and_quality_gates": {
+    "canonical_collision_scope": "Compare every authored B10 candidate against all 275 canonical questions, including B7 Rules Q216..Q235.",
+    "tier_b_rule": "Each Tier B candidate must preserve at least two contract-recognized distinctness axes and include decision-boundary/exception or reasoning-path distinctness.",
+    "core_proposition_cap": "Default maximum accepted variants per core proposition is 3; absolute maximum 4 requires source-defined separate branches and explicit Director rationale.",
+    "hard_rejects": [
+      "wording-only duplicate",
+      "same answer-defining proposition with the same reasoning path",
+      "first-class-only proposition",
+      "unsupported inference",
+      "ambiguous answer",
+      "low-value numeric trivia without a classification or action boundary",
+      "quota filler"
+    ],
+    "human_review_fabrication": false
+  },
+  "mutation_scope": {
+    "this_transition": [
+      "create b10_400_target_plan_2026-08-25.json",
+      "advance durable Autopilot state to B10 authoring"
+    ],
+    "explicitly_not_mutated": [
+      "canonical questions.csv",
+      "question_id_registry.csv",
+      "released snapshot",
+      "runtime/generated question assets",
+      "candidate rows",
+      "acceptance packets",
+      "source-verification artifacts",
+      "Permanent IDs"
+    ]
+  },
+  "completion_criteria": [
+    "exactly this plan and machine-state transition are durable on GitHub",
+    "required CI is green",
+    "canonical remains 275 and released/runtime remains 188",
+    "no HUMAN review is claimed or fabricated"
+  ],
+  "next_atomic_objective": "AUTHOR_AND_PERSIST_B10_400_TARGET_CANDIDATES"
+}

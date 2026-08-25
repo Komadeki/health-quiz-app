@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B10",
+  "review_round": 1,
+  "reviewer": {
+    "id": "autopilot-b10-rules-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "chatgpt-b10-rules-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Use Chapter 3 propositions outside subsections explicitly marked 〔一等〕."
+  },
+  "review_basis": [
+    "current merged B10 candidates.csv",
+    "current 275-question canonical inventory",
+    "B10 plan nearest-canonical and collision notes",
+    "current MLIT 教則第5版 Chapter 3 source contract",
+    "merged 400-question quality-preserving controlled-variant contract",
+    "answer correctness, answer uniqueness, distractor plausibility, commercial practice value, proposition/misconception/reasoning-path distinctness"
+  ],
+  "summary": {
+    "reviewed": 20,
+    "accept": 20,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {"candidate_id":"B10-RULE-C001","decision":"ACCEPT","rationale":"The item tests the explicit domestic-dignitary event-facility category. Q113 covers temporary designation around foreign dignitary visits, not this category."},
+    {"candidate_id":"B10-RULE-C002","decision":"ACCEPT","rationale":"The international-conference preparation/operation facility category is source-defined and distinct from generic temporary designation coverage."},
+    {"candidate_id":"B10-RULE-C003","decision":"ACCEPT","rationale":"Tier B PASS. The item tests legal-regime non-substitution: Aviation Act authorization does not itself satisfy Small UAV Act exception requirements. Decision authority, exception boundary and reasoning path differ from Q056/Q114."},
+    {"candidate_id":"B10-RULE-C004","decision":"ACCEPT","rationale":"The general statutory exception set is answer-unique and differs from Q056, which assumes an exception and tests notification, and Q114, which tests a narrowed airport/defense red-zone branch."},
+    {"candidate_id":"B10-RULE-C005","decision":"ACCEPT","rationale":"Immediate police enforcement powers during a prohibited flight are absent from the current canonical bank and are directly source-defined."},
+    {"candidate_id":"B10-RULE-C006","decision":"ACCEPT","rationale":"The red/yellow penalty distinction is tied to a source-defined legal classification and consequence boundary, not a number-only substitution. Q055 tests geography, not sanctions."},
+    {"candidate_id":"B10-RULE-C007","decision":"ACCEPT","rationale":"The weak-radio field-strength threshold determines classification and license/qualification consequence, making the quantitative value action-defining rather than low-value trivia."},
+    {"candidate_id":"B10-RULE-C008","decision":"ACCEPT","rationale":"The item correctly separates license-free operation from equipment technical-conformity obligations. Q057 assumes conformity and tests a different license comparison."},
+    {"candidate_id":"B10-RULE-C009","decision":"ACCEPT","rationale":"The dual requirement for amateur operator qualification and station license is distinct from Q115, which assumes both and tests prohibition on profit-motivated business use."},
+    {"candidate_id":"B10-RULE-C010","decision":"ACCEPT","rationale":"Tier B PASS. The secondary-service interference rule changes operation applicability and the decision boundary from business-purpose eligibility to spectrum-priority protection."},
+    {"candidate_id":"B10-RULE-C011","decision":"ACCEPT","rationale":"Location-specific coexistence action near 5.7GHz image systems and 5.8GHz DSRC/ETC is a distinct operational response not tested by existing amateur-radio questions."},
+    {"candidate_id":"B10-RULE-C012","decision":"ACCEPT","rationale":"The item tests the non-statutory but operationally relevant flight-restraint-request status and preflight response. Existing local-rule and general-constraint questions do not test this status distinction."},
+    {"candidate_id":"B10-RULE-C013","decision":"ACCEPT","rationale":"The one-year post-refusal/current-hold application boundary is source-defined and distinct from Q231 age eligibility and from the separate cancellation branch in C014."},
+    {"candidate_id":"B10-RULE-C014","decision":"ACCEPT","rationale":"The two-year post-cancellation/current-suspension application boundary is source-defined, answer-unique and materially distinct from the one-year refusal branch."},
+    {"candidate_id":"B10-RULE-C015","decision":"ACCEPT","rationale":"The item tests refusal/hold grounds after exam success, a separate issuance decision from exam sequence or practical-test exemption."},
+    {"candidate_id":"B10-RULE-C016","decision":"ACCEPT","rationale":"Exam misconduct consequences include immediate test/result effects and possible future testing refusal; existing exam questions do not cover this enforcement path."},
+    {"candidate_id":"B10-RULE-C017","decision":"ACCEPT","rationale":"Physical-condition restrictions attached to a certificate are a distinct operational condition from Q235 aircraft-type/flight-method limitations."},
+    {"candidate_id":"B10-RULE-C018","decision":"ACCEPT","rationale":"Tier B PASS. The post-issuance lifecycle state changes the solving rule: specified health, conduct or legal grounds can trigger cancellation or suspension after certificate issuance. This differs from Q199's generic sanction list and pre-application eligibility questions."},
+    {"candidate_id":"B10-RULE-C019","decision":"ACCEPT","rationale":"The item tests concrete flight-manual safety-management content within the Category II-B no-individual-permission route. Q049 tests only the top-level route conditions."},
+    {"candidate_id":"B10-RULE-C020","decision":"ACCEPT","rationale":"The three-year certificate validity horizon is the underlying lifecycle boundary; Q109 instead tests renewal-course and application timing windows."}
+  ],
+  "controlled_variant_gate": {
+    "reviewed_tier_b": ["B10-RULE-C003","B10-RULE-C010","B10-RULE-C018"],
+    "accepted_tier_b": ["B10-RULE-C003","B10-RULE-C010","B10-RULE-C018"],
+    "rejected_tier_b": [],
+    "density_policy_checked": true,
+    "minimum_distinct_axes_checked": true,
+    "wording_only_duplicates_allowed": false
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "REGISTRY_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_20_ACCEPT"
+}

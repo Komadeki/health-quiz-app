@@ -47,6 +47,7 @@ void main() {
       ),
     );
 
+    expect(controller.view, QualificationProductionView.home);
     await tester.scrollUntilVisible(
       find.byKey(const Key('fixture-home-supplement')),
       160,
@@ -55,7 +56,6 @@ void main() {
     expect(find.byKey(const Key('home-supplement')), findsOneWidget);
     expect(find.byKey(const Key('fixture-home-supplement')), findsOneWidget);
     expect(find.text('Qualification-specific guidance'), findsOneWidget);
-    expect(find.byKey(const Key('primary-learning-action')), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

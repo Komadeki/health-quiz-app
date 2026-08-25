@@ -1,9 +1,9 @@
 schema_version: 1
 
 app_key: drone_second_class
-display_name: 二等無人航空機 学科対策
-dev_display_name: 二等無人航空機 学科対策 DEV
-qa_display_name: 二等無人航空機 学科対策 QA
+display_name: 二等無人航空機
+dev_display_name: 二等無人航空機 DEV
+qa_display_name: 二等無人航空機 QA
 
 publisher: KOMADEKI
 brand_name: KOMADEKI
@@ -12,10 +12,10 @@ legalese: © 2026 KOMADEKI
 platforms:
   ios:
     bundle_id: com.komadeki.dronesecondclass
-    display_name: 二等無人航空機 学科対策
+    display_name: 二等無人航空機
   android:
     application_id: com.komadeki.dronesecondclass
-    display_name: 二等無人航空機 学科対策
+    display_name: 二等無人航空機
 
 urls:
   support: https://komadeki.com/drone-second-class/support/
@@ -51,7 +51,7 @@ branding:
 
 factory:
   app_version: 1.0.0+1
-  home_headline: 教則第5版を基にした学科試験対策
+  home_headline: 教則第5版準拠
   source_label: 無人航空機の飛行の安全に関する教則 第5版に基づく学習
   enabled_modes:
     - unit_practice

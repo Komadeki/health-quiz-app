@@ -7,18 +7,18 @@ import 'package:quiz_engine/quiz_engine.dart';
 abstract final class GeneratedAppManifest {
   static const int schemaVersion = 1;
   static const String appKey = "drone_second_class";
-  static const String displayName = "二等無人航空機 学科対策";
-  static const String devDisplayName = "二等無人航空機 学科対策 DEV";
-  static const String qaDisplayName = "二等無人航空機 学科対策 QA";
+  static const String displayName = "二等無人航空機";
+  static const String devDisplayName = "二等無人航空機 DEV";
+  static const String qaDisplayName = "二等無人航空機 QA";
 
   static const String publisher = "KOMADEKI";
   static const String brandName = "KOMADEKI";
   static const String legalese = "© 2026 KOMADEKI";
 
   static const String iosBundleId = "com.komadeki.dronesecondclass";
-  static const String iosDisplayName = "二等無人航空機 学科対策";
+  static const String iosDisplayName = "二等無人航空機";
   static const String androidApplicationId = "com.komadeki.dronesecondclass";
-  static const String androidDisplayName = "二等無人航空機 学科対策";
+  static const String androidDisplayName = "二等無人航空機";
 
   static const String supportUrl = "https://komadeki.com/drone-second-class/support/";
   static const String privacyUrl = "https://komadeki.com/drone-second-class/privacy/";
@@ -84,7 +84,7 @@ abstract final class GeneratedAppManifest {
         ),
         learningProduct: const LearningProductProfileV1(
           appVersion: "1.0.0+1",
-          homeHeadline: "教則第5版を基にした学科試験対策",
+          homeHeadline: "教則第5版準拠",
           sourceLabel: "無人航空機の飛行の安全に関する教則 第5版に基づく学習",
           enabledModes: {LearningModeV1.unitPractice, LearningModeV1.randomPractice, LearningModeV1.unansweredPractice, LearningModeV1.incorrectPractice, LearningModeV1.retry, LearningModeV1.mockExam},
           practiceQuestionCount: 20,
