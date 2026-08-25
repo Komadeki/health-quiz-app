@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B17",
+  "directory_slug": "batch_017",
+  "baseline_sha": "0f75c8610fd53f3fa5957b6c625b55f6bf7e5005",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id":"chatgpt-b17-systems-author-r1","role":"AI_AUTHOR"},
+  "expansion_trigger": "Continue from 360 accepted/source-verified canonical questions toward the owner-directed 400-question Production target. Systems is the only materially underrepresented domain at 81 versus 93 in the other three domains, but B13 showed severe Systems saturation, so B17 authors only five Chapter 4 candidates that survived explicit full-canonical pre-screen; no quota backfill is allowed.",
+  "source_contract": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","edition":"第5版","official_current_check":"2026-08-25","official_pdf":"https://www.mlit.go.jp/common/002010810.pdf","second_class_scope_rule":"Use only second-class-applicable Chapter 4 propositions and exclude every subsection explicitly marked 〔一等〕."},
+  "evidence": [
+    "Merged PR #325 persisted the B17 five-candidate Systems pre-screen plan from canonical/source-verified 360.",
+    "B13 demonstrated severe canonical collision in Systems at 4/20 accepted, so B17 uses a five-item pre-screened ceiling rather than a broad quota batch.",
+    "The official MLIT 第5版 Chapter 4 battery table explicitly defines voltage drop, Wh energy capacity and LiPo characteristics; the magnetic-heading section explicitly defines declination between magnetic north and map north.",
+    "Each B17 candidate has a named nearest canonical question and explicit non-collision reasoning before authoring.",
+    "PR #143 adopted the quality-preserving 400-question target contract."
+  ],
+  "target_size_decisions": [{"decision_id":"B17-TARGET-001","previous_approved_target":400,"current_released_count":188,"proposed_target_min":400,"proposed_target_max":400,"approved_new_target":400,"rationale":"Continue the owner-directed 400-question target without changing the released baseline until explicit activation.","decision_date":"2026-08-25","evidence":"Merged PR #143 and PR #325."}],
+  "planned_scope": {"area":"Systems","candidate_batch_identity":"B17","candidate_ids":["B17-SYS-C001","B17-SYS-C002","B17-SYS-C003","B17-SYS-C004","B17-SYS-C005"],"candidate_count":5,"candidate_count_is_quota":false,"tier_counts":{"A_NEW_PROPOSITION":3,"B_BOUNDARY_VARIANT":2,"C_REASONING_VARIANT":0},"tier_b_candidate_ids":["B17-SYS-C001","B17-SYS-C004"],"known_rejected_ids":[]},
+  "coverage_limit_decisions": [
+    {"decision_id":"B17-COVERAGE-LIMIT-001","status":"PRESCREENED_SMALL_BATCH","scope":"Chapter 4 Systems propositions and controlled boundaries","evidence":"Only five candidates were selected after full-canonical pre-screen; no backfill is permitted merely to reduce the remaining count to 400."},
+    {"decision_id":"B17-COVERAGE-LIMIT-002","status":"ACTIVE_POLICY","scope":"Controlled variants","evidence":"Tier B items must retain at least two distinct axes including a distinct calculation/causal reasoning path from their named canonical neighbors."}
+  ],
+  "migration_blockers": [],
+  "invariants": {"CANONICAL_CHANGED_AT_AUTHORING":false,"PERMANENT_IDS_ALLOCATED_AT_AUTHORING":0,"SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false,"FREE_SELECTION_CHANGED":false,"V0_SNAPSHOT_CHANGED":false,"HUMAN_REVIEW_CREATED":false},
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
