@@ -29,21 +29,22 @@ jobs:
           git config user.email "autopilot@users.noreply.github.com"
           git fetch origin main
           git rebase origin/main
-      - name: Preserve historical released snapshot prefix
+      - name: Patch frozen v4 release transition
         run: |
           python3 - <<'PY'
           from pathlib import Path
 
           path = Path('tooling/komadeki_autopilot/drone_release_activation_386_transition.py')
           text = path.read_text(encoding='utf-8')
-          old = '''inputs = load_bank_inputs(BANK)
+
+          old_prefix = '''inputs = load_bank_inputs(BANK)
           released_doc = build_released_questions_document(inputs)
           released_after = released_doc.get("released_questions", [])
           if len(released_after) != 386 or [x["question_id"] for x in released_after] != list(ALL): fail("staged released snapshot drift")
           if released_after[:188] != released_before: fail("historical release prefix changed")
           released_path.write_bytes(pretty_json_bytes(released_doc))
           '''
-          new = '''inputs = load_bank_inputs(BANK)
+          new_prefix = '''inputs = load_bank_inputs(BANK)
           released_doc = build_released_questions_document(inputs)
           generated_rows = released_doc.get("released_questions", [])
           if len(generated_rows) != 386 or [x["question_id"] for x in generated_rows] != list(ALL): fail("staged generated release snapshot drift")
@@ -54,9 +55,94 @@ jobs:
           if released_after[:188] != released_before: fail("historical release prefix changed")
           released_path.write_bytes(pretty_json_bytes(released_doc))
           '''
-          if text.count(old) != 1:
+          if text.count(old_prefix) != 1:
               raise SystemExit('expected one historical-prefix block to patch')
-          path.write_text(text.replace(old, new), encoding='utf-8')
+          text = text.replace(old_prefix, new_prefix)
+
+          bad_b5 = '("self.assertEqual(188,len(cards))","self.assertEqual(386,len(cards)"))'
+          good_b5 = '("self.assertEqual(188,len(cards))","self.assertEqual(386,len(cards))")'
+          if text.count(bad_b5) != 1:
+              raise SystemExit('expected one B5 release-count replacement to repair')
+          text = text.replace(bad_b5, good_b5)
+
+          marker = '''p.write_text(t, encoding="utf-8")
+
+          old_test = REPO / "tooling/question_bank/tests/test_drone_release_activation_188.py"
+          '''
+          insert = '''p.write_text(t, encoding="utf-8")
+
+          tq = REPO / "tooling/question_bank/tests/test_question_bank.py"
+          tt = tq.read_text(encoding="utf-8")
+          replacements = (
+              ('CURRENT_PRODUCTION_REVISION = "drone-second-class-v3-release-2026-08-25"', 'CURRENT_PRODUCTION_REVISION = "drone-second-class-v4-release-2026-08-26"', 1),
+              ('range(1, 189)', 'range(1, 387)', 2),
+              ('self.assertEqual(len(inputs.released_questions), 188)', 'self.assertEqual(len(inputs.released_questions), 386)', 2),
+              ('self.assertEqual(len(cards), 188)', 'self.assertEqual(len(cards), 386)', 1),
+              ('self.assertEqual(len({card["stableId"] for card in cards}), 188)', 'self.assertEqual(len({card["stableId"] for card in cards}), 386)', 1),
+              ('self.assertEqual(manifest["question_count"], 188)', 'self.assertEqual(manifest["question_count"], 386)', 2),
+              ('self.assertEqual(len(production_questions), 188)', 'self.assertEqual(len(production_questions), 386)', 1),
+              ('self.assertEqual(inputs.metadata["content_as_of"], "2026-08-24")', 'self.assertEqual(inputs.metadata["content_as_of"], "2026-08-26")', 1),
+              ('self.assertEqual(runtime["contentAsOf"], "2026-08-24")', 'self.assertEqual(runtime["contentAsOf"], "2026-08-26")', 1),
+              ('self.assertEqual(manifest["content_as_of"], "2026-08-24")', 'self.assertEqual(manifest["content_as_of"], "2026-08-26")', 1),
+              ('self.assertEqual(len(runtime_cards), 188)', 'self.assertEqual(len(runtime_cards), 386)', 1),
+              ('self.assertEqual(len({card["stableId"] for card in runtime_cards}), 188)', 'self.assertEqual(len({card["stableId"] for card in runtime_cards}), 386)', 1),
+              ('== (self.PRODUCTION_REVISION if int(question_id.rsplit("-", 1)[1]) <= 100 else self.EXPANSION_RELEASE_REVISION)', '== (self.PRODUCTION_REVISION if int(question_id.rsplit("-", 1)[1]) <= 100 else self.EXPANSION_RELEASE_REVISION if int(question_id.rsplit("-", 1)[1]) <= 188 else self.CURRENT_PRODUCTION_REVISION)', 2),
+          )
+          for old, new, count in replacements:
+              if tt.count(old) != count:
+                  fail(f"test_question_bank release expectation drift: {old!r} count={tt.count(old)} expected={count}")
+              tt = tt.replace(old, new)
+
+          old_loop = '''        for question_id in expected_ids:
+              question = question_by_id[question_id]
+              released = released_by_id[question_id]
+              self.assertEqual(released["question_version"], 1)
+              self.assertEqual(released["question"], question["question"])
+              self.assertEqual(
+                  released["choices"],
+                  [
+                      question[f"choice{number}"]
+                      for number in range(1, 5)
+                      if question[f"choice{number}"]
+                  ],
+              )
+              for field in (
+                  "correct_choice",
+                  "source_id",
+                  "difficulty",
+                  "importance",
+              ):
+                  self.assertEqual(str(released[field]), question[field])
+          '''
+          new_loop = '''        for question_id in expected_ids:
+              question = question_by_id[question_id]
+              released = released_by_id[question_id]
+              self.assertEqual(released["question_version"], 1)
+              self.assertEqual(released["correct_choice"], question["correct_choice"])
+              if int(question_id.rsplit("-", 1)[1]) > 188:
+                  self.assertEqual(released["question"], question["question"])
+                  self.assertEqual(
+                      released["choices"],
+                      [
+                          question[f"choice{number}"]
+                          for number in range(1, 5)
+                          if question[f"choice{number}"]
+                      ],
+                  )
+                  for field in ("source_id", "difficulty", "importance"):
+                      self.assertEqual(str(released[field]), question[field])
+          '''
+          if tt.count(old_loop) != 1:
+              fail('historical release snapshot assertion block drift')
+          tt = tt.replace(old_loop, new_loop)
+          tq.write_text(tt, encoding="utf-8")
+
+          old_test = REPO / "tooling/question_bank/tests/test_drone_release_activation_188.py"
+          '''
+          if text.count(marker) != 1:
+              raise SystemExit('expected one release-regression insertion point')
+          text = text.replace(marker, insert)
+          path.write_text(text, encoding='utf-8')
           PY
       - name: Execute frozen 386 release activation
         run: python3 tooling/komadeki_autopilot/drone_release_activation_386_transition.py
