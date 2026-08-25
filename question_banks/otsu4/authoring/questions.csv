@@ -1,1 +1,2 @@
 question_id,question_version,status,deck_id,unit_id,question,choice1,choice2,choice3,choice4,correct_choice,explanation,source_id,source_locator,difficulty,importance,is_free,valid_from,valid_until,last_reviewed_at,supersedes_id,tags,notes_internal
+OTSU4-Q-000001,1,draft,otsu4_law,otsu4_law,ガソリン200Lだけを貯蔵する場合、指定数量の倍数はどれか。,0.5,1.0,2.0,5.0,B,ガソリンの指定数量は200Lであるため200Lは1.0倍である。,O4-LAW-2,別表第三・第4類,2,3,false,,,,,,
