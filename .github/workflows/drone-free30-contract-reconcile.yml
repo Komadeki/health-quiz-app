@@ -32,6 +32,7 @@ jobs:
           python3 - <<'PY'
           import csv
           import io
+          import re
           from pathlib import Path
 
           selected = {
@@ -116,24 +117,28 @@ jobs:
               'self.assertEqual(manifest["free_question_count"], 30)',
           )
 
-          access_snapshot_pair = '                "importance",\n                "is_free",\n'
-          assert text.count(access_snapshot_pair) == 1, text.count(access_snapshot_pair)
-          text = text.replace(access_snapshot_pair, '                "importance",\n', 1)
-
-          old_units = '''            {
-                "drone_rules": 5,
-                "drone_systems": 5,
-                "drone_operations": 5,
-                "drone_risk_management": 5,
-            },'''
-          new_units = '''            {
-                "drone_rules": 7,
-                "drone_systems": 9,
-                "drone_operations": 7,
-                "drone_risk_management": 7,
-            },'''
-          assert text.count(old_units) == 1, text.count(old_units)
-          text = text.replace(old_units, new_units, 1)
+          method_start = text.index('    def test_drone_production_release_contract')
+          method_end = text.find('\n    def ', method_start + 5)
+          if method_end == -1:
+              method_end = len(text)
+          method = text[method_start:method_end]
+          method, removed = re.subn(
+              r'^\s+"is_free",\s*\n',
+              '',
+              method,
+              count=1,
+              flags=re.M,
+          )
+          assert removed == 1, removed
+          for old_count, new_count in {
+              '"drone_rules": 5': '"drone_rules": 7',
+              '"drone_systems": 5': '"drone_systems": 9',
+              '"drone_operations": 5': '"drone_operations": 7',
+              '"drone_risk_management": 5': '"drone_risk_management": 7',
+          }.items():
+              assert method.count(old_count) == 1, (old_count, method.count(old_count))
+              method = method.replace(old_count, new_count, 1)
+          text = text[:method_start] + method + text[method_end:]
           contract.write_text(text, encoding='utf-8')
           PY
 
