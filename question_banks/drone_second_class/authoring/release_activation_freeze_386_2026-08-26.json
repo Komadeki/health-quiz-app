@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0",
+  "freeze_id": "DRONE-PRODUCTION-BANK-386-RELEASE-FREEZE-2026-08-26",
+  "product": "drone_second_class",
+  "frozen_at": "2026-08-26",
+  "freeze_base_main": "57f08b5533ab91ac3440f85f5f3040291160a1f6",
+  "owner_policy_id": "DRONE-OWNER-DYNAMIC-RELEASE-INCLUSION-2026-08-26",
+  "freeze_reason": "B19 was the sole permitted in-flight batch. It completed acceptance, deterministic Permanent-ID allocation and canonical source verification. The dynamic release policy therefore freezes the complete eligible source-verified set now, before any B20 planning or authoring.",
+  "release_selection": {
+    "current_active_count": 188,
+    "current_released_count": 188,
+    "current_runtime_count": 188,
+    "current_free_question_count": 30,
+    "frozen_canonical_count": 386,
+    "frozen_source_verified_count": 386,
+    "activation_question_count": 198,
+    "activation_question_id_start": "DRONE-Q-000189",
+    "activation_question_id_end": "DRONE-Q-000386",
+    "expected_post_active_count": 386,
+    "expected_post_released_count": 386,
+    "expected_post_runtime_count": 386,
+    "expected_post_free_question_count": 30,
+    "expected_post_premium_question_count": 356
+  },
+  "planned_release_identity": {
+    "bank_revision": "drone-second-class-v4-release-2026-08-26",
+    "content_as_of": "2026-08-26",
+    "activation_review_date": "2026-08-26",
+    "free_selection_policy": "Preserve the exact current 30-question free set. DRONE-Q-000189..DRONE-Q-000386 retain canonical is_free=false.",
+    "prior_bank_revision": "drone-second-class-v3-release-2026-08-25"
+  },
+  "baseline_bindings": {
+    "question_banks/drone_second_class/authoring/bank.json": "0511f63f57fe3148300e2f9a72b26f3a07b4437b",
+    "question_banks/drone_second_class/authoring/questions.csv": "186a1d0818215419d3fc5c2bae4e802c00c7e022",
+    "question_banks/drone_second_class/authoring/question_id_registry.csv": "524257de02692a06258291dff133f605f91c1106",
+    "question_banks/drone_second_class/authoring/source_verifications.json": "9beb908fb91eacf98fda4efcbccce291652dd86d",
+    "question_banks/drone_second_class/authoring/sources.json": "5a1ebf74993a0578e943943010ad0d0ec1bed888",
+    "question_banks/drone_second_class/authoring/released_questions.json": "8b57ac277e69ee1d8a4336a0188e95c1f0527d85",
+    "question_banks/drone_second_class/authoring/owner_dynamic_release_inclusion_2026-08-26.json": "01e056d1ecbe1a6771fbb2aaee1438d6d91f1d6f",
+    "question_banks/drone_second_class/generated/bank_manifest.json": "df41cc5676f91a8dc87761808a87e6304d9e0eb3",
+    "question_banks/drone_second_class/generated/drone_second_class_bank.json": "30d776c7c31ed2ebda53ee5cb107ed3fc392a690",
+    "apps/drone_second_class/assets/question_bank/drone_second_class_bank.json": "30d776c7c31ed2ebda53ee5cb107ed3fc392a690"
+  },
+  "eligibility_proof": {
+    "canonical_ids": "exact contiguous DRONE-Q-000001..DRONE-Q-000386",
+    "source_verified_ids": "exact all frozen canonical IDs; source verification matches current registered source version",
+    "newly_eligible_range": "DRONE-Q-000189..DRONE-Q-000386",
+    "candidate_binding_rule": "Every newly eligible Permanent ID must map to exactly one governed expansion candidate in batch_005..batch_019, and that candidate must be VERIFIED and content-bound to the canonical row before activation.",
+    "b19_final_state": "15 VERIFIED candidates mapped to DRONE-Q-000372..DRONE-Q-000386",
+    "b20_before_freeze": false
+  },
+  "execution_preconditions": [
+    "Rebase the activation branch to authoritative current main before mutation.",
+    "Every baseline-bound release input must still match the frozen blob SHA. Unrelated main commits may advance the repository SHA without invalidating the freeze, but any bound input drift invalidates this freeze and requires automatic re-freeze.",
+    "The active owner dynamic-release policy must still have no fixed release count, no 400-before-release requirement, and must prohibit B20 before this freeze.",
+    "Canonical inventory must be exactly DRONE-Q-000001..DRONE-Q-000386. Q1..Q188 must be active; Q189..Q386 must be draft.",
+    "Released snapshot and generated/app runtime must be exact Q1..Q188 with 30 free questions before activation.",
+    "Registry Q1..Q188 must retain non-empty historical first-use revisions. Registry Q189..Q386 must be used, unretired and have blank first_used_bank_revision.",
+    "All Q1..Q386 must have valid canonical source-verification evidence matching current MLIT source version 5.",
+    "Every Q189..Q386 must map to exactly one VERIFIED expansion candidate whose question, choices, correct answer, explanation, unit, source ID and source locator match the canonical row.",
+    "No REWORK, HOLD, REJECT, AI_PRE_ACCEPT, READY_FOR_ID or unverified candidate may enter the release selection.",
+    "The historical V0 formal snapshot and validation-only artifacts remain protected and must not be changed by activation."
+  ],
+  "required_atomic_mutations": [
+    "Update exactly DRONE-Q-000189..DRONE-Q-000386 canonical rows from draft to active and set last_reviewed_at to 2026-08-26. Preserve all answer/content/source/identity fields and all Q1..Q188 canonical rows exactly.",
+    "Set first_used_bank_revision for exactly DRONE-Q-000189..DRONE-Q-000386 to drone-second-class-v4-release-2026-08-26. Preserve Q1..Q188 registry history and all retired-ID invariants exactly.",
+    "Set bank.json bank_revision to drone-second-class-v4-release-2026-08-26 and content_as_of to 2026-08-26 only as part of the same atomic activation.",
+    "Regenerate released_questions.json deterministically from all 386 active canonical rows and prove the existing Q1..Q188 released prefix is semantically unchanged.",
+    "Regenerate generated runtime and manifest deterministically, then copy the generated runtime byte-identically to the Drone app question-bank asset.",
+    "Transition exactly the VERIFIED expansion candidates bound to Q189..Q386 to RELEASED only after canonical, registry, release snapshot and runtime evidence exist.",
+    "Update only stale release-fact documentation/tests required by the 386 release; do not change question content, product scope, free selection or validation-only behavior.",
+    "Advance Drone machine state from QUESTION_BANK_COMPLETION to FEATURE_COMPLETION only after full activation validation passes."
+  ],
+  "post_activation_state": {
+    "state_epoch": 143,
+    "current_phase": "FEATURE_COMPLETION",
+    "next_atomic_objective": "VERIFY_FEATURE_COMPLETION_EXIT_CRITERIA",
+    "human_blocker": null
+  },
+  "rollback_and_partial_state_protection": [
+    "Main remains 188 released/runtime until one complete activation PR passes local validation, exact diff audit and required GitHub Actions.",
+    "Abort and re-freeze if any bound source/canonical/registry/source-verification/release/runtime/policy input drifts.",
+    "Never persist first-use revision for Q189..Q386 without the matching active canonical row and released snapshot in the same activation PR.",
+    "Never merge generated/runtime changes without matching canonical, registry, candidate-lifecycle and app-asset changes.",
+    "On any validation or CI failure, repair or abandon the activation branch; do not partially mutate main."
+  ],
+  "freeze_effect": {
+    "release_activation_performed": false,
+    "released_runtime_after_freeze": 188,
+    "frozen_release_question_count": 386,
+    "next_atomic_objective": "EXECUTE_FROZEN_PRODUCTION_BANK_386_RELEASE_ACTIVATION"
+  }
+}
