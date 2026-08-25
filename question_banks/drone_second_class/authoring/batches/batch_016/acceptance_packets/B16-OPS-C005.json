@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "B16-OPS-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "04abd884631cb36a2f4c7e1b05860294030b60dd6c1bad264c188b5266ef02b7",
+  "actors": {
+    "author": {
+      "id": "chatgpt-b16-operations-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "autopilot-b16-operations-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "chatgpt-primary-director-b16-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+      "source_version": "5",
+      "source_locator": "教則 第5章 5.2.1(2)2)「離陸方法」"
+    },
+    "answer_defining_proposition": "ヘリコプターでは原則として垂直方向の急上昇を避けローター回転低下による不安定化を防ぐ。",
+    "tested_misconception": "高度を早く得るには緊急性がなくても急な垂直上昇を優先する。",
+    "reasoning_path": "post-takeoff climb need -> evaluate urgency -> avoid rapid vertical climb -> preserve rotor RPM and stability",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Tier A。Q182は離陸前に十分なローター回転数を得る命題。本問は離陸後の上昇率判断とローター回転低下のリスクを問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The source explicitly links rapid vertical climb to rotor-RPM reduction and possible instability. Q182 tests insufficient RPM before liftoff; C005 tests an in-flight climb-rate decision after takeoff, so the decision boundary and mechanism application are distinct."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent review at ACCEPT 6 / REJECT 0. All six answer-defining propositions are directly supported by second-class-applicable Chapter 5 source text and remain distinct from their named canonical neighbors. C001 and C004 are controlled boundary variants with distinct flight phases and required actions, not wording-only variants. C006 adds the TEM Threat-to-Error-to-UAS causal management chain rather than repeating broad CRM resources or the five CRM skills. No quota backfill is required or permitted."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
