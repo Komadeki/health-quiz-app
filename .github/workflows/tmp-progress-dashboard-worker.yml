@@ -74,10 +74,11 @@ jobs:
 
           dashboard = Path('packages/qualification_app/lib/src/progress_dashboard.dart')
           dashboard_text = dashboard.read_text()
-          if dashboard_text.count('const _MetricDescriptor(') != 4:
+          descriptor = '\n      const _MetricDescriptor('
+          if dashboard_text.count(descriptor) != 4:
               raise SystemExit('metric descriptor count mismatch')
           dashboard.write_text(
-              dashboard_text.replace('const _MetricDescriptor(', '_MetricDescriptor(')
+              dashboard_text.replace(descriptor, '\n      _MetricDescriptor(')
           )
 
           shared_test = Path('packages/qualification_app/test/production_widget_test.dart')
