@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0",
+  "app_key": "drone_second_class",
+  "batch_id": "B11",
+  "directory_slug": "batch_011",
+  "baseline_sha": "afe26e27f0034b257d748662cb91ac4aef342af0",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "chatgpt-b11-risk-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Continue from 295 accepted/source-verified canonical questions toward the owner-directed 400-question Production target under the quality-preserving relaxation contract. B11 authors up to 20 source-first Risk Management candidates persisted by merged PR #226: 14 Tier A new explicit propositions and 6 Tier B source-defined boundary/failure/lifecycle variants; no Tier C variant is authored.",
+  "source_contract": {
+    "source_id": "MLIT-UAS-SAFETY-GUIDE-5",
+    "source_version": "5",
+    "edition": "第5版",
+    "official_current_check": "2026-08-25",
+    "official_pdf": "https://www.mlit.go.jp/common/002010810.pdf",
+    "second_class_scope_rule": "Use only second-class-applicable Chapter 6 propositions and exclude every subsection explicitly marked 〔一等〕, including Category III-specific and first-class-only aircraft/method risk-mitigation planning material."
+  },
+  "evidence": [
+    "PR #226 persisted the B11 Risk Management coverage plan and established the next atomic objective as B11 candidate authoring from a 295-question accepted/source-verified canonical baseline.",
+    "PR #143 adopted the quality-preserving 400-question target contract.",
+    "The B11 plan binds candidates to registered MLIT 教則第5版 Chapter 6 locators and explicitly excludes first-class-only subsections.",
+    "Authoring checked the current official MLIT 第5版 and preserved source-defined decision boundaries for the six Tier B candidates. No permanent question IDs are allocated at authoring.",
+    "All candidates remain AI_PRE_ACCEPT and require independent AI review against all 295 canonical questions; collision rejection is fail-closed and no quota backfill is required."
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "B11-TARGET-001",
+      "previous_approved_target": 400,
+      "current_released_count": 188,
+      "proposed_target_min": 400,
+      "proposed_target_max": 400,
+      "approved_new_target": 400,
+      "rationale": "Continue the owner-directed 400-question target without changing the release baseline until explicit 400 release activation.",
+      "decision_date": "2026-08-25",
+      "evidence": "Merged PR #143 and PR #226."
+    }
+  ],
+  "planned_scope": {
+    "area": "Risk Management",
+    "candidate_batch_identity": "B11",
+    "candidate_ids": [
+      "B11-RISK-C001",
+      "B11-RISK-C002",
+      "B11-RISK-C003",
+      "B11-RISK-C004",
+      "B11-RISK-C005",
+      "B11-RISK-C006",
+      "B11-RISK-C007",
+      "B11-RISK-C008",
+      "B11-RISK-C009",
+      "B11-RISK-C010",
+      "B11-RISK-C011",
+      "B11-RISK-C012",
+      "B11-RISK-C013",
+      "B11-RISK-C014",
+      "B11-RISK-C015",
+      "B11-RISK-C016",
+      "B11-RISK-C017",
+      "B11-RISK-C018",
+      "B11-RISK-C019",
+      "B11-RISK-C020"
+    ],
+    "candidate_count": 20,
+    "candidate_count_is_quota": false,
+    "tier_counts": {
+      "A_NEW_PROPOSITION": 14,
+      "B_BOUNDARY_VARIANT": 6,
+      "C_REASONING_VARIANT": 0
+    },
+    "tier_b_candidate_ids": [
+      "B11-RISK-C004",
+      "B11-RISK-C014",
+      "B11-RISK-C017",
+      "B11-RISK-C018",
+      "B11-RISK-C019",
+      "B11-RISK-C020"
+    ],
+    "section_counts": {
+      "6.1": 4,
+      "6.2": 10,
+      "6.3": 2,
+      "6.4": 4
+    },
+    "known_rejected_ids": []
+  },
+  "coverage_limit_decisions": [
+    {
+      "decision_id": "B11-COVERAGE-LIMIT-001",
+      "status": "PARTIAL",
+      "scope": "Chapter 6 Risk Management propositions and controlled variants",
+      "evidence": "Authoring is limited to the 20 propositions persisted by PR #226. No candidate is backfilled merely to increase count."
+    },
+    {
+      "decision_id": "B11-COVERAGE-LIMIT-002",
+      "status": "ACTIVE_POLICY",
+      "scope": "Controlled variants",
+      "evidence": "Six Tier B variants are authored. Each changes a source-defined decision boundary, failure trigger, lifecycle state or reasoning path relative to its nearest canonical neighbor."
+    }
+  ],
+  "migration_blockers": [],
+  "invariants": {
+    "CANONICAL_CHANGED_AT_AUTHORING": false,
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "SOURCE_VERIFICATIONS_CHANGED_AT_AUTHORING": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "BANK_REVISION_CHANGED": false,
+    "FREE_SELECTION_CHANGED": false,
+    "V0_SNAPSHOT_CHANGED": false,
+    "HUMAN_REVIEW_CREATED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
