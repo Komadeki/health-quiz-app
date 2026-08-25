@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B16",
+  "review_round": 1,
+  "reviewer": {"id":"autopilot-b16-operations-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked": "chatgpt-b16-operations-author-r1",
+  "identity_separation": "PASS",
+  "reviewed_at": "2026-08-25",
+  "source_contract": {"source_id":"MLIT-UAS-SAFETY-GUIDE-5","source_version":"5","edition":"第5版","official_current_check":"2026-08-25","official_pdf":"https://www.mlit.go.jp/common/002010810.pdf","second_class_scope_rule":"Use only second-class-applicable Chapter 5 propositions; exclude subsections explicitly marked 〔一等〕."},
+  "review_basis": [
+    "current merged B16 candidates.csv",
+    "current 354-question canonical inventory",
+    "merged B16 pre-screen plan",
+    "current MLIT 教則第5版 Chapter 5 source text",
+    "400-question quality-preserving controlled-variant contract",
+    "source fidelity, answer uniqueness, semantic distinctness, commercial practice value, plausible distractors and explanation correctness"
+  ],
+  "summary": {"reviewed":6,"accept":6,"reject":0,"rework":0,"hold":0},
+  "decisions": [
+    {"candidate_id":"B16-OPS-C001","decision":"ACCEPT","rationale":"Tier B PASS. Q180 ends at GNSS-disabled hover stability and Q085 tests generic VRS prevention during descent. C001 is the source-explicit GNSS-disabled landing sequence that combines stabilized hover, throttle descent, and fine elevator/aileron input through touchdown, changing both flight phase and required control sequence."},
+    {"candidate_id":"B16-OPS-C002","decision":"ACCEPT","rationale":"The source explicitly requires a multirotor pilot to stop rotor rotation with the controller after touchdown. Q183 is helicopter-specific and tests when a person may approach the aircraft, not the pilot shutdown action. Aircraft applicability and answer-defining action differ."},
+    {"candidate_id":"B16-OPS-C003","decision":"ACCEPT","rationale":"The source explicitly requires anticipating the helicopter's tail-rotor-induced takeoff tilt direction from rotor rotation direction. Q068 concerns counter-torque/yaw function and Q182 concerns sufficient rotor RPM; neither tests the pre-liftoff lateral-tilt anticipation step."},
+    {"candidate_id":"B16-OPS-C004","decision":"ACCEPT","rationale":"Tier B PASS. Q132 recognizes helicopter ground effect and Q325 covers landing-phase avoidance of lingering in ground effect. C004 tests the separate takeoff-phase action to climb promptly beyond the ground-effect band after liftoff."},
+    {"candidate_id":"B16-OPS-C005","decision":"ACCEPT","rationale":"The source explicitly links rapid vertical climb to rotor-RPM reduction and possible instability. Q182 tests insufficient RPM before liftoff; C005 tests an in-flight climb-rate decision after takeoff, so the decision boundary and mechanism application are distinct."},
+    {"candidate_id":"B16-OPS-C006","decision":"ACCEPT","rationale":"The current bank covers broad CRM resource use in Q088 and the five CRM skills in Q187, but not the source-defined TEM causal chain Threat -> Error -> UAS -> accident and the objective of breaking that chain using available resources before or after Error/UAS occurs."}
+  ],
+  "controlled_variant_gate": {"reviewed_tier_b":["B16-OPS-C001","B16-OPS-C004"],"accepted_tier_b":["B16-OPS-C001","B16-OPS-C004"],"rejected_tier_b":[],"density_policy_checked":true,"minimum_distinct_axes_checked":true,"wording_only_duplicates_allowed":false},
+  "canonical_collision_reconciliation": {"pre_screen_strategy_validated":true,"hard_rejected_count":0,"quota_backfill":false,"accepted_candidate_ids":["B16-OPS-C001","B16-OPS-C002","B16-OPS-C003","B16-OPS-C004","B16-OPS-C005","B16-OPS-C006"]},
+  "invariants": {"HUMAN_REVIEW_ROWS_CREATED":0,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"REGISTRY_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"BANK_REVISION_CHANGED":false},
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION_6_ACCEPT_0_REJECT"
+}
