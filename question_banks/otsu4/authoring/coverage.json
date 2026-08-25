@@ -1,10 +1,25 @@
 {
   "schema_version": 1,
-  "target_bank_size": {"approved_question_count": 600, "rationale": "OTSU4_600Q_PRODUCTION_TARGET_DECISION_V1で採用した現行600問目標（法令260、物化160、性消180）。600はquotaではなく、source/quality gateを優先するcommercial target。"},
+  "target_bank_size": {
+    "approved_question_count": 600,
+    "rationale": "OTSU4_600Q_PRODUCTION_TARGET_DECISION_V1で採用した現行600問目標（法令260、物化160、性消180）。600はquotaではなく、source/quality gateを優先するcommercial target。"
+  },
   "knowledge_targets": [
-    {"knowledge_target_id": "O4-LAW-KT-QUANTITY", "unit_id": "otsu4_law", "title": "指定数量", "statement": "危険物の指定数量と倍数を判定できる。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
-    {"knowledge_target_id": "O4-PHY-KT-COMBUSTION", "unit_id": "otsu4_physics", "title": "燃焼", "statement": "燃焼と消火の基礎原理を判定できる。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
-    {"knowledge_target_id": "O4-FIR-KT-EXTINGUISHING", "unit_id": "otsu4_fire", "title": "消火", "statement": "第4類危険物の火災予防と消火方法を判定できる。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []}
+    {"knowledge_target_id":"O4-LAW-KT-QUANTITY","unit_id":"otsu4_law","title":"指定数量・分類","statement":"危険物の分類、指定数量、倍数および数量境界を判定できる。","required":true,"importance":3,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":60},
+    {"knowledge_target_id":"O4-LAW-KT-LICENSING-DUTIES","unit_id":"otsu4_law","title":"免状・義務","statement":"免状、取扱者・立会い、届出、義務および責任主体を判定できる。","required":true,"importance":3,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":50},
+    {"knowledge_target_id":"O4-LAW-KT-STORAGE-HANDLING","unit_id":"otsu4_law","title":"貯蔵・取扱い","statement":"危険物の貯蔵・取扱い基準と禁止・許容条件を判定できる。","required":true,"importance":3,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":60},
+    {"knowledge_target_id":"O4-LAW-KT-FACILITIES-INSPECTION","unit_id":"otsu4_law","title":"施設・検査","statement":"製造所等、許可、完成検査、予防規程および点検に関する要件を判定できる。","required":true,"importance":3,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":50},
+    {"knowledge_target_id":"O4-LAW-KT-TRANSPORT","unit_id":"otsu4_law","title":"運搬・移送","statement":"運搬・移送、容器、積載、標識等の要件を判定できる。","required":true,"importance":2,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":40},
+    {"knowledge_target_id":"O4-PHY-KT-MATTER-HEAT","unit_id":"otsu4_physics","title":"物質・熱","statement":"状態変化、密度、熱、温度、蒸気等の基礎概念を判定できる。","required":true,"importance":2,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":30},
+    {"knowledge_target_id":"O4-PHY-KT-COMBUSTION","unit_id":"otsu4_physics","title":"燃焼","statement":"燃焼条件、燃焼範囲および消火原理を判定できる。","required":true,"importance":3,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":40},
+    {"knowledge_target_id":"O4-PHY-KT-CONCENTRATION","unit_id":"otsu4_physics","title":"濃度","statement":"濃度、混合、気体・蒸気および比率を判定・計算できる。","required":true,"importance":2,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":30},
+    {"knowledge_target_id":"O4-PHY-KT-CHEMICAL-CHANGE","unit_id":"otsu4_physics","title":"化学変化","statement":"酸化、反応、化学変化と物理変化を区別・判定できる。","required":true,"importance":2,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":30},
+    {"knowledge_target_id":"O4-PHY-KT-CALCULATION-BOUNDARY","unit_id":"otsu4_physics","title":"計算・判断境界","statement":"単位、割合、密度、体積等の計算と典型的な誤概念境界を判定できる。","required":true,"importance":3,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":30},
+    {"knowledge_target_id":"O4-FIR-KT-PROPERTIES","unit_id":"otsu4_fire","title":"第4類の分類・性質","statement":"第4類各品名の分類、共通性、固有性質および差異を判定できる。","required":true,"importance":3,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":50},
+    {"knowledge_target_id":"O4-FIR-KT-FLASH-IGNITION","unit_id":"otsu4_fire","title":"引火・発火","statement":"引火点、発火点、蒸気、燃焼範囲等の関係を判定できる。","required":true,"importance":3,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":30},
+    {"knowledge_target_id":"O4-FIR-KT-HAZARDS-PREVENTION","unit_id":"otsu4_fire","title":"危険性・火災予防","statement":"静電気、換気、漏えい、混触、火源管理等の予防策を判定できる。","required":true,"importance":3,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":40},
+    {"knowledge_target_id":"O4-FIR-KT-EXTINGUISHING","unit_id":"otsu4_fire","title":"消火適応","statement":"第4類危険物の消火剤、消火原理、適否および禁忌を判定できる。","required":true,"importance":3,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":30},
+    {"knowledge_target_id":"O4-FIR-KT-INCIDENT-DECISION","unit_id":"otsu4_fire","title":"事故・状況判断","statement":"漏えい・火災・拡散時の優先行動と誤行動を状況に応じて判定できる。","required":true,"importance":3,"minimum_active_question_count":0,"variation_requirements":[],"target_question_count":30}
   ],
   "question_bindings": []
 }
