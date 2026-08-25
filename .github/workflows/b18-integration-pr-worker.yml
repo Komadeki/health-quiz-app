@@ -1,0 +1,46 @@
+name: B18 Integration PR Worker
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/b18-integration-trigger']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b18-integration-pr-worker
+  cancel-in-progress: false
+
+jobs:
+  integrate:
+    if: github.head_ref == 'chatgpt/drone-b18-integrate-6'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout integration branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/drone-b18-integrate-6
+          fetch-depth: 0
+      - name: Reconcile to current main
+        run: |
+          git config user.name "KOMADEKI Autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
+      - name: Apply deterministic B18 integration transaction
+        run: python3 tooling/komadeki_autopilot/b18_integration_transition.py
+      - name: Validate integration and repository gates
+        run: |
+          python3 tooling/question_bank/tests/test_transaction.py
+          python3 -m unittest discover -s tooling/question_bank/tests -p 'test_*.py'
+          python3 tooling/question_bank/validate.py --bank question_banks/drone_second_class --check-generated
+          python3 tooling/komadeki_autopilot/validate_state.py tooling/komadeki_autopilot/drone_state.json
+      - name: Commit durable B18 integration transition
+        run: |
+          rm -f .github/b18-integration-trigger
+          git add -A
+          git diff --cached --check
+          git commit -m 'Integrate B18 accepted drafts'
+          git push --force-with-lease origin HEAD:chatgpt/drone-b18-integrate-6
