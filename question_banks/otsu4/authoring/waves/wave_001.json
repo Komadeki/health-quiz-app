@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W1",
-  "status": "PLANNED",
+  "status": "ACTIVE",
   "planned_at": "2026-08-25",
   "production_target": 600,
   "canonical_verified_baseline": 51,
@@ -38,5 +38,6 @@
   "post_review_transaction": "DIRECTOR_ACCEPT_AND_PROMOTE combines Director adjudication, content-bound Acceptance Packet materialization and promotion to READY_FOR_ID for reviewer-accepted candidates only.",
   "permanent_id_and_source_verification_separate": true,
   "filler_prohibited": true,
+  "activated_state_epoch": 43,
   "next_gate": "AUTHOR_W1_B4_B5_B6_AI_PRE_ACCEPT"
 }

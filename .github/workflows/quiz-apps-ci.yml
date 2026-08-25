@@ -16,6 +16,7 @@ jobs:
       shared: ${{ steps.scope.outputs.shared }}
       health: ${{ steps.scope.outputs.health }}
       qualification_apps: ${{ steps.scope.outputs.qualification_apps }}
+      question_bank: ${{ steps.scope.outputs.question_bank }}
       docs_only: ${{ steps.scope.outputs.docs_only }}
       reason: ${{ steps.scope.outputs.reason }}
 
@@ -44,6 +45,21 @@ jobs:
               --github-output "$GITHUB_OUTPUT" \
               < "$RUNNER_TEMP/changed-files.txt"
           fi
+
+  question-bank-checks:
+    needs: scope
+    if: needs.scope.outputs.question_bank == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Otsu4 Question Bank checks
+        run: bash tooling/ci/check_otsu4_question_bank.sh
 
   shared-checks:
     needs: scope
@@ -125,7 +141,7 @@ jobs:
         run: tooling/ci/check_qualification_apps.sh
 
   ci-gate:
-    needs: [scope, shared-checks, health-checks, qualification-app-checks]
+    needs: [scope, question-bank-checks, shared-checks, health-checks, qualification-app-checks]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -135,6 +151,8 @@ jobs:
         shell: bash
         env:
           SCOPE_RESULT: ${{ needs.scope.result }}
+          EXPECT_QUESTION_BANK: ${{ needs.scope.outputs.question_bank }}
+          QUESTION_BANK_RESULT: ${{ needs.question-bank-checks.result }}
           EXPECT_SHARED: ${{ needs.scope.outputs.shared }}
           SHARED_RESULT: ${{ needs.shared-checks.result }}
           EXPECT_HEALTH: ${{ needs.scope.outputs.health }}
@@ -162,6 +180,7 @@ jobs:
             fi
           }
 
+          verify_result "$EXPECT_QUESTION_BANK" "$QUESTION_BANK_RESULT" question-bank-checks
           verify_result "$EXPECT_SHARED" "$SHARED_RESULT" shared-checks
           verify_result "$EXPECT_HEALTH" "$HEALTH_RESULT" health-checks
           verify_result "$EXPECT_QUALIFICATION_APPS" \
