@@ -15,7 +15,7 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "10f0c65f825c3c25fa21f47e0fb72cb64a60e981",
+  "observed_main": "188a8425e837d5fc5cb6db4bc63c7c11f063b2d4",
   "next_atomic_objective": "VERIFY_PHYSICAL_UX_EVIDENCE",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
