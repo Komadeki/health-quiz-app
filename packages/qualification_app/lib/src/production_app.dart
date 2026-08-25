@@ -631,13 +631,11 @@ final class _WeaknessCard extends StatelessWidget {
                 ? Text(
                     '${unit?.title ?? weakest.key} ・ '
                     '直近正答率${((score ?? 0) * 100).round()}% ・ '
-                    '$attemptCount回答
-'
+                    '$attemptCount回答\n'
                     '直近正答率が最も低い単元',
                   )
                 : Text(
-                    '${unit?.title ?? weakest.key} ・ $attemptCount回答
-'
+                    '${unit?.title ?? weakest.key} ・ $attemptCount回答\n'
                     'まだ回答数が少ないため確認がおすすめ',
                   ),
         trailing: canOpen ? const Icon(Icons.chevron_right) : null,
