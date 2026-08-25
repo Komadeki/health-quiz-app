@@ -25,12 +25,16 @@ Help learners diagnose and close subject-specific Otsu4 gaps through original, s
 
 Factory reuse remains `explicit_v1`, `qualification_runtime_v2`, and `singleFullUnlock`. No shared-architecture change is authorized by this spec.
 
-## Initial bank and coverage decision
+## Production bank and coverage decision
 
-The first production target is 300 original accepted questions: 法令 130, 物化 80, 性消 90. Each question has one primary subject, a knowledge target, an authoritative source locator, and collision evidence.
+The original 300-question target was superseded on 2026-08-25 by `OTSU4_600Q_PRODUCTION_TARGET_DECISION_V1.md`.
+
+The current production target is 600 original accepted questions: 法令 260, 物化 160, 性消 180. Each question has one primary subject, a knowledge target, an authoritative source locator, and collision evidence.
+
+The 600 target is a commercial positioning target, not a quota. Source quality, material distinctness, and Question Factory acceptance gates take precedence over count. If authoritative coverage cannot support 600 useful questions, the system must record a coverage-limit decision rather than add filler.
 
 Required early coverage includes: classification/specifed quantities and legal duties; states of matter, combustion, concentration and calculation boundaries; Class 4 properties, flash/ignition points, fire prevention, and suitable extinguishing methods. At least 20 questions in each subject must be calculation or decision-boundary questions before a mock-exam gate may pass.
 
 ## Next gate
 
-Adopt an Otsu4 Question Bank contract and coverage taxonomy compatible with `KOMADEKI_AUTONOMOUS_QUESTION_ACCEPTANCE.md`. No production questions may be authored before that gate passes.
+Materialize the 600-question coverage map across the fifteen target families defined by `question_banks/otsu4/QUESTION_BANK_CONTRACT_V0.md` before broad authoring continues.
