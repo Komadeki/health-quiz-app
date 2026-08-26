@@ -1,0 +1,8 @@
+{
+  "schema_version":"1.0",
+  "wave_id":"W4",
+  "expected_state_epoch":64,
+  "expected_objective":"DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_4_ACCEPTED_35",
+  "director_id":"otsu4-wave4-director-r1",
+  "expected_accept_count":35
+}
