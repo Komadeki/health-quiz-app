@@ -1853,7 +1853,6 @@ final class _MockExamReviewItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text.rich(
-              key: Key('mock-review-status-$index'),
               TextSpan(
                 style: titleStyle,
                 children: [
@@ -1867,6 +1866,7 @@ final class _MockExamReviewItem extends StatelessWidget {
                   ),
                 ],
               ),
+              key: Key('mock-review-status-$index'),
             ),
             const SizedBox(height: 8),
             Text(card.question),
