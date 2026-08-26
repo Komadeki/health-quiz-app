@@ -22,7 +22,7 @@ jobs:
     env:
       APP_DIR: apps/drone_second_class
       APP_BUNDLE_ID: com.komadeki.dronesecondclass
-      APP_VERSION: 1.0.0
+      APP_VERSION: 1.0.1
       APPLE_TEAM_ID: 3LRFUN9SAM
       APPLE_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64 }}
       APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD }}
@@ -52,8 +52,11 @@ jobs:
             exit 78
           fi
 
-      - name: Checkout preview source
+      - name: Checkout current main source
         uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
 
       - name: Install Flutter stable
         shell: bash
