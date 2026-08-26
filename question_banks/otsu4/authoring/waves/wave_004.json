@@ -10,18 +10,18 @@
   "candidate_ceiling":70,
   "candidate_ceiling_is_quota":false,
   "actual_candidate_counts":{"B13":19,"B14":7,"B15":18,"total":44},
-  "review_summary":{"reviewed":44,"accept":37,"reject":7,"rework":0,"hold":0,"reviewer_id":"otsu4-wave4-independent-reviewer-r1","identity_separation":"PASS"},
-  "batch_review_summaries":{"B13":{"reviewed":19,"accept":19,"reject":0,"rework":0,"hold":0},"B14":{"reviewed":7,"accept":4,"reject":3,"rework":0,"hold":0},"B15":{"reviewed":18,"accept":14,"reject":4,"rework":0,"hold":0}},
-  "non_accepted_candidate_ids":{"reject":["O4-B14-PHY-C010","O4-B14-PHY-C011","O4-B14-PHY-C012","O4-B15-FIR-C004","O4-B15-FIR-C008","O4-B15-FIR-C012","O4-B15-FIR-C018"],"rework":[]},
+  "review_summary":{"reviewed":44,"accept":35,"reject":9,"rework":0,"hold":0,"reviewer_id":"otsu4-wave4-independent-reviewer-r1","identity_separation":"PASS"},
+  "batch_review_summaries":{"B13":{"reviewed":19,"accept":17,"reject":2,"rework":0,"hold":0},"B14":{"reviewed":7,"accept":4,"reject":3,"rework":0,"hold":0},"B15":{"reviewed":18,"accept":14,"reject":4,"rework":0,"hold":0}},
+  "non_accepted_candidate_ids":{"reject":["O4-B13-LAW-C003","O4-B13-LAW-C004","O4-B14-PHY-C010","O4-B14-PHY-C011","O4-B14-PHY-C012","O4-B15-FIR-C004","O4-B15-FIR-C008","O4-B15-FIR-C012","O4-B15-FIR-C018"],"rework":[]},
   "authors":{"B13":{"id":"otsu4-b13-author-r1","role":"AI_AUTHOR"},"B14":{"id":"otsu4-b14-author-r1","role":"AI_AUTHOR"},"B15":{"id":"otsu4-b15-author-r1","role":"AI_AUTHOR"}},
   "batches":[
-    {"batch_id":"B13","candidate_ceiling":22,"actual_candidate_count":19,"review_accept_count":19,"knowledge_target_id":"O4-LAW-KT-TRANSPORT","target_total_plan":40,"source_path":"registered O4-LAW-3 Chapter 6 Rule-specific transport/transfer provisions"},
+    {"batch_id":"B13","candidate_ceiling":22,"actual_candidate_count":19,"review_accept_count":17,"knowledge_target_id":"O4-LAW-KT-TRANSPORT","target_total_plan":40,"source_path":"registered O4-LAW-3 Chapter 6 Rule-specific transport/transfer provisions"},
     {"batch_id":"B14","candidate_ceiling":24,"actual_candidate_count":7,"review_accept_count":4,"knowledge_target_id":"O4-PHY-KT-CHEMICAL-CHANGE","target_total_plan":30,"source_path":"registered O4-PHY-1 printed p.93-94 oxidation/reduction content only"},
     {"batch_id":"B15","candidate_ceiling":24,"actual_candidate_count":18,"review_accept_count":14,"knowledge_target_id":"O4-FIR-KT-FLASH-IGNITION","target_total_plan":30,"source_path":"registered MHLW model SDS Section 9 autoignition/explosion-range fields"}
   ],
   "selection_basis":"Wave 4 closes the remaining transport/transfer gap while opening two zero-coverage required targets. Authoring stopped at 44 after removing five B14 acid/base candidates that were outside the adopted B14 oxidation/reduction plan scope; no quota backfill was performed.",
   "authoring_rule":"All 44 candidates were persisted as AI_PRE_ACCEPT before independent review. Review itself does not create Permanent IDs, canonical rows, source-verification rows, released rows or runtime rows.",
-  "collision_rule":"Independent review rechecked all 44 candidates against all 205 canonical/source-verified questions and the full Wave 4 peer set. Seven low-value or duplicate-reasoning candidates were rejected without quota backfill.",
+  "collision_rule":"Independent review rechecked all 44 candidates against all 205 canonical/source-verified questions and the full Wave 4 peer set. Nine low-value, source-navigation, or duplicate-reasoning candidates were rejected without quota backfill.",
   "multi_source_rule":"Each candidate binds to one registered source_id/version and one reproducible locator. Cross-source answer-defining comparisons are prohibited.",
   "anti_duplication_rule":"B15 does not recreate exact flash-point recall already represented in Wave 1; one same-SDS flash/autoignition comparison is retained and its substance-swapped duplicate is rejected.",
   "correct_choice_balance":{"B13":{"A":5,"B":5,"C":5,"D":4},"B14":{"A":1,"B":2,"C":2,"D":2},"B15":{"A":5,"B":5,"C":4,"D":4}},
@@ -30,5 +30,5 @@
   "planned_state_epoch":62,
   "authored_state_epoch":63,
   "reviewed_state_epoch":64,
-  "next_gate":"DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_4_ACCEPTED_37"
+  "next_gate":"DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_4_ACCEPTED_35"
 }
