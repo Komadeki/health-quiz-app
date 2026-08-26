@@ -361,6 +361,34 @@ final class QualificationProductionController extends ChangeNotifier {
     return bank?.cardsById[session.currentQuestionId];
   }
 
+  /// Canonical choice indexes in their displayed order for the current card.
+  ///
+  /// The order is derived from persisted session identity, so it changes for
+  /// a new session but remains stable when an interrupted session is resumed.
+  List<int> get currentChoiceOrder {
+    final session = activeSession;
+    final card = currentCard;
+    if (session == null || card == null) return const [];
+    final order = List<int>.generate(card.choices.length, (index) => index);
+    if (order.length < 2) return List.unmodifiable(order);
+
+    final random = Random(
+      _stableChoiceSeed('${session.sessionId}:${session.currentQuestionId}'),
+    );
+    for (var index = order.length - 1; index > 0; index -= 1) {
+      final target = random.nextInt(index + 1);
+      final value = order[index];
+      order[index] = order[target];
+      order[target] = value;
+    }
+    final unchanged = List<bool>.generate(
+      order.length,
+      (index) => order[index] == index,
+    ).every((matches) => matches);
+    if (unchanged) order.add(order.removeAt(0));
+    return List.unmodifiable(order);
+  }
+
   int? get currentResponse => activeSession
       ?.committedResponses[activeSession!.currentQuestionId]?.choiceIndex;
 
@@ -480,6 +508,14 @@ final class QualificationProductionController extends ChangeNotifier {
         'Conflicting answer commit: ${event.attemptId}',
       );
     }
+  }
+
+  int _stableChoiceSeed(String value) {
+    var hash = 0x811C9DC5;
+    for (final codeUnit in value.codeUnits) {
+      hash = ((hash ^ codeUnit) * 0x01000193) & 0x7FFFFFFF;
+    }
+    return hash;
   }
 
   Future<bool> advance() async {

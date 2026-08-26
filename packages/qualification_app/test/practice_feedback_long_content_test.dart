@@ -87,7 +87,10 @@ void main() {
         ),
       );
 
-      await tester.tap(find.byKey(const Key('choice-0')));
+      final selectedChoice = find.byKey(const Key('choice-0'));
+      await tester.scrollUntilVisible(selectedChoice, 200);
+      await tester.pumpAndSettle();
+      await tester.tap(selectedChoice);
       await tester.pump();
       final commit = find.byKey(const Key('commit-answer'));
       await tester.scrollUntilVisible(commit, 200);
