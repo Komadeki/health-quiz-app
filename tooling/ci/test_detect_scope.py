@@ -53,9 +53,46 @@ class DetectScopeTest(unittest.TestCase):
         self.assertFalse(scope.health)
         self.assertFalse(scope.qualification_apps)
         self.assertTrue(scope.question_bank)
-        self.assertEqual(scope.reason, "otsu4_question_bank_fast_path")
+        self.assertEqual(scope.reason, "question_bank_fast_path")
 
-    def test_otsu4_canonical_integration_remains_fail_safe_full_ci(self) -> None:
+    def test_eisei_candidate_coverage_and_sources_use_question_bank_fast_path(self) -> None:
+        scope = classify(
+            [
+                "question_banks/eisei1/authoring/batches/batch_002/batch.json",
+                "question_banks/eisei1/authoring/batches/batch_002/candidates.csv",
+                "question_banks/eisei1/authoring/coverage.json",
+                "question_banks/eisei1/authoring/sources.json",
+                "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+            ]
+        )
+        self.assertFalse(scope.shared)
+        self.assertFalse(scope.health)
+        self.assertFalse(scope.qualification_apps)
+        self.assertTrue(scope.question_bank)
+        self.assertEqual(scope.reason, "question_bank_fast_path")
+
+    def test_eisei_source_verification_uses_question_bank_fast_path(self) -> None:
+        scope = classify(["question_banks/eisei1/authoring/source_verifications.json"])
+        self.assertFalse(scope.shared)
+        self.assertTrue(scope.question_bank)
+
+    def test_canonical_integration_remains_fail_safe_full_ci(self) -> None:
+        for path in (
+            "question_banks/otsu4/authoring/questions.csv",
+            "question_banks/eisei1/authoring/questions.csv",
+            "question_banks/eisei1/authoring/question_id_registry.csv",
+            "question_banks/eisei1/authoring/released_questions.json",
+            "question_banks/eisei1/authoring/bank.json",
+            "question_banks/eisei1/generated/eisei1_bank.json",
+        ):
+            with self.subTest(path=path):
+                scope = classify([path])
+                self.assertTrue(scope.shared)
+                self.assertTrue(scope.health)
+                self.assertTrue(scope.qualification_apps)
+                self.assertFalse(scope.question_bank)
+
+    def test_otsu4_canonical_plus_state_remains_fail_safe_full_ci(self) -> None:
         scope = classify(
             [
                 "question_banks/otsu4/authoring/questions.csv",
@@ -67,13 +104,18 @@ class DetectScopeTest(unittest.TestCase):
         self.assertTrue(scope.qualification_apps)
         self.assertFalse(scope.question_bank)
 
-    def test_generic_tooling_mixed_with_otsu4_falls_back_to_full_ci(self) -> None:
+    def test_generic_tooling_mixed_with_question_bank_falls_back_to_full_ci(self) -> None:
         scope = classify(
             [
-                "question_banks/otsu4/authoring/batches/batch_004/candidates.csv",
+                "question_banks/eisei1/authoring/batches/batch_002/candidates.csv",
                 "tooling/question_bank/expansion.py",
             ]
         )
+        self.assertTrue(scope.shared)
+        self.assertFalse(scope.question_bank)
+
+    def test_shared_question_bank_contract_change_remains_full_ci(self) -> None:
+        scope = classify(["question_banks/schema/question.schema.json"])
         self.assertTrue(scope.shared)
         self.assertFalse(scope.question_bank)
 
