@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B15-FIR-C015",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1eb41de8c9126e12528c23ae5b1c95fa9bdd34ac3f55a45bfaf5322bb6decadd",
+  "actors": {
+    "author": {
+      "id": "otsu4-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "source_locator": "Section 9「物理的及び化学的性質」燃焼又は爆発範囲"
+    },
+    "answer_defining_proposition": "アセトン蒸気の爆発範囲上限は13vol%である。",
+    "tested_misconception": "アセトンの爆発上限は2.2vol%である。",
+    "reasoning_path": "read upper bound -> select 13vol%",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B15; paired boundary with C014."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The acetone upper explosion limit is the independent upper boundary paired with C014."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

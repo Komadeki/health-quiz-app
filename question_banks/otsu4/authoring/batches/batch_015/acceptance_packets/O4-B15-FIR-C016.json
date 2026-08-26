@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B15-FIR-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a9489a8ff678505ece01178c9336ae49980ff11527137d7855ec16f18cb94fb5",
+  "actors": {
+    "author": {
+      "id": "otsu4-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "source_locator": "Section 9「物理的及び化学的性質」燃焼又は爆発範囲"
+    },
+    "answer_defining_proposition": "15vol%のアセトン蒸気はSDS記載の爆発上限13vol%を超える。",
+    "tested_misconception": "濃度が高いほど必ず爆発範囲内になる。",
+    "reasoning_path": "compare 15vol% to same-source upper bound",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B15; tests above-range decision rather than within-range variant."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Unlike the rejected midpoint variants, this tests recognition that a concentration above the same-source upper explosion limit lies outside the range on the high side."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

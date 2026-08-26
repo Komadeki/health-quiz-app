@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B13-LAW-C013",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "99ee7e70ce1531ab0cbcfa588ff414e8e6484c5aa5f5e332af710f539c934c7a",
+  "actors": {
+    "author": {
+      "id": "otsu4-b13-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第44条第1項第1号"
+    },
+    "answer_defining_proposition": "水溶性の第四類危険物には「水溶性」と表示する。",
+    "tested_misconception": "第四類は水溶性でも追加表示が不要である。",
+    "reasoning_path": "identify Class4 solubility condition -> add water-soluble marking",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B13; Otsu4-specific marking detail."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The additional water-soluble marking for applicable Class-4 materials is Otsu4-specific and independently useful."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

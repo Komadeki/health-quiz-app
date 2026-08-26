@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B13-LAW-C011",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4e5434b161daa76f639b960c37e510df57ed76c5b8f4c5c868087296a78af9fd",
+  "actors": {
+    "author": {
+      "id": "otsu4-b13-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第43条の3第1項第5号"
+    },
+    "answer_defining_proposition": "一つの外装容器には原則として類を異にする危険物を収納しない。",
+    "tested_misconception": "異なる類の危険物は同じ外装容器へ無条件に収納できる。",
+    "reasoning_path": "identify outer-container class restriction",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B13; container-level restriction distinct from W3 vehicle mixed-loading rule."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The one-outer-container restriction is a container-level rule and is materially distinct from canonical OTSU4-Q-000170's vehicle mixed-loading principle."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B15-FIR-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "44b4f512cf1fe9d895bcc186d7cb51c844a3ecf41b4f0bd83b235af833517ccc",
+  "actors": {
+    "author": {
+      "id": "otsu4-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ETHANOL",
+      "source_version": "2014-03-31",
+      "source_locator": "Section 9「物理的及び化学的性質」自然発火温度"
+    },
+    "answer_defining_proposition": "エタノールの自然発火温度は363℃である。",
+    "tested_misconception": "エタノールの自然発火温度は引火点13℃と同じである。",
+    "reasoning_path": "read one SDS autoignition field -> select 363C",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B15; new ignition property."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Ethanol autoignition temperature adds a substance-specific ignition property distinct from its verified flash-point recall."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

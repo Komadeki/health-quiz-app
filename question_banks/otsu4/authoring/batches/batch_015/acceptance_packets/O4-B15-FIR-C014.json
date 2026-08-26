@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B15-FIR-C014",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b84aeadaa1d1fa905c289a16d679af3a7a42002b1518f9d150c86eed0c7f71d0",
+  "actors": {
+    "author": {
+      "id": "otsu4-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "source_locator": "Section 9「物理的及び化学的性質」燃焼又は爆発範囲"
+    },
+    "answer_defining_proposition": "アセトン蒸気の爆発範囲下限は2.2vol%である。",
+    "tested_misconception": "アセトンの爆発範囲は下限を持たない。",
+    "reasoning_path": "read lower bound -> select 2.2vol%",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B15; distinct substance-specific boundary."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The acetone lower explosion limit is a source-specific lower flammability boundary not present in canonical 205."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
