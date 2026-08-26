@@ -6,13 +6,15 @@
   "reviewer": {"id":"otsu4-wave4-independent-reviewer-r1","role":"AI_REVIEWER"},
   "author_identities_checked": ["otsu4-b13-author-r1","otsu4-b14-author-r1","otsu4-b15-author-r1"],
   "identity_separation": "PASS",
-  "summary": {"reviewed":44,"accept":37,"reject":7,"rework":0,"hold":0},
+  "summary": {"reviewed":44,"accept":35,"reject":9,"rework":0,"hold":0},
   "batch_summaries": {
-    "B13":{"reviewed":19,"accept":19,"reject":0,"rework":0,"hold":0},
+    "B13":{"reviewed":19,"accept":17,"reject":2,"rework":0,"hold":0},
     "B14":{"reviewed":7,"accept":4,"reject":3,"rework":0,"hold":0},
     "B15":{"reviewed":18,"accept":14,"reject":4,"rework":0,"hold":0}
   },
   "rejected": [
+    {"candidate_id":"O4-B13-LAW-C003","reason_code":"LOW_VALUE_SOURCE_NAVIGATION_RECALL","disposition":"The item asks which appendix the liquid-container rule points to rather than testing the transport standard itself. This is document-navigation recall, not enough incremental Otsu4 practice value; do not quota-backfill."},
+    {"candidate_id":"O4-B13-LAW-C004","reason_code":"LOW_VALUE_SOURCE_NAVIGATION_RECALL","disposition":"The item asks which appendix the solid-container rule points to rather than testing the transport standard itself. It is the paired source-navigation variant of C003; do not quota-backfill."},
     {"candidate_id":"O4-B14-PHY-C010","reason_code":"LOW_VALUE_SOURCE_CATALOG_RECALL","disposition":"The item asks which reagent names the curriculum document lists rather than testing a chemical-change proposition; do not quota-backfill."},
     {"candidate_id":"O4-B14-PHY-C011","reason_code":"LOW_VALUE_RELATIONSHIP_RECALL","disposition":"Merely recalling that ionization tendency is mentioned beside redox does not test the underlying chemistry; do not quota-backfill."},
     {"candidate_id":"O4-B14-PHY-C012","reason_code":"LOW_VALUE_RELATIONSHIP_RECALL","disposition":"Merely recalling that the Daniell cell is mentioned beside redox does not test the underlying chemistry; do not quota-backfill."},
@@ -27,9 +29,9 @@
     "wave_candidate_count": 44,
     "all_pairs_reviewed_semantically": true,
     "accepted_collision_result": "PASS",
-    "note": "B13 Rule-level legal boundaries remain materially distinct from the Wave 3 Decree-level transport questions. B14 retains four substantive redox concepts and rejects three document-catalog relationship recalls. B15 retains substance-specific source facts but removes repeated concentration-classification and flash-versus-autoignition reasoning paths."
+    "note": "B13 retains substantive Rule-level transport boundaries but rejects two appendix-number navigation recalls. B14 retains four substantive redox concepts and rejects three document-catalog relationship recalls. B15 retains substance-specific source facts but removes repeated concentration-classification and flash-versus-autoignition reasoning paths."
   },
   "quality_policy": {"candidate_ceiling_is_quota":false,"filler_prohibited":true,"human_review_created":false,"source_verification_separate":true,"permanent_id_allocation_separate":true},
   "invariants": {"CANDIDATE_STATES_CHANGED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"DIRECTOR_ADJUDICATION_PERFORMED":false},
-  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_4_ACCEPTED_37"
+  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_4_ACCEPTED_35"
 }
