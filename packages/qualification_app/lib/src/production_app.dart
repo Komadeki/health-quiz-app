@@ -840,31 +840,34 @@ final class _PracticeModes extends StatelessWidget {
       randomizer: const IdentityQuestionRandomizer(),
     );
     final hasAccessibleQuestions = controller.accessibleQuestionCount > 0;
-    final hasUnansweredQuestions = selectionEngine
+    final unansweredCount = selectionEngine
         .selectUnanswered(bank.candidates, controller.events)
-        .isNotEmpty;
-    final hasIncorrectQuestions = selectionEngine
+        .length;
+    final incorrectCount = selectionEngine
         .selectIncorrect(bank.candidates, controller.events)
-        .isNotEmpty;
+        .length;
+    final randomCount = math.min(
+      controller.definition.learningProduct.practiceQuestionCount,
+      controller.accessibleQuestionCount,
+    );
     final buttons = <Widget>[];
 
     void add(
       LearningModeV1 mode,
       String key,
       String label,
-      Future<bool> Function() start, {
-      required bool available,
+      VoidCallback? start, {
       String? unavailableReason,
     }) {
       if (!controller.modeEnabled(mode)) return;
       buttons.add(
         OutlinedButton(
           key: Key(key),
-          onPressed: available ? start : null,
+          onPressed: start,
           child: Text(label),
         ),
       );
-      if (!available && unavailableReason != null) {
+      if (start == null && unavailableReason != null) {
         buttons.add(
           Padding(
             padding: const EdgeInsets.only(top: 4, bottom: 8),
@@ -880,25 +883,42 @@ final class _PracticeModes extends StatelessWidget {
     add(
       LearningModeV1.randomPractice,
       'start-random',
-      'ランダム演習',
-      controller.startRandom,
-      available: hasAccessibleQuestions,
+      'ランダム演習（$randomCount問）',
+      hasAccessibleQuestions ? () => unawaited(controller.startRandom()) : null,
       unavailableReason: '利用できる問題がありません。',
     );
     add(
       LearningModeV1.unansweredPractice,
       'start-unanswered',
       '未回答から出題',
-      controller.startUnanswered,
-      available: hasUnansweredQuestions,
+      unansweredCount > 0
+          ? () => unawaited(
+                _showPracticeCountSheet(
+                  context,
+                  title: '未回答から出題',
+                  keyPrefix: 'unanswered',
+                  availableCount: unansweredCount,
+                  start: (count) => controller.startUnanswered(count: count),
+                ),
+              )
+          : null,
       unavailableReason: '未回答の問題はありません。',
     );
     add(
       LearningModeV1.incorrectPractice,
       'start-incorrect',
       '直近で間違えた問題',
-      controller.startIncorrect,
-      available: hasIncorrectQuestions,
+      incorrectCount > 0
+          ? () => unawaited(
+                _showPracticeCountSheet(
+                  context,
+                  title: '直近で間違えた問題',
+                  keyPrefix: 'incorrect',
+                  availableCount: incorrectCount,
+                  start: (count) => controller.startIncorrect(count: count),
+                ),
+              )
+          : null,
       unavailableReason: '直近で間違えた問題はありません。',
     );
     final profile = controller.definition.examProfile;
@@ -948,6 +968,63 @@ final class _PracticeModes extends StatelessWidget {
       ],
     );
   }
+}
+
+const _practiceCountOptions = [5, 10, 20, 30, 50, 100, 150, 200];
+
+Future<void> _showPracticeCountSheet(
+  BuildContext context, {
+  required String title,
+  required String keyPrefix,
+  required int availableCount,
+  required Future<bool> Function(int? count) start,
+}) {
+  final numericOptions = _practiceCountOptions
+      .where((count) => count < availableCount)
+      .toList(growable: false);
+  return showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    builder: (sheetContext) => SafeArea(
+      child: Padding(
+        key: Key('practice-count-sheet-$keyPrefix'),
+        padding: const EdgeInsets.fromLTRB(20, 4, 20, 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(title, style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 4),
+            Text('対象 $availableCount問から、出題数を選んでください。'),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final count in numericOptions)
+                  OutlinedButton(
+                    key: Key('practice-count-$keyPrefix-$count'),
+                    onPressed: () {
+                      Navigator.of(sheetContext).pop();
+                      unawaited(start(count));
+                    },
+                    child: Text('$count問'),
+                  ),
+                FilledButton(
+                  key: Key('practice-count-$keyPrefix-all'),
+                  onPressed: () {
+                    Navigator.of(sheetContext).pop();
+                    unawaited(start(null));
+                  },
+                  child: Text('全部（$availableCount問）'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 Future<void> _showMockExamUnlockSheet(
@@ -1760,7 +1837,13 @@ final class _MockExamReviewItem extends StatelessWidget {
         : selectedChoice == card.answerIndex
             ? '正解'
             : '不正解';
+    final statusColor = selectedChoice == null
+        ? null
+        : selectedChoice == card.answerIndex
+            ? Colors.blue.shade700
+            : Colors.red.shade300;
     final explanation = card.explanation?.trim();
+    final titleStyle = Theme.of(context).textTheme.titleMedium;
 
     return Card(
       key: Key('mock-review-item-$index'),
@@ -1769,9 +1852,21 @@ final class _MockExamReviewItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              '第${index + 1}問 ・ $status',
-              style: Theme.of(context).textTheme.titleMedium,
+            Text.rich(
+              TextSpan(
+                style: titleStyle,
+                children: [
+                  TextSpan(text: '第${index + 1}問 ・ '),
+                  TextSpan(
+                    text: status,
+                    style: titleStyle?.copyWith(
+                      color: statusColor,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+              key: Key('mock-review-status-$index'),
             ),
             const SizedBox(height: 8),
             Text(card.question),

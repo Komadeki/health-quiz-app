@@ -241,20 +241,31 @@ final class QualificationProductionController extends ChangeNotifier {
     );
   }
 
-  Future<bool> startUnanswered() async {
+  Future<bool> startUnanswered({int? count}) async {
     if (!modeEnabled(LearningModeV1.unansweredPractice)) return false;
+    final eligible =
+        _practiceEngine.selectUnanswered(bank!.candidates, events);
     return _startSession(
       mode: LearningModeV1.unansweredPractice,
-      questionIds: _practiceEngine.selectUnanswered(bank!.candidates, events),
+      questionIds: _boundedPracticeSelection(eligible, count),
     );
   }
 
-  Future<bool> startIncorrect() async {
+  Future<bool> startIncorrect({int? count}) async {
     if (!modeEnabled(LearningModeV1.incorrectPractice)) return false;
+    final eligible = _practiceEngine.selectIncorrect(bank!.candidates, events);
     return _startSession(
       mode: LearningModeV1.incorrectPractice,
-      questionIds: _practiceEngine.selectIncorrect(bank!.candidates, events),
+      questionIds: _boundedPracticeSelection(eligible, count),
     );
+  }
+
+  List<String> _boundedPracticeSelection(List<String> eligible, int? count) {
+    if (eligible.isEmpty || count == null || count >= eligible.length) {
+      return eligible;
+    }
+    if (count < 1) return const [];
+    return _randomizer.reorder(eligible).take(count).toList(growable: false);
   }
 
   Future<bool> startRetry() async {
