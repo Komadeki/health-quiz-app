@@ -1,0 +1,26 @@
+{
+  "app_key": "eisei1",
+  "bank_revision": "eisei1-bank-bootstrap-2026-08-26",
+  "content_as_of": "2026-08-26",
+  "decks": [
+    {
+      "deck_id": "eisei1_exam",
+      "title": "第一種衛生管理者",
+      "units": [
+        {"unit_id": "eisei1_law_hazardous", "title": "関係法令（有害業務）"},
+        {"unit_id": "eisei1_hygiene_hazardous", "title": "労働衛生（有害業務）"},
+        {"unit_id": "eisei1_law_general", "title": "関係法令（有害業務以外）"},
+        {"unit_id": "eisei1_hygiene_general", "title": "労働衛生（有害業務以外）"},
+        {"unit_id": "eisei1_physiology", "title": "労働生理"}
+      ]
+    }
+  ],
+  "exam_profile_version": "eisei1-exam-v1",
+  "expected_choice_count": 5,
+  "manifest_output": "generated/bank_manifest.json",
+  "question_id_prefix": "EISEI1",
+  "question_identity_policy": "explicit_v1",
+  "review_due_days": 365,
+  "runtime_output": "generated/eisei1_bank.json",
+  "schema_version": 2
+}

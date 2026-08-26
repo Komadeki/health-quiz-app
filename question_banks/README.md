@@ -56,15 +56,17 @@ Existing banks continue to derive the prefix from their registry.
 
 ```text
 question_id, question_version, status, deck_id, unit_id, question,
-choice1, choice2, choice3, choice4, correct_choice, explanation,
+choice1, choice2, choice3, choice4, choice5, correct_choice, explanation,
 source_id, source_locator, difficulty, importance, is_free,
 valid_from, valid_until, last_reviewed_at, supersedes_id, tags,
 notes_internal
 ```
 
-Three- and four-choice questions are supported. `correct_choice` is authored
-as `A`, `B`, `C`, or `D`; the generator alone converts it to zero-based
-`answerIndex`. Tags use `;` inside the CSV cell. Status is `draft`, `active`,
+Three-, four-, and five-choice questions are supported. `choice5` is an
+additive optional CSV column for legacy compatibility. `correct_choice` is
+authored as `A` through `E`; the generator alone converts it to zero-based
+`answerIndex`. A bank may set `expected_choice_count` to require a specific
+choice count. Tags use `;` inside the CSV cell. Status is `draft`, `active`,
 or `retired`, and only `active` rows enter the runtime bank.
 
 Dates are explicit `YYYY-MM-DD` inputs. Expiration and review-age checks use

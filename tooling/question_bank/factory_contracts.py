@@ -48,10 +48,16 @@ def validate_coverage(
     else:
         count = decision.get("approved_question_count")
         rationale = _string(decision.get("rationale"))
-        if not isinstance(count, int) or isinstance(count, bool) or count < 1:
+        bootstrap = decision.get("bootstrap") is True
+        valid_count = (
+            isinstance(count, int)
+            and not isinstance(count, bool)
+            and (count >= 1 or (bootstrap and count == 0))
+        )
+        if not valid_count:
             result.error(
                 "invalid_target_bank_size",
-                "approved_question_count must be a positive integer.",
+                "approved_question_count must be positive, or zero for an explicit bootstrap.",
                 location,
             )
         else:
