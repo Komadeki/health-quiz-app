@@ -1,0 +1,42 @@
+name: Drone App Store Metadata Completion
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-testflight-preview-current
+    paths:
+      - '.github/drone-asc-metadata-run-trigger'
+
+permissions:
+  contents: read
+
+jobs:
+  complete:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      APP_BUNDLE_ID: com.komadeki.dronesecondclass
+      APP_VERSION: '1.0.1'
+      IAP_PRODUCT_ID: drone_second_class_full_unlock
+      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+      APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+      APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in APP_STORE_CONNECT_API_KEY_ID APP_STORE_CONNECT_API_ISSUER_ID APP_STORE_CONNECT_API_KEY_BASE64; do
+            [[ -n "${!name:-}" ]] || { echo "::error::Missing $name"; exit 78; }
+          done
+      - name: Run metadata completion
+        shell: bash
+        run: |
+          set -euo pipefail
+          KEY_PATH="$RUNNER_TEMP/AuthKey_${APP_STORE_CONNECT_API_KEY_ID}.p8"
+          printf '%s' "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode > "$KEY_PATH"
+          chmod 600 "$KEY_PATH"
+          python3 -m pip install --quiet pyjwt cryptography
+          export ASC_KEY_PATH="$KEY_PATH"
+          python3 .github/scripts/drone_asc_metadata_fill.py
