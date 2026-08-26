@@ -1,0 +1,22 @@
+{
+  "schema_version":"1.0",
+  "plan_id":"OTSU4-B15-FLASH-IGNITION-2026-08-26",
+  "product":"otsu4",
+  "wave_id":"W4",
+  "planned_at":"2026-08-26",
+  "objective":"AUTHOR_OTSU4_WAVE_4_AI_PRE_ACCEPT",
+  "production_target":600,
+  "canonical_verified_baseline":205,
+  "selected_target":"O4-FIR-KT-FLASH-IGNITION",
+  "selected_target_total_plan":30,
+  "verified_target_count_before_batch":0,
+  "remaining_target_gap_before_batch":30,
+  "candidate_ceiling":24,
+  "candidate_ceiling_is_quota":false,
+  "selection_basis":"Flash/ignition is a zero-coverage target, but Wave 1 already contains several exact flash-point recall questions under Properties. B15 therefore focuses on source-specific autoignition temperature, explosion range, within/outside-range decisions and ignition-property interpretation without recreating those flash-point propositions.",
+  "source_contract":{"primary_source_ids":["O4-MHLW-SDS-GASOLINE","O4-MHLW-SDS-KEROSENE","O4-MHLW-SDS-ACETONE","O4-MHLW-SDS-ETHANOL","O4-MHLW-SDS-METHANOL","O4-MHLW-SDS-XYLENE","O4-MHLW-SDS-BENZENE","O4-MHLW-SDS-TOLUENE","O4-MHLW-SDS-ETHYL-ACETATE"],"pinpoint_scope":["Each registered MHLW model SDS Section 9 physical/chemical properties: autoignition temperature, explosion range, and other explicitly present ignition-relevant fields"],"locator_rule":"Every candidate must bind to one registered SDS source/version and a single Section 9 field. No answer-defining cross-chemical comparison is allowed without a source-bundle contract."},
+  "planned_families":["single-substance autoignition-temperature recall where not already canonical","single-substance explosion lower/upper limit recall","within-versus-outside explosion-range decisions using one SDS","ordering of lower/upper bounds within the same SDS","flash point versus autoignition concept distinction only where the single SDS supplies both values and the question does not duplicate existing exact flash-point recall","vapor/ignition hazard interpretation where directly supported by one Section 9 record"],
+  "anti_duplication_rule":"Do not recreate exact flash-point recall for gasoline, kerosene, acetone, ethanol, methanol, toluene, benzene, xylene or ethyl acetate already represented in the canonical bank.",
+  "planning_invariants":{"NO_COPYRIGHTED_PAST_QUESTION_TEXT":true,"NO_WORDING_ONLY_VARIANTS":true,"NO_QUOTA_BACKFILL":true,"COLLISION_CHECK_AGAINST_ALL_205_CANONICAL_REQUIRED":true,"SINGLE_SOURCE_BINDING_REQUIRED":true,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false},
+  "next_gate":"AUTHOR_B15_AI_PRE_ACCEPT_UP_TO_24"
+}
