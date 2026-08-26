@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W2",
+  "review_round": 1,
+  "reviewed_at": "2026-08-26",
+  "reviewer": {"id":"otsu4-wave2-independent-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identities_checked": ["otsu4-b7-author-r1","otsu4-b8-author-r1","otsu4-b9-author-r1"],
+  "identity_separation": "PASS",
+  "summary": {"reviewed":56,"accept":50,"reject":6,"rework":0,"hold":0},
+  "batch_summaries": {
+    "B7":{"reviewed":20,"accept":17,"reject":3,"rework":0,"hold":0},
+    "B8":{"reviewed":16,"accept":13,"reject":3,"rework":0,"hold":0},
+    "B9":{"reviewed":20,"accept":20,"reject":0,"rework":0,"hold":0}
+  },
+  "rejected": [
+    {"candidate_id":"O4-B7-LAW-C011","reason_code":"WITHIN_WAVE_LOW_VALUE_VARIANT","disposition":"Retain C010 as the representative 2x solubility-ratio item; do not quota-backfill."},
+    {"candidate_id":"O4-B7-LAW-C012","reason_code":"WITHIN_WAVE_LOW_VALUE_VARIANT","disposition":"Retain C010 as the representative 2x solubility-ratio item; do not quota-backfill."},
+    {"candidate_id":"O4-B7-LAW-C018","reason_code":"CANONICAL_SEMANTIC_COLLISION","collided_question_id":"OTSU4-Q-000004","disposition":"Existing Q000004 already tests the exact-one aggregate rule; do not replace with another numeric pair."},
+    {"candidate_id":"O4-B8-PHY-C004","reason_code":"WITHIN_BATCH_NUMERIC_VARIANT","disposition":"Retain C003 as the direct n/V representative."},
+    {"candidate_id":"O4-B8-PHY-C014","reason_code":"WITHIN_BATCH_REDUNDANT_UNIT_ERROR","disposition":"mL→L misconception is already exercised in accepted C006/C007."},
+    {"candidate_id":"O4-B8-PHY-C015","reason_code":"WITHIN_BATCH_DUPLICATE_REASONING_PATH","disposition":"Retain C016 as the stronger mass→moles→concentration representative."}
+  ],
+  "rework": [],
+  "collision_review": {
+    "canonical_question_count": 111,
+    "wave_candidate_count": 56,
+    "all_pairs_reviewed_semantically": true,
+    "accepted_collision_result": "PASS",
+    "note": "Six low-value/colliding variants are rejected. The remaining 50 accepted candidates have materially distinct answer-defining propositions, legal boundaries, calculation paths, or prevention controls."
+  },
+  "quality_policy": {"candidate_ceiling_is_quota":false,"filler_prohibited":true,"human_review_created":false,"source_verification_separate":true,"permanent_id_allocation_separate":true},
+  "invariants": {"CANDIDATE_STATES_CHANGED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"DIRECTOR_ADJUDICATION_PERFORMED":false},
+  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_W2_ACCEPTED_50"
+}
