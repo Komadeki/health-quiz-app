@@ -21,6 +21,7 @@ QUESTION_FIELDS = (
     "choice2",
     "choice3",
     "choice4",
+    "choice5",
     "correct_choice",
     "explanation",
     "source_id",
@@ -34,6 +35,13 @@ QUESTION_FIELDS = (
     "supersedes_id",
     "tags",
     "notes_internal",
+)
+
+# choice5 was added after the original 3/4-choice contract.  Historical bank
+# CSVs and expansion batches are intentionally allowed to omit it.
+OPTIONAL_QUESTION_FIELDS = frozenset({"choice5"})
+REQUIRED_QUESTION_FIELDS = tuple(
+    field_name for field_name in QUESTION_FIELDS if field_name not in OPTIONAL_QUESTION_FIELDS
 )
 
 QUESTION_ID_PATTERN = re.compile(r"^[A-Z][A-Z0-9]*-Q-[0-9]{6}$")
@@ -141,7 +149,11 @@ def load_bank_inputs(bank_root: Path) -> BankInputs:
 
 
 def question_choices(row: dict[str, str]) -> list[str]:
-    return [row[f"choice{index}"] for index in range(1, 5) if row[f"choice{index}"]]
+    return [
+        row.get(f"choice{index}", "")
+        for index in range(1, 6)
+        if row.get(f"choice{index}", "")
+    ]
 
 
 def canonical_json_bytes(value: Any) -> bytes:

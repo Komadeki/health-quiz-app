@@ -150,6 +150,47 @@ class QuestionBankContractTest(unittest.TestCase):
         self._mutate_question(0, correct_choice="D")
         self.assertIn("invalid_correct_choice", self._error_codes())
 
+    def test_five_choice_answer_e_generates_when_expected_by_bank(self) -> None:
+        fields, rows = self._read_csv(self.questions_path)
+        if "choice5" not in fields:
+            fields.insert(fields.index("correct_choice"), "choice5")
+        for index, row in enumerate(rows, start=1):
+            row["choice5"] = f"第5の選択肢その{index}"
+        rows[0].update({
+            "choice4": "第4の選択肢",
+            "choice5": "第5の選択肢",
+            "correct_choice": "E",
+            "question_version": "2",
+        })
+        self._write_csv(self.questions_path, fields, rows)
+        metadata = self._read_json("authoring/bank.json")
+        metadata["expected_choice_count"] = 5
+        self._write_json("authoring/bank.json", metadata)
+        self._write_json(
+            "authoring/released_questions.json",
+            build_released_questions_document(load_bank_inputs(self.bank)),
+        )
+
+        self.assertTrue(validate_bank(self.bank).is_valid)
+        runtime = json.loads(
+            build_generated_files(load_bank_inputs(self.bank))[Path("generated/qualification_fixture_bank.json")]
+        )
+        card = next(
+            card
+            for deck in runtime["decks"]
+            for unit in deck["units"]
+            for card in unit["cards"]
+            if card["stableId"] == "FIXTURE-Q-000001"
+        )
+        self.assertEqual(5, len(card["choices"]))
+        self.assertEqual(4, card["answerIndex"])
+
+    def test_expected_five_choices_rejects_legacy_question(self) -> None:
+        metadata = self._read_json("authoring/bank.json")
+        metadata["expected_choice_count"] = 5
+        self._write_json("authoring/bank.json", metadata)
+        self.assertIn("unexpected_choice_count", self._error_codes())
+
     def test_missing_source_fails(self) -> None:
         self._mutate_question(0, source_id="MISSING-SOURCE")
         self.assertIn("unresolved_source_id", self._error_codes())

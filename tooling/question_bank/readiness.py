@@ -108,7 +108,7 @@ def build_readiness_report(
                 if active_count
                 else 0.0,
             }
-            for choice in ("A", "B", "C", "D")
+            for choice in ("A", "B", "C", "D", "E")
         },
         "registry_consistency": {
             "entry_count": len(inputs.id_registry),
@@ -159,7 +159,7 @@ def format_readiness_report(report: dict[str, Any]) -> str:
             f"Target bank size: {target['approved_question_count']} active={target['active_question_count']} delta={target['active_minus_target']}",
             f"Coverage: required missing={coverage['missing_required_knowledge_target_ids']} variations missing={coverage['missing_required_variations']} optional targets={len(coverage['optional_targets'])}",
             f"Verification: complete={verification['complete_active_question_count']}/{verification['active_question_count']} missing={verification['missing_question_ids']} source-version mismatches={verification['source_version_mismatches']}",
-            "Correct choices: " + ", ".join(f"{choice}={distribution[choice]['count']} ({distribution[choice]['percent']}%)" for choice in ("A", "B", "C", "D")),
+            "Correct choices: " + ", ".join(f"{choice}={distribution[choice]['count']} ({distribution[choice]['percent']}%)" for choice in ("A", "B", "C", "D", "E")),
             f"Generated runtime count: {report['generated_runtime_count']}; drift={report['generated_drift']['status']}",
             "Semantic/material overlap and taxonomy adequacy remain AI-assisted/Human review, not deterministic CI.",
         ]
