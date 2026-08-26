@@ -777,6 +777,356 @@
       "source_version": "2026-08-25",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000112",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000113",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000114",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000115",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000116",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000117",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000118",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000119",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000120",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000121",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000122",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000123",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000124",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000125",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000126",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000127",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000128",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000129",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000130",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000131",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000132",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000133",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000134",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000135",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000136",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000137",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000138",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000139",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000140",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000141",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000142",
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000143",
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000144",
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000145",
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000146",
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000147",
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000148",
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000149",
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000150",
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000151",
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000152",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000153",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000154",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000155",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000156",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000157",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000158",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000159",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000160",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000161",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
     }
   ]
 }
