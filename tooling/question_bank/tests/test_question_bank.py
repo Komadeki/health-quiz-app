@@ -191,6 +191,16 @@ class QuestionBankContractTest(unittest.TestCase):
         self._write_json("authoring/bank.json", metadata)
         self.assertIn("unexpected_choice_count", self._error_codes())
 
+    def test_explicit_zero_target_is_valid_only_for_bootstrap(self) -> None:
+        coverage = self._read_json("authoring/coverage.json")
+        coverage["target_bank_size"]["approved_question_count"] = 0
+        self._write_json("authoring/coverage.json", coverage)
+        self.assertIn("invalid_target_bank_size", self._error_codes())
+
+        coverage["target_bank_size"]["bootstrap"] = True
+        self._write_json("authoring/coverage.json", coverage)
+        self.assertNotIn("invalid_target_bank_size", self._error_codes())
+
     def test_missing_source_fails(self) -> None:
         self._mutate_question(0, source_id="MISSING-SOURCE")
         self.assertIn("unresolved_source_id", self._error_codes())

@@ -1,0 +1,10 @@
+{
+  "knowledge_targets": [],
+  "question_bindings": [],
+  "schema_version": 1,
+  "target_bank_size": {
+    "approved_question_count": 0,
+    "bootstrap": true,
+    "rationale": "Bootstrap only: final production bank size is deliberately deferred until the first two coverage ranges provide acceptance, collision, and source-verification evidence."
+  }
+}
