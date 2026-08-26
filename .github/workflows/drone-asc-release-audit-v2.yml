@@ -1,0 +1,167 @@
+name: Drone App Store Release Audit V2
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-testflight-preview-current
+    paths:
+      - '.github/drone-asc-release-audit-v2-trigger'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      APP_BUNDLE_ID: com.komadeki.dronesecondclass
+      APP_VERSION: '1.0.1'
+      BUILD_NUMBER: '202608261144'
+      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+      APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+      APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+    steps:
+      - name: Audit release state
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in APP_STORE_CONNECT_API_KEY_ID APP_STORE_CONNECT_API_ISSUER_ID APP_STORE_CONNECT_API_KEY_BASE64; do
+            [[ -n "${!name:-}" ]] || { echo "::error::Missing $name"; exit 78; }
+          done
+          KEY_PATH="$RUNNER_TEMP/AuthKey_${APP_STORE_CONNECT_API_KEY_ID}.p8"
+          printf '%s' "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode > "$KEY_PATH"
+          chmod 600 "$KEY_PATH"
+          python3 -m pip install --quiet pyjwt cryptography
+          export ASC_KEY_PATH="$KEY_PATH"
+          python3 - <<'PY'
+          import json, os, sys, time, urllib.error, urllib.parse, urllib.request, jwt
+
+          with open(os.environ['ASC_KEY_PATH'], encoding='utf-8') as fh:
+              private_key = fh.read()
+          key_id = os.environ['APP_STORE_CONNECT_API_KEY_ID']
+          issuer_id = os.environ['APP_STORE_CONNECT_API_ISSUER_ID']
+          bundle_id = os.environ['APP_BUNDLE_ID']
+          target_version = os.environ['APP_VERSION']
+          target_build = os.environ['BUILD_NUMBER']
+
+          def token():
+              now = int(time.time())
+              return jwt.encode({'iss': issuer_id, 'iat': now, 'exp': now + 900, 'aud': 'appstoreconnect-v1'}, private_key, algorithm='ES256', headers={'kid': key_id, 'typ': 'JWT'})
+
+          def get(path, params=None, optional=False):
+              url = 'https://api.appstoreconnect.apple.com' + path
+              if params:
+                  url += '?' + urllib.parse.urlencode(params, doseq=True)
+              req = urllib.request.Request(url, headers={'Authorization': 'Bearer ' + token()})
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as res:
+                      return json.load(res)
+              except urllib.error.HTTPError as exc:
+                  if optional:
+                      print(f'OPTIONAL_API_UNAVAILABLE={path} HTTP {exc.code}')
+                      return None
+                  body = exc.read().decode('utf-8', errors='replace')
+                  print(f'HTTP {exc.code} for {path}: {body}', file=sys.stderr)
+                  raise
+
+          apps = get('/v1/apps', {'filter[bundleId]': bundle_id, 'limit': 1})
+          app = apps['data'][0]
+          app_id = app['id']
+          print('APP_ID=' + app_id)
+          print('APP_NAME=' + str(app.get('attributes', {}).get('name')))
+
+          builds = get('/v1/builds', {'filter[app]': app_id, 'filter[version]': target_build, 'limit': 10})
+          if not builds.get('data'):
+              print('::error::RC build missing'); sys.exit(1)
+          build = builds['data'][0]
+          build_id = build['id']
+          ba = build.get('attributes', {})
+          print('BUILD_ID=' + build_id)
+          print('BUILD_PROCESSING_STATE=' + str(ba.get('processingState')))
+          print('BUILD_EXPIRED=' + str(ba.get('expired')))
+          print('BUILD_USES_NON_EXEMPT_ENCRYPTION=' + str(ba.get('usesNonExemptEncryption')))
+          if ba.get('processingState') != 'VALID' or ba.get('expired') is True:
+              print('::error::RC build not releasable'); sys.exit(1)
+
+          beta = get(f'/v1/builds/{build_id}/buildBetaDetail', optional=True)
+          if beta and beta.get('data'):
+              a = beta['data'].get('attributes', {})
+              print('TESTFLIGHT_INTERNAL_STATE=' + str(a.get('internalBuildState')))
+              print('TESTFLIGHT_EXTERNAL_STATE=' + str(a.get('externalBuildState')))
+
+          versions = get(f'/v1/apps/{app_id}/appStoreVersions', {'limit': 200})
+          target = None
+          for item in versions.get('data', []):
+              a = item.get('attributes', {})
+              print('APP_STORE_VERSION=' + str(a.get('versionString')) + ' STATE=' + str(a.get('appStoreState')) + ' ID=' + item['id'])
+              if a.get('versionString') == target_version:
+                  target = item
+          if target is None:
+              print('TARGET_VERSION_EXISTS=false')
+              sys.exit(0)
+
+          version_id = target['id']
+          va = target.get('attributes', {})
+          print('TARGET_VERSION_EXISTS=true')
+          print('TARGET_VERSION_ID=' + version_id)
+          print('TARGET_VERSION_STATE=' + str(va.get('appStoreState')))
+          print('TARGET_RELEASE_TYPE=' + str(va.get('releaseType')))
+
+          attached = get(f'/v1/appStoreVersions/{version_id}/build', optional=True)
+          if attached and attached.get('data'):
+              attached_id = attached['data']['id']
+              print('VERSION_BUILD_ATTACHED=true')
+              print('VERSION_BUILD_MATCHES_RC=' + str(attached_id == build_id).lower())
+          else:
+              print('VERSION_BUILD_ATTACHED=false')
+
+          locs = get(f'/v1/appStoreVersions/{version_id}/appStoreVersionLocalizations', {'limit': 200}, optional=True)
+          screenshot_total = 0
+          loc_count = 0
+          if locs:
+              for loc in locs.get('data', []):
+                  loc_count += 1
+                  la = loc.get('attributes', {})
+                  locale = str(la.get('locale'))
+                  print('LOCALIZATION=' + locale
+                        + ' DESCRIPTION=' + str(bool((la.get('description') or '').strip())).lower()
+                        + ' KEYWORDS=' + str(bool((la.get('keywords') or '').strip())).lower()
+                        + ' SUPPORT_URL=' + str(bool((la.get('supportUrl') or '').strip())).lower())
+                  sets = get(f"/v1/appStoreVersionLocalizations/{loc['id']}/appScreenshotSets", {'limit': 200}, optional=True)
+                  if sets:
+                      for shot_set in sets.get('data', []):
+                          shots = get(f"/v1/appScreenshotSets/{shot_set['id']}/appScreenshots", {'limit': 200}, optional=True)
+                          count = len(shots.get('data', [])) if shots else 0
+                          screenshot_total += count
+                          print('SCREENSHOT_SET=' + locale + ':' + str(shot_set.get('attributes', {}).get('screenshotDisplayType')) + ' COUNT=' + str(count))
+          print('LOCALIZATION_COUNT=' + str(loc_count))
+          print('SCREENSHOT_TOTAL=' + str(screenshot_total))
+
+          review = get(f'/v1/appStoreVersions/{version_id}/appStoreReviewDetail', optional=True)
+          if review and review.get('data'):
+              ra = review['data'].get('attributes', {})
+              print('REVIEW_DETAIL_EXISTS=true')
+              print('REVIEW_CONTACT_EMAIL_PRESENT=' + str(bool((ra.get('contactEmail') or '').strip())).lower())
+              print('REVIEW_CONTACT_PHONE_PRESENT=' + str(bool((ra.get('contactPhone') or '').strip())).lower())
+              print('REVIEW_DEMO_REQUIRED=' + str(ra.get('demoAccountRequired')))
+          else:
+              print('REVIEW_DETAIL_EXISTS=false')
+
+          infos = get(f'/v1/apps/{app_id}/appInfos', {'limit': 50}, optional=True)
+          if infos:
+              for info in infos.get('data', []):
+                  ia = info.get('attributes', {})
+                  print('APP_INFO_STATE=' + str(ia.get('appStoreState')) + ' ID=' + info['id'])
+                  ilocs = get(f"/v1/appInfos/{info['id']}/appInfoLocalizations", {'limit': 200}, optional=True)
+                  if ilocs:
+                      for iloc in ilocs.get('data', []):
+                          la = iloc.get('attributes', {})
+                          print('APP_INFO_LOCALIZATION=' + str(la.get('locale')) + ' PRIVACY_URL=' + str(bool((la.get('privacyPolicyUrl') or '').strip())).lower())
+
+          iaps = get(f'/v1/apps/{app_id}/inAppPurchasesV2', {'limit': 200}, optional=True)
+          if iaps:
+              for iap in iaps.get('data', []):
+                  ia = iap.get('attributes', {})
+                  print('IAP_PRODUCT_ID=' + str(ia.get('productId')) + ' TYPE=' + str(ia.get('inAppPurchaseType')) + ' STATE=' + str(ia.get('state')))
+          PY
