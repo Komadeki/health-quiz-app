@@ -1,0 +1,16 @@
+{
+  "schema_version":"1.0",
+  "app_key":"otsu4",
+  "batch_id":"B15",
+  "directory_slug":"batch_015",
+  "baseline_sha":"9f49ab1bc34d57c9270e8aa53c172aabde1415df",
+  "batch_status":"AI_PRE_ACCEPT_AUTHORED",
+  "author":{"id":"otsu4-b15-author-r1","role":"AI_AUTHOR"},
+  "expansion_trigger":"Author Wave 4 B15 original flash/ignition candidates from single-source MHLW model SDS Section 9 fields without recreating exact flash-point recall.",
+  "evidence":["docs/OTSU4_QUESTION_FACTORY_WAVE_MODE_V1.md","docs/OTSU4_600Q_PINPOINT_SOURCE_CATALOG_V1.md","question_banks/otsu4/authoring/BATCH_015_COVERAGE_PLAN_V1.json","question_banks/otsu4/authoring/waves/wave_004.json","question_banks/otsu4/QUESTION_BANK_CONTRACT_V0.md"],
+  "target_size_decisions":[{"decision_id":"O4-TARGET-002","previous_approved_target":300,"current_released_count":0,"proposed_target_min":600,"proposed_target_max":600,"approved_new_target":600,"rationale":"Current commercial target; quality-gated and not a quota.","decision_date":"2026-08-25","evidence":"docs/OTSU4_600Q_PRODUCTION_TARGET_DECISION_V1.md"}],
+  "coverage_limit_decisions":[],
+  "planned_scope":{"candidate_count":18,"candidate_count_is_quota":false,"subject_counts":{"law":0,"physics_chemistry":0,"properties_fire":18},"knowledge_target_id":"O4-FIR-KT-FLASH-IGNITION"},
+  "invariants":{"PERMANENT_IDS_ALLOCATED_AT_AUTHORING":0,"HUMAN_REVIEW_CREATED":false,"CANONICAL_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false},
+  "next_gate":"INDEPENDENT_AI_REVIEW"
+}
