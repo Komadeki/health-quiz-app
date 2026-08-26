@@ -1,4 +1,86 @@
 {
   "schema_version": 1,
-  "sources": []
+  "sources": [
+    {
+      "source_id": "E1-LAW-ASL",
+      "title": "労働安全衛生法",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-26",
+      "url": "https://laws.e-gov.go.jp/law/347AC0000000057",
+      "retrieved_at": "2026-08-26",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-LAW-ASR",
+      "title": "労働安全衛生規則",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-26",
+      "url": "https://laws.e-gov.go.jp/law/347M50002000032",
+      "retrieved_at": "2026-08-26",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-LAW-LSL",
+      "title": "労働基準法",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-26",
+      "url": "https://laws.e-gov.go.jp/law/322AC0000000049",
+      "retrieved_at": "2026-08-26",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-LAW-WEM",
+      "title": "作業環境測定法",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-26",
+      "url": "https://laws.e-gov.go.jp/law/350AC0000000028",
+      "retrieved_at": "2026-08-26",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-LAW-PNEUMO",
+      "title": "じん肺法",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-26",
+      "url": "https://laws.e-gov.go.jp/law/335AC0000000030",
+      "retrieved_at": "2026-08-26",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-MHLW-WORKENV",
+      "title": "作業環境測定関係",
+      "issuer": "厚生労働省",
+      "source_version": "current-as-of-2026-08-26",
+      "url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000094161.html",
+      "retrieved_at": "2026-08-26",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
+      "source_id": "E1-MHLW-OH",
+      "title": "職場における労働衛生対策",
+      "issuer": "厚生労働省",
+      "source_version": "current-as-of-2026-08-26",
+      "url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/anzen/anzeneisei02.html",
+      "retrieved_at": "2026-08-26",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
+      "source_id": "E1-EXAM-STRUCTURE",
+      "title": "第一種衛生管理者試験の紹介",
+      "issuer": "公益財団法人 安全衛生技術試験協会",
+      "source_version": "retrieved-2026-08-26",
+      "url": "https://www.exam.or.jp/introduction/h_shokai502/",
+      "retrieved_at": "2026-08-26",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
+      "source_id": "E1-EXAM-PUBLISHED-202604",
+      "title": "令和8年4月公表 第一種衛生管理者試験問題",
+      "issuer": "公益財団法人 安全衛生技術試験協会",
+      "source_version": "published-2026-04",
+      "url": "https://www.exam.or.jp/wp-content/uploads/2026/04/LC20260415-1.pdf",
+      "retrieved_at": "2026-08-26",
+      "usage_basis": "facts_only_independently_authored"
+    }
+  ]
 }

@@ -1,5 +1,21 @@
 {
-  "knowledge_targets": [],
+  "knowledge_targets": [
+    {"knowledge_target_id": "E1-LH-001", "unit_id": "eisei1_law_hazardous", "title": "有害業務の衛生管理体制", "statement": "有害業務に関する衛生管理者、産業医及び委員会の法定要件を区別する。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-LH-002", "unit_id": "eisei1_law_hazardous", "title": "有害業務の作業環境管理", "statement": "有害業務に係る作業環境測定、記録及び改善措置の法定枠組みを区別する。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-LH-003", "unit_id": "eisei1_law_hazardous", "title": "有害業務の健康管理", "statement": "特殊健康診断その他の健康障害防止措置の法定枠組みを区別する。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-HH-001", "unit_id": "eisei1_hygiene_hazardous", "title": "化学的有害因子", "statement": "化学物質による健康影響、ばく露経路及び管理の基本を区別する。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-HH-002", "unit_id": "eisei1_hygiene_hazardous", "title": "物理的有害因子", "statement": "粉じん、騒音、振動、放射線その他の物理的因子の健康影響と管理を区別する。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-HH-003", "unit_id": "eisei1_hygiene_hazardous", "title": "有害業務の保護措置", "statement": "工学的対策、保護具、作業管理及び健康管理の役割を区別する。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-LG-001", "unit_id": "eisei1_law_general", "title": "一般業務の衛生管理体制", "statement": "一般業務における衛生管理体制と選任・巡視等の要件を区別する。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-LG-002", "unit_id": "eisei1_law_general", "title": "一般業務の健康診断等", "statement": "一般健康診断、面接指導等の法定枠組みを区別する。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-LG-003", "unit_id": "eisei1_law_general", "title": "労働基準法・じん肺法の関係事項", "statement": "労働時間、年少者・女性及びじん肺に関する関係法令の対象と要件を区別する。", "required": true, "importance": 2, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-HG-001", "unit_id": "eisei1_hygiene_general", "title": "作業環境・作業管理", "statement": "温熱、照明、換気、VDT等を含む一般作業環境と作業管理の基本を区別する。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-HG-002", "unit_id": "eisei1_hygiene_general", "title": "健康保持増進・メンタルヘルス", "statement": "健康保持増進、メンタルヘルス及び健康情報の取扱いに関する基本を区別する。", "required": true, "importance": 2, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-HG-003", "unit_id": "eisei1_hygiene_general", "title": "労働衛生教育・統計・救急", "statement": "衛生教育、労働衛生統計及び救急措置の目的と基本を区別する。", "required": true, "importance": 2, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-PH-001", "unit_id": "eisei1_physiology", "title": "人体の組織・機能", "statement": "主要な器官系の構造と機能の基本を区別する。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-PH-002", "unit_id": "eisei1_physiology", "title": "労働と環境による生理的変化", "statement": "労働負荷及び環境条件による生理的反応の基本を区別する。", "required": true, "importance": 3, "minimum_active_question_count": 0, "variation_requirements": []},
+    {"knowledge_target_id": "E1-PH-003", "unit_id": "eisei1_physiology", "title": "疲労・職業適性", "statement": "疲労の要因、予防及び職業適性に関する基本を区別する。", "required": true, "importance": 2, "minimum_active_question_count": 0, "variation_requirements": []}
+  ],
   "question_bindings": [],
   "schema_version": 1,
   "target_bank_size": {
