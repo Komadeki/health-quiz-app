@@ -1,0 +1,25 @@
+{
+  "schema_version":"1.0",
+  "batch_id":"B14",
+  "wave_id":"W4",
+  "review_round":1,
+  "reviewed_at":"2026-08-26",
+  "reviewer":{"id":"otsu4-wave4-independent-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked":"otsu4-b14-author-r1",
+  "identity_separation":"PASS",
+  "review_basis":["merged Wave 4 authoring evidence","registered O4-PHY-1 printed p.93-94 oxidation/reduction scope","all 205 canonical/source-verified Otsu4 questions","all 44 Wave 4 candidates","semantic distinctness, exam relevance and no-filler policy"],
+  "summary":{"reviewed":7,"accept":4,"reject":3,"rework":0,"hold":0},
+  "decisions":[
+    {"candidate_id":"O4-B14-PHY-C006","decision":"ACCEPT","rationale":"Electron transfer is the central substantive redox proposition and opens the previously uncovered chemical-change target."},
+    {"candidate_id":"O4-B14-PHY-C007","decision":"ACCEPT","rationale":"Extending oxidation/reduction from oxygen or hydrogen transfer to electron transfer is a useful conceptual boundary rather than a wording duplicate of C006."},
+    {"candidate_id":"O4-B14-PHY-C008","decision":"ACCEPT","rationale":"The simultaneity of oxidation and reduction is an independently testable redox principle."},
+    {"candidate_id":"O4-B14-PHY-C009","decision":"ACCEPT","rationale":"Oxidation-number increase/decrease is a distinct explanatory representation of redox beyond direct electron-transfer language."},
+    {"candidate_id":"O4-B14-PHY-C010","decision":"REJECT","reason_code":"LOW_VALUE_SOURCE_CATALOG_RECALL","rationale":"The item asks which reagent names the curriculum document lists rather than testing what an oxidizing or reducing agent does; source-catalog recall is insufficient incremental Otsu4 practice value."},
+    {"candidate_id":"O4-B14-PHY-C011","decision":"REJECT","reason_code":"LOW_VALUE_RELATIONSHIP_RECALL","rationale":"Merely recalling that ionization tendency is mentioned beside redox does not test the underlying chemical relationship."},
+    {"candidate_id":"O4-B14-PHY-C012","decision":"REJECT","reason_code":"LOW_VALUE_RELATIONSHIP_RECALL","rationale":"Merely recalling that the Daniell cell is mentioned beside redox is curriculum-association recall rather than a substantive cell or redox proposition."}
+  ],
+  "collision_review":{"released_bank_checked":true,"canonical_drafts_checked":true,"full_wave_checked":true,"result":"PASS_AFTER_3_REJECTIONS","note":"The canonical 205 contain no answer-defining chemical-change target collision. C010-C012 are rejected for insufficient educational value, leaving four substantive redox concepts without quota backfill."},
+  "source_review_scope":"This gate checks source registration, locator reproducibility and answer-binding completeness; final canonical source verification remains separate after Permanent ID integration.",
+  "invariants":{"HUMAN_REVIEW_ROWS_CREATED":0,"CANDIDATE_STATES_CHANGED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"DIRECTOR_ADJUDICATION_PERFORMED":false},
+  "final_gate":"READY_FOR_WAVE_DIRECTOR_ACCEPT_AND_PROMOTE"
+}
