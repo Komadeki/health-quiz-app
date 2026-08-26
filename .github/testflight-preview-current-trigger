@@ -1,5 +1,5 @@
 Drone TestFlight preview trigger
-Requested: 2026-08-26 (icon asset fix)
-Purpose: upload current main with exact-size opaque branded Drone app icon and release version 1.0.1 for physical-device UX verification.
+Requested: 2026-08-26 (free-tier progress and answer-count UX)
+Purpose: upload current main with entitlement-aware progress, full-386 unlock value, clarified cumulative answer count, and stable shuffled choices for physical-device release verification.
 Source branch: main
-Source commit: 19cc72e52a7efce4e28aeab57489d8e4ab816ad5
+Source commit: 61c47de8d4fe71db2dc285bb53d5b05093028f1a
