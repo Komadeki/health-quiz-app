@@ -1,0 +1,33 @@
+{
+  "schema_version":"1.0",
+  "batch_id":"B12",
+  "wave_id":"W3",
+  "review_round":1,
+  "reviewed_at":"2026-08-26",
+  "reviewer":{"id":"otsu4-wave3-independent-reviewer-r1","role":"AI_REVIEWER"},
+  "author_identity_checked":"otsu4-b12-author-r1",
+  "identity_separation":"PASS",
+  "review_basis":["merged Wave 3 authoring evidence","registered MHLW model SDS Section 5 source fields","all 161 canonical/source-verified Otsu4 questions","all 50 Wave 3 candidates","semantic distinctness and fire-response practice value"],
+  "summary":{"reviewed":15,"accept":15,"reject":0,"rework":0,"hold":0},
+  "decisions":[
+    {"candidate_id":"O4-B12-FIR-C001","decision":"ACCEPT","rationale":"Gasoline-specific suitable-agent set is commercially important and distinct from the existing ethyl-acetate negative-choice question."},
+    {"candidate_id":"O4-B12-FIR-C002","decision":"ACCEPT","rationale":"Gasoline's prohibited rod-water instruction is a direct high-value safety proposition for the primary Class-4 material."},
+    {"candidate_id":"O4-B12-FIR-C003","decision":"ACCEPT","rationale":"Large-fire spray-water fallback creates a meaningful boundary against the rod-water prohibition."},
+    {"candidate_id":"O4-B12-FIR-C004","decision":"ACCEPT","rationale":"Move containers only if safe is a separate fire-ground decision rather than an extinguishing-agent recall variant."},
+    {"candidate_id":"O4-B12-FIR-C005","decision":"ACCEPT","rationale":"Cooling an immovable container and surroundings is a distinct conditional response."},
+    {"candidate_id":"O4-B12-FIR-C006","decision":"ACCEPT","rationale":"Continued post-extinguishment container cooling adds a separate temporal response boundary."},
+    {"candidate_id":"O4-B12-FIR-C007","decision":"ACCEPT","rationale":"Kerosene small-fire agent set is explicitly size-scoped and source-defined."},
+    {"candidate_id":"O4-B12-FIR-C008","decision":"ACCEPT","rationale":"Kerosene large-fire agent set tests a materially different fire-size decision from C007."},
+    {"candidate_id":"O4-B12-FIR-C009","decision":"ACCEPT","rationale":"Acetone spread-risk condition requires selecting a non-spray alternative and adds a distinct suitability boundary."},
+    {"candidate_id":"O4-B12-FIR-C010","decision":"ACCEPT","rationale":"Upwind firefighting position is a source-explicit responder-protection rule with practical value."},
+    {"candidate_id":"O4-B12-FIR-C011","decision":"ACCEPT","rationale":"Dry sand as an ethanol extinguishing option is a distinctive material-specific agent proposition."},
+    {"candidate_id":"O4-B12-FIR-C012","decision":"ACCEPT","rationale":"Do not move a heat-exposed ethanol container is a clear conditional boundary distinct from safe-movement cases."},
+    {"candidate_id":"O4-B12-FIR-C013","decision":"ACCEPT","rationale":"Removing the ignition source when safe is a direct fire-response priority from the registered Section 5 field."},
+    {"candidate_id":"O4-B12-FIR-C014","decision":"ACCEPT","rationale":"Methanol re-ignition risk is a distinct post-extinguishment hazard requiring continued vigilance."},
+    {"candidate_id":"O4-B12-FIR-C015","decision":"ACCEPT","rationale":"Ethyl-acetate container spray cooling is materially different from canonical OTSU4-Q-000002, which tests unsuitable direct-stream extinguishing."}
+  ],
+  "collision_review":{"released_bank_checked":true,"canonical_drafts_checked":true,"full_wave_checked":true,"result":"PASS","note":"No B12 answer-defining proposition materially duplicates canonical 161. Material, fire-size and response-condition distinctions are retained only where the registered Section 5 field changes the decision."},
+  "source_review_scope":"Final canonical source verification remains separate after integration.",
+  "invariants":{"HUMAN_REVIEW_ROWS_CREATED":0,"CANDIDATE_STATES_CHANGED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"DIRECTOR_ADJUDICATION_PERFORMED":false},
+  "final_gate":"READY_FOR_WAVE_DIRECTOR_ACCEPT_AND_PROMOTE"
+}
