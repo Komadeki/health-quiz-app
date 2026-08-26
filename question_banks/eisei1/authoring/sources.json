@@ -137,6 +137,24 @@
       "usage_basis": "facts_only_independently_authored"
     },
     {
+      "source_id": "E1-MHLW-CHEM-RA",
+      "title": "化学物質対策に関するQ&A（リスクアセスメント関係）",
+      "issuer": "厚生労働省",
+      "source_version": "current-as-of-2026-08-27",
+      "url": "https://www.mhlw.go.jp/stf/newpage_11389.html",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
+      "source_id": "E1-MHLW-RPE-2023",
+      "title": "防じんマスク、防毒マスク及び電動ファン付き呼吸用保護具の選択、使用等について",
+      "issuer": "厚生労働省",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "url": "https://www.mhlw.go.jp/content/11300000/001100843.pdf",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
       "source_id": "E1-EXAM-STRUCTURE",
       "title": "第一種衛生管理者試験の紹介",
       "issuer": "公益財団法人 安全衛生技術試験協会",
