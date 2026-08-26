@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B10-LAW-C014",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4d031b411a781c71cfb3767e145edf0296b926e5591e792c15cd2fceab7b6e17",
+  "actors": {
+    "author": {
+      "id": "otsu4-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第30条第4号"
+    },
+    "answer_defining_proposition": "指定数量以上の車両運搬では当該危険物に適応する消火設備を備える。",
+    "tested_misconception": "標識を掲げれば消火設備は不要である。",
+    "reasoning_path": "apply quantity threshold -> identify required onboard fire equipment",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B10; equipment requirement distinct from B12 extinguisher suitability."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Suitable onboard fire equipment is a different threshold-triggered obligation from placarding."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

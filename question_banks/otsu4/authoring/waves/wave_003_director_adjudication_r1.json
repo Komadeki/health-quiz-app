@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W3",
+  "adjudication_round": 1,
+  "adjudicated_at": "2026-08-26",
+  "director": {
+    "id": "otsu4-wave3-director-r1",
+    "role": "AI_DIRECTOR"
+  },
+  "authors": {
+    "B10": {
+      "id": "otsu4-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B11": {
+      "id": "otsu4-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B12": {
+      "id": "otsu4-b12-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
+  "reviewers": {
+    "B10": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "B11": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "B12": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    }
+  },
+  "identity_separation": "PASS",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 44,
+    "reject": 6,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "O4-B10-LAW-C001",
+    "O4-B10-LAW-C002",
+    "O4-B10-LAW-C003",
+    "O4-B10-LAW-C004",
+    "O4-B10-LAW-C005",
+    "O4-B10-LAW-C006",
+    "O4-B10-LAW-C007",
+    "O4-B10-LAW-C008",
+    "O4-B10-LAW-C009",
+    "O4-B10-LAW-C010",
+    "O4-B10-LAW-C011",
+    "O4-B10-LAW-C012",
+    "O4-B10-LAW-C013",
+    "O4-B10-LAW-C014",
+    "O4-B10-LAW-C015",
+    "O4-B10-LAW-C016",
+    "O4-B10-LAW-C017",
+    "O4-B10-LAW-C018",
+    "O4-B11-PHY-C001",
+    "O4-B11-PHY-C002",
+    "O4-B11-PHY-C003",
+    "O4-B11-PHY-C004",
+    "O4-B11-PHY-C005",
+    "O4-B11-PHY-C006",
+    "O4-B11-PHY-C007",
+    "O4-B11-PHY-C009",
+    "O4-B11-PHY-C010",
+    "O4-B11-PHY-C016",
+    "O4-B11-PHY-C017",
+    "O4-B12-FIR-C001",
+    "O4-B12-FIR-C002",
+    "O4-B12-FIR-C003",
+    "O4-B12-FIR-C004",
+    "O4-B12-FIR-C005",
+    "O4-B12-FIR-C006",
+    "O4-B12-FIR-C007",
+    "O4-B12-FIR-C008",
+    "O4-B12-FIR-C009",
+    "O4-B12-FIR-C010",
+    "O4-B12-FIR-C011",
+    "O4-B12-FIR-C012",
+    "O4-B12-FIR-C013",
+    "O4-B12-FIR-C014",
+    "O4-B12-FIR-C015"
+  ],
+  "nonaccepted": [
+    {
+      "candidate_id": "O4-B11-PHY-C008",
+      "batch_id": "B11",
+      "decision": "REJECT",
+      "reason_code": "WITHIN_BATCH_DUPLICATE_REASONING_PATH",
+      "rationale": "Repeats C006's answer-defining proposition that an ignition source supplies the energy required to initiate combustion; varying the ignition-source examples does not add enough incremental value.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B11-PHY-C011",
+      "batch_id": "B11",
+      "decision": "REJECT",
+      "reason_code": "LOW_EXAM_VALUE_MICROKINETIC_DETAIL",
+      "rationale": "The exact concentration condition for chain carriers is source-correct but too microscopic relative to the adopted Otsu4 combustion target; C010 preserves the useful chain-reaction concept without this depth.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B11-PHY-C012",
+      "batch_id": "B11",
+      "decision": "REJECT",
+      "reason_code": "LOW_EXAM_VALUE_MICROKINETIC_DETAIL",
+      "rationale": "Heat-induced chain-carrier generation is a microscopic mechanism with insufficient incremental Otsu4 practice value after C006 and C010.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B11-PHY-C013",
+      "batch_id": "B11",
+      "decision": "REJECT",
+      "reason_code": "LOW_EXAM_VALUE_MICROKINETIC_DETAIL",
+      "rationale": "Memorizing H/O/OH as named chain carriers is overly specific for this qualification target despite source correctness.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B11-PHY-C014",
+      "batch_id": "B11",
+      "decision": "REJECT",
+      "reason_code": "LOW_EXAM_VALUE_MICROKINETIC_DETAIL",
+      "rationale": "Chain-carrier termination chemistry exceeds the useful granularity of the Otsu4 combustion target; retain the general chain-reaction concept in C010.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B11-PHY-C015",
+      "batch_id": "B11",
+      "decision": "REJECT",
+      "reason_code": "LOW_EXAM_VALUE_MICROKINETIC_DETAIL",
+      "rationale": "Third-body stabilization by N2/H2O is a specialized kinetic detail and is not justified merely to expand the 600-question target.",
+      "resume_condition": ""
+    }
+  ],
+  "director_rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction.",
+  "invariants_before_transaction": {
+    "candidate_states": "ALL_AI_PRE_ACCEPT",
+    "acceptance_packets": 0,
+    "permanent_ids_allocated": 0,
+    "canonical_count": 161,
+    "registry_count": 161,
+    "source_verification_count": 161,
+    "released_count": 0,
+    "runtime_unchanged_required": true,
+    "human_review_fabricated": false
+  },
+  "final_gate": "READY_TO_ALLOCATE_AND_INTEGRATE_W3_ACCEPTED_44"
+}

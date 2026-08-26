@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B12-FIR-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "2e9be069e06d9bcd6893ddec92cdf0cc9846cdce5e9f21f578118f913ac62eea",
+  "actors": {
+    "author": {
+      "id": "otsu4-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "source_locator": "Section 5「火災時の措置」特有の消火方法"
+    },
+    "answer_defining_proposition": "ガソリン火災の消火後も容器を十分に水冷する。",
+    "tested_misconception": "炎が消えれば容器冷却は直ちに不要となる。",
+    "reasoning_path": "post-extinguishment phase -> continue container cooling",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B12; post-fire action not represented in existing canonical."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Continued post-extinguishment container cooling adds a separate temporal response boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B12-FIR-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d6a7c0f37a7a0eb9501b83593059484065f322bab810453ce802a8c23c2c965f",
+  "actors": {
+    "author": {
+      "id": "otsu4-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "source_locator": "Section 5「火災時の措置」特有の消火方法"
+    },
+    "answer_defining_proposition": "移動できないガソリン容器と周囲は散水して冷却する。",
+    "tested_misconception": "棒状注水禁止なので容器冷却にも一切水を使えない。",
+    "reasoning_path": "container immovable -> distinguish cooling spray from extinguishing jet",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B12; cooling-use distinction adds operational value."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Cooling an immovable container and surroundings is a distinct conditional response."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

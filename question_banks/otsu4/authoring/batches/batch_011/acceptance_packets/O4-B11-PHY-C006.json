@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B11-PHY-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1a16ffa69fb0a098ae7e23b516fa5e5fba5a81b6a45fa578a7da282ade1ae6f5",
+  "actors": {
+    "author": {
+      "id": "otsu4-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "着火源"
+    },
+    "answer_defining_proposition": "着火源は可燃物と支燃物に燃焼開始に必要なエネルギーを与える。",
+    "tested_misconception": "着火源の役割は酸素を除去することだ。",
+    "reasoning_path": "identify activation-barrier concept -> map to ignition-source role",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B11; distinct from existing generic 'heat' element."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Ignition source as activation-energy input materially extends the existing generic heat-element question."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

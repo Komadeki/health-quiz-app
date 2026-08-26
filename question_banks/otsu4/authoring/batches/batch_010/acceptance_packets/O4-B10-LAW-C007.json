@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B10-LAW-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "418402da3ec2d341599acded94c8311dfbf1ab1edb805495599797ce79596c8f",
+  "actors": {
+    "author": {
+      "id": "otsu4-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第29条第4号"
+    },
+    "answer_defining_proposition": "運搬容器は収納口を上方に向けて積載する。",
+    "tested_misconception": "収納口は漏えい防止のため下向きにする。",
+    "reasoning_path": "read orientation rule -> select upward opening",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B10; exact orientation boundary."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Upward opening orientation is an exact, high-signal loading rule."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

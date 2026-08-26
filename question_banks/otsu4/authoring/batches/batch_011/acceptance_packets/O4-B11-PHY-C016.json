@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B11-PHY-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "62c295875a82418c4c0093ba6e2ba7620ae46fc9f4c0b6d6f4e929534b2f3852",
+  "actors": {
+    "author": {
+      "id": "otsu4-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "燃焼の3要素／酸素がなくても燃える"
+    },
+    "answer_defining_proposition": "支燃物は空気中の酸素に限られず、別の酸化剤なども該当し得る。",
+    "tested_misconception": "燃焼は必ず空気中の酸素分子がなければ成立しない。",
+    "reasoning_path": "generalize supporter concept -> separate oxygen from broader oxidizer role",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B11; avoids duplicating Q000005 which asks oxygen as supporter in ordinary combustion."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Supporter is not limited to atmospheric oxygen; this is a meaningful exception boundary distinct from canonical OTSU4-Q-000005."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
