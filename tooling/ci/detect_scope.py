@@ -39,8 +39,8 @@ def classify(paths: list[str], *, force_all: bool = False) -> Scope:
         return Scope(False, False, False, False, True, "documentation_only")
 
     non_docs = [path for path in normalized if not _is_documentation(path)]
-    if non_docs and all(_is_otsu4_question_bank_fast_path(path) for path in non_docs):
-        return Scope(False, False, False, True, False, "otsu4_question_bank_fast_path")
+    if non_docs and all(_is_question_bank_fast_path(path) for path in non_docs):
+        return Scope(False, False, False, True, False, "question_bank_fast_path")
 
     shared = False
     health = False
@@ -78,16 +78,28 @@ def _is_documentation(path: str) -> bool:
     return path.startswith(("apps/", "packages/", "question_banks/", "tooling/"))
 
 
-def _is_otsu4_question_bank_fast_path(path: str) -> bool:
+def _is_question_bank_fast_path(path: str) -> bool:
+    """Return True only for authoring-only bank mutations safe for focused CI.
+
+    Canonical identity, released snapshots, generated artifacts and bank metadata
+    intentionally remain on the fail-safe full-CI path. Qualification-specific
+    candidate, coverage and source-evidence work can use the focused shared
+    Question Factory validator regardless of app key.
+    """
     if path == "tooling/komadeki_autopilot/otsu4_state.json":
         return True
-    if path.startswith("question_banks/otsu4/authoring/batches/"):
+
+    parts = PurePosixPath(path).parts
+    if len(parts) < 4 or parts[0] != "question_banks" or parts[2] != "authoring":
+        return False
+
+    authoring_path = parts[3:]
+    first = authoring_path[0]
+    if first in {"batches", "waves"}:
         return True
-    if path.startswith("question_banks/otsu4/authoring/waves/"):
+    if first.startswith("BATCH_"):
         return True
-    if path.startswith("question_banks/otsu4/authoring/BATCH_"):
-        return True
-    return False
+    return first in {"coverage.json", "sources.json", "source_verifications.json"}
 
 
 def _is_shared(path: str) -> bool:
