@@ -99,6 +99,32 @@ void main() {
     resumed.dispose();
   });
 
+  test('choice order is shuffled and remains stable across session resume',
+      () async {
+    final store = MemoryQualificationSessionStore();
+    final learning = InMemoryLearningRepository();
+    final first = createController(store: store, learning: learning);
+    await first.initialize();
+    await first.startUnit('fixture_safety');
+    final originalOrder = List<int>.generate(
+      first.currentCard!.choices.length,
+      (index) => index,
+    );
+    final shuffledOrder = first.currentChoiceOrder;
+
+    expect(shuffledOrder, unorderedEquals(originalOrder));
+    expect(shuffledOrder, isNot(equals(originalOrder)));
+    first.dispose();
+
+    final resumed = createController(store: store, learning: learning);
+    await resumed.initialize();
+    expect(resumed.currentChoiceOrder, shuffledOrder);
+    final correctChoice = resumed.currentCard!.answerIndex;
+    expect(await resumed.commitAnswer(correctChoice), isTrue);
+    expect((await learning.loadAllEvents()).single.correct, isTrue);
+    resumed.dispose();
+  });
+
   test(
     'answer commit reconciles one event after a crash before session save',
     () async {

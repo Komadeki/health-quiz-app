@@ -60,6 +60,8 @@ void main() {
       await tester.scrollUntilVisible(unit, 200);
       expect(unit, findsOneWidget);
     }
+    expect(find.textContaining('問 / 全'), findsNWidgets(4));
+    expect(find.textContaining('/ 93問を利用可能'), findsNothing);
 
     await tester.scrollUntilVisible(
       find.byKey(const Key('start-random')),

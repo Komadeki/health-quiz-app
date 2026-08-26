@@ -7,7 +7,23 @@ Widget _buildProgressDashboard(
   final progress = controller.progress!;
   final overall = progress.overall;
   final bank = controller.bank!;
-  final percent = (overall.completion * 100).round();
+  final progressQuestionCount = controller.hasFullUnlock
+      ? overall.totalQuestions
+      : controller.freeQuestionCount;
+  final displayedCompletedQuestions = math.min(
+    overall.completedQuestions,
+    progressQuestionCount,
+  );
+  final displayedCompletion = progressQuestionCount == 0
+      ? 0.0
+      : (displayedCompletedQuestions / progressQuestionCount)
+          .clamp(0.0, 1.0)
+          .toDouble();
+  final percent = (displayedCompletion * 100).round();
+  final progressSummary = controller.hasFullUnlock
+      ? '$displayedCompletedQuestions / ${overall.totalQuestions}問'
+      : '$displayedCompletedQuestions / $progressQuestionCount問 ・ '
+          '解放すると全${overall.totalQuestions}問';
   final accuracy = overall.accuracy == null
       ? '—'
       : '${(overall.accuracy! * 100).round()}%';
@@ -59,7 +75,7 @@ Widget _buildProgressDashboard(
               final textScale = MediaQuery.textScalerOf(context).scale(1.0);
               final stackCharts = constraints.maxWidth < 260 || textScale > 1.7;
               final ring = _ProgressRing(
-                completion: overall.completion,
+                completion: displayedCompletion,
                 percent: percent,
               );
               final radar = _UnitPerformanceChart(data: radarData);
@@ -99,9 +115,14 @@ Widget _buildProgressDashboard(
           ),
           const SizedBox(height: 16),
           Text(
-            '${overall.completedQuestions} / ${overall.totalQuestions}問 ・ '
-            '${overall.attemptCount}回答',
+            progressSummary,
             key: const Key('overall-progress'),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'これまでに回答した数 ${overall.attemptCount}回',
+            key: const Key('overall-attempt-count'),
             style: Theme.of(context).textTheme.bodySmall,
           ),
           const SizedBox(height: 12),
