@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W4",
+  "adjudication_round": 1,
+  "adjudicated_at": "2026-08-26",
+  "director": {
+    "id": "otsu4-wave4-director-r1",
+    "role": "AI_DIRECTOR"
+  },
+  "authors": {
+    "B13": {
+      "id": "otsu4-b13-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B14": {
+      "id": "otsu4-b14-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B15": {
+      "id": "otsu4-b15-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
+  "reviewers": {
+    "B13": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "B14": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "B15": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    }
+  },
+  "identity_separation": "PASS",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 35,
+    "reject": 9,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "O4-B13-LAW-C001",
+    "O4-B13-LAW-C002",
+    "O4-B13-LAW-C005",
+    "O4-B13-LAW-C006",
+    "O4-B13-LAW-C007",
+    "O4-B13-LAW-C008",
+    "O4-B13-LAW-C009",
+    "O4-B13-LAW-C010",
+    "O4-B13-LAW-C011",
+    "O4-B13-LAW-C012",
+    "O4-B13-LAW-C013",
+    "O4-B13-LAW-C014",
+    "O4-B13-LAW-C015",
+    "O4-B13-LAW-C016",
+    "O4-B13-LAW-C017",
+    "O4-B13-LAW-C018",
+    "O4-B13-LAW-C019",
+    "O4-B14-PHY-C006",
+    "O4-B14-PHY-C007",
+    "O4-B14-PHY-C008",
+    "O4-B14-PHY-C009",
+    "O4-B15-FIR-C001",
+    "O4-B15-FIR-C002",
+    "O4-B15-FIR-C003",
+    "O4-B15-FIR-C005",
+    "O4-B15-FIR-C006",
+    "O4-B15-FIR-C007",
+    "O4-B15-FIR-C009",
+    "O4-B15-FIR-C010",
+    "O4-B15-FIR-C011",
+    "O4-B15-FIR-C013",
+    "O4-B15-FIR-C014",
+    "O4-B15-FIR-C015",
+    "O4-B15-FIR-C016",
+    "O4-B15-FIR-C017"
+  ],
+  "nonaccepted": [
+    {
+      "candidate_id": "O4-B13-LAW-C003",
+      "batch_id": "B13",
+      "decision": "REJECT",
+      "reason_code": "LOW_VALUE_SOURCE_NAVIGATION_RECALL",
+      "rationale": "The item asks which appendix the liquid-container provision points to rather than testing the transport standard itself; document-navigation recall is insufficient incremental Otsu4 practice value.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B13-LAW-C004",
+      "batch_id": "B13",
+      "decision": "REJECT",
+      "reason_code": "LOW_VALUE_SOURCE_NAVIGATION_RECALL",
+      "rationale": "The item is the solid-container counterpart to C003 and likewise tests an appendix number instead of the substantive standard; retaining both would be quota-driven source navigation.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B14-PHY-C010",
+      "batch_id": "B14",
+      "decision": "REJECT",
+      "reason_code": "LOW_VALUE_SOURCE_CATALOG_RECALL",
+      "rationale": "The item asks which reagent names the curriculum document lists rather than testing what an oxidizing or reducing agent does; source-catalog recall is insufficient incremental Otsu4 practice value.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B14-PHY-C011",
+      "batch_id": "B14",
+      "decision": "REJECT",
+      "reason_code": "LOW_VALUE_RELATIONSHIP_RECALL",
+      "rationale": "Merely recalling that ionization tendency is mentioned beside redox does not test the underlying chemical relationship.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B14-PHY-C012",
+      "batch_id": "B14",
+      "decision": "REJECT",
+      "reason_code": "LOW_VALUE_RELATIONSHIP_RECALL",
+      "rationale": "Merely recalling that the Daniell cell is mentioned beside redox is curriculum-association recall rather than a substantive cell or redox proposition.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B15-FIR-C004",
+      "batch_id": "B15",
+      "decision": "REJECT",
+      "reason_code": "WITHIN_BATCH_DUPLICATE_REASONING_PATH",
+      "rationale": "The stem supplies both gasoline explosion limits, reducing the task to a simple midpoint interval check; C016 retains the stronger representative concentration-to-boundary application.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B15-FIR-C008",
+      "batch_id": "B15",
+      "decision": "REJECT",
+      "reason_code": "WITHIN_BATCH_DUPLICATE_REASONING_PATH",
+      "rationale": "This repeats C004's supplied-range midpoint classification with an ethanol substance swap and adds insufficient incremental practice value.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B15-FIR-C012",
+      "batch_id": "B15",
+      "decision": "REJECT",
+      "reason_code": "WITHIN_BATCH_DUPLICATE_REASONING_PATH",
+      "rationale": "This is the third supplied-range midpoint classification and adds only a substance/numeric swap after the same reasoning path.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B15-FIR-C018",
+      "batch_id": "B15",
+      "decision": "REJECT",
+      "reason_code": "WITHIN_BATCH_DUPLICATE_REASONING_PATH",
+      "rationale": "The acetone version repeats C017's identical flash-point-versus-autoignition comparison and adds only a substance swap.",
+      "resume_condition": ""
+    }
+  ],
+  "director_rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction.",
+  "invariants_before_transaction": {
+    "candidate_states": "ALL_AI_PRE_ACCEPT",
+    "acceptance_packets": 0,
+    "permanent_ids_allocated": 0,
+    "canonical_count": 205,
+    "registry_count": 205,
+    "source_verification_count": 205,
+    "released_count": 0,
+    "runtime_unchanged_required": true,
+    "human_review_fabricated": false
+  },
+  "final_gate": "READY_TO_ALLOCATE_AND_INTEGRATE_W4_ACCEPTED_35"
+}

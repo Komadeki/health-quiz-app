@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B13-LAW-C019",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d0ef526afb64ce1665f197b75693576a9ff98ef30d1ef38bd6b5ac62782caf80",
+  "actors": {
+    "author": {
+      "id": "otsu4-b13-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第47条の2第1項第2号"
+    },
+    "answer_defining_proposition": "一人の運転要員による1日当たり運転時間が9時間を超える移送は長時間移送に該当する。",
+    "tested_misconception": "長時間移送は連続時間だけで判定し一日総運転時間は見ない。",
+    "reasoning_path": "read second long-duration threshold -> select over 9 hours/day",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B13; distinct daily-duration boundary."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The over-nine-hours-per-day criterion is a separate daily-duration boundary and not a wording variant of C018."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

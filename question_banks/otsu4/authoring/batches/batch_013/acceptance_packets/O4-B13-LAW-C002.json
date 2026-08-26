@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B13-LAW-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8184f5e1d6f678d9f535d2d650581c44e83c92740c0c82e3818650d207964190",
+  "actors": {
+    "author": {
+      "id": "otsu4-b13-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第42条"
+    },
+    "answer_defining_proposition": "運搬容器は堅固で破損しにくく、口から危険物が漏れない構造とする。",
+    "tested_misconception": "運搬容器は漏れやすくても材質が適切ならよい。",
+    "reasoning_path": "read Article 42 structural conditions -> choose leak-resistant robust structure",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B13; materially more specific than W3 delegation question."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Robustness and leak-resistance are substantive container-structure requirements rather than a restatement of the Decree delegation rule."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B15-FIR-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "48b1f81ad3346c231e35de943e963bbdc31bf00b00565599b0005ed2ce1265ae",
+  "actors": {
+    "author": {
+      "id": "otsu4-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "source_locator": "Section 9「物理的及び化学的性質」自然発火温度"
+    },
+    "answer_defining_proposition": "ガソリンの自然発火温度は約300℃である。",
+    "tested_misconception": "引火点と自然発火温度は同じ値である。",
+    "reasoning_path": "read one SDS autoignition field -> select ~300C",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B15; avoids existing exact flash-point recall."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Gasoline autoignition temperature is a new ignition-property fact and does not duplicate the canonical gasoline flash-point item."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

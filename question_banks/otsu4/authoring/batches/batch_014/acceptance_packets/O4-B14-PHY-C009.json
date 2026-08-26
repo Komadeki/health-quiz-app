@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B14-PHY-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c4efbf51d55fc3bff70a638adf200653cba8a5156f5a6f269da9ca24da2f0b38",
+  "actors": {
+    "author": {
+      "id": "otsu4-b14-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "理科編 化学基礎 printed p.93「酸化と還元について」"
+    },
+    "answer_defining_proposition": "酸化還元反応は酸化数の増減により説明できる。",
+    "tested_misconception": "酸化数は酸化還元反応の説明に使わない。",
+    "reasoning_path": "identify explanatory variable -> oxidation-number change",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B14; distinct from electron-transfer definition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Oxidation-number increase/decrease is a distinct explanatory representation of redox beyond direct electron-transfer language."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

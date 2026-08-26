@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B13-LAW-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "2bff80e1f3e8e560890c95a2ef7201893f4d25158e9a8dd5837d1823cdc267c9",
+  "actors": {
+    "author": {
+      "id": "otsu4-b13-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第43条の3第1項第4号"
+    },
+    "answer_defining_proposition": "液体危険物は55℃で漏れないよう十分な空間容積を確保する。",
+    "tested_misconception": "98％以下なら温度による膨張余地は考慮しなくてよい。",
+    "reasoning_path": "combine fill ratio with thermal expansion requirement -> choose 55C ullage",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B13; thermal boundary distinct from C009 numeric recall."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The 55 degree C ullage requirement adds a thermal-expansion condition beyond the liquid fill-ratio recall in C009."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

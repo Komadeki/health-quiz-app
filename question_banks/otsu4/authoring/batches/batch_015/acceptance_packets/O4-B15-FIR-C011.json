@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B15-FIR-C011",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "307ddd60ffb8add440aaa8bcd2e1596bba67db953b36c3f3cd488419401dd831",
+  "actors": {
+    "author": {
+      "id": "otsu4-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-METHANOL",
+      "source_version": "2010-03-31",
+      "source_locator": "Section 9「物理的及び化学的性質」爆発範囲"
+    },
+    "answer_defining_proposition": "メタノール蒸気の爆発範囲上限は36.5vol%である。",
+    "tested_misconception": "メタノールの爆発上限は6.0vol%である。",
+    "reasoning_path": "read upper bound -> select 36.5vol%",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B15; paired boundary with C010."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The methanol upper explosion limit is independently useful and materially broader than its lower boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

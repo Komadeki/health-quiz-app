@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B14-PHY-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ec24a27b2b75ed825288fb7381cc5524efdf48b95130c5cb932b6712a2b6f395",
+  "actors": {
+    "author": {
+      "id": "otsu4-b14-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "理科編 化学基礎 printed p.93「酸化と還元について」"
+    },
+    "answer_defining_proposition": "酸化・還元の定義は酸素・水素の授受から電子の授受へ広げて扱う。",
+    "tested_misconception": "酸化還元の定義は電子の授受へ拡張しない。",
+    "reasoning_path": "recognize conceptual extension -> O/H transfer to electron transfer",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B14; distinct from C006 direct definition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Extending oxidation/reduction from oxygen or hydrogen transfer to electron transfer is a useful conceptual boundary rather than a wording duplicate of C006."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
