@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B7-LAW-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ee65aa0d98b556149e273d312a644b96f377b8912265cc1fcd07048c7dd27ccd",
+  "actors": {
+    "author": {
+      "id": "otsu4-b7-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 別表第三 第四類「アルコール類」"
+    },
+    "answer_defining_proposition": "アルコール類の指定数量は400Lである。",
+    "tested_misconception": "アルコール類は水に混ざるため指定数量の対象外である。",
+    "reasoning_path": "identify alcohol row -> read specified quantity",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B7; distinct from gasoline 200L canonical."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Alcohol 400L specified quantity is absent from canonical 111 and materially useful."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

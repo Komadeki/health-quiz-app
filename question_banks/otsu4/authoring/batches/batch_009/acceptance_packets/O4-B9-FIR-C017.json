@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "efeb6151ee3c1d11dca478899d14cd6525abbee7c7ced550a209268b9877ac4a",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "(1) 塗装・印刷作業等の一般取扱所 イ「その他」"
+    },
+    "answer_defining_proposition": "裸火や工事・補修火花、電気火花は管理すべき着火源である。",
+    "tested_misconception": "火花は炎ではないため火気管理の対象外である。",
+    "reasoning_path": "identify ignition-source categories -> manage them",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; ignition-source scope."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Bare flame, repair sparks and electrical sparks define a distinct ignition-source-management scope."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

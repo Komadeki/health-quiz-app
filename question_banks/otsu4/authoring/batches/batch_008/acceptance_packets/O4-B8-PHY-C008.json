@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B8-PHY-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "04b881cdcdc01b1d8ddc41bfc81f8a9073842492448543219d1163e54b688d8c",
+  "actors": {
+    "author": {
+      "id": "otsu4-b8-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第4節 化学基礎 p.92「㋐ 物質量について」"
+    },
+    "answer_defining_proposition": "0.20molを0.40mol/Lにすると溶液体積は0.50Lである。",
+    "tested_misconception": "濃度を物質量で割って体積を求める。",
+    "reasoning_path": "rearrange concentration relation -> V=n/c",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B8; solve-for-volume form."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Solves for volume V=n/c; a distinct rearrangement and decision path."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

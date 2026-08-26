@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "7e1c3e749bd8e25578775836b8bd2092e90964cddea17a5f653a540c41f915db",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "source_locator": "別紙1「セルフスタンド用注意書き文案」"
+    },
+    "answer_defining_proposition": "給油前に自動車のドア・窓を閉める。",
+    "tested_misconception": "換気のため自動車のドア・窓は全開にするのが通知上の指示である。",
+    "reasoning_path": "read pre-fueling instruction",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; specific customer action."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Closing vehicle doors/windows is a specific pre-fueling instruction."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

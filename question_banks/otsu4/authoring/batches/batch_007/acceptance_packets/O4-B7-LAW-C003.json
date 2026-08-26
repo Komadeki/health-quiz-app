@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B7-LAW-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "360df93a82c2c98dcd77a4d9300e448289062b8d4ecfd533cca4471058e8eb88",
+  "actors": {
+    "author": {
+      "id": "otsu4-b7-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 別表第三 第四類「第一石油類・水溶性液体」"
+    },
+    "answer_defining_proposition": "第一石油類の水溶性液体の指定数量は400Lである。",
+    "tested_misconception": "第一石油類は水溶性・非水溶性にかかわらず200Lである。",
+    "reasoning_path": "identify petroleum class and solubility -> read table row",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B7; avoids canonical gasoline/non-water-soluble example."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "First-petroleum water-soluble 400L row is distinct from the canonical gasoline non-water-soluble boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

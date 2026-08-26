@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "19a3023d518ee2d052c7367f50b18ff47005511983793866cae932543f6d7c7b",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "source_locator": "別紙1「セルフスタンド用注意書き文案」"
+    },
+    "answer_defining_proposition": "作業前に自動車の金属部分に触れて静電気を除去する。",
+    "tested_misconception": "車体に触れると静電気が増えるので避ける。",
+    "reasoning_path": "identify prescribed static-removal action",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; concrete static-control action."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Touching vehicle metal operationalizes the static-removal rule rather than repeating signage wording."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

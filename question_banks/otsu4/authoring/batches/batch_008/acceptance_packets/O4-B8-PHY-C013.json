@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B8-PHY-C013",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "67902ebbd4f1366f052b46d68a9fe440be3e0ce02f0a1285ca8d865a594442b6",
+  "actors": {
+    "author": {
+      "id": "otsu4-b8-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第4節 化学基礎 p.92「㋐ 物質量について」"
+    },
+    "answer_defining_proposition": "モル濃度の体積は溶液全体の体積である。",
+    "tested_misconception": "溶媒を量り取った体積をそのまま最終溶液体積とみなす。",
+    "reasoning_path": "read definition -> choose solution volume",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B8; misconception-focused definition boundary."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Targets the common solvent-volume versus final-solution-volume misconception."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
