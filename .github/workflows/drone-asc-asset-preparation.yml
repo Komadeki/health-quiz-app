@@ -1,0 +1,214 @@
+name: Drone App Store Asset Preparation
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-testflight-preview-current
+    paths:
+      - '.github/drone-asc-assets-trigger'
+
+permissions:
+  contents: read
+
+jobs:
+  prepare-assets:
+    runs-on: macos-15
+    timeout-minutes: 30
+    env:
+      APP_BUNDLE_ID: com.komadeki.dronesecondclass
+      APP_VERSION: '1.0.1'
+      IAP_PRODUCT_ID: drone_second_class_full_unlock
+      RC_COMMIT: 8220832bcc528f80d28d0103be77b1f2924c1a57
+      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+      APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+      APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+
+    steps:
+      - name: Checkout release helpers
+        uses: actions/checkout@v4
+        with:
+          path: helper
+
+      - name: Checkout exact Drone release candidate
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.RC_COMMIT }}
+          path: rc
+
+      - name: Install Flutter stable
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Prepare capture-only entrypoint
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp helper/.github/captures/drone_app_store_capture_main.dart \
+            rc/apps/drone_second_class/lib/app_store_capture_main.dart
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('rc/packages/qualification_app/lib/src/production_app.dart')
+          text = p.read_text(encoding='utf-8')
+          state_needle = "final class _QualificationHomeState extends State<QualificationHome> {\n  String? _dismissedNotice;"
+          state_replacement = """final class _QualificationHomeState extends State<QualificationHome> {
+            String? _dismissedNotice;
+            final ScrollController _captureScrollController = ScrollController();
+
+            @override
+            void initState() {
+              super.initState();
+              Future<void>.delayed(const Duration(seconds: 12), () {
+                if (!mounted || !_captureScrollController.hasClients) return;
+                final maxOffset = _captureScrollController.position.maxScrollExtent;
+                _captureScrollController.jumpTo(math.min(1150.0, maxOffset));
+              });
+            }
+
+            @override
+            void dispose() {
+              _captureScrollController.dispose();
+              super.dispose();
+            }"""
+          if state_needle not in text:
+              raise SystemExit('Could not patch home state for capture')
+          text = text.replace(state_needle, state_replacement, 1)
+          list_needle = "child: ListView(\n              padding: const EdgeInsets.all(16),"
+          list_replacement = "child: ListView(\n              controller: _captureScrollController,\n              padding: const EdgeInsets.all(16),"
+          if list_needle not in text:
+              raise SystemExit('Could not patch home ListView for capture')
+          text = text.replace(list_needle, list_replacement, 1)
+          p.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Build capture app for iOS Simulator
+        working-directory: rc/apps/drone_second_class
+        shell: bash
+        run: |
+          set -euo pipefail
+          flutter pub get
+          flutter build ios --simulator --debug --no-codesign \
+            -t lib/app_store_capture_main.dart
+          test -d build/ios/iphonesimulator/Runner.app
+
+      - name: Select App Store screenshot simulators
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' > "$RUNNER_TEMP/device.env"
+          import json, subprocess
+          runtimes = json.loads(subprocess.check_output(['xcrun','simctl','list','runtimes','-j']))['runtimes']
+          ios = [r for r in runtimes if r.get('isAvailable') and r.get('platform') == 'iOS']
+          if not ios:
+              raise SystemExit('No available iOS runtime')
+          runtime = sorted(ios, key=lambda r: r.get('version',''))[-1]
+          types = json.loads(subprocess.check_output(['xcrun','simctl','list','devicetypes','-j']))['devicetypes']
+          def choose(preferred, fallback):
+              for name in preferred:
+                  for item in types:
+                      if item.get('name') == name:
+                          return item['identifier'], item['name']
+              for item in reversed(types):
+                  if fallback in item.get('name',''):
+                      return item['identifier'], item['name']
+              raise SystemExit(f'No device type matching {fallback}')
+          phone_id, phone_name = choose(
+              ['iPhone 16 Pro Max', 'iPhone 17 Pro Max'],
+              'Pro Max',
+          )
+          ipad_id, ipad_name = choose(
+              ['iPad Pro 13-inch (M4)', 'iPad Pro 13-inch (M5)'],
+              'iPad Pro 13-inch',
+          )
+          print('RUNTIME_ID=' + runtime['identifier'])
+          print('PHONE_TYPE=' + phone_id)
+          print('PHONE_NAME=' + phone_name.replace(' ', '_'))
+          print('IPAD_TYPE=' + ipad_id)
+          print('IPAD_NAME=' + ipad_name.replace(' ', '_'))
+          PY
+          cat "$RUNNER_TEMP/device.env"
+          cat "$RUNNER_TEMP/device.env" >> "$GITHUB_ENV"
+
+      - name: Capture exact RC on iPhone and iPad
+        shell: bash
+        run: |
+          set -euo pipefail
+          CAPTURE_DIR="$GITHUB_WORKSPACE/rc/apps/drone_second_class/app_store_captures"
+          mkdir -p "$CAPTURE_DIR"
+          APP_PATH="$GITHUB_WORKSPACE/rc/apps/drone_second_class/build/ios/iphonesimulator/Runner.app"
+
+          PHONE_UDID=$(xcrun simctl create DroneStorePhone "$PHONE_TYPE" "$RUNTIME_ID")
+          trap 'xcrun simctl shutdown "$PHONE_UDID" >/dev/null 2>&1 || true; xcrun simctl delete "$PHONE_UDID" >/dev/null 2>&1 || true' EXIT
+          xcrun simctl boot "$PHONE_UDID"
+          xcrun simctl bootstatus "$PHONE_UDID" -b
+          xcrun simctl install "$PHONE_UDID" "$APP_PATH"
+          xcrun simctl launch "$PHONE_UDID" "$APP_BUNDLE_ID"
+          sleep 6
+          xcrun simctl io "$PHONE_UDID" screenshot "$CAPTURE_DIR/iphone_69_home.png"
+          sleep 10
+          xcrun simctl io "$PHONE_UDID" screenshot "$CAPTURE_DIR/iap_review.png"
+          xcrun simctl terminate "$PHONE_UDID" "$APP_BUNDLE_ID" || true
+          xcrun simctl shutdown "$PHONE_UDID"
+          xcrun simctl delete "$PHONE_UDID"
+          trap - EXIT
+
+          IPAD_UDID=$(xcrun simctl create DroneStoreIPad "$IPAD_TYPE" "$RUNTIME_ID")
+          trap 'xcrun simctl shutdown "$IPAD_UDID" >/dev/null 2>&1 || true; xcrun simctl delete "$IPAD_UDID" >/dev/null 2>&1 || true' EXIT
+          xcrun simctl boot "$IPAD_UDID"
+          xcrun simctl bootstatus "$IPAD_UDID" -b
+          xcrun simctl install "$IPAD_UDID" "$APP_PATH"
+          xcrun simctl launch "$IPAD_UDID" "$APP_BUNDLE_ID"
+          sleep 6
+          xcrun simctl io "$IPAD_UDID" screenshot "$CAPTURE_DIR/ipad_13_home.png"
+          xcrun simctl terminate "$IPAD_UDID" "$APP_BUNDLE_ID" || true
+          xcrun simctl shutdown "$IPAD_UDID"
+          xcrun simctl delete "$IPAD_UDID"
+          trap - EXIT
+
+          for image in "$CAPTURE_DIR"/*.png; do
+            echo "=== $image ==="
+            sips -g pixelWidth -g pixelHeight "$image"
+          done
+
+          PHONE_W=$(sips -g pixelWidth "$CAPTURE_DIR/iphone_69_home.png" | awk '/pixelWidth/ {print $2}')
+          PHONE_H=$(sips -g pixelHeight "$CAPTURE_DIR/iphone_69_home.png" | awk '/pixelHeight/ {print $2}')
+          IPAD_W=$(sips -g pixelWidth "$CAPTURE_DIR/ipad_13_home.png" | awk '/pixelWidth/ {print $2}')
+          IPAD_H=$(sips -g pixelHeight "$CAPTURE_DIR/ipad_13_home.png" | awk '/pixelHeight/ {print $2}')
+          if [[ "$PHONE_W" != "1320" || "$PHONE_H" != "2868" ]]; then
+            echo "::error::Unexpected iPhone screenshot size ${PHONE_W}x${PHONE_H}; refusing upload"
+            exit 1
+          fi
+          if [[ "$IPAD_W" != "2064" || "$IPAD_H" != "2752" ]]; then
+            echo "::error::Unexpected iPad screenshot size ${IPAD_W}x${IPAD_H}; refusing upload"
+            exit 1
+          fi
+          IAP_W=$(sips -g pixelWidth "$CAPTURE_DIR/iap_review.png" | awk '/pixelWidth/ {print $2}')
+          IAP_H=$(sips -g pixelHeight "$CAPTURE_DIR/iap_review.png" | awk '/pixelHeight/ {print $2}')
+          if [[ "$IAP_W" != "1320" || "$IAP_H" != "2868" ]]; then
+            echo "::error::Unexpected IAP screenshot size ${IAP_W}x${IAP_H}; refusing upload"
+            exit 1
+          fi
+          echo "DRONE_CAPTURE_DIR=$CAPTURE_DIR" >> "$GITHUB_ENV"
+
+      - name: Upload screenshots and finish App Store metadata assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in APP_STORE_CONNECT_API_KEY_ID APP_STORE_CONNECT_API_ISSUER_ID APP_STORE_CONNECT_API_KEY_BASE64; do
+            [[ -n "${!name:-}" ]] || { echo "::error::Missing $name"; exit 78; }
+          done
+          KEY_PATH="$RUNNER_TEMP/AuthKey_${APP_STORE_CONNECT_API_KEY_ID}.p8"
+          printf '%s' "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode > "$KEY_PATH"
+          chmod 600 "$KEY_PATH"
+          python3 -m pip install --quiet pyjwt cryptography
+          export ASC_KEY_PATH="$KEY_PATH"
+          python3 helper/.github/scripts/drone_asc_upload_assets.py
+
+      - name: Preserve generated review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: drone-app-store-review-assets-202608261144
+          path: rc/apps/drone_second_class/app_store_captures/*.png
+          if-no-files-found: error
+          retention-days: 14
