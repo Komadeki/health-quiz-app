@@ -287,7 +287,7 @@ final class _HomeHero extends StatelessWidget {
     final colors = theme.colorScheme;
     final definition = controller.definition;
     final availableText = controller.hasFullUnlock
-        ? '全$totalQuestions問を収録'
+        ? '全$totalQuestions問を利用できます'
         : '${controller.freeQuestionCount}問を無料で体験';
     return Semantics(
       container: true,
