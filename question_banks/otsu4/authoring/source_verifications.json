@@ -1127,6 +1127,314 @@
       "source_version": "2026-08-25-retrieved",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000162",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000163",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000164",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000165",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000166",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000167",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000168",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000169",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000170",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000171",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000172",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000173",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000174",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000175",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000176",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000177",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000178",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000179",
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000180",
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000181",
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000182",
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000183",
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000184",
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000185",
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000186",
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000187",
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000188",
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000189",
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000190",
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000191",
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000192",
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000193",
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000194",
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000195",
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000196",
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000197",
+      "source_id": "O4-MHLW-SDS-KEROSENE",
+      "source_version": "2019-03-15",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000198",
+      "source_id": "O4-MHLW-SDS-KEROSENE",
+      "source_version": "2019-03-15",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000199",
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000200",
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000201",
+      "source_id": "O4-MHLW-SDS-ETHANOL",
+      "source_version": "2014-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000202",
+      "source_id": "O4-MHLW-SDS-ETHANOL",
+      "source_version": "2014-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000203",
+      "source_id": "O4-MHLW-SDS-ETHANOL",
+      "source_version": "2014-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000204",
+      "source_id": "O4-MHLW-SDS-METHANOL",
+      "source_version": "2010-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
+    },
+    {
+      "question_id": "OTSU4-Q-000205",
+      "source_id": "O4-MHLW-SDS-ETHYL-ACETATE",
+      "source_version": "2020-03-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-26"
     }
   ]
 }

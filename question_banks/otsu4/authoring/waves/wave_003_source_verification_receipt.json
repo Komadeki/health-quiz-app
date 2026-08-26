@@ -1,0 +1,15 @@
+{
+  "schema_version":"1.0",
+  "wave_id":"W3",
+  "verification_result":"PASS",
+  "verified_candidate_count":44,
+  "canonical_verified_before":161,
+  "canonical_verified_after":205,
+  "permanent_id_range":{"first":"OTSU4-Q-000162","last":"OTSU4-Q-000205"},
+  "nonaccepted_preserved":{"reject":6,"rework":0,"hold":0},
+  "released_changed":false,
+  "runtime_changed":false,
+  "source_verification_state_epoch":61,
+  "next_atomic_objective":"PLAN_OTSU4_WAVE_4_600Q_COVERAGE",
+  "note":"Durable receipt added after the fail-closed source-verification worker passed; this commit does not change verification decisions."
+}
