@@ -15,8 +15,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Iterable
 
-from contract import QUESTION_FIELDS, QUESTION_ID_PATTERN, read_csv, read_json
-from expansion import CANDIDATE_COLUMNS
+from contract import QUESTION_FIELDS, QUESTION_ID_PATTERN, REQUIRED_QUESTION_FIELDS, read_csv, read_json
+from expansion import CANDIDATE_COLUMNS, REQUIRED_CANDIDATE_COLUMNS
 
 
 class TransactionError(RuntimeError):
@@ -101,14 +101,14 @@ class QuestionExpansionTransaction:
     def _load(self) -> tuple[list[str], list[dict[str, str]], list[str], list[dict[str, str]], list[str], list[dict[str, str]] | None]:
         candidate_fields, candidates = _read_rows(self.batch_dir / "candidates.csv")
         registry_fields, registry = _read_rows(self.bank_root / "authoring" / "question_id_registry.csv")
-        if candidate_fields != list(CANDIDATE_COLUMNS):
+        if not set(REQUIRED_CANDIDATE_COLUMNS).issubset(candidate_fields) or set(candidate_fields) - set(CANDIDATE_COLUMNS):
             raise TransactionError("candidate schema does not match the expansion contract")
         if not {"question_id", "status", "first_used_bank_revision", "retired_at"}.issubset(registry_fields):
             raise TransactionError("registry schema is missing permanent-ID fields")
         if self.question_factory is None:
             return candidate_fields, candidates, registry_fields, registry, [], None
         question_fields, questions = _read_rows(self.bank_root / "authoring" / "questions.csv")
-        if question_fields != list(QUESTION_FIELDS):
+        if not set(REQUIRED_QUESTION_FIELDS).issubset(question_fields) or set(question_fields) - set(QUESTION_FIELDS):
             raise TransactionError("canonical question schema does not match the Question contract")
         return candidate_fields, candidates, registry_fields, registry, question_fields, questions
 
@@ -138,6 +138,7 @@ class QuestionExpansionTransaction:
                         ("choice2", "choice2"),
                         ("choice3", "choice3"),
                         ("choice4", "choice4"),
+                        ("choice5", "choice5"),
                         ("proposed_correct", "correct_choice"),
                     ))
                     for question in questions
