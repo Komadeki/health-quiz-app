@@ -287,7 +287,7 @@ final class _HomeHero extends StatelessWidget {
     final colors = theme.colorScheme;
     final definition = controller.definition;
     final availableText = controller.hasFullUnlock
-        ? '全$totalQuestions問を収録'
+        ? '全$totalQuestions問を利用できます'
         : '${controller.freeQuestionCount}問を無料で体験';
     return Semantics(
       container: true,
@@ -1322,6 +1322,40 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
     controller.returnHome();
   }
 
+  Future<void> _commitSelected() async {
+    final choice = selectedChoice;
+    if (choice == null) return;
+    await widget.controller.commitAnswer(choice);
+    if (mounted) setState(() {});
+  }
+
+  Future<void> _submitMockExam() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('模擬試験を提出しますか？'),
+        content: const Text(
+          '提出すると採点され、回答は変更できません。見直す場合は「見直す」を選んでください。',
+        ),
+        actions: [
+          TextButton(
+            key: const Key('review-before-submit'),
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: const Text('見直す'),
+          ),
+          FilledButton(
+            key: const Key('confirm-submit-mock-exam'),
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: const Text('提出して採点'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true && mounted) {
+      await widget.controller.advance();
+    }
+  }
+
   @override
   void dispose() {
     _clockTicker?.cancel();
@@ -1339,6 +1373,14 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
     final committed = committedChoice != null;
     final isMockExam = session.mode == LearningModeV1.mockExam;
     final correct = committed && committedChoice == card.answerIndex;
+    final pendingChange = isMockExam &&
+        committed &&
+        selectedChoice != null &&
+        selectedChoice != committedChoice;
+    final hasUnsavedInitialChoice =
+        isMockExam && !committed && selectedChoice != null;
+    final navigationBlocked = pendingChange || hasUnsavedInitialChoice;
+    final isLast = session.currentIndex == session.questionIds.length - 1;
     final timeLimit = isMockExam
         ? controller.definition.examProfile?.timeLimitMinutes
         : null;
@@ -1381,9 +1423,15 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                 ),
                 const SizedBox(height: 16),
                 RadioGroup<int>(
-                  groupValue: committed ? committedChoice : selectedChoice,
+                  groupValue: isMockExam
+                      ? selectedChoice
+                      : committed
+                          ? committedChoice
+                          : selectedChoice,
                   onChanged: (value) {
-                    if (!committed) setState(() => selectedChoice = value);
+                    if (isMockExam || !committed) {
+                      setState(() => selectedChoice = value);
+                    }
                   },
                   child: Column(
                     children: [
@@ -1392,7 +1440,7 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                           child: RadioListTile<int>(
                             key: Key('choice-$choiceIndex'),
                             value: choiceIndex,
-                            enabled: !committed,
+                            enabled: isMockExam || !committed,
                             title: Text(card.choices[choiceIndex]),
                           ),
                         ),
@@ -1403,53 +1451,102 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                 if (!committed)
                   FilledButton(
                     key: const Key('commit-answer'),
-                    onPressed: selectedChoice == null
-                        ? null
-                        : () => controller.commitAnswer(selectedChoice!),
+                    onPressed: selectedChoice == null ? null : _commitSelected,
                     child: const Text('回答確定'),
                   ),
-                if (committed) ...[
-                  if (isMockExam)
+                if (isMockExam) ...[
+                  if (committed) ...[
                     Semantics(
                       liveRegion: true,
                       child: const Text(
-                        '回答を記録しました',
+                        '回答済みです。提出前なら変更できます。',
                         key: Key('mock-answer-committed'),
                       ),
-                    )
-                  else ...[
-                    Semantics(
-                      liveRegion: true,
-                      child: Text(
-                        correct ? '正解' : '不正解',
-                        key: const Key('answer-feedback'),
-                        style:
-                            Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  color: correct
-                                      ? Colors.green.shade800
-                                      : Theme.of(context).colorScheme.error,
-                                ),
+                    ),
+                    if (pendingChange) ...[
+                      const SizedBox(height: 12),
+                      FilledButton(
+                        key: const Key('revise-answer'),
+                        onPressed: _commitSelected,
+                        child: const Text('回答を変更'),
                       ),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      'あなたの回答: ${card.choices[committedChoice]}',
-                      key: const Key('selected-answer-feedback'),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '正解: ${card.choices[card.answerIndex]}',
-                      key: const Key('correct-answer-feedback'),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      '解説（Explanation）',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(card.explanation ?? ''),
-                    _QuestionSourceProvenance(card: card),
+                      const SizedBox(height: 6),
+                      const Text(
+                        '回答を変更してから問題を移動してください。',
+                        key: Key('pending-answer-change'),
+                      ),
+                    ],
                   ],
+                  if (hasUnsavedInitialChoice) ...[
+                    const SizedBox(height: 6),
+                    const Text(
+                      '回答を確定してから問題を移動してください。',
+                      key: Key('pending-initial-answer'),
+                    ),
+                  ],
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      if (session.currentIndex > 0) ...[
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            key: const Key('previous-question'),
+                            onPressed: navigationBlocked
+                                ? null
+                                : controller.moveToPreviousMockQuestion,
+                            icon: const Icon(Icons.arrow_back),
+                            label: const Text('前へ'),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                      ],
+                      Expanded(
+                        child: FilledButton.icon(
+                          key: Key(isLast ? 'submit-mock-exam' : 'next-question'),
+                          onPressed: !committed || navigationBlocked
+                              ? null
+                              : isLast
+                                  ? _submitMockExam
+                                  : controller.advance,
+                          icon: Icon(
+                            isLast ? Icons.fact_check_outlined : Icons.arrow_forward,
+                          ),
+                          label: Text(isLast ? '提出して採点' : '次へ'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ] else if (committed) ...[
+                  Semantics(
+                    liveRegion: true,
+                    child: Text(
+                      correct ? '正解' : '不正解',
+                      key: const Key('answer-feedback'),
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            color: correct
+                                ? Colors.green.shade800
+                                : Theme.of(context).colorScheme.error,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'あなたの回答: ${card.choices[committedChoice]}',
+                    key: const Key('selected-answer-feedback'),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '正解: ${card.choices[card.answerIndex]}',
+                    key: const Key('correct-answer-feedback'),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    '解説（Explanation）',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(card.explanation ?? ''),
+                  _QuestionSourceProvenance(card: card),
                   const SizedBox(height: 16),
                   FilledButton(
                     key: const Key('next-question'),
