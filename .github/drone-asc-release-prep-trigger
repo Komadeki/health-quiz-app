@@ -1,0 +1,4 @@
+Drone App Store release preparation
+Target version: 1.0.1
+Release candidate build: 202608261144
+Action: update editable version number if needed and attach RC build; do not submit for review
