@@ -1,0 +1,174 @@
+name: Drone App Store Metadata Fill
+
+on:
+  push:
+    branches:
+      - chatgpt/drone-testflight-preview-current
+    paths:
+      - '.github/drone-asc-metadata-fill-trigger'
+
+permissions:
+  contents: read
+
+jobs:
+  fill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      APP_BUNDLE_ID: com.komadeki.dronesecondclass
+      APP_VERSION: '1.0.1'
+      IAP_PRODUCT_ID: drone_second_class_full_unlock
+      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+      APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+      APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+    steps:
+      - name: Fill text metadata and audit IAP
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in APP_STORE_CONNECT_API_KEY_ID APP_STORE_CONNECT_API_ISSUER_ID APP_STORE_CONNECT_API_KEY_BASE64; do
+            [[ -n "${!name:-}" ]] || { echo "::error::Missing $name"; exit 78; }
+          done
+          KEY_PATH="$RUNNER_TEMP/AuthKey_${APP_STORE_CONNECT_API_KEY_ID}.p8"
+          printf '%s' "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode > "$KEY_PATH"
+          chmod 600 "$KEY_PATH"
+          python3 -m pip install --quiet pyjwt cryptography
+          export ASC_KEY_PATH="$KEY_PATH"
+          python3 - <<'PY'
+          import json, os, sys, time, urllib.error, urllib.parse, urllib.request, jwt
+
+          DESCRIPTION = '''二等無人航空機の学科試験対策を、教則第5版に基づく全386問で繰り返し学習できるアプリです。
+
+【主な機能】
+・30問を無料で体験。全問解放後は全386問を利用可能
+・単元別学習
+・ランダム演習（20問）
+・未回答／直近で間違えた問題を、残数に応じた問題数を選んで演習
+・50問・30分の模擬試験
+・模擬試験は提出前に前の問題へ戻って回答変更可能
+・学習進捗、正答率、要復習、苦手単元を可視化
+・買い切りで全386問と模擬試験を解放
+・購入復元対応
+
+問題・進捗は端末内で管理し、アカウント登録は不要です。
+
+本アプリはKOMADEKIが提供する民間の学習支援アプリであり、国土交通省その他の公的機関が提供・公認・監修する公式アプリではありません。'''
+          KEYWORDS = 'ドローン,無人航空機,二等,操縦士,学科試験,資格,模擬試験,教則,試験対策'
+          SUPPORT_URL = 'https://komadeki.com/drone-second-class/support/'
+          PRIVACY_URL = 'https://komadeki.com/drone-second-class/privacy/'
+          SUBTITLE = '二等学科を386問で反復学習'
+          IAP_NAME = '全386問を解放'
+          IAP_DESCRIPTION = '全386問と50問・30分の模擬試験を利用できます。'
+          REVIEW_NOTES = '''二等無人航空機の学科試験対策アプリです。アカウント登録はありません。
+無料状態では30問を利用できます。非消費型IAP「全386問を解放」で全386問と模擬試験を利用できます。
+購入画面はホーム下部の「全問解放」、または「模擬試験」をタップして確認できます。
+模擬試験は50問・30分で、提出前は前の問題へ戻り回答変更できます。'''
+
+          with open(os.environ['ASC_KEY_PATH'], encoding='utf-8') as fh: private_key = fh.read()
+          key_id=os.environ['APP_STORE_CONNECT_API_KEY_ID']; issuer_id=os.environ['APP_STORE_CONNECT_API_ISSUER_ID']
+          bundle_id=os.environ['APP_BUNDLE_ID']; app_version=os.environ['APP_VERSION']; iap_product_id=os.environ['IAP_PRODUCT_ID']
+
+          def token():
+              now=int(time.time())
+              return jwt.encode({'iss':issuer_id,'iat':now,'exp':now+900,'aud':'appstoreconnect-v1'}, private_key, algorithm='ES256', headers={'kid':key_id,'typ':'JWT'})
+          def req(method,path,params=None,body=None,optional=False):
+              url='https://api.appstoreconnect.apple.com'+path
+              if params: url+='?'+urllib.parse.urlencode(params,doseq=True)
+              data=None if body is None else json.dumps(body, ensure_ascii=False).encode('utf-8')
+              headers={'Authorization':'Bearer '+token()}
+              if body is not None: headers['Content-Type']='application/json'
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(url,data=data,headers=headers,method=method),timeout=30) as r:
+                      raw=r.read(); return None if not raw else json.loads(raw)
+              except urllib.error.HTTPError as e:
+                  raw=e.read().decode(errors='replace')
+                  if optional:
+                      print(f'OPTIONAL_API_UNAVAILABLE={method} {path} HTTP {e.code}: {raw[:300]}')
+                      return None
+                  print(f'HTTP {e.code} {method} {path}: {raw}',file=sys.stderr); raise
+
+          apps=req('GET','/v1/apps',{'filter[bundleId]':bundle_id,'limit':1}); app=apps['data'][0]; app_id=app['id']
+          versions=req('GET',f'/v1/apps/{app_id}/appStoreVersions',{'limit':200}); version=None
+          for item in versions.get('data',[]):
+              if item.get('attributes',{}).get('versionString')==app_version: version=item
+          if version is None: print('::error::Target version missing'); sys.exit(1)
+          version_id=version['id']
+
+          # Version-level required metadata.
+          req('PATCH',f'/v1/appStoreVersions/{version_id}',body={'data':{'type':'appStoreVersions','id':version_id,'attributes':{'copyright':'2026 KOMADEKI','releaseType':'AFTER_APPROVAL'}}})
+          locs=req('GET',f'/v1/appStoreVersions/{version_id}/appStoreVersionLocalizations',{'limit':200}); ja=None
+          for loc in locs.get('data',[]):
+              if loc.get('attributes',{}).get('locale')=='ja': ja=loc
+          if ja is None:
+              created=req('POST','/v1/appStoreVersionLocalizations',body={'data':{'type':'appStoreVersionLocalizations','attributes':{'locale':'ja','description':DESCRIPTION,'keywords':KEYWORDS,'supportUrl':SUPPORT_URL},'relationships':{'appStoreVersion':{'data':{'type':'appStoreVersions','id':version_id}}}}})
+              ja=created['data']
+              print('VERSION_LOCALIZATION_CREATED=true')
+          else:
+              loc_id=ja['id']
+              req('PATCH',f'/v1/appStoreVersionLocalizations/{loc_id}',body={'data':{'type':'appStoreVersionLocalizations','id':loc_id,'attributes':{'description':DESCRIPTION,'keywords':KEYWORDS,'supportUrl':SUPPORT_URL}}})
+              print('VERSION_LOCALIZATION_UPDATED=true')
+
+          # App-info localization: subtitle + privacy policy URL.
+          infos=req('GET',f'/v1/apps/{app_id}/appInfos',{'limit':50}); editable=None
+          for info in infos.get('data',[]):
+              state=info.get('attributes',{}).get('state') or info.get('attributes',{}).get('appStoreState')
+              if state=='PREPARE_FOR_SUBMISSION' or editable is None: editable=info
+          if editable:
+              ilocs=req('GET',f"/v1/appInfos/{editable['id']}/appInfoLocalizations",{'limit':200})
+              for iloc in ilocs.get('data',[]):
+                  if iloc.get('attributes',{}).get('locale')=='ja':
+                      iid=iloc['id']
+                      req('PATCH',f'/v1/appInfoLocalizations/{iid}',body={'data':{'type':'appInfoLocalizations','id':iid,'attributes':{'subtitle':SUBTITLE,'privacyPolicyUrl':PRIVACY_URL}}})
+                      print('APP_INFO_LOCALIZATION_UPDATED=true')
+
+          # Reuse contact data already held by Apple for TestFlight, avoiding guessed personal details.
+          beta=req('GET',f'/v1/apps/{app_id}/betaAppReviewDetail',optional=True)
+          beta_attrs=(beta or {}).get('data',{}).get('attributes',{}) if (beta or {}).get('data') else {}
+          review=req('GET',f'/v1/appStoreVersions/{version_id}/appStoreReviewDetail',optional=True)
+          review_data=(review or {}).get('data')
+          contact_fields={k:beta_attrs.get(k) for k in ['contactFirstName','contactLastName','contactPhone','contactEmail']}
+          contact_complete=all((v or '').strip() for v in contact_fields.values())
+          print('BETA_REVIEW_CONTACT_COMPLETE='+str(contact_complete).lower())
+          if review_data:
+              rid=review_data['id']; attrs={'demoAccountRequired':False,'notes':REVIEW_NOTES}
+              if contact_complete: attrs.update(contact_fields)
+              req('PATCH',f'/v1/appStoreReviewDetails/{rid}',body={'data':{'type':'appStoreReviewDetails','id':rid,'attributes':attrs}})
+              print('APP_REVIEW_DETAIL_UPDATED=true')
+          elif contact_complete:
+              attrs={**contact_fields,'demoAccountRequired':False,'notes':REVIEW_NOTES}
+              req('POST','/v1/appStoreReviewDetails',body={'data':{'type':'appStoreReviewDetails','attributes':attrs,'relationships':{'appStoreVersion':{'data':{'type':'appStoreVersions','id':version_id}}}}})
+              print('APP_REVIEW_DETAIL_CREATED=true')
+          else:
+              print('APP_REVIEW_DETAIL_BLOCKED_BY_CONTACT=true')
+
+          # IAP audit + safe localization completion via existing v1 metadata path.
+          iaps=req('GET',f'/v1/apps/{app_id}/inAppPurchasesV2',{'filter[productId]':iap_product_id,'limit':10})
+          if not iaps.get('data'): print('::error::IAP missing'); sys.exit(1)
+          iap=iaps['data'][0]; iap_id=iap['id']; print('IAP_ID='+iap_id); print('IAP_STATE_BEFORE='+str(iap.get('attributes',{}).get('state')))
+          detail=req('GET',f'/v2/inAppPurchases/{iap_id}',{'include':'inAppPurchaseLocalizations,iapPriceSchedule,appStoreReviewScreenshot,inAppPurchaseAvailability,versions','limit[inAppPurchaseLocalizations]':50,'limit[versions]':50},optional=True)
+          included=(detail or {}).get('included',[])
+          old_locs=[x for x in included if x.get('type')=='inAppPurchaseLocalizations']
+          schedules=[x for x in included if x.get('type')=='inAppPurchasePriceSchedules']
+          review_shots=[x for x in included if x.get('type')=='inAppPurchaseAppStoreReviewScreenshots']
+          avail=[x for x in included if x.get('type')=='inAppPurchaseAvailabilities']
+          versions_iap=[x for x in included if x.get('type')=='inAppPurchaseVersions']
+          print('IAP_LOCALIZATION_COUNT='+str(len(old_locs)))
+          print('IAP_PRICE_SCHEDULE_PRESENT='+str(bool(schedules)).lower())
+          print('IAP_REVIEW_SCREENSHOT_PRESENT='+str(bool(review_shots)).lower())
+          print('IAP_AVAILABILITY_PRESENT='+str(bool(avail)).lower())
+          print('IAP_VERSION_COUNT='+str(len(versions_iap)))
+          if not old_locs and not versions_iap:
+              req('POST','/v1/inAppPurchaseLocalizations',body={'data':{'type':'inAppPurchaseLocalizations','attributes':{'locale':'ja','name':IAP_NAME,'description':IAP_DESCRIPTION},'relationships':{'inAppPurchaseV2':{'data':{'type':'inAppPurchases','id':iap_id}}}}})
+              print('IAP_LOCALIZATION_CREATED_V1=true')
+          elif old_locs:
+              ja_iap=next((x for x in old_locs if x.get('attributes',{}).get('locale')=='ja'),None)
+              if ja_iap:
+                  lid=ja_iap['id']
+                  req('PATCH',f'/v1/inAppPurchaseLocalizations/{lid}',body={'data':{'type':'inAppPurchaseLocalizations','id':lid,'attributes':{'name':IAP_NAME,'description':IAP_DESCRIPTION}}})
+                  print('IAP_LOCALIZATION_UPDATED_V1=true')
+
+          # Final state snapshot.
+          iaps2=req('GET',f'/v1/apps/{app_id}/inAppPurchasesV2',{'filter[productId]':iap_product_id,'limit':10})
+          print('IAP_STATE_AFTER='+str(iaps2['data'][0].get('attributes',{}).get('state')))
+          print('VERSION_METADATA_FILLED=true')
+          PY
