@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "app_key": "otsu4",
+  "batch_id": "B12",
+  "directory_slug": "batch_012",
+  "baseline_sha": "59ac77bb12f6fe6e5cfaf755871787af38fe41e2",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id":"otsu4-b12-author-r1","role":"AI_AUTHOR"},
+  "expansion_trigger": "Author Wave 3 B12 original extinguishing and fire-response candidates from registered MHLW SDS Section 5 fields.",
+  "evidence": ["docs/OTSU4_QUESTION_FACTORY_WAVE_MODE_V1.md","docs/OTSU4_600Q_PINPOINT_SOURCE_CATALOG_V1.md","question_banks/otsu4/authoring/BATCH_012_COVERAGE_PLAN_V1.json","question_banks/otsu4/authoring/waves/wave_003.json","question_banks/otsu4/QUESTION_BANK_CONTRACT_V0.md"],
+  "target_size_decisions":[{"decision_id":"O4-TARGET-002","previous_approved_target":300,"current_released_count":0,"proposed_target_min":600,"proposed_target_max":600,"approved_new_target":600,"rationale":"Current commercial target; quality-gated and not a quota.","decision_date":"2026-08-25","evidence":"docs/OTSU4_600Q_PRODUCTION_TARGET_DECISION_V1.md"}],
+  "coverage_limit_decisions":[],
+  "planned_scope":{"candidate_count":15,"candidate_count_is_quota":false,"subject_counts":{"law":0,"physics_chemistry":0,"properties_fire":15},"knowledge_target_id":"O4-FIR-KT-EXTINGUISHING"},
+  "invariants":{"PERMANENT_IDS_ALLOCATED_AT_AUTHORING":0,"HUMAN_REVIEW_CREATED":false,"CANONICAL_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false},
+  "next_gate":"INDEPENDENT_AI_REVIEW"
+}
