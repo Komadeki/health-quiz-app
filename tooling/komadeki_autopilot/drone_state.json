@@ -3,7 +3,7 @@
   "project": "03｜KOMADEKI 資格試験アプリ量産",
   "product": "drone_second_class",
   "control_issue": 40,
-  "status": "ACTIVE",
+  "status": "HUMAN_BLOCKED",
   "current_phase": "PHYSICAL_DEVICE",
   "phase_order": [
     "QUESTION_BANK_COMPLETION",
@@ -16,12 +16,15 @@
     "SUBMIT",
     "DONE"
   ],
-  "observed_main": "685400e6008fed5d67abbae1436973dd080d10cf",
+  "observed_main": "efa9036b711865e682e25386aa7e493868ceb8d1",
   "next_atomic_objective": "VERIFY_PHYSICAL_DEVICE_EVIDENCE",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
-  "human_blocker": null,
-  "state_epoch": 146
+  "human_blocker": {
+    "action": "Run the bounded physical-iPhone interaction checklist in docs/KOMADEKI_UI_UX_PHYSICAL_EVIDENCE_GATE.md using a build containing reconciled Drone 386-question main efa9036b711865e682e25386aa7e493868ceb8d1 or a later reconciled main commit, then return the observed results for durable GitHub persistence.",
+    "resume_evidence": "Provide physical iPhone model, iOS version, tested build or commit SHA, PASS/FAIL for checks 1 through 8, and concrete screen/action evidence for any FAIL. A real purchase is not required. The evidence must be reconciled against then-current main before advancing to STOREKIT_TESTFLIGHT."
+  },
+  "state_epoch": 147
 }
