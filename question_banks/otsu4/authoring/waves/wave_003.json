@@ -1,12 +1,13 @@
 {
   "schema_version": "1.0",
   "wave_id": "W3",
-  "status": "PLANNED",
+  "status": "PARTIALLY_AUTHORED",
   "planned_at": "2026-08-26",
   "production_target": 600,
   "canonical_verified_baseline": 161,
   "candidate_ceiling": 72,
   "candidate_ceiling_is_quota": false,
+  "actual_candidate_counts": {"B10": 0, "B11": 14, "B12": 0, "total": 14},
   "batches": [
     {"batch_id": "B10", "candidate_ceiling": 24, "knowledge_target_id": "O4-LAW-KT-TRANSPORT", "target_total_plan": 40, "source_path": "current e-Gov Decree/Rule transport, container, loading and marking provisions"},
     {"batch_id": "B11", "candidate_ceiling": 24, "knowledge_target_id": "O4-PHY-KT-COMBUSTION", "target_total_plan": 40, "source_path": "FDMA combustion guidance and frozen MEXT pinpoint ranges"},
@@ -27,5 +28,5 @@
     "RELEASED_CHANGED": false,
     "RUNTIME_CHANGED": false
   },
-  "next_gate": "AUTHOR_OTSU4_WAVE_3_AI_PRE_ACCEPT"
+  "next_gate": "AUTHOR_OTSU4_WAVE_3_REMAINING_AI_PRE_ACCEPT"
 }
