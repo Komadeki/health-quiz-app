@@ -56,6 +56,8 @@ void main() {
       expect(find.byKey(Key(metricKey)), findsOneWidget);
     }
     expect(find.byKey(const Key('unit-fixture_safety')), findsOneWidget);
+    expect(find.textContaining('利用可能 1問 / 全1問'), findsOneWidget);
+    expect(find.textContaining('利用可能 0問 / 全1問'), findsOneWidget);
     expect(find.byKey(const Key('start-random')), findsOneWidget);
     expect(find.byKey(const Key('start-unanswered')), findsOneWidget);
     expect(find.byKey(const Key('start-incorrect')), findsOneWidget);
@@ -114,6 +116,62 @@ void main() {
     for (final unsupported in ['合格可能性', 'AI合否', '本番力']) {
       expect(find.textContaining(unsupported), findsNothing);
     }
+  });
+
+  testWidgets('unlocked unit cards state that every question is available', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final controller = await createController(
+      entitlement: EntitlementSnapshot(
+        ownedProductIds: const {'fixture_full_unlock'},
+      ),
+    );
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      QualificationProductionApp(
+        definition: fixtureDefinition,
+        controller: controller,
+      ),
+    );
+
+    expect(find.textContaining('全1問を利用可能'), findsNWidgets(2));
+  });
+
+  testWidgets('quiz displays choices in the session shuffle order', (
+    tester,
+  ) async {
+    final controller = await createController();
+    addTearDown(controller.dispose);
+    await controller.startUnit('fixture_safety');
+    final card = controller.currentCard!;
+    final order = controller.currentChoiceOrder;
+
+    await tester.pumpWidget(
+      QualificationProductionApp(
+        definition: fixtureDefinition,
+        controller: controller,
+      ),
+    );
+
+    final displayedValues = tester
+        .widgetList<RadioListTile<int>>(find.byType(RadioListTile<int>))
+        .map((tile) => tile.value)
+        .toList(growable: false);
+    expect(displayedValues, order);
+    expect(
+      order,
+      isNot(equals(List<int>.generate(card.choices.length, (i) => i))),
+    );
+
+    await tester.tap(find.byKey(Key('choice-${card.answerIndex}')));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('commit-answer')));
+    await tester.pump();
+    expect(find.text('正解'), findsOneWidget);
   });
 
   testWidgets('learning status action explains progress by unit', (

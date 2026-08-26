@@ -808,12 +808,15 @@ final class _UnitCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final accessible = controller.accessibleCardsFor(unit).length;
     final metric = controller.progress?.byUnit[unit.id];
+    final accessLabel = controller.hasFullUnlock
+        ? '全${unit.cards.length}問を利用可能'
+        : '利用可能 $accessible問 / 全${unit.cards.length}問';
     return Card(
       child: ListTile(
         key: Key('unit-${unit.id}'),
         title: Text(unit.title),
         subtitle: Text(
-          '$accessible / ${unit.cards.length}問を利用可能'
+          '$accessLabel'
           '${metric == null ? '' : ' ・ 学習済み${metric.completedQuestions}問'}',
         ),
         trailing: const Icon(Icons.chevron_right),
@@ -1331,6 +1334,7 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
     final controller = widget.controller;
     final session = controller.activeSession!;
     final card = controller.currentCard!;
+    final choiceOrder = controller.currentChoiceOrder;
     final committedChoice = controller.currentResponse;
     final committed = committedChoice != null;
     final isMockExam = session.mode == LearningModeV1.mockExam;
@@ -1383,15 +1387,13 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                   },
                   child: Column(
                     children: [
-                      for (var index = 0;
-                          index < card.choices.length;
-                          index += 1)
+                      for (final choiceIndex in choiceOrder)
                         Card(
                           child: RadioListTile<int>(
-                            key: Key('choice-$index'),
-                            value: index,
+                            key: Key('choice-$choiceIndex'),
+                            value: choiceIndex,
                             enabled: !committed,
-                            title: Text(card.choices[index]),
+                            title: Text(card.choices[choiceIndex]),
                           ),
                         ),
                     ],
