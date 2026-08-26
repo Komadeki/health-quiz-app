@@ -248,7 +248,7 @@ final class _MetricDescriptor {
   );
 }
 
-final class _RadarDatum extends StatelessWidget {
+final class _RadarDatum {
   const _RadarDatum({
     required this.label,
     required this.value,
