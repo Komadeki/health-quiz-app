@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C013",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "42a71be6963dd77013765f79414495d7a3f610ec116c626ed39d03b45875749f",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "(1) 塗装・印刷作業等の一般取扱所 イ「塗装機、印刷機、塗装ブース等」"
+    },
+    "answer_defining_proposition": "静電気除去装置やアースは設備側の静電気防止対策である。",
+    "tested_misconception": "静電気対策として設備を接地しない方がよい。",
+    "reasoning_path": "equipment static risk -> eliminator/grounding",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; equipment-control proposition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Equipment grounding/static eliminators are distinct engineering controls."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

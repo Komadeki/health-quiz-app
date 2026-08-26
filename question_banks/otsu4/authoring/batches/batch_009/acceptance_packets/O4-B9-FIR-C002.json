@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4f6b2077aca9d3ac7fd520f20d16ca00ca6f1fa20fe9cd4d1c1fe53b1e3d32f6",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "source_locator": "通知本文「火災の原因は静電気による引火の可能性が高い」"
+    },
+    "answer_defining_proposition": "セルフスタンド火災2件では静電気による引火の可能性が高いとされた。",
+    "tested_misconception": "火気が見当たらなければ着火源は存在しない。",
+    "reasoning_path": "absence of visible flame -> notice identifies static ignition likelihood",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; causal source proposition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Static ignition likelihood is a separate causal proposition from C001."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W2",
-  "status": "INDEPENDENT_AI_REVIEWED",
+  "status": "DIRECTOR_ACCEPTED_AND_PROMOTED",
   "planned_at": "2026-08-26",
   "authored_at": "2026-08-26",
   "reviewed_at": "2026-08-26",
@@ -9,17 +9,74 @@
   "canonical_verified_baseline": 111,
   "candidate_ceiling": 72,
   "candidate_ceiling_is_quota": false,
-  "actual_candidate_counts": {"B7":20,"B8":16,"B9":20,"total":56},
-  "review_summary": {"reviewed":56,"accept":50,"reject":6,"rework":0,"hold":0,"reviewer_id":"otsu4-wave2-independent-reviewer-r1","identity_separation":"PASS"},
+  "actual_candidate_counts": {
+    "B7": 20,
+    "B8": 16,
+    "B9": 20,
+    "total": 56
+  },
+  "review_summary": {
+    "reviewed": 56,
+    "accept": 50,
+    "reject": 6,
+    "rework": 0,
+    "hold": 0,
+    "reviewer_id": "otsu4-wave2-independent-reviewer-r1",
+    "identity_separation": "PASS"
+  },
   "non_accepted_candidate_ids": {
-    "reject": ["O4-B7-LAW-C011","O4-B7-LAW-C012","O4-B7-LAW-C018","O4-B8-PHY-C004","O4-B8-PHY-C014","O4-B8-PHY-C015"],
+    "reject": [
+      "O4-B7-LAW-C011",
+      "O4-B7-LAW-C012",
+      "O4-B7-LAW-C018",
+      "O4-B8-PHY-C004",
+      "O4-B8-PHY-C014",
+      "O4-B8-PHY-C015"
+    ],
     "rework": []
   },
-  "authors": {"B7":{"id":"otsu4-b7-author-r1","role":"AI_AUTHOR"},"B8":{"id":"otsu4-b8-author-r1","role":"AI_AUTHOR"},"B9":{"id":"otsu4-b9-author-r1","role":"AI_AUTHOR"}},
+  "authors": {
+    "B7": {
+      "id": "otsu4-b7-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B8": {
+      "id": "otsu4-b8-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B9": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
   "batches": [
-    {"batch_id":"B7","candidate_ceiling":24,"actual_candidate_count":20,"review_accept_count":17,"knowledge_target_id":"O4-LAW-KT-QUANTITY","target_total_plan":60,"source_path":"current e-Gov Fire Service Act/Decree/Rule specified-quantity and classification provisions"},
-    {"batch_id":"B8","candidate_ceiling":24,"actual_candidate_count":16,"review_accept_count":13,"knowledge_target_id":"O4-PHY-KT-CONCENTRATION","target_total_plan":30,"source_path":"MEXT Chemistry Basics printed p.92 quantitative chemistry / molar concentration"},
-    {"batch_id":"B9","candidate_ceiling":24,"actual_candidate_count":20,"review_accept_count":20,"knowledge_target_id":"O4-FIR-KT-HAZARDS-PREVENTION","target_total_plan":40,"source_path":"FDMA static-electricity notice and named incident-prevention guidance"}
+    {
+      "batch_id": "B7",
+      "candidate_ceiling": 24,
+      "actual_candidate_count": 20,
+      "review_accept_count": 17,
+      "knowledge_target_id": "O4-LAW-KT-QUANTITY",
+      "target_total_plan": 60,
+      "source_path": "current e-Gov Fire Service Act/Decree/Rule specified-quantity and classification provisions"
+    },
+    {
+      "batch_id": "B8",
+      "candidate_ceiling": 24,
+      "actual_candidate_count": 16,
+      "review_accept_count": 13,
+      "knowledge_target_id": "O4-PHY-KT-CONCENTRATION",
+      "target_total_plan": 30,
+      "source_path": "MEXT Chemistry Basics printed p.92 quantitative chemistry / molar concentration"
+    },
+    {
+      "batch_id": "B9",
+      "candidate_ceiling": 24,
+      "actual_candidate_count": 20,
+      "review_accept_count": 20,
+      "knowledge_target_id": "O4-FIR-KT-HAZARDS-PREVENTION",
+      "target_total_plan": 40,
+      "source_path": "FDMA static-electricity notice and named incident-prevention guidance"
+    }
   ],
   "authoring_rule": "All 56 candidates were persisted as AI_PRE_ACCEPT before independent review. No Permanent IDs, canonical rows, source-verification rows, released rows or runtime rows were created during authoring or review.",
   "collision_rule": "Independent review rechecked all 56 candidates against all 111 canonical/source-verified questions and the full Wave 2 peer set. Six filler/collision variants were rejected without quota backfill.",
@@ -29,5 +86,15 @@
   "planned_state_epoch": 50,
   "authored_state_epoch": 51,
   "reviewed_state_epoch": 52,
-  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_W2_ACCEPTED_50"
+  "next_gate": "ALLOCATE_AND_INTEGRATE_W2_ACCEPTED_50",
+  "director_adjudication": {
+    "artifact": "wave_002_director_adjudication_r1.json",
+    "decision": "ADOPT_REVIEWER_DECISIONS",
+    "accept": 50,
+    "reject": 6,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_state": "READY_FOR_ID",
+  "accept_promote_state_epoch": 53
 }

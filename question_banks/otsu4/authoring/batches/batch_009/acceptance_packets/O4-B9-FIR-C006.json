@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c59689044970af7cf0160e2c246e2b20b7e9b6e4173abfed91bdff702ec2382e",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "source_locator": "通知本文「使用方法の表示」新"
+    },
+    "answer_defining_proposition": "セルフスタンドの保安表示にはガソリンの容器への注入禁止が含まれる。",
+    "tested_misconception": "セルフ給油設備なら容器へのガソリン注入も自由である。",
+    "reasoning_path": "identify prohibited handling action",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; handling-control proposition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Container-injection prohibition is a separate handling control."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

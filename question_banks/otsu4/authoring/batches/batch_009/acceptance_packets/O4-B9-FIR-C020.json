@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C020",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5c0300200a9e16cf0dbba9f8a0d201f94bdf4f3ad97950f52734b9c8c607f6bb",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "(4) 化学工場等の一般取扱所 イ「工事・改修中のタンク・配管等」"
+    },
+    "answer_defining_proposition": "工事前には危険物・可燃性蒸気の残留を清掃・洗浄・換気で防ぐ。",
+    "tested_misconception": "工事火花が出ても残留蒸気が少量なら問題ない。",
+    "reasoning_path": "hot-work context -> remove residual hazard -> verify cleaning and ventilation",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; maintenance/hot-work prevention."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Cleaning/washing/ventilation before hot work is a distinct residual-vapor decision boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

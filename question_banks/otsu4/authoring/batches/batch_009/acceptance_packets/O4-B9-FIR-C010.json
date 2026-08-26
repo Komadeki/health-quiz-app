@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "219e21837e9a3839ddba3e8179f180f14f1ff25c394f2460a5972fa7944f6d03",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "source_locator": "別紙1「セルフスタンド用注意書き文案」"
+    },
+    "answer_defining_proposition": "給油口付近に子どもが近づかないよう注意する。",
+    "tested_misconception": "短時間なら子どもが給油口のそばにいても問題ない。",
+    "reasoning_path": "read proximity precaution",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; distinct customer safety control."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Keeping children away from the filler area is a distinct proximity control."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
