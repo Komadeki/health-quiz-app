@@ -1,0 +1,9 @@
+{
+  "schema_version":"1.0",
+  "wave_id":"W3",
+  "expected_state_epoch":58,
+  "expected_objective":"DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_3_ACCEPTED_44",
+  "director_id":"otsu4-wave3-director-r1",
+  "expected_accept_count":44,
+  "adjudicated_at":"2026-08-26"
+}
