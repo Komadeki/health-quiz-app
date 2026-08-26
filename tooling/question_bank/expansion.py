@@ -22,10 +22,14 @@ POST_ACCEPT_STATES = {"READY_FOR_ID", "ID_ALLOCATED", "INTEGRATED", "VERIFIED", 
 REQUIRED_FILES = ("batch.json", "candidates.csv", "reviews.csv")
 CANDIDATE_COLUMNS = (
     "candidate_id", "state", "unit_id", "domain", "knowledge_target_id", "family",
-    "question", "choice1", "choice2", "choice3", "choice4", "proposed_correct",
+    "question", "choice1", "choice2", "choice3", "choice4", "choice5", "proposed_correct",
     "explanation", "source_id", "source_version", "source_locator",
     "answer_defining_proposition", "tested_misconception", "reasoning_path",
     "collision_note", "permanent_question_id",
+)
+OPTIONAL_CANDIDATE_COLUMNS = frozenset({"choice5"})
+REQUIRED_CANDIDATE_COLUMNS = tuple(
+    column for column in CANDIDATE_COLUMNS if column not in OPTIONAL_CANDIDATE_COLUMNS
 )
 REVIEW_COLUMNS = (
     "candidate_id", "review_round", "decision", "reason_code", "reason_detail",
@@ -46,6 +50,7 @@ CANDIDATE_CANONICAL_FIELDS = (
     ("choice2", "choice2"),
     ("choice3", "choice3"),
     ("choice4", "choice4"),
+    ("choice5", "choice5"),
     ("proposed_correct", "correct_choice"),
     ("explanation", "explanation"),
     ("source_id", "source_id"),
@@ -120,10 +125,12 @@ def _canonical_evidence(bank_root: Path, errors: list[str]) -> dict[str, Any]:
         "source_by_id": {},
         "released_by_id": {},
         "bank_app_key": None,
+        "expected_choice_count": None,
     }
     try:
         bank = _read_json(authoring / "bank.json")
         evidence["bank_app_key"] = bank.get("app_key")
+        evidence["expected_choice_count"] = bank.get("expected_choice_count")
         _, registry = _read_csv(authoring / "question_id_registry.csv")
         _, questions = _read_csv(authoring / "questions.csv")
         sources = _read_json(authoring / "sources.json").get("sources", [])
@@ -251,7 +258,7 @@ def _validate_candidate_binding(
     candidate_id = candidate["candidate_id"]
     state = candidate["state"]
     for candidate_field, canonical_field in CANDIDATE_CANONICAL_FIELDS:
-        if candidate[candidate_field] != canonical_question.get(canonical_field, ""):
+        if candidate.get(candidate_field, "") != canonical_question.get(canonical_field, ""):
             errors.append(
                 f"{state} candidate {candidate_id} canonical content mismatch: {candidate_field}"
             )
@@ -420,7 +427,7 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
 
     candidate_fields, candidates = _read_csv(batch_dir / "candidates.csv")
     review_fields, reviews = _read_csv(batch_dir / "reviews.csv")
-    missing_candidate_columns = [c for c in CANDIDATE_COLUMNS if c not in candidate_fields]
+    missing_candidate_columns = [c for c in REQUIRED_CANDIDATE_COLUMNS if c not in candidate_fields]
     missing_review_columns = [c for c in REVIEW_COLUMNS if c not in review_fields]
     if missing_candidate_columns:
         errors.append("candidates.csv missing columns: " + ",".join(missing_candidate_columns))
@@ -489,11 +496,14 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
                 if not row[field]:
                     errors.append(f"{state} candidate {candidate_id} missing {field}")
 
-        if state in POST_ACCEPT_STATES:
-            choices = [row[f"choice{i}"] for i in range(1, 5)]
+        if content_required:
+            choices = [row.get(f"choice{i}", "") for i in range(1, 6)]
             populated = [index for index, value in enumerate(choices, start=1) if value]
-            if len(populated) not in {3, 4} or populated != list(range(1, len(populated) + 1)):
-                errors.append(f"{state} candidate {candidate_id} requires 3-4 contiguous choices")
+            expected_choice_count = canonical.get("expected_choice_count") if canonical else None
+            allowed_counts = {expected_choice_count} if isinstance(expected_choice_count, int) else {3, 4, 5}
+            if len(populated) not in allowed_counts or populated != list(range(1, len(populated) + 1)):
+                expected_text = str(expected_choice_count) if isinstance(expected_choice_count, int) else "3-4 contiguous choices or 5"
+                errors.append(f"{state} candidate {candidate_id} requires {expected_text} contiguous choices")
             normalized_choices = [_normalized(choice) for choice in choices if choice]
             if len(normalized_choices) != len(set(normalized_choices)):
                 errors.append(
@@ -502,8 +512,8 @@ def validate_expansion_batch(batch_dir: Path | str) -> list[str]:
 
         correct = row["proposed_correct"]
         if correct:
-            choice_map = {"A": "choice1", "B": "choice2", "C": "choice3", "D": "choice4"}
-            if correct not in choice_map or not row[choice_map.get(correct, "choice1")]:
+            choice_map = {"A": "choice1", "B": "choice2", "C": "choice3", "D": "choice4", "E": "choice5"}
+            if correct not in choice_map or not row.get(choice_map.get(correct, "choice1"), ""):
                 errors.append(f"proposed_correct does not reference an existing choice for {candidate_id}")
 
         permanent_id = row["permanent_question_id"]

@@ -31,6 +31,7 @@ CONTENT_BINDING_FIELDS = (
     "choice2",
     "choice3",
     "choice4",
+    "choice5",
     "proposed_correct",
     "explanation",
     "source_id",
@@ -48,7 +49,14 @@ def packet_path(batch_dir: Path | str, candidate_id: str) -> Path:
 
 
 def candidate_fingerprint(candidate: dict[str, str]) -> str:
-    payload = {field: candidate.get(field, "") for field in CONTENT_BINDING_FIELDS}
+    # Historical packets were fingerprinted before choice5 existed.  Omit the
+    # additive field when reading one of those legacy CSV rows, but bind it for
+    # every newly authored row that declares the column.
+    payload = {
+        field: candidate.get(field, "")
+        for field in CONTENT_BINDING_FIELDS
+        if field != "choice5" or field in candidate
+    }
     canonical = json.dumps(
         payload,
         ensure_ascii=False,

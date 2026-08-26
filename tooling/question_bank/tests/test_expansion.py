@@ -560,6 +560,21 @@ class ExpansionProtocolTest(unittest.TestCase):
         self._mutate_candidate(state="READY_FOR_ID", choice3="", choice4="A4")
         self.assertTrue(any("requires 3-4 contiguous choices" in error for error in validate_expansion_batch(self.batch)))
 
+    def test_expected_five_choices_accepts_answer_e_candidate(self) -> None:
+        metadata_path = self.bank / "authoring" / "bank.json"
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        metadata["expected_choice_count"] = 5
+        metadata_path.write_text(json.dumps(metadata), encoding="utf-8")
+        self._mutate_candidate(choice4="A4", choice5="A5", proposed_correct="E")
+        self.assertEqual([], validate_expansion_batch(self.batch))
+
+    def test_expected_five_choices_rejects_legacy_candidate(self) -> None:
+        metadata_path = self.bank / "authoring" / "bank.json"
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        metadata["expected_choice_count"] = 5
+        metadata_path.write_text(json.dumps(metadata), encoding="utf-8")
+        self.assertTrue(any("requires 5 contiguous choices" in error for error in validate_expansion_batch(self.batch)))
+
     def test_ready_for_id_rejects_exactly_two_choices(self) -> None:
         self._mutate_candidate(state="READY_FOR_ID", choice3="", choice4="")
         self.assertTrue(any("requires 3-4 contiguous choices" in error for error in validate_expansion_batch(self.batch)))

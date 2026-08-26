@@ -9,6 +9,7 @@ from typing import Any
 
 from contract import (
     QUESTION_FIELDS,
+    REQUIRED_QUESTION_FIELDS,
     QUESTION_ID_PATTERN,
     VALID_STATUSES,
     VALID_USAGE_BASES,
@@ -105,6 +106,13 @@ def _validate_metadata(inputs: BankInputs, result: ValidationResult) -> date:
         result.error(
             "identity_policy_not_explicit",
             "Qualification banks must use explicit_v1 identity.",
+            "authoring/bank.json",
+        )
+    expected_choice_count = metadata.get("expected_choice_count")
+    if expected_choice_count is not None and expected_choice_count not in {3, 4, 5}:
+        result.error(
+            "invalid_expected_choice_count",
+            "expected_choice_count must be 3, 4, or 5 when provided.",
             "authoring/bank.json",
         )
     as_of = _parse_date(
@@ -266,7 +274,7 @@ def _validate_identity_and_structure(
 
 
 def _validate_choices(
-    row: dict[str, str], result: ValidationResult, location: str
+    row: dict[str, str], result: ValidationResult, location: str, expected_choice_count: int | None
 ) -> None:
     choices = question_choices(row)
     if len(choices) < 3:
@@ -276,13 +284,19 @@ def _validate_choices(
             location,
         )
     first_empty = next(
-        (number for number in range(1, 5) if not row[f"choice{number}"]),
-        5,
+        (number for number in range(1, 6) if not row.get(f"choice{number}", "")),
+        6,
     )
-    if any(row[f"choice{number}"] for number in range(first_empty + 1, 5)):
+    if any(row.get(f"choice{number}", "") for number in range(first_empty + 1, 6)):
         result.error(
             "non_contiguous_choices",
             "Choices must be contiguous from choice1.",
+            location,
+        )
+    if expected_choice_count is not None and len(choices) != expected_choice_count:
+        result.error(
+            "unexpected_choice_count",
+            f"Question requires exactly {expected_choice_count} choices for this qualification.",
             location,
         )
     normalized_choices = [_normalized(choice) for choice in choices]
@@ -294,10 +308,10 @@ def _validate_choices(
         )
 
     correct_choice = row.get("correct_choice", "")
-    if correct_choice not in {"A", "B", "C", "D"}:
+    if correct_choice not in {"A", "B", "C", "D", "E"}:
         result.error(
             "invalid_correct_choice",
-            "correct_choice must be A, B, C, or D.",
+            "correct_choice must be A, B, C, D, or E.",
             location,
         )
     elif ord(correct_choice) - ord("A") >= len(choices):
@@ -447,7 +461,13 @@ def _validate_questions(
         _validate_identity_and_structure(
             row, question_by_id, deck_ids, unit_ids, result, location
         )
-        _validate_choices(row, result, location)
+        expected = inputs.metadata.get("expected_choice_count")
+        _validate_choices(
+            row,
+            result,
+            location,
+            expected if isinstance(expected, int) and not isinstance(expected, bool) else None,
+        )
         _validate_content(row, source_by_id, result, location)
         _validate_dates(row, as_of, review_due_days, result, location)
         _validate_registry_membership(row, registry_by_id, result, location)
@@ -581,7 +601,7 @@ def _validate_similar_questions(
 def validate_bank(bank_root: Path, *, check_generated: bool = False) -> ValidationResult:
     result = ValidationResult()
     question_header, _ = read_csv(bank_root / "authoring" / "questions.csv")
-    missing_headers = [field for field in QUESTION_FIELDS if field not in question_header]
+    missing_headers = [field for field in REQUIRED_QUESTION_FIELDS if field not in question_header]
     if missing_headers:
         result.error(
             "missing_question_columns",
