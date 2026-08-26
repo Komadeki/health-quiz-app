@@ -83,7 +83,7 @@ abstract final class GeneratedAppManifest {
           seedColorHex: seedColor,
         ),
         learningProduct: const LearningProductProfileV1(
-          appVersion: "1.0.0+1",
+          appVersion: "1.0.1+2",
           homeHeadline: "教則第5版準拠",
           sourceLabel: "無人航空機の飛行の安全に関する教則 第5版に基づく学習",
           enabledModes: {LearningModeV1.unitPractice, LearningModeV1.randomPractice, LearningModeV1.unansweredPractice, LearningModeV1.incorrectPractice, LearningModeV1.retry, LearningModeV1.mockExam},
