@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W4",
-  "status": "DIRECTOR_ACCEPTED_AND_PROMOTED",
+  "status": "INTEGRATED",
   "planned_at": "2026-08-26",
   "authored_at": "2026-08-26",
   "reviewed_at": "2026-08-26",
@@ -25,27 +25,9 @@
     "identity_separation": "PASS"
   },
   "batch_review_summaries": {
-    "B13": {
-      "reviewed": 19,
-      "accept": 17,
-      "reject": 2,
-      "rework": 0,
-      "hold": 0
-    },
-    "B14": {
-      "reviewed": 7,
-      "accept": 4,
-      "reject": 3,
-      "rework": 0,
-      "hold": 0
-    },
-    "B15": {
-      "reviewed": 18,
-      "accept": 14,
-      "reject": 4,
-      "rework": 0,
-      "hold": 0
-    }
+    "B13": {"reviewed": 19, "accept": 17, "reject": 2, "rework": 0, "hold": 0},
+    "B14": {"reviewed": 7, "accept": 4, "reject": 3, "rework": 0, "hold": 0},
+    "B15": {"reviewed": 18, "accept": 14, "reject": 4, "rework": 0, "hold": 0}
   },
   "non_accepted_candidate_ids": {
     "reject": [
@@ -62,18 +44,9 @@
     "rework": []
   },
   "authors": {
-    "B13": {
-      "id": "otsu4-b13-author-r1",
-      "role": "AI_AUTHOR"
-    },
-    "B14": {
-      "id": "otsu4-b14-author-r1",
-      "role": "AI_AUTHOR"
-    },
-    "B15": {
-      "id": "otsu4-b15-author-r1",
-      "role": "AI_AUTHOR"
-    }
+    "B13": {"id": "otsu4-b13-author-r1", "role": "AI_AUTHOR"},
+    "B14": {"id": "otsu4-b14-author-r1", "role": "AI_AUTHOR"},
+    "B15": {"id": "otsu4-b15-author-r1", "role": "AI_AUTHOR"}
   },
   "batches": [
     {
@@ -110,24 +83,9 @@
   "multi_source_rule": "Each candidate binds to one registered source_id/version and one reproducible locator. Cross-source answer-defining comparisons are prohibited.",
   "anti_duplication_rule": "B15 does not recreate exact flash-point recall already represented in Wave 1; one same-SDS flash/autoignition comparison is retained and its substance-swapped duplicate is rejected.",
   "correct_choice_balance": {
-    "B13": {
-      "A": 5,
-      "B": 5,
-      "C": 5,
-      "D": 4
-    },
-    "B14": {
-      "A": 1,
-      "B": 2,
-      "C": 2,
-      "D": 2
-    },
-    "B15": {
-      "A": 5,
-      "B": 5,
-      "C": 4,
-      "D": 4
-    }
+    "B13": {"A": 5, "B": 5, "C": 5, "D": 4},
+    "B14": {"A": 1, "B": 2, "C": 2, "D": 2},
+    "B15": {"A": 5, "B": 5, "C": 4, "D": 4}
   },
   "scope_correction": {
     "removed_candidate_ids": [
@@ -143,7 +101,6 @@
   "planned_state_epoch": 62,
   "authored_state_epoch": 63,
   "reviewed_state_epoch": 64,
-  "next_gate": "ALLOCATE_AND_INTEGRATE_W4_ACCEPTED_35",
   "director_adjudication": {
     "artifact": "wave_004_director_adjudication_r1.json",
     "decision": "ADOPT_REVIEWER_DECISIONS",
@@ -152,6 +109,10 @@
     "rework": 0,
     "hold": 0
   },
-  "accepted_candidate_state": "READY_FOR_ID",
-  "accept_promote_state_epoch": 65
+  "accepted_candidate_state": "INTEGRATED",
+  "accept_promote_state_epoch": 65,
+  "integration_state_epoch": 66,
+  "integrated_candidate_count": 35,
+  "permanent_id_range": {"first": "OTSU4-Q-000206", "last": "OTSU4-Q-000240"},
+  "next_gate": "VERIFY_W4_CANONICAL_SOURCES_35"
 }
