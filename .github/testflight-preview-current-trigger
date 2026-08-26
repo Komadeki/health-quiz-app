@@ -1,4 +1,5 @@
 Drone TestFlight preview trigger
-Requested: 2026-08-25
-Purpose: physical-device UX verification of the current reconciled production UI while Question Bank completion continues independently.
-Source branch: chatgpt/drone-testflight-preview-current
+Requested: 2026-08-26
+Purpose: upload current main with branded Drone app icon and release version 1.0.1 for physical-device UX verification.
+Source branch: main
+Source commit: 790a0fe3dd07c05f7f204605105754443b0b3f44
