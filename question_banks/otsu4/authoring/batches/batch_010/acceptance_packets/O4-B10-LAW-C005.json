@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B10-LAW-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "832329483109e9657e8f563bbd44732b83325d1a578e099fce8d6dfb05320513",
+  "actors": {
+    "author": {
+      "id": "otsu4-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第29条第2号"
+    },
+    "answer_defining_proposition": "運搬容器の外部には危険物の品名・数量等を表示する。",
+    "tested_misconception": "危険物の内容表示は運搬時には不要である。",
+    "reasoning_path": "read marking requirement -> identify legally relevant information",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B10; transport marking proposition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "External name/quantity marking requirement is a separate compliance proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

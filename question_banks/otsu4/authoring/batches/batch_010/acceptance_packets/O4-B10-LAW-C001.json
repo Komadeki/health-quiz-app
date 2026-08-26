@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B10-LAW-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f60ed701797f049f32a6ad10a497b2ea381bffc87faf3d8c2311d79d2df1fbc5",
+  "actors": {
+    "author": {
+      "id": "otsu4-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第28条第1号"
+    },
+    "answer_defining_proposition": "運搬容器の材質には鋼板など政令で認められた材料を用いる。",
+    "tested_misconception": "運搬容器は材質を問わない。",
+    "reasoning_path": "read Article 28 item 1 -> identify enumerated material",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B10; first transport-container material proposition; absent from canonical 161."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Transport-container material requirement is a direct and previously uncovered legal proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B12-FIR-C015",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "45f69332de00611aeb0afd3978490bc91922c568a53f241dbc17cac6c3153f90",
+  "actors": {
+    "author": {
+      "id": "otsu4-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ETHYL-ACETATE",
+      "source_version": "2020-03-13",
+      "source_locator": "Section 5「火災時の措置」特有の消火方法"
+    },
+    "answer_defining_proposition": "酢酸エチル火災では水を噴霧して容器を冷却する。",
+    "tested_misconception": "棒状注水禁止は容器冷却のための噴霧水も禁止する。",
+    "reasoning_path": "distinguish prohibited jet water from spray cooling of containers",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B12; extends Q000002 from agent selection to container cooling without duplicating its answer proposition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Ethyl-acetate container spray cooling is materially different from canonical OTSU4-Q-000002, which tests unsuitable direct-stream extinguishing."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

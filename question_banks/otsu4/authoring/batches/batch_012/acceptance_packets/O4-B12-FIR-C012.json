@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B12-FIR-C012",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "44f86699910cb698404648d695f21c320b0afde34b1144d2133aca81466c5a42",
+  "actors": {
+    "author": {
+      "id": "otsu4-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ETHANOL",
+      "source_version": "2014-03-31",
+      "source_locator": "Section 5「火災時の措置」特有の消火方法"
+    },
+    "answer_defining_proposition": "熱にさらされているエタノール容器は移動させない。",
+    "tested_misconception": "火災時の容器は加熱状態でも必ず移動する。",
+    "reasoning_path": "evaluate heated-container condition -> prohibit movement",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B12; condition-specific contrast with gasoline safe-move rule."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Do not move a heat-exposed ethanol container is a clear conditional boundary distinct from safe-movement cases."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

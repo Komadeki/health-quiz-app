@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B11-PHY-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "50502007e580320103eff8a3228828ab50d3aaf777ec59a3de67097e95b04030",
+  "actors": {
+    "author": {
+      "id": "otsu4-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "酸素がなくても燃える"
+    },
+    "answer_defining_proposition": "自己反応性物質は内部に可燃部分と支燃部分を含み、外部酸素なしでも熱や衝撃で燃焼・爆発し得る。",
+    "tested_misconception": "酸素が外部にない場所ではどんな物質も燃焼できない。",
+    "reasoning_path": "identify self-reactive exception -> apply broader combustion-elements model",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B11; distinct boundary case not represented in canonical 161."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Self-reactive substances burning without external supporter provide a separate, source-defined combustion boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

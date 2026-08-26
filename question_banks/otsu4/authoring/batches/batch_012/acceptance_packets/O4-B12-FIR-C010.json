@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B12-FIR-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1f25d7eb500416d20fbf8e94176fde57e3b16dc1791d1a4adf4123cc97c4e64f",
+  "actors": {
+    "author": {
+      "id": "otsu4-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "source_locator": "Section 5「火災時の措置」消火を行う者の保護"
+    },
+    "answer_defining_proposition": "アセトン火災では風上から消火する。",
+    "tested_misconception": "消火位置は風向と無関係である。",
+    "reasoning_path": "read firefighter protection instruction -> choose upwind position",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B12; firefighter-position proposition distinct from agent selection."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Upwind firefighting position is a source-explicit responder-protection rule with practical value."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

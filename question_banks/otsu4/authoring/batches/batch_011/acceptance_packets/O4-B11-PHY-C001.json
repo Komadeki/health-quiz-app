@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B11-PHY-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f6351fdd646f0ceacf4337d7928564342601d3c0c21533fc9d1606d40cc02beb",
+  "actors": {
+    "author": {
+      "id": "otsu4-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "回答"
+    },
+    "answer_defining_proposition": "燃焼は可燃物と支燃物が着火源から熱を受けて起こる高温・高速の発熱反応である。",
+    "tested_misconception": "燃焼は酸素があるだけで自動的に起こる。",
+    "reasoning_path": "identify stated combustion definition -> select all required features",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B11; more detailed definition than existing triangle-element questions."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Detailed combustion definition adds the exothermic-reaction model beyond the existing triangle-element questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

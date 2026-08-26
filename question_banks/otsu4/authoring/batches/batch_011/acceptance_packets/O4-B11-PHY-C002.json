@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B11-PHY-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "3cf0c0e70831b0b6b1279943c3e5147ca869d0f8071649c45d9805755715cad1",
+  "actors": {
+    "author": {
+      "id": "otsu4-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "回答"
+    },
+    "answer_defining_proposition": "燃焼では化学エネルギーが熱と光のエネルギーへ変換される。",
+    "tested_misconception": "燃焼では化学エネルギーは変化しない。",
+    "reasoning_path": "trace energy before/after combustion -> identify output forms",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B11; energy-conversion proposition absent from canonical 161."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Chemical-energy to heat/light conversion is a distinct foundational combustion concept."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

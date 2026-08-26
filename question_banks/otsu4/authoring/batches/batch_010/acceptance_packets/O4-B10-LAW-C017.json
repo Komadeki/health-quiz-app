@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B10-LAW-C017",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b089322a422c1415217cd14c413ef3f43f6532bf0d5f730d8948bbad5c281f25",
+  "actors": {
+    "author": {
+      "id": "otsu4-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 第30条の2第1号"
+    },
+    "answer_defining_proposition": "移送開始前には弁、マンホール、注入口のふた、消火器等を十分に点検する。",
+    "tested_misconception": "移送開始前の設備点検は不要である。",
+    "reasoning_path": "identify pre-transfer phase -> choose inspection set",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B10; transfer-specific predeparture control."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Pre-transfer inspection of valves/caps/extinguishers is a distinct transfer-specific control."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
