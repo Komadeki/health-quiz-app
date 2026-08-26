@@ -1,0 +1,21 @@
+{
+  "schema_version":"1.0",
+  "plan_id":"OTSU4-B14-CHEMICAL-CHANGE-2026-08-26",
+  "product":"otsu4",
+  "wave_id":"W4",
+  "planned_at":"2026-08-26",
+  "objective":"AUTHOR_OTSU4_WAVE_4_AI_PRE_ACCEPT",
+  "production_target":600,
+  "canonical_verified_baseline":205,
+  "selected_target":"O4-PHY-KT-CHEMICAL-CHANGE",
+  "selected_target_total_plan":30,
+  "verified_target_count_before_batch":0,
+  "remaining_target_gap_before_batch":30,
+  "candidate_ceiling":24,
+  "candidate_ceiling_is_quota":false,
+  "selection_basis":"Chemical change remains zero-coverage. The registered MEXT Chemistry Basics oxidation/reduction section explicitly supports definitions, simultaneous redox, electron transfer, oxidation-number reasoning, representative oxidizers/reducers, and metal ionization-tendency concepts.",
+  "source_contract":{"primary_source_ids":["O4-PHY-1"],"pinpoint_scope":["MEXT 理科編 第2章 第4節 化学基礎 printed pp.93–94『酸化と還元』"],"locator_rule":"Every candidate must bind to O4-PHY-1 / 2023-06-07 and the exact printed page/subheading. Do not infer reaction facts or quantitative values beyond the source text."},
+  "planned_families":["oxidation/reduction definitions from oxygen/hydrogen transfer","electron-transfer definition","oxidation and reduction occurring simultaneously","oxidation-number increase/decrease interpretation","oxidizer versus reducer roles","representative oxidizer/reducer recognition where explicitly named","metal ionization-tendency decision boundaries","Daniell-cell redox role only where the source directly supports the proposition"],
+  "planning_invariants":{"NO_COPYRIGHTED_PAST_QUESTION_TEXT":true,"NO_WORDING_ONLY_VARIANTS":true,"NO_QUOTA_BACKFILL":true,"COLLISION_CHECK_AGAINST_ALL_205_CANONICAL_REQUIRED":true,"SINGLE_SOURCE_BINDING_REQUIRED":true,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false},
+  "next_gate":"AUTHOR_B14_AI_PRE_ACCEPT_UP_TO_24"
+}

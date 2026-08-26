@@ -1,0 +1,23 @@
+{
+  "schema_version":"1.0",
+  "wave_id":"W4",
+  "status":"PLANNED",
+  "planned_at":"2026-08-26",
+  "production_target":600,
+  "canonical_verified_baseline":205,
+  "candidate_ceiling":70,
+  "candidate_ceiling_is_quota":false,
+  "selection_basis":"Wave 4 closes the remaining transport/transfer gap while opening two zero-coverage required targets: chemical change and flash/ignition. Each batch uses an already-registered official source path and avoids answer-defining propositions already represented in the 205-question canonical/source-verified bank.",
+  "remaining_target_gaps_before_wave":{"O4-LAW-KT-TRANSPORT":22,"O4-PHY-KT-CHEMICAL-CHANGE":30,"O4-FIR-KT-FLASH-IGNITION":30},
+  "batches":[
+    {"batch_id":"B13","candidate_ceiling":22,"knowledge_target_id":"O4-LAW-KT-TRANSPORT","target_total_plan":40,"source_path":"registered O4-LAW-3 Chapter 6 Articles 41–47-3; Rule-specific transport/transfer requirements not already tested by Wave 3 Decree-level propositions"},
+    {"batch_id":"B14","candidate_ceiling":24,"knowledge_target_id":"O4-PHY-KT-CHEMICAL-CHANGE","target_total_plan":30,"source_path":"registered O4-PHY-1 Chemistry Basics printed pp.93–94 oxidation/reduction section"},
+    {"batch_id":"B15","candidate_ceiling":24,"knowledge_target_id":"O4-FIR-KT-FLASH-IGNITION","target_total_plan":30,"source_path":"registered MHLW model SDS Section 9 autoignition temperature/explosion range/ignition-property fields"}
+  ],
+  "authoring_rule":"Enumerate source-defined propositions first, collision-check against all 205 canonical/source-verified questions and earlier Wave 4 peers, and stop without backfill when distinct source-backed propositions are exhausted.",
+  "multi_source_rule":"Each candidate binds to one registered source_id/version and one reproducible pinpoint locator. Cross-source answer-defining comparisons are prohibited without an approved source-bundle contract.",
+  "anti_duplication_rule":"B15 must not recreate Wave 1 exact flash-point recall propositions. Prefer autoignition temperature, explosion range, within/outside-range decisions, and same-source ignition-property reasoning.",
+  "filler_prohibited":true,
+  "planned_state_epoch":62,
+  "next_gate":"AUTHOR_OTSU4_WAVE_4_AI_PRE_ACCEPT"
+}
