@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B10-TRANSPORT-2026-08-26",
+  "product": "otsu4",
+  "wave_id": "W3",
+  "planned_at": "2026-08-26",
+  "objective": "AUTHOR_OTSU4_WAVE_3_AI_PRE_ACCEPT",
+  "production_target": 600,
+  "canonical_verified_baseline": 161,
+  "selected_target": "O4-LAW-KT-TRANSPORT",
+  "selected_target_total_plan": 40,
+  "verified_target_count_before_batch": 0,
+  "remaining_target_gap_before_batch": 40,
+  "candidate_ceiling": 24,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Transport is an uncovered required law target. Current e-Gov transport provisions can support original requirement, exception and decision-boundary questions without copying past questions.",
+  "source_contract": {
+    "primary_source_ids": ["O4-LAW-2", "O4-LAW-3"],
+    "pinpoint_scope": ["危険物の規制に関する政令の運搬・移送に関する条項", "危険物の規制に関する規則の運搬基準・容器・積載・標識に関する条項"],
+    "locator_rule": "Every candidate must cite one current e-Gov article, paragraph, table row or item that directly defines the transport requirement, exception or boundary. Multi-source answer-defining comparisons are prohibited."
+  },
+  "planned_families": [
+    "transport versus transfer terminology and responsibility boundaries",
+    "container and packaging requirement decisions",
+    "loading, securing and mixed-loading prohibition or exception decisions",
+    "marking, labeling and document requirement decisions",
+    "quantity, vehicle or route condition boundaries explicitly defined by the source",
+    "pre-transport and in-transit prohibited-action decisions"
+  ],
+  "planning_invariants": {
+    "NO_COPYRIGHTED_PAST_QUESTION_TEXT": true,
+    "NO_WORDING_ONLY_VARIANTS": true,
+    "NO_QUOTA_BACKFILL": true,
+    "COLLISION_CHECK_AGAINST_ALL_161_CANONICAL_REQUIRED": true,
+    "SINGLE_SOURCE_BINDING_REQUIRED": true,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "AUTHOR_B10_AI_PRE_ACCEPT_UP_TO_24"
+}

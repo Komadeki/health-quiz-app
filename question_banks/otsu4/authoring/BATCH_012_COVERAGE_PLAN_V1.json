@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B12-EXTINGUISHING-2026-08-26",
+  "product": "otsu4",
+  "wave_id": "W3",
+  "planned_at": "2026-08-26",
+  "objective": "AUTHOR_OTSU4_WAVE_3_AI_PRE_ACCEPT",
+  "production_target": 600,
+  "canonical_verified_baseline": 161,
+  "selected_target": "O4-FIR-KT-EXTINGUISHING",
+  "selected_target_total_plan": 30,
+  "verified_target_count_before_batch": 0,
+  "remaining_target_gap_before_batch": 30,
+  "candidate_ceiling": 24,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Extinguishing is an uncovered required properties/fire target. FDMA fire-fighting guidance and registered SDS Section 5 fields provide directly verifiable suitability and prohibited-method propositions.",
+  "source_contract": {
+    "primary_source_ids": ["O4-FDMA-FOAM-1", "O4-MHLW-SDS-GASOLINE", "O4-MHLW-SDS-KEROSENE", "O4-MHLW-SDS-ACETONE", "O4-MHLW-SDS-ETHANOL", "O4-MHLW-SDS-METHANOL", "O4-MHLW-SDS-XYLENE", "O4-MHLW-SDS-BENZENE", "O4-MHLW-SDS-TOLUENE", "O4-MHLW-SDS-ETHYL-ACETATE", "O4-MHLW-SDS-CRESOL", "O4-MHLW-LABEL-DIETHYL-ETHER"],
+    "pinpoint_scope": ["FDMA掲載『見て解る危険物火災消火活動』の泡消火・注水禁忌・消火活動に関する該当見出し", "各MHLW SDS/label の Section 5『火災時の措置』にある適切な消火剤・使ってはならない消火剤"],
+    "locator_rule": "Every candidate must bind to one registered source/version and one exact Section 5 field or named FDMA subsection. A question may not compare extinguishing instructions across sources."
+  },
+  "planned_families": [
+    "liquid-surface fire and foam application mechanism decisions",
+    "prohibited direct-water-stream decisions",
+    "SDS-listed suitable-extinguishing-agent recognition",
+    "agent suitability versus cooling or vapor-suppression purpose distinctions",
+    "small versus spreading fire response boundaries only where directly sourced",
+    "extinguishing-action priority misconceptions tied to one named material or guidance subsection"
+  ],
+  "planning_invariants": {
+    "NO_COPYRIGHTED_PAST_QUESTION_TEXT": true,
+    "NO_WORDING_ONLY_VARIANTS": true,
+    "NO_QUOTA_BACKFILL": true,
+    "COLLISION_CHECK_AGAINST_ALL_161_CANONICAL_REQUIRED": true,
+    "SINGLE_SOURCE_BINDING_REQUIRED": true,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "AUTHOR_B12_AI_PRE_ACCEPT_UP_TO_24"
+}
