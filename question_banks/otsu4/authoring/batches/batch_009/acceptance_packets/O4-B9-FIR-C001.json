@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c166d708def458bdba4acb01c5dd130baa6bd9b28777b49331c1fc7a60bd63b5",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-STATIC-1",
+      "source_version": "2001-08-13",
+      "source_locator": "通知本文「平成13年4月のセルフスタンド火災2件」"
+    },
+    "answer_defining_proposition": "給油口キャップを緩めた際に噴出したガソリン蒸気へ引火した火災が発生した。",
+    "tested_misconception": "液体ガソリンだけが危険で蒸気への着火は考えなくてよい。",
+    "reasoning_path": "identify incident -> gasoline vapor as ignited material",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; source-specific incident mechanism."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Source-specific gasoline-vapor ignition mechanism is distinct and relevant."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B7-LAW-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "633885c7ca28adade0f4f7aba54ccddd4f1f6a0c7bdb3dc43e73bc6434107008",
+  "actors": {
+    "author": {
+      "id": "otsu4-b7-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 別表第三 第四類「特殊引火物」"
+    },
+    "answer_defining_proposition": "特殊引火物の指定数量は50Lである。",
+    "tested_misconception": "特殊引火物も第一石油類と同じ200Lである。",
+    "reasoning_path": "identify Class 4 row -> read special-flammable specified quantity",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B7; no canonical special-flammable quantity proposition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Special-flammable 50L quantity is a distinct source-defined table proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

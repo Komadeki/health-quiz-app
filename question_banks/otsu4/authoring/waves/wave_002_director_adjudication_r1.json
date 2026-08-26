@@ -1,0 +1,161 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W2",
+  "adjudication_round": 1,
+  "adjudicated_at": "2026-08-26",
+  "director": {
+    "id": "otsu4-wave2-director-r1",
+    "role": "AI_DIRECTOR"
+  },
+  "authors": {
+    "B7": {
+      "id": "otsu4-b7-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B8": {
+      "id": "otsu4-b8-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B9": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
+  "reviewers": {
+    "B7": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "B8": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "B9": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    }
+  },
+  "identity_separation": "PASS",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 50,
+    "reject": 6,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "O4-B7-LAW-C001",
+    "O4-B7-LAW-C002",
+    "O4-B7-LAW-C003",
+    "O4-B7-LAW-C004",
+    "O4-B7-LAW-C005",
+    "O4-B7-LAW-C006",
+    "O4-B7-LAW-C007",
+    "O4-B7-LAW-C008",
+    "O4-B7-LAW-C009",
+    "O4-B7-LAW-C010",
+    "O4-B7-LAW-C013",
+    "O4-B7-LAW-C014",
+    "O4-B7-LAW-C015",
+    "O4-B7-LAW-C016",
+    "O4-B7-LAW-C017",
+    "O4-B7-LAW-C019",
+    "O4-B7-LAW-C020",
+    "O4-B8-PHY-C001",
+    "O4-B8-PHY-C002",
+    "O4-B8-PHY-C003",
+    "O4-B8-PHY-C005",
+    "O4-B8-PHY-C006",
+    "O4-B8-PHY-C007",
+    "O4-B8-PHY-C008",
+    "O4-B8-PHY-C009",
+    "O4-B8-PHY-C010",
+    "O4-B8-PHY-C011",
+    "O4-B8-PHY-C012",
+    "O4-B8-PHY-C013",
+    "O4-B8-PHY-C016",
+    "O4-B9-FIR-C001",
+    "O4-B9-FIR-C002",
+    "O4-B9-FIR-C003",
+    "O4-B9-FIR-C004",
+    "O4-B9-FIR-C005",
+    "O4-B9-FIR-C006",
+    "O4-B9-FIR-C007",
+    "O4-B9-FIR-C008",
+    "O4-B9-FIR-C009",
+    "O4-B9-FIR-C010",
+    "O4-B9-FIR-C011",
+    "O4-B9-FIR-C012",
+    "O4-B9-FIR-C013",
+    "O4-B9-FIR-C014",
+    "O4-B9-FIR-C015",
+    "O4-B9-FIR-C016",
+    "O4-B9-FIR-C017",
+    "O4-B9-FIR-C018",
+    "O4-B9-FIR-C019",
+    "O4-B9-FIR-C020"
+  ],
+  "nonaccepted": [
+    {
+      "candidate_id": "O4-B7-LAW-C011",
+      "batch_id": "B7",
+      "decision": "REJECT",
+      "reason_code": "WITHIN_WAVE_LOW_VALUE_VARIANT",
+      "rationale": "Repeats C010's identical 2x solubility-ratio reasoning with only the petroleum class changed; insufficient incremental practice value.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B7-LAW-C012",
+      "batch_id": "B7",
+      "decision": "REJECT",
+      "reason_code": "WITHIN_WAVE_LOW_VALUE_VARIANT",
+      "rationale": "Repeats C010's identical 2x solubility-ratio reasoning with only the petroleum class changed; do not quota-backfill.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B7-LAW-C018",
+      "batch_id": "B7",
+      "decision": "REJECT",
+      "reason_code": "CANONICAL_SEMANTIC_COLLISION",
+      "rationale": "Same exact-one aggregate-multiple decision and solving rule as OTSU4-Q-000004; changing 0.4+0.6 to 0.3+0.7 adds no material value.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B8-PHY-C004",
+      "batch_id": "B8",
+      "decision": "REJECT",
+      "reason_code": "WITHIN_BATCH_NUMERIC_VARIANT",
+      "rationale": "Uses the same direct n/V path as C003 with only numeric values changed; insufficient incremental value.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B8-PHY-C014",
+      "batch_id": "B8",
+      "decision": "REJECT",
+      "reason_code": "WITHIN_BATCH_REDUNDANT_UNIT_ERROR",
+      "rationale": "The mL→L misconception is already materially exercised by accepted C006 and C007; an isolated first-step question is redundant.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B8-PHY-C015",
+      "batch_id": "B8",
+      "decision": "REJECT",
+      "reason_code": "WITHIN_BATCH_DUPLICATE_REASONING_PATH",
+      "rationale": "Same mass→moles→molarity chain as C016 with easier numbers; retain only the stronger representative.",
+      "resume_condition": ""
+    }
+  ],
+  "director_rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction.",
+  "invariants_before_transaction": {
+    "candidate_states": "ALL_AI_PRE_ACCEPT",
+    "acceptance_packets": 0,
+    "permanent_ids_allocated": 0,
+    "canonical_count": 111,
+    "registry_count": 111,
+    "source_verification_count": 111,
+    "released_count": 0,
+    "runtime_unchanged_required": true,
+    "human_review_fabricated": false
+  },
+  "final_gate": "READY_TO_ALLOCATE_AND_INTEGRATE_W2_ACCEPTED_50"
+}

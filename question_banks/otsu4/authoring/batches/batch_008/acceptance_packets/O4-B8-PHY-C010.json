@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B8-PHY-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8ea1b663d6101b983ff951f3cb17a5680d001263eb6924be9a29e6e23bbaeb2d",
+  "actors": {
+    "author": {
+      "id": "otsu4-b8-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第4節 化学基礎 p.92「㋐ 物質量について」"
+    },
+    "answer_defining_proposition": "物質量一定で溶液体積を2倍にするとモル濃度は半分になる。",
+    "tested_misconception": "体積が増えると濃度も比例して増える。",
+    "reasoning_path": "c=n/V -> fixed n, double V -> half c",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B8; proportional reasoning."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Fixed amount / doubled volume tests inverse proportionality."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

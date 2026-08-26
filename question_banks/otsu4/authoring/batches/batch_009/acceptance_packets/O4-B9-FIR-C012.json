@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C012",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "7796277baa8988aa96108ac9f16e0915a8c05210aff2d16b3ef094d81e350c7f",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "(1) 塗装・印刷作業等の一般取扱所 ア「可燃性蒸気への着火」"
+    },
+    "answer_defining_proposition": "フィルター目詰まりや換気スイッチ入れ忘れは換気不良の具体例である。",
+    "tested_misconception": "換気設備は設置されていれば目詰まりや操作状態を確認する必要はない。",
+    "reasoning_path": "identify examples of ventilation failure",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; maintenance/operation boundary."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Filter blockage/switch omission concretizes ventilation-maintenance failure."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

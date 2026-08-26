@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C018",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fef1cde4364ccce4d01f990157b86dbdebe56778dcb19ec348e53fcf569605f2",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "(4) 化学工場等の一般取扱所 イ「危険物供給・払出ライン」"
+    },
+    "answer_defining_proposition": "ホースやノズル等の静電気発生部には静電気防止対策が必要である。",
+    "tested_misconception": "液体の流動では静電気を考慮しなくてよい。",
+    "reasoning_path": "flowing liquid -> static generation -> control at hose/nozzle",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; transfer-line prevention."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Hose/nozzle static control applies grounding to transfer-line flow, distinct from paint-equipment control."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9516b56d5249c2721b5229f507b7552be3440fee61871c2e165b33233e82383c",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "(1) 塗装・印刷作業等の一般取扱所 イ「その他」"
+    },
+    "answer_defining_proposition": "可燃性蒸気滞留場所では電気設備・機器の防爆仕様を確認する。",
+    "tested_misconception": "可燃性蒸気があっても通常仕様の電気機器で問題ない。",
+    "reasoning_path": "vapor area -> electrical ignition risk -> explosion-proof specification",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; electrical ignition prevention."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Explosion-proof equipment directly addresses electrical ignition in vapor areas."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

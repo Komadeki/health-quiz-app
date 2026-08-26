@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B8-PHY-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "46540f69670f731affedb8869a38f670a1962b627e3b7096858576854564b5af",
+  "actors": {
+    "author": {
+      "id": "otsu4-b8-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "MEXT 理科編 第2章 第4節 化学基礎 p.92「㋐ 物質量について」"
+    },
+    "answer_defining_proposition": "18gを60g/molで換算した0.30molを0.50Lにすると0.60mol/Lである。",
+    "tested_misconception": "18÷0.50だけで濃度を求める。",
+    "reasoning_path": "mass -> moles -> divide by solution volume",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B8; chained calculation with distinct conversion burden."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Two-step mass→amount→concentration calculation adds a materially distinct chained reasoning burden."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

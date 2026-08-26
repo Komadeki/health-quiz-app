@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B7-LAW-C020",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "683a4583cf83b897e97e09f261e8f69e1744c7a455cdd751bf76aa8c0e813400",
+  "actors": {
+    "author": {
+      "id": "otsu4-b7-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第10条第2項"
+    },
+    "answer_defining_proposition": "異なる危険物の指定数量に対する倍数は合算し、和1.2を1と比較して判定する。",
+    "tested_misconception": "各危険物が単独で1倍未満なら、種類が異なる限り合算しない。",
+    "reasoning_path": "use given normalized multiples -> sum -> compare with 1",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B7; abstract normalized-ratio above-one boundary, distinct from canonical 0.4+0.6 example."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "1.2 aggregate tests the above-one side of the statutory boundary and is materially distinct from exact-one Q000004."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

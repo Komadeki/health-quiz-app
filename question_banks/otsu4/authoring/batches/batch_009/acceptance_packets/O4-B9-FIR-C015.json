@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B9-FIR-C015",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fa16b81594c8b9063b0d92325b948d803d48b01d97bbba054444f5056908f32a",
+  "actors": {
+    "author": {
+      "id": "otsu4-b9-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "(1) 塗装・印刷作業等の一般取扱所 ア「含油堆積物の着火」"
+    },
+    "answer_defining_proposition": "清掃不良による含油堆積物は着火源に触れて火災要因となる。",
+    "tested_misconception": "清掃状態は可燃物管理と無関係である。",
+    "reasoning_path": "poor cleaning -> oily deposits -> ignition",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B9; housekeeping fire-prevention proposition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Oily-deposit housekeeping risk is an independent combustible-management pathway."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

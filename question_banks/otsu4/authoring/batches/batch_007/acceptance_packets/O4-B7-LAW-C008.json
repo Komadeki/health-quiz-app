@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B7-LAW-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "616535bab35f9907ca9c976231c37f70cd543ce4a4f5fdcb40d5c217182441c0",
+  "actors": {
+    "author": {
+      "id": "otsu4-b7-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave2-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave2-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-2",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する政令 別表第三 第四類「第四石油類」"
+    },
+    "answer_defining_proposition": "第四石油類の指定数量は6,000Lである。",
+    "tested_misconception": "第四石油類の指定数量は第三石油類の水溶性液体と同じ4,000Lである。",
+    "reasoning_path": "identify row -> read 6000 L",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W2 B7; distinct category quantity."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Fourth-petroleum 6000L specified quantity is a separate legal category boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
