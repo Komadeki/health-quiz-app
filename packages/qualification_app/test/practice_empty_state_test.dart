@@ -102,7 +102,19 @@ void main() {
     );
 
     await tester.tap(find.byKey(const Key('start-incorrect')));
-    await tester.pump();
+    await tester.pumpAndSettle();
+    expect(controller.view, QualificationProductionView.home);
+    expect(
+      find.byKey(const Key('practice-count-sheet-incorrect')),
+      findsOneWidget,
+    );
+    expect(
+      find.byKey(const Key('practice-count-incorrect-all')),
+      findsOneWidget,
+    );
+
+    await tester.tap(find.byKey(const Key('practice-count-incorrect-all')));
+    await tester.pumpAndSettle();
     expect(controller.view, QualificationProductionView.quiz);
     expect(
       controller.bank!.stableId(controller.currentCard!),
