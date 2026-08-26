@@ -15,13 +15,13 @@
     "PHYSICAL_UX",
     "DONE"
   ],
-  "observed_main": "188a8425e837d5fc5cb6db4bc63c7c11f063b2d4",
+  "observed_main": "daf2da62d37a0a3a2d3d72b4ce3d4c257c9e1f10",
   "next_atomic_objective": "VERIFY_PHYSICAL_UX_EVIDENCE",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": {
-    "action": "Run the bounded physical-device interaction checklist in docs/KOMADEKI_UI_UX_PHYSICAL_EVIDENCE_GATE.md on a physical iPhone using a build containing UI baseline 10f0c65f825c3c25fa21f47e0fb72cb64a60e981 or a later reconciled main commit, then persist the evidence to GitHub issue #48.",
-    "resume_evidence": "Issue #48 must identify device model, iOS version, build or commit SHA, PASS/FAIL for every numbered physical interaction check, including 30-question free-tier presentation, 20-question random-practice reachability, radar/legend readability, conservative low-sample weakness wording, contextual resume copy, mock-entry purchase guidance, the enhanced full-unlock card/CTA/restore reachability, and concrete defect evidence when any check fails; the tested commit must be reconciled against then-current main before the workstream can advance."
+    "action": "Run the bounded physical-device interaction checklist in docs/KOMADEKI_UI_UX_PHYSICAL_EVIDENCE_GATE.md on a physical iPhone using a build containing reconciled Drone 386-question baseline daf2da62d37a0a3a2d3d72b4ce3d4c257c9e1f10 or a later reconciled main commit, then persist the evidence to GitHub issue #48.",
+    "resume_evidence": "Issue #48 must identify device model, iOS version, build or commit SHA, PASS/FAIL for every numbered physical interaction check, including 30-question free-tier presentation, 20-question random-practice reachability, radar/legend readability, conservative low-sample weakness wording, contextual resume copy, mock-entry purchase guidance, 386-question full-unlock card/CTA/restore reachability, and concrete defect evidence when any check fails; the tested commit must be reconciled against then-current main before the workstream can advance."
   },
-  "state_epoch": 20
+  "state_epoch": 21
 }
