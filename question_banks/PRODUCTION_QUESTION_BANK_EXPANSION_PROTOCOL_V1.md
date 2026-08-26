@@ -46,14 +46,14 @@ Candidate IDs are unique within a qualification/batch. A rejected candidate ID i
 
 ```text
 candidate_id,state,unit_id,domain,knowledge_target_id,family,question,
-choice1,choice2,choice3,choice4,proposed_correct,explanation,source_id,
+choice1,choice2,choice3,choice4,choice5,proposed_correct,explanation,source_id,
 source_version,source_locator,answer_defining_proposition,tested_misconception,
 reasoning_path,collision_note,permanent_question_id
 ```
 
 `unit_id` is the shared canonical parent. `domain` and `knowledge_target_id` may carry qualification-specific metadata. Shared validation must not encode Drone-specific taxonomy.
 
-For pre-ID states, `permanent_question_id` is empty. A Permanent ID appears only at `ID_ALLOCATED` or a later production state. `READY_FOR_ID` and later states must already be canonical-compatible 3- or 4-choice Questions with contiguous `choice1` through `choice3`/`choice4`; choices must also be unique after the canonical whitespace and case normalization.
+For pre-ID states, `permanent_question_id` is empty. A Permanent ID appears only at `ID_ALLOCATED` or a later production state. `choice5` is additive and optional for historical batches. `READY_FOR_ID` and later states must already be canonical-compatible 3-, 4-, or 5-choice Questions with contiguous choices; choices must also be unique after the canonical whitespace and case normalization. A bank-level `expected_choice_count` takes precedence when configured.
 
 ## Persistence invariant
 

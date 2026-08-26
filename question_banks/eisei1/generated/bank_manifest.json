@@ -1,0 +1,12 @@
+{
+  "app_key": "eisei1",
+  "bank_revision": "eisei1-bank-bootstrap-2026-08-26",
+  "content_as_of": "2026-08-26",
+  "content_hash": "sha256:fff872f914a5502ce743327c4d84e5bf0d56cebb18e0477f9119586bdeb0ac51",
+  "exam_profile_version": "eisei1-exam-v1",
+  "free_question_count": 0,
+  "generated_file_notice": "GENERATED FILE - DO NOT EDIT",
+  "question_count": 0,
+  "schema_version": 1,
+  "source_versions": {}
+}
