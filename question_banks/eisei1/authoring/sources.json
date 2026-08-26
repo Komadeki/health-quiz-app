@@ -20,6 +20,78 @@
       "usage_basis": "public_legal_text"
     },
     {
+      "source_id": "E1-LAW-ASEO",
+      "title": "労働安全衛生法施行令",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-27",
+      "url": "https://laws.e-gov.go.jp/law/347CO0000000318",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-LAW-SPEC-CHEM",
+      "title": "特定化学物質障害予防規則",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-27",
+      "url": "https://laws.e-gov.go.jp/law/347M50002000039",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-LAW-ORGANIC",
+      "title": "有機溶剤中毒予防規則",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-27",
+      "url": "https://laws.e-gov.go.jp/law/347M50002000036",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-LAW-LEAD",
+      "title": "鉛中毒予防規則",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-27",
+      "url": "https://laws.e-gov.go.jp/law/347M50002000037",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-LAW-DUST",
+      "title": "粉じん障害防止規則",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-27",
+      "url": "https://laws.e-gov.go.jp/law/354M50002000018",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-LAW-OXYGEN",
+      "title": "酸素欠乏症等防止規則",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-27",
+      "url": "https://laws.e-gov.go.jp/law/347M50002000042",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-LAW-IONIZING",
+      "title": "電離放射線障害防止規則",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-27",
+      "url": "https://laws.e-gov.go.jp/law/347M50002000041",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-LAW-ASBESTOS",
+      "title": "石綿障害予防規則",
+      "issuer": "デジタル庁 e-Gov法令検索",
+      "source_version": "current-as-of-2026-08-27",
+      "url": "https://laws.e-gov.go.jp/law/417M60000100021",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "public_legal_text"
+    },
+    {
       "source_id": "E1-LAW-LSL",
       "title": "労働基準法",
       "issuer": "デジタル庁 e-Gov法令検索",
