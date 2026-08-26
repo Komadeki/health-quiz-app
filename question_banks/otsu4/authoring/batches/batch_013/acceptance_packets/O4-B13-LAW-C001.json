@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B13-LAW-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "83734b4f7d902b30b1fd6359f65ea44d7bdd8ba7026cc09fa62ae5ef7d0c753f",
+  "actors": {
+    "author": {
+      "id": "otsu4-b13-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第41条"
+    },
+    "answer_defining_proposition": "運搬容器の材質にはプラスチックも含まれる。",
+    "tested_misconception": "運搬容器は金属以外では認められない。",
+    "reasoning_path": "read Article 41 material list -> identify permitted material",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B13; Rule-specific material detail beyond W3 Decree-level example."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The Rule-level permitted-material detail materially extends canonical OTSU4-Q-000162, which only tests a Decree-level steel example."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B15-FIR-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "76e0800f6e5ee1215bdcb0cd1c599da7df39c6223c70dca28501126a63f73929",
+  "actors": {
+    "author": {
+      "id": "otsu4-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ETHANOL",
+      "source_version": "2014-03-31",
+      "source_locator": "Section 9「物理的及び化学的性質」燃焼又は爆発範囲"
+    },
+    "answer_defining_proposition": "エタノール蒸気の爆発範囲上限は19%である。",
+    "tested_misconception": "エタノールの上限は下限と同じ3.3%である。",
+    "reasoning_path": "read upper bound -> select 19%",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B15; paired boundary with C006."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The ethanol upper explosion limit is a separate boundary from C006 and materially differs from the gasoline range."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

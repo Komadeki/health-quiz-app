@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B13-LAW-C016",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "3efe5a245222f2ae837665eedcb43492b5b0e50130c6c1b5c425fb4a6db3093d",
+  "actors": {
+    "author": {
+      "id": "otsu4-b13-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第46条の2第1項"
+    },
+    "answer_defining_proposition": "運搬容器の積み重ね高さは原則3mである。",
+    "tested_misconception": "運搬容器の積み重ね高さに数値上限はない。",
+    "reasoning_path": "read Rule numeric ceiling -> select 3m",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B13; supplies number omitted from W3 C010."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The exact three-metre stacking ceiling materially extends canonical OTSU4-Q-000171, which only establishes that a ministerial ceiling exists."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

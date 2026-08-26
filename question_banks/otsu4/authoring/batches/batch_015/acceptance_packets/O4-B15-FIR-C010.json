@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B15-FIR-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d5c8305b520fc003ac2b44a8a691d1eeb0636131ffd65750725c9f518fe15e49",
+  "actors": {
+    "author": {
+      "id": "otsu4-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-METHANOL",
+      "source_version": "2010-03-31",
+      "source_locator": "Section 9「物理的及び化学的性質」爆発範囲"
+    },
+    "answer_defining_proposition": "メタノール蒸気の爆発範囲下限は6.0vol%である。",
+    "tested_misconception": "メタノールの爆発範囲は0vol%から始まる。",
+    "reasoning_path": "read lower bound -> select 6.0vol%",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B15; distinct substance-specific boundary."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The methanol lower explosion limit is a distinct source-explicit flammability boundary."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

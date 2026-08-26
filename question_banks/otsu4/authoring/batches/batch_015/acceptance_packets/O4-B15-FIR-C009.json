@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B15-FIR-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "84a532e6a70f9a0d0511675bb436b8439eede9f2231fae56b53d575da501ecb5",
+  "actors": {
+    "author": {
+      "id": "otsu4-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-METHANOL",
+      "source_version": "2010-03-31",
+      "source_locator": "Section 9「物理的及び化学的性質」自然発火温度"
+    },
+    "answer_defining_proposition": "メタノールの自然発火温度は464℃である。",
+    "tested_misconception": "メタノールは引火点12℃で自然発火する。",
+    "reasoning_path": "read one SDS autoignition field -> select 464C",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B15; new ignition property."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Methanol autoignition temperature is a new substance-specific ignition property distinct from the canonical methanol flash point."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

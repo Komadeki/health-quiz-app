@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B15-FIR-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e02bb129e8be174df83400c74504312f90f2ac14edcd9364f2b9e26da0508ecc",
+  "actors": {
+    "author": {
+      "id": "otsu4-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ETHANOL",
+      "source_version": "2014-03-31",
+      "source_locator": "Section 9「物理的及び化学的性質」燃焼又は爆発範囲"
+    },
+    "answer_defining_proposition": "エタノール蒸気の爆発範囲下限は3.3%である。",
+    "tested_misconception": "エタノールの爆発範囲は下限を持たない。",
+    "reasoning_path": "read lower bound -> select 3.3%",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B15; distinct substance-specific explosion boundary."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The ethanol lower explosion limit is a distinct source-bound property with practical flammability value."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

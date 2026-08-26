@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B13-LAW-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "bb0f1c9f6d50664a716f1e267868dcde5dc96d74af9b77ccadccef0a5a4b94d9",
+  "actors": {
+    "author": {
+      "id": "otsu4-b13-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第43条の3第1項第1号ただし書"
+    },
+    "answer_defining_proposition": "一定の内圧上昇時には安全条件を満たすガス抜き口付き容器を使用できる。",
+    "tested_misconception": "内圧が上がる場合は危険性に関係なく容器を完全開放する。",
+    "reasoning_path": "match gas-pressure condition -> apply restricted vent exception",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W4 B13; distinct exception boundary."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The restricted gas-vent exception tests a useful conditional boundary distinct from the default sealing rule."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
