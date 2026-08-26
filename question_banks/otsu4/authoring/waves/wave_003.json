@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W3",
+  "status": "PLANNED",
+  "planned_at": "2026-08-26",
+  "production_target": 600,
+  "canonical_verified_baseline": 161,
+  "candidate_ceiling": 72,
+  "candidate_ceiling_is_quota": false,
+  "batches": [
+    {"batch_id": "B10", "candidate_ceiling": 24, "knowledge_target_id": "O4-LAW-KT-TRANSPORT", "target_total_plan": 40, "source_path": "current e-Gov Decree/Rule transport, container, loading and marking provisions"},
+    {"batch_id": "B11", "candidate_ceiling": 24, "knowledge_target_id": "O4-PHY-KT-COMBUSTION", "target_total_plan": 40, "source_path": "FDMA combustion guidance and frozen MEXT pinpoint ranges"},
+    {"batch_id": "B12", "candidate_ceiling": 24, "knowledge_target_id": "O4-FIR-KT-EXTINGUISHING", "target_total_plan": 30, "source_path": "FDMA hazardous-material fire-fighting guidance and registered MHLW SDS Section 5 fields"}
+  ],
+  "selection_basis": "Wave 3 covers three previously untouched required targets across law, physics/chemistry and properties/fire. Each has a registered primary-source set suitable for a bounded source-first candidate pass.",
+  "planning_invariants": {
+    "WAVE_MODE_MAX_BATCHES": 3,
+    "WAVE_MODE_MAX_CANDIDATES": 72,
+    "CANDIDATE_CEILING_IS_NOT_QUOTA": true,
+    "NO_QUOTA_BACKFILL": true,
+    "NO_COPYRIGHTED_PAST_QUESTION_TEXT": true,
+    "COLLISION_CHECK_AGAINST_ALL_161_CANONICAL_REQUIRED": true,
+    "SINGLE_SOURCE_BINDING_REQUIRED": true,
+    "AUTHOR_REVIEWER_DIRECTOR_IDENTITIES_MUST_DIFFER": true,
+    "PERMANENT_ID_ALLOCATION_SEPARATE": true,
+    "SOURCE_VERIFICATION_SEPARATE": true,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "AUTHOR_OTSU4_WAVE_3_AI_PRE_ACCEPT"
+}
