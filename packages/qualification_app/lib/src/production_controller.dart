@@ -396,11 +396,13 @@ final class QualificationProductionController extends ChangeNotifier {
     final session = activeSession;
     final card = currentCard;
     if (_transitionBusy || session == null || card == null) return false;
-    if (session.committedResponses.containsKey(session.currentQuestionId) ||
-        choiceIndex < 0 ||
-        choiceIndex >= card.choices.length) {
+    final existingResponse = session.committedResponses[session.currentQuestionId];
+    if (choiceIndex < 0 || choiceIndex >= card.choices.length) return false;
+    if (existingResponse != null && session.mode != LearningModeV1.mockExam) {
       return false;
     }
+    if (existingResponse?.choiceIndex == choiceIndex) return true;
+
     _transitionBusy = true;
     try {
       final now = _now();
@@ -411,23 +413,30 @@ final class QualificationProductionController extends ChangeNotifier {
       }
       final rawDuration =
           now.difference(_questionShownAt ?? now).inMilliseconds;
-      final attemptId = '${session.sessionId}:${session.currentQuestionId}';
-      final persistedEvent = (await _learningRepository.loadAllEvents())
-          .where((event) => event.attemptId == attemptId)
-          .firstOrNull;
-      if (persistedEvent != null) {
-        _validatePersistedAnswer(
-          event: persistedEvent,
-          session: session,
-          card: card,
-          choiceIndex: choiceIndex,
-        );
-        await _saveCommittedResponse(session, persistedEvent);
-        return true;
+      final allEvents = await _learningRepository.loadAllEvents();
+      final initialAttemptId = '${session.sessionId}:${session.currentQuestionId}';
+
+      if (existingResponse == null) {
+        final persistedEvent = allEvents
+            .where((event) => event.attemptId == initialAttemptId)
+            .firstOrNull;
+        if (persistedEvent != null) {
+          _validatePersistedAnswer(
+            event: persistedEvent,
+            session: session,
+            card: card,
+            choiceIndex: choiceIndex,
+          );
+          await _saveCommittedResponse(session, persistedEvent);
+          return true;
+        }
       }
+
       final attemptNumber =
-          await _learningRepository.countAttempts(session.currentQuestionId) +
-              1;
+          await _learningRepository.countAttempts(session.currentQuestionId) + 1;
+      final attemptId = existingResponse == null
+          ? initialAttemptId
+          : '$initialAttemptId:revision-$attemptNumber';
       final response = SessionResponseV1(
         choiceIndex: choiceIndex,
         attemptId: attemptId,
@@ -480,10 +489,27 @@ final class QualificationProductionController extends ChangeNotifier {
     );
     await _sessionStore.save(updatedSession);
     activeSession = updatedSession;
-    if (!events.any((existing) => existing.attemptId == event.attemptId)) {
-      events = List.unmodifiable([...events, event]);
-    }
+    events = _collapseSessionQuestionEvents([...events, event]);
     notifyListeners();
+  }
+
+  List<LearningEventV1> _collapseSessionQuestionEvents(
+    Iterable<LearningEventV1> source,
+  ) {
+    final latest = <String, LearningEventV1>{};
+    for (final event in source) {
+      final key = '${event.sessionId}\u0000${event.questionId}';
+      final previous = latest[key];
+      if (previous == null ||
+          event.answeredAt.isAfter(previous.answeredAt) ||
+          (event.answeredAt == previous.answeredAt &&
+              event.attemptNumber > previous.attemptNumber)) {
+        latest[key] = event;
+      }
+    }
+    final collapsed = latest.values.toList(growable: false)
+      ..sort((left, right) => left.answeredAt.compareTo(right.answeredAt));
+    return List.unmodifiable(collapsed);
   }
 
   void _validatePersistedAnswer({
@@ -516,6 +542,35 @@ final class QualificationProductionController extends ChangeNotifier {
       hash = ((hash ^ codeUnit) * 0x01000193) & 0x7FFFFFFF;
     }
     return hash;
+  }
+
+  Future<bool> moveToPreviousMockQuestion() async {
+    final session = activeSession;
+    if (_transitionBusy ||
+        session == null ||
+        session.mode != LearningModeV1.mockExam ||
+        session.currentIndex <= 0) {
+      return false;
+    }
+    _transitionBusy = true;
+    try {
+      final now = _now();
+      if (_mockExamExpired(session, now)) {
+        await _completeSession(session);
+        notifyListeners();
+        return false;
+      }
+      activeSession = session.copyWith(
+        currentIndex: session.currentIndex - 1,
+        updatedAt: now,
+      );
+      _questionShownAt = now;
+      await _sessionStore.save(activeSession!);
+      notifyListeners();
+      return true;
+    } finally {
+      _transitionBusy = false;
+    }
   }
 
   Future<bool> advance() async {
@@ -643,7 +698,9 @@ final class QualificationProductionController extends ChangeNotifier {
   }
 
   Future<void> _refreshLearningState() async {
-    events = await _learningRepository.loadAllEvents();
+    events = _collapseSessionQuestionEvents(
+      await _learningRepository.loadAllEvents(),
+    );
     history = await _learningRepository.loadSessionHistory();
     final productionBank = bank;
     if (productionBank == null) return;
@@ -751,10 +808,13 @@ final class QualificationProductionController extends ChangeNotifier {
     }
     for (final entry in session.committedResponses.entries) {
       final card = productionBank.cardsById[entry.key];
-      if (card == null || entry.value.choiceIndex >= card.choices.length) {
+      if (card == null ||
+          entry.value.choiceIndex < 0 ||
+          entry.value.choiceIndex >= card.choices.length) {
         return false;
       }
-      if (session.questionIds.indexOf(entry.key) > session.currentIndex) {
+      if (session.mode != LearningModeV1.mockExam &&
+          session.questionIds.indexOf(entry.key) > session.currentIndex) {
         return false;
       }
     }
