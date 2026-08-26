@@ -58,11 +58,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run Question Bank checks
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: bash tooling/ci/check_question_banks.sh
+      - name: Run Otsu4 Question Bank checks
+        run: bash tooling/ci/check_otsu4_question_bank.sh
 
   shared-checks:
     needs: scope
