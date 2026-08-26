@@ -1,5 +1,5 @@
 Drone TestFlight preview trigger
-Requested: 2026-08-26 (mock review/revision release candidate)
-Purpose: upload current main with unlocked `全386問を利用できます` copy, shared pre-submission mock previous/next navigation, answer revision, and final submit confirmation for physical-device release verification.
+Requested: 2026-08-26 (practice count picker + mock review color release candidate)
+Purpose: upload current main with random practice fixed at 20 questions, dynamic unanswered/incorrect count pickers, and completed mock review status colors (correct blue / incorrect light red) for physical-device release verification.
 Source branch: main
-Source commit: 5eb3a3f7e5e1f0fd5fdc0800457b04e3a5f5ec31
+Source commit: 8220832bcc528f80d28d0103be77b1f2924c1a57
