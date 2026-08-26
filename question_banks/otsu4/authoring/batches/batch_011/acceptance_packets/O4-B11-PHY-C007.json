@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B11-PHY-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8681eaf8c92dcd459d8147cb4ea69ae8c4440ea675179ff98416a3a1ff4f5a82",
+  "actors": {
+    "author": {
+      "id": "otsu4-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "着火源"
+    },
+    "answer_defining_proposition": "着火源には静電気、衝撃火花、太陽光、雷なども含まれる。",
+    "tested_misconception": "着火源は裸火だけに限られる。",
+    "reasoning_path": "recall source examples -> distinguish ignition sources from suppressants",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B11; ignition-source breadth useful for prevention reasoning."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Static discharge, impact sparks and lightning broaden practical recognition of ignition sources."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

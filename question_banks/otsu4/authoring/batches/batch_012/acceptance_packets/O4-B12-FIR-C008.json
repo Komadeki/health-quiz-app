@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B12-FIR-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d4cc5290a903f4b772af905a448e11c5ca5d4a545b3c844bbda2d21eacf45113",
+  "actors": {
+    "author": {
+      "id": "otsu4-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-KEROSENE",
+      "source_version": "2019-03-15",
+      "source_locator": "Section 5「火災時の措置」消火剤・大火災"
+    },
+    "answer_defining_proposition": "灯油の大火災には散水、噴霧水、耐アルコール性泡消火剤が挙げられている。",
+    "tested_misconception": "灯油では火災規模にかかわらず消火剤の区分は同じである。",
+    "reasoning_path": "distinguish small versus large fire agent lists",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B12; paired boundary with C007, but different decision by fire size."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Kerosene large-fire agent set tests a materially different fire-size decision from C007."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

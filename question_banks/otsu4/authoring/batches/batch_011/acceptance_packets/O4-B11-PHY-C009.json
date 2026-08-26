@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B11-PHY-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "78cac0bcf90dd2a151d02cd6886a35659de8fd54b68c484631f7c0b4f8a56db2",
+  "actors": {
+    "author": {
+      "id": "otsu4-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "着火源"
+    },
+    "answer_defining_proposition": "反応・分解などで発生した熱が蓄積すると外部着火源なしでも自然発火し得る。",
+    "tested_misconception": "外部の炎がなければ発火は絶対に起こらない。",
+    "reasoning_path": "heat generation + heat accumulation -> spontaneous ignition",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B11; natural-ignition proposition distinct from Class 4 flash points."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Heat accumulation causing spontaneous ignition is a distinct boundary case with high practical value."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

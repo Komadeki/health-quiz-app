@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B11-PHY-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "468e51939fc82ed6d3ceb2dd296fa0ce792275dc7718ef62f224eb644ac9e041",
+  "actors": {
+    "author": {
+      "id": "otsu4-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "なぜ燃え続けるのか？ ～連鎖反応と連鎖担体～"
+    },
+    "answer_defining_proposition": "燃焼の連鎖反応は、発生熱が未燃物へ伝わり反応が次々続く現象である。",
+    "tested_misconception": "燃焼は着火直後の一回の反応だけで終わる。",
+    "reasoning_path": "released heat -> new reacting molecules -> continuing reaction",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B11; propagation mechanism absent from canonical 161."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "General combustion-chain propagation is the appropriate exam-level representative of the source's chain-reaction subsection."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

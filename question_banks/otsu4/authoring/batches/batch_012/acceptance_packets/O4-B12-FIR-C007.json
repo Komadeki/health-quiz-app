@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B12-FIR-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9b0e35cc4a27b0675029619ee77f83d06d31df78da575cea3c86e81f38ca73d3",
+  "actors": {
+    "author": {
+      "id": "otsu4-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-KEROSENE",
+      "source_version": "2019-03-15",
+      "source_locator": "Section 5「火災時の措置」消火剤・小火災"
+    },
+    "answer_defining_proposition": "灯油の小火災には二酸化炭素、粉末、散水、耐アルコール性泡が挙げられている。",
+    "tested_misconception": "灯油の小火災は棒状注水だけが適切である。",
+    "reasoning_path": "read small-fire field -> identify listed agent set",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B12; size-specific extinguishing proposition."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Kerosene small-fire agent set is explicitly size-scoped and source-defined."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

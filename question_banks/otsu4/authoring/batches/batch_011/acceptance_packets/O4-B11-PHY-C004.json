@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B11-PHY-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "3fcdcd856a33d8579c29999c210de8f878ac8ea0fd4de2555c242515bbdd1107",
+  "actors": {
+    "author": {
+      "id": "otsu4-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-FDMA-COMBUSTION-1",
+      "source_version": "2026-08-25-retrieved",
+      "source_locator": "回答"
+    },
+    "answer_defining_proposition": "より安定した強い結合への組み換えで化学エネルギー差が熱や光として放出される。",
+    "tested_misconception": "燃焼の発熱は原子数が増えるためである。",
+    "reasoning_path": "compare bond stability before/after -> infer released energy",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B11; bond-energy explanation distinct from macroscopic combustion elements."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Stable-bond formation and energy release is a source-explicit explanation of exothermic combustion."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

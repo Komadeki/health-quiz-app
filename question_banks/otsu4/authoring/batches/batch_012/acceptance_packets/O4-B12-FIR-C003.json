@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B12-FIR-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "cfa12b0bc24b380084a8cccea32c16e5351f55681dd197b6bc3bc799102afc09",
+  "actors": {
+    "author": {
+      "id": "otsu4-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave3-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave3-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "source_locator": "Section 5「火災時の措置」特有の消火方法"
+    },
+    "answer_defining_proposition": "散水以外の消火剤で効果がない大きなガソリン火災では散水を用いる。",
+    "tested_misconception": "棒状注水禁止は水を用いるすべての対応を禁止する意味である。",
+    "reasoning_path": "distinguish prohibited jet water from large-fire spray/water use",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W3 B12; decision boundary between prohibited jet and cooling/spray use."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Large-fire spray-water fallback creates a meaningful boundary against the rod-water prohibition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
