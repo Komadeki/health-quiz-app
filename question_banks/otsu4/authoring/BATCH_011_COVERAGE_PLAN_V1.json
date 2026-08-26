@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B11-COMBUSTION-2026-08-26",
+  "product": "otsu4",
+  "wave_id": "W3",
+  "planned_at": "2026-08-26",
+  "objective": "AUTHOR_OTSU4_WAVE_3_AI_PRE_ACCEPT",
+  "production_target": 600,
+  "canonical_verified_baseline": 161,
+  "selected_target": "O4-PHY-KT-COMBUSTION",
+  "selected_target_total_plan": 40,
+  "verified_target_count_before_batch": 0,
+  "remaining_target_gap_before_batch": 40,
+  "candidate_ceiling": 24,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Combustion is an uncovered required physics/chemistry target with an official source that supports original causal and boundary questions. The batch must stop when its independently source-bound propositions are exhausted.",
+  "source_contract": {
+    "primary_source_ids": ["O4-FDMA-COMBUSTION-1", "O4-PHY-1"],
+    "pinpoint_scope": ["消防研究センター『ものはなぜ燃えるのか』の燃焼条件・可燃性蒸気・酸素・点火源の該当見出し", "MEXT 理科編の燃焼・酸化・熱に関する該当章節およびページ"],
+    "locator_rule": "Every candidate must bind to one registered source/version and one named heading or MEXT chapter-page locator that directly supports its answer-defining proposition. Cross-source comparisons are prohibited."
+  },
+  "planned_families": [
+    "combustion-triangle necessary-condition decisions",
+    "ignition-source removal and oxygen-isolation mechanism decisions",
+    "vapor-air mixture and ignition boundary misconceptions",
+    "complete versus incomplete combustion causal distinctions where explicitly sourced",
+    "heat transfer, temperature and ignition-condition application decisions",
+    "safe response priorities that follow directly from a single combustion mechanism"
+  ],
+  "planning_invariants": {
+    "NO_COPYRIGHTED_PAST_QUESTION_TEXT": true,
+    "NO_WORDING_ONLY_VARIANTS": true,
+    "NO_QUOTA_BACKFILL": true,
+    "COLLISION_CHECK_AGAINST_ALL_161_CANONICAL_REQUIRED": true,
+    "SINGLE_SOURCE_BINDING_REQUIRED": true,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "AUTHOR_B11_AI_PRE_ACCEPT_UP_TO_24"
+}
