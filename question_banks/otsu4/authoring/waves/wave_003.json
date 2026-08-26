@@ -1,31 +1,48 @@
 {
-  "schema_version": "1.0",
-  "wave_id": "W3",
-  "status": "PLANNED",
-  "planned_at": "2026-08-26",
-  "production_target": 600,
-  "canonical_verified_baseline": 161,
-  "candidate_ceiling": 72,
-  "candidate_ceiling_is_quota": false,
-  "batches": [
-    {"batch_id": "B10", "candidate_ceiling": 24, "knowledge_target_id": "O4-LAW-KT-TRANSPORT", "target_total_plan": 40, "source_path": "current e-Gov Decree/Rule transport, container, loading and marking provisions"},
-    {"batch_id": "B11", "candidate_ceiling": 24, "knowledge_target_id": "O4-PHY-KT-COMBUSTION", "target_total_plan": 40, "source_path": "FDMA combustion guidance and frozen MEXT pinpoint ranges"},
-    {"batch_id": "B12", "candidate_ceiling": 24, "knowledge_target_id": "O4-FIR-KT-EXTINGUISHING", "target_total_plan": 30, "source_path": "FDMA hazardous-material fire-fighting guidance and registered MHLW SDS Section 5 fields"}
-  ],
-  "selection_basis": "Wave 3 covers three previously untouched required targets across law, physics/chemistry and properties/fire. Each has a registered primary-source set suitable for a bounded source-first candidate pass.",
-  "planning_invariants": {
-    "WAVE_MODE_MAX_BATCHES": 3,
-    "WAVE_MODE_MAX_CANDIDATES": 72,
-    "CANDIDATE_CEILING_IS_NOT_QUOTA": true,
-    "NO_QUOTA_BACKFILL": true,
-    "NO_COPYRIGHTED_PAST_QUESTION_TEXT": true,
-    "COLLISION_CHECK_AGAINST_ALL_161_CANONICAL_REQUIRED": true,
-    "SINGLE_SOURCE_BINDING_REQUIRED": true,
-    "AUTHOR_REVIEWER_DIRECTOR_IDENTITIES_MUST_DIFFER": true,
-    "PERMANENT_ID_ALLOCATION_SEPARATE": true,
-    "SOURCE_VERIFICATION_SEPARATE": true,
-    "RELEASED_CHANGED": false,
-    "RUNTIME_CHANGED": false
+  "schema_version":"1.0",
+  "wave_id":"W3",
+  "status":"AI_PRE_ACCEPT_AUTHORED",
+  "planned_at":"2026-08-26",
+  "authored_at":"2026-08-26",
+  "production_target":600,
+  "canonical_verified_baseline":161,
+  "candidate_ceiling":72,
+  "candidate_ceiling_is_quota":false,
+  "actual_candidate_counts":{"B10":18,"B11":17,"B12":15,"total":50},
+  "authors":{
+    "B10":{"id":"otsu4-b10-author-r1","role":"AI_AUTHOR"},
+    "B11":{"id":"otsu4-b11-author-r1","role":"AI_AUTHOR"},
+    "B12":{"id":"otsu4-b12-author-r1","role":"AI_AUTHOR"}
   },
-  "next_gate": "AUTHOR_OTSU4_WAVE_3_AI_PRE_ACCEPT"
+  "batches":[
+    {"batch_id":"B10","candidate_ceiling":24,"actual_candidate_count":18,"knowledge_target_id":"O4-LAW-KT-TRANSPORT","target_total_plan":40,"source_path":"current e-Gov Decree transport, loading, vehicle and transfer provisions"},
+    {"batch_id":"B11","candidate_ceiling":24,"actual_candidate_count":17,"knowledge_target_id":"O4-PHY-KT-COMBUSTION","target_total_plan":40,"source_path":"registered FDMA combustion guidance"},
+    {"batch_id":"B12","candidate_ceiling":24,"actual_candidate_count":15,"knowledge_target_id":"O4-FIR-KT-EXTINGUISHING","target_total_plan":30,"source_path":"registered MHLW model SDS Section 5 fire-fighting fields"}
+  ],
+  "selection_basis":"Wave 3 covers three previously untouched required targets across law, physics/chemistry and properties/fire using registered official-source paths. Authoring stopped at 50 when distinct source-defined propositions were exhausted without filler.",
+  "authoring_rule":"All 50 candidates are AI_PRE_ACCEPT only. No Permanent IDs, canonical rows, source-verification rows, released rows or runtime rows are created at authoring.",
+  "collision_rule":"Independent review must collision-check every candidate against all 161 canonical/source-verified questions and all Wave 3 peers, rejecting low-value variants without quota backfill.",
+  "multi_source_rule":"Each candidate binds to one registered source_id/version and one reproducible locator. Cross-source answer-defining comparisons are prohibited.",
+  "correct_choice_balance":{
+    "B10":{"A":5,"B":5,"C":4,"D":4},
+    "B11":{"A":5,"B":4,"C":4,"D":4},
+    "B12":{"A":4,"B":4,"C":4,"D":3}
+  },
+  "planning_invariants":{
+    "WAVE_MODE_MAX_BATCHES":3,
+    "WAVE_MODE_MAX_CANDIDATES":72,
+    "CANDIDATE_CEILING_IS_NOT_QUOTA":true,
+    "NO_QUOTA_BACKFILL":true,
+    "NO_COPYRIGHTED_PAST_QUESTION_TEXT":true,
+    "COLLISION_CHECK_AGAINST_ALL_161_CANONICAL_REQUIRED":true,
+    "SINGLE_SOURCE_BINDING_REQUIRED":true,
+    "AUTHOR_REVIEWER_DIRECTOR_IDENTITIES_MUST_DIFFER":true,
+    "PERMANENT_ID_ALLOCATION_SEPARATE":true,
+    "SOURCE_VERIFICATION_SEPARATE":true,
+    "RELEASED_CHANGED":false,
+    "RUNTIME_CHANGED":false
+  },
+  "planned_state_epoch":56,
+  "authored_state_epoch":57,
+  "next_gate":"INDEPENDENT_AI_REVIEW_OTSU4_WAVE_3_50"
 }
