@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "app_key": "eisei1",
+  "batch_id": "B2",
+  "directory_slug": "batch_002",
+  "baseline_sha": "d9ae66f5db135a2a471100e25b3b48c8833238b2",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id": "eisei1-b2-author-r1", "role": "AI_AUTHOR"},
+  "expansion_trigger": "Replacement quality pilot after Director REWORK of PR #440. The objective is to prove the Eisei1 five-choice quality gate on source-bound, exam-like items before scaling authoring volume.",
+  "evidence": [
+    "docs/EISEI1_QUESTION_FACTORY_BOOTSTRAP_V1.md",
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "question_banks/eisei1/authoring/EISEI1_INITIAL_TWO_LANE_CONTRACT_V2.md",
+    "question_banks/eisei1/authoring/coverage.json",
+    "question_banks/eisei1/authoring/sources.json",
+    "GitHub PR #440 Director REWORK"
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "E1-B2-PILOT-001",
+      "previous_approved_target": 0,
+      "current_released_count": 0,
+      "proposed_target_min": 0,
+      "proposed_target_max": 0,
+      "approved_new_target": 0,
+      "rationale": "This replacement pilot measures source, distractor, explanation, collision and review quality. It deliberately does not establish a canonical production-bank-size target.",
+      "decision_date": "2026-08-27",
+      "evidence": "EISEI1_INITIAL_TWO_LANE_CONTRACT_V2.md sections 3 and 8"
+    }
+  ],
+  "coverage_limit_decisions": [],
+  "planned_scope": {
+    "candidate_count": 4,
+    "candidate_count_is_quota": false,
+    "lane_counts": {"law_hazardous": 2, "hygiene_hazardous": 2},
+    "knowledge_target_ids": ["E1-LH-004", "E1-LH-007", "E1-HH-002", "E1-HH-013"],
+    "known_rejected_ids": []
+  },
+  "invariants": {
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "HUMAN_REVIEW_CREATED": false,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
