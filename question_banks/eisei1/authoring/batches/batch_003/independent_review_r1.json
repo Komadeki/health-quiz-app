@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B3",
+  "review_round": 1,
+  "reviewed_at": "2026-08-27",
+  "reviewer": {
+    "id": "eisei1-b3-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b3-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "EISEI1_INITIAL_TWO_LANE_CONTRACT_V2.md",
+    "current e-Gov source locator for 酸素欠乏症等防止規則第5条",
+    "current MHLW 呼吸用保護具の選択、使用等に関する指針 4(1)ア",
+    "all current Eisei1 canonical rows and persisted B2/B3 candidates"
+  ],
+  "summary": {
+    "reviewed": 2,
+    "accept": 2,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B3-LH-C001",
+      "decision": "ACCEPT",
+      "rationale": "Article 5 makes the 18-percent oxygen threshold uniquely correct for the ventilation condition. The alternatives are adjacent threshold or gas-standard confusions, all choices are explained, and the item tests a different legal action from B2's pre-work measurement requirement."
+    },
+    {
+      "candidate_id": "E1-B3-HH-C001",
+      "decision": "ACCEPT",
+      "rationale": "The unknown-concentration condition is independently material: the MHLW guidance prohibits filtering respirators where harmful-substance concentration is unknown. The supplied-air answer is consistent with the same guidance, alternatives isolate plausible filtration and fit-test misconceptions, and this reasoning is distinct from B2's oxygen-deficiency-risk condition."
+    }
+  ],
+  "quality_gate": {
+    "exact_five_choices": "PASS",
+    "one_unambiguously_best_answer": "PASS",
+    "plausible_same_domain_distractors": "PASS",
+    "all_five_choice_explanations": "PASS",
+    "answer_position_distribution": "PASS: B/D; combined B2+B3 positions are E/B/C/D/B/D with no all-A bias",
+    "lane_fidelity": "PASS",
+    "published_question_copying": "PASS: no evidence of copied published-question wording"
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS",
+    "note": "The Eisei1 canonical bank is empty. B3-LH-C001 tests ventilation restoration to 18 percent, not B2's pre-work gas measurement. B3-HH-C001 applies the unknown-concentration condition, not B2's oxygen-deficiency condition."
+  },
+  "source_review_scope": "This review confirms current source registration, exact locator completeness and answer-binding. Final canonical source verification remains downstream after a Director acceptance decision and permanent-ID allocation.",
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE"
+}
