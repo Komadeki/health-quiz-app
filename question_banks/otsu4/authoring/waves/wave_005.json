@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W5",
-  "status": "INDEPENDENT_REVIEWED",
+  "status": "DIRECTOR_ACCEPTED_AND_PROMOTED",
   "planned_at": "2026-08-27",
   "production_target": 600,
   "canonical_verified_baseline": 240,
@@ -13,10 +13,39 @@
     "O4-PHY-KT-CALCULATION-BOUNDARY": 30,
     "O4-FIR-KT-INCIDENT-DECISION": 30
   },
-  "actual_candidate_counts": {"B16": 7, "B17": 3, "total": 10},
-  "authors": {"B16": {"id": "otsu4-b16-author-r1", "role": "AI_AUTHOR"}, "B17": {"id": "otsu4-b17-author-r1", "role": "AI_AUTHOR"}},
-  "review_summary": {"reviewed": 10, "accept": 6, "reject": 4, "rework": 0, "hold": 0, "reviewer_id": "otsu4-wave5-independent-reviewer-r1", "identity_separation": "PASS"},
-  "non_accepted_candidate_ids": {"reject": ["O4-B16-PHY-C001", "O4-B16-PHY-C002", "O4-B16-PHY-C003", "O4-B16-PHY-C004"], "rework": []},
+  "actual_candidate_counts": {
+    "B16": 7,
+    "B17": 3,
+    "total": 10
+  },
+  "authors": {
+    "B16": {
+      "id": "otsu4-b16-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B17": {
+      "id": "otsu4-b17-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
+  "review_summary": {
+    "reviewed": 10,
+    "accept": 6,
+    "reject": 4,
+    "rework": 0,
+    "hold": 0,
+    "reviewer_id": "otsu4-wave5-independent-reviewer-r1",
+    "identity_separation": "PASS"
+  },
+  "non_accepted_candidate_ids": {
+    "reject": [
+      "O4-B16-PHY-C001",
+      "O4-B16-PHY-C002",
+      "O4-B16-PHY-C003",
+      "O4-B16-PHY-C004"
+    ],
+    "rework": []
+  },
   "batches": [
     {
       "batch_id": "B16",
@@ -41,5 +70,15 @@
   "planned_state_epoch": 68,
   "authored_state_epoch": 69,
   "reviewed_state_epoch": 70,
-  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_5_6"
+  "next_gate": "ALLOCATE_AND_INTEGRATE_W5_ACCEPTED_6",
+  "director_adjudication": {
+    "artifact": "wave_005_director_adjudication_r1.json",
+    "decision": "ADOPT_REVIEWER_DECISIONS",
+    "accept": 6,
+    "reject": 4,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_state": "READY_FOR_ID",
+  "accept_promote_state_epoch": 71
 }

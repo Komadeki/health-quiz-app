@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W5",
+  "adjudication_round": 1,
+  "adjudicated_at": "2026-08-27",
+  "director": {
+    "id": "otsu4-wave5-director-r1",
+    "role": "AI_DIRECTOR"
+  },
+  "authors": {
+    "B16": {
+      "id": "otsu4-b16-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B17": {
+      "id": "otsu4-b17-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
+  "reviewers": {
+    "B16": {
+      "id": "otsu4-wave5-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "B17": {
+      "id": "otsu4-wave5-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    }
+  },
+  "identity_separation": "PASS",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 6,
+    "reject": 4,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "O4-B16-PHY-C005",
+    "O4-B16-PHY-C006",
+    "O4-B16-PHY-C007",
+    "O4-B17-FIR-C001",
+    "O4-B17-FIR-C002",
+    "O4-B17-FIR-C003"
+  ],
+  "nonaccepted": [
+    {
+      "candidate_id": "O4-B16-PHY-C001",
+      "batch_id": "B16",
+      "decision": "REJECT",
+      "reason_code": "",
+      "rationale": "Unit-only recall is too shallow for the calculation-boundary target.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B16-PHY-C002",
+      "batch_id": "B16",
+      "decision": "REJECT",
+      "reason_code": "",
+      "rationale": "Generic concept recall lacks a calculation or decision boundary.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B16-PHY-C003",
+      "batch_id": "B16",
+      "decision": "REJECT",
+      "reason_code": "",
+      "rationale": "The source-bound relation is correct but insufficiently discriminating.",
+      "resume_condition": ""
+    },
+    {
+      "candidate_id": "O4-B16-PHY-C004",
+      "batch_id": "B16",
+      "decision": "REJECT",
+      "reason_code": "",
+      "rationale": "The source-bound relation is correct but insufficiently discriminating.",
+      "resume_condition": ""
+    }
+  ],
+  "director_rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction.",
+  "invariants_before_transaction": {
+    "candidate_states": "ALL_AI_PRE_ACCEPT",
+    "acceptance_packets": 0,
+    "permanent_ids_allocated": 0,
+    "canonical_count": 240,
+    "registry_count": 240,
+    "source_verification_count": 240,
+    "released_count": 0,
+    "runtime_unchanged_required": true,
+    "human_review_fabricated": false
+  },
+  "final_gate": "READY_TO_ALLOCATE_AND_INTEGRATE_W5_ACCEPTED_6"
+}

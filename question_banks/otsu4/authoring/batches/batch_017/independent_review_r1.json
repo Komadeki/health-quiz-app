@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W5",
+  "batch_id": "B17",
+  "reviewer": {
+    "id": "otsu4-wave5-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "otsu4-b17-author-r1",
+  "identity_separation": "PASS",
+  "decisions": [
+    {"candidate_id": "O4-B17-FIR-C001", "decision": "ACCEPT", "rationale": "Source-specific static-electricity incident cause supports an actionable decision."},
+    {"candidate_id": "O4-B17-FIR-C002", "decision": "ACCEPT", "rationale": "Source-specific pre-repair residual-vapor decision is distinct and safety-relevant."},
+    {"candidate_id": "O4-B17-FIR-C003", "decision": "ACCEPT", "rationale": "Material-specific SDS isolation response is a distinct immediate-priority decision."}
+  ],
+  "summary": {"reviewed": 3, "accept": 3, "reject": 0, "rework": 0, "hold": 0}
+}
