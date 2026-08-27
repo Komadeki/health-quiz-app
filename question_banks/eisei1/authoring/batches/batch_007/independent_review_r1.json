@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B7",
+  "review_round": 1,
+  "reviewed_at": "2026-08-27",
+  "reviewer": {
+    "id": "eisei1-b7-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b7-director-rework-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "current e-Gov primary text of 特定化学物質障害予防規則 第40条第1項・第2項",
+    "current e-Gov primary text of 石綿障害予防規則 第41条",
+    "all current Eisei1 canonical rows and persisted candidates in B2 through B7"
+  ],
+  "summary": {
+    "reviewed": 2,
+    "accept": 2,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B7-LH-C001",
+      "decision": "ACCEPT",
+      "rationale": "Current e-Gov 特定化学物質障害予防規則第40条第1項 requires five-year preservation of the 特定化学物質健康診断個人票, while paragraph 2 replaces that period with thirty years only for the personal records of workers who constantly engage or engaged in work manufacturing or handling 特別管理物質 (subject to its stated chromium-acid limitation). The stem accurately excludes that paragraph-2 worker-record class, so C alone is correct; it does not merely say that the material is not a 特別管理物質, which would be an imprecise proxy for the legal exclusion. A, B, D and E are plausible neighboring retention-period confusions, and the explanation correctly accounts for every option. This is a lawful, scoped reauthoring of B4-C001's ambiguous stem rather than an answer-order paraphrase of an accepted question; the canonical bank is empty and no other persisted candidate tests this scoped personal-record rule. No published-question wording was copied."
+    },
+    {
+      "candidate_id": "E1-B7-LH-C002",
+      "decision": "ACCEPT",
+      "rationale": "Current e-Gov 石綿障害予防規則第41条 requires the 石綿健康診断個人票 to be preserved for forty years from the day the worker no longer constantly engages in the relevant work at that establishment. The stem retains the establishment-specific condition, and D gives the statutory trigger and duration; the trigger is neither the retirement date nor the examination date. A, B, C and E are plausible same-domain retention or trigger confusions, and the explanation accounts for all five choices. The item is materially distinct from B4-C003's asbestos examination-frequency proposition and from the ionizing-radiation frequency candidate: it tests the asbestos-specific individual-record retention trigger. The canonical bank is empty and no persisted candidate has the same proposition or reasoning path. No published-question wording was copied."
+    }
+  ],
+  "quality_gate": {
+    "exact_five_choices": "PASS",
+    "one_unambiguously_best_answer": "PASS: C001's stem excludes precisely the Article 40(2) worker-record class; C002's statutory trigger is establishment-specific cessation of the relevant work",
+    "plausible_same_domain_distractors": "PASS",
+    "all_five_choice_explanations": "PASS",
+    "answer_position_distribution": "PASS: C and D are retained because they are the answer-defining propositions; this two-candidate batch does not establish authoring bias",
+    "lane_fidelity": "PASS",
+    "source_locator_binding": "PASS: 特化則第40条第1項・第2項 binds C001 and 石綿則第41条 binds C002",
+    "published_question_copying": "PASS: no evidence of copied published-question wording"
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "persisted_candidates_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS",
+    "note": "The Eisei1 canonical bank has no rows. B2-C001 concerns organic-solvent work-environment measurement records, not medical records. B4-C001 is the expressly rejected ambiguous predecessor; B7-C001 replaces it with the Article 40(2) worker-record exclusion made explicit. B4-C003 and B4-C002 are examination-frequency candidates, whereas B7-C002 tests the Article 41 forty-year record-retention trigger."
+  },
+  "source_review_scope": "This independent review rechecked current e-Gov primary text, exact locators and answer binding. Final canonical source verification remains downstream after Director acceptance and permanent-ID allocation.",
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE_ACCEPTED_2"
+}
