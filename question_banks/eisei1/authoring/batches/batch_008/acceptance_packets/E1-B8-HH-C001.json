@@ -21,7 +21,7 @@
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q1-Q10及び全persisted candidatesをDirector再確認。一般的な化学物質リスク低減順位や呼吸用保護具、B9の粉じん特別教育とは異なり、特定粉じん発散源そのものへの設備・湿潤化措置を問う。"
+      "note": "Q1-Q10及びcurrent main上の全Eisei1 persisted candidatesをDirector再確認。一般的な化学物質リスク低減順位や呼吸用保護具とは異なり、特定粉じん発散源そのものへの設備・湿潤化措置を問う。"
     }
   },
   "independent_review": {
@@ -30,7 +30,7 @@
   },
   "director_adjudication": {
     "decision": "ACCEPT",
-    "rationale": "The independent ACCEPT is adopted after a fresh Director collision check against source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000010 and all persisted candidates. The stem is explicitly restricted to equipment/wetting measures on the specific dust emission source, so process/material substitution is not a second correct answer. The proposition is distinct from B9's legal special-education content. Source binding, exact five choices, all-choice explanations, and variation gates pass. This transition creates no permanent ID, canonical row, source verification, release snapshot, or runtime mutation."
+    "rationale": "The independent ACCEPT is adopted after a fresh Director collision check against source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000010 and current-main Eisei1 candidates. The stem is explicitly restricted to equipment/wetting measures on the specific dust emission source, so process/material substitution is not a second correct answer. Source binding, exact five choices, all-choice explanations, and variation gates pass. This transition creates no permanent ID, canonical row, source verification, release snapshot, or runtime mutation."
   },
   "requested_state": "AI_GOVERNED_ACCEPT"
 }
