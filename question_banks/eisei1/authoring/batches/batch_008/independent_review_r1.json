@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B8",
+  "review_round": 1,
+  "reviewed_at": "2026-08-27",
+  "reviewer": {
+    "id": "eisei1-b8-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b8-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "current MHLW 作業環境評価基準 第2条第1項第1号",
+    "current 東京労働局 職業性疾病の予防 4(3)B",
+    "current MHLW 化学物質管理者講習テキスト 第4章 4.2.2(1)",
+    "current canonical EISEI1-Q-000001 through EISEI1-Q-000008 and all persisted Eisei1 candidates through B8"
+  ],
+  "summary": {
+    "reviewed": 3,
+    "accept": 3,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B8-LH-C001",
+      "decision": "ACCEPT",
+      "rationale": "MHLW 作業環境評価基準第2条第1項第1号 states that for A測定 only, 第一管理区分 applies when the first evaluation value is below the management concentration, 第二管理区分 when the first is at or above and the second is at or below, and 第三管理区分 when the second evaluation value exceeds the management concentration. The stem supplies exactly the third condition, so C is uniquely correct. D is false because the standard expressly evaluates A測定-only cases, and E is false because the management classification is assigned per unit work area rather than per individual measurement point. This proposition is materially distinct from existing measurement-frequency, retention, oxygen-deficiency, health-exam, and respiratory-protection items."
+    },
+    {
+      "candidate_id": "E1-B8-HH-C001",
+      "decision": "ACCEPT",
+      "rationale": "The Tokyo Labour Bureau's current dust-prevention guidance separately lists A: process/work-method/material changes, B: for specific dust emission sources, enclosure, local exhaust or push-pull ventilation and wetting, C: general ventilation for indoor dust work other than specific sources, D: work-environment measurement and follow-up, and additional education/PPE measures. The revised stem expressly asks for equipment/wetting measures applied to the specific dust source itself, so B is uniquely best and the earlier ambiguity with process/material substitution is removed. All distractors are plausible neighboring controls but belong to different control categories or scopes. No current canonical or persisted item tests this source-specific control classification."
+    },
+    {
+      "candidate_id": "E1-B8-HH-C002",
+      "decision": "ACCEPT",
+      "rationale": "MHLW's chemical-manager training text, Chapter 4 section 4.2.2(1), gives chemical-asphyxiation examples and explicitly states that hydrogen sulfide at high concentration can cause central respiratory paralysis, while hydrogen cyanide inhibits cellular respiration and phosgene causes respiratory difficulty via pulmonary edema or fibrosis. The stem is deliberately source-scoped to what this MHLW section explicitly states for high-concentration hydrogen sulfide, making E uniquely correct and avoiding a broader toxicology-mechanism ambiguity. The item is materially distinct from existing oxygen-deficiency measurement/ventilation and respirator-selection questions."
+    }
+  ],
+  "quality_gate": {
+    "exact_five_choices": "PASS",
+    "one_unambiguously_best_answer": "PASS",
+    "plausible_same_domain_distractors": "PASS",
+    "all_five_choice_explanations": "PASS",
+    "answer_position_distribution": "PASS: C, B, E",
+    "lane_fidelity": "PASS: one hazardous-law and two hazardous-hygiene candidates only",
+    "source_locator_binding": "PASS",
+    "published_question_copying": "PASS: no evidence of copied published-question wording"
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "persisted_candidates_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS",
+    "note": "Checked current canonical Q1-Q8, B7 reauthoring candidates, prior rejected/rework items, and B8 internally. The three B8 propositions require distinct reasoning paths: A-measurement classification, source-specific dust controls, and an explicitly source-scoped high-concentration H2S acute effect."
+  },
+  "source_review_scope": "Primary/current MHLW and Tokyo Labour Bureau materials were rechecked independently. Final canonical source verification remains downstream after Director acceptance and permanent-ID allocation.",
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE_ACCEPTED_3"
+}
