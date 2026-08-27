@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W5",
+  "status": "PLANNED",
+  "planned_at": "2026-08-27",
+  "production_target": 600,
+  "canonical_verified_baseline": 240,
+  "two_range_wave_mode": true,
+  "candidate_ceiling": 48,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Wave 5 uses the adopted two-range mode. It selects the only two required knowledge targets with zero source-verified questions: calculation boundary and incident decision. Both have frozen, reproducible official source paths and importance 3; no third range is permitted in this wave.",
+  "remaining_target_gaps_before_wave": {
+    "O4-PHY-KT-CALCULATION-BOUNDARY": 30,
+    "O4-FIR-KT-INCIDENT-DECISION": 30
+  },
+  "batches": [
+    {
+      "batch_id": "B16",
+      "candidate_ceiling": 24,
+      "knowledge_target_id": "O4-PHY-KT-CALCULATION-BOUNDARY",
+      "target_total_plan": 30,
+      "source_path": "registered O4-PHY-1 MEXT Chemistry Basics printed p.91 onward quantitative-chemistry propositions"
+    },
+    {
+      "batch_id": "B17",
+      "candidate_ceiling": 24,
+      "knowledge_target_id": "O4-FIR-KT-INCIDENT-DECISION",
+      "target_total_plan": 30,
+      "source_path": "registered O4-FDMA-INCIDENT-1 named incident subsections and single-material MHLW SDS Sections 5–7 fields"
+    }
+  ],
+  "authoring_rule": "Enumerate source-defined propositions first, collision-check against all 240 canonical/source-verified questions and the full Wave 5 peer set, and stop without backfill when distinct source-backed propositions are exhausted.",
+  "multi_source_rule": "Each candidate binds to one registered source_id/version and one reproducible pinpoint locator. Cross-source answer-defining comparisons are prohibited without an approved source-bundle contract.",
+  "filler_prohibited": true,
+  "planned_state_epoch": 68,
+  "next_gate": "AUTHOR_OTSU4_WAVE_5_AI_PRE_ACCEPT"
+}
