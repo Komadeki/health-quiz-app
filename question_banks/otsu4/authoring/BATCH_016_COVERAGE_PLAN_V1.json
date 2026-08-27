@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B16-CALCULATION-BOUNDARY-2026-08-27",
+  "product": "otsu4",
+  "wave_id": "W5",
+  "planned_at": "2026-08-27",
+  "objective": "AUTHOR_OTSU4_WAVE_5_AI_PRE_ACCEPT",
+  "production_target": 600,
+  "canonical_verified_baseline": 240,
+  "selected_target": "O4-PHY-KT-CALCULATION-BOUNDARY",
+  "selected_target_total_plan": 30,
+  "verified_target_count_before_batch": 0,
+  "remaining_target_gap_before_batch": 30,
+  "candidate_ceiling": 24,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Calculation boundary is an uncovered required physics/chemistry target with importance 3. The frozen MEXT quantitative-chemistry pages directly support original unit, amount-of-substance, mass, gas-volume and molar-concentration boundary questions; authoring must stop when distinct source-defined propositions are exhausted.",
+  "source_contract": {
+    "primary_source_ids": ["O4-PHY-1"],
+    "pinpoint_scope": ["MEXT 理科編 第2章 第4節 化学基礎 printed p.91 onward『物質量と化学反応式』の物質量、質量、気体の体積、モル濃度および量的関係として明示された範囲"],
+    "locator_rule": "Every candidate must bind to O4-PHY-1 / 2023-06-07 and its exact printed page/subheading. Calculations may use only values, relationships and units explicitly supported by that locator; do not infer unsourced numerical facts."
+  },
+  "planned_families": [
+    "amount-of-substance and molar-mass unit boundaries",
+    "mass-to-amount and amount-to-mass decisions using source-defined relationships",
+    "gas-volume and amount-of-substance boundary decisions",
+    "molar-concentration definition and unit decisions",
+    "quantitative-reaction relationship decisions where the source directly supports the relationship",
+    "common unit, denominator and proportional-reasoning misconceptions"
+  ],
+  "planning_invariants": {
+    "NO_COPYRIGHTED_PAST_QUESTION_TEXT": true,
+    "NO_WORDING_ONLY_VARIANTS": true,
+    "NO_QUOTA_BACKFILL": true,
+    "COLLISION_CHECK_AGAINST_ALL_240_CANONICAL_REQUIRED": true,
+    "SINGLE_SOURCE_BINDING_REQUIRED": true,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "AUTHOR_B16_AI_PRE_ACCEPT_UP_TO_24"
+}
