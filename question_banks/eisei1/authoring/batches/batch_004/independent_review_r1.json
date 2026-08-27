@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B4",
+  "review_round": 1,
+  "reviewed_at": "2026-08-27",
+  "reviewer": {
+    "id": "eisei1-b4-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b4-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "current MHLW text of 特定化学物質障害予防規則 第40条・第40条の2",
+    "current MHLW text of 電離放射線障害防止規則 第56条",
+    "current MHLW text of 石綿障害予防規則 第40条",
+    "all current Eisei1 canonical rows and persisted candidates"
+  ],
+  "summary": {
+    "reviewed": 4,
+    "accept": 2,
+    "reject": 0,
+    "rework": 2,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B4-LH-C001",
+      "decision": "REWORK",
+      "rationale": "The cited rule supports both five-year retention generally and thirty-year retention for special-management-substance records. The unqualified stem asks for the retention period, so choices B and E can both be legally correct depending on the record class. Narrow the stem to the general rule or explicitly exclude/scope the special-management exception."
+    },
+    {
+      "candidate_id": "E1-B4-LH-C002",
+      "decision": "ACCEPT",
+      "rationale": "The worker class is specific and current Article 56 directly fixes the periodic interval at once every six months. The one-month distractor is a neighboring emergency-work rule and the remaining intervals are plausible timing confusions. The item is source-bound and unambiguous."
+    },
+    {
+      "candidate_id": "E1-B4-LH-C003",
+      "decision": "REWORK",
+      "rationale": "The six-month asbestos rule is correct, but this candidate duplicates B4-C002's exact five interval choices, correct position, and reasoning pattern with only the regulated work relabeled. Under the Eisei1 collision/variation gate, reauthor the asbestos target around an asbestos-specific condition such as continuing examinations for formerly exposed current employees or another materially distinct proposition."
+    },
+    {
+      "candidate_id": "E1-B4-LH-C004",
+      "decision": "ACCEPT",
+      "rationale": "Current Article 40-2 item 1 directly fixes the opinion-hearing deadline at three months from the examination date or the specified substitute date. The distractors are adjacent timing rules, all five choices are explained, and the post-examination procedure is distinct from the accepted ionizing-radiation frequency item."
+    }
+  ],
+  "quality_gate": {
+    "exact_five_choices": "PASS",
+    "one_unambiguously_best_answer": "REWORK: E1-B4-LH-C001",
+    "plausible_same_domain_distractors": "PASS",
+    "all_five_choice_explanations": "PASS",
+    "answer_position_distribution": "PASS FOR PROMOTED SUBSET: C/B",
+    "lane_fidelity": "PASS",
+    "source_locator_binding": "PASS",
+    "variation_and_collision": "REWORK: E1-B4-LH-C003",
+    "published_question_copying": "PASS: no evidence of copied published-question wording"
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "persisted_candidates_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS_AFTER_2_REWORK",
+    "note": "B4-C003 is too close to B4-C002 in choices, answer position and reasoning path. B4-C001 is held for stem-condition ambiguity rather than collision."
+  },
+  "source_review_scope": "Current primary-rule text confirms the legal propositions and locators. Final canonical source verification remains downstream after Director acceptance and permanent-ID allocation.",
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE_ACCEPTED_2_REWORK_2"
+}
