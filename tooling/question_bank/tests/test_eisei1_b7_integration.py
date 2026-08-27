@@ -17,7 +17,12 @@ EXPECTED_SOURCES = {
     "EISEI1-Q-000009": "E1-LAW-SPEC-CHEM",
     "EISEI1-Q-000010": "E1-LAW-ASBESTOS",
 }
-B8_IDS = {"E1-B8-LH-C001", "E1-B8-HH-C001", "E1-B8-HH-C002"}
+B8_MAPPING = {
+    "E1-B8-HH-C001": "EISEI1-Q-000011",
+    "E1-B8-HH-C002": "EISEI1-Q-000012",
+    "E1-B8-LH-C001": "EISEI1-Q-000013",
+}
+B9_IDS = {"E1-B9-LH-C001", "E1-B9-LH-C002", "E1-B9-LH-C003"}
 
 
 def rows(path: Path, key: str) -> dict[str, dict[str, str]]:
@@ -32,7 +37,7 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
         registry = rows(AUTHORING / "question_id_registry.csv", "question_id")
 
         self.assertEqual(
-            {f"EISEI1-Q-{index:06d}" for index in range(1, 11)},
+            {f"EISEI1-Q-{index:06d}" for index in range(1, 14)},
             set(questions),
         )
         self.assertEqual(set(questions), set(registry))
@@ -91,13 +96,26 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
             ],
         )
 
-    def test_b8_is_ready_for_id_after_ai_governed_acceptance(self) -> None:
-        batch = AUTHORING / "batches" / "batch_008"
-        b8 = rows(batch / "candidates.csv", "candidate_id")
-        self.assertEqual(B8_IDS, set(b8))
-        self.assertTrue(all(row["state"] == "READY_FOR_ID" for row in b8.values()))
-        self.assertTrue(all(not row["permanent_question_id"] for row in b8.values()))
-        self.assertEqual(B8_IDS, {path.stem for path in (batch / "acceptance_packets").glob("*.json")})
+    def test_b8_is_integrated_and_b9_remains_ready(self) -> None:
+        questions = rows(AUTHORING / "questions.csv", "question_id")
+        registry = rows(AUTHORING / "question_id_registry.csv", "question_id")
+        b8_batch = AUTHORING / "batches" / "batch_008"
+        b8 = rows(b8_batch / "candidates.csv", "candidate_id")
+        self.assertEqual(set(B8_MAPPING), set(b8))
+        self.assertEqual(set(B8_MAPPING), {path.stem for path in (b8_batch / "acceptance_packets").glob("*.json")})
+        for candidate_id, question_id in B8_MAPPING.items():
+            candidate = b8[candidate_id]
+            self.assertEqual("INTEGRATED", candidate["state"])
+            self.assertEqual(question_id, candidate["permanent_question_id"])
+            self.assertIn(question_id, questions)
+            self.assertIn(question_id, registry)
+
+        b9_batch = AUTHORING / "batches" / "batch_009"
+        b9 = rows(b9_batch / "candidates.csv", "candidate_id")
+        self.assertEqual(B9_IDS, set(b9))
+        self.assertTrue(all(row["state"] == "READY_FOR_ID" for row in b9.values()))
+        self.assertTrue(all(not row["permanent_question_id"] for row in b9.values()))
+        self.assertEqual(B9_IDS, {path.stem for path in (b9_batch / "acceptance_packets").glob("*.json")})
 
 
 if __name__ == "__main__":

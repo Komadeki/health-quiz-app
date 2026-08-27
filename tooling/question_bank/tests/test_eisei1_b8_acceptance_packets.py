@@ -15,7 +15,11 @@ from expansion import validate_expansion_batch  # noqa: E402
 
 
 class Eisei1B8AcceptancePacketTest(unittest.TestCase):
-    accepted_ids = ("E1-B8-LH-C001", "E1-B8-HH-C001", "E1-B8-HH-C002")
+    mapping = {
+        "E1-B8-HH-C001": "EISEI1-Q-000011",
+        "E1-B8-HH-C002": "EISEI1-Q-000012",
+        "E1-B8-LH-C001": "EISEI1-Q-000013",
+    }
 
     def setUp(self) -> None:
         self.batch = REPOSITORY_ROOT / "question_banks/eisei1/authoring/batches/batch_008"
@@ -23,18 +27,21 @@ class Eisei1B8AcceptancePacketTest(unittest.TestCase):
             self.rows = {row["candidate_id"]: row for row in csv.DictReader(handle)}
         self.review = json.loads((self.batch / "independent_review_r1.json").read_text(encoding="utf-8"))
 
-    def test_exact_independent_accepts_are_ready_with_bound_packets(self) -> None:
+    def test_exact_independent_accepts_are_integrated_with_bound_packets(self) -> None:
         decisions = {item["candidate_id"]: item for item in self.review["decisions"]}
         packet_dir = self.batch / "acceptance_packets"
-        self.assertEqual(set(self.accepted_ids), {cid for cid, item in decisions.items() if item["decision"] == "ACCEPT"})
-        self.assertEqual(set(self.accepted_ids), {path.stem for path in packet_dir.glob("*.json")})
+        self.assertEqual(set(self.mapping), {cid for cid, item in decisions.items() if item["decision"] == "ACCEPT"})
+        self.assertEqual(set(self.mapping), {path.stem for path in packet_dir.glob("*.json")})
         self.assertEqual(
-            {candidate_id: "READY_FOR_ID" for candidate_id in self.accepted_ids},
-            {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.accepted_ids},
+            {candidate_id: "INTEGRATED" for candidate_id in self.mapping},
+            {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.mapping},
         )
-        self.assertTrue(all(not self.rows[candidate_id]["permanent_question_id"] for candidate_id in self.accepted_ids))
+        self.assertEqual(
+            self.mapping,
+            {candidate_id: self.rows[candidate_id]["permanent_question_id"] for candidate_id in self.mapping},
+        )
 
-        for candidate_id in self.accepted_ids:
+        for candidate_id in self.mapping:
             packet = json.loads((packet_dir / f"{candidate_id}.json").read_text(encoding="utf-8"))
             self.assertEqual(candidate_id, packet["candidate_id"])
             self.assertEqual("AI_PRE_ACCEPT", packet["candidate_state"])
