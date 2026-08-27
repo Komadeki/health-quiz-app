@@ -1,1 +1,8 @@
 question_id,status,first_used_bank_revision,retired_at,replacement_id,notes
+EISEI1-Q-000001,used,,,,Expansion pre-release allocation: E1-B2-HH-C001
+EISEI1-Q-000002,used,,,,Expansion pre-release allocation: E1-B2-HH-C002
+EISEI1-Q-000003,used,,,,Expansion pre-release allocation: E1-B2-LH-C001
+EISEI1-Q-000004,used,,,,Expansion pre-release allocation: E1-B2-LH-C002
+EISEI1-Q-000005,used,,,,Expansion pre-release allocation: E1-B3-LH-C001
+EISEI1-Q-000006,used,,,,Expansion pre-release allocation: E1-B4-LH-C002
+EISEI1-Q-000007,used,,,,Expansion pre-release allocation: E1-B4-LH-C004

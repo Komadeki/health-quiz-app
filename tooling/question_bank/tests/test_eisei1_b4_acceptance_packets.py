@@ -46,7 +46,7 @@ class Eisei1B4AcceptancePacketTest(unittest.TestCase):
             writer.writerows(rows)
         return batch
 
-    def test_only_authoritative_accepts_have_packets_and_ready_state(self) -> None:
+    def test_only_authoritative_accepts_have_packets_and_integrated_state(self) -> None:
         review = json.loads((self.source_batch / "independent_review_r1.json").read_text(encoding="utf-8"))
         decisions = {item["candidate_id"]: item for item in review["decisions"]}
         packets = self.source_batch / "acceptance_packets"
@@ -54,7 +54,7 @@ class Eisei1B4AcceptancePacketTest(unittest.TestCase):
         self.assertEqual(set(self.accepted_ids), {candidate_id for candidate_id, item in decisions.items() if item["decision"] == "ACCEPT"})
         self.assertEqual(set(self.rework_ids), {candidate_id for candidate_id, item in decisions.items() if item["decision"] == "REWORK"})
         self.assertEqual(set(self.accepted_ids), {path.stem for path in packets.glob("*.json")})
-        self.assertEqual({candidate_id: "READY_FOR_ID" for candidate_id in self.accepted_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.accepted_ids})
+        self.assertEqual({candidate_id: "INTEGRATED" for candidate_id in self.accepted_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.accepted_ids})
         self.assertEqual({candidate_id: "AI_PRE_ACCEPT" for candidate_id in self.rework_ids}, {candidate_id: self.rows[candidate_id]["state"] for candidate_id in self.rework_ids})
 
         for candidate_id in self.accepted_ids:
