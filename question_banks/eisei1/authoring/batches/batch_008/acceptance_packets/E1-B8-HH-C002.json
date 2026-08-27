@@ -21,7 +21,7 @@
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q1-Q10及び全persisted candidatesをDirector再確認。酸素欠乏場所の測定・換気、濃度不明時の保護具選択とは別に、高濃度硫化水素についてMHLW資料が明示する急性作用を問う。"
+      "note": "Q1-Q8及びB7を含む既存Eisei1全候補を確認。酸素欠乏場所の測定・換気や濃度不明時の保護具選択ではなく、高濃度硫化水素に対するMHLW資料上の急性作用を問う。"
     }
   },
   "independent_review": {
