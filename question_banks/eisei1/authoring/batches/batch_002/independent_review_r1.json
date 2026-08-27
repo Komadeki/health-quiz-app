@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B2",
+  "review_round": 1,
+  "reviewed_at": "2026-08-27",
+  "reviewer": {
+    "id": "eisei1-b2-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b2-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "EISEI1_INITIAL_TWO_LANE_CONTRACT_V2.md",
+    "current e-Gov source locators for 有機溶剤中毒予防規則第28条及び酸素欠乏症等防止規則第3条第1項",
+    "current MHLW chemical-risk Q&A Q12-2 and 呼吸用保護具の選択、使用等に関する指針 4(1)ア",
+    "all current Eisei1 canonical rows and persisted B2 candidates"
+  ],
+  "summary": {
+    "reviewed": 4,
+    "accept": 4,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B2-LH-C001",
+      "decision": "ACCEPT",
+      "rationale": "The stem confines the rule to Article 28(1) indoor workplaces, and the E answer correctly combines the distinct six-month measurement interval with three-year record retention. The four alternatives are close interval/retention confusions, and the explanation resolves each choice."
+    },
+    {
+      "candidate_id": "E1-B2-LH-C002",
+      "decision": "ACCEPT",
+      "rationale": "The second-type condition makes oxygen plus hydrogen sulfide the uniquely correct pre-work measurement pair under Article 3(1). Each distractor tests a neighboring gas or an incomplete application of the first-type rule, and the explanation covers all five choices."
+    },
+    {
+      "candidate_id": "E1-B2-HH-C001",
+      "decision": "ACCEPT",
+      "rationale": "The legal-measure exception is stated in the stem, and the C answer follows the current MHLW hierarchy of substitution, engineering controls, administrative controls, then PPE. All alternatives are meaningful order reversals rather than filler, with a complete A-E explanation."
+    },
+    {
+      "candidate_id": "E1-B2-HH-C002",
+      "decision": "ACCEPT",
+      "rationale": "The D answer correctly selects a supplied-air respiratory protective device with a full-facepiece and designated protection factor of at least 1000 for oxygen-deficiency risk. The four filtering-respirator alternatives isolate plausible misconceptions about filtration, powered air and fit testing, and the explanation is complete."
+    }
+  ],
+  "quality_gate": {
+    "exact_five_choices": "PASS",
+    "one_unambiguously_best_answer": "PASS",
+    "plausible_same_domain_distractors": "PASS",
+    "all_five_choice_explanations": "PASS",
+    "answer_position_distribution": "PASS: E/B/C/D with no dominant position",
+    "lane_fidelity": "PASS",
+    "published_question_copying": "PASS: no evidence of copied published-question wording"
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS",
+    "note": "The Eisei1 canonical bank is empty. The four retained candidates use distinct legal timing, gas-measurement, control-hierarchy and respiratory-protection reasoning paths."
+  },
+  "source_review_scope": "This review confirms current source registration, exact locator completeness and answer-binding. Final canonical source verification remains downstream after a Director acceptance decision and permanent-ID allocation.",
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE"
+}
