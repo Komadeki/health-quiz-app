@@ -155,6 +155,33 @@
       "usage_basis": "facts_only_independently_authored"
     },
     {
+      "source_id": "E1-MHLW-WORKENV-EVALUATION",
+      "title": "作業環境評価基準",
+      "issuer": "厚生労働省",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "url": "https://www.mhlw.go.jp/web/t_doc?dataId=74088000",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "public_legal_text"
+    },
+    {
+      "source_id": "E1-MHLW-DUST-PREVENTION",
+      "title": "職業性疾病の予防（粉じん障害の防止）",
+      "issuer": "厚生労働省 東京労働局",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "url": "https://jsite.mhlw.go.jp/tokyo-roudoukyoku/riyousha_mokuteki_menu/jigyounushi/jigyounushi_jouhou/syokusitsubousi.html",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS",
+      "title": "第4章 化学物質または混合物の危険性・有害性",
+      "issuer": "厚生労働省",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "url": "https://www.mhlw.go.jp/content/11300000/001107730.pdf",
+      "retrieved_at": "2026-08-27",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
       "source_id": "E1-EXAM-STRUCTURE",
       "title": "第一種衛生管理者試験の紹介",
       "issuer": "公益財団法人 安全衛生技術試験協会",
