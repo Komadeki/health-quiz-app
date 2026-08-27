@@ -21,6 +21,8 @@ EXPECTED = {
     "E1-B4-LH-C002": "EISEI1-Q-000006",
     "E1-B4-LH-C004": "EISEI1-Q-000007",
 }
+B6_EXPECTED = {"E1-B6-HH-C001": "EISEI1-Q-000008"}
+ALL_EXPECTED = {**EXPECTED, **B6_EXPECTED}
 
 
 def read_rows(path: Path) -> dict[str, dict[str, str]]:
@@ -39,8 +41,8 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
     def test_exact_ready_candidates_received_contiguous_initial_ids(self) -> None:
         questions = read_rows(self.authoring / "questions.csv")
         registry = read_rows(self.authoring / "question_id_registry.csv")
-        self.assertEqual(set(EXPECTED.values()), set(questions))
-        self.assertEqual(set(EXPECTED.values()), set(registry))
+        self.assertEqual(set(ALL_EXPECTED.values()), set(questions))
+        self.assertEqual(set(ALL_EXPECTED.values()), set(registry))
         for batch_name in ("batch_002", "batch_003", "batch_004"):
             candidates = read_rows(self.authoring / "batches" / batch_name / "candidates.csv")
             for candidate_id, question_id in EXPECTED.items():
@@ -101,18 +103,25 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             ],
         )
 
-    def test_b6_remains_ready_for_next_id(self) -> None:
+    def test_b6_is_integrated_as_the_next_id(self) -> None:
         batch = self.authoring / "batches" / "batch_006"
         candidates = read_rows(batch / "candidates.csv")
         candidate = candidates["E1-B6-HH-C001"]
-        self.assertEqual("READY_FOR_ID", candidate["state"])
-        self.assertEqual("", candidate["permanent_question_id"])
+        questions = read_rows(self.authoring / "questions.csv")
+        registry = read_rows(self.authoring / "question_id_registry.csv")
+        self.assertEqual("INTEGRATED", candidate["state"])
+        self.assertEqual(B6_EXPECTED[candidate["candidate_id"]], candidate["permanent_question_id"])
         self.assertEqual(
             {"E1-B6-HH-C001"},
             {path.stem for path in (batch / "acceptance_packets").glob("*.json")},
         )
-        self.assertNotIn("EISEI1-Q-000008", read_rows(self.authoring / "questions.csv"))
-        self.assertNotIn("EISEI1-Q-000008", read_rows(self.authoring / "question_id_registry.csv"))
+        question_id = B6_EXPECTED[candidate["candidate_id"]]
+        self.assertIn(question_id, questions)
+        self.assertIn(question_id, registry)
+        for field in ("question", "choice1", "choice2", "choice3", "choice4", "choice5", "explanation", "source_id", "source_locator"):
+            self.assertEqual(candidate[field], questions[question_id][field])
+        self.assertEqual(candidate["proposed_correct"], questions[question_id]["correct_choice"])
+        self.assertEqual("used", registry[question_id]["status"])
 
     def test_all_touched_expansion_batches_validate(self) -> None:
         for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006"):
