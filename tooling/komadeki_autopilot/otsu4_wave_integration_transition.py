@@ -60,6 +60,7 @@ def canonical_row(candidate: dict[str, str], question_id: str) -> dict[str, str]
         "choice2": candidate["choice2"],
         "choice3": candidate["choice3"],
         "choice4": candidate["choice4"],
+        "choice5": "",
         "correct_choice": candidate["proposed_correct"],
         "explanation": candidate["explanation"],
         "source_id": candidate["source_id"],
