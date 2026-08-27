@@ -56,6 +56,20 @@
       "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-27"
+    },
+    {
+      "question_id": "EISEI1-Q-000009",
+      "source_id": "E1-LAW-SPEC-CHEM",
+      "source_version": "current-as-of-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-27"
+    },
+    {
+      "question_id": "EISEI1-Q-000010",
+      "source_id": "E1-LAW-ASBESTOS",
+      "source_version": "current-as-of-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-27"
     }
   ]
 }
