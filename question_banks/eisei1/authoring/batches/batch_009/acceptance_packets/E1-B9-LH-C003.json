@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B9-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "2812416241d6141f9da38786a8110d126ee1378aa77b2ca11be306c8b934eb38",
+  "actors": {
+    "author": {"id": "eisei1-b9-author-r1", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "eisei1-b9-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "director": {"id": "eisei1-b9-director-r1", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-DUST",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "粉じん障害防止規則第22条第1項"
+    },
+    "answer_defining_proposition": "常時特定粉じん作業に係る業務の特別教育は発散防止・換気、作業場管理、呼吸用保護具、粉じん疾病・健康管理、関係法令の5科目で構成される。",
+    "tested_misconception": "粉じん作業に関連しそうな測定資格・一般安全教育を法定の特別教育科目と混同する。",
+    "reasoning_path": "常時特定粉じん作業という対象を確認する -> 第22条第1項の列挙5科目を照合する -> 完全一致する組合せを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "canonical Q1-Q10及びB8の全候補を確認。B8の粉じん問題は特定粉じん発散源への設備対策であり、本問は法定特別教育の科目構成を問うためreasoning pathが異なる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov 粉じん障害防止規則第22条第1項 lists exactly five special-education subjects for workers regularly assigned to specified dust work: dust-emission prevention and workplace ventilation methods, workplace management, respiratory-protective-equipment use, dust-related disease and health management, and relevant laws. A is the only choice that matches all five subjects. The distractors substitute related but non-listed topics. This legal education-content proposition is materially distinct from B8's hygiene-lane question about equipment and wetting measures applied to a specific dust emission source."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent ACCEPT is adopted after Director recheck against source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000010 and current-main candidates. The statutory five-subject education proposition is direct and unique; it remains materially distinct from B8's source-control engineering measures. All-choice explanations and variation gates pass. This transition creates no permanent ID, canonical row, source verification, release snapshot, or runtime mutation."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

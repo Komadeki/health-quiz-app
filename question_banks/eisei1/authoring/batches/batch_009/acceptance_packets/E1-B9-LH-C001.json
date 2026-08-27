@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B9-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "17d3e805a78729b5e78b8df768577973d7e58eaf87e5b12672796422e1832262",
+  "actors": {
+    "author": {"id": "eisei1-b9-author-r1", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "eisei1-b9-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "director": {"id": "eisei1-b9-director-r1", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則第34条の2の5第1項"
+    },
+    "answer_defining_proposition": "法第57条の2第1項の通知は通知対象物を譲渡し又は提供する時までに行う。",
+    "tested_misconception": "SDS等の通知は相手方の使用開始時又は請求時まででよいと考える。",
+    "reasoning_path": "通知対象物の譲渡・提供という場面を確認する -> 第34条の2の5第1項の期限を読む -> 譲渡・提供時までを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "canonical Q1-Q10及びB8の全候補を確認。既存の化学物質問題はリスク低減順位・健診記録等であり、SDS通知の法定時期を問う命題は未収載。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov 労働安全衛生規則第34条の2の5第1項 expressly requires the Article 57-2(1) notification to be made by the time the notified substance is transferred or provided, subject to the stated repeated-transfer exception when notification has already been made. The stem asks the ordinary statutory timing rule and D reproduces that rule without adding an unsupported pre-notice or post-transfer deadline. A, B, C and E are plausible timing misconceptions but are not the statutory rule. No current canonical or persisted Eisei1 item tests SDS/notification timing."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent ACCEPT is adopted after Director recheck against source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000010 and current-main candidates. The statutory timing proposition is unique, source binding is direct, all five choices are explained, and no semantic collision is present. This transition creates no permanent ID, canonical row, source verification, release snapshot, or runtime mutation."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
