@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B6",
+  "review_round": 1,
+  "reviewed_at": "2026-08-27",
+  "reviewer": {
+    "id": "eisei1-b6-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b6-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "current MHLW 基発0525第3号 別添「呼吸用保護具の選択、使用等に関する指針」4(1)ア",
+    "all current Eisei1 canonical rows and persisted B2/B3/B5/B6 candidates"
+  ],
+  "summary": {
+    "reviewed": 1,
+    "accept": 1,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B6-HH-C001",
+      "decision": "ACCEPT",
+      "rationale": "The current MHLW guidance at 4(1)ア directly prohibits filtering respiratory protective equipment where harmful-substance concentration is unknown. The stem is limited to that condition and D states only the resulting prohibition; it does not incorrectly import the oxygen-deficiency-only SPF 1000 supplied-air selection requirement. A, B, C and E are plausible same-domain filtering, PAPR and fit-test misconceptions, all five choices are explained, and D is the uniquely best answer. This is materially distinct from B2's oxygen-deficiency-risk supplied-air selection and from rejected B3/B5 candidates, which coupled the unknown condition to an SPF 1000 supplied-air selection proposition. No published-question wording was copied."
+    }
+  ],
+  "quality_gate": {
+    "exact_five_choices": "PASS",
+    "one_unambiguously_best_answer": "PASS",
+    "plausible_same_domain_distractors": "PASS",
+    "all_five_choice_explanations": "PASS",
+    "answer_position_distribution": "PASS: D is retained because it is the answer-defining proposition; this one-candidate batch does not establish authoring bias",
+    "lane_fidelity": "PASS",
+    "source_locator_binding": "PASS: 4(1)ア expressly prohibits filtering respiratory protective equipment where harmful-substance concentration is unknown",
+    "published_question_copying": "PASS: no evidence of copied published-question wording"
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "persisted_candidates_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS",
+    "note": "B2-HH-C002 asks for SPF>=1000 supplied-air selection under oxygen-deficiency risk. Rejected B3-HH-C001 and B5-HH-C001 improperly/duplicatively centered supplied-air selection. B6 instead tests only the independently binding unknown-harmful-concentration filtering prohibition."
+  },
+  "source_review_scope": "This review confirms current source registration, exact locator completeness and answer-binding. Final canonical source verification remains downstream after a Director acceptance decision and permanent-ID allocation.",
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE"
+}
