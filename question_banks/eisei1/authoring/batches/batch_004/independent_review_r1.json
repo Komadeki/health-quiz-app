@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B4",
+  "review_round": 1,
+  "reviewed_at": "2026-08-27",
+  "reviewer": {
+    "id": "eisei1-b4-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b4-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "current e-Gov source locators for 特定化学物質障害予防規則第40条・第40条の2、電離放射線障害防止規則第56条及び石綿障害予防規則第40条",
+    "all current Eisei1 canonical rows and persisted B2/B3/B4 candidates"
+  ],
+  "summary": {
+    "reviewed": 4,
+    "accept": 3,
+    "reject": 0,
+    "rework": 1,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B4-LH-C001",
+      "decision": "ACCEPT",
+      "rationale": "The item distinguishes the five-year general preservation rule from the 30-year special-management-substance exception. The choices are close regulatory periods, the exception is taught in the explanation, and the reasoning is distinct from existing measurement and respirator candidates."
+    },
+    {
+      "candidate_id": "E1-B4-LH-C002",
+      "decision": "ACCEPT",
+      "rationale": "The managed-area condition makes the six-month ionizing-radiation health-examination interval source-specific and unambiguous. The alternatives test plausible timing confusions, including the separate emergency-work rule."
+    },
+    {
+      "candidate_id": "E1-B4-LH-C003",
+      "decision": "REWORK",
+      "reason_code": "WITHIN_BATCH_DUPLICATE_REASONING_PATH",
+      "rationale": "Although the asbestos six-month interval is source-correct, it repeats C002's identical work pattern: identify a covered hazardous worker and recall a six-month periodic health-examination interval. A different regulated substance alone does not add enough practice value for this quality probe.",
+      "resume_condition": "Replace the item with an asbestos-specific proposition that has a materially different reasoning path, exact current locator, four plausible same-domain distractors and a complete A-E explanation; do not merely reorder or restate the six-month frequency."
+    },
+    {
+      "candidate_id": "E1-B4-LH-C004",
+      "decision": "ACCEPT",
+      "rationale": "The question cleanly distinguishes the three-month physician-opinion deadline from health-examination frequency and retention periods. It uses a precise locator and all alternatives are plausible timing confusions."
+    }
+  ],
+  "quality_gate": {
+    "exact_five_choices": "PASS",
+    "one_unambiguously_best_answer": "PASS for three accepted candidates; C003 requires variation rework",
+    "plausible_same_domain_distractors": "PASS",
+    "all_five_choice_explanations": "PASS",
+    "answer_position_distribution": "PASS: B/C/C/B; no authoring bias",
+    "lane_fidelity": "PASS",
+    "published_question_copying": "PASS: no evidence of copied published-question wording"
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS_AFTER_1_REWORK",
+    "note": "The Eisei1 canonical bank is empty. C003 is not source-invalid, but its same six-month periodic-examination recall pattern as C002 does not provide enough incremental reasoning value."
+  },
+  "source_review_scope": "This review confirms current source registration, exact locator completeness and answer-binding. Final canonical source verification remains downstream after a Director acceptance decision and permanent-ID allocation.",
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE_AFTER_C003_REWORK"
+}
