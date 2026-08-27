@@ -13,6 +13,10 @@ EXPECTED = {
     "E1-B7-LH-C001": "EISEI1-Q-000009",
     "E1-B7-LH-C002": "EISEI1-Q-000010",
 }
+EXPECTED_SOURCES = {
+    "EISEI1-Q-000009": "E1-LAW-SPEC-CHEM",
+    "EISEI1-Q-000010": "E1-LAW-ASBESTOS",
+}
 
 
 def rows(path: Path, key: str) -> dict[str, dict[str, str]]:
@@ -61,14 +65,18 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
                 self.assertEqual(candidate[field], question[field])
             self.assertEqual(candidate["proposed_correct"], question["correct_choice"])
 
-    def test_q9_q10_remain_pre_release_and_unverified_in_this_transition(self) -> None:
-        verification_ids = {
-            row["question_id"]
+    def test_q9_q10_are_source_verified_and_still_pre_release(self) -> None:
+        verifications = {
+            row["question_id"]: row
             for row in json.loads((AUTHORING / "source_verifications.json").read_text(encoding="utf-8"))[
                 "verifications"
             ]
         }
-        self.assertTrue(set(EXPECTED.values()).isdisjoint(verification_ids))
+        for question_id, source_id in EXPECTED_SOURCES.items():
+            self.assertIn(question_id, verifications)
+            self.assertEqual(source_id, verifications[question_id]["source_id"])
+            self.assertEqual("author_source_verified", verifications[question_id]["verification_state"])
+            self.assertEqual("2026-08-27", verifications[question_id]["verified_at"])
         self.assertEqual(
             [],
             json.loads((AUTHORING / "released_questions.json").read_text(encoding="utf-8"))[
@@ -82,7 +90,7 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
             ],
         )
 
-    def test_b8_authoring_is_not_mutated_by_b7_integration(self) -> None:
+    def test_b8_authoring_is_not_mutated_by_b7_source_verification(self) -> None:
         b8 = rows(AUTHORING / "batches" / "batch_008" / "candidates.csv", "candidate_id")
         self.assertEqual(
             {"E1-B8-LH-C001", "E1-B8-HH-C001", "E1-B8-HH-C002"},
