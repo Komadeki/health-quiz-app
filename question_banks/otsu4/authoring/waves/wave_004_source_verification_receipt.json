@@ -1,0 +1,15 @@
+{
+  "schema_version":"1.0",
+  "wave_id":"W4",
+  "verification_result":"PASS",
+  "verified_candidate_count":35,
+  "canonical_verified_before":205,
+  "canonical_verified_after":240,
+  "permanent_id_range":{"first":"OTSU4-Q-000206","last":"OTSU4-Q-000240"},
+  "nonaccepted_preserved":{"reject":9,"rework":0,"hold":0},
+  "released_changed":false,
+  "runtime_changed":false,
+  "source_verification_state_epoch":67,
+  "next_atomic_objective":"PLAN_OTSU4_WAVE_5_TWO_RANGE_COVERAGE",
+  "note":"Durable receipt added after the fail-closed source-verification worker passed; this commit does not change verification decisions. Wave 5 planning is constrained to the adopted two-range Wave Mode."
+}
