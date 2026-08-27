@@ -36,6 +36,8 @@ EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000006": "E1-LAW-IONIZING",
     "EISEI1-Q-000007": "E1-LAW-SPEC-CHEM",
     "EISEI1-Q-000008": "E1-MHLW-RPE-2023",
+    "EISEI1-Q-000009": "E1-LAW-SPEC-CHEM",
+    "EISEI1-Q-000010": "E1-LAW-ASBESTOS",
 }
 
 
@@ -88,7 +90,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
                 self.assertEqual("used", registry[question_id]["status"])
                 self.assertEqual("", registry[question_id]["first_used_bank_revision"])
 
-    def test_rework_candidates_are_unchanged_and_q1_q8_are_source_verified(self) -> None:
+    def test_rework_candidates_are_unchanged_and_q1_q10_are_source_verified(self) -> None:
         excluded = {
             "batch_003": ("E1-B3-HH-C001",),
             "batch_004": ("E1-B4-LH-C001", "E1-B4-LH-C003"),
