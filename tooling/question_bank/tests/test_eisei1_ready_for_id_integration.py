@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import csv
 import json
+import sys
 import unittest
 from pathlib import Path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(REPOSITORY_ROOT / "tooling" / "question_bank"))
 
-from tooling.question_bank.expansion import validate_expansion_batch
+from expansion import validate_expansion_batch  # noqa: E402
 
 
 EXPECTED = {
