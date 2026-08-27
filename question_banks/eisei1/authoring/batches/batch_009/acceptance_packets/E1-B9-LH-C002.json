@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B9-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f3d51be279d42b7aaa2138dd7d377a1378dab618cd990a1c5d867b7366fb7285",
+  "actors": {
+    "author": {"id": "eisei1-b9-author-r1", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "eisei1-b9-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "director": {"id": "eisei1-b9-director-r1", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第53条第1項"
+    },
+    "answer_defining_proposition": "鉛健康診断は原則6月以内ごとに1回であるが同項列挙の一部鉛業務等では1年以内ごとに1回である。",
+    "tested_misconception": "鉛健康診断の原則6月と列挙業務の1年例外を逆に覚える。",
+    "reasoning_path": "第53条第1項の対象を確認する -> 本文の原則6月を読む -> 括弧書きの1年例外を区別する",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "canonical Q1-Q10及びB8の全候補を確認。既存健診問題は電離放射線・特定化学物質・石綿であり、鉛則第53条の原則と列挙例外を区別する命題は未収載。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov 鉛中毒予防規則第53条第1項 requires the periodic lead medical examination generally every six months, while the paragraph's parenthetical specifies every one year for the listed lead-work categories and cleaning work at those workplaces. B correctly states that general/exception structure. C reverses it; D invents a two-year rule and also ignores the separate, condition-heavy one-year relaxation provision; A and E are inconsistent with Article 53. The proposition is distinct from the canonical ionizing-radiation examination interval and from specified-chemical/asbestos record questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent ACCEPT is adopted after Director recheck against source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000010 and current-main candidates. The general-six-month versus listed-one-year exception is directly bound to Article 53(1), unique among current questions, and the distractors do not create an alternative correct answer. This transition creates no permanent ID, canonical row, source verification, release snapshot, or runtime mutation."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
