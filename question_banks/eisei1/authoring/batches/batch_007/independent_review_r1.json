@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B7",
+  "review_round": 1,
+  "reviewed_at": "2026-08-27",
+  "reviewer": {
+    "id": "eisei1-b7-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b7-director-rework-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "current 特定化学物質障害予防規則 第40条第1項・第2項",
+    "current 石綿障害予防規則 第41条 and MHLW rule commentary",
+    "all current Eisei1 canonical rows and persisted candidates"
+  ],
+  "summary": {
+    "reviewed": 2,
+    "accept": 2,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B7-LH-C001",
+      "decision": "ACCEPT",
+      "rationale": "The stem now expressly excludes health-examination records for workers who are or were regularly engaged in manufacturing or handling special-management substances, removing the B4 ambiguity between the general five-year rule in Article 40(1) and the thirty-year special rule in Article 40(2). Choice C is therefore uniquely correct. The 30-year distractor tests the exact exception that caused the prior REWORK, while the other periods remain same-domain record-retention confusions. All five choices are explained, and the proposition is distinct from the existing three-month physician-opinion deadline item."
+    },
+    {
+      "candidate_id": "E1-B7-LH-C002",
+      "decision": "ACCEPT",
+      "rationale": "Current Asbestos Ordinance Article 41 requires the asbestos health-examination record to be kept for forty years from the date on which the worker ceases to be regularly engaged in the relevant work at that workplace. Choice D states both the correct starting event and period. The alternatives separately test examination-date, retirement-date and 30-year special-chemical confusions. This is materially distinct from the rejected B4 asbestos six-month examination-frequency item and from the accepted ionizing-radiation frequency item."
+    }
+  ],
+  "quality_gate": {
+    "exact_five_choices": "PASS",
+    "one_unambiguously_best_answer": "PASS",
+    "plausible_same_domain_distractors": "PASS",
+    "all_five_choice_explanations": "PASS",
+    "answer_position_distribution": "PASS: C/D",
+    "lane_fidelity": "PASS",
+    "source_locator_binding": "PASS",
+    "variation_and_collision": "PASS",
+    "published_question_copying": "PASS: no evidence of copied published-question wording"
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "persisted_candidates_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS",
+    "note": "C001 is a scoped general-vs-exception retention proposition replacing the ambiguous B4 item. C002 is an asbestos-specific retention-starting-event proposition, not another six-month examination-frequency question. Neither duplicates the current accepted/READY_FOR_ID/canonical propositions."
+  },
+  "source_review_scope": "The legal propositions were rechecked against current primary-rule text and current MHLW asbestos-rule materials. Final canonical source verification remains downstream after Director acceptance and permanent-ID allocation.",
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE"
+}
