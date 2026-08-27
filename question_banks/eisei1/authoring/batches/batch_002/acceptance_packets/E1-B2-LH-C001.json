@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B2-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e083c2f40f1201079756ad6f6ea8559bdd243f022d20fe453b59a0a75d132ea2",
+  "actors": {
+    "author": { "id": "eisei1-b2-author-r1", "role": "AI_AUTHOR" },
+    "reviewer": { "id": "eisei1-b2-independent-reviewer-r1", "role": "AI_REVIEWER" },
+    "director": { "id": "eisei1-director-r1", "role": "AI_DIRECTOR" }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ORGANIC",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "有機溶剤中毒予防規則 第28条第2項・第3項"
+    },
+    "answer_defining_proposition": "対象となる屋内作業場では有機溶剤濃度を6月以内ごとに1回定期測定し、その測定記録を3年間保存する。",
+    "tested_misconception": "定期測定の間隔と測定記録の保存期間を混同する。",
+    "reasoning_path": "対象作業場を特定する -> 第28条第2項の測定間隔を読む -> 第3項の保存期間と組み合わせる",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B2 preflight: Eisei1 canonical bank is empty; distinct proposition from B2 oxygen measurement and hygiene-control candidates."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The stem confines the rule to Article 28(1) indoor workplaces, and the E answer correctly combines the distinct six-month measurement interval with three-year record retention. The four alternatives are close interval/retention confusions, and the explanation resolves each choice."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent ACCEPT is adopted because the current primary-law locator binds the six-month measurement and three-year retention proposition, and the recorded collision check separates this timing-and-retention path from the other retained candidates. This is AI-governed content acceptance only; it does not fabricate Human review or allocate a permanent ID."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
