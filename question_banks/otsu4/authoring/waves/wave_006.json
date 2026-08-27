@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W6",
+  "status": "PLANNED",
+  "planned_at": "2026-08-27",
+  "production_target": 600,
+  "canonical_verified_baseline": 246,
+  "two_range_wave_mode": true,
+  "candidate_ceiling": 48,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Wave 6 preserves the adopted two-range mode and prioritizes the under-covered law subject. Facilities/inspection has 20 verified questions against a target of 50, while storage/handling has 22 against a target of 60. Both have frozen READY e-Gov source paths and large remaining gaps; no third range is permitted in this wave.",
+  "remaining_target_gaps_before_wave": {
+    "O4-LAW-KT-FACILITIES-INSPECTION": 30,
+    "O4-LAW-KT-STORAGE-HANDLING": 38
+  },
+  "batches": [
+    {
+      "batch_id": "B18",
+      "candidate_ceiling": 24,
+      "knowledge_target_id": "O4-LAW-KT-FACILITIES-INSPECTION",
+      "target_total_plan": 50,
+      "source_path": "registered current e-Gov Act/Decree/Rule, emphasizing Rule Chapters 9 and 9-2 and other B6-unused facility/inspection procedure propositions"
+    },
+    {
+      "batch_id": "B19",
+      "candidate_ceiling": 24,
+      "knowledge_target_id": "O4-LAW-KT-STORAGE-HANDLING",
+      "target_total_plan": 60,
+      "source_path": "registered current e-Gov Decree/Rule Chapter 5 storage-and-handling provisions not already represented by B3"
+    }
+  ],
+  "authoring_rule": "Enumerate source-defined propositions first, collision-check against all 246 canonical/source-verified questions and the full Wave 6 peer set, and stop without backfill when materially distinct source-backed propositions are exhausted.",
+  "multi_source_rule": "Each candidate binds to one registered source_id/version and one reproducible pinpoint locator. Cross-source answer-defining comparisons are prohibited without an approved source-bundle contract.",
+  "filler_prohibited": true,
+  "planned_state_epoch": 74,
+  "next_gate": "AUTHOR_OTSU4_WAVE_6_AI_PRE_ACCEPT"
+}
