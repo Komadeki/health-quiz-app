@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B4-LH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8b0b73dc3d54ee2e84017829514ae849915a190f7719d712f66d22216c50e505",
+  "actors": {
+    "author": {"id": "eisei1-b4-author-r1", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "eisei1-b4-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "director": {"id": "eisei1-director-r1", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id": "E1-LAW-SPEC-CHEM", "source_version": "current-as-of-2026-08-27", "source_locator": "特定化学物質障害予防規則第40条の2第1号"},
+    "answer_defining_proposition": "特定化学物質健康診断後の医師意見聴取は3月以内に行う。",
+    "tested_misconception": "健診頻度6月と意見聴取期限3月を混同する。",
+    "reasoning_path": "健診結果後の手続を識別する -> 第40条の2第1号を確認する -> 3月を選ぶ",
+    "collision": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "note": "B4 distinct from the B4-C001 record-retention proposition."}
+  },
+  "independent_review": {"decision": "ACCEPT", "rationale": "Current Article 40-2 item 1 directly fixes the opinion-hearing deadline at three months from the examination date or the specified substitute date. The distractors are adjacent timing rules, all five choices are explained, and the post-examination procedure is distinct from the accepted ionizing-radiation frequency item."},
+  "director_adjudication": {"decision": "ACCEPT", "rationale": "Director independently confirms the source binding, one unambiguously best answer, five plausible same-domain choices, complete A-E explanation, lane fidelity, and material collision separation. Promote this candidate without quota backfill; REWORK candidates remain blocked and receive no packet or ID."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
