@@ -17,11 +17,11 @@
     "DONE"
   ],
   "observed_main": "279baca31e6c92e83d8b3339783685dffda39b39",
-  "next_atomic_objective": "VERIFY_OTSU4_WAVE_5_CANONICAL_SOURCES_6",
+  "next_atomic_objective": "PLAN_OTSU4_WAVE_6_600Q_COVERAGE",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 72
+  "state_epoch": 73
 }

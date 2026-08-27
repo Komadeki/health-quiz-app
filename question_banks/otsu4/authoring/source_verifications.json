@@ -1680,6 +1680,48 @@
       "source_version": "2006-05-13",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-27"
+    },
+    {
+      "question_id": "OTSU4-Q-000241",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-27"
+    },
+    {
+      "question_id": "OTSU4-Q-000242",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-27"
+    },
+    {
+      "question_id": "OTSU4-Q-000243",
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-27"
+    },
+    {
+      "question_id": "OTSU4-Q-000244",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-27"
+    },
+    {
+      "question_id": "OTSU4-Q-000245",
+      "source_id": "O4-FDMA-INCIDENT-1",
+      "source_version": "2026-08-25-retrieved",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-27"
+    },
+    {
+      "question_id": "OTSU4-Q-000246",
+      "source_id": "O4-MHLW-SDS-GASOLINE",
+      "source_version": "2006-05-13",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-27"
     }
   ]
 }
