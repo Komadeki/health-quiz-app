@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B2-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "6445a634c740320d89aaa4d746e10ccfe5d4332c413e9a9abb06bc50f7338534",
+  "actors": {
+    "author": { "id": "eisei1-b2-author-r1", "role": "AI_AUTHOR" },
+    "reviewer": { "id": "eisei1-b2-independent-reviewer-r1", "role": "AI_REVIEWER" },
+    "director": { "id": "eisei1-director-r1", "role": "AI_DIRECTOR" }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RPE-2023",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "source_locator": "別添「呼吸用保護具の選択、使用等に関する指針」4(1)ア"
+    },
+    "answer_defining_proposition": "酸素欠乏又はそのおそれがある場所ではろ過式呼吸用保護具を使用させず、指定防護係数1000以上の全面形面体を有する給気式呼吸用保護具から有効なものを選ぶ。",
+    "tested_misconception": "高性能フィルタ、電動ファン、フィットテストがあれば酸素欠乏環境でもろ過式保護具を使用できると考える。",
+    "reasoning_path": "危険が粒子・ガス濃度だけでなく酸素不足であると識別する -> ろ過式は酸素を供給しないと判断する -> 給気式呼吸用保護具を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B2 preflight: Eisei1 canonical bank is empty; distinct from the legal pre-work measurement item because it tests protective-equipment selection under oxygen-deficiency risk."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The D answer correctly selects a supplied-air respiratory protective device with a full-facepiece and designated protection factor of at least 1000 for oxygen-deficiency risk. The four filtering-respirator alternatives isolate plausible misconceptions about filtration, powered air and fit testing, and the explanation is complete."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent ACCEPT is adopted because the current MHLW respirator guidance binds the oxygen-deficiency selection rule, and the collision evidence records a protective-equipment decision path distinct from the legal gas-measurement item. This is AI-governed content acceptance only; it does not fabricate Human review or allocate a permanent ID."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
