@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Allocate and integrate the only accepted Eisei1 bootstrap candidates."""
+"""Allocate and integrate the initial seven accepted Eisei1 bootstrap candidates."""
 
 from __future__ import annotations
 
@@ -36,9 +36,11 @@ EXPECTED = {
     "E1-B4-LH-C002": "EISEI1-Q-000006",
     "E1-B4-LH-C004": "EISEI1-Q-000007",
 }
-EXCLUDED = {
+REWORK_EXCLUDED = {
     "batch_003": ("E1-B3-HH-C001",),
     "batch_004": ("E1-B4-LH-C001", "E1-B4-LH-C003"),
+}
+PENDING_READY = {
     "batch_006": ("E1-B6-HH-C001",),
 }
 
@@ -90,10 +92,18 @@ def assert_preconditions() -> None:
         packet_ids = {path.stem for path in (batch / "acceptance_packets").glob("*.json")}
         if packet_ids != set(selected):
             raise SystemExit(f"{batch_name} acceptance packet set drift")
-    for batch_name, excluded in EXCLUDED.items():
+    for batch_name, excluded in REWORK_EXCLUDED.items():
         rows = {row["candidate_id"]: row for row in read_rows(AUTHORING / "batches" / batch_name / "candidates.csv")}
         if any(rows.get(candidate_id, {}).get("state") != "AI_PRE_ACCEPT" or rows[candidate_id].get("permanent_question_id") for candidate_id in excluded):
-            raise SystemExit(f"{batch_name} excluded candidate state drift")
+            raise SystemExit(f"{batch_name} rework candidate state drift")
+    for batch_name, pending in PENDING_READY.items():
+        batch = AUTHORING / "batches" / batch_name
+        rows = {row["candidate_id"]: row for row in read_rows(batch / "candidates.csv")}
+        if any(rows.get(candidate_id, {}).get("state") != "READY_FOR_ID" or rows[candidate_id].get("permanent_question_id") for candidate_id in pending):
+            raise SystemExit(f"{batch_name} pending READY_FOR_ID state drift")
+        packet_ids = {path.stem for path in (batch / "acceptance_packets").glob("*.json")}
+        if packet_ids != set(pending):
+            raise SystemExit(f"{batch_name} pending acceptance packet set drift")
 
 
 def assert_postconditions() -> None:
@@ -117,10 +127,17 @@ def assert_postconditions() -> None:
                 raise SystemExit(f"canonical metadata mismatch: {question_id}")
             if (registry_row["status"], registry_row["first_used_bank_revision"], registry_row["retired_at"], registry_row["notes"]) != ("used", "", "", f"Expansion pre-release allocation: {candidate_id}"):
                 raise SystemExit(f"registry mismatch: {question_id}")
-    for batch_name, excluded in EXCLUDED.items():
+    for batch_name, excluded in REWORK_EXCLUDED.items():
         candidates = {row["candidate_id"]: row for row in read_rows(AUTHORING / "batches" / batch_name / "candidates.csv")}
         if any(candidates[candidate_id]["state"] != "AI_PRE_ACCEPT" or candidates[candidate_id]["permanent_question_id"] for candidate_id in excluded):
-            raise SystemExit(f"{batch_name} excluded candidate mutated")
+            raise SystemExit(f"{batch_name} rework candidate mutated")
+    for batch_name, pending in PENDING_READY.items():
+        batch = AUTHORING / "batches" / batch_name
+        candidates = {row["candidate_id"]: row for row in read_rows(batch / "candidates.csv")}
+        if any(candidates[candidate_id]["state"] != "READY_FOR_ID" or candidates[candidate_id]["permanent_question_id"] for candidate_id in pending):
+            raise SystemExit(f"{batch_name} pending READY_FOR_ID candidate mutated")
+        if {path.stem for path in (batch / "acceptance_packets").glob("*.json")} != set(pending):
+            raise SystemExit(f"{batch_name} pending acceptance packet changed")
     if json.loads((AUTHORING / "source_verifications.json").read_text(encoding="utf-8"))["verifications"]:
         raise SystemExit("source verification must remain separate from integration")
     if json.loads((AUTHORING / "released_questions.json").read_text(encoding="utf-8"))["released_questions"]:
@@ -148,7 +165,7 @@ def main() -> None:
     if mapping != EXPECTED:
         raise SystemExit("incomplete Eisei1 allocation")
     assert_postconditions()
-    for batch_name in SELECTED_BY_BATCH:
+    for batch_name in (*SELECTED_BY_BATCH, *PENDING_READY):
         errors = validate_expansion_batch(AUTHORING / "batches" / batch_name)
         if errors:
             raise SystemExit(f"{batch_name} expansion validation failed: {' | '.join(errors)}")
