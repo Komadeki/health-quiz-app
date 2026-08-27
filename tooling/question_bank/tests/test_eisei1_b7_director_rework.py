@@ -25,7 +25,7 @@ class Eisei1B7DirectorReworkTest(unittest.TestCase):
         with (batch / "candidates.csv").open(encoding="utf-8", newline="") as handle:
             return {row["candidate_id"]: row for row in csv.DictReader(handle)}
 
-    def test_batch_is_pre_id_reauthoring_for_only_b4_rework_items(self) -> None:
+    def test_batch_reauthors_only_b4_rework_items_and_accepted_rows_are_ready(self) -> None:
         metadata = json.loads((self.batch / "batch.json").read_text(encoding="utf-8"))
         self.assertEqual("B7", metadata["batch_id"])
         self.assertFalse(metadata["planned_scope"]["candidate_count_is_quota"])
@@ -33,9 +33,17 @@ class Eisei1B7DirectorReworkTest(unittest.TestCase):
             ["E1-B4-LH-C001", "E1-B4-LH-C003"],
             metadata["planned_scope"]["known_rejected_ids"],
         )
-        self.assertEqual({"E1-B7-LH-C001", "E1-B7-LH-C002"}, set(self.rows))
-        self.assertTrue(all(row["state"] == "AI_PRE_ACCEPT" for row in self.rows.values()))
+        expected_ids = {"E1-B7-LH-C001", "E1-B7-LH-C002"}
+        self.assertEqual(expected_ids, set(self.rows))
+        self.assertEqual(
+            {candidate_id: "READY_FOR_ID" for candidate_id in expected_ids},
+            {candidate_id: self.rows[candidate_id]["state"] for candidate_id in expected_ids},
+        )
         self.assertTrue(all(not row["permanent_question_id"] for row in self.rows.values()))
+        self.assertEqual(
+            expected_ids,
+            {path.stem for path in (self.batch / "acceptance_packets").glob("*.json")},
+        )
 
     def test_original_b4_history_is_unchanged_and_replacements_are_distinct(self) -> None:
         self.assertEqual("特定化学物質健康診断個人票の保存期間として正しいものはどれか。", self.b4_rows["E1-B4-LH-C001"]["question"])
