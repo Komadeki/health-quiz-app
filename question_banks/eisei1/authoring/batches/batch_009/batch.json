@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "app_key": "eisei1",
+  "batch_id": "B9",
+  "directory_slug": "batch_009",
+  "baseline_sha": "4da3de5",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "eisei1-b9-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Continue quality-first hazardous-law coverage with three current e-Gov-bound propositions not covered by canonical Q1-Q10 or B8.",
+  "evidence": [
+    "docs/EISEI1_QUESTION_FACTORY_BOOTSTRAP_V1.md",
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "question_banks/eisei1/authoring/EISEI1_INITIAL_TWO_LANE_CONTRACT_V2.md",
+    "question_banks/eisei1/authoring/coverage.json",
+    "question_banks/eisei1/authoring/sources.json"
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "E1-B9-QUALITY-001",
+      "previous_approved_target": 0,
+      "current_released_count": 0,
+      "proposed_target_min": 0,
+      "proposed_target_max": 3,
+      "approved_new_target": 3,
+      "rationale": "Three candidates are retained because each binds to a distinct current legal requirement and uncovered target. The count is a ceiling, not a quota.",
+      "decision_date": "2026-08-27",
+      "evidence": "coverage E1-LH-012, E1-LH-005, E1-LH-006 and current e-Gov text"
+    }
+  ],
+  "coverage_limit_decisions": [],
+  "planned_scope": {
+    "candidate_count": 3,
+    "candidate_count_is_quota": false,
+    "lane_counts": {
+      "law_hazardous": 3,
+      "hygiene_hazardous": 0
+    },
+    "knowledge_target_ids": [
+      "E1-LH-012",
+      "E1-LH-005",
+      "E1-LH-006"
+    ],
+    "known_rejected_ids": []
+  },
+  "invariants": {
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "HUMAN_REVIEW_CREATED": false,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
