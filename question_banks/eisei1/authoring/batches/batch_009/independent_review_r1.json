@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B9",
+  "review_round": 1,
+  "reviewed_at": "2026-08-27",
+  "reviewer": {
+    "id": "eisei1-b9-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b9-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "current e-Gov 労働安全衛生規則 第34条の2の5第1項",
+    "current e-Gov 鉛中毒予防規則 第53条第1項",
+    "current e-Gov 粉じん障害防止規則 第22条第1項",
+    "source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000010 and all current-main Eisei1 candidates through B9"
+  ],
+  "summary": {
+    "reviewed": 3,
+    "accept": 3,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B9-LH-C001",
+      "decision": "ACCEPT",
+      "rationale": "Current e-Gov 労働安全衛生規則第34条の2の5第1項 expressly requires the Article 57-2(1) notification to be made by the time the notified substance is transferred or provided, subject to the stated repeated-transfer exception when notification has already been made. The stem asks the ordinary statutory timing rule and D reproduces that rule without adding an unsupported pre-notice or post-transfer deadline. A, B, C and E are plausible timing misconceptions but are not the statutory rule. No current canonical or persisted Eisei1 item tests SDS/notification timing."
+    },
+    {
+      "candidate_id": "E1-B9-LH-C002",
+      "decision": "ACCEPT",
+      "rationale": "Current e-Gov 鉛中毒予防規則第53条第1項 requires the periodic lead medical examination generally every six months, while the paragraph's parenthetical specifies every one year for the listed lead-work categories and cleaning work at those workplaces. B correctly states that general/exception structure. C reverses it; D invents a two-year rule and also ignores the separate, condition-heavy one-year relaxation provision; A and E are inconsistent with Article 53. The proposition is distinct from the canonical ionizing-radiation examination interval and from specified-chemical/asbestos record questions."
+    },
+    {
+      "candidate_id": "E1-B9-LH-C003",
+      "decision": "ACCEPT",
+      "rationale": "Current e-Gov 粉じん障害防止規則第22条第1項 lists exactly five special-education subjects for workers regularly assigned to specified dust work: dust-emission prevention and workplace ventilation methods, workplace management, respiratory-protective-equipment use, dust-related disease and health management, and relevant laws. A is the only choice that matches all five subjects. The distractors substitute related but non-listed topics. This legal education-content proposition is materially distinct from B8's hygiene-lane question about equipment and wetting measures applied to a specific dust emission source."
+    }
+  ],
+  "quality_gate": {
+    "exact_five_choices": "PASS",
+    "one_unambiguously_best_answer": "PASS",
+    "plausible_same_domain_distractors": "PASS",
+    "all_five_choice_explanations": "PASS",
+    "answer_position_distribution": "PASS: D, B, A",
+    "lane_fidelity": "PASS: hazardous-law lane only, within the two-lane operating limit",
+    "source_locator_binding": "PASS",
+    "published_question_copying": "PASS: no evidence of copied published-question wording"
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "persisted_candidates_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS",
+    "note": "Checked source-verified canonical Q1-Q10, B8 candidates/review, prior rejected/rework candidates, and B9 internally. SDS timing, lead-exam general/exception interval, and dust special-education subjects are three distinct legal propositions and do not duplicate the B8 dust-source control item."
+  },
+  "source_review_scope": "Current e-Gov primary text was rechecked independently for each exact locator. Final canonical source verification remains downstream after Director acceptance and permanent-ID allocation.",
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE_ACCEPTED_3"
+}
