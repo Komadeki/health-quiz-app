@@ -25,7 +25,7 @@ class Eisei1B7DirectorReworkTest(unittest.TestCase):
         with (batch / "candidates.csv").open(encoding="utf-8", newline="") as handle:
             return {row["candidate_id"]: row for row in csv.DictReader(handle)}
 
-    def test_batch_reauthors_only_b4_rework_items_and_accepted_rows_are_ready(self) -> None:
+    def test_batch_reauthors_only_b4_rework_items_and_accepted_rows_are_integrated(self) -> None:
         metadata = json.loads((self.batch / "batch.json").read_text(encoding="utf-8"))
         self.assertEqual("B7", metadata["batch_id"])
         self.assertFalse(metadata["planned_scope"]["candidate_count_is_quota"])
@@ -33,15 +33,21 @@ class Eisei1B7DirectorReworkTest(unittest.TestCase):
             ["E1-B4-LH-C001", "E1-B4-LH-C003"],
             metadata["planned_scope"]["known_rejected_ids"],
         )
-        expected_ids = {"E1-B7-LH-C001", "E1-B7-LH-C002"}
-        self.assertEqual(expected_ids, set(self.rows))
+        expected = {
+            "E1-B7-LH-C001": "EISEI1-Q-000009",
+            "E1-B7-LH-C002": "EISEI1-Q-000010",
+        }
+        self.assertEqual(set(expected), set(self.rows))
         self.assertEqual(
-            {candidate_id: "READY_FOR_ID" for candidate_id in expected_ids},
-            {candidate_id: self.rows[candidate_id]["state"] for candidate_id in expected_ids},
+            {candidate_id: "INTEGRATED" for candidate_id in expected},
+            {candidate_id: self.rows[candidate_id]["state"] for candidate_id in expected},
         )
-        self.assertTrue(all(not row["permanent_question_id"] for row in self.rows.values()))
         self.assertEqual(
-            expected_ids,
+            expected,
+            {candidate_id: self.rows[candidate_id]["permanent_question_id"] for candidate_id in expected},
+        )
+        self.assertEqual(
+            set(expected),
             {path.stem for path in (self.batch / "acceptance_packets").glob("*.json")},
         )
 
