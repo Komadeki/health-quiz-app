@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B2-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "005433ada6ce1845bd14b16ce95536d1e051ff000efcf7800d84586b71553bca",
+  "actors": {
+    "author": {"id": "eisei1-b2-author-r1", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "eisei1-b2-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "director": {"id": "eisei1-director-r1", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id": "E1-MHLW-CHEM-RA", "source_version": "current-as-of-2026-08-27", "source_locator": "化学物質対策に関するQ&A（リスクアセスメント関係） Q12-2"},
+    "answer_defining_proposition": "法令に個別措置がない場合の化学物質リスク低減は、代替等 -> 工学的・衛生工学的対策 -> 管理的対策 -> 有効な保護具の使用の順で検討する。",
+    "tested_misconception": "装着しやすい個人用保護具を、代替・工学的対策より先に置いてよいと考える。",
+    "reasoning_path": "法令上の個別措置がない条件を確認する -> リスク低減の階層を想起する -> 代替・工学・管理・PPEの順を照合する",
+    "collision": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "note": "B2 preflight: Eisei1 canonical bank is empty; distinct from measurement-frequency and respiratory-equipment selection propositions."}
+  },
+  "independent_review": {"decision": "ACCEPT", "rationale": "The legal-measure exception is stated in the stem, and the C answer follows the current MHLW hierarchy of substitution, engineering controls, administrative controls, then PPE. All alternatives are meaningful order reversals rather than filler, with a complete A-E explanation."},
+  "director_adjudication": {"decision": "ACCEPT", "rationale": "Director independently confirms the source binding, one unambiguously best answer, five plausible same-domain choices, complete A-E explanation, lane fidelity, and material collision separation. Promote this candidate without quota backfill; REWORK candidates remain blocked and receive no packet or ID."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
