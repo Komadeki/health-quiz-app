@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W5",
-  "status": "PLANNED",
+  "status": "AI_PRE_ACCEPT_AUTHORED",
   "planned_at": "2026-08-27",
   "production_target": 600,
   "canonical_verified_baseline": 240,
@@ -13,10 +13,13 @@
     "O4-PHY-KT-CALCULATION-BOUNDARY": 30,
     "O4-FIR-KT-INCIDENT-DECISION": 30
   },
+  "actual_candidate_counts": {"B16": 7, "B17": 3, "total": 10},
+  "authors": {"B16": {"id": "otsu4-b16-author-r1", "role": "AI_AUTHOR"}, "B17": {"id": "otsu4-b17-author-r1", "role": "AI_AUTHOR"}},
   "batches": [
     {
       "batch_id": "B16",
       "candidate_ceiling": 24,
+      "actual_candidate_count": 7,
       "knowledge_target_id": "O4-PHY-KT-CALCULATION-BOUNDARY",
       "target_total_plan": 30,
       "source_path": "registered O4-PHY-1 MEXT Chemistry Basics printed p.91 onward quantitative-chemistry propositions"
@@ -24,14 +27,16 @@
     {
       "batch_id": "B17",
       "candidate_ceiling": 24,
+      "actual_candidate_count": 3,
       "knowledge_target_id": "O4-FIR-KT-INCIDENT-DECISION",
       "target_total_plan": 30,
       "source_path": "registered O4-FDMA-INCIDENT-1 named incident subsections and single-material MHLW SDS Sections 5–7 fields"
     }
   ],
-  "authoring_rule": "Enumerate source-defined propositions first, collision-check against all 240 canonical/source-verified questions and the full Wave 5 peer set, and stop without backfill when distinct source-backed propositions are exhausted.",
+  "authoring_rule": "All 10 candidates are AI_PRE_ACCEPT only. No Permanent IDs, canonical rows, source-verification rows, released rows or runtime rows are created at authoring.",
   "multi_source_rule": "Each candidate binds to one registered source_id/version and one reproducible pinpoint locator. Cross-source answer-defining comparisons are prohibited without an approved source-bundle contract.",
   "filler_prohibited": true,
   "planned_state_epoch": 68,
-  "next_gate": "AUTHOR_OTSU4_WAVE_5_AI_PRE_ACCEPT"
+  "authored_state_epoch": 69,
+  "next_gate": "INDEPENDENT_AI_REVIEW_OTSU4_WAVE_5_10"
 }
