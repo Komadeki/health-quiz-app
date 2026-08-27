@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "app_key": "eisei1",
+  "batch_id": "B8",
+  "directory_slug": "batch_008",
+  "baseline_sha": "0400e80",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "eisei1-b8-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Continue the two-lane quality-first authoring with three source-bound propositions after correcting the superseded B7 batch-identity collision.",
+  "evidence": [
+    "docs/EISEI1_QUESTION_FACTORY_BOOTSTRAP_V1.md",
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "question_banks/eisei1/authoring/EISEI1_INITIAL_TWO_LANE_CONTRACT_V2.md",
+    "question_banks/eisei1/authoring/coverage.json",
+    "question_banks/eisei1/authoring/sources.json"
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "E1-B8-QUALITY-001",
+      "previous_approved_target": 0,
+      "current_released_count": 0,
+      "proposed_target_min": 0,
+      "proposed_target_max": 3,
+      "approved_new_target": 3,
+      "rationale": "Three candidates are the maximum retained for this wave because each has an exact authoritative locator and a materially distinct reasoning path. This is a ceiling, not a quota.",
+      "decision_date": "2026-08-27",
+      "evidence": "EISEI1_INITIAL_TWO_LANE_CONTRACT_V2.md and current canonical/candidate collision review"
+    }
+  ],
+  "coverage_limit_decisions": [],
+  "planned_scope": {
+    "candidate_count": 3,
+    "candidate_count_is_quota": false,
+    "lane_counts": {
+      "law_hazardous": 1,
+      "hygiene_hazardous": 2
+    },
+    "knowledge_target_ids": [
+      "E1-LH-010",
+      "E1-HH-006",
+      "E1-HH-007"
+    ],
+    "known_rejected_ids": []
+  },
+  "invariants": {
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "HUMAN_REVIEW_CREATED": false,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
