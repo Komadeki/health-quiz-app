@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B4-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5011f2cc335e49789755ccd658c2abb78b462008194ad67ad417bd75c9dc306e",
+  "actors": {
+    "author": {
+      "id": "eisei1-b4-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b4-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b4-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-IONIZING",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "電離放射線障害防止規則第56条"
+    },
+    "answer_defining_proposition": "管理区域に立ち入る放射線業務従事者の健康診断は6月以内ごとに1回行う。",
+    "tested_misconception": "通常の健診6月と緊急作業1月を混同する。",
+    "reasoning_path": "対象者を特定する -> 通常の第56条と緊急作業の例外を分ける -> 6月を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B4 distinct from special-chemical records and asbestos items."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The worker class is specific and current Article 56 directly fixes the periodic interval at once every six months. The one-month distractor is a neighboring emergency-work rule and the remaining intervals are plausible timing confusions. The item is source-bound and unambiguous."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent Director check: each accepted candidate remains bound to its current primary-rule locator, has exactly one best answer under its stated worker/procedure condition, and has a materially distinct reasoning path. The released bank, canonical drafts, and full B4 batch collision evidence was checked. C001 remains excluded for stem-condition ambiguity and C003 remains excluded for collision/variation failure; neither may receive an acceptance packet or promotion in this transition."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
