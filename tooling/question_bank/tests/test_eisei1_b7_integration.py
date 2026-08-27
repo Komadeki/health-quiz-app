@@ -1,0 +1,96 @@
+from __future__ import annotations
+
+import csv
+import json
+import unittest
+from pathlib import Path
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
+BANK = REPOSITORY_ROOT / "question_banks" / "eisei1"
+AUTHORING = BANK / "authoring"
+BATCH = AUTHORING / "batches" / "batch_007"
+EXPECTED = {
+    "E1-B7-LH-C001": "EISEI1-Q-000009",
+    "E1-B7-LH-C002": "EISEI1-Q-000010",
+}
+
+
+def rows(path: Path, key: str) -> dict[str, dict[str, str]]:
+    with path.open(encoding="utf-8", newline="") as handle:
+        return {row[key]: row for row in csv.DictReader(handle)}
+
+
+class Eisei1B7IntegrationTests(unittest.TestCase):
+    def test_b7_accepts_are_integrated_as_q9_q10(self) -> None:
+        candidates = rows(BATCH / "candidates.csv", "candidate_id")
+        questions = rows(AUTHORING / "questions.csv", "question_id")
+        registry = rows(AUTHORING / "question_id_registry.csv", "question_id")
+
+        self.assertEqual(
+            {f"EISEI1-Q-{index:06d}" for index in range(1, 11)},
+            set(questions),
+        )
+        self.assertEqual(set(questions), set(registry))
+        self.assertEqual(set(EXPECTED), {path.stem for path in (BATCH / "acceptance_packets").glob("*.json")})
+
+        for candidate_id, question_id in EXPECTED.items():
+            candidate = candidates[candidate_id]
+            question = questions[question_id]
+            self.assertEqual("INTEGRATED", candidate["state"])
+            self.assertEqual(question_id, candidate["permanent_question_id"])
+            self.assertEqual("used", registry[question_id]["status"])
+            self.assertEqual(f"Expansion pre-release allocation: {candidate_id}", registry[question_id]["notes"])
+            self.assertEqual("1", question["question_version"])
+            self.assertEqual("draft", question["status"])
+            self.assertEqual("eisei1_exam", question["deck_id"])
+            self.assertEqual(candidate["unit_id"], question["unit_id"])
+            self.assertEqual("2", question["difficulty"])
+            self.assertEqual("3", question["importance"])
+            self.assertEqual("false", question["is_free"])
+            for field in (
+                "question",
+                "choice1",
+                "choice2",
+                "choice3",
+                "choice4",
+                "choice5",
+                "explanation",
+                "source_id",
+                "source_locator",
+            ):
+                self.assertEqual(candidate[field], question[field])
+            self.assertEqual(candidate["proposed_correct"], question["correct_choice"])
+
+    def test_q9_q10_remain_pre_release_and_unverified_in_this_transition(self) -> None:
+        verification_ids = {
+            row["question_id"]
+            for row in json.loads((AUTHORING / "source_verifications.json").read_text(encoding="utf-8"))[
+                "verifications"
+            ]
+        }
+        self.assertTrue(set(EXPECTED.values()).isdisjoint(verification_ids))
+        self.assertEqual(
+            [],
+            json.loads((AUTHORING / "released_questions.json").read_text(encoding="utf-8"))[
+                "released_questions"
+            ],
+        )
+        self.assertEqual(
+            [],
+            json.loads((BANK / "generated" / "eisei1_bank.json").read_text(encoding="utf-8"))[
+                "decks"
+            ],
+        )
+
+    def test_b8_authoring_is_not_mutated_by_b7_integration(self) -> None:
+        b8 = rows(AUTHORING / "batches" / "batch_008" / "candidates.csv", "candidate_id")
+        self.assertEqual(
+            {"E1-B8-LH-C001", "E1-B8-HH-C001", "E1-B8-HH-C002"},
+            set(b8),
+        )
+        self.assertTrue(all(row["state"] == "AI_PRE_ACCEPT" for row in b8.values()))
+        self.assertTrue(all(not row["permanent_question_id"] for row in b8.values()))
+
+
+if __name__ == "__main__":
+    unittest.main()
