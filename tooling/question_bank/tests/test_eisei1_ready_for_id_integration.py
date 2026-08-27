@@ -23,6 +23,16 @@ EXPECTED = {
 }
 B6_EXPECTED = {"E1-B6-HH-C001": "EISEI1-Q-000008"}
 ALL_EXPECTED = {**EXPECTED, **B6_EXPECTED}
+EXPECTED_VERIFICATION_SOURCES = {
+    "EISEI1-Q-000001": "E1-MHLW-CHEM-RA",
+    "EISEI1-Q-000002": "E1-MHLW-RPE-2023",
+    "EISEI1-Q-000003": "E1-LAW-ORGANIC",
+    "EISEI1-Q-000004": "E1-LAW-OXYGEN",
+    "EISEI1-Q-000005": "E1-LAW-OXYGEN",
+    "EISEI1-Q-000006": "E1-LAW-IONIZING",
+    "EISEI1-Q-000007": "E1-LAW-SPEC-CHEM",
+    "EISEI1-Q-000008": "E1-MHLW-RPE-2023",
+}
 
 
 def read_rows(path: Path) -> dict[str, dict[str, str]]:
@@ -74,7 +84,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
                 self.assertEqual("used", registry[question_id]["status"])
                 self.assertEqual("", registry[question_id]["first_used_bank_revision"])
 
-    def test_rework_candidates_and_release_artifacts_are_unchanged(self) -> None:
+    def test_rework_candidates_are_unchanged_and_q1_q8_are_source_verified(self) -> None:
         excluded = {
             "batch_003": ("E1-B3-HH-C001",),
             "batch_004": ("E1-B4-LH-C001", "E1-B4-LH-C003"),
@@ -84,12 +94,16 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             for candidate_id in candidate_ids:
                 self.assertEqual("AI_PRE_ACCEPT", candidates[candidate_id]["state"])
                 self.assertEqual("", candidates[candidate_id]["permanent_question_id"])
-        self.assertEqual(
-            [],
-            json.loads((self.authoring / "source_verifications.json").read_text(encoding="utf-8"))[
-                "verifications"
-            ],
-        )
+
+        verifications = json.loads(
+            (self.authoring / "source_verifications.json").read_text(encoding="utf-8")
+        )["verifications"]
+        self.assertEqual(set(EXPECTED_VERIFICATION_SOURCES), {row["question_id"] for row in verifications})
+        for row in verifications:
+            self.assertEqual(EXPECTED_VERIFICATION_SOURCES[row["question_id"]], row["source_id"])
+            self.assertEqual("author_source_verified", row["verification_state"])
+            self.assertEqual("2026-08-27", row["verified_at"])
+
         self.assertEqual(
             [],
             json.loads((self.authoring / "released_questions.json").read_text(encoding="utf-8"))[
