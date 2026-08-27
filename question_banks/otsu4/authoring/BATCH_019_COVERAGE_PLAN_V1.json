@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B19-STORAGE-HANDLING-DEPTH-2026-08-27",
+  "product": "otsu4",
+  "wave_id": "W6",
+  "planned_at": "2026-08-27",
+  "objective": "AUTHOR_OTSU4_WAVE_6_AI_PRE_ACCEPT",
+  "production_target": 600,
+  "canonical_verified_baseline": 246,
+  "selected_target": "O4-LAW-KT-STORAGE-HANDLING",
+  "selected_target_total_plan": 60,
+  "verified_target_count_before_batch": 22,
+  "remaining_target_gap_before_batch": 38,
+  "candidate_ceiling": 24,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Storage/handling remains 38 questions below its 60-question production target after B3 verified 22 questions. B19 uses the still-ready e-Gov Decree/Rule storage-and-handling source path to cover materially distinct facility-specific, exception and operational boundaries not represented by B3 general common standards, gasoline container-sale controls or container-stacking questions.",
+  "source_contract": {
+    "primary_source_ids": ["O4-LAW-2", "O4-LAW-3"],
+    "pinpoint_scope": [
+      "危険物の規制に関する政令 第24条以降の貯蔵・取扱い基準のうちB3未使用の施設別・例外・操作境界に関する該当条項",
+      "危険物の規制に関する規則 第38条の4〜第40条の14のうちB3未使用の貯蔵・取扱い基準、例外および施設別運用に関する該当条項"
+    ],
+    "locator_rule": "Every candidate must bind to one registered current e-Gov source/version and one exact article/paragraph/item. The answer-defining proposition must be a storage/handling rule at a facility, not a transport/transfer rule and not an unsourced general safety inference."
+  },
+  "planned_families": [
+    "facility-specific storage and handling conditions not covered by B3 common-rule propositions",
+    "tank, warehouse, filling, dispensing or transfer-within-facility operating boundaries where current law explicitly defines them",
+    "specific statutory exceptions and prerequisite conditions within Rule Chapter 5",
+    "container filling, closure, placement or handling details materially distinct from B3 container integrity and stacking-height questions",
+    "numeric, timing, distance, capacity or procedural boundaries only where directly defined by one registered provision",
+    "prohibited-action versus permitted-condition decisions that remain within storage/handling rather than transport or incident response"
+  ],
+  "anti_duplication_rule": "Do not recreate B3 C001-C024 propositions, including the common Article 24 controls, Class-4 Article 25 fire/vapor rule, generic exception-structure questions, hazard grades, generic container framework, gasoline container-sale identity/purpose/record duties or 3m/4m/6m stacking boundaries. Do not overlap B10/B13 transport/transfer propositions.",
+  "planning_invariants": {
+    "NO_COPYRIGHTED_PAST_QUESTION_TEXT": true,
+    "NO_WORDING_ONLY_VARIANTS": true,
+    "NO_QUOTA_BACKFILL": true,
+    "COLLISION_CHECK_AGAINST_ALL_246_CANONICAL_REQUIRED": true,
+    "SINGLE_SOURCE_BINDING_REQUIRED": true,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "AUTHOR_B19_AI_PRE_ACCEPT_UP_TO_24"
+}
