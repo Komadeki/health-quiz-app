@@ -1,1 +1,0 @@
-B7 independent review r1 records ACCEPT for both reauthored candidates. This note is intentionally minimal; authoritative evidence is `independent_review_r1.json`. No candidate state or canonical data is changed.
