@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B8-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "66b9a9abcbe96f9fb91151b730e5e0ab93632bf8f1f28b3ddf95afc9c70ce678",
+  "actors": {
+    "author": {"id": "eisei1-b8-author-r1", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "eisei1-b8-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "director": {"id": "eisei1-b8-director-r1", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "source_locator": "「第4章 化学物質または混合物の危険性・有害性」4.2.2(1) 急性毒性"
+    },
+    "answer_defining_proposition": "厚生労働省資料は高濃度硫化水素の急性作用として中枢性の呼吸麻痺を明示している。",
+    "tested_misconception": "硫化水素について、同じ資料に並ぶシアン化水素やホスゲンの急性作用の例と取り違える。",
+    "reasoning_path": "資料が化学物質による窒息の例を比較している箇所を確認する -> 高濃度硫化水素に対応する記述を特定する -> 中枢性の呼吸麻痺を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q1-Q8及びB7を含む既存Eisei1全候補を確認。酸素欠乏場所の測定・換気や濃度不明時の保護具選択ではなく、高濃度硫化水素に対するMHLW資料上の急性作用を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "MHLW's chemical-manager training text, Chapter 4 section 4.2.2(1), gives chemical-asphyxiation examples and explicitly states that hydrogen sulfide at high concentration can cause central respiratory paralysis, while hydrogen cyanide inhibits cellular respiration and phosgene causes respiratory difficulty via pulmonary edema or fibrosis. The stem is deliberately source-scoped to what this MHLW section explicitly states for high-concentration hydrogen sulfide, making E uniquely correct and avoiding a broader toxicology-mechanism ambiguity. The item is materially distinct from existing oxygen-deficiency measurement/ventilation and respirator-selection questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent ACCEPT is adopted after a fresh Director collision check against source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000010 and all persisted candidates. The stem remains explicitly source-scoped to the MHLW section's high-concentration hydrogen-sulfide example, so E is uniquely correct within the cited material and does not conflict with oxygen-deficiency measurement, ventilation, or respirator-selection questions. Source binding, exact five choices, all-choice explanations, and variation gates pass. This transition creates no permanent ID, canonical row, source verification, release snapshot, or runtime mutation."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

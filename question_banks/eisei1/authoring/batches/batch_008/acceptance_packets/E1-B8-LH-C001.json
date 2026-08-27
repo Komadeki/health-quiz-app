@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B8-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "328e808f07271315a5a94eb113c5ee7c7a2cfe1cdd410fecaa6aff9da45a2379",
+  "actors": {
+    "author": {"id": "eisei1-b8-author-r1", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "eisei1-b8-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "director": {"id": "eisei1-b8-director-r1", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-WORKENV-EVALUATION",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "source_locator": "作業環境評価基準 第2条第1項第1号（A測定のみを行った場合）の表"
+    },
+    "answer_defining_proposition": "A測定のみを行った単位作業場所で第二評価値が管理濃度を超える場合は第三管理区分となる。",
+    "tested_misconception": "第一評価値と第二評価値の境界条件を取り違えること又は管理区分を個々の測定点に付すものと考えること。",
+    "reasoning_path": "A測定のみという条件を確認する -> 第二評価値を管理濃度と比較する -> 単位作業場所の第三管理区分を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q1-Q8及びB7を含む既存Eisei1全候補を確認。既存問題は測定間隔・記録保存・酸素欠乏・健診・保護具であり、A測定評価値から管理区分を決める命題は未収載。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "MHLW 作業環境評価基準第2条第1項第1号 states that for A測定 only, 第一管理区分 applies when the first evaluation value is below the management concentration, 第二管理区分 when the first is at or above and the second is at or below, and 第三管理区分 when the second evaluation value exceeds the management concentration. The stem supplies exactly the third condition, so C is uniquely correct. D is false because the standard expressly evaluates A測定-only cases, and E is false because the management classification is assigned per unit work area rather than per individual measurement point. This proposition is materially distinct from existing measurement-frequency, retention, oxygen-deficiency, health-exam, and respiratory-protection items."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent ACCEPT is adopted after a fresh Director collision check against source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000010 and all persisted candidates. The answer-defining proposition remains unique: A-measurement-only, second evaluation value above the management concentration, therefore third management class for the unit work area. Source binding, exact five choices, all-choice explanations, and variation gates pass. This transition creates no permanent ID, canonical row, source verification, release snapshot, or runtime mutation."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
