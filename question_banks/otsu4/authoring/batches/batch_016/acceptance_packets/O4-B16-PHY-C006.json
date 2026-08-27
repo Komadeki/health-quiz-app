@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B16-PHY-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "66b175820d2de0437d552df570d188952d71a7e67f5f9bb392b2250cf890cf92",
+  "actors": {
+    "author": {
+      "id": "otsu4-b16-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave5-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave5-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-PHY-1",
+      "source_version": "2023-06-07",
+      "source_locator": "理科編 化学基礎 printed p.92「化学反応式について」"
+    },
+    "answer_defining_proposition": "化学反応式の係数比は物質量の比を表す。",
+    "tested_misconception": "係数比は常に質量比を表す。",
+    "reasoning_path": "interpret coefficient ratio -> amount ratio not mass ratio",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W5 B16; high-value misconception boundary."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Tests the high-value boundary between coefficient ratio and mass ratio."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
