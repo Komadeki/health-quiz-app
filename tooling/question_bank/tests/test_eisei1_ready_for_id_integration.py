@@ -21,6 +21,7 @@ EXPECTED = {
     "E1-B4-LH-C002": "EISEI1-Q-000006",
     "E1-B4-LH-C004": "EISEI1-Q-000007",
 }
+ALL_INTEGRATED_IDS = {*EXPECTED.values(), "EISEI1-Q-000008"}
 
 
 def read_rows(path: Path) -> dict[str, dict[str, str]]:
@@ -39,8 +40,8 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
     def test_exact_ready_candidates_received_contiguous_initial_ids(self) -> None:
         questions = read_rows(self.authoring / "questions.csv")
         registry = read_rows(self.authoring / "question_id_registry.csv")
-        self.assertEqual(set(EXPECTED.values()), set(questions))
-        self.assertEqual(set(EXPECTED.values()), set(registry))
+        self.assertEqual(ALL_INTEGRATED_IDS, set(questions))
+        self.assertEqual(ALL_INTEGRATED_IDS, set(registry))
         for batch_name in ("batch_002", "batch_003", "batch_004"):
             candidates = read_rows(self.authoring / "batches" / batch_name / "candidates.csv")
             for candidate_id, question_id in EXPECTED.items():
@@ -101,18 +102,18 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             ],
         )
 
-    def test_b6_remains_ready_for_next_id(self) -> None:
+    def test_b6_received_the_next_permanent_id(self) -> None:
         batch = self.authoring / "batches" / "batch_006"
         candidates = read_rows(batch / "candidates.csv")
         candidate = candidates["E1-B6-HH-C001"]
-        self.assertEqual("READY_FOR_ID", candidate["state"])
-        self.assertEqual("", candidate["permanent_question_id"])
+        self.assertEqual("INTEGRATED", candidate["state"])
+        self.assertEqual("EISEI1-Q-000008", candidate["permanent_question_id"])
         self.assertEqual(
             {"E1-B6-HH-C001"},
             {path.stem for path in (batch / "acceptance_packets").glob("*.json")},
         )
-        self.assertNotIn("EISEI1-Q-000008", read_rows(self.authoring / "questions.csv"))
-        self.assertNotIn("EISEI1-Q-000008", read_rows(self.authoring / "question_id_registry.csv"))
+        self.assertIn("EISEI1-Q-000008", read_rows(self.authoring / "questions.csv"))
+        self.assertIn("EISEI1-Q-000008", read_rows(self.authoring / "question_id_registry.csv"))
 
     def test_all_touched_expansion_batches_validate(self) -> None:
         for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006"):
