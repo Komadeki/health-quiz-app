@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B2-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f468615d9f8708f7e6875ffef8e6cbdfcd6cd035d9c0319501a790de0526091c",
+  "actors": {
+    "author": {"id": "eisei1-b2-author-r1", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "eisei1-b2-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "director": {"id": "eisei1-director-r1", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id": "E1-LAW-OXYGEN", "source_version": "current-as-of-2026-08-27", "source_locator": "酸素欠乏症等防止規則 第3条第1項"},
+    "answer_defining_proposition": "第二種酸素欠乏危険作業に係る作業場では、その日の作業開始前に酸素及び硫化水素の濃度を測定する。",
+    "tested_misconception": "第一種で求められる酸素測定と第二種で追加される硫化水素測定を混同する。",
+    "reasoning_path": "第二種酸素欠乏危険作業であることを識別する -> 第3条第1項の括弧書きを適用する -> 酸素と硫化水素を選ぶ",
+    "collision": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "note": "B2 preflight: Eisei1 canonical bank is empty; distinct from the organic-solvent interval/retention proposition and PPE-selection proposition."}
+  },
+  "independent_review": {"decision": "ACCEPT", "rationale": "The second-type condition makes oxygen plus hydrogen sulfide the uniquely correct pre-work measurement pair under Article 3(1). Each distractor tests a neighboring gas or an incomplete application of the first-type rule, and the explanation covers all five choices."},
+  "director_adjudication": {"decision": "ACCEPT", "rationale": "Director independently confirms the source binding, one unambiguously best answer, five plausible same-domain choices, complete A-E explanation, lane fidelity, and material collision separation. Promote this candidate without quota backfill; REWORK candidates remain blocked and receive no packet or ID."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
