@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B6-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "df8f6866027e8d77018de975e73af4df5c8fd5c158144e23426988596a4868d8",
+  "actors": {
+    "author": {
+      "id": "eisei1-b6-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b6-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b6-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RPE-2023",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "source_locator": "別添「呼吸用保護具の選択、使用等に関する指針」4(1)ア"
+    },
+    "answer_defining_proposition": "有害物質の濃度が不明な場所ではろ過式呼吸用保護具を使用させない。",
+    "tested_misconception": "高性能フィルタやフィットテストがあれば濃度不明でもろ過式を使えると考える。",
+    "reasoning_path": "酸素欠乏ではなく濃度不明という条件を識別する -> ろ過式の使用禁止という明示規定を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B6 is distinct from B2/B3/B5: it tests the prohibition itself and does not ask for SPF1000 supplied-air selection."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The current MHLW guidance at 4(1)ア directly prohibits filtering respiratory protective equipment where harmful-substance concentration is unknown. The stem is limited to that condition and D states only the resulting prohibition; it does not incorrectly import the oxygen-deficiency-only SPF 1000 supplied-air selection requirement. A, B, C and E are plausible same-domain filtering, PAPR and fit-test misconceptions, all five choices are explained, and D is the uniquely best answer. This is materially distinct from B2's oxygen-deficiency-risk supplied-air selection and from rejected B3/B5 candidates, which coupled the unknown condition to an SPF 1000 supplied-air selection proposition. No published-question wording was copied."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The reviewer ACCEPT is adopted after an independent collision check. B6's single proposition is that an unknown harmful-substance concentration prohibits filtering respiratory protective equipment. This is materially distinct from B2's oxygen-deficiency-risk proposition requiring supplied-air equipment with SPF >= 1000: B6 neither asks for nor implies that selection. The current MHLW guidance at 4(1)ア directly binds B6's prohibition, and the recorded B3/B5 comparisons exclude the rejected supplied-air duplicates. This is AI-governed content acceptance only; it creates no Human review, permanent ID, canonical question, source verification, release, or runtime change."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
