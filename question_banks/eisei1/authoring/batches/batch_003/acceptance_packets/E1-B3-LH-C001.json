@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B3-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1b25fe60ef0443627e205990c5a4922af96ac660e3a5f90808e333a35a4f1487",
+  "actors": {
+    "author": {"id": "eisei1-b3-author-r1", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "eisei1-b3-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "director": {"id": "eisei1-director-r1", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {"source_id": "E1-LAW-OXYGEN", "source_version": "current-as-of-2026-08-27", "source_locator": "酸素欠乏症等防止規則第5条"},
+    "answer_defining_proposition": "酸素欠乏危険作業場では空気を送給する等により酸素濃度を18％以上にする。",
+    "tested_misconception": "酸素濃度の法定基準と他の有害ガス基準を混同する。",
+    "reasoning_path": "対象が酸素欠乏危険作業場であることを確認する -> 第5条の換気目的を特定する -> 18％以上を選ぶ",
+    "collision": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "note": "B3 preflight: distinct from B2 measurement-before-work proposition; tests the ventilation threshold rather than measurement items."}
+  },
+  "independent_review": {"decision": "ACCEPT", "rationale": "Article 5 makes the 18-percent oxygen threshold uniquely correct for the ventilation condition. The alternatives are adjacent threshold or gas-standard confusions, all choices are explained, and the item tests a different legal action from B2's pre-work measurement requirement."},
+  "director_adjudication": {"decision": "ACCEPT", "rationale": "Director independently confirms the source binding, one unambiguously best answer, five plausible same-domain choices, complete A-E explanation, lane fidelity, and material collision separation. Promote this candidate without quota backfill; REWORK candidates remain blocked and receive no packet or ID."},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
