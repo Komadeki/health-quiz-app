@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "app_key": "eisei1",
+  "batch_id": "B7",
+  "directory_slug": "batch_007",
+  "baseline_sha": "279baca",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {
+    "id": "eisei1-b7-director-rework-author-r1",
+    "role": "AI_AUTHOR"
+  },
+  "expansion_trigger": "Reauthor the two B4 Director REWORK candidates with a scoped retention rule and a materially distinct asbestos proposition.",
+  "evidence": [
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "question_banks/eisei1/authoring/coverage.json",
+    "question_banks/eisei1/authoring/sources.json",
+    "question_banks/eisei1/authoring/batches/batch_004/independent_review_r1.json"
+  ],
+  "target_size_decisions": [
+    {
+      "decision_id": "E1-B7-DIRECTOR-REWORK-001",
+      "previous_approved_target": 0,
+      "current_released_count": 0,
+      "proposed_target_min": 0,
+      "proposed_target_max": 2,
+      "approved_new_target": 2,
+      "rationale": "Two bounded replacements for the two B4 REWORK decisions; this is a ceiling, not a quota.",
+      "decision_date": "2026-08-27",
+      "evidence": "B4 independent review r1: E1-B4-LH-C001 stem ambiguity and E1-B4-LH-C003 collision."
+    }
+  ],
+  "coverage_limit_decisions": [],
+  "planned_scope": {
+    "candidate_count": 2,
+    "candidate_count_is_quota": false,
+    "lane_counts": {
+      "law_hazardous": 2,
+      "hygiene_hazardous": 0
+    },
+    "knowledge_target_ids": [
+      "E1-LH-003",
+      "E1-LH-009"
+    ],
+    "known_rejected_ids": [
+      "E1-B4-LH-C001",
+      "E1-B4-LH-C003"
+    ]
+  },
+  "invariants": {
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "HUMAN_REVIEW_CREATED": false,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
