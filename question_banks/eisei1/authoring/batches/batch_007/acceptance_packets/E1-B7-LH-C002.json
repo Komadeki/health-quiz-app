@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B7-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f0e1ff2d0fb5b0d2a6bd0b3192edc04d0b5c3735d981e4b724f95cbb54caad33",
+  "actors": {
+    "author": {"id": "eisei1-b7-director-rework-author-r1", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "eisei1-b7-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "director": {"id": "eisei1-b7-director-r1", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASBESTOS",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "石綿障害予防規則第41条"
+    },
+    "answer_defining_proposition": "石綿健康診断個人票は労働者が当該事業場で常時石綿等を取り扱う業務に従事しないこととなった日から40年間保存する。",
+    "tested_misconception": "石綿の長期保存を退職日又は健康診断日から起算すると誤認する。",
+    "reasoning_path": "石綿健康診断個人票であることを確認する -> 起算点が退職日・健診日ではなく当該事業場で常時業務に従事しないこととなった日であると識別する -> 第41条の40年を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B4-C003の6月以内ごとの健診頻度と選択肢配列・推論構造を置換する新候補。石綿固有の個人票保存と起算点を問うため電離則第56条及びB4-C002の頻度問題とは materially distinct。既存の全候補・canonical rows・同batchを確認し同一命題の候補はない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov 石綿障害予防規則第41条 requires the 石綿健康診断個人票 to be preserved for forty years from the day the worker no longer constantly engages in the relevant work at that establishment. The stem retains the establishment-specific condition, and D gives the statutory trigger and duration; the trigger is neither the retirement date nor the examination date. A, B, C and E are plausible same-domain retention or trigger confusions, and the explanation accounts for all five choices. The item is materially distinct from B4-C003's asbestos examination-frequency proposition and from the ionizing-radiation frequency candidate: it tests the asbestos-specific individual-record retention trigger. The canonical bank is empty and no persisted candidate has the same proposition or reasoning path. No published-question wording was copied."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent ACCEPT is adopted after Director re-check against current canonical EISEI1-Q-000001 through EISEI1-Q-000008 and all persisted Eisei1 candidates. No canonical question tests the asbestos Article 41 forty-year record-retention trigger. This is materially distinct from the rejected asbestos examination-frequency candidate and from the canonical ionizing-radiation frequency item. The statutory trigger and duration are uniquely bound, all five choices are explained, and variation/collision gates pass. This is AI-governed acceptance only; no permanent ID, canonical row, source verification, release snapshot, or runtime artifact is created in this transition."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
