@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W5",
-  "status": "DIRECTOR_ACCEPTED_AND_PROMOTED",
+  "status": "INTEGRATED",
   "planned_at": "2026-08-27",
   "production_target": 600,
   "canonical_verified_baseline": 240,
@@ -70,7 +70,7 @@
   "planned_state_epoch": 68,
   "authored_state_epoch": 69,
   "reviewed_state_epoch": 70,
-  "next_gate": "ALLOCATE_AND_INTEGRATE_W5_ACCEPTED_6",
+  "next_gate": "VERIFY_W5_CANONICAL_SOURCES_6",
   "director_adjudication": {
     "artifact": "wave_005_director_adjudication_r1.json",
     "decision": "ADOPT_REVIEWER_DECISIONS",
@@ -80,5 +80,11 @@
     "hold": 0
   },
   "accepted_candidate_state": "READY_FOR_ID",
-  "accept_promote_state_epoch": 71
+  "accept_promote_state_epoch": 71,
+  "integration_state_epoch": 72,
+  "integrated_candidate_count": 6,
+  "permanent_id_range": {
+    "first": "OTSU4-Q-000241",
+    "last": "OTSU4-Q-000246"
+  }
 }
