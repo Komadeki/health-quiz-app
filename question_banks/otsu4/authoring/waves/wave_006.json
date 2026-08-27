@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W6",
-  "status": "PLANNED",
+  "status": "AI_PRE_ACCEPT_AUTHORED",
   "planned_at": "2026-08-27",
   "production_target": 600,
   "canonical_verified_baseline": 246,
@@ -13,25 +13,30 @@
     "O4-LAW-KT-FACILITIES-INSPECTION": 30,
     "O4-LAW-KT-STORAGE-HANDLING": 38
   },
+  "actual_candidate_counts": {"B18": 24, "B19": 24, "total": 48},
+  "authors": {"B18": {"id": "otsu4-b18-author-r1", "role": "AI_AUTHOR"}, "B19": {"id": "otsu4-b19-author-r1", "role": "AI_AUTHOR"}},
   "batches": [
     {
       "batch_id": "B18",
       "candidate_ceiling": 24,
+      "actual_candidate_count": 24,
       "knowledge_target_id": "O4-LAW-KT-FACILITIES-INSPECTION",
       "target_total_plan": 50,
-      "source_path": "registered current e-Gov Act/Decree/Rule, emphasizing Rule Chapters 9 and 9-2 and other B6-unused facility/inspection procedure propositions"
+      "source_path": "registered current e-Gov Rule Chapters 9 and 9-2 with pinpoint Article 60-2 through Article 62-5 propositions not already represented by B6"
     },
     {
       "batch_id": "B19",
       "candidate_ceiling": 24,
+      "actual_candidate_count": 24,
       "knowledge_target_id": "O4-LAW-KT-STORAGE-HANDLING",
       "target_total_plan": 60,
-      "source_path": "registered current e-Gov Decree/Rule Chapter 5 storage-and-handling provisions not already represented by B3"
+      "source_path": "registered current e-Gov Rule Chapter 5 with pinpoint Article 40-2-3 through Article 40-11 propositions not already represented by B3"
     }
   ],
-  "authoring_rule": "Enumerate source-defined propositions first, collision-check against all 246 canonical/source-verified questions and the full Wave 6 peer set, and stop without backfill when materially distinct source-backed propositions are exhausted.",
+  "authoring_rule": "All 48 candidates are AI_PRE_ACCEPT only. No Permanent IDs, canonical rows, source-verification rows, released rows or runtime rows are created at authoring. Candidates were written independently from current public-law propositions and are not copied past-question text.",
   "multi_source_rule": "Each candidate binds to one registered source_id/version and one reproducible pinpoint locator. Cross-source answer-defining comparisons are prohibited without an approved source-bundle contract.",
   "filler_prohibited": true,
   "planned_state_epoch": 74,
-  "next_gate": "AUTHOR_OTSU4_WAVE_6_AI_PRE_ACCEPT"
+  "authored_state_epoch": 75,
+  "next_gate": "INDEPENDENT_AI_REVIEW_OTSU4_WAVE_6_48"
 }
