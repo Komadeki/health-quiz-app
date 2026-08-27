@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B7-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ed89b50b84d41b1b0d1db93599ea015922e120200295482e4d904539ea120fbb",
+  "actors": {
+    "author": {"id": "eisei1-b7-director-rework-author-r1", "role": "AI_AUTHOR"},
+    "reviewer": {"id": "eisei1-b7-independent-reviewer-r1", "role": "AI_REVIEWER"},
+    "director": {"id": "eisei1-b7-director-r1", "role": "AI_DIRECTOR"}
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-SPEC-CHEM",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "特定化学物質障害予防規則第40条第1項・第2項"
+    },
+    "answer_defining_proposition": "特別管理物質に係る個人票を除く特定化学物質健康診断個人票は5年間保存する。",
+    "tested_misconception": "第40条第1項の一般則と第2項の特別管理物質の30年保存を条件を見ずに併記してしまう。",
+    "reasoning_path": "個人票の対象を確認する -> 特別管理物質の例外を明示的に除外する -> 第40条第1項の5年を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B4-C001の無限定stemを置換する新候補。B4-C001の原則・例外の両方を問う構造ではなく例外除外という条件で第40条第1項だけを一意に問う。既存の全候補・canonical rows・同batchを確認し同一stem又は同一命題の候補はない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov 特定化学物質障害予防規則第40条第1項 requires five-year preservation of the 特定化学物質健康診断個人票, while paragraph 2 replaces that period with thirty years only for the personal records of workers who constantly engage or engaged in work manufacturing or handling 特別管理物質 (subject to its stated chromium-acid limitation). The stem accurately excludes that paragraph-2 worker-record class, so C alone is correct; it does not merely say that the material is not a 特別管理物質, which would be an imprecise proxy for the legal exclusion. A, B, D and E are plausible neighboring retention-period confusions, and the explanation correctly accounts for every option. This is a lawful, scoped reauthoring of B4-C001's ambiguous stem rather than an answer-order paraphrase of an accepted question; the canonical bank is empty and no other persisted candidate tests this scoped personal-record rule. No published-question wording was copied."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent ACCEPT is adopted after Director re-check against current canonical EISEI1-Q-000001 through EISEI1-Q-000008 and all persisted Eisei1 candidates. No canonical question tests this scoped Article 40 medical-record retention proposition. The stem expressly excludes the Article 40(2) special-management-substance worker-record class, leaving the five-year Article 40(1) rule uniquely correct. Source binding, five-choice explanations, distractor plausibility, and semantic variation pass. This is AI-governed acceptance only; no permanent ID, canonical row, source verification, release snapshot, or runtime artifact is created in this transition."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
