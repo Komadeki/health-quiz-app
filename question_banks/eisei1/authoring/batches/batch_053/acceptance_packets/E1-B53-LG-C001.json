@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B53-LG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0333947838f06eabee04c12fd5c57a695c9c0eec92aae36b422acc44ddadf3ce",
+  "actors": {
+    "author": {
+      "id": "eisei1-b53-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b53-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b53-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法第20条第1号"
+    },
+    "answer_defining_proposition": "事業者はガス・蒸気・粉じん等による健康障害を防止するため必要な措置を講じなければならない。",
+    "tested_misconception": "法定の健康障害防止措置を経営又は広報上の事項と混同する。",
+    "reasoning_path": "第20条第1号の列挙対象を確認する -> ガス・蒸気・粉じん等を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q172は粉じんの吸入と呼吸用保護具を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "法第20条第1号の健康障害防止措置の対象を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B53-LG-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "6a10cbc2837659f29f6f38e03c83c0682a0f797f5e65eb6032eb7822c2862ae0",
+  "actors": {
+    "author": {
+      "id": "eisei1-b53-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b53-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b53-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法第23条"
+    },
+    "answer_defining_proposition": "事業者は作業場について通路・床面・階段等の保全並びに換気・採光・照明等に必要な措置を講じなければならない。",
+    "tested_misconception": "作業場の衛生的保全を経営上の事務と混同する。",
+    "reasoning_path": "第23条の作業場に関する列挙を確認する -> 保全と換気・採光・照明を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q49は衛生管理者の巡視頻度を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "法第23条の作業場の保全及び衛生的環境整備を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
