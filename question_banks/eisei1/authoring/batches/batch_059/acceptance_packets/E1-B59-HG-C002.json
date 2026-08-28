@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B59-HG-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1fccdd94fb2279654b89003faf40aa027582dae5a4a51dde185542efefaf4e4e",
+  "actors": {
+    "author": {
+      "id": "eisei1-b59-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b59-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b59-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-INFO-EQUIPMENT",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "情報機器作業ガイドライン 4(1)ハ"
+    },
+    "answer_defining_proposition": "ディスプレイ画面に太陽光等が入射する場合は必要に応じ窓にブラインド又はカーテン等を設け適切な明るさとなるようにする。",
+    "tested_misconception": "画面への太陽光入射を放置又は増加させるものと混同する。",
+    "reasoning_path": "直射又は間接光への対策を確認する -> ブラインド又はカーテン等を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q181は室内でまぶしさを生じさせない原則を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "太陽光等の入射時にブラインド又はカーテン等を設けることを問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

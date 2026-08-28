@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B59-HG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a5eb20d1bc195f8364cf319720c7cf7fada29f8b7a8ff6db88a241049762c2da",
+  "actors": {
+    "author": {
+      "id": "eisei1-b59-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b59-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b59-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-INFO-EQUIPMENT",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "情報機器作業ガイドライン 4(2)ロ(イ)b"
+    },
+    "answer_defining_proposition": "ディスプレイ画面上の輝度又はコントラストは作業者が容易に調整できるものが望ましい。",
+    "tested_misconception": "表示条件を作業者が調整できないものと混同する。",
+    "reasoning_path": "ディスプレイの要件を確認する -> 輝度又はコントラストを容易に調整できるものを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q182は機器選択時の健康影響と作業適合性を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "作業者が輝度又はコントラストを調整できるディスプレイを問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

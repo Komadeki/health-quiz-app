@@ -1358,6 +1358,27 @@
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000195",
+      "source_id": "E1-MHLW-INFO-EQUIPMENT",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000196",
+      "source_id": "E1-MHLW-INFO-EQUIPMENT",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000197",
+      "source_id": "E1-MHLW-INFO-EQUIPMENT",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
     }
   ]
 }
