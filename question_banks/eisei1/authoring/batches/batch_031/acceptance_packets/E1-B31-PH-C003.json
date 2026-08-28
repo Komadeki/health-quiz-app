@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B31-PH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a60daecbd591b58599cd3e27991e4b73d7c9f1742c127b837027b98757c7b30c",
+  "actors": {
+    "author": {
+      "id": "eisei1-b31-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b31-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b31-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-HEART",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Heart Anatomy and Function Blood flow"
+    },
+    "answer_defining_proposition": "心臓の左側からは酸素を多く含む血液が全身へ送り出される。",
+    "tested_misconception": "心臓の左右と酸素化血液の流れを混同する。",
+    "reasoning_path": "血流の方向を確認する -> 左側から全身を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q42は心臓全体のポンプ機能を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "心臓左側の酸素化血液送出を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -73,6 +73,7 @@ B27_EXPECTED = {f"E1-B27-LG-C00{index}": f"EISEI1-Q-0000{81 + index}" for index 
 B28_EXPECTED = {f"E1-B28-HG-C00{index}": f"EISEI1-Q-0000{85 + index}" for index in range(1, 5)}
 B29_EXPECTED = {f"E1-B29-LH-C00{index}": f"EISEI1-Q-0000{89 + index}" for index in range(1, 6)}
 B30_EXPECTED = {f"E1-B30-HH-C00{index}": f"EISEI1-Q-0000{94 + index}" for index in range(1, 4)}
+B31_EXPECTED = {f"E1-B31-PH-C00{index}": f"EISEI1-Q-{97 + index:06d}" for index in range(1, 4)}
 ALL_EXPECTED = {
     **EARLY_EXPECTED,
     **B6_EXPECTED,
@@ -100,6 +101,7 @@ ALL_EXPECTED = {
     **B28_EXPECTED,
     **B29_EXPECTED,
     **B30_EXPECTED,
+    **B31_EXPECTED,
 }
 EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000001": "E1-MHLW-CHEM-RA",
@@ -199,6 +201,9 @@ EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000095": "E1-MHLW-VIBRATION",
     "EISEI1-Q-000096": "E1-MHLW-HEAT",
     "EISEI1-Q-000097": "E1-MHLW-CHEMICAL-HAZARDS",
+    "EISEI1-Q-000098": "E1-NIDDK-KIDNEYS",
+    "EISEI1-Q-000099": "E1-NIDDK-KIDNEYS",
+    "EISEI1-Q-000100": "E1-NHLBI-HEART",
 }
 
 
@@ -215,7 +220,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.bank = REPOSITORY_ROOT / "question_banks" / "eisei1"
         self.authoring = self.bank / "authoring"
 
-    def test_integrated_inventory_is_contiguous_through_q97(self) -> None:
+    def test_integrated_inventory_is_contiguous_through_q100(self) -> None:
         questions = read_rows(self.authoring / "questions.csv")
         registry = read_rows(self.authoring / "question_id_registry.csv")
         self.assertEqual(set(ALL_EXPECTED.values()), set(questions))
@@ -253,6 +258,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             ("batch_028", B28_EXPECTED),
             ("batch_029", B29_EXPECTED),
             ("batch_030", B30_EXPECTED),
+            ("batch_031", B31_EXPECTED),
         ):
             batch = self.authoring / "batches" / batch_name
             candidates = read_rows(batch / "candidates.csv")
@@ -283,7 +289,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
                     self.assertEqual(candidate[field], question[field])
                 self.assertEqual(candidate["proposed_correct"], question["correct_choice"])
 
-    def test_q1_q97_are_source_verified_and_pre_release(self) -> None:
+    def test_q1_q100_are_source_verified_and_pre_release(self) -> None:
         verifications = json.loads(
             (self.authoring / "source_verifications.json").read_text(encoding="utf-8")
         )["verifications"]
@@ -332,6 +338,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             "batch_028",
             "batch_029",
             "batch_030",
+            "batch_031",
         ):
             candidates = read_rows(self.authoring / "batches" / batch_name / "candidates.csv")
             expected.update({
@@ -342,7 +349,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_all_touched_expansion_batches_validate(self) -> None:
-        for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006", "batch_007", "batch_008", "batch_009", "batch_010", "batch_011", "batch_012", "batch_013", "batch_014", "batch_015", "batch_016", "batch_017", "batch_018", "batch_019", "batch_020", "batch_021", "batch_022", "batch_023", "batch_024", "batch_025", "batch_026", "batch_027", "batch_028", "batch_029", "batch_030"):
+        for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006", "batch_007", "batch_008", "batch_009", "batch_010", "batch_011", "batch_012", "batch_013", "batch_014", "batch_015", "batch_016", "batch_017", "batch_018", "batch_019", "batch_020", "batch_021", "batch_022", "batch_023", "batch_024", "batch_025", "batch_026", "batch_027", "batch_028", "batch_029", "batch_030", "batch_031"):
             self.assertEqual([], validate_expansion_batch(self.authoring / "batches" / batch_name))
 
 
