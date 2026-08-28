@@ -254,6 +254,15 @@
       "usage_basis": "facts_only_independently_authored"
     },
     {
+      "source_id": "E1-NHLBI-LUNGS",
+      "title": "How the Lungs Work",
+      "issuer": "National Heart, Lung, and Blood Institute",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "url": "https://www.nhlbi.nih.gov/health/lungs",
+      "retrieved_at": "2026-08-28",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
       "source_id": "E1-EXAM-STRUCTURE",
       "title": "第一種衛生管理者試験の紹介",
       "issuer": "公益財団法人 安全衛生技術試験協会",
