@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B20-LAW-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1e4bdcb81f8d34b50e6adaf309de6512332a6c46bbfa8a777bf7cd10c0883075",
+  "actors": {
+    "author": {
+      "id": "otsu4-b20-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave7-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave7-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-28",
+      "source_locator": "消防法 第9条の4第2項"
+    },
+    "answer_defining_proposition": "指定数量未満の危険物を貯蔵又は取り扱う場所の位置・構造・設備の技術上の基準は市町村条例で定められる。",
+    "tested_misconception": "指定数量未満なら位置・構造・設備の技術上の基準は存在しない。",
+    "reasoning_path": "below specified quantity -> identify governing standard form",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W7 B20; sub-threshold regulatory boundary distinct from B1/B7 quantity arithmetic and facility-permit questions."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Correctly isolates the below-specified-quantity boundary and its municipal-ordinance technical-standard route; it does not duplicate the canonical permit, notification, or quantity-arithmetic propositions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
