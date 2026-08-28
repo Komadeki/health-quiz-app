@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B67-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4ebca178e8e22b12db83b069d0910766a41588abe9269bc8ee2348a042a72784",
+  "actors": {
+    "author": {
+      "id": "eisei1-b67-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b67-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b67-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "source_locator": "第4章 4.2.2(1) 急性毒性"
+    },
+    "answer_defining_proposition": "一酸化炭素はヘモグロビンと結合して血液の酸素運搬能を低下させる。",
+    "tested_misconception": "一酸化炭素の作用をシアン化水素又はホスゲンと混同する。",
+    "reasoning_path": "急性作用の物質別機序を確認する -> ヘモグロビン結合を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q12は高濃度硫化水素の中枢性呼吸麻痺を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "一酸化炭素のヘモグロビン結合による酸素運搬能低下を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
