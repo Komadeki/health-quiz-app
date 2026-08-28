@@ -308,6 +308,15 @@
       "usage_basis": "facts_only_independently_authored"
     },
     {
+      "source_id": "E1-NINDS-PERIPHERAL",
+      "title": "Peripheral Neuropathy",
+      "issuer": "National Institute of Neurological Disorders and Stroke",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "url": "https://www.ninds.nih.gov/health-information/disorders/peripheral-neuropathy",
+      "retrieved_at": "2026-08-28",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
       "source_id": "E1-MEDLINE-CNS",
       "title": "Central nervous system",
       "issuer": "U.S. National Library of Medicine MedlinePlus",
