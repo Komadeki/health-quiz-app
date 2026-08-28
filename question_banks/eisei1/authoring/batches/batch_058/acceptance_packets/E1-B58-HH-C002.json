@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B58-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "31518d1fa25006a31a6dbfd1e8383a3debd5e2e35f64c1bc73dd5061634899bf",
+  "actors": {
+    "author": {
+      "id": "eisei1-b58-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b58-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b58-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-VIBRATION",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "振動障害の認定基準について 3(1)"
+    },
+    "answer_defining_proposition": "振動業務の従事歴にいう相当期間とはおおむね1年又はこれを超える期間をいう。",
+    "tested_misconception": "振動業務の相当期間を週 月又は長期だけと混同する。",
+    "reasoning_path": "従事歴の基準を確認する -> おおむね1年又はこれを超える期間を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q33は振動障害の特徴的症状を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "振動業務の相当期間がおおむね1年又はこれを超える期間であることを問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

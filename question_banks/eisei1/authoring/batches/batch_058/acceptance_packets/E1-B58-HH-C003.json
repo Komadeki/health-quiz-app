@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B58-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b035e8ff455d8d9cbf7183a9bab3eaddcf43d5404c45158a4b788d1c830baa52",
+  "actors": {
+    "author": {
+      "id": "eisei1-b58-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b58-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b58-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-VIBRATION",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "振動障害の認定基準について 3(2)"
+    },
+    "answer_defining_proposition": "振動業務の従事歴が相当期間に満たなくても未整備の振動工具を使用している場合には振動障害が起こり得る。",
+    "tested_misconception": "従事期間が短ければ条件を問わず振動障害が起こらないと混同する。",
+    "reasoning_path": "短期従事時の個別判断事情を確認する -> 未整備の振動工具を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q58は振動障害の一般的特徴を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "短期従事でも未整備工具等では個別判断を要することを問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
