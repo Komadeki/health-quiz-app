@@ -330,14 +330,14 @@ final class _HomeHero extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
-                      Icons.flight_takeoff,
+                      Icons.workspace_premium_outlined,
                       size: 18,
                       color: colors.onPrimary,
                     ),
                     const SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        '学科試験対策',
+                        '${definition.displayName}対策',
                         style: theme.textTheme.labelLarge?.copyWith(
                           color: colors.onPrimary,
                           fontWeight: FontWeight.w700,

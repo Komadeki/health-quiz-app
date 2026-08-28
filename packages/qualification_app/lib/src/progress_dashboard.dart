@@ -24,9 +24,8 @@ Widget _buildProgressDashboard(
       ? '$displayedCompletedQuestions / ${overall.totalQuestions}問'
       : '$displayedCompletedQuestions / $progressQuestionCount問 ・ '
           '解放すると全${overall.totalQuestions}問';
-  final accuracy = overall.accuracy == null
-      ? '—'
-      : '${(overall.accuracy! * 100).round()}%';
+  final accuracy =
+      overall.accuracy == null ? '—' : '${(overall.accuracy! * 100).round()}%';
   final selectionEngine = PracticeSelectionEngine(
     canAccess: (candidate) =>
         controller.canAccess(bank.cardsById[candidate.questionId]!),
@@ -62,7 +61,9 @@ Widget _buildProgressDashboard(
               Expanded(
                 child: Text(
                   '学習進捗',
-                  style: Theme.of(context).textTheme.titleLarge
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
                       ?.copyWith(fontWeight: FontWeight.w700),
                 ),
               ),
@@ -149,12 +150,10 @@ SessionHistoryV1? _bestMockHistory(List<SessionHistoryV1> history) {
       best = item;
       continue;
     }
-    final itemRate = item.totalCount == 0
-        ? 0.0
-        : item.correctCount / item.totalCount;
-    final bestRate = best.totalCount == 0
-        ? 0.0
-        : best.correctCount / best.totalCount;
+    final itemRate =
+        item.totalCount == 0 ? 0.0 : item.correctCount / item.totalCount;
+    final bestRate =
+        best.totalCount == 0 ? 0.0 : best.correctCount / best.totalCount;
     if (itemRate > bestRate ||
         (itemRate == bestRate && item.correctCount > best.correctCount)) {
       best = item;
@@ -233,19 +232,20 @@ final class _MetricDescriptor {
   final String label;
 
   Widget build(String value, {VoidCallback? onTap}) => KeyedSubtree(
-    key: Key(keyName),
-    child: onTap == null
-        ? _ProgressMetric(icon: icon, value: value, label: label)
-        : Semantics(
-            button: true,
-            label: '$label $value。模擬試験を開く',
-            child: InkWell(
-              borderRadius: BorderRadius.circular(16),
-              onTap: onTap,
-              child: _ProgressMetric(icon: icon, value: value, label: label),
-            ),
-          ),
-  );
+        key: Key(keyName),
+        child: onTap == null
+            ? _ProgressMetric(icon: icon, value: value, label: label)
+            : Semantics(
+                button: true,
+                label: '$label $value。模擬試験を開く',
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: onTap,
+                  child:
+                      _ProgressMetric(icon: icon, value: value, label: label),
+                ),
+              ),
+      );
 }
 
 final class _RadarDatum {
@@ -297,9 +297,9 @@ final class _UnitPerformanceChart extends StatelessWidget {
                   child: Text(
                     '単元別',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: colors.onSecondaryContainer,
-                      fontWeight: FontWeight.w700,
-                    ),
+                          color: colors.onSecondaryContainer,
+                          fontWeight: FontWeight.w700,
+                        ),
                   ),
                 ),
               ),
@@ -350,7 +350,9 @@ final class _UnitPerformanceLegend extends StatelessWidget {
               SizedBox(
                 width: width,
                 child: Text(
-                  '${_shortRadarLabel(item.label)}：${item.label}',
+                  _shortRadarLabel(item.label),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ),
@@ -531,6 +533,13 @@ final class _RadarPainter extends CustomPainter {
 
 String _shortRadarLabel(String label) {
   final trimmed = label.trim();
+  if (trimmed.contains('労働生理')) return '生理';
+  if (trimmed.contains('労働衛生')) {
+    return trimmed.contains('有害業務以外') ? '衛生・一般' : '衛生・有害';
+  }
+  if (trimmed.contains('関係法令')) {
+    return trimmed.contains('有害業務以外') ? '法令・一般' : '法令・有害';
+  }
   if (trimmed.contains('リスク')) return 'リスク';
   if (trimmed.contains('規則')) return '規則';
   if (trimmed.contains('システム')) return 'システム';
