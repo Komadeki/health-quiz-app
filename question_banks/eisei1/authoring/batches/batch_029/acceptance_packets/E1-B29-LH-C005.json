@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B29-LH-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "94d8715f5fb7f6b4c4d165d83e999e07228dd99fd765d3d1cacabaf557efc782",
+  "actors": {
+    "author": {
+      "id": "eisei1-b29-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b29-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b29-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-OXYGEN",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "酸素欠乏症等防止規則 第11条"
+    },
+    "answer_defining_proposition": "酸素欠乏危険作業主任者には酸素欠乏危険作業主任者技能講習を修了した者を選任する。",
+    "tested_misconception": "有害業務ごとの作業主任者資格を取り違える。",
+    "reasoning_path": "業務名を確認する -> 酸素欠乏の資格を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q21は第一種酸素欠乏危険作業での選任義務を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "酸欠主任者資格を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
