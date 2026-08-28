@@ -1071,6 +1071,34 @@
       "source_version": "current-as-of-2026-08-27",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000154",
+      "source_id": "E1-MHLW-DUST-PREVENTION",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000155",
+      "source_id": "E1-MHLW-DUST-PREVENTION",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000156",
+      "source_id": "E1-MHLW-DUST-PREVENTION",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000157",
+      "source_id": "E1-MHLW-DUST-PREVENTION",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
     }
   ]
 }

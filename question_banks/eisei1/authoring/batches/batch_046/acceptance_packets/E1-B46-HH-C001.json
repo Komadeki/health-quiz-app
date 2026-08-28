@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B46-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "abb6c07eb437ddfdacd7bece20473e36666e4b9220dcce89f40638056cfe4d5d",
+  "actors": {
+    "author": {
+      "id": "eisei1-b46-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b46-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b46-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-DUST-PREVENTION",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "source_locator": "職業性疾病の予防 じん肺とは"
+    },
+    "answer_defining_proposition": "じん肺は粉じんを吸入することにより発症する。",
+    "tested_misconception": "じん肺の原因を日常動作と混同する。",
+    "reasoning_path": "疾病の原因を確認する -> 粉じん吸入を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q11は粉じん発散源対策を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "じん肺の粉じん吸入による発症を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
