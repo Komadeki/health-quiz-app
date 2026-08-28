@@ -16,12 +16,12 @@
     "SUBMIT",
     "DONE"
   ],
-  "observed_main": "cbb2c1445bb905ea98ad9e1c66d94fcd79cb8a63",
-  "next_atomic_objective": "ALLOCATE_AND_INTEGRATE_OTSU4_WAVE_7_ACCEPTED_8",
+  "observed_main": "0162c195ac305f06682e8eb2324d171115d7f163",
+  "next_atomic_objective": "VERIFY_OTSU4_WAVE_7_CANONICAL_SOURCES_8",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 87
+  "state_epoch": 88
 }
