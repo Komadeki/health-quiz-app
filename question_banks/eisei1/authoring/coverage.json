@@ -921,6 +921,31 @@
       "knowledge_target_id": "E1-LG-003",
       "question_id": "EISEI1-Q-000110",
       "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HG-003",
+      "question_id": "EISEI1-Q-000111",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HG-003",
+      "question_id": "EISEI1-Q-000112",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HG-003",
+      "question_id": "EISEI1-Q-000113",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HG-003",
+      "question_id": "EISEI1-Q-000114",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HG-003",
+      "question_id": "EISEI1-Q-000115",
+      "variation_tags": []
     }
   ],
   "schema_version": 1,
