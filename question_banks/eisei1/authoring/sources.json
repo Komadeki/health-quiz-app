@@ -227,6 +227,24 @@
       "usage_basis": "facts_only_independently_authored"
     },
     {
+      "source_id": "E1-MHLW-VIBRATION",
+      "title": "振動障害の認定基準について",
+      "issuer": "厚生労働省",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "url": "https://www.mhlw.go.jp/web/t_doc?dataId=00tc0353&dataType=1&pageNo=1",
+      "retrieved_at": "2026-08-28",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
+      "source_id": "E1-MHLW-HEAT",
+      "title": "働く人の今すぐ使える熱中症ガイド",
+      "issuer": "厚生労働省",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000116133_00001.html",
+      "retrieved_at": "2026-08-28",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
       "source_id": "E1-EXAM-STRUCTURE",
       "title": "第一種衛生管理者試験の紹介",
       "issuer": "公益財団法人 安全衛生技術試験協会",
