@@ -54,6 +54,12 @@ EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000008": "E1-MHLW-RPE-2023",
     "EISEI1-Q-000009": "E1-LAW-SPEC-CHEM",
     "EISEI1-Q-000010": "E1-LAW-ASBESTOS",
+    "EISEI1-Q-000011": "E1-MHLW-DUST-PREVENTION",
+    "EISEI1-Q-000012": "E1-MHLW-CHEMICAL-HAZARDS",
+    "EISEI1-Q-000013": "E1-MHLW-WORKENV-EVALUATION",
+    "EISEI1-Q-000014": "E1-LAW-ASR",
+    "EISEI1-Q-000015": "E1-LAW-LEAD",
+    "EISEI1-Q-000016": "E1-LAW-DUST",
 }
 
 
@@ -117,7 +123,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
                     self.assertEqual(candidate[field], question[field])
                 self.assertEqual(candidate["proposed_correct"], question["correct_choice"])
 
-    def test_q1_q10_verified_q11_q16_unverified_and_pre_release(self) -> None:
+    def test_q1_q16_are_source_verified_and_pre_release(self) -> None:
         verifications = json.loads(
             (self.authoring / "source_verifications.json").read_text(encoding="utf-8")
         )["verifications"]
@@ -125,9 +131,8 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         for row in verifications:
             self.assertEqual(EXPECTED_VERIFICATION_SOURCES[row["question_id"]], row["source_id"])
             self.assertEqual("author_source_verified", row["verification_state"])
-            self.assertEqual("2026-08-27", row["verified_at"])
-        pending_verification = set(B8_EXPECTED.values()) | set(B9_EXPECTED.values())
-        self.assertTrue(pending_verification.isdisjoint({row["question_id"] for row in verifications}))
+            expected_date = "2026-08-27" if int(row["question_id"].rsplit("-", 1)[1]) <= 10 else "2026-08-28"
+            self.assertEqual(expected_date, row["verified_at"])
         self.assertEqual([], json.loads((self.authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"])
         self.assertEqual([], json.loads((self.bank / "generated" / "eisei1_bank.json").read_text(encoding="utf-8"))["decks"])
 
