@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B27-LG-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "893fb6b4c462c2c40e8ab7098ea81aca7356e7f449cc880d02235ffe37be367b",
+  "actors": {
+    "author": {
+      "id": "eisei1-b27-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b27-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b27-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法 第18条第1項"
+    },
+    "answer_defining_proposition": "衛生委員会は労働者の健康障害を防止するための基本となるべき対策を調査審議する。",
+    "tested_misconception": "委員会の審議を経営又は外観情報だけと混同する。",
+    "reasoning_path": "条文の調査審議事項を確認する -> 健康障害防止対策を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q25は設置義務を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "委員会の健康障害防止審議を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B27-LG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "975ac46708aa53b6cbd7d4b887fdac5a7c18d71e92a9d02d9baa3d805283b167",
+  "actors": {
+    "author": {
+      "id": "eisei1-b27-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b27-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b27-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則 第23条"
+    },
+    "answer_defining_proposition": "事業者は衛生委員会の議事の概要を労働者に周知させなければならない。",
+    "tested_misconception": "委員会議事を労働者へ知らせる必要がないと誤解する。",
+    "reasoning_path": "規則の周知義務を確認する -> 労働者へ周知を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q70は議事記録の保存期間を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "委員会議事概要の周知を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
