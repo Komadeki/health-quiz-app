@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B27-TEMPORARY-HANDLING-SAFETY-2026-08-29",
+  "selected_target": "O4-FIR-KT-INCIDENT-DECISION",
+  "candidate_ceiling": 3,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "The existing incident-decision bank covers SDS leak response. This official Fire and Disaster Management Agency guidance adds temporary-handling controls with a distinct operational boundary; author only propositions that remain specific to the stated emergency temporary-handling context.",
+  "source_contract": {
+    "primary_source_id": "O4-FDMA-TEMP-SAFETY-1",
+    "source_version": "2013-10-03",
+    "pinpoint_scope": [
+      "Guideline pp.3-4: Class 4 first petroleum static-electricity controls for containers, drum pumps, grounding/bonding, conductive work surfaces, and initial filling flow",
+      "Guideline pp.4-5: outdoor preference and ventilation boundaries for dispensing or decanting from drums"
+    ]
+  },
+  "candidate_boundaries": [
+    "Each question must name the temporary storage or handling emergency context; do not present guidance as a universal statutory requirement.",
+    "Do not restate canonical questions about generic grounding, ignition-source removal, ventilation, or the Fire Service Act's 10-day approval condition.",
+    "Reject standalone recall of the 1 m/s figure unless a full scenario establishes why the flow-control decision is needed."
+  ],
+  "proposed_families": [
+    "ground both the Class 4 first-petroleum container and the dispensing pump",
+    "distinguish outdoor dispensing from the limited indoor ventilation condition"
+  ],
+  "independent_review_required": true,
+  "next_gate": "AUTHOR_B27_AI_PRE_ACCEPT"
+}
