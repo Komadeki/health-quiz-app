@@ -218,6 +218,15 @@
       "usage_basis": "facts_only_independently_authored"
     },
     {
+      "source_id": "E1-MHLW-EHEALTH-SLEEP",
+      "title": "睡眠と生活習慣病との深い関係",
+      "issuer": "厚生労働省 e-ヘルスネット",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "url": "https://kennet.mhlw.go.jp/information/information/heart/k-02-008",
+      "retrieved_at": "2026-08-28",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
       "source_id": "E1-EXAM-STRUCTURE",
       "title": "第一種衛生管理者試験の紹介",
       "issuer": "公益財団法人 安全衛生技術試験協会",
