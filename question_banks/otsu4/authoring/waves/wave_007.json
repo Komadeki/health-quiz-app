@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W7",
-  "status": "AI_PRE_ACCEPT_AUTHORED",
+  "status": "INDEPENDENT_AI_REVIEWED",
   "planned_at": "2026-08-28",
   "production_target": 600,
   "canonical_verified_baseline": 286,
@@ -50,5 +50,23 @@
   "planned_state_epoch": 80,
   "authored_state_epoch": 85,
   "rework_reason": "B20 source_version was corrected from an unregistered retrieval date to the registered O4-LAW-1 source version 2026-08-25 before canonical integration. Content was not changed; all Wave 7 candidates return to AI_PRE_ACCEPT for a fresh independent review and Director decision with fingerprints bound to the corrected source metadata.",
-  "next_gate": "INDEPENDENT_AI_REVIEW_OTSU4_WAVE_7"
+  "review_summary": {
+    "reviewed": 8,
+    "accept": 8,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0,
+    "reviewer_id": "otsu4-wave7-independent-reviewer-r2",
+    "identity_separation": "PASS"
+  },
+  "non_accepted_candidate_ids": {
+    "reject": [],
+    "rework": []
+  },
+  "reviewed_state_epoch": 86,
+  "review_artifacts": {
+    "B20": "question_banks/otsu4/authoring/batches/batch_020/independent_review_r1.json",
+    "B21": "question_banks/otsu4/authoring/batches/batch_021/independent_review_r1.json"
+  },
+  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_7_ACCEPTED_8"
 }

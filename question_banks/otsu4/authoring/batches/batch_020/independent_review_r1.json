@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W7",
+  "batch_id": "B20",
+  "reviewed_at": "2026-08-28",
+  "reviewer": {
+    "id": "otsu4-wave7-independent-reviewer-r2",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "otsu4-b20-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "all 286 canonical/source-verified Otsu4 questions",
+    "all three Wave 7 B20 AI_PRE_ACCEPT candidates",
+    "registered O4-LAW-1 source metadata, with candidate source_version 2026-08-25 matching the sources.json registry",
+    "消防法第9条の4第1項・第2項及び第10条第1項ただし書",
+    "Otsu4 scope, unique correct answer, Japanese clarity, semantic distinctness, and no-filler policy"
+  ],
+  "decisions": [
+    {
+      "candidate_id": "O4-B20-LAW-C001",
+      "decision": "ACCEPT",
+      "rationale": "消防法第9条の4第1項の指定数量の定義に正確に対応し、Aだけが危険性を勘案して政令で定める数量を示す。B7の第四類表値・倍数計算とは異なる法定語の基礎であり、選択肢も日本語として明確で、試験範囲内の有用な誤概念訂正となる。"
+    },
+    {
+      "candidate_id": "O4-B20-LAW-C002",
+      "decision": "ACCEPT",
+      "rationale": "消防法第9条の4第2項は、指定数量未満の場所の位置・構造・設備の技術上の基準を市町村条例で定めるとしており、Aが唯一の正答である。指定数量以上の製造所等の許可・技術基準と区別する実務的境界を問うため、既存の数量計算・施設許可問題と意味的に重複しない。"
+    },
+    {
+      "candidate_id": "O4-B20-LAW-C003",
+      "decision": "ACCEPT",
+      "rationale": "消防法第10条第1項ただし書の仮貯蔵・仮取扱いの例外は、所轄消防長又は消防署長の承認と10日以内の期間を併せて要件とするため、Aだけが正しい。恒久的な製造所等の設置許可とは別の期限付き例外を正確に問う、明確で試験価値のある境界問題である。"
+    }
+  ],
+  "summary": {
+    "reviewed": 3,
+    "accept": 3,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "batch_checked": true,
+    "full_wave_checked": true,
+    "result": "PASS",
+    "note": "All 286 canonical questions and the Wave 7 peer set were reviewed. B20 adds the statutory definition, sub-threshold municipal-ordinance boundary, and temporary approval-plus-duration exception; none is a wording or reasoning duplicate of the existing specified-quantity table or aggregation items."
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}

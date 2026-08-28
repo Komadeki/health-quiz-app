@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W7",
+  "batch_id": "B21",
+  "reviewed_at": "2026-08-28",
+  "reviewer": {
+    "id": "otsu4-wave7-independent-reviewer-r2",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "otsu4-b21-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "all 286 canonical/source-verified Otsu4 questions",
+    "all five Wave 7 B21 AI_PRE_ACCEPT candidates",
+    "registered O4-MHLW-SDS-ACETONE source metadata and the MHLW model SDS for acetone, revised 2015-03-31, Section 6",
+    "Otsu4 scope, unique correct answer, Japanese clarity, semantic distinctness, and no-filler policy"
+  ],
+  "decisions": [
+    {
+      "candidate_id": "O4-B21-FIR-C001",
+      "decision": "ACCEPT",
+      "rationale": "厚労省アセトンモデルSDS第6項は密閉された場所に入る前に換気すると明記しており、Aだけがその入室前対応に合う。B17の修理準備時の換気とは場面・判断時点が異なり、漏えい場所への安全な進入判断として独立した学習価値がある。"
+    },
+    {
+      "candidate_id": "O4-B21-FIR-C002",
+      "decision": "ACCEPT",
+      "rationale": "同SDS第6項は排水溝、下水溝、地下室又は閉鎖場所への流入防止を示すため、Aが唯一の正答である。区域隔離とは異なる流出経路・蒸気滞留を防ぐ判断を問うもので、既存のアセトン物性・火災時問題とも重複しない。"
+    },
+    {
+      "candidate_id": "O4-B21-FIR-C003",
+      "decision": "ACCEPT",
+      "rationale": "同SDS第6項は少量の吸収物を集める際に清潔な帯電防止工具を用いると定め、Aだけが合う。B17の事前接地確認とは、漏えい後の少量回収という工程と選定対象が異なるため、静電気対策を具体的な対応へ結び付ける独立した問題である。"
+    },
+    {
+      "candidate_id": "O4-B21-FIR-C004",
+      "decision": "ACCEPT",
+      "rationale": "同SDS第6項の「危険でなければ漏れを止める」という明示的な安全条件に正確に対応し、Aだけが正答である。無条件の介入を避ける条件付き意思決定を問うため、隔離・換気・回収とは異なる安全上の境界を学べる。"
+    },
+    {
+      "candidate_id": "O4-B21-FIR-C005",
+      "decision": "ACCEPT",
+      "rationale": "同SDS第6項は蒸気抑制泡を蒸発濃度低下のために用いるとしており、Aが唯一の正答である。既存の泡消火剤の火災時の液面被覆・消火機構とは目的と漏えい時の文脈が異なるため、意味的重複ではなく蒸気管理の判断として価値がある。"
+    }
+  ],
+  "summary": {
+    "reviewed": 5,
+    "accept": 5,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "batch_checked": true,
+    "full_wave_checked": true,
+    "result": "PASS",
+    "note": "All 286 canonical questions and the Wave 7 peer set were reviewed. The five candidates cover distinct Section 6 decisions: pre-entry ventilation, drainage prevention, antistatic collection, conditional leak stoppage, and vapor-suppression foam. No candidate duplicates the existing fire-extinguishing, area-isolation, or repair-preparation propositions."
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}
