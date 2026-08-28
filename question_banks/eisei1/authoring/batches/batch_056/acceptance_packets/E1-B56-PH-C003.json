@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B56-PH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "257c06a58c6794b01e47dd82111aec8e85687236c1628749bff9aa62614bc66c",
+  "actors": {
+    "author": {
+      "id": "eisei1-b56-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b56-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b56-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Your Kidneys and How They Work Why are the kidneys important"
+    },
+    "answer_defining_proposition": "尿は腎臓から尿管を通って膀胱へ流れる。",
+    "tested_misconception": "尿管の役割を血管又は消化器の管と混同する。",
+    "reasoning_path": "尿の経路を確認する -> 腎臓から膀胱を結ぶ尿管を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q99は腎臓による余分な水分の除去を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "尿管による腎臓から膀胱への尿輸送を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

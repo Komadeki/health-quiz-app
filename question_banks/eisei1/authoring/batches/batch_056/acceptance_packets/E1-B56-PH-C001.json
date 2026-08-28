@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B56-PH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5cef65986f31ab01a50fe47376a77c39999bc26e390a57c9437de3eb2a1ff1ce",
+  "actors": {
+    "author": {
+      "id": "eisei1-b56-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b56-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b56-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Your Kidneys and How They Work How do my kidneys work"
+    },
+    "answer_defining_proposition": "各ネフロンは糸球体及び尿細管を含む。",
+    "tested_misconception": "ネフロンの構成を他の器官又は血液成分と混同する。",
+    "reasoning_path": "ネフロンの構造を確認する -> 糸球体と尿細管を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q43は腎臓の血液ろ過という器官機能を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "ネフロンを構成する糸球体及び尿細管を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
