@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B109-HG-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "acf9b46a21e2ed6d1a4a126c2b73dc9870d34b1bbc375473c9fa5088e60f0188",
+  "candidate_fingerprint": "d6689306e7e955cc1411944071fa661d3b4047c81c8f9bb0593c088a494459fe",
   "actors": {
     "author": {
       "id": "eisei1-b109-author-r1",
@@ -19,9 +19,9 @@
   },
   "evidence": {
     "source": {
-      "source_id": "E1-MHLW-MENTAL-HEALTH",
-      "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "厚生労働省 職場におけるメンタルヘルス対策"
+      "source_id": "E1-MHLW-MENTAL-HEALTH-GUIDELINE",
+      "source_version": "平成18年指針公示第3号-平成27年11月30日改正-current-as-retrieved-2026-08-28",
+      "source_locator": "労働者の心の健康の保持増進のための指針 2・4"
     },
     "answer_defining_proposition": "事業者は心の健康づくり計画を策定し実施する。",
     "tested_misconception": "事業者の取組を禁止事項と混同する。",

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B93-HH-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "3caa927b7f9d1acaee65db65aab1207de965e9f4b039b226bc900290a6ae95f2",
+  "candidate_fingerprint": "d09a95c14c70827a6f2f807490e888462f86c741548c4a73d5417a613b6d52d8",
   "actors": {
     "author": {
       "id": "eisei1-b93-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-BIOLOGICAL-MONITORING",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "生物学的モニタリング"
+      "source_locator": "職場のあんぜんサイト 生物学的モニタリング 表 二硫化炭素"
     },
-    "answer_defining_proposition": "生物学的モニタリングでは有害物質又はその代謝物の濃度を測定する。",
-    "tested_misconception": "生物学的モニタリングを血液型又は建物情報の測定と混同する。",
-    "reasoning_path": "厚生労働省資料の定義を確認する -> 有害物質又は代謝物の濃度を選ぶ",
+    "answer_defining_proposition": "二硫化炭素に関する検査内容には眼底検査がある。",
+    "tested_misconception": "二硫化炭素の検査を有機溶剤代謝物又は鉛の検査と混同する。",
+    "reasoning_path": "物質名と厚生労働省資料の検査内容の対応を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q36は化学物質の発がん性を問うため別命題である."
+      "note": "既存の生体試料中濃度の一般問題とは異なり、二硫化炭素の具体的検査を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "有害物質又は代謝物の濃度測定を問う。"
+    "rationale": "Q28と重複していた生物学的モニタリングの一般定義を、二硫化炭素の眼底検査へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

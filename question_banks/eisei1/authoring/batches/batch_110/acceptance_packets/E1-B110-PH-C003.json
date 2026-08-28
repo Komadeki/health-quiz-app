@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B110-PH-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "90a3c2875a72da3ef68de0a6227049c5691e87db1098da780a3ecb4d8435bd59",
+  "candidate_fingerprint": "0b8783f09a5a6607a48235e7449a04d10acb436ffb8fb3d47ef86419758a2fcd",
   "actors": {
     "author": {
       "id": "eisei1-b110-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NIDDK-DIGESTIVE",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "NIDDK Your Digestive System and How It Works"
+      "source_locator": "NIDDK Your Digestive System & How It Works, How does food move through my GI tract?"
     },
-    "answer_defining_proposition": "食道は口から胃へ食物を運ぶ。",
-    "tested_misconception": "食道を気道又は消化腺と混同する。",
-    "reasoning_path": "食物の経路を選ぶ",
+    "answer_defining_proposition": "消化管の蠕動は食物や液体を前へ進め、各器官の内容物を混ぜる。",
+    "tested_misconception": "蠕動を消化液の分泌又は他器官の働きと混同する。",
+    "reasoning_path": "消化管壁の筋運動が果たす役割を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "既存の食道問題と運搬経路を明示する別命題である."
+      "note": "既存の食道運搬問題とは異なり、消化管全体の蠕動機能を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "食道経路。"
+    "rationale": "蠕動の機能を問う独立命題。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

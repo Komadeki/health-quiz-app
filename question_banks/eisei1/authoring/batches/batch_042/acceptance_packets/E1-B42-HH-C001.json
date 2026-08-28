@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B42-HH-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "61b984edad726f62fdfac8a82611122135e22b5401ef4dd5684d3702eac02510",
+  "candidate_fingerprint": "6b37c7fad7e96ccdbee417295c7bb0cc1fcb75e885eaa2e642a5e7b69a7873f6",
   "actors": {
     "author": {
       "id": "eisei1-b42-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-SKIN-CHEMICALS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "皮膚等障害化学物質 皮膚刺激性"
+      "source_locator": "泡消火薬剤交換等作業 化学物質管理マニュアル 解説テキスト（第1版）p.7「本マニュアルで使用される用語について」皮膚等障害化学物質等"
     },
-    "answer_defining_proposition": "皮膚刺激性は皮膚に可逆的な損傷を生じさせる性質である。",
-    "tested_misconception": "皮膚刺激性を腐食性又は体格変化と混同する。",
-    "reasoning_path": "定義を確認する -> 可逆的な皮膚損傷を選ぶ",
+    "answer_defining_proposition": "皮膚等障害化学物質等は、皮膚・眼への障害又は皮膚吸収・侵入による健康障害のおそれが明らかな化学物質等である。",
+    "tested_misconception": "皮膚等障害化学物質等を、皮膚影響のない物又は全化学物質の総称と誤認する。",
+    "reasoning_path": "厚生労働省マニュアルが示す対象範囲を過不足なく含む選択肢を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q97は腐食性による重篤な損傷を問うため別命題である。"
+      "note": "既存の皮膚刺激性の可逆的損傷問題とは異なり、法令・マニュアル上の対象化学物質の定義を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "皮膚刺激性の可逆的損傷を問う。"
+    "rationale": "Q262と重複していた皮膚刺激性の命題を、直接根拠のある皮膚等障害化学物質等の定義へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

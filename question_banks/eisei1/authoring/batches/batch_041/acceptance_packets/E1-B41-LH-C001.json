@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B41-LH-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "afbcfe9db6d8fe7b152fca6d1aa64b21241f276cafb4fb2a42d56e5b9fae8ccc",
+  "candidate_fingerprint": "bfccc36fde70b5f92ea13094eae9a23da3260dc78f8b2eb34d72b579ded7f723",
   "actors": {
     "author": {
       "id": "eisei1-b41-author-r1",
@@ -21,7 +21,7 @@
     "source": {
       "source_id": "E1-LAW-ORGANIC",
       "source_version": "current-as-of-2026-08-27",
-      "source_locator": "有機溶剤中毒予防規則 第19条"
+      "source_locator": "有機溶剤中毒予防規則第19条の2第1号"
     },
     "answer_defining_proposition": "有機溶剤作業主任者は作業方法を決定し労働者を指揮する。",
     "tested_misconception": "作業主任者の職務を人事又は営業業務と混同する。",

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B108-LG-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "8cf0825086e9958e9295b8a1b99ae5b50b1c8191c7831a4979c2b9589c269727",
+  "candidate_fingerprint": "2f09f999eb09a9277139bdf30dd1be13e5eef6fc9457314c825665f986c4fe81",
   "actors": {
     "author": {
       "id": "eisei1-b108-author-r1",
@@ -23,9 +23,9 @@
       "source_version": "current-as-of-2026-08-26",
       "source_locator": "労働基準法第23条第1項"
     },
-    "answer_defining_proposition": "使用者は請求を受けて7日以内に金品を返還する。",
+    "answer_defining_proposition": "労働者が退職し権利者から請求があった場合、使用者は7日以内に労働者の権利に属する金品を返還する。",
     "tested_misconception": "返還期限を賃金支払日等と混同する。",
-    "reasoning_path": "請求時の返還規定を確認する -> 7日を選ぶ",
+    "reasoning_path": "退職時の金品返還について、法定の適用場面と期限を同時に満たす選択肢を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
@@ -35,7 +35,7 @@
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "第23条の返還期限。"
+    "rationale": "労働基準法第23条第1項の適用場面である退職時を問題文に明示。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

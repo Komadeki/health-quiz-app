@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B103-HG-C007",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "dea628951a3bfc869e065e360b27ac8598f6e47416b402b38e78d9073a725ebf",
+  "candidate_fingerprint": "8c8ac7578e78c5a36d5aa192da81007938474f7bc16cd2eb49cfd95a4c7c1e72",
   "actors": {
     "author": {
       "id": "eisei1-b103-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-INFO-EQUIPMENT",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "情報機器作業ガイドライン 4 椅子"
+      "source_locator": "情報機器作業ガイドライン4(2)ハ(ロ)"
     },
-    "answer_defining_proposition": "椅子は座面の高さを調整できる。",
-    "tested_misconception": "座面高の調整を不要と混同する。",
-    "reasoning_path": "椅子の調整を確認する -> 座面高調整を選ぶ",
+    "answer_defining_proposition": "ノート型情報機器で長時間作業を行う場合、作業内容に応じ外付けディスプレイ等も使用することが望ましい。",
+    "tested_misconception": "ノート型機器では内蔵ディスプレイだけを使うことが常に望ましいと誤認する。",
+    "reasoning_path": "長時間作業時に姿勢・視認性を調整しやすくする機器構成を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q255は椅子一般を問うため座面高を問う本問と別命題である."
+      "note": "既存の椅子調整問題とは異なり、ノート型機器の外付けディスプレイ利用を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "座面高調整を問う。"
+    "rationale": "座面高調整の重複問題を外付けディスプレイ利用へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

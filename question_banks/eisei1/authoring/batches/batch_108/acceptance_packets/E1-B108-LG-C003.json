@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B108-LG-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "2317e9fa78b6deebd6022aceea9fccad7ae4a96870f428b9de1f4ddbbda19be2",
+  "candidate_fingerprint": "e50f90a170b31705a8e43d62ae64484cf833bc12a71c2a1edffb510523b78c9e",
   "actors": {
     "author": {
       "id": "eisei1-b108-author-r1",
@@ -23,9 +23,9 @@
       "source_version": "current-as-of-2026-08-26",
       "source_locator": "労働基準法第26条"
     },
-    "answer_defining_proposition": "使用者の責に帰すべき休業では平均賃金の60%以上の手当を支払う。",
-    "tested_misconception": "休業手当の最低率を混同する。",
-    "reasoning_path": "休業事由を確認する -> 60%以上を選ぶ",
+    "answer_defining_proposition": "使用者の責に帰すべき事由による休業の休業手当は、平均賃金の60%以上である。",
+    "tested_misconception": "実際により高率を支払えることと法定最低割合を混同する。",
+    "reasoning_path": "労働基準法が定める休業手当の最低割合を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,

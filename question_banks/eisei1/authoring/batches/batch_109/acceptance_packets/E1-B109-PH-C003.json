@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B109-PH-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "d17cbcf20576b61f1857ecae6881b2f497027c81676563cb4b5e87167de3cd01",
+  "candidate_fingerprint": "3e3cb3e065d31d5bd7b76e9c9e9e75771350a519d76cac0486979da31b67a1b4",
   "actors": {
     "author": {
       "id": "eisei1-b109-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NIDDK-KIDNEYS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "NIDDK Your Kidneys and How They Work"
+      "source_locator": "NIDDK Your Kidneys & How They Work, How do my kidneys work?"
     },
-    "answer_defining_proposition": "腎臓は体内の水分量を調整する。",
-    "tested_misconception": "腎臓と感覚器の機能を混同する。",
-    "reasoning_path": "調整機能を選ぶ",
+    "answer_defining_proposition": "腎臓1個は約100万個のネフロンから構成される。",
+    "tested_misconception": "ネフロンを腎臓1個に1つだけある構造又は少数の構造と誤認する。",
+    "reasoning_path": "腎臓のろ過単位の概数を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "既存の腎臓問題と別の体液調節命題である."
+      "note": "既存のネフロン構成問題とは異なり、ネフロンの概数を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "水分調整。"
+    "rationale": "ネフロンの概数を問う独立命題。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

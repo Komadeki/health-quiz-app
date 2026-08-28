@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B74-LH-C002",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "e34109d9a76ec4e7a5fd99bd0ddf22f723a119d35e2975a12e82581a54c9b780",
+  "candidate_fingerprint": "1ce15e1043b2437773021d926cd8ec2e0b974655c6d097ac5a3623b034766f4f",
   "actors": {
     "author": {
       "id": "eisei1-b74-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-LAW-ASBESTOS",
       "source_version": "current-as-of-2026-08-27",
-      "source_locator": "石綿障害予防規則第31条"
+      "source_locator": "石綿障害予防規則第45条"
     },
-    "answer_defining_proposition": "石綿を取り扱う作業に常時従事する労働者のために事業者は身体を洗浄するための設備を設ける。",
-    "tested_misconception": "石綿作業者の衛生管理に身体洗浄設備を不要と混同する。",
-    "reasoning_path": "第31条の必要設備を確認する -> 身体を洗浄するための設備を選ぶ",
+    "answer_defining_proposition": "石綿作業場では同時就業者数と同数以上の呼吸用保護具を備え、常時有効かつ清潔に保持する。",
+    "tested_misconception": "呼吸用保護具の必要数又は有効・清潔な管理義務を見落とす。",
+    "reasoning_path": "法定の必要数と管理状態を同時に満たす選択肢を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q238は洗濯設備を問うため別命題である."
+      "note": "既存の呼吸用保護具選定問題とは異なり、石綿則上の備付数と管理を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "石綿作業者の身体洗浄設備を問う。"
+    "rationale": "石綿作業者用設備の分割重複を、呼吸用保護具の数量・管理へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

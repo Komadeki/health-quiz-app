@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B83-HG-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "8a52ac0ab2b2aa49478ac8ad9e4751fcfe2c8fed9d9757679e09839f83e1d092",
+  "candidate_fingerprint": "a26953ffff14f6e3bb45df19236cf74e7160b93c34f68d40b4592835229a2932",
   "actors": {
     "author": {
       "id": "eisei1-b83-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-INFO-EQUIPMENT",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "情報機器作業ガイドライン 6 労働衛生教育"
+      "source_locator": "情報機器作業ガイドライン4(2)ヘ(ニ)"
     },
-    "answer_defining_proposition": "作業姿勢及び作業方法は情報機器作業の労働衛生教育の内容である。",
-    "tested_misconception": "情報機器作業教育に作業姿勢及び作業方法が含まれないと混同する。",
-    "reasoning_path": "ガイドライン6の教育内容を確認する -> 作業姿勢及び作業方法を選ぶ",
+    "answer_defining_proposition": "情報機器作業用ソフトウェアは、操作ミス等で消去されたデータを容易に復元可能であることが望ましい。",
+    "tested_misconception": "誤操作時のデータ保護を、復元機能の禁止又は保存機能の無効化と混同する。",
+    "reasoning_path": "誤操作が生じた場合のデータ回復性に関する要件を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q197は機器の種類及び特徴を問うため別命題である."
+      "note": "既存400問に情報機器作業用ソフトウェアのデータ復元性を正答命題とする問題はない。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "作業姿勢及び作業方法を教育内容として問う。"
+    "rationale": "労働衛生教育内容の分割重複を、ソフトウェアのデータ復元性へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B74-LH-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "534d7fd78ac91a0609de7fac99b1758427096202a674af397cf0cd487aef8b5f",
+  "candidate_fingerprint": "3b5ef9bfeeb1f903e53a64948c0000e1891173017f235ec827bfc113388ea6ea",
   "actors": {
     "author": {
       "id": "eisei1-b74-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-LAW-ASBESTOS",
       "source_version": "current-as-of-2026-08-27",
-      "source_locator": "石綿障害予防規則第31条"
+      "source_locator": "石綿障害予防規則第43条"
     },
-    "answer_defining_proposition": "石綿を取り扱う作業に常時従事する労働者のために事業者は目を洗浄するための設備を設ける。",
-    "tested_misconception": "石綿作業者の衛生管理に目の洗浄設備を不要と混同する。",
-    "reasoning_path": "第31条の必要設備を確認する -> 目を洗浄するための設備を選ぶ",
+    "answer_defining_proposition": "定期の石綿健康診断後は、遅滞なく結果報告書を所轄労働基準監督署長へ提出する。",
+    "tested_misconception": "石綿健康診断後の報告時期、様式又は提出先を混同する。",
+    "reasoning_path": "定期健診後の報告時期、報告書及び提出先を全て満たす選択肢を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q238は洗濯設備を問うため別命題である."
+      "note": "既存の健康診断実施時期・個人票保存問題とは異なり、定期健診後の行政報告を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "石綿作業者の目の洗浄設備を問う。"
+    "rationale": "石綿作業者用設備の分割重複を、健康診断結果報告へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

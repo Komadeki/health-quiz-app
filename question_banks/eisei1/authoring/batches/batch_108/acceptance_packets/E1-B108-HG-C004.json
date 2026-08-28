@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B108-HG-C004",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "b3513bf862c5bf41d3dbb75d1016360b809146c3303915399bcdb41deb92d357",
+  "candidate_fingerprint": "158ba721a1068b320b9382426638306b3ecad840dc38f2724c72e1b98fd56665",
   "actors": {
     "author": {
       "id": "eisei1-b108-author-r1",
@@ -19,9 +19,9 @@
   },
   "evidence": {
     "source": {
-      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_id": "E1-MHLW-THREE-MANAGEMENT",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "厚生労働省 職場における労働衛生対策 健康管理"
+      "source_locator": "職場のあんぜんサイト 労働衛生の3管理（健康管理）"
     },
     "answer_defining_proposition": "健康管理では健康診断及びその結果に基づく措置を行う。",
     "tested_misconception": "健康管理と環境・作業管理を混同する。",

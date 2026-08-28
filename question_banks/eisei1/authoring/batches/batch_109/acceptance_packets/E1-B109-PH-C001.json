@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B109-PH-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "8f027a4af210d8a1c98e4e5dd95ab976f18e6300b29ff1442868f888ad75457f",
+  "candidate_fingerprint": "7cc6ba5b00a3b82d146c44d1d1b4bedb79fb6bfae9522564e201574e891fa054",
   "actors": {
     "author": {
       "id": "eisei1-b109-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NIDDK-KIDNEYS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "NIDDK Your Kidneys and How They Work"
+      "source_locator": "NIDDK Your Kidneys & How They Work 冒頭（腎臓の位置）"
     },
-    "answer_defining_proposition": "腎臓は血液から老廃物を除去する。",
-    "tested_misconception": "器官の基本機能を混同する。",
-    "reasoning_path": "腎臓の機能を選ぶ",
+    "answer_defining_proposition": "腎臓は肋骨のすぐ下にあり、脊柱の左右に1個ずつ位置する。",
+    "tested_misconception": "腎臓の位置を胸腔、骨盤腔又は消化管内と混同する。",
+    "reasoning_path": "腎臓の解剖学的位置を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "既存の腎臓一般問題と別の老廃物除去命題である."
+      "note": "既存400問に腎臓の位置を正答命題とする問題はない。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "老廃物除去。"
+    "rationale": "腎臓の位置を直接問う独立命題。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B74-LH-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "451650f65f3dd8a7e7e413dc98a07e58254aeffead4830b5266e30ce50bf449e",
+  "candidate_fingerprint": "72563094996476d70d7ac89a1e597274a2457b726c54b097ea90838d496b9b69",
   "actors": {
     "author": {
       "id": "eisei1-b74-author-r1",
@@ -23,19 +23,19 @@
       "source_version": "current-as-of-2026-08-27",
       "source_locator": "石綿障害予防規則第31条"
     },
-    "answer_defining_proposition": "石綿を取り扱う作業に常時従事する労働者のために事業者は更衣のための設備を設ける。",
-    "tested_misconception": "石綿作業者の衛生管理に更衣設備を不要と混同する。",
-    "reasoning_path": "第31条の必要設備を確認する -> 更衣のための設備を選ぶ",
+    "answer_defining_proposition": "石綿作業者のために洗眼・洗身又はうがいの設備、更衣設備及び洗濯設備を設ける。",
+    "tested_misconception": "石綿則第31条の設備を一部だけ又は無関係な設備と混同する。",
+    "reasoning_path": "第31条が列挙する設備を過不足なく含む組合せを選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q238は洗濯設備を問うため別命題である."
+      "note": "旧Q238-Q241で分割していた設備命題を本問へ統合し、他3問は別命題へ置換した。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "石綿作業者の更衣設備を問う。"
+    "rationale": "石綿作業者用設備を4問に分割した重複を、1つの組合せ問題へ統合。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

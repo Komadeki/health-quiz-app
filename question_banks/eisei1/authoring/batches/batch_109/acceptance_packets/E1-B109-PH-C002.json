@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B109-PH-C002",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "ac7d0500aa2730d375cffe4c7fdc4fa389ec63816c0688c2b22dca9e623fd96f",
+  "candidate_fingerprint": "b584022e80a4d48e1328b75d35b05826d9c14ceb6dfcf5fec2a89e2280fd516e",
   "actors": {
     "author": {
       "id": "eisei1-b109-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NIDDK-KIDNEYS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "NIDDK Your Kidneys and How They Work"
+      "source_locator": "NIDDK Your Kidneys & How They Work 冒頭（urinary tract）"
     },
-    "answer_defining_proposition": "腎臓は尿を作る。",
-    "tested_misconception": "尿の生成器官を混同する。",
-    "reasoning_path": "尿を作る器官を選ぶ",
+    "answer_defining_proposition": "腎臓、尿管及び膀胱は尿路の一部である。",
+    "tested_misconception": "尿路を消化器系、呼吸器系又は循環器系と混同する。",
+    "reasoning_path": "尿の生成・輸送・貯留に関わる器官の組合せを選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "既存の腎臓問題と別の尿生成命題である."
+      "note": "既存の尿管単独問題とは異なり、尿路の構成を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "尿生成。"
+    "rationale": "尿路の構成を問う独立命題。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

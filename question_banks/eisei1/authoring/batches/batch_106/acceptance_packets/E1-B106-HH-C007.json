@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B106-HH-C007",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "4ed62bfc21a199259b3f844589efb950035b2d02ecac0192f458efa402615ef3",
+  "candidate_fingerprint": "059be113cc7a6278c734879f17cea2388c80ac0a2bb4b813cb3c479883d23d78",
   "actors": {
     "author": {
       "id": "eisei1-b106-author-r1",
@@ -23,7 +23,7 @@
       "source_version": "current-as-retrieved-2026-08-28",
       "source_locator": "職場のあんぜんサイト 生物学的モニタリング 表 塩化ビニル"
     },
-    "answer_defining_proposition": "塩化ビニルでは肝又は脾の腫大の有無などの肝機能検査を行う。",
+    "answer_defining_proposition": "塩化ビニルに関する検査内容には、肝又は脾の腫大の有無及び血清ビリルビン、GOT、GPT、ALP等の肝機能検査がある。",
     "tested_misconception": "塩化ビニルの検査項目を尿中代謝物の検査と混同する。",
     "reasoning_path": "物質名を確認する -> 表の影響スクリーニング項目を選ぶ",
     "collision": {
@@ -35,7 +35,7 @@
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "塩化ビニルの肝機能検査を問う。"
+    "rationale": "腫大の有無を肝機能検査に包含するように読める表現を、厚生労働省表の列挙に合わせて精密化。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

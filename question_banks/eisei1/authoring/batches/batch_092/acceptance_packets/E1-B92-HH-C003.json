@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B92-HH-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "3e27b90e482fb6b70095adcc4bc6fb7554bb290df72f74114b2fae77a58e60eb",
+  "candidate_fingerprint": "5347829663efdb582c4a0dd2b69bd5844d91fe0aa9961a39dbe690748bd9cb20",
   "actors": {
     "author": {
       "id": "eisei1-b92-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-VIBRATION",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "振動障害の認定基準について 3(2)"
+      "source_locator": "振動障害の認定基準について 別添1 3(1)"
     },
-    "answer_defining_proposition": "上肢に過度の負担のかかる作業を併せて行うことは振動障害が起こり得る事情である。",
-    "tested_misconception": "上肢への過度の負担を振動障害と無関係と混同する。",
-    "reasoning_path": "認定基準3(2)の事情を確認する -> 上肢に過度の負担を選ぶ",
+    "answer_defining_proposition": "最大握力検査は5秒間隔で2回測定し、大きい方の値を採る。",
+    "tested_misconception": "最大握力検査の測定回数、間隔又は採用値を混同する。",
+    "reasoning_path": "認定基準が定める測定間隔、回数及び採用値を全て満たす選択肢を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q248からQ250は使用時間 休憩及び低温を問うため別命題である."
+      "note": "既存400問に最大握力検査の具体的測定方法を正答命題とする問題はない。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "上肢への過度な負担を問う。"
+    "rationale": "一次資料に直接ない上肢負担併合作業の命題を、直接定められる最大握力検査方法へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

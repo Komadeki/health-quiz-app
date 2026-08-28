@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B109-PH-C004",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "e7c37ac8d0133ab15a5574074d8c6451c12fbe0aff5aade0beb1803137fdc1b4",
+  "candidate_fingerprint": "056a1ffd5de881d6645d6a82c0be6276eb7def1daa33da281b5991cc925d7364",
   "actors": {
     "author": {
       "id": "eisei1-b109-author-r1",
@@ -19,23 +19,23 @@
   },
   "evidence": {
     "source": {
-      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_id": "E1-NIDDK-DIGESTIVE",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "NIDDK Your Kidneys and How They Work"
+      "source_locator": "NIDDK Your Digestive System & How It Works, How does food move through my GI tract? Mouth"
     },
-    "answer_defining_proposition": "腎臓は血圧の調整に関わる。",
-    "tested_misconception": "腎臓と感覚機能を混同する。",
-    "reasoning_path": "調整機能を選ぶ",
+    "answer_defining_proposition": "嚥下時には喉頭蓋が気管を覆い、食物が気道へ入るのを防ぐ。",
+    "tested_misconception": "喉頭蓋を消化液分泌又は腸管運動を制御する構造と混同する。",
+    "reasoning_path": "嚥下時に気道を保護する喉頭蓋の働きを選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "既存の腎臓問題と別の血圧調節命題である."
+      "note": "既存400問に喉頭蓋による気道保護を正答命題とする問題はない。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "血圧調整。"
+    "rationale": "糸球体ろ過の重複命題を、NIDDKが直接記載する喉頭蓋の気道保護へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

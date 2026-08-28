@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B77-HH-C002",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "f5d2783fdba7cfa615d020710f1594440fdb0c237378730f6b12b464c0afd809",
+  "candidate_fingerprint": "2392cce6052ee3e09556d24b9dffc8078bbf38af4154d80108b1c0e2cfb5af01",
   "actors": {
     "author": {
       "id": "eisei1-b77-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-VIBRATION",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "振動障害の認定基準について 3(2)"
+      "source_locator": "振動障害の認定基準について 解説4(3)ロ"
     },
-    "answer_defining_proposition": "休憩時間又は休止時間が少ないことは振動障害が起こり得る事情である。",
-    "tested_misconception": "休憩又は休止時間が少ないことを危険低下要因と混同する。",
-    "reasoning_path": "認定基準3(2)の事情を確認する -> 休憩又は休止時間が少ないを選ぶ",
+    "answer_defining_proposition": "レイノー現象の発作は多くの場合10分ないし20分程度で元の状態へ回復する。",
+    "tested_misconception": "レイノー現象の一般的な発作持続時間を極端に短い又は長い期間と混同する。",
+    "reasoning_path": "認定基準が示す一般的な回復時間を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q194は未整備工具を問うため別命題である."
+      "note": "既存400問にレイノー現象の一般的回復時間を正答命題とする問題はない。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "少ない休憩又は休止時間を問う。"
+    "rationale": "休憩時間の近接命題を、認定基準が直接示すレイノー現象の回復時間へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

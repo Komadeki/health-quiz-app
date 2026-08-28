@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B108-HG-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "9baa6ffd89c2482f26a946cfa4162a67bf79c9b2bac024e1da431bda03985451",
+  "candidate_fingerprint": "8877cdc595758db361cb2f845db662e88a127ae6494ddc9fa2dd4ecd4f05b772",
   "actors": {
     "author": {
       "id": "eisei1-b108-author-r1",
@@ -19,23 +19,23 @@
   },
   "evidence": {
     "source": {
-      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_id": "E1-MHLW-INFO-EQUIPMENT",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "厚生労働省 職場における労働衛生対策 作業管理"
+      "source_locator": "情報機器作業ガイドライン5(2)ロ(イ)"
     },
-    "answer_defining_proposition": "作業管理では作業時間や作業方法を適切に管理する。",
-    "tested_misconception": "作業管理と健康管理を混同する。",
-    "reasoning_path": "取組の対象を確認する -> 作業時間・方法の管理を選ぶ",
+    "answer_defining_proposition": "情報機器作業ではディスプレイと眼の視距離をおおむね40cm以上確保する。",
+    "tested_misconception": "ディスプレイは眼に近いほど見やすく負担が少ないと誤認する。",
+    "reasoning_path": "ガイドラインが示す視距離の具体的目安を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "既存の作業管理問題とは作業時間・方法の具体化が異なる."
+      "note": "既存の作業管理一般問題とは異なり、ディスプレイの視距離を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "作業管理。"
+    "rationale": "重複していた作業管理一般問題を視距離の具体的基準へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

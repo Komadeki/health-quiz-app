@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B95-LH-C004",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "87609a13e60ab9c810c3958fddf500b6f1f8fc920ef4a127c4070fc7f70175ca",
+  "candidate_fingerprint": "ae87250838b0ab3ede9daccf41c2ef8048430aab66f8528648ee4d9ac9242963",
   "actors": {
     "author": {
       "id": "eisei1-b95-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-LAW-SPEC-CHEM",
       "source_version": "current-as-of-2026-08-27",
-      "source_locator": "特定化学物質障害予防規則第28条第2号"
+      "source_locator": "特定化学物質障害予防規則第28条第4号"
     },
-    "answer_defining_proposition": "特定化学物質作業主任者は局所排気装置等を一月を超えない期間ごとに点検する。",
-    "tested_misconception": "特定化学物質作業主任者の月以内点検を鉛作業主任者の週一回点検と混同する。",
-    "reasoning_path": "特定化学物質作業主任者の職務を確認する -> 点検の上限間隔を選ぶ",
+    "answer_defining_proposition": "タンク内の特別有機溶剤業務では、作業主任者は準用される有機溶剤中毒予防規則第26条各号の措置が講じられていることを確認する。",
+    "tested_misconception": "タンク内作業に固有の事前確認を、健康診断又は販売者承認と混同する。",
+    "reasoning_path": "特定化学物質障害予防規則第28条第4号が作業主任者に確認させる事項を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q152は装置を点検する職務そのものを問うため別命題である."
+      "note": "既存の作業方法決定・局所排気装置等点検問題とは異なり、タンク内作業の措置確認を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "特定化学物質作業主任者の月を超えない点検周期を問う。"
+    "rationale": "重複していた月例点検問題をタンク内作業の確認職務へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

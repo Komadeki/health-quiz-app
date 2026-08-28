@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B103-HG-C008",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "0fb455cd581efe396f5bd3aadbe8fcd0c0f074b16574b877b42a2118397ff086",
+  "candidate_fingerprint": "e8b639eae1b9e1567c46cb8ad07626e5d73199ca8a555bc33999cc9b4bf17224",
   "actors": {
     "author": {
       "id": "eisei1-b103-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-INFO-EQUIPMENT",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "情報機器作業ガイドライン 4 椅子"
+      "source_locator": "情報機器作業ガイドライン4(2)ハ(ハ)"
     },
-    "answer_defining_proposition": "椅子は背もたれの傾きを調整できる。",
-    "tested_misconception": "背もたれの傾き調整を不要と混同する。",
-    "reasoning_path": "椅子の支持調整を確認する -> 背もたれ傾き調整を選ぶ",
+    "answer_defining_proposition": "小型のノート型情報機器で長時間作業を行う場合、外付けキーボードの使用が望ましい。",
+    "tested_misconception": "小型ノート型機器では内蔵入力機器だけを使うことが常に望ましいと誤認する。",
+    "reasoning_path": "長時間作業で入力姿勢を調整しやすくする入力機器を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q255は椅子全体の条件を問うため別命題である."
+      "note": "既存の背もたれ調整問題とは異なり、小型ノート型機器の外付けキーボード利用を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "背もたれ傾き調整を問う。"
+    "rationale": "背もたれ調整の重複問題を外付けキーボード利用へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

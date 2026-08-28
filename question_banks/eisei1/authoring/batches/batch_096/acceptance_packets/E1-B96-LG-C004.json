@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B96-LG-C004",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "d23c5e8df4456dd6fe2b0e6c123a27442186aedcc5e3c9a078db26f18c3b2167",
+  "candidate_fingerprint": "3e2d0a7af3749465d77bb6f65d24eaaa91ea2dcd8dc39b71659845ded1306673",
   "actors": {
     "author": {
       "id": "eisei1-b96-author-r1",
@@ -23,19 +23,19 @@
       "source_version": "current-as-of-2026-08-26",
       "source_locator": "労働安全衛生規則第13条第2項"
     },
-    "answer_defining_proposition": "産業医を選任した事業者は遅滞なく所轄労働基準監督署長に報告する。",
-    "tested_misconception": "選任報告の相手方・時期を他の行政手続又は不要と混同する。",
-    "reasoning_path": "産業医選任後の手続を確認する -> 遅滞なく所轄労働基準監督署長へ報告を選ぶ",
+    "answer_defining_proposition": "産業医を選任した事業者は、遅滞なく電子情報処理組織を使用して所轄労働基準監督署長へ報告する。",
+    "tested_misconception": "報告先、時期又は電子報告義務を旧様式・別制度と混同する。",
+    "reasoning_path": "現行規則が定める報告時期、提出方法及び報告先を同時に満たす選択肢を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q73は衛生管理者の選任報告期限を問うため産業医の報告時期・相手方を問う本問と別命題である."
+      "note": "既存の産業医選任期限問題とは異なり、選任後の電子報告を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "産業医選任後の報告時期・相手方を問う。"
+    "rationale": "2026年時点の電子報告義務を含む現行条文へ更新。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

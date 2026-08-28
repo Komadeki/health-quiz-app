@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B103-HG-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "88cdd3fc516eb9887e7a0b3047bcc00464d91af971295382a3a16e0acdb226c9",
+  "candidate_fingerprint": "8796194ee96c9402838aac7de63d524d72bc9ca0a1741e5698c351f344c9e210",
   "actors": {
     "author": {
       "id": "eisei1-b103-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-INFO-EQUIPMENT",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "情報機器作業ガイドライン 4 機器等"
+      "source_locator": "情報機器作業ガイドライン4(2)ロ(イ)a"
     },
-    "answer_defining_proposition": "ディスプレイは文字の見やすさに応じて輝度を調整できる。",
-    "tested_misconception": "画面の明るさを固定すべきと混同する。",
-    "reasoning_path": "表示調整を確認する -> 輝度調整を選ぶ",
+    "answer_defining_proposition": "ディスプレイは目的とする情報機器作業を負担なく遂行できる画面サイズとする。",
+    "tested_misconception": "画面サイズを作業内容・負担と無関係な固定値で決めると誤認する。",
+    "reasoning_path": "画面サイズの選択基準を作業遂行時の負担から判断する。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q180は照度を問うため別命題である."
+      "note": "既存の輝度・コントラスト問題とは異なり、画面サイズの適合性を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "輝度調整を問う。"
+    "rationale": "輝度調整の重複問題を画面サイズ要件へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

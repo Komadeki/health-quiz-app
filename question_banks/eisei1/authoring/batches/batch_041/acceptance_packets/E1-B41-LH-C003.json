@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B41-LH-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "0780011bb4982eb7f00055940335cb1428ae47be6645fc4add653e66c8011f0d",
+  "candidate_fingerprint": "89d6778b7fa20b3cac407b6ce9888cffbc2ca9461df66c49061d77be2fa4ed62",
   "actors": {
     "author": {
       "id": "eisei1-b41-author-r1",
@@ -21,7 +21,7 @@
     "source": {
       "source_id": "E1-LAW-ORGANIC",
       "source_version": "current-as-of-2026-08-27",
-      "source_locator": "有機溶剤中毒予防規則 第19条"
+      "source_locator": "有機溶剤中毒予防規則第19条の2第3号"
     },
     "answer_defining_proposition": "有機溶剤作業主任者は保護具の使用状況を監視する。",
     "tested_misconception": "作業主任者の保護具職務を購入又は廃棄だけの仕事と混同する。",

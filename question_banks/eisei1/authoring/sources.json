@@ -183,7 +183,7 @@
     },
     {
       "source_id": "E1-MHLW-SKIN-CHEMICALS",
-      "title": "皮膚等障害化学物質",
+      "title": "泡消火薬剤交換等作業 化学物質管理マニュアル 解説テキスト（第1版）",
       "issuer": "厚生労働省",
       "source_version": "current-as-retrieved-2026-08-28",
       "url": "https://www.mhlw.go.jp/content/11300000/001683952.pdf",
@@ -359,6 +359,42 @@
       "source_version": "published-2026-04",
       "url": "https://www.exam.or.jp/wp-content/uploads/2026/04/LC20260415-1.pdf",
       "retrieved_at": "2026-08-26",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
+      "source_id": "E1-NCI-ERYTHROPOIETIN",
+      "title": "Definition of erythropoietin",
+      "issuer": "National Cancer Institute, National Institutes of Health",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "url": "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/erythropoietin",
+      "retrieved_at": "2026-08-28",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
+      "source_id": "E1-NIH-ODS-VITAMIN-D",
+      "title": "Vitamin D - Fact Sheet for Health Professionals",
+      "issuer": "Office of Dietary Supplements, National Institutes of Health",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "url": "https://ods.od.nih.gov/factsheets/VitaminD-HealthProfessional/",
+      "retrieved_at": "2026-08-28",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
+      "source_id": "E1-MHLW-THREE-MANAGEMENT",
+      "title": "職場のあんぜんサイト 労働衛生の3管理",
+      "issuer": "厚生労働省",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "url": "https://anzeninfo.mhlw.go.jp/yougo/yougo28_1.html",
+      "retrieved_at": "2026-08-28",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
+      "source_id": "E1-MHLW-MENTAL-HEALTH-GUIDELINE",
+      "title": "労働者の心の健康の保持増進のための指針",
+      "issuer": "厚生労働省",
+      "source_version": "平成18年指針公示第3号-平成27年11月30日改正-current-as-retrieved-2026-08-28",
+      "url": "https://www.mhlw.go.jp/content/11300000/001671565.pdf",
+      "retrieved_at": "2026-08-28",
       "usage_basis": "facts_only_independently_authored"
     }
   ]

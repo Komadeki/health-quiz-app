@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B109-PH-C007",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "9c16f08b981d1142cc07a563ee0e7e9e59e3da3e9d4536b51dc5c1013179e27e",
+  "candidate_fingerprint": "22449fa5c95c48dadffa26bcef45689c36da2daf9927c18969b90bc079b3a2be",
   "actors": {
     "author": {
       "id": "eisei1-b109-author-r1",
@@ -19,23 +19,23 @@
   },
   "evidence": {
     "source": {
-      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_id": "E1-NIH-ODS-VITAMIN-D",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "NIDDK Your Kidneys and How They Work"
+      "source_locator": "NIH Office of Dietary Supplements, Vitamin D Fact Sheet for Health Professionals, Introduction"
     },
-    "answer_defining_proposition": "腎臓はビタミンDの活性化に関わる。",
-    "tested_misconception": "腎臓の内分泌機能を混同する。",
-    "reasoning_path": "活性化に関わるビタミンを選ぶ",
+    "answer_defining_proposition": "ビタミンD活性化の第2水酸化は主に腎臓で行われる。",
+    "tested_misconception": "ビタミンDの合成、肝臓での第1水酸化及び腎臓での第2水酸化を混同する。",
+    "reasoning_path": "ビタミンD活性化の第2段階が主に行われる器官を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "既存の腎臓問題と別のビタミンD命題である."
+      "note": "既存400問にビタミンDの第2水酸化部位を正答命題とする問題はない。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "ビタミンD。"
+    "rationale": "NIH ODSの直接記載へ根拠を付け替えた独立命題。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

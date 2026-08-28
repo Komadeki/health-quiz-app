@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B89-PH-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "307a6c2b570c0356124148b37b30a26c0c39b2bf525c70492837b3674b6995ac",
+  "candidate_fingerprint": "7de6026ee61e983486c3e0621037a8f93053664c0295499f37c8fef68798c8b7",
   "actors": {
     "author": {
       "id": "eisei1-b89-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NIDDK-KIDNEYS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "Your Kidneys and How They Work Why are the kidneys important"
+      "source_locator": "NIDDK Your Kidneys & How They Work 冒頭（bladder stores urine）"
     },
-    "answer_defining_proposition": "腎臓は血液中の老廃物を除去する。",
-    "tested_misconception": "腎臓が血液中の老廃物を除去しないと混同する。",
-    "reasoning_path": "腎臓の主な機能を確認する -> 老廃物を除去するを選ぶ",
+    "answer_defining_proposition": "膀胱は腎臓でつくられた尿を排尿まで蓄える。",
+    "tested_misconception": "膀胱の尿貯留機能を呼吸器、造血器又は消化器の働きと混同する。",
+    "reasoning_path": "尿路における膀胱の役割を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q99は余分な水分の排出を問うため別命題である."
+      "note": "既存の腎臓による老廃物除去問題とは異なり、膀胱の尿貯留を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "腎臓の老廃物除去を問う。"
+    "rationale": "Q43と重複していた腎臓の老廃物除去を、膀胱の尿貯留へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

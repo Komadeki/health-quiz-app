@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B100-HH-C004",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "914bff0999c5e24a0c3a42bf05ba1c1ac036388c11a6e193f635e11ad4a4f33c",
+  "candidate_fingerprint": "832a39dd9f46356092c1ca5747269bd8d9980b63dd463115b81be7c88c87fbfa",
   "actors": {
     "author": {
       "id": "eisei1-b100-author-r1",
@@ -21,11 +21,11 @@
     "source": {
       "source_id": "E1-MHLW-RPE-2023",
       "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
-      "source_locator": "防毒マスクの選択 使用等 臭気感知時"
+      "source_locator": "基発0525第3号 別添「呼吸用保護具の選択、使用等に関する指針」4(2)オ"
     },
-    "answer_defining_proposition": "使用中に有害物質の臭気等を感知した場合は直ちに着用状態を確認し必要に応じて吸収缶を交換する。",
-    "tested_misconception": "吸収缶の異常兆候を作業継続又は後日点検で足りると混同する。",
-    "reasoning_path": "使用中の異常兆候を確認する -> 着用状態確認と必要時交換を選ぶ",
+    "answer_defining_proposition": "作業中に臭気、息苦しさ等の異常を感じたら、速やかに作業を中止して避難し、状況を保護具着用管理責任者等に報告する。",
+    "tested_misconception": "臭気等を感じても着用状態確認や吸収缶交換だけでその場の作業を継続できると混同する。",
+    "reasoning_path": "使用中の異常を確認する -> 作業中止・避難・報告を選ぶ",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,

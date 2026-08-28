@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B89-PH-C002",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "b8a2d6bf899299d9a89bcdeb09e94c94e6193d6dbd30b00a97814f9faab811a7",
+  "candidate_fingerprint": "3a67f41dea01444a6dc6dfe5339ec5e1a895fd7a6c87f640d9f191155017e9a5",
   "actors": {
     "author": {
       "id": "eisei1-b89-author-r1",
@@ -19,23 +19,23 @@
   },
   "evidence": {
     "source": {
-      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_id": "E1-NIDDK-DIGESTIVE",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "Your Kidneys and How They Work Mineral balance"
+      "source_locator": "NIDDK Your Digestive System & How It Works, Large intestine"
     },
-    "answer_defining_proposition": "腎臓はミネラルのバランスの維持に関わる。",
-    "tested_misconception": "腎臓の機能を酸塩基バランスだけに限定しミネラル調整を不要と混同する。",
-    "reasoning_path": "腎臓の機能を確認する -> ミネラルのバランスを選ぶ",
+    "answer_defining_proposition": "大腸内の細菌は残った栄養素の分解を助け、ビタミンKをつくる。",
+    "tested_misconception": "大腸内細菌の働きを呼吸、造血又は尿生成と混同する。",
+    "reasoning_path": "大腸内細菌による栄養素分解とビタミン産生を表す選択肢を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q81は酸塩基バランスを問うため別命題である."
+      "note": "既存400問に大腸内細菌によるビタミンK産生を正答命題とする問題はない。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "腎臓のミネラルバランス維持を問う。"
+    "rationale": "Q44と重複していた腎臓のミネラル均衡を、大腸内細菌のビタミンK産生へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

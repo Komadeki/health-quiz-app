@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B103-HG-C004",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "c17d9bf15e1190d0d76999c5a48b249be72510a9983b088a1b2601e26b49b2a0",
+  "candidate_fingerprint": "45b102fc32727c0de4668ef19c2a6b464420ec19577b6bd1c7142b63ff4125d2",
   "actors": {
     "author": {
       "id": "eisei1-b103-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-INFO-EQUIPMENT",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "情報機器作業ガイドライン 4 キーボード"
+      "source_locator": "情報機器作業ガイドライン4(2)ロ(ロ)a(d)"
     },
-    "answer_defining_proposition": "キーボードはディスプレイから分離して位置を調整できる。",
-    "tested_misconception": "キーボードの位置調整を不要と混同する。",
-    "reasoning_path": "入力機器の配置を確認する -> 分離して位置調整を選ぶ",
+    "answer_defining_proposition": "キーとマウスボタンは押下深さ・押下力が適切で、操作を作業者が知覚できるものが望ましい。",
+    "tested_misconception": "入力機器は反応が分からないほどよい、又は押下力が大きいほどよいと誤認する。",
+    "reasoning_path": "入力時の力学的負担と操作フィードバックを同時に満たす選択肢を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q205はキーボード一般を問うため分離配置を問う本問と別命題である."
+      "note": "既存の分離式キーボード問題とは異なり、キー・ボタンの押下特性を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "キーボード分離配置を問う。"
+    "rationale": "分離式キーボードの重複問題を入力時の操作感要件へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B26-PH-C005",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "d4d534e0bf5c43b7f90e7c9ad8793becda7c78a7cc973543949a8d2b9de5fe7e",
+  "candidate_fingerprint": "f90bc83e5e640a28b5d884cda3906082817a854579dfe38d4ee328d4264f7f56",
   "actors": {
     "author": {
       "id": "eisei1-b26-author-r1",
@@ -21,11 +21,11 @@
     "source": {
       "source_id": "E1-NIDDK-KIDNEYS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "Your Kidneys and How They Work Acid balance"
+      "source_locator": "NIDDK Your Kidneys & How They Work 冒頭（remove acid produced by the cells）"
     },
-    "answer_defining_proposition": "腎臓は体液の酸塩基バランスの維持に関わる。",
-    "tested_misconception": "腎臓の恒常性維持機能を外観又は体格の働きと混同する。",
-    "reasoning_path": "腎臓の働きを確認する -> 酸塩基バランスを選ぶ",
+    "answer_defining_proposition": "腎臓は細胞の働きで生じた酸を除く。",
+    "tested_misconception": "腎臓の酸除去機能を外見又は感覚器の変化と混同する。",
+    "reasoning_path": "腎臓による酸塩基平衡への寄与を直接表す選択肢を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,

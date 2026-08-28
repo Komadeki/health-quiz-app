@@ -1984,7 +1984,7 @@
     },
     {
       "question_id": "EISEI1-Q-000284",
-      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_id": "E1-NIDDK-DIGESTIVE",
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
@@ -2173,7 +2173,7 @@
     },
     {
       "question_id": "EISEI1-Q-000311",
-      "source_id": "E1-NHLBI-BLOOD",
+      "source_id": "E1-NHLBI-BLOOD-DONOR",
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
@@ -2677,43 +2677,43 @@
     },
     {
       "question_id": "EISEI1-Q-000377",
-      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_id": "E1-MHLW-THREE-MANAGEMENT",
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
     },
     {
       "question_id": "EISEI1-Q-000378",
-      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_id": "E1-MHLW-THREE-MANAGEMENT",
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
     },
     {
       "question_id": "EISEI1-Q-000379",
-      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_id": "E1-MHLW-INFO-EQUIPMENT",
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
     },
     {
       "question_id": "EISEI1-Q-000380",
-      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_id": "E1-MHLW-THREE-MANAGEMENT",
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
     },
     {
       "question_id": "EISEI1-Q-000387",
-      "source_id": "E1-MHLW-MENTAL-HEALTH",
-      "source_version": "current-as-retrieved-2026-08-28",
+      "source_id": "E1-MHLW-MENTAL-HEALTH-GUIDELINE",
+      "source_version": "平成18年指針公示第3号-平成27年11月30日改正-current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
     },
     {
       "question_id": "EISEI1-Q-000388",
-      "source_id": "E1-MHLW-MENTAL-HEALTH",
-      "source_version": "current-as-retrieved-2026-08-28",
+      "source_id": "E1-MHLW-MENTAL-HEALTH-GUIDELINE",
+      "source_version": "平成18年指針公示第3号-平成27年11月30日改正-current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
     },
@@ -2740,7 +2740,7 @@
     },
     {
       "question_id": "EISEI1-Q-000392",
-      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_id": "E1-NIDDK-DIGESTIVE",
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
@@ -2754,14 +2754,14 @@
     },
     {
       "question_id": "EISEI1-Q-000394",
-      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_id": "E1-NCI-ERYTHROPOIETIN",
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
     },
     {
       "question_id": "EISEI1-Q-000395",
-      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_id": "E1-NIH-ODS-VITAMIN-D",
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"

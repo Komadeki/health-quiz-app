@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B89-PH-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "8d7d47b45d6aaa2c23fb3382f2644fe116730cbc53e7de33d2266da0f8e4c09c",
+  "candidate_fingerprint": "8d0bf101be8b2026d55a4e9e582fb4603d90c6fedd711687be2ea3e9e858c5f2",
   "actors": {
     "author": {
       "id": "eisei1-b89-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NIDDK-KIDNEYS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "Your Kidneys and How They Work Blood pressure"
+      "source_locator": "NIDDK Your Kidneys & How They Work, Why are the kidneys important?（make hormones that help keep your bones strong and healthy）"
     },
-    "answer_defining_proposition": "腎臓は血圧を調節する働きに関わる。",
-    "tested_misconception": "腎臓が血圧調節と無関係と混同する。",
-    "reasoning_path": "腎臓の機能を確認する -> 血圧を調節するを選ぶ",
+    "answer_defining_proposition": "腎臓がつくるホルモンは骨を強く健康に保つのを助ける。",
+    "tested_misconception": "腎臓の内分泌機能を外見、感覚又は消化管運動と混同する。",
+    "reasoning_path": "NIDDK資料が示す腎臓由来ホルモンの働きを選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q98は腎臓がホルモンを作ることを問うため別命題である."
+      "note": "既存の血圧調節問題とは異なり、腎臓由来ホルモンと骨の健康を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "腎臓の血圧調節を問う。"
+    "rationale": "Q64と重複していた腎臓の血圧調節を、腎臓由来ホルモンと骨の健康へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

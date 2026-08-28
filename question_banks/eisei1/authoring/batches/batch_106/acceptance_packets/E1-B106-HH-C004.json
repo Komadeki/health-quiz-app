@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B106-HH-C004",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "394fc7381c6c8463abc4358771dcba91d53d12b12c3f4ab6bb9f6f22f14b7cd0",
+  "candidate_fingerprint": "fcd92a630953416ad9ebcabc3912a932c3eeb8d09511e8d7bf39364d34437d89",
   "actors": {
     "author": {
       "id": "eisei1-b106-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-BIOLOGICAL-MONITORING",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "職場のあんぜんサイト 生物学的モニタリング 表 トルエン"
+      "source_locator": "職場のあんぜんサイト 生物学的モニタリング 表 マンガン又はその化合物"
     },
-    "answer_defining_proposition": "トルエンでは尿中の馬尿酸の量を検査する。",
-    "tested_misconception": "トルエンとキシレンの尿中代謝物を混同する。",
-    "reasoning_path": "物質名を確認する -> 対応する尿中代謝物を選ぶ",
+    "answer_defining_proposition": "マンガン又はその化合物に関する検査内容には握力の測定がある。",
+    "tested_misconception": "マンガンの検査項目を有機溶剤、鉛又はカドミウムの生体試料検査と混同する。",
+    "reasoning_path": "物質名と厚生労働省資料の検査内容の対応を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "B92は一般論であり個別物質の代謝物を問わない."
+      "note": "既存のトルエン問題とは異なり、マンガン又はその化合物の握力測定を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "トルエンの尿中代謝物を問う。"
+    "rationale": "重複していたトルエン代謝物問題をマンガンの検査項目へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

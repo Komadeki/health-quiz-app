@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B110-PH-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "0e129cf1efb68db0de88a34314734b9f52c4dcece4597ec389484cf1de24a6cf",
+  "candidate_fingerprint": "e1a0611d9f3601247f1ca4228a9a720c1ed3ad1bf3597cbc3df72c71f12e03af",
   "actors": {
     "author": {
       "id": "eisei1-b110-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NIDDK-KIDNEYS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "NIDDK Your Kidneys and How They Work"
+      "source_locator": "NIDDK Your Kidneys & How They Work, How does blood flow through my kidneys?"
     },
-    "answer_defining_proposition": "ネフロンは血液のろ過と尿形成に関わる。",
-    "tested_misconception": "ネフロンを消化器等と混同する。",
-    "reasoning_path": "ネフロンの機能を選ぶ",
+    "answer_defining_proposition": "未ろ過の血液は腎動脈から入り、ろ過後の血液は腎静脈から出る。",
+    "tested_misconception": "腎動脈と腎静脈又は血液と尿の経路を混同する。",
+    "reasoning_path": "腎臓への血液の流入路と流出路を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "既存の腎臓問題と別のネフロン命題である."
+      "note": "既存400問に腎動脈から腎静脈への血流を正答命題とする問題はない。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "ネフロン機能。"
+    "rationale": "腎血流を問う独立命題。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

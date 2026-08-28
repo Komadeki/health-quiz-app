@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B83-HG-C002",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "d9ac44baeb827cb95cce9e5dd7d8abb5385bbac75017e3466aa4573ee389c71e",
+  "candidate_fingerprint": "a9c132412510bdeb8204a8bf63de684c88f071b3dd7d6b3dd5dde0c3384c8834",
   "actors": {
     "author": {
       "id": "eisei1-b83-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-INFO-EQUIPMENT",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "情報機器作業ガイドライン 6 労働衛生教育"
+      "source_locator": "情報機器作業ガイドライン6(1)"
     },
-    "answer_defining_proposition": "作業の組織化及び作業計画は情報機器作業の労働衛生教育の内容である。",
-    "tested_misconception": "情報機器作業教育に作業計画が含まれないと混同する。",
-    "reasoning_path": "ガイドライン6の教育内容を確認する -> 作業の組織化及び作業計画を選ぶ",
+    "answer_defining_proposition": "情報機器等の日常点検は作業開始前又は一日の適当な時間帯に行う。",
+    "tested_misconception": "情報機器等の日常点検を故障後又は退職後だけの対応と誤認する。",
+    "reasoning_path": "ガイドラインが示す日常点検の実施時期を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q197は機器の種類及び特徴を問うため別命題である."
+      "note": "既存の定期点検・清掃問題とは異なり、日常点検の時期を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "作業の組織化及び作業計画を教育内容として問う。"
+    "rationale": "労働衛生教育内容の分割重複を、情報機器等の日常点検時期へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

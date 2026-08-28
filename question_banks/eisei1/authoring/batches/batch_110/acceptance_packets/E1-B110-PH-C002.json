@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B110-PH-C002",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "1a4d92dd3eb4e5c1dbf9d09881bdf766dba52b0a86be7009fa710cfc978c78d5",
+  "candidate_fingerprint": "3f0d19bcc3dc9852a2fd2474181791d62ca11b2fb1a35311f4a6c5f55df88ea8",
   "actors": {
     "author": {
       "id": "eisei1-b110-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NIDDK-KIDNEYS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "NIDDK Your Kidneys and How They Work"
+      "source_locator": "NIDDK Your Kidneys & How They Work, The tubule returns needed substances to your blood and removes wastes"
     },
-    "answer_defining_proposition": "尿管は腎臓から膀胱へ尿を運ぶ。",
-    "tested_misconception": "尿管と尿道を混同する。",
-    "reasoning_path": "尿の経路を選ぶ",
+    "answer_defining_proposition": "尿細管は血液から過剰な酸を除くのを助ける。",
+    "tested_misconception": "尿細管の恒常性維持機能を他器官の働きと混同する。",
+    "reasoning_path": "尿細管の酸排出機能を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "既存の腎臓問題と別の尿路命題である."
+      "note": "既存の尿管・ネフロン構成問題とは異なり、尿細管の酸排出を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "尿管。"
+    "rationale": "尿細管の酸排出を問う独立命題。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

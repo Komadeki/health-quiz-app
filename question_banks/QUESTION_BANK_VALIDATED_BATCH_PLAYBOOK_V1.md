@@ -50,6 +50,36 @@ five-choice explanation.
    `bank_revision`, runtime assets, and UI unchanged until a declared freeze
    gate.
 
+## Independent AI review protocol
+
+At a major gate, assign a fresh-context reviewer that did not author the
+questions.  The reviewer is read-only: it reports findings and proposed
+replacements, while the integrating agent independently reopens the cited
+primary source and owns every repository mutation.
+
+The review must include all canonical questions, not only the newest batch:
+
+1. verify that the source locator directly supports the answer-defining
+   proposition and does not rely on an unstated inference;
+2. verify the correct position and the explanation of every choice A--E;
+3. compare normalized stems and answer-defining propositions across the whole
+   bank, then inspect high-similarity pairs semantically;
+4. reject item splitting where several questions merely enumerate parts of one
+   list, rule, definition, or reasoning path;
+5. verify that a replacement still matches its unit and knowledge-target
+   binding; and
+6. rerun deterministic validation and regression after the accepted fixes.
+
+Store a gate report that names the reviewed inventory, reviewer separation,
+source-retrieval date, findings, accepted fixes, unresolved risks, and the
+remaining Human/release gate.  A pre-filled `ACCEPT` field or a reviewer name in
+an acceptance packet is not proof that this review occurred.
+
+Exact normalized duplicate stems are a fail-closed condition for a sale-freeze
+candidate.  Similar wording is allowed only where the answer-defining
+propositions and learning decisions are materially different, such as paired
+legal thresholds or complementary anatomical functions.
+
 ## Gate schedule
 
 | Gate | Evidence required |
@@ -83,3 +113,9 @@ thinness against the exam profile, measured collisions, answer-position skew,
 source/review cost, competitor positioning, and real learner completion and
 incorrect-answer data.  Do not extend solely because a competitor advertises a
 larger number.
+
+Use the knowledge-target density distribution, not only its average.  A bank
+can have full target coverage while several required targets still have only
+one question.  Prefer the next expansion when it can add direct-source,
+evidence-distinct propositions to those thin targets without increasing
+collision or review risk.

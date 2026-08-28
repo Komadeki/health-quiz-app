@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B45-LH-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "d616e9afab1f0dee9900994eec0cc840982e6744886900b0287f12482b366a88",
+  "candidate_fingerprint": "ce3d83999a9711293ea74a8a5a56d75f99bfc7ea6e824d371bb6d9626b8431a7",
   "actors": {
     "author": {
       "id": "eisei1-b45-author-r1",
@@ -21,7 +21,7 @@
     "source": {
       "source_id": "E1-LAW-SPEC-CHEM",
       "source_version": "current-as-of-2026-08-27",
-      "source_locator": "特定化学物質障害予防規則 第27条"
+      "source_locator": "特定化学物質障害予防規則第28条第3号"
     },
     "answer_defining_proposition": "特定化学物質及び四アルキル鉛等作業主任者は保護具の使用状況を監視する。",
     "tested_misconception": "作業主任者の保護具職務を購入又は廃棄だけの仕事と混同する。",

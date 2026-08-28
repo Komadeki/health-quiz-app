@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B102-PH-C002",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "5fad099a2de7ebc6fe0162af0b3f3084bc14ae2fe8d2730a6c5de03dfa1329b7",
+  "candidate_fingerprint": "7063593ad2906e056b7a2ad596f8037daa98b0aae21ef060a0f0cb74b9721063",
   "actors": {
     "author": {
       "id": "eisei1-b102-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NHLBI-LUNGS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "How the Lungs Work Airway"
+      "source_locator": "NHLBI How the Lungs Work, The Respiratory System, Airways"
     },
-    "answer_defining_proposition": "気管支は気管から分かれて左右の肺へ空気を運ぶ。",
-    "tested_misconception": "気管支と消化器又は尿路の管を混同する。",
-    "reasoning_path": "気道の分岐を確認する -> 気管支を選ぶ",
+    "answer_defining_proposition": "細気管支は肺内で気管支から分岐する、より細い管である。",
+    "tested_misconception": "細気管支を尿路、胆道、血管又は消化管と混同する。",
+    "reasoning_path": "気管支より末梢で肺胞へ続く細い気道を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q269は気管支一般を問うため気管から左右肺への分岐を問う本問と別命題である."
+      "note": "既存の気管支問題とは異なり、気管支から分岐する細気管支を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "気管支の分岐を問う。"
+    "rationale": "Q269と重複していた気管支の命題を、NHLBIが直接記載する細気管支へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

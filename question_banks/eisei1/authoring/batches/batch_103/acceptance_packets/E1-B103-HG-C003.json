@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B103-HG-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "08f635d1da2f06d2b256e56f1a3f6a75e2bd64322f3dd42fa024bd019d5140ee",
+  "candidate_fingerprint": "e445b053402c654316fd5c0a8ad3b3a8d25bc4702e507ff35e866fb7779750f1",
   "actors": {
     "author": {
       "id": "eisei1-b103-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-MHLW-INFO-EQUIPMENT",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "情報機器作業ガイドライン 4 機器等"
+      "source_locator": "情報機器作業ガイドライン4(2)ロ(ロ)a(b)"
     },
-    "answer_defining_proposition": "ディスプレイ画面は作業者の姿勢に合わせて調整できる。",
-    "tested_misconception": "画面角度を固定すべきと混同する。",
-    "reasoning_path": "表示面の調整を確認する -> 姿勢に合わせた角度調整を選ぶ",
+    "answer_defining_proposition": "キーボードの文字は明瞭で読みやすく、キーの大きさと数は操作に適切なものとする。",
+    "tested_misconception": "キーボードの可読性と操作性をキー数の多さ又は小型化だけで評価すると誤認する。",
+    "reasoning_path": "キー表示の可読性と物理的な操作適合性を同時に満たす選択肢を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q195はディスプレイの基本要件を問うため別命題である."
+      "note": "既存のキーボード位置調整問題とは異なり、キー表示・大きさ・数の要件を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "画面角度調整を問う。"
+    "rationale": "画面角度の重複問題をキーの可読性・操作性要件へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

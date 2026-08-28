@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B109-HG-C002",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "1bfab87f68332cd9c4fb1b0375cc49bb5ef4fcc3cea8ca5ec82b8d050bbc3aba",
+  "candidate_fingerprint": "4698af80fd41d84e21c611d7ef0422c06e12fc14cec46c7bc7da535416cf25d9",
   "actors": {
     "author": {
       "id": "eisei1-b109-author-r1",
@@ -19,9 +19,9 @@
   },
   "evidence": {
     "source": {
-      "source_id": "E1-MHLW-MENTAL-HEALTH",
-      "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "厚生労働省 職場におけるメンタルヘルス対策"
+      "source_id": "E1-MHLW-MENTAL-HEALTH-GUIDELINE",
+      "source_version": "平成18年指針公示第3号-平成27年11月30日改正-current-as-retrieved-2026-08-28",
+      "source_locator": "労働者の心の健康の保持増進のための指針 2②・4⑤"
     },
     "answer_defining_proposition": "健康情報は個人情報保護に配慮して取り扱う。",
     "tested_misconception": "健康情報を一般情報と混同する。",

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B45-LH-C002",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "c32c9b94a23eac239217c539828e7c32ef8882d6fce40b23f1d2d1ae6e35dc2e",
+  "candidate_fingerprint": "6ca9f86ee00d80c32c986381cd452de045aa1aa8fe747117824c17533cc1f6af",
   "actors": {
     "author": {
       "id": "eisei1-b45-author-r1",
@@ -21,7 +21,7 @@
     "source": {
       "source_id": "E1-LAW-SPEC-CHEM",
       "source_version": "current-as-of-2026-08-27",
-      "source_locator": "特定化学物質障害予防規則 第27条"
+      "source_locator": "特定化学物質障害予防規則第28条第2号"
     },
     "answer_defining_proposition": "特定化学物質及び四アルキル鉛等作業主任者は局所排気装置等を一月を超えない期間ごとに点検する。",
     "tested_misconception": "作業主任者の点検を法定の定期自主検査又は故障後点検と混同する。",

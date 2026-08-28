@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B109-PH-C005",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "beda8a09ba750f465509543444aa965870dec42e0e07729375695476d196d50e",
+  "candidate_fingerprint": "efe11dca14a3164c95a0595d8fb5ae766bcb3adbc1a178d21a00ce94a056d7c8",
   "actors": {
     "author": {
       "id": "eisei1-b109-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NIDDK-KIDNEYS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "NIDDK Your Kidneys and How They Work"
+      "source_locator": "NIDDK Your Kidneys & How They Work, The tubule returns needed substances to your blood and removes wastes"
     },
-    "answer_defining_proposition": "腎臓は血液中の電解質を調整する。",
-    "tested_misconception": "腎臓の恒常性維持を外見的特徴と混同する。",
-    "reasoning_path": "電解質調節を選ぶ",
+    "answer_defining_proposition": "尿細管に沿う血管は水のほぼすべてと必要なミネラル・栄養素を血液へ戻す。",
+    "tested_misconception": "糸球体でろ過された水分・栄養素がすべて尿になると誤認する。",
+    "reasoning_path": "尿細管での再吸収に適合する記述を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "既存の腎臓問題と別の電解質命題である."
+      "note": "既存のネフロン構成・糸球体ろ過問題とは異なり、尿細管での再吸収を問う。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "電解質。"
+    "rationale": "尿細管での再吸収を問う独立命題。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

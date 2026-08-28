@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B86-HH-C002",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "8521d4a5fcc7880030af3fe90bda4f2e130d7d6fbd4cad4b3ae4770182ce53ea",
+  "candidate_fingerprint": "aef39cd3296e9f6218fcee823b6fd4999ed45e31e70e0961f09f57128d84859d",
   "actors": {
     "author": {
       "id": "eisei1-b86-author-r1",

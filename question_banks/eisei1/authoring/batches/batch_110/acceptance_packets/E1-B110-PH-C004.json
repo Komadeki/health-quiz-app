@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B110-PH-C004",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "1b2db72e3b69fb8d71dea7e3da910bdc0019fe849bdc71b29d6b0ca36a481235",
+  "candidate_fingerprint": "436a30184dd191bb234692122c05058f61ccd7fe8dfc0c215994a061d0cb1cc0",
   "actors": {
     "author": {
       "id": "eisei1-b110-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NIDDK-DIGESTIVE",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "NIDDK Your Digestive System and How It Works"
+      "source_locator": "NIDDK Your Digestive System & How It Works, What happens to the digested food?"
     },
-    "answer_defining_proposition": "肝臓は胆汁をつくる。",
-    "tested_misconception": "肝臓と胆のうの働きを混同する。",
-    "reasoning_path": "胆汁をつくる器官を選ぶ",
+    "answer_defining_proposition": "リンパ系は消化後の脂肪酸とビタミンを吸収する。",
+    "tested_misconception": "腸管から血球を吸収する、又はリンパ系がガス交換を行うと誤認する。",
+    "reasoning_path": "消化後の栄養素輸送におけるリンパ系の役割を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "既存の肝臓問題と同一論点のため最終監査で類似性を確認する."
+      "note": "既存400問にリンパ系による脂肪酸・ビタミン吸収を正答命題とする問題はない。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "胆汁産生。"
+    "rationale": "リンパ系による栄養素吸収を問う独立命題。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

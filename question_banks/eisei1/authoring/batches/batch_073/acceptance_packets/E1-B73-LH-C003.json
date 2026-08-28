@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B73-LH-C003",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "4a6bca5b40f9dfb13753c8da0953dd7eb21d7bed853fcfa0b488bc0d2dc17fe0",
+  "candidate_fingerprint": "214e183915ab8c71b97df89014cd87f0b276e90686255f50fcf312add8532673",
   "actors": {
     "author": {
       "id": "eisei1-b73-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-LAW-ASBESTOS",
       "source_version": "current-as-of-2026-08-27",
-      "source_locator": "石綿障害予防規則第31条"
+      "source_locator": "石綿障害予防規則第32条の2第1項"
     },
-    "answer_defining_proposition": "石綿を取り扱う作業に常時従事する労働者のために事業者は洗濯のための設備を設ける。",
-    "tested_misconception": "石綿作業者の汚染管理に必要な洗濯設備を不要と混同する。",
-    "reasoning_path": "第31条の必要設備を確認する -> 洗濯のための設備を選ぶ",
+    "answer_defining_proposition": "石綿作業で使用した器具等は、付着した石綿等を除去した後でなければ原則として作業場外へ持ち出さない。",
+    "tested_misconception": "石綿付着物を未処理のまま作業場外へ持ち出せると誤認する。",
+    "reasoning_path": "作業場外への持出し前に必要な付着物除去の原則を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q233からQ235は教育又は作業場管理を問うため別命題である."
+      "note": "既存400問に石綿作業用器具等の持出し前処理を正答命題とする問題はない。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "石綿作業者のための洗濯設備を問う。"
+    "rationale": "石綿作業者用設備の分割重複を、器具等の持出し前処理へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

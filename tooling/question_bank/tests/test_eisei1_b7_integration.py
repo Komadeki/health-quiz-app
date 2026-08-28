@@ -41,7 +41,7 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
         registry = rows(AUTHORING / "question_id_registry.csv", "question_id")
 
         self.assertEqual(
-            {f"EISEI1-Q-{index:06d}" for index in range(1, 17)},
+            {f"EISEI1-Q-{index:06d}" for index in range(1, 401)},
             set(questions),
         )
         self.assertEqual(set(questions), set(registry))

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B31-PH-C002",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "569cb30b2a0751f013cb19ccbe196f20e7fac933e7ee8aa30ea4092c9fb0eff7",
+  "candidate_fingerprint": "ed0cdb2e62b0ea9b78b8cb88e1c3504ae447a4bdb989734553b4674f83e87a9a",
   "actors": {
     "author": {
       "id": "eisei1-b31-author-r1",
@@ -21,21 +21,21 @@
     "source": {
       "source_id": "E1-NIDDK-KIDNEYS",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "Your Kidneys and How They Work Fluid removal"
+      "source_locator": "NIDDK Your Kidneys & How They Work 冒頭（healthy kidneys filter about a half cup of blood every minute）"
     },
-    "answer_defining_proposition": "腎臓は余分な水分を体外へ排出する。",
-    "tested_misconception": "腎臓の排出機能を肺又は骨格の働きと混同する。",
-    "reasoning_path": "腎臓の働きを確認する -> 余分な水分の排出を選ぶ",
+    "answer_defining_proposition": "健康な腎臓は1分間に約0.5米国慣用カップの血液をろ過する。",
+    "tested_misconception": "腎臓のろ過量の時間単位又は概数を混同する。",
+    "reasoning_path": "NIDDK資料が示す血液ろ過量と時間単位の組合せを選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q44は体液バランスを問うため別命題である。"
+      "note": "既存の余分な水分排出問題とは異なり、健康な腎臓の血液ろ過量を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "腎臓の余剰水分排出を問う。"
+    "rationale": "余分な水分排出の重複命題を、NIDDKが直接示す血液ろ過量へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

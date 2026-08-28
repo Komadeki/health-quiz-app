@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B97-PH-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "ab25ecfb70e869b57dd5a9caca79a4ce64e2f84dd2da4c081e5c572617a0784a",
+  "candidate_fingerprint": "b0a4e76ed8d9ffc10409f03444d43aafa7a68c523efdc0dfafebbb8078a5ba3a",
   "actors": {
     "author": {
       "id": "eisei1-b97-author-r1",
@@ -19,23 +19,23 @@
   },
   "evidence": {
     "source": {
-      "source_id": "E1-NHLBI-BLOOD",
+      "source_id": "E1-NHLBI-BLOOD-DONOR",
       "source_version": "current-as-retrieved-2026-08-28",
-      "source_locator": "Blood Basics Blood components"
+      "source_locator": "NHLBI World Blood Donor Day, Blood Donor Basics, Why is blood so important?"
     },
-    "answer_defining_proposition": "血漿は血液の液体成分である。",
-    "tested_misconception": "血漿を赤血球又は血小板と混同する。",
-    "reasoning_path": "血液の成分を確認する -> 液体成分である血漿を選ぶ",
+    "answer_defining_proposition": "血液は細胞から老廃物を肝臓と腎臓へ運ぶ。",
+    "tested_misconception": "血液による老廃物輸送の行き先を呼吸器、消化管又は内分泌器官と混同する。",
+    "reasoning_path": "血液が老廃物を運ぶ主要な処理器官の組合せを選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
       "batch_checked": true,
-      "note": "Q79は血漿一般を問うため成分分類を問う本問と別命題である."
+      "note": "既存の血漿問題とは異なり、血液による老廃物輸送を正答命題とする。"
     }
   },
   "independent_review": {
     "decision": "ACCEPT",
-    "rationale": "血漿の液体成分という分類を問う。"
+    "rationale": "重複していた血漿問題を血液の老廃物輸送へ置換。"
   },
   "director_adjudication": {
     "decision": "ACCEPT",

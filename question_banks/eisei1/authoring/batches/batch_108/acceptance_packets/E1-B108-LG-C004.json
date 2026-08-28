@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B108-LG-C004",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "99425e9ab78445b8246694b8b7bf742ecfd896bf79eeae9022793e824069b525",
+  "candidate_fingerprint": "221cada25c77e8a9779d53933b0d63663ed30cb29230c70274274fb78eb8b651",
   "actors": {
     "author": {
       "id": "eisei1-b108-author-r1",
@@ -23,9 +23,9 @@
       "source_version": "current-as-of-2026-08-26",
       "source_locator": "労働基準法第37条第4項"
     },
-    "answer_defining_proposition": "深夜業には25%以上の割増賃金を支払う。",
-    "tested_misconception": "時間外労働の率等と混同する。",
-    "reasoning_path": "時間帯を確認する -> 深夜業25%以上を選ぶ",
+    "answer_defining_proposition": "午後10時から午前5時までの深夜業の法定最低割増率は25%以上である。",
+    "tested_misconception": "深夜業単独の最低割増率と時間外・休日労働との重複割増又は任意の上乗せを混同する。",
+    "reasoning_path": "深夜業単独について労働基準法が定める最低割増率を選ぶ。",
     "collision": {
       "released_bank_checked": true,
       "canonical_drafts_checked": true,
