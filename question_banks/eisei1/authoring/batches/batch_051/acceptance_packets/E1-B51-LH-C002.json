@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B51-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5d80474133929d4be3692bfa4a75e2db9a3b05acd531e3e4f77e471c9fbdaae1",
+  "actors": {
+    "author": {
+      "id": "eisei1-b51-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b51-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b51-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-DUST-PREVENTION",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "source_locator": "職業性疾病の予防 化学物質管理計画"
+    },
+    "answer_defining_proposition": "化学物質管理計画にはリスクアセスメントの結果に基づいた健康障害防止措置の策定と実施を定める。",
+    "tested_misconception": "化学物質管理計画を人事又は経営情報と混同する。",
+    "reasoning_path": "計画事項を確認する -> リスクアセスメントに基づく措置を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q129は危険性又は有害性等の調査を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "化学物質管理計画のリスクアセスメント措置を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
