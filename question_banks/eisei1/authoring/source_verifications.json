@@ -266,6 +266,13 @@
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000039",
+      "source_id": "E1-NHLBI-LUNGS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
     }
   ]
 }

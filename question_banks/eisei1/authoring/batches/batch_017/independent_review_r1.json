@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "reviewer": {
+    "id": "eisei1-b17-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b17-author-r1",
+  "identity_separation": "PASS",
+  "scope_checked": "canonical Q1-Q38 and all candidates through B17",
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "persisted_candidates_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS"
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B17-PH-C001",
+      "decision": "ACCEPT",
+      "rationale": "公的医療機関資料に沿い、肺における酸素と二酸化炭素の移動を問う。既存設問との重複はない。"
+    }
+  ],
+  "summary": {
+    "reviewed": 1,
+    "accept": 1,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  }
+}

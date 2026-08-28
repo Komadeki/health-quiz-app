@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B17-PH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8299f36c0542321566bb369f9674a4ee1e1350827119e3cb7d05c1c00f7f575f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b17-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b17-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b17-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-LUNGS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "How the Lungs Work Gas exchange"
+    },
+    "answer_defining_proposition": "肺では空気中の酸素が血液へ移動し二酸化炭素が血液から肺へ移動する。",
+    "tested_misconception": "肺での酸素と二酸化炭素の移動方向を逆に理解する。",
+    "reasoning_path": "肺のガス交換を確認する -> 酸素の移動方向を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題に肺のガス交換を問うものはない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "公的医療機関資料に沿い、肺における酸素と二酸化炭素の移動を問う。既存設問との重複はない。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
