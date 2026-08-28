@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B70-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "80144e6431086554793ee787d74fb0bb244e5e8f4f0aebeb51992b9aff1cf2e6",
+  "actors": {
+    "author": {
+      "id": "eisei1-b70-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b70-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b70-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-NOISE-2023",
+      "source_version": "基発0420第2号-2023-04-20-current-as-retrieved-2026-08-28",
+      "source_locator": "基発0420第2号 騒音障害防止のためのガイドライン 8(1)ア"
+    },
+    "answer_defining_proposition": "騒音作業に常時従事する労働者には雇入れの際又は当該業務への配置替えの際に健康診断を行う。",
+    "tested_misconception": "雇入時又は配置替え時の健康診断を退職時だけの措置と混同する。",
+    "reasoning_path": "8(1)アの実施時期を確認する -> 雇入れ又は配置替えの際を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q112は一般定期健康診断の尿検査項目を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "雇入れ又は配置替え時の騒音健診を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B70-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "156f8d4e87fdf0a3ef6e49b07864d540239112ae49b34f6501a0d205a8e7faf9",
+  "actors": {
+    "author": {
+      "id": "eisei1-b70-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b70-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b70-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-NOISE-2023",
+      "source_version": "基発0420第2号-2023-04-20-current-as-retrieved-2026-08-28",
+      "source_locator": "基発0420第2号 騒音障害防止のためのガイドライン 8(1)イただし書"
+    },
+    "answer_defining_proposition": "第I管理区分が継続している場所又は等価騒音レベルが継続的に85dB未満の場所で従事する労働者は定期健康診断を省略できる。",
+    "tested_misconception": "省略できる条件を耳栓使用又は本人希望と混同する。",
+    "reasoning_path": "8(1)イただし書の管理区分又は騒音レベルの要件を確認する -> 第I管理区分継続又は85dB未満を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q55は聴覚保護具の種類を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "第I管理区分継続又は85dB未満の定期健診省略条件を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
