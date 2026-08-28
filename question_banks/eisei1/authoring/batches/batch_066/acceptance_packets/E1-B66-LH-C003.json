@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B66-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "7f2ccaaca9a628474f4a15b732c4628a4650255d2796e2d413463b887fcea88d",
+  "actors": {
+    "author": {
+      "id": "eisei1-b66-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b66-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b66-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASBESTOS",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "石綿障害予防規則第26条"
+    },
+    "answer_defining_proposition": "自主検査又は点検で異常を認めたときは直ちに補修その他の措置を講ずる。",
+    "tested_misconception": "異常時の措置を定期的な事務手続まで先送りできると混同する。",
+    "reasoning_path": "第26条の異常時措置を確認する -> 直ちに補修その他の措置を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q179は労働災害発生の急迫した危険時の一般措置を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "自主検査又は点検で異常を認めた場合の即時補修措置を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
