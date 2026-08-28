@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W7",
+  "status": "PLANNED",
+  "planned_at": "2026-08-28",
+  "production_target": 600,
+  "canonical_verified_baseline": 286,
+  "two_range_wave_mode": true,
+  "candidate_ceiling": 48,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Wave 7 selects the two largest remaining source-ready gaps with high marginal exam value: quantity/classification has 19 verified questions against a target of 60, and incident decision has 3 against 30. Calculation-boundary is also sparse, but the completed Wave 5 review rejected its broad curriculum-level variants; it is not reopened until a more specific authoritative source-defined proposition is found. No third range is permitted.",
+  "remaining_target_gaps_before_wave": {
+    "O4-LAW-KT-QUANTITY": 41,
+    "O4-FIR-KT-INCIDENT-DECISION": 27
+  },
+  "batches": [
+    {
+      "batch_id": "B20",
+      "candidate_ceiling": 24,
+      "knowledge_target_id": "O4-LAW-KT-QUANTITY",
+      "target_total_plan": 60,
+      "source_path": "registered current e-Gov Act/Decree/Rule, emphasizing Fourth Class table rows, aggregation and one-times boundaries not represented by B7"
+    },
+    {
+      "batch_id": "B21",
+      "candidate_ceiling": 24,
+      "knowledge_target_id": "O4-FIR-KT-INCIDENT-DECISION",
+      "target_total_plan": 30,
+      "source_path": "registered FDMA incident guidance and one-material MHLW model SDS Sections 5 to 7, excluding B17's grounding, repair preparation and gasoline-area-isolation propositions"
+    }
+  ],
+  "authoring_rule": "Enumerate source-defined propositions before authoring, collision-check against all 286 canonical/source-verified questions and the full Wave 7 peer set, and stop without backfill when material distinctions are exhausted.",
+  "multi_source_rule": "Each candidate binds to one registered source_id, source_version and reproducible pinpoint locator. Cross-source answer-defining comparisons are prohibited without an approved source-bundle contract.",
+  "filler_prohibited": true,
+  "planned_state_epoch": 80,
+  "next_gate": "AUTHOR_OTSU4_WAVE_7_AI_PRE_ACCEPT"
+}
