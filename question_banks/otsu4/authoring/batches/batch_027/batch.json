@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "app_key": "otsu4",
+  "batch_id": "B27",
+  "directory_slug": "batch_027",
+  "baseline_sha": "8332d58",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id": "otsu4-b27-author-r1", "role": "AI_AUTHOR"},
+  "expansion_trigger": "Author source-bound temporary-handling safety candidates after the B27 source contract.",
+  "evidence": [
+    "question_banks/otsu4/authoring/BATCH_027_SOURCE_CONTRACT_V1.json",
+    "question_banks/otsu4/QUESTION_BANK_CONTRACT_V0.md"
+  ],
+  "target_size_decisions": [{"decision_id": "O4-TARGET-002", "previous_approved_target": 300, "current_released_count": 0, "proposed_target_min": 600, "proposed_target_max": 600, "approved_new_target": 600, "rationale": "Current commercial target; quality-gated and not a quota.", "decision_date": "2026-08-25", "evidence": "docs/OTSU4_600Q_PRODUCTION_TARGET_DECISION_V1.md"}],
+  "coverage_limit_decisions": [{"decision_id": "O4-B27-EMERGENCY-CONTEXT-BOUNDARY", "status": "RECORDED", "scope": "temporary storage or handling during an emergency", "evidence": "O4-FDMA-TEMP-SAFETY-1 Guideline pp.3-5"}],
+  "planned_scope": {"candidate_count": 2, "candidate_count_is_quota": false, "subject_counts": {"law": 0, "physics_chemistry": 0, "properties_fire": 2}, "knowledge_target_id": "O4-FIR-KT-INCIDENT-DECISION"},
+  "invariants": {"PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0, "HUMAN_REVIEW_CREATED": false, "CANONICAL_CHANGED": false, "RELEASED_CHANGED": false, "RUNTIME_CHANGED": false},
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}

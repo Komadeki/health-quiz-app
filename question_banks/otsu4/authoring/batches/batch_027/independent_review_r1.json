@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B27",
+  "review_round": 1,
+  "reviewed_at": "2026-08-29",
+  "reviewer": {"id": "otsu4-b27-independent-reviewer-r1", "role": "AI_REVIEWER"},
+  "author_identity_checked": "otsu4-b27-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "BATCH_027_SOURCE_CONTRACT_V1.json",
+    "O4-FDMA-TEMP-SAFETY-1 Guideline pp.3-5",
+    "all 305 canonical and source-verified Otsu4 questions",
+    "semantic distinctness, emergency-context precision, answer uniqueness, and no-filler policy"
+  ],
+  "summary": {"reviewed": 2, "accept": 2, "reject": 0, "rework": 0, "hold": 0},
+  "decisions": [
+    {
+      "candidate_id": "O4-B27-FIR-C001",
+      "decision": "ACCEPT",
+      "rationale": "The source explicitly requires grounding both the container and dispensing pump. The question preserves the emergency temporary-handling context and adds an equipment-pair decision beyond the existing generic grounding check. Only choice C satisfies the stated control."
+    },
+    {
+      "candidate_id": "O4-B27-FIR-C002",
+      "decision": "ACCEPT",
+      "rationale": "The source specifies a concrete indoor boundary of two or more open walls while preferring outdoor decanting. This is distinct from generic leak-response ventilation and no other choice meets both the outdoor preference and the conditional indoor requirement."
+    }
+  ],
+  "collision_review": {
+    "canonical_bank_checked": true,
+    "source_verified_bank_checked": true,
+    "result": "PASS",
+    "note": "C001 is not a repeat of generic anti-static equipment checks because it requires the container-plus-pump pairing. C002 is not a generic ventilation variant because it tests the official two-open-wall emergency temporary-handling boundary."
+  },
+  "invariants": {"HUMAN_REVIEW_ROWS_CREATED": 0, "PERMANENT_IDS_ALLOCATED": 0, "CANONICAL_CHANGED": false, "SOURCE_VERIFICATIONS_CHANGED": false, "RELEASED_CHANGED": false, "RUNTIME_CHANGED": false},
+  "next_gate": "WAVE_DIRECTOR_ACCEPT_AND_PROMOTE"
+}
