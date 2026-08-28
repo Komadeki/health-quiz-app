@@ -2058,6 +2058,27 @@
       "source_version": "2015-03-31",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "OTSU4-Q-000295",
+      "source_id": "O4-MHLW-SDS-CRESOL",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "OTSU4-Q-000296",
+      "source_id": "O4-MHLW-SDS-CRESOL",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "OTSU4-Q-000297",
+      "source_id": "O4-MHLW-SDS-CRESOL",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
     }
   ]
 }
