@@ -119,3 +119,12 @@ can have full target coverage while several required targets still have only
 one question.  Prefer the next expansion when it can add direct-source,
 evidence-distinct propositions to those thin targets without increasing
 collision or review risk.
+
+Before authoring a full 100-question tranche, run a representative novelty
+pilot.  Structural correctness is necessary but not sufficient: reject a
+candidate set that merely joins, reorders, or restates verified atomic facts.
+The reviewer must confirm that each item adds a scenario, causal chain,
+procedure, comparison, threshold, or exception decision.  Also measure source
+and component reuse concentration and require the coverage binding to describe
+the whole answer-defining decision.  If only a small minority survives these
+checks, retain the smaller bank instead of filling the quota.

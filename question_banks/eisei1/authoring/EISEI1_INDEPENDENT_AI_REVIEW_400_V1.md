@@ -13,9 +13,11 @@ the independent-review corrections described below.  This decision does not
 activate the bank, update `bank_revision`, publish generated runtime content,
 or replace Human release approval.
 
-The scaling decision is **500 questions remain valuable**.  The next 100 must
-be allocated to thin knowledge targets and evidence-distinct learning
-decisions, not used to repeat dense targets or to win a question-count race.
+The initial scaling hypothesis was that 500 questions might remain valuable if
+the next 100 could add evidence-distinct decisions to thin targets.  A later
+two-design expansion trial disproved that hypothesis for the current evidence
+inventory.  `EISEI1_500_EXPANSION_VALUE_REVIEW_V1.md` supersedes this report's
+scaling recommendation; the 400-question bank remains the freeze candidate.
 
 ## Reviewed inventory
 
@@ -83,22 +85,24 @@ and [NIDDK digestive-system guide](https://www.niddk.nih.gov/health-information/
   remain outside this question-bank-only scope.
 - `git diff --check` with the repository's CRLF rule: clean.
 
-## Why 500 questions remain useful
+## Follow-up scaling result
 
-The category totals are already balanced, but the knowledge-target density is
-not.  Ten required targets still have only one bound question, while the
-largest target has 57.  Full coverage therefore does not yet mean uniform
-variation depth.  A targeted additional 100 questions can add meaningful
-rule-exception, threshold, case, and misconception variants to those thin
-targets without changing the shared UI or architecture.
+The category totals are balanced, but the knowledge-target density remains
+uneven.  That fact justified testing an additional 100 questions; it did not
+guarantee that 100 new learning decisions existed.  Independent review of two
+complete candidate designs found that the present source-verified proposition
+inventory could support only five to eight naturally connected variants, not
+a coherent 100-question expansion.
 
 Market count claims also make 400 a credible but not leading number.  Current
 store listings advertise [465 all-choice-explained questions](https://apps.apple.com/jp/app/%E7%AC%AC%E4%B8%80%E7%A8%AE%E8%A1%9B%E7%94%9F%E7%AE%A1%E7%90%86%E8%80%85-%E8%A9%A6%E9%A8%93%E5%AF%BE%E7%AD%96-%E5%85%A8%E8%82%A2%E8%A7%A3%E8%AA%AC465%E5%95%8F/id6780137318),
 [500 questions](https://play.google.com/store/apps/details?hl=ja&id=com.msaitodev.healthsupervisor.humanmed),
 and [716 questions with all-choice explanations](https://apps.apple.com/jp/app/%E8%A1%9B%E7%94%9F%E7%AE%A1%E7%90%86%E8%80%85%E3%82%B3%E3%83%B3%E3%83%97%E3%83%AA%E3%83%BC%E3%83%88%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC-%E7%AC%AC%E4%B8%80%E7%A8%AE-%E7%AC%AC%E4%BA%8C%E7%A8%AE/id6782693876?platform=ipad).
 The defensible position is therefore source-verified quality and learning
-coverage first, with 500 as the next useful density gate.  Expansion beyond 500
-should wait for learner completion, error-rate, and repeat-use evidence.
+coverage first, with 400 as the current sale-freeze candidate.  Any later
+20--30-question tranche requires new primary-source propositions and a pilot
+novelty review.  Expansion toward 500 should wait for learner completion,
+error-rate, and repeat-use evidence.
 
 ## Remaining production and Human gates
 
