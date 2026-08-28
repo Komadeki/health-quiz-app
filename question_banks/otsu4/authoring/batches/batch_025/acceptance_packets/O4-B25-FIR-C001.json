@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B25-FIR-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "60bc3f761f08f995486ed68d2c8ef338b936d84409c015e3b68952c55ac88b7a",
+  "actors": {
+    "author": {
+      "id": "otsu4-b25-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave10-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave10-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-TOLUENE",
+      "source_version": "2013-02-22",
+      "source_locator": "Section 6「漏出時の措置」付近の着火源となるものを速やかに除くとともに消火剤を準備する"
+    },
+    "answer_defining_proposition": "トルエン漏えい時は付近の着火源を除去し消火剤を準備する。",
+    "tested_misconception": "漏えい時は回収作業だけを優先して着火源管理を後回しにしてよい。",
+    "reasoning_path": "leak scenario -> control ignition sources -> prepare for escalation",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W10 B25; distinct from the existing ethanol fire-response question because it tests leak-stage ignition-source control with extinguisher preparation."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "厚生労働省トルエンモデルSDS第6項は、漏出時に付近の着火源を速やかに除くとともに消火剤を準備すると明記するため、Aだけが正答である。既存のエタノール火災時の消火措置やガソリン漏えい時の区域隔離とは、漏えい初動における着火源除去と消火準備という別の判断を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

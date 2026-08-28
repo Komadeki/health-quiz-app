@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B25-FIR-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0aed3547d8f428055b08c9ec8beebd20f1547c19d65eab0fbed2cba4bbe17378",
+  "actors": {
+    "author": {
+      "id": "otsu4-b25-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave10-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave10-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-TOLUENE",
+      "source_version": "2013-02-22",
+      "source_locator": "Section 6「漏出時の措置」盛り土で囲って流出を防止し安全な場所に導いてからドラムなどに回収する"
+    },
+    "answer_defining_proposition": "トルエンの多量漏えい時は盛り土で封じ込めて安全に導き回収する。",
+    "tested_misconception": "多量の液体漏えいでは封じ込めより拡散や放置を優先する。",
+    "reasoning_path": "large leak -> contain flow -> direct safely -> recover",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W10 B25; distinct from the existing acetone drain-entry prohibition because it tests the affirmative containment-and-recovery sequence."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "同SDS第6項は、多量の場合に盛り土で囲って流出を防止し、安全な場所に導いてからドラムなどに回収すると明記するため、Aだけが正答である。既存のアセトン問題は排水溝等への流入防止を問うものであり、本候補は多量漏えいの封じ込め、導流、回収という肯定的な一連の対応を問うため、意味的重複ではない。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

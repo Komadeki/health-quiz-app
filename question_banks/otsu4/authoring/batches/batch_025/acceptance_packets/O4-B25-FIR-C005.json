@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B25-FIR-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8e288f74cad8a3a77195be8933a664c1f27ec6545d73c18b1b9f32a48496d6ff",
+  "actors": {
+    "author": {
+      "id": "otsu4-b25-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave10-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave10-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-TOLUENE",
+      "source_version": "2013-02-22",
+      "source_locator": "Section 6「漏出時の措置」回収物の収納容器は内容物の処分を行うまで密封しておく"
+    },
+    "answer_defining_proposition": "回収したトルエンの収納容器は処分まで密封しておく。",
+    "tested_misconception": "回収後は容器を開放しておく方が安全である。",
+    "reasoning_path": "recovery complete -> maintain containment -> prevent vapor release",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W10 B25; no canonical question tests the post-recovery container-sealing decision."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "同SDS第6項は、回収物の収納容器を内容物の処分まで密封しておくと明記するため、Aだけが正答である。既存の危険物収納一般や漏えい中の排水経路・回収用具の問題とは異なり、回収後に蒸気放出を防ぐ容器管理という独立した漏えい対応判断を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
