@@ -22,7 +22,11 @@ B8_MAPPING = {
     "E1-B8-HH-C002": "EISEI1-Q-000012",
     "E1-B8-LH-C001": "EISEI1-Q-000013",
 }
-B9_IDS = {"E1-B9-LH-C001", "E1-B9-LH-C002", "E1-B9-LH-C003"}
+B9_MAPPING = {
+    "E1-B9-LH-C001": "EISEI1-Q-000014",
+    "E1-B9-LH-C002": "EISEI1-Q-000015",
+    "E1-B9-LH-C003": "EISEI1-Q-000016",
+}
 
 
 def rows(path: Path, key: str) -> dict[str, dict[str, str]]:
@@ -37,7 +41,7 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
         registry = rows(AUTHORING / "question_id_registry.csv", "question_id")
 
         self.assertEqual(
-            {f"EISEI1-Q-{index:06d}" for index in range(1, 14)},
+            {f"EISEI1-Q-{index:06d}" for index in range(1, 17)},
             set(questions),
         )
         self.assertEqual(set(questions), set(registry))
@@ -96,7 +100,7 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
             ],
         )
 
-    def test_b8_is_integrated_and_b9_remains_ready(self) -> None:
+    def test_b8_and_b9_are_integrated(self) -> None:
         questions = rows(AUTHORING / "questions.csv", "question_id")
         registry = rows(AUTHORING / "question_id_registry.csv", "question_id")
         b8_batch = AUTHORING / "batches" / "batch_008"
@@ -112,10 +116,14 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
 
         b9_batch = AUTHORING / "batches" / "batch_009"
         b9 = rows(b9_batch / "candidates.csv", "candidate_id")
-        self.assertEqual(B9_IDS, set(b9))
-        self.assertTrue(all(row["state"] == "READY_FOR_ID" for row in b9.values()))
-        self.assertTrue(all(not row["permanent_question_id"] for row in b9.values()))
-        self.assertEqual(B9_IDS, {path.stem for path in (b9_batch / "acceptance_packets").glob("*.json")})
+        self.assertEqual(set(B9_MAPPING), set(b9))
+        self.assertEqual(set(B9_MAPPING), {path.stem for path in (b9_batch / "acceptance_packets").glob("*.json")})
+        for candidate_id, question_id in B9_MAPPING.items():
+            candidate = b9[candidate_id]
+            self.assertEqual("INTEGRATED", candidate["state"])
+            self.assertEqual(question_id, candidate["permanent_question_id"])
+            self.assertIn(question_id, questions)
+            self.assertIn(question_id, registry)
 
 
 if __name__ == "__main__":
