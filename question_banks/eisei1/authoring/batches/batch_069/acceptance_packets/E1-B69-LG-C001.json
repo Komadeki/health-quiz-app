@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B69-LG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9a388fb1846cba10938ce904df9308447b85f328d435daf2739f131dd9835603",
+  "actors": {
+    "author": {
+      "id": "eisei1-b69-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b69-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b69-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第39条第1項"
+    },
+    "answer_defining_proposition": "雇入れの日から6か月間継続勤務し全労働日の8割以上出勤した労働者に年次有給休暇を与える。",
+    "tested_misconception": "年休の初回付与要件を勤務期間又は出勤率で取り違える。",
+    "reasoning_path": "第39条第1項の勤務期間と出勤率を確認する -> 6か月かつ8割以上を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q223は時間外労働の割増賃金を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "年休初回付与の6か月・8割以上出勤要件を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
