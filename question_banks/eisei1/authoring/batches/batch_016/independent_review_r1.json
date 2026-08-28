@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "reviewer": {
+    "id": "eisei1-b16-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b16-author-r1",
+  "identity_separation": "PASS",
+  "scope_checked": "canonical Q1-Q34 and all candidates through B16",
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "persisted_candidates_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS"
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B16-HH-C001",
+      "decision": "ACCEPT",
+      "rationale": "厚生労働省の化学物質有害性資料の健康有害性分類に沿う。既存設問との重複はない。"
+    },
+    {
+      "candidate_id": "E1-B16-HH-C002",
+      "decision": "ACCEPT",
+      "rationale": "厚生労働省の業務上疾病資料に沿い、レーザー光線の眼障害を問う。既存設問との重複はない。"
+    },
+    {
+      "candidate_id": "E1-B16-HH-C003",
+      "decision": "ACCEPT",
+      "rationale": "厚生労働省の熱中症ガイドに沿い、WBGTの活用を問う。既存設問との重複はない。"
+    },
+    {
+      "candidate_id": "E1-B16-HG-C001",
+      "decision": "ACCEPT",
+      "rationale": "厚生労働省の労働衛生対策資料に沿い、作業方法と作業時間の管理を問う。既存設問との重複はない。"
+    }
+  ],
+  "summary": {
+    "reviewed": 4,
+    "accept": 4,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  }
+}
