@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B80-PH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "cfb9e413fb1fe72efb0567f0d4aef8505b6a0ccc3c27e78c8b70138e757950d1",
+  "actors": {
+    "author": {
+      "id": "eisei1-b80-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b80-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b80-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-DIGESTIVE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Your Digestive System and How It Works Esophagus"
+    },
+    "answer_defining_proposition": "食道は食物を口から胃へ運ぶ。",
+    "tested_misconception": "食道の働きを循環器又は泌尿器の働きと混同する。",
+    "reasoning_path": "食道の経路を確認する -> 口から胃へ運ぶを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q134は胃の消化液との混合を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "食道が口から胃へ食物を運ぶことを問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
