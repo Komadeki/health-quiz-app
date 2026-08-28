@@ -25,7 +25,10 @@ void main() {
 
     expect(find.text('二等無人航空機'), findsOneWidget);
     expect(find.text('教則第5版準拠'), findsOneWidget);
-    expect(find.text('学科試験対策'), findsOneWidget);
+    expect(
+      find.text('${GeneratedAppManifest.definition.displayName}対策'),
+      findsOneWidget,
+    );
     expect(
       GeneratedAppManifest.definition.learningProduct.homeHeadline,
       isNot(matches(RegExp(r'全\d+問'))),
