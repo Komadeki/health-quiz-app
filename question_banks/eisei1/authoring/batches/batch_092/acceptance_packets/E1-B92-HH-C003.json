@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B92-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "3e27b90e482fb6b70095adcc4bc6fb7554bb290df72f74114b2fae77a58e60eb",
+  "actors": {
+    "author": {
+      "id": "eisei1-b92-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b92-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b92-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-VIBRATION",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "振動障害の認定基準について 3(2)"
+    },
+    "answer_defining_proposition": "上肢に過度の負担のかかる作業を併せて行うことは振動障害が起こり得る事情である。",
+    "tested_misconception": "上肢への過度の負担を振動障害と無関係と混同する。",
+    "reasoning_path": "認定基準3(2)の事情を確認する -> 上肢に過度の負担を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q248からQ250は使用時間 休憩及び低温を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "上肢への過度な負担を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
