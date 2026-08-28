@@ -83,7 +83,7 @@ abstract final class GeneratedAppManifest {
           seedColorHex: seedColor,
         ),
         learningProduct: const LearningProductProfileV1(
-          appVersion: "1.0.0+3",
+          appVersion: "1.0.0+4",
           homeHeadline: "一次資料で確認する400問",
           sourceLabel: "法令・厚生労働省・安全衛生技術試験協会等の一次資料に基づく学習",
           enabledModes: {LearningModeV1.unitPractice, LearningModeV1.randomPractice, LearningModeV1.unansweredPractice, LearningModeV1.incorrectPractice, LearningModeV1.retry, LearningModeV1.mockExam},
