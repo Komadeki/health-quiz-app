@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "reviewer": {"id": "eisei1-b11-independent-reviewer-r1", "role": "AI_REVIEWER"},
+  "author_identity_checked": "eisei1-b11-author-r1",
+  "identity_separation": "PASS",
+  "scope_checked": "source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000022 and all persisted candidates through B11",
+  "collision_review": {"released_bank_checked": true, "canonical_drafts_checked": true, "persisted_candidates_checked": true, "full_batch_checked": true, "result": "PASS"},
+  "decisions": [
+    {"candidate_id": "E1-B11-LG-C001", "decision": "ACCEPT", "rationale": "Article 12(1) directly fixes the fifty-worker selection threshold. Q19 concerns a distinct exclusive-selection threshold."},
+    {"candidate_id": "E1-B11-LG-C002", "decision": "ACCEPT", "rationale": "Rule 44(1) directly fixes the annual general health examination cycle. The existing lead item concerns a distinct special examination."},
+    {"candidate_id": "E1-B11-LG-C003", "decision": "ACCEPT", "rationale": "Article 18(1) directly fixes the fifty-worker hygiene-committee threshold and does not collide with the health-manager selection question because the statutory body differs."}
+  ],
+  "summary": {"reviewed": 3, "accept": 3, "reject": 0, "rework": 0, "hold": 0}
+}

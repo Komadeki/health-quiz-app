@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B11-LG-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4005a360b3e5f10fe9880da950bb4df29e350abf0d7a293e386807aa5263ea16",
+  "actors": {
+    "author": {
+      "id": "eisei1-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b11-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b11-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法第18条第1項"
+    },
+    "answer_defining_proposition": "常時50人以上の労働者を使用する事業場は衛生委員会を設けなければならない。",
+    "tested_misconception": "衛生委員会設置の人数基準を他の委員会又は衛生管理者の専任要件と混同する。",
+    "reasoning_path": "事業場の労働者数を確認する -> 第18条第1項の基準を読む -> 50人を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題に衛生委員会設置基準を問うものはない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Article 18(1) directly fixes the fifty-worker hygiene-committee threshold and does not collide with the health-manager selection question because the statutory body differs."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
