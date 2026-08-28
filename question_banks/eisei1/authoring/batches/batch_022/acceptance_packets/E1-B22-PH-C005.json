@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B22-PH-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "117f29925505ccc530278128cfb60f4649654faddbf5fe40dd502301851af75f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b22-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b22-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b22-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Your Kidneys and How They Work Blood pressure"
+    },
+    "answer_defining_proposition": "腎臓は血圧の調節にも関わる。",
+    "tested_misconception": "腎臓の調節機能を体格又は外観の機能と混同する。",
+    "reasoning_path": "腎臓の働きを確認する -> 血圧を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q44は体液と塩類のバランスを問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "腎臓の血圧調節を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

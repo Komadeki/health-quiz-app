@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B22-PH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c5e7cc5a99080f9f1690c2ccd87b8d16b870f697981f8d1405dd5ca03e2230c8",
+  "actors": {
+    "author": {
+      "id": "eisei1-b22-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b22-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b22-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-HEART",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Heart Anatomy and Function Heart valves"
+    },
+    "answer_defining_proposition": "心臓の弁は血液の逆流を防ぐ。",
+    "tested_misconception": "心臓弁の機能を腎臓又は肺の機能と混同する。",
+    "reasoning_path": "器官の部位を確認する -> 逆流防止を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q42は心臓全体のポンプ機能を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "心臓弁の逆流防止機能を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
