@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W8",
+  "batch_id": "B22",
+  "reviewed_at": "2026-08-28",
+  "reviewer": {
+    "id": "otsu4-wave8-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "otsu4-b22-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "all 294 canonical/source-verified Otsu4 questions",
+    "the Wave 8 B22 AI_PRE_ACCEPT candidate",
+    "registered O4-MHLW-SDS-CRESOL source metadata and the MHLW cresol model SDS, revised 2015-03-31, Section 10",
+    "Otsu4 scope, unique correct answer, Japanese clarity, semantic distinctness, and no-filler policy"
+  ],
+  "decisions": [
+    {
+      "candidate_id": "O4-B22-PHY-C001",
+      "decision": "ACCEPT",
+      "rationale": "厚生労働省クレゾールモデルSDS第10項は、危険有害反応可能性として「強酸化剤と激しく反応する」、混触危険物質として「強酸化剤」と明記するため、Aだけが正答である。設問・選択肢・解説はいずれも自然な日本語で、乙4の性質・化学における混触危険物質の安全な取扱いを問う。既存の酸化数・燃焼の一般知識とは、クレゾールの具体的な混触管理という判断対象が異なり、意味的重複はない。"
+    }
+  ],
+  "summary": {
+    "reviewed": 1,
+    "accept": 1,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "batch_checked": true,
+    "full_wave_checked": true,
+    "result": "PASS",
+    "note": "All 294 canonical questions and the complete Wave 8 peer set were reviewed. The candidate adds the source-defined strong-oxidizer incompatibility of cresol; it is not a wording or reasoning duplicate of canonical redox-definition or general oxidizer-as-supporter propositions."
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}

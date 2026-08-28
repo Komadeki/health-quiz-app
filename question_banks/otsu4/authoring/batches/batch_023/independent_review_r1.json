@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W8",
+  "batch_id": "B23",
+  "reviewed_at": "2026-08-28",
+  "reviewer": {
+    "id": "otsu4-wave8-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "otsu4-b23-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "all 294 canonical/source-verified Otsu4 questions",
+    "both Wave 8 B23 AI_PRE_ACCEPT candidates",
+    "registered O4-MHLW-SDS-CRESOL source metadata and the MHLW cresol model SDS, revised 2015-03-31, Section 9",
+    "Otsu4 scope, unique correct answer, Japanese clarity, semantic distinctness, and no-filler policy"
+  ],
+  "decisions": [
+    {
+      "candidate_id": "O4-B23-FIR-C001",
+      "decision": "ACCEPT",
+      "rationale": "厚生労働省クレゾールモデルSDS第9項は引火点を82℃（Closed cup）と示すため、Cだけが正答である。数値・試験法・選択肢の日本語に曖昧さはなく、乙4の危険物の性質で重要な引火点を、既存の低引火点物質とは異なるクレゾールで比較学習できる。既存294問にクレゾールの引火点又は同じ答えを導く命題はない。"
+    },
+    {
+      "candidate_id": "O4-B23-FIR-C002",
+      "decision": "ACCEPT",
+      "rationale": "同SDS第9項は25℃での比重（相対密度）を1.030〜1.038と示すため、約1.03で水よりわずかに大きいAだけが正答である。設問・選択肢・解説は明確で、第四類危険物が一律に水より軽いという誤概念を是正する乙4範囲内の学習価値がある。ガソリン・トルエン等の水より軽い既存問題とは結論と識別対象が反対であり、意味的重複はない。"
+    }
+  ],
+  "summary": {
+    "reviewed": 2,
+    "accept": 2,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "batch_checked": true,
+    "full_wave_checked": true,
+    "result": "PASS",
+    "note": "All 294 canonical questions and the complete Wave 8 peer set were reviewed. The candidates add cresol's Section 9 flash point and water-density exception. They are distinct from existing gasoline, acetone, alcohol, aromatic, and ethyl-acetate property propositions and from each other."
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}
