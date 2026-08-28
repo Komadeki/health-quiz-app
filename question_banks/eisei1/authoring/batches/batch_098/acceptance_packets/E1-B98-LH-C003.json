@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B98-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b2eff97ad2a52fb3045aa9b542db95af4c74dbf897cf589779a3e5e0c30a43ba",
+  "actors": {
+    "author": {
+      "id": "eisei1-b98-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b98-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第47条"
+    },
+    "answer_defining_proposition": "鉛業務従事者のために洗眼洗身又は洗身のための設備を設ける。",
+    "tested_misconception": "鉛の汚染除去に必要な洗身設備を飲料水又は外部施設と混同する。",
+    "reasoning_path": "鉛業務の洗身設備要件を確認する -> 洗眼洗身又は洗身設備を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q251-Q252は鉛健康診断時期を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "洗眼洗身又は洗身設備を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

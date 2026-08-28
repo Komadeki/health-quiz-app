@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B98-LH-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8ab86a38a9f8e64aa45bbe00321ba37d6c65bc865eaf39ec3603258396509454",
+  "actors": {
+    "author": {
+      "id": "eisei1-b98-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b98-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第51条"
+    },
+    "answer_defining_proposition": "鉛等を取り扱う作業場では鉛業務従事者の喫煙又は飲食を禁止する。",
+    "tested_misconception": "鉛業務で禁止される行為を保護具使用又は洗身と混同する。",
+    "reasoning_path": "鉛業務の作業場内禁止を確認する -> 喫煙又は飲食を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q185は有機溶剤の表示を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "作業場内の喫煙・飲食禁止を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

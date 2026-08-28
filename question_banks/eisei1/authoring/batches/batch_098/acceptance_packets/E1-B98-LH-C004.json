@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B98-LH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d975ba2bd58cbd27304383001a2e96eada11f1efdf3b863d302d4830f4d6607b",
+  "actors": {
+    "author": {
+      "id": "eisei1-b98-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b98-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第48条"
+    },
+    "answer_defining_proposition": "鉛等を取り扱う作業場の床等は毎日一回以上清掃する。",
+    "tested_misconception": "鉛作業場の清掃頻度を月一回又は必要時だけと混同する。",
+    "reasoning_path": "鉛業務の清掃頻度を確認する -> 毎日一回以上を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q235は石綿作業場の床清掃を問うため別規則である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "毎日一回以上の清掃を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

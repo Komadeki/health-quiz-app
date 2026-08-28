@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B98-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1d02e276fea6112fae4ab97463d3ffdd882dc04a6756610114594104b82a07ac",
+  "actors": {
+    "author": {
+      "id": "eisei1-b98-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b98-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第46条"
+    },
+    "answer_defining_proposition": "汚染された作業衣等とその他の衣服を区別して保管できる設備を設ける。",
+    "tested_misconception": "作業衣等の汚染管理を私服との共用保管と混同する。",
+    "reasoning_path": "鉛業務の衣服保管要件を確認する -> 汚染衣類とその他の衣服の区別を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q238-Q241は石綿作業の設備を問うため別規則である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "鉛汚染衣類と私服の区別保管を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
