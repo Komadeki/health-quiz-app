@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B86-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8521d4a5fcc7880030af3fe90bda4f2e130d7d6fbd4cad4b3ae4770182ce53ea",
+  "actors": {
+    "author": {
+      "id": "eisei1-b86-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b86-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b86-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-HEAT",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "働く人の今すぐ使える熱中症ガイド 休憩"
+    },
+    "answer_defining_proposition": "暑熱環境では熱中症予防として暑熱環境を離れて休憩を取る。",
+    "tested_misconception": "暑熱作業で休憩を取る必要がないと混同する。",
+    "reasoning_path": "熱中症ガイドの休憩対策を確認する -> 暑熱環境を離れる休憩を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q57は暑熱順化を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "暑熱環境を離れる休憩を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
