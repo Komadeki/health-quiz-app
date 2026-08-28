@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B52-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "80427b2127841382073432de426a95213159a251eddde2359cdd050f59e0f62d",
+  "actors": {
+    "author": {
+      "id": "eisei1-b52-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b52-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b52-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-HEAT",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "働く人の今すぐ使える熱中症ガイド 対策確認"
+    },
+    "answer_defining_proposition": "熱中症ガイドではいつ誰がどの状況でどのような対策を講ずべきか確認できる。",
+    "tested_misconception": "熱中症予防を個人任せ又は無関係な情報と混同する。",
+    "reasoning_path": "ガイドの用途を確認する -> いつ誰がどの状況での対策を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q38はWBGTの活用を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "熱中症予防の時機・担当・状況の確認を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
