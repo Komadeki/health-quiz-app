@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B99-LG-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ff87e2e335d8af826083c9f0e4e08df501de103d41b81bbee2c8384c70cce495",
+  "actors": {
+    "author": {
+      "id": "eisei1-b99-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b99-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第24条第1項"
+    },
+    "answer_defining_proposition": "賃金はその全額を支払わなければならない。",
+    "tested_misconception": "全額払いの原則を使用者の任意留保と混同する。",
+    "reasoning_path": "賃金支払の原則を確認する -> 全額払いを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q223は時間外割増率を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "賃金全額払いを問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B99-LG-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4b504e0a81753de368d18b41ff5278a377c066fea6ee0298ca5990ed8e15bfc5",
+  "actors": {
+    "author": {
+      "id": "eisei1-b99-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b99-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第18条第1項"
+    },
+    "answer_defining_proposition": "労働契約に付随して貯蓄金を管理する契約をしてはならない。",
+    "tested_misconception": "任意の貯蓄と使用者による強制貯蓄を混同する。",
+    "reasoning_path": "強制貯蓄の禁止を確認する -> 労働契約に付随する管理契約の禁止を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q279は違約金・損害賠償予定の禁止を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "強制貯蓄禁止を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B99-LG-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "5c8e064770ce6e3df926cba86c8a11c6a81d8ddd1cef9255599efbe76afa17b8",
+  "actors": {
+    "author": {
+      "id": "eisei1-b99-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b99-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第24条第1項"
+    },
+    "answer_defining_proposition": "賃金は労働者に直接支払わなければならない。",
+    "tested_misconception": "直接払いの原則を第三者払い又は使用者保管と混同する。",
+    "reasoning_path": "賃金支払の原則を確認する -> 労働者への直接払いを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q223は時間外労働の割増賃金率を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "賃金直接払いを問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

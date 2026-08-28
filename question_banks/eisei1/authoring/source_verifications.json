@@ -2240,6 +2240,41 @@
       "source_version": "current-as-of-2026-08-27",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000321",
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000322",
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000323",
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000324",
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000325",
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
     }
   ]
 }

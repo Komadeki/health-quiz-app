@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B99-LG-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e9353a6016be9a2652218570c8ada53d756755125a3a196f7320489e69c35df5",
+  "actors": {
+    "author": {
+      "id": "eisei1-b99-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b99-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第22条第1項"
+    },
+    "answer_defining_proposition": "退職時に請求された証明書は遅滞なく交付しなければならない。",
+    "tested_misconception": "退職証明書の請求を任意対応又は翌年対応と混同する。",
+    "reasoning_path": "退職証明書の請求時対応を確認する -> 遅滞ない交付を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q278は解雇予告の原則を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "退職証明書の遅滞ない交付を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
