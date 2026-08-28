@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B24-LAW-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "6531e56b8231dd4806a5d15a6a0904b9fb463fd94a673cf3d1898af269082a2f",
+  "actors": {
+    "author": {
+      "id": "otsu4-b24-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave9-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave9-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第18条第6号"
+    },
+    "answer_defining_proposition": "給油取扱所では給油中エンジン停止の掲示板を黄赤色地に黒文字で設ける。",
+    "tested_misconception": "車両標識や第四類一般の火気厳禁掲示と給油取扱所固有の掲示を混同する。",
+    "reasoning_path": "facility type -> apply additional fueling-specific notice specification",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W9 B24; unique fueling-station notice not a general facility or vehicle marking variant."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "規則第18条第1項第6号は、給油取扱所に黄赤色地に黒文字で『給油中エンジン停止』と表示する掲示板を追加で設けることを定める。Aだけが施設区分、文言、配色をすべて満たす。既存OTSU4-Q-000145はセルフスタンドの利用者向け注意事項として文言だけを問うため、給油取扱所一般に適用される法定掲示板の設置・配色要件を問う本候補とは判断対象が異なる。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
