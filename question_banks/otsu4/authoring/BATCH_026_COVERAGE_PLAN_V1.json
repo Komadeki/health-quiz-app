@@ -12,10 +12,20 @@
     "pinpoint_scope": "MEXT 理科編 printed pp.92-93: 物質量と粒子数・質量・気体体積、モル濃度、化学反応式の係数比と量的関係"
   },
   "anti_duplication_rule": "Do not restate Q241 molar-concentration definition, Q242 coefficient-ratio-is-amount-ratio, or Q243 equation-can-determine-change. Each candidate must require a distinct proportional or quantity-conversion decision.",
+  "quality_assessment": {
+    "decision": "HOLD_NO_SOURCE_DISTINCT_CANDIDATES",
+    "reviewed_evidence": [
+      "batch_016 independent review rejected unit-only and generic relationship recall for this same target",
+      "canonical Q129-Q141 already covers mole units, concentration calculation, volume conversion, proportional dilution, comparison, and mass-to-concentration calculation",
+      "canonical Q241-Q243 already covers the three accepted calculation-boundary propositions from batch_016"
+    ],
+    "rationale": "Within the pinned MEXT pp.92-93 scope, no additional proposition was both source-distinct and materially different from the existing canonical bank. Do not author numerical rewrites solely to meet the target count.",
+    "resume_condition": "A newly registered primary source must support a distinct examination-relevant calculation or decision proposition, followed by an updated coverage plan."
+  },
   "playbook_requirements": {
     "choice_count": 5,
     "required_evidence_fields": ["answer_defining_proposition", "tested_misconception", "reasoning_path", "source_locator"],
     "independent_review_required": true
   },
-  "next_gate": "AUTHOR_B26_AI_PRE_ACCEPT"
+  "next_gate": "PLAN_NEXT_SOURCE_BACKED_TARGET"
 }
