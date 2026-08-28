@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W7",
-  "status": "INDEPENDENT_AI_REVIEWED",
+  "status": "DIRECTOR_ACCEPTED_AND_PROMOTED",
   "planned_at": "2026-08-28",
   "production_target": 600,
   "canonical_verified_baseline": 286,
@@ -29,8 +29,21 @@
       "source_path": "registered FDMA incident guidance and one-material MHLW model SDS Sections 5 to 7, excluding B17's grounding, repair preparation and gasoline-area-isolation propositions"
     }
   ],
-  "actual_candidate_counts": {"B20": 3, "B21": 5, "total": 8},
-  "authors": {"B20": {"id": "otsu4-b20-author-r1", "role": "AI_AUTHOR"}, "B21": {"id": "otsu4-b21-author-r1", "role": "AI_AUTHOR"}},
+  "actual_candidate_counts": {
+    "B20": 3,
+    "B21": 5,
+    "total": 8
+  },
+  "authors": {
+    "B20": {
+      "id": "otsu4-b20-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B21": {
+      "id": "otsu4-b21-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
   "review_summary": {
     "reviewed": 8,
     "accept": 8,
@@ -50,5 +63,15 @@
   "planned_state_epoch": 80,
   "authored_state_epoch": 82,
   "reviewed_state_epoch": 83,
-  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_7_ACCEPTED_8"
+  "next_gate": "ALLOCATE_AND_INTEGRATE_W7_ACCEPTED_8",
+  "director_adjudication": {
+    "artifact": "wave_007_director_adjudication_r1.json",
+    "decision": "ADOPT_REVIEWER_DECISIONS",
+    "accept": 8,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_state": "READY_FOR_ID",
+  "accept_promote_state_epoch": 84
 }

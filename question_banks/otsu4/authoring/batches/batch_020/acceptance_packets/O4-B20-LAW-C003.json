@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B20-LAW-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ec1b09a81fc5726013f62815da040343fc8852adad59acee5d78da79c394c6fa",
+  "actors": {
+    "author": {
+      "id": "otsu4-b20-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave7-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave7-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-28",
+      "source_locator": "消防法 第10条第1項ただし書"
+    },
+    "answer_defining_proposition": "指定数量以上の危険物を仮に貯蔵又は取り扱う例外には所轄消防長又は消防署長の承認と10日以内の期間が必要である。",
+    "tested_misconception": "仮貯蔵・仮取扱いは承認も期間制限も不要である。",
+    "reasoning_path": "temporary specified-quantity handling -> require approval and duration boundary",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W7 B20; temporary-handling exception is distinct from permanent-facility installation permission and quantity notification."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Approval by the competent fire chief or fire-station chief plus the ten-day limit is a precise, uniquely answerable temporary-storage/handling exception, distinct from permanent facility permission."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B21-FIR-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "04be8ff4de35d483f95b41055565a188e74d2c7beadd3fef8ba9e5e51aa2b47a",
+  "actors": {
+    "author": {
+      "id": "otsu4-b21-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave7-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave7-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "source_locator": "Section 6「漏出時の措置」環境に対する注意事項"
+    },
+    "answer_defining_proposition": "アセトンの漏えい物は排水溝、下水溝、地下室又は閉鎖場所へ流入させない。",
+    "tested_misconception": "漏えい物は排水設備へ流せば安全に処理できる。",
+    "reasoning_path": "identify drainage-path hazard -> prevent entry",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W7 B21; environmental/accumulation decision distinct from access isolation."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The SDS expressly requires preventing entry into drains, sewers, basements, or enclosed places. This is a separate containment decision with one unambiguous correct choice."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
