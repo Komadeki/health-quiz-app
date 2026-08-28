@@ -105,6 +105,7 @@ B59_EXPECTED = {f"E1-B59-HG-C00{index}": f"EISEI1-Q-{194 + index:06d}" for index
 B60_EXPECTED = {f"E1-B60-PH-C00{index}": f"EISEI1-Q-{197 + index:06d}" for index in range(1, 4)}
 B61_EXPECTED = {f"E1-B61-LG-C00{index}": f"EISEI1-Q-{200 + index:06d}" for index in range(1, 4)}
 B62_EXPECTED = {f"E1-B62-HG-C00{index}": f"EISEI1-Q-{203 + index:06d}" for index in range(1, 4)}
+B63_EXPECTED = {f"E1-B63-LH-C00{index}": f"EISEI1-Q-{206 + index:06d}" for index in range(1, 4)}
 ALL_EXPECTED = {
     **EARLY_EXPECTED,
     **B6_EXPECTED,
@@ -164,6 +165,7 @@ ALL_EXPECTED = {
     **B60_EXPECTED,
     **B61_EXPECTED,
     **B62_EXPECTED,
+    **B63_EXPECTED,
 }
 EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000001": "E1-MHLW-CHEM-RA",
@@ -372,6 +374,9 @@ EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000204": "E1-MHLW-INFO-EQUIPMENT",
     "EISEI1-Q-000205": "E1-MHLW-INFO-EQUIPMENT",
     "EISEI1-Q-000206": "E1-MHLW-INFO-EQUIPMENT",
+    "EISEI1-Q-000207": "E1-LAW-ASBESTOS",
+    "EISEI1-Q-000208": "E1-LAW-ASBESTOS",
+    "EISEI1-Q-000209": "E1-LAW-ASBESTOS",
 }
 
 
@@ -388,7 +393,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.bank = REPOSITORY_ROOT / "question_banks" / "eisei1"
         self.authoring = self.bank / "authoring"
 
-    def test_integrated_inventory_is_contiguous_through_q206(self) -> None:
+    def test_integrated_inventory_is_contiguous_through_q209(self) -> None:
         questions = read_rows(self.authoring / "questions.csv")
         registry = read_rows(self.authoring / "question_id_registry.csv")
         self.assertEqual(set(ALL_EXPECTED.values()), set(questions))
@@ -458,6 +463,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             ("batch_060", B60_EXPECTED),
             ("batch_061", B61_EXPECTED),
             ("batch_062", B62_EXPECTED),
+            ("batch_063", B63_EXPECTED),
         ):
             batch = self.authoring / "batches" / batch_name
             candidates = read_rows(batch / "candidates.csv")
@@ -488,7 +494,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
                     self.assertEqual(candidate[field], question[field])
                 self.assertEqual(candidate["proposed_correct"], question["correct_choice"])
 
-    def test_q1_q206_are_source_verified_and_pre_release(self) -> None:
+    def test_q1_q209_are_source_verified_and_pre_release(self) -> None:
         verifications = json.loads(
             (self.authoring / "source_verifications.json").read_text(encoding="utf-8")
         )["verifications"]
@@ -569,6 +575,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             "batch_060",
             "batch_061",
             "batch_062",
+            "batch_063",
         ):
             candidates = read_rows(self.authoring / "batches" / batch_name / "candidates.csv")
             expected.update({
@@ -579,7 +586,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_all_touched_expansion_batches_validate(self) -> None:
-        for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006", "batch_007", "batch_008", "batch_009", "batch_010", "batch_011", "batch_012", "batch_013", "batch_014", "batch_015", "batch_016", "batch_017", "batch_018", "batch_019", "batch_020", "batch_021", "batch_022", "batch_023", "batch_024", "batch_025", "batch_026", "batch_027", "batch_028", "batch_029", "batch_030", "batch_031", "batch_032", "batch_033", "batch_034", "batch_035", "batch_036", "batch_037", "batch_038", "batch_039", "batch_040", "batch_041", "batch_042", "batch_043", "batch_044", "batch_045", "batch_046", "batch_047", "batch_048", "batch_049", "batch_050", "batch_051", "batch_052", "batch_053", "batch_054", "batch_055", "batch_056", "batch_057", "batch_058", "batch_059", "batch_060", "batch_061", "batch_062"):
+        for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006", "batch_007", "batch_008", "batch_009", "batch_010", "batch_011", "batch_012", "batch_013", "batch_014", "batch_015", "batch_016", "batch_017", "batch_018", "batch_019", "batch_020", "batch_021", "batch_022", "batch_023", "batch_024", "batch_025", "batch_026", "batch_027", "batch_028", "batch_029", "batch_030", "batch_031", "batch_032", "batch_033", "batch_034", "batch_035", "batch_036", "batch_037", "batch_038", "batch_039", "batch_040", "batch_041", "batch_042", "batch_043", "batch_044", "batch_045", "batch_046", "batch_047", "batch_048", "batch_049", "batch_050", "batch_051", "batch_052", "batch_053", "batch_054", "batch_055", "batch_056", "batch_057", "batch_058", "batch_059", "batch_060", "batch_061", "batch_062", "batch_063"):
             self.assertEqual([], validate_expansion_batch(self.authoring / "batches" / batch_name))
 
 
