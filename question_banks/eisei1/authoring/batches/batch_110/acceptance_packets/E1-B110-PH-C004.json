@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B110-PH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1b2db72e3b69fb8d71dea7e3da910bdc0019fe849bdc71b29d6b0ca36a481235",
+  "actors": {
+    "author": {
+      "id": "eisei1-b110-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b110-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-DIGESTIVE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "NIDDK Your Digestive System and How It Works"
+    },
+    "answer_defining_proposition": "肝臓は胆汁をつくる。",
+    "tested_misconception": "肝臓と胆のうの働きを混同する。",
+    "reasoning_path": "胆汁をつくる器官を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の肝臓問題と同一論点のため最終監査で類似性を確認する."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "胆汁産生。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

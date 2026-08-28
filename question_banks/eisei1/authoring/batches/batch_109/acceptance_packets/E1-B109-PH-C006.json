@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B109-PH-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e25aa2d164a36e4a7cba5214dbd38b521313589a24cea9032ee643dc1ec43415",
+  "actors": {
+    "author": {
+      "id": "eisei1-b109-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b109-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "NIDDK Your Kidneys and How They Work"
+    },
+    "answer_defining_proposition": "腎臓はエリスロポエチンを産生する。",
+    "tested_misconception": "ホルモンの産生器官を混同する。",
+    "reasoning_path": "腎臓由来ホルモンを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の腎臓問題と別のホルモン命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "EPO。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

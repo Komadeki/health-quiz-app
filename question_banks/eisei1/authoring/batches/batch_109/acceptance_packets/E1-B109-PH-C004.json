@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B109-PH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9b48306753508f0484b5cec82874d42579b85bc8b2451a6b342544a4c695125d",
+  "actors": {
+    "author": {
+      "id": "eisei1-b109-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b109-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "NIDDK Your Kidneys and How They Work"
+    },
+    "answer_defining_proposition": "腎臓は血圧の調整に関わる。",
+    "tested_misconception": "腎臓と感覚機能を混同する。",
+    "reasoning_path": "調整機能を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の腎臓問題と別の血圧調節命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "血圧調整。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

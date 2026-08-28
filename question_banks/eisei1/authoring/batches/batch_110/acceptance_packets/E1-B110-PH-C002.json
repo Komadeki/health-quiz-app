@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B110-PH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1a4d92dd3eb4e5c1dbf9d09881bdf766dba52b0a86be7009fa710cfc978c78d5",
+  "actors": {
+    "author": {
+      "id": "eisei1-b110-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b110-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "NIDDK Your Kidneys and How They Work"
+    },
+    "answer_defining_proposition": "尿管は腎臓から膀胱へ尿を運ぶ。",
+    "tested_misconception": "尿管と尿道を混同する。",
+    "reasoning_path": "尿の経路を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の腎臓問題と別の尿路命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "尿管。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

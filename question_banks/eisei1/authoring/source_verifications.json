@@ -2702,6 +2702,104 @@
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000387",
+      "source_id": "E1-MHLW-MENTAL-HEALTH",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000388",
+      "source_id": "E1-MHLW-MENTAL-HEALTH",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000389",
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000390",
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000391",
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000392",
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000393",
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000394",
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000395",
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000396",
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000397",
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000398",
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000399",
+      "source_id": "E1-NIDDK-DIGESTIVE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000400",
+      "source_id": "E1-NIDDK-DIGESTIVE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
     }
   ]
 }

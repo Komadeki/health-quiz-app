@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B109-PH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ac7d0500aa2730d375cffe4c7fdc4fa389ec63816c0688c2b22dca9e623fd96f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b109-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b109-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "NIDDK Your Kidneys and How They Work"
+    },
+    "answer_defining_proposition": "腎臓は尿を作る。",
+    "tested_misconception": "尿の生成器官を混同する。",
+    "reasoning_path": "尿を作る器官を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の腎臓問題と別の尿生成命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "尿生成。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

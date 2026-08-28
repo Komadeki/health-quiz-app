@@ -154,6 +154,8 @@ B108_EXPECTED = {
     **{f"E1-B108-HG-C{index:03d}": f"EISEI1-Q-{376 + index:06d}" for index in range(1, 5)},
     **{f"E1-B108-LG-C{index:03d}": f"EISEI1-Q-{380 + index:06d}" for index in range(1, 7)},
 }
+B109_EXPECTED = {f"E1-B109-HG-C{index:03d}": f"EISEI1-Q-{386 + index:06d}" for index in range(1, 3)} | {f"E1-B109-PH-C{index:03d}": f"EISEI1-Q-{388 + index:06d}" for index in range(1, 9)}
+B110_EXPECTED = {f"E1-B110-PH-C{index:03d}": f"EISEI1-Q-{396 + index:06d}" for index in range(1, 5)}
 ALL_EXPECTED = {
     **EARLY_EXPECTED,
     **B6_EXPECTED,
@@ -259,6 +261,8 @@ ALL_EXPECTED = {
     **B106_EXPECTED,
     **B107_EXPECTED,
     **B108_EXPECTED,
+    **B109_EXPECTED,
+    **B110_EXPECTED,
 }
 EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000001": "E1-MHLW-CHEM-RA",
@@ -617,6 +621,10 @@ EXPECTED_VERIFICATION_SOURCES = {
     **{f"EISEI1-Q-{373 + index:06d}": "E1-MHLW-BIOLOGICAL-MONITORING" for index in range(1, 4)},
     **{f"EISEI1-Q-{376 + index:06d}": "E1-MHLW-OCCUPATIONAL-HYGIENE" for index in range(1, 5)},
     **{f"EISEI1-Q-{380 + index:06d}": "E1-LAW-LSL" for index in range(1, 7)},
+    **{f"EISEI1-Q-{386 + index:06d}": "E1-MHLW-MENTAL-HEALTH" for index in range(1, 3)},
+    **{f"EISEI1-Q-{388 + index:06d}": "E1-NIDDK-KIDNEYS" for index in range(1, 8)},
+    "EISEI1-Q-000396": "E1-NIDDK-KIDNEYS",
+    **{f"EISEI1-Q-{396 + index:06d}": "E1-NIDDK-KIDNEYS" if index < 3 else "E1-NIDDK-DIGESTIVE" for index in range(1, 5)},
 }
 
 
@@ -749,6 +757,8 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             ("batch_106", B106_EXPECTED),
             ("batch_107", B107_EXPECTED),
             ("batch_108", B108_EXPECTED),
+            ("batch_109", B109_EXPECTED),
+            ("batch_110", B110_EXPECTED),
         ):
             batch = self.authoring / "batches" / batch_name
             candidates = read_rows(batch / "candidates.csv")
@@ -906,6 +916,8 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             "batch_106",
             "batch_107",
             "batch_108",
+            "batch_109",
+            "batch_110",
         ):
             candidates = read_rows(self.authoring / "batches" / batch_name / "candidates.csv")
             expected.update({

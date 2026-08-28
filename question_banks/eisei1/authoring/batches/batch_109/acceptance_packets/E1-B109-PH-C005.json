@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B109-PH-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "beda8a09ba750f465509543444aa965870dec42e0e07729375695476d196d50e",
+  "actors": {
+    "author": {
+      "id": "eisei1-b109-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b109-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "NIDDK Your Kidneys and How They Work"
+    },
+    "answer_defining_proposition": "腎臓は血液中の電解質を調整する。",
+    "tested_misconception": "腎臓の恒常性維持を外見的特徴と混同する。",
+    "reasoning_path": "電解質調節を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の腎臓問題と別の電解質命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "電解質。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -2301,6 +2301,76 @@
       "knowledge_target_id": "E1-HG-001",
       "question_id": "EISEI1-Q-000380",
       "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HG-002",
+      "question_id": "EISEI1-Q-000387",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HG-002",
+      "question_id": "EISEI1-Q-000388",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000389",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000390",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000391",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000392",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000393",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000394",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000395",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000396",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000397",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000398",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000399",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000400",
+      "variation_tags": []
     }
   ],
   "schema_version": 1,
