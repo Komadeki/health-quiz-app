@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B106-HH-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "6991bfb3379e5212c3228e627fc5e1dc82ff693fa6696e2ba13751ecca782f6e",
+  "actors": {
+    "author": {
+      "id": "eisei1-b106-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b106-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "職場のあんぜんサイト 生物学的モニタリング 表 鉛"
+    },
+    "answer_defining_proposition": "鉛では血液中の鉛の量を検査する。",
+    "tested_misconception": "鉛の検査試料を尿中代謝物の検査と混同する。",
+    "reasoning_path": "物質名を確認する -> 有害物濃度に関する検査内容を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B92は一般論であり鉛の個別検査を問わない."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "鉛の血中濃度検査を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

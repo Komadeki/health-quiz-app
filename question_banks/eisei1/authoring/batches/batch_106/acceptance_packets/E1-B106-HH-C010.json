@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B106-HH-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1e4df676bef0764c5247b61c4afdf1aaff62aedbf7238a2a2c36c8249cbe3d80",
+  "actors": {
+    "author": {
+      "id": "eisei1-b106-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b106-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "職場のあんぜんサイト 生物学的モニタリング 表 クロム酸等"
+    },
+    "answer_defining_proposition": "クロム酸等では鼻粘膜の異常や鼻中隔穿孔等の鼻腔所見の有無を検査する。",
+    "tested_misconception": "クロム酸等の影響スクリーニング項目を他の有害物の検査と混同する。",
+    "reasoning_path": "物質名を確認する -> 表の影響スクリーニング項目を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B92は一般論であり個別物質の鼻腔所見を問わない."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "クロム酸等の鼻腔所見を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

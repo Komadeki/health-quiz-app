@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B106-HH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "394fc7381c6c8463abc4358771dcba91d53d12b12c3f4ab6bb9f6f22f14b7cd0",
+  "actors": {
+    "author": {
+      "id": "eisei1-b106-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b106-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "職場のあんぜんサイト 生物学的モニタリング 表 トルエン"
+    },
+    "answer_defining_proposition": "トルエンでは尿中の馬尿酸の量を検査する。",
+    "tested_misconception": "トルエンとキシレンの尿中代謝物を混同する。",
+    "reasoning_path": "物質名を確認する -> 対応する尿中代謝物を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B92は一般論であり個別物質の代謝物を問わない."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "トルエンの尿中代謝物を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

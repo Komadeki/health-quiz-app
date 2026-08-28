@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B106-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e3e3177722935e21a97bde0055dcf40ccbc54fae51ea412239805193fcdd018d",
+  "actors": {
+    "author": {
+      "id": "eisei1-b106-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b106-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "職場のあんぜんサイト 生物学的モニタリング 表 N・N―ジメチルホルムアミド"
+    },
+    "answer_defining_proposition": "N・N―ジメチルホルムアミドでは尿中のN―メチルホルムアミドの量を検査する。",
+    "tested_misconception": "有機溶剤と尿中代謝物の対応を混同する。",
+    "reasoning_path": "物質名を確認する -> 対応する尿中代謝物を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B92は一般論であり個別物質の代謝物を問わない."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "DMFの尿中代謝物を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
