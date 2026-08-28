@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B97-PH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ab25ecfb70e869b57dd5a9caca79a4ce64e2f84dd2da4c081e5c572617a0784a",
+  "actors": {
+    "author": {
+      "id": "eisei1-b97-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b97-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-BLOOD",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Blood Basics Blood components"
+    },
+    "answer_defining_proposition": "血漿は血液の液体成分である。",
+    "tested_misconception": "血漿を赤血球又は血小板と混同する。",
+    "reasoning_path": "血液の成分を確認する -> 液体成分である血漿を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q79は血漿一般を問うため成分分類を問う本問と別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "血漿の液体成分という分類を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

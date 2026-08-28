@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B97-PH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ff18febddac8fe5695d423adb80fdfce600165c734e8b89a6c47e6835a87b6ab",
+  "actors": {
+    "author": {
+      "id": "eisei1-b97-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b97-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-BLOOD",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Blood Basics Red blood cells"
+    },
+    "answer_defining_proposition": "ヘモグロビンは赤血球に含まれ酸素の運搬に関わる。",
+    "tested_misconception": "酸素運搬を消化液又はホルモンの役割と混同する。",
+    "reasoning_path": "赤血球の構成を確認する -> 酸素運搬に関わるヘモグロビンを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q77は赤血球そのものの主な働きを問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "ヘモグロビンの酸素運搬を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

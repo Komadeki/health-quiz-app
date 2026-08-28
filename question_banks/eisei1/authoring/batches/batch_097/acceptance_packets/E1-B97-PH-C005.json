@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B97-PH-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "efb33609ea545e7058dc9e8fbc9dd9719409e970f73ac4cf333ed155fb2c004d",
+  "actors": {
+    "author": {
+      "id": "eisei1-b97-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b97-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-HEART",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Heart Anatomy and Function Blood vessels"
+    },
+    "answer_defining_proposition": "毛細血管は動脈と静脈をつなぎ血液と組織の間の物質交換に関わる。",
+    "tested_misconception": "毛細血管を大動脈又は大静脈と混同する。",
+    "reasoning_path": "血管の役割を確認する -> 物質交換に関わる毛細血管を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q39-Q40は肺胞でのガス交換を問うため血管での物質交換を問う本問と別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "毛細血管の物質交換を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
