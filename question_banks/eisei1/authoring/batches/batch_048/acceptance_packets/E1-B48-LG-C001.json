@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B48-LG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9016f6b85076108260ad6261c7c10ae521ff07c30e1f896f5b77eac12d8e1e5f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b48-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b48-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b48-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法 第66条の7第1項"
+    },
+    "answer_defining_proposition": "事業者は特に健康の保持に努める必要があると認める労働者に医師又は保健師による保健指導を行うよう努めなければならない。",
+    "tested_misconception": "保健指導を結果通知又は解雇義務と混同する。",
+    "reasoning_path": "対象を確認する -> 医師又は保健師による保健指導を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q150は健康診断結果の通知を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "事業者の保健指導努力義務を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
