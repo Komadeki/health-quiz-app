@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B40-PH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "341c0e7c1866935384ec828aeb820b150932ccbf2cbcc4e2295d5d40e620a9ff",
+  "actors": {
+    "author": {
+      "id": "eisei1-b40-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b40-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b40-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-DIGESTIVE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Your Digestive System and How It Works Gallbladder"
+    },
+    "answer_defining_proposition": "胆のうは肝臓で作られた胆汁を蓄える。",
+    "tested_misconception": "胆のうの働きを血液又は尿の器官の働きと混同する。",
+    "reasoning_path": "器官の役割を確認する -> 胆汁を蓄えるを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q104は胆のうを消化器系の固形器官として問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "胆のうの胆汁貯留を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
