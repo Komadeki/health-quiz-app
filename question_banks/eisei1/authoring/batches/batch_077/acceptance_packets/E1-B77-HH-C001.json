@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B77-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "fa933b84cabb59e1c098a3e1c5941cacd8898d33db91cb8f9fa0e4e61c284432",
+  "actors": {
+    "author": {
+      "id": "eisei1-b77-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b77-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b77-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-VIBRATION",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "振動障害の認定基準について 3(2)"
+    },
+    "answer_defining_proposition": "振動工具の使用時間が長いことは振動障害が起こり得る事情である。",
+    "tested_misconception": "振動工具の使用時間が長いことを危険低下要因と混同する。",
+    "reasoning_path": "認定基準3(2)の事情を確認する -> 使用時間が長いを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q194は未整備工具を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "振動工具の長時間使用を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
