@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B105-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "3c597e2716825c4192e9f094cf393d984c05f8afa8df2950086b027578ddda69",
+  "actors": {
+    "author": {
+      "id": "eisei1-b105-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b105-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第42条第1号"
+    },
+    "answer_defining_proposition": "作業開始前に鉛装置と他の稼働装置との接続箇所を確実に遮断する。",
+    "tested_misconception": "内部作業では接続箇所の遮断が不要又は作業後でよいと混同する。",
+    "reasoning_path": "対象業務を確認する -> 作業開始前の第1号措置を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B104は貯蔵・清潔・掲示を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "鉛装置内部作業の接続箇所遮断を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

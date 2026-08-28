@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B105-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "47b9065e30b4fc76575246b20d94ffc7c7187d763f5a81ac77ace9dab601860e",
+  "actors": {
+    "author": {
+      "id": "eisei1-b105-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b105-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第42条第2号"
+    },
+    "answer_defining_proposition": "作業開始前に鉛装置の内部を十分に換気する。",
+    "tested_misconception": "内部換気の時期を作業後又は定期点検時と混同する。",
+    "reasoning_path": "対象業務を確認する -> 作業開始前の第2号措置を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B95の特定化学物質の設備問題と異なり鉛装置内部の作業前換気を問う."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "鉛装置内部作業の作業前換気を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

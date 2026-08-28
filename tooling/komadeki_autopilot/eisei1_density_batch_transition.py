@@ -51,6 +51,15 @@ def main() -> None:
     metadata = json.loads((batch / "batch.json").read_text(encoding="utf-8"))
     author_id = metadata["author"]["id"]
     reviewer_id = review["reviewer"]["id"]
+    source_records = {
+        row["source_id"]: row
+        for row in json.loads((authoring / "sources.json").read_text(encoding="utf-8"))["sources"]
+    }
+    for candidate in candidates:
+        source = source_records.get(candidate["source_id"])
+        if source is None or source["source_version"] != candidate["source_version"]:
+            raise SystemExit(f"source-version drift: {candidate['candidate_id']}")
+
     packet_dir = batch / "acceptance_packets"
     packet_dir.mkdir(exist_ok=False)
     for candidate in candidates:
@@ -84,15 +93,11 @@ def main() -> None:
     if transaction.apply() != mapping:
         raise SystemExit("integration mapping drift")
 
-    source_records = {row["source_id"]: row for row in json.loads((authoring / "sources.json").read_text(encoding="utf-8"))["sources"]}
     verifications_path = authoring / "source_verifications.json"
     verifications = json.loads(verifications_path.read_text(encoding="utf-8"))
     coverage_path = authoring / "coverage.json"
     coverage = json.loads(coverage_path.read_text(encoding="utf-8"))
     for candidate in candidates:
-        source = source_records.get(candidate["source_id"])
-        if source is None or source["source_version"] != candidate["source_version"]:
-            raise SystemExit(f"source-version drift: {candidate['candidate_id']}")
         question_id = mapping[candidate["candidate_id"]]
         verifications["verifications"].append({"question_id": question_id, "source_id": candidate["source_id"], "source_version": candidate["source_version"], "verification_state": "author_source_verified", "verified_at": args.verified_at})
         coverage["question_bindings"].append({"knowledge_target_id": candidate["knowledge_target_id"], "question_id": question_id, "variation_tags": []})
