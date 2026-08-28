@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B18-PH-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "582204c9a8dad5f74ea9a3155c84a25951df9f83ec43fb4b2da1ba39e39686a3",
+  "actors": {
+    "author": {
+      "id": "eisei1-b18-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b18-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b18-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-LUNGS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "How the Lungs Work Gas exchange"
+    },
+    "answer_defining_proposition": "肺でのガス交換は生命に不可欠である。",
+    "tested_misconception": "ガス交換を骨格又は血液型の働きと混同する。",
+    "reasoning_path": "資料の結論を確認する -> 生命に不可欠を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題にガス交換の意義を問うものはない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "ガス交換の生命維持上の意義を独立して問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B18-PH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "7cd847c5070d6d88b8bb1735c46898fb0e91e82da47a5c5e29793a59ecfdf745",
+  "actors": {
+    "author": {
+      "id": "eisei1-b18-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b18-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b18-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-LUNGS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "How the Lungs Work Gas exchange"
+    },
+    "answer_defining_proposition": "二酸化炭素は血液から肺へ移動して呼気で排出される。",
+    "tested_misconception": "二酸化炭素の移動方向を酸素と混同する。",
+    "reasoning_path": "ガスの種類を確認する -> 血液から肺への移動を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q39は酸素の移動方向であり本問は二酸化炭素を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "二酸化炭素の移動方向はQ39の酸素とは別の命題である。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

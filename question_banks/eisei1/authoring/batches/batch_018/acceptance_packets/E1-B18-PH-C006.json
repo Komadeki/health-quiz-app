@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B18-PH-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d1ac6ed30628ca49990afa141ca32e3607ae6db28b8007550853f7cbc7e2f6f1",
+  "actors": {
+    "author": {
+      "id": "eisei1-b18-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b18-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b18-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-LUNGS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "How the Lungs Work Respiratory system"
+    },
+    "answer_defining_proposition": "呼吸器系には気管及び横隔膜などの胸壁の筋肉が含まれる。",
+    "tested_misconception": "呼吸器系を肺単独の器官と誤解する。",
+    "reasoning_path": "構成要素を確認する -> 横隔膜などの筋肉を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題に呼吸器系の構成要素を問うものはない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "呼吸器系の構成要素を独立して問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
