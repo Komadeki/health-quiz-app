@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B23-CRESOL-PROPERTIES-2026-08-28",
+  "wave_id": "W8",
+  "selected_target": "O4-FIR-KT-PROPERTIES",
+  "verified_target_count_before_batch": 22,
+  "candidate_ceiling": 24,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Adds only two materially distinct cresol properties: flash point and liquid relative density. Vapor-density and solubility variants are excluded as semantic repeats of existing material-property questions.",
+  "source_contract": {"primary_source_id": "O4-MHLW-SDS-CRESOL", "pinpoint_scope": "Section 9 physical and chemical properties"},
+  "anti_duplication_rule": "Do not create a new question whose answer-defining proposition is merely that a fourth-class vapor is heavier than air or that a liquid is poorly soluble in water.",
+  "next_gate": "AUTHOR_B23_AI_PRE_ACCEPT"
+}

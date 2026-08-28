@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B22-CRESOL-INCOMPATIBILITY-2026-08-28",
+  "wave_id": "W8",
+  "selected_target": "O4-PHY-KT-CHEMICAL-CHANGE",
+  "verified_target_count_before_batch": 4,
+  "candidate_ceiling": 24,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Adds one source-explicit material incompatibility decision, not another generic redox-definition recall.",
+  "source_contract": {"primary_source_id": "O4-MHLW-SDS-CRESOL", "pinpoint_scope": "Section 10 stability and reactivity"},
+  "anti_duplication_rule": "Do not restate existing electron-transfer, simultaneous-redox, oxidation-number or generic oxidizer-supporter propositions.",
+  "next_gate": "AUTHOR_B22_AI_PRE_ACCEPT"
+}
