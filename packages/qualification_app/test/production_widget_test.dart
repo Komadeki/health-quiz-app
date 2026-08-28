@@ -47,7 +47,7 @@ void main() {
     expect(find.byKey(const Key('home-hero')), findsOneWidget);
     expect(find.byKey(const Key('overall-progress-ring')), findsOneWidget);
     expect(find.byKey(const Key('unit-performance-chart')), findsOneWidget);
-    expect(find.byKey(const Key('unit-performance-legend')), findsOneWidget);
+    expect(find.byKey(const Key('unit-performance-legend')), findsNothing);
     for (final metricKey in [
       'progress-metric-completed',
       'progress-metric-accuracy',

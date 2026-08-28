@@ -95,8 +95,6 @@ Widget _buildProgressDashboard(
               );
             },
           ),
-          const SizedBox(height: 10),
-          _UnitPerformanceLegend(data: radarData),
           const SizedBox(height: 20),
           _ProgressMetrics(
             completed: '${overall.completedQuestions}問',
@@ -278,7 +276,7 @@ final class _UnitPerformanceChart extends StatelessWidget {
     final supportsRadar = data.length >= 3;
     return Semantics(
       key: const Key('unit-performance-chart'),
-      label: '単元別の正答率。$semanticSummary',
+      label: '分野別の正答率。$semanticSummary',
       child: ExcludeSemantics(
         child: SizedBox(
           height: 170,
@@ -295,7 +293,7 @@ final class _UnitPerformanceChart extends StatelessWidget {
                     vertical: 4,
                   ),
                   child: Text(
-                    '単元別',
+                    '分野別',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: colors.onSecondaryContainer,
                           fontWeight: FontWeight.w700,
@@ -323,61 +321,6 @@ final class _UnitPerformanceChart extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-final class _UnitPerformanceLegend extends StatelessWidget {
-  const _UnitPerformanceLegend({required this.data});
-
-  final List<_RadarDatum> data;
-
-  @override
-  Widget build(BuildContext context) {
-    if (data.isEmpty) return const SizedBox.shrink();
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final textScale = MediaQuery.textScalerOf(context).scale(1.0);
-        // Five exam areas fit as three items on the first row and two on the
-        // second at the standard phone size. Each entry carries both its
-        // marker and percentage, so this is a readable chart legend rather
-        // than a second set of bare axis labels.
-        final columns = constraints.maxWidth < 300 || textScale > 1.35 ? 2 : 3;
-        const spacing = 6.0;
-        final width =
-            (constraints.maxWidth - spacing * (columns - 1)) / columns;
-        return Wrap(
-          key: const Key('unit-performance-legend'),
-          spacing: spacing,
-          runSpacing: 6,
-          children: [
-            for (final item in data)
-              SizedBox(
-                width: width,
-                child: Row(
-                  children: [
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const SizedBox(width: 7, height: 7),
-                    ),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        '${_shortRadarLabel(item.label)} ${item.hasData ? '${(item.value * 100).round()}%' : '—'}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.labelSmall,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-          ],
-        );
-      },
     );
   }
 }
