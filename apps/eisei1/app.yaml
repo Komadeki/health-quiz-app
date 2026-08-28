@@ -70,7 +70,7 @@ branding:
   seed_color: "#176B5B"
 
 factory:
-  app_version: 1.0.0+4
+  app_version: 1.0.0+5
   home_headline: 一次資料で確認する400問
   source_label: 法令・厚生労働省・安全衛生技術試験協会等の一次資料に基づく学習
   enabled_modes:
