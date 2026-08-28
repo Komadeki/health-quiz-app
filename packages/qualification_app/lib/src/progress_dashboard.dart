@@ -338,22 +338,41 @@ final class _UnitPerformanceLegend extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final textScale = MediaQuery.textScalerOf(context).scale(1.0);
-        final columns = constraints.maxWidth < 300 || textScale > 1.35 ? 1 : 2;
-        const spacing = 8.0;
+        // Five exam areas fit as three items on the first row and two on the
+        // second at the standard phone size. Each entry carries both its
+        // marker and percentage, so this is a readable chart legend rather
+        // than a second set of bare axis labels.
+        final columns = constraints.maxWidth < 300 || textScale > 1.35 ? 2 : 3;
+        const spacing = 6.0;
         final width =
             (constraints.maxWidth - spacing * (columns - 1)) / columns;
         return Wrap(
+          key: const Key('unit-performance-legend'),
           spacing: spacing,
-          runSpacing: 4,
+          runSpacing: 6,
           children: [
             for (final item in data)
               SizedBox(
                 width: width,
-                child: Text(
-                  _shortRadarLabel(item.label),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.labelSmall,
+                child: Row(
+                  children: [
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const SizedBox(width: 7, height: 7),
+                    ),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(
+                        '${_shortRadarLabel(item.label)} ${item.hasData ? '${(item.value * 100).round()}%' : '—'}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                    ),
+                  ],
                 ),
               ),
           ],
