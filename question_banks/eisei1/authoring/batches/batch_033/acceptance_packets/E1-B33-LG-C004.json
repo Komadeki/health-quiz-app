@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B33-LG-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f44195b111cd1f2c04b49d7ea32fe3dc1b476ab83f2cdb187f0b4c96127d4620",
+  "actors": {
+    "author": {
+      "id": "eisei1-b33-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b33-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b33-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法 第59条第3項"
+    },
+    "answer_defining_proposition": "事業者は危険又は有害な業務に労働者を就かせるときは特別の教育を行わなければならない。",
+    "tested_misconception": "特別教育を特定の粉じん業務だけの制度と誤解する。",
+    "reasoning_path": "法の一般規定を確認する -> 特別の教育を行うを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q16は特定粉じん作業の教育科目を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "危険有害業務の特別教育を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
