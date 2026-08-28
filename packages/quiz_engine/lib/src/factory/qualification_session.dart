@@ -57,6 +57,7 @@ final class QualificationSessionV1 {
     required this.startedAt,
     required this.updatedAt,
     this.examProfileVersion,
+    this.mockExamTimeLimitMinutes,
     this.unitId,
     this.retrySourceSessionId,
   })  : questionIds = List.unmodifiable(questionIds),
@@ -79,6 +80,10 @@ final class QualificationSessionV1 {
     }
     if (!this.questionIds.toSet().containsAll(this.committedResponses.keys)) {
       throw ArgumentError('Committed responses must belong to the session.');
+    }
+    if (mockExamTimeLimitMinutes != null && mockExamTimeLimitMinutes! < 1) {
+      throw ArgumentError.value(
+          mockExamTimeLimitMinutes, 'mockExamTimeLimitMinutes');
     }
   }
 
@@ -122,6 +127,7 @@ final class QualificationSessionV1 {
       startedAt: startedAt,
       updatedAt: updatedAt,
       examProfileVersion: json['exam_profile_version'] as String?,
+      mockExamTimeLimitMinutes: json['mock_exam_time_limit_minutes'] as int?,
       unitId: json['unit_id'] as String?,
       retrySourceSessionId: json['retry_source_session_id'] as String?,
     );
@@ -139,6 +145,7 @@ final class QualificationSessionV1 {
   final DateTime startedAt;
   final DateTime updatedAt;
   final String? examProfileVersion;
+  final int? mockExamTimeLimitMinutes;
   final String? unitId;
   final String? retrySourceSessionId;
 
@@ -160,6 +167,7 @@ final class QualificationSessionV1 {
       startedAt: startedAt,
       updatedAt: updatedAt ?? this.updatedAt,
       examProfileVersion: examProfileVersion,
+      mockExamTimeLimitMinutes: mockExamTimeLimitMinutes,
       unitId: unitId,
       retrySourceSessionId: retrySourceSessionId,
     );
@@ -179,6 +187,7 @@ final class QualificationSessionV1 {
         'started_at': startedAt.toIso8601String(),
         'updated_at': updatedAt.toIso8601String(),
         'exam_profile_version': examProfileVersion,
+        'mock_exam_time_limit_minutes': mockExamTimeLimitMinutes,
         'unit_id': unitId,
         'retry_source_session_id': retrySourceSessionId,
       };

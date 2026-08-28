@@ -130,7 +130,6 @@ void main() {
         ownedProductIds: const {'fixture_full_unlock'},
       ),
     );
-    addTearDown(controller.dispose);
     await tester.pumpWidget(
       QualificationProductionApp(
         definition: fixtureDefinition,
@@ -283,7 +282,8 @@ void main() {
     expect(tester.widget<Card>(recommendation).color, colors.primaryContainer);
     expect(tester.widget<Card>(history).color, colors.surfaceContainerLow);
     expect(
-      tester.widget<ListTile>(find.byKey(const Key('show-session-history')))
+      tester
+          .widget<ListTile>(find.byKey(const Key('show-session-history')))
           .onTap,
       isNull,
     );
@@ -549,5 +549,40 @@ void main() {
 
     expect(find.text('合格'), findsOneWidget);
     expect(find.byKey(const Key('mock-no-pass-rule')), findsNothing);
+  });
+
+  testWidgets('mock exam accepts a learner-selected time limit',
+      (tester) async {
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final controller = await createController(
+      entitlement: EntitlementSnapshot(
+        ownedProductIds: const {'fixture_full_unlock'},
+      ),
+    );
+    await tester.pumpWidget(
+      QualificationProductionApp(
+        definition: fixtureDefinition,
+        controller: controller,
+      ),
+    );
+
+    final mockExam = find.byKey(const Key('start-mock-exam'));
+    await tester.scrollUntilVisible(mockExam, 160);
+    await tester.tap(mockExam);
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('mock-exam-start-sheet')), findsOneWidget);
+    await tester.enterText(find.byKey(const Key('mock-exam-time-input')), '45');
+    await tester.tap(find.byKey(const Key('confirm-start-mock-exam')));
+    await tester.pumpAndSettle();
+
+    expect(controller.activeSession!.mockExamTimeLimitMinutes, 45);
+    expect(
+      controller.remainingMockExamDuration!.inSeconds,
+      inInclusiveRange(2695, 2700),
+    );
+    controller.dispose();
   });
 }

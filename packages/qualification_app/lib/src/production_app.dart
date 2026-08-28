@@ -51,7 +51,8 @@ final class QualificationProductionBootstrap extends StatefulWidget {
 }
 
 final class _QualificationProductionBootstrapState
-    extends State<QualificationProductionBootstrap> with WidgetsBindingObserver {
+    extends State<QualificationProductionBootstrap>
+    with WidgetsBindingObserver {
   late final QualificationProductionController controller;
 
   @override
@@ -149,17 +150,17 @@ final class QualificationProductionApp extends StatelessWidget {
           }
           return switch (controller.view) {
             QualificationProductionView.home => QualificationHome(
-              controller: controller,
-              urlLauncher: urlLauncher ?? _launchExternalUrl,
-              homeSupplementBuilder: homeSupplementBuilder,
-            ),
+                controller: controller,
+                urlLauncher: urlLauncher ?? _launchExternalUrl,
+                homeSupplementBuilder: homeSupplementBuilder,
+              ),
             QualificationProductionView.quiz => QualificationQuizPage(
-              key: ValueKey(controller.activeSession?.currentQuestionId),
-              controller: controller,
-            ),
+                key: ValueKey(controller.activeSession?.currentQuestionId),
+                controller: controller,
+              ),
             QualificationProductionView.result => QualificationResultPage(
-              controller: controller,
-            ),
+                controller: controller,
+              ),
           };
         },
       ),
@@ -454,12 +455,12 @@ _PrimaryActionSpec _resolvePrimaryAction(
     final resumeUnit = resumableSession.unitId == null
         ? null
         : controller.bank!.unitById(resumableSession.unitId!);
-    final resumeContext = resumeUnit?.title ?? _modeLabel(resumableSession.mode);
+    final resumeContext =
+        resumeUnit?.title ?? _modeLabel(resumableSession.mode);
     return _PrimaryActionSpec(
       key: 'resume-session',
       label: '続きから',
-      description:
-          '$resumeContext・${resumableSession.currentIndex + 1}/'
+      description: '$resumeContext・${resumableSession.currentIndex + 1}/'
           '${resumableSession.questionIds.length}問目から再開します。',
       icon: Icons.play_arrow,
       onPressed: () => unawaited(controller.resume()),
@@ -614,9 +615,10 @@ final class _WeaknessCard extends StatelessWidget {
     final score =
         weakest?.value.recentCorrectness ?? weakest?.value.correctness;
     final attemptCount = weakest?.value.attemptCount ?? 0;
-    final hasEnoughEvidence = weakest != null &&
-        attemptCount >= _weaknessConfidenceAttemptThreshold;
-    final canOpen = unit != null && controller.accessibleCardsFor(unit).isNotEmpty;
+    final hasEnoughEvidence =
+        weakest != null && attemptCount >= _weaknessConfidenceAttemptThreshold;
+    final canOpen =
+        unit != null && controller.accessibleCardsFor(unit).isNotEmpty;
     final colors = Theme.of(context).colorScheme;
     return Card(
       key: const Key('weakness-summary'),
@@ -949,11 +951,11 @@ final class _PracticeModes extends StatelessWidget {
         buttons.add(
           OutlinedButton(
             key: const Key('start-mock-exam'),
-            onPressed: controller.startMockExam,
+            onPressed: () => unawaited(
+              _showMockExamStartSheet(context, controller),
+            ),
             child: Text(
-              profile == null
-                  ? '模擬試験'
-                  : '模擬試験（${profile.questionCount}問）',
+              profile == null ? '模擬試験' : '模擬試験（${profile.questionCount}問）',
             ),
           ),
         );
@@ -967,6 +969,99 @@ final class _PracticeModes extends StatelessWidget {
         ...buttons,
       ],
     );
+  }
+}
+
+Future<void> _showMockExamStartSheet(
+  BuildContext context,
+  QualificationProductionController controller,
+) async {
+  final profile = controller.definition.examProfile;
+  if (profile == null) return;
+  final input = TextEditingController(
+    text: '${profile.timeLimitMinutes ?? 60}',
+  );
+  var errorText = '';
+  try {
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (sheetContext) => StatefulBuilder(
+        builder: (context, setSheetState) => Padding(
+          padding: EdgeInsets.fromLTRB(
+            24,
+            24,
+            24,
+            24 + MediaQuery.viewInsetsOf(context).bottom,
+          ),
+          child: Column(
+            key: const Key('mock-exam-start-sheet'),
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text('模擬試験の時間設定', style: TextStyle(fontSize: 20)),
+              const SizedBox(height: 8),
+              Text(
+                  '${profile.questionCount}問。公式設定は${profile.timeLimitMinutes ?? '時間制限なし'}です。'),
+              const SizedBox(height: 16),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  for (final minutes in <int>{
+                    30,
+                    60,
+                    90,
+                    profile.timeLimitMinutes ?? 180
+                  })
+                    ChoiceChip(
+                      label: Text('$minutes分'),
+                      selected: input.text == '$minutes',
+                      onSelected: (_) => setSheetState(() {
+                        input.text = '$minutes';
+                        errorText = '';
+                      }),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                key: const Key('mock-exam-time-input'),
+                controller: input,
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: InputDecoration(
+                  labelText: '制限時間（分）',
+                  helperText: '1〜720分で指定できます。',
+                  errorText: errorText.isEmpty ? null : errorText,
+                  border: const OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
+              FilledButton(
+                key: const Key('confirm-start-mock-exam'),
+                onPressed: () async {
+                  final minutes = int.tryParse(input.text);
+                  if (minutes == null || minutes < 1 || minutes > 720) {
+                    setSheetState(() => errorText = '1〜720分で入力してください。');
+                    return;
+                  }
+                  if (await controller.startMockExam(
+                          timeLimitMinutes: minutes) &&
+                      sheetContext.mounted) {
+                    Navigator.of(sheetContext).pop();
+                  }
+                },
+                child: const Text('この設定で開始'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  } finally {
+    await WidgetsBinding.instance.endOfFrame;
+    input.dispose();
   }
 }
 
@@ -1118,7 +1213,8 @@ final class _RecommendationCard extends StatelessWidget {
     final recommendation = controller.recommendation;
     if (recommendation == null) return const SizedBox.shrink();
     final unit = controller.bank!.unitById(recommendation.unitId);
-    final canOpen = unit != null && controller.accessibleCardsFor(unit).isNotEmpty;
+    final canOpen =
+        unit != null && controller.accessibleCardsFor(unit).isNotEmpty;
     final reason = recommendation.reasonCode == 'unanswered_unit'
         ? 'まだ回答履歴がないため'
         : '直近の正答率が最も低いため';
@@ -1150,9 +1246,8 @@ final class _HistoryCard extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     return Card(
       key: const Key('session-history'),
-      color: latest == null
-          ? colors.surfaceContainerLow
-          : colors.primaryContainer,
+      color:
+          latest == null ? colors.surfaceContainerLow : colors.primaryContainer,
       clipBehavior: Clip.antiAlias,
       child: ListTile(
         key: const Key('show-session-history'),
@@ -1370,8 +1465,8 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
     final controller = widget.controller;
     final session = controller.activeSession;
     if (session == null) return;
-    final timedMock = session.mode == LearningModeV1.mockExam &&
-        controller.hasTimedMockExam;
+    final timedMock =
+        session.mode == LearningModeV1.mockExam && controller.hasTimedMockExam;
     if (timedMock) {
       final confirmed = await showDialog<bool>(
         context: context,
@@ -1458,9 +1553,8 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
         isMockExam && !committed && selectedChoice != null;
     final navigationBlocked = pendingChange || hasUnsavedInitialChoice;
     final isLast = session.currentIndex == session.questionIds.length - 1;
-    final timeLimit = isMockExam
-        ? controller.definition.examProfile?.timeLimitMinutes
-        : null;
+    final timeLimit =
+        isMockExam ? controller.definition.examProfile?.timeLimitMinutes : null;
     final remaining = controller.remainingMockExamDuration;
     return Scaffold(
       appBar: AppBar(
@@ -1579,14 +1673,17 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                       ],
                       Expanded(
                         child: FilledButton.icon(
-                          key: Key(isLast ? 'submit-mock-exam' : 'next-question'),
+                          key: Key(
+                              isLast ? 'submit-mock-exam' : 'next-question'),
                           onPressed: !committed || navigationBlocked
                               ? null
                               : isLast
                                   ? _submitMockExam
                                   : controller.advance,
                           icon: Icon(
-                            isLast ? Icons.fact_check_outlined : Icons.arrow_forward,
+                            isLast
+                                ? Icons.fact_check_outlined
+                                : Icons.arrow_forward,
                           ),
                           label: Text(isLast ? '提出して採点' : '次へ'),
                         ),
@@ -1599,11 +1696,12 @@ final class _QualificationQuizPageState extends State<QualificationQuizPage>
                     child: Text(
                       correct ? '正解' : '不正解',
                       key: const Key('answer-feedback'),
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            color: correct
-                                ? Colors.green.shade800
-                                : Theme.of(context).colorScheme.error,
-                          ),
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                color: correct
+                                    ? Colors.green.shade800
+                                    : Theme.of(context).colorScheme.error,
+                              ),
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -1829,9 +1927,8 @@ final class _MockExamReviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectedChoice = event?.selectedChoice;
-    final selectedText = selectedChoice == null
-        ? '未回答'
-        : card.choices[selectedChoice];
+    final selectedText =
+        selectedChoice == null ? '未回答' : card.choices[selectedChoice];
     final status = selectedChoice == null
         ? '未回答'
         : selectedChoice == card.answerIndex

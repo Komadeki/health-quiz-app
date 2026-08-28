@@ -141,7 +141,9 @@ final class QualificationProductionController extends ChangeNotifier {
   bool get hasTimedMockExam {
     final session = activeSession;
     return session?.mode == LearningModeV1.mockExam &&
-        definition.examProfile?.timeLimitMinutes != null;
+        (session?.mockExamTimeLimitMinutes ??
+                definition.examProfile?.timeLimitMinutes) !=
+            null;
   }
 
   Duration? get remainingMockExamDuration {
@@ -243,8 +245,7 @@ final class QualificationProductionController extends ChangeNotifier {
 
   Future<bool> startUnanswered({int? count}) async {
     if (!modeEnabled(LearningModeV1.unansweredPractice)) return false;
-    final eligible =
-        _practiceEngine.selectUnanswered(bank!.candidates, events);
+    final eligible = _practiceEngine.selectUnanswered(bank!.candidates, events);
     return _startSession(
       mode: LearningModeV1.unansweredPractice,
       questionIds: _boundedPracticeSelection(eligible, count),
@@ -281,9 +282,10 @@ final class QualificationProductionController extends ChangeNotifier {
     );
   }
 
-  Future<bool> startMockExam() async {
+  Future<bool> startMockExam({int? timeLimitMinutes}) async {
     final profile = definition.examProfile;
     if (!modeEnabled(LearningModeV1.mockExam) || profile == null) return false;
+    if (timeLimitMinutes != null && timeLimitMinutes < 1) return false;
     if (!hasFullUnlock) {
       storeMessage = '模擬試験は全問解放後に利用できます。';
       notifyListeners();
@@ -302,6 +304,7 @@ final class QualificationProductionController extends ChangeNotifier {
         mode: LearningModeV1.mockExam,
         questionIds: ids,
         examProfileVersion: profile.profileVersion,
+        mockExamTimeLimitMinutes: timeLimitMinutes,
       );
     } on StateError catch (error) {
       storeMessage = error.message;
@@ -315,6 +318,7 @@ final class QualificationProductionController extends ChangeNotifier {
     required List<String> questionIds,
     String? unitId,
     String? examProfileVersion,
+    int? mockExamTimeLimitMinutes,
     String? retrySourceSessionId,
   }) async {
     if (questionIds.isEmpty) return false;
@@ -331,6 +335,7 @@ final class QualificationProductionController extends ChangeNotifier {
       startedAt: now,
       updatedAt: now,
       examProfileVersion: examProfileVersion,
+      mockExamTimeLimitMinutes: mockExamTimeLimitMinutes,
       unitId: unitId,
       retrySourceSessionId: retrySourceSessionId,
     );
@@ -407,7 +412,8 @@ final class QualificationProductionController extends ChangeNotifier {
     final session = activeSession;
     final card = currentCard;
     if (_transitionBusy || session == null || card == null) return false;
-    final existingResponse = session.committedResponses[session.currentQuestionId];
+    final existingResponse =
+        session.committedResponses[session.currentQuestionId];
     if (choiceIndex < 0 || choiceIndex >= card.choices.length) return false;
     if (existingResponse != null && session.mode != LearningModeV1.mockExam) {
       return false;
@@ -425,7 +431,8 @@ final class QualificationProductionController extends ChangeNotifier {
       final rawDuration =
           now.difference(_questionShownAt ?? now).inMilliseconds;
       final allEvents = await _learningRepository.loadAllEvents();
-      final initialAttemptId = '${session.sessionId}:${session.currentQuestionId}';
+      final initialAttemptId =
+          '${session.sessionId}:${session.currentQuestionId}';
 
       if (existingResponse == null) {
         final persistedEvent = allEvents
@@ -444,7 +451,8 @@ final class QualificationProductionController extends ChangeNotifier {
       }
 
       final attemptNumber =
-          await _learningRepository.countAttempts(session.currentQuestionId) + 1;
+          await _learningRepository.countAttempts(session.currentQuestionId) +
+              1;
       final attemptId = existingResponse == null
           ? initialAttemptId
           : '$initialAttemptId:revision-$attemptNumber';
@@ -757,11 +765,11 @@ final class QualificationProductionController extends ChangeNotifier {
 
   Duration? _mockExamRemaining(QualificationSessionV1 session, DateTime now) {
     if (session.mode != LearningModeV1.mockExam) return null;
-    final minutes = definition.examProfile?.timeLimitMinutes;
+    final minutes = session.mockExamTimeLimitMinutes ??
+        definition.examProfile?.timeLimitMinutes;
     if (minutes == null) return null;
-    final remaining = session.startedAt
-        .add(Duration(minutes: minutes))
-        .difference(now);
+    final remaining =
+        session.startedAt.add(Duration(minutes: minutes)).difference(now);
     return remaining.isNegative ? Duration.zero : remaining;
   }
 
