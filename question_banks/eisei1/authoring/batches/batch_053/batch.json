@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "app_key": "eisei1",
+  "batch_id": "B53",
+  "directory_slug": "batch_053",
+  "baseline_sha": "e15c9dc",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id": "eisei1-b53-author-r1", "role": "AI_AUTHOR"},
+  "expansion_trigger": "Add distinct general-duty propositions on statutory health-hazard prevention, workplace maintenance, and imminent-danger evacuation.",
+  "evidence": ["question_banks/eisei1/authoring/EISEI1_300Q_COVERAGE_EXPANSION_CONTRACT_V1.md", "question_banks/eisei1/authoring/sources.json"],
+  "target_size_decisions": [{"decision_id": "E1-B53-DENSITY-001", "previous_approved_target": 176, "current_released_count": 0, "proposed_target_min": 0, "proposed_target_max": 3, "approved_new_target": 3, "rationale": "Three statutory general-duty propositions broaden the underrepresented non-hazardous law lane without repeating the existing committee or health-examination questions.", "decision_date": "2026-08-28", "evidence": "労働安全衛生法第20条、第23条及び第25条"}],
+  "coverage_limit_decisions": [],
+  "planned_scope": {"candidate_count": 3, "candidate_count_is_quota": false, "lane_counts": {"law_general": 3}, "knowledge_target_ids": ["E1-LG-001"], "known_rejected_ids": []},
+  "invariants": {"PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0, "HUMAN_REVIEW_CREATED": false, "CANONICAL_CHANGED": false, "RELEASED_CHANGED": false, "RUNTIME_CHANGED": false},
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
