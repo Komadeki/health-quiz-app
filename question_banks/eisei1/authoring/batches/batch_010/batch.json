@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "app_key": "eisei1",
+  "batch_id": "B10",
+  "directory_slug": "batch_010",
+  "baseline_sha": "4d4657e",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id": "eisei1-b10-author-r1", "role": "AI_AUTHOR"},
+  "expansion_trigger": "Begin the 300-question coverage gate with six uncovered targets whose answer-defining propositions have direct current primary or MHLW source locators.",
+  "evidence": [
+    "question_banks/eisei1/authoring/EISEI1_300Q_COVERAGE_EXPANSION_CONTRACT_V1.md",
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "question_banks/eisei1/authoring/coverage.json",
+    "question_banks/eisei1/authoring/sources.json"
+  ],
+  "target_size_decisions": [{
+    "decision_id": "E1-B10-COVERAGE-001",
+    "previous_approved_target": 16,
+    "current_released_count": 0,
+    "proposed_target_min": 0,
+    "proposed_target_max": 6,
+    "approved_new_target": 6,
+    "rationale": "Six candidates are retained because each is a distinct uncovered target with a direct source locator. The count is a ceiling, not a quota.",
+    "decision_date": "2026-08-28",
+    "evidence": "B10 source register and global collision check"
+  }],
+  "coverage_limit_decisions": [],
+  "planned_scope": {
+    "candidate_count": 6,
+    "candidate_count_is_quota": false,
+    "lane_counts": {"law_hazardous": 4, "hygiene_hazardous": 2},
+    "knowledge_target_ids": ["E1-LH-001", "E1-LH-002", "E1-LH-013", "E1-LH-014", "E1-HH-001", "E1-HH-008"],
+    "known_rejected_ids": []
+  },
+  "invariants": {"PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0, "HUMAN_REVIEW_CREATED": false, "CANONICAL_CHANGED": false, "RELEASED_CHANGED": false, "RUNTIME_CHANGED": false},
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
