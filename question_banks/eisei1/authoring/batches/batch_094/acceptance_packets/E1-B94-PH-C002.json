@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B94-PH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1544641b513e9f3d1cf37fbfe1ef3f0e8eef53a839c03424b9348ca03fac6484",
+  "actors": {
+    "author": {
+      "id": "eisei1-b94-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b94-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b94-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-HEART",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Heart Anatomy and Function Blood flow"
+    },
+    "answer_defining_proposition": "心臓の右側は全身から戻る酸素の少ない血液を受け取る。",
+    "tested_misconception": "右心が肺から戻る酸素を多く含む血液を受け取ると混同する。",
+    "reasoning_path": "心臓右側の血流を確認する -> 全身から戻る酸素の少ない血液を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q244は右心から肺へ送られる血液を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "右心が全身から戻る酸素の少ない血液を受け取ることを問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

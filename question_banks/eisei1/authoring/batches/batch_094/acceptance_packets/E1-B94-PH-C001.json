@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B94-PH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a240b4c4741d0d23215baf599de18bcbd81c66c98198518d0fe2640a42e19086",
+  "actors": {
+    "author": {
+      "id": "eisei1-b94-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b94-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b94-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-HEART",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Heart Anatomy and Function Blood flow"
+    },
+    "answer_defining_proposition": "心臓の左側は肺から戻る酸素を多く含む血液を受け取る。",
+    "tested_misconception": "左心が全身から戻る酸素の少ない血液を受け取ると混同する。",
+    "reasoning_path": "心臓左側の血流を確認する -> 肺から戻る酸素を多く含む血液を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q100は左心から全身へ送る血液を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "左心が肺から戻る酸素を多く含む血液を受け取ることを問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
