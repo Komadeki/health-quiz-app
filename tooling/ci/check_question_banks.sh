@@ -81,6 +81,18 @@ if failures:
 print(f"{app_key}: expansion validation passed for {validated} batch(es).")
 PY
   fi
+
+  if [[ "$app_key" == "otsu4" ]]; then
+    python3 tooling/question_bank/playbook_audit.py \
+      --bank "$bank_root" \
+      --profile "$bank_root/authoring/validated_batch_playbook_profile_v1.json"
+
+    for batch in "$batch_root"/batch_*; do
+      python3 tooling/question_bank/validate_playbook_batch.py \
+        --batch "$batch" \
+        --profile "$bank_root/authoring/validated_batch_playbook_profile_v1.json"
+    done
+  fi
 done
 
 if [[ -n "${BASE_SHA:-}" && -n "${HEAD_SHA:-}" ]]; then
