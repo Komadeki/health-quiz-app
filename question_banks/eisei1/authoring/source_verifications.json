@@ -1099,6 +1099,34 @@
       "source_version": "current-as-retrieved-2026-08-27",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000158",
+      "source_id": "E1-MHLW-EHEALTH-SLEEP",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000159",
+      "source_id": "E1-MHLW-EHEALTH-SLEEP",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000160",
+      "source_id": "E1-MHLW-EHEALTH-SLEEP",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000161",
+      "source_id": "E1-MHLW-EHEALTH-SLEEP",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
     }
   ]
 }

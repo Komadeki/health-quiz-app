@@ -1156,6 +1156,26 @@
       "knowledge_target_id": "E1-HH-014",
       "question_id": "EISEI1-Q-000157",
       "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-003",
+      "question_id": "EISEI1-Q-000158",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-003",
+      "question_id": "EISEI1-Q-000159",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-003",
+      "question_id": "EISEI1-Q-000160",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-003",
+      "question_id": "EISEI1-Q-000161",
+      "variation_tags": []
     }
   ],
   "schema_version": 1,

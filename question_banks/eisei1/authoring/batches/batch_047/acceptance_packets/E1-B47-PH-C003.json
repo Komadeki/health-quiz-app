@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B47-PH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "162663fb321f50395a4419617319eb08764bb48d631e36d6b5e12f7981d9953d",
+  "actors": {
+    "author": {
+      "id": "eisei1-b47-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b47-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b47-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-EHEALTH-SLEEP",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "睡眠と生活習慣病との深い関係 睡眠習慣と生活習慣病"
+    },
+    "answer_defining_proposition": "睡眠不足が続くとインスリンの作用が現れにくくなり血糖が高くなることがある。",
+    "tested_misconception": "睡眠不足時のインスリン作用を改善と誤解する。",
+    "reasoning_path": "資料の代謝影響を確認する -> インスリン抵抗性を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q32は睡眠の目的を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "睡眠不足時のインスリン抵抗性を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
