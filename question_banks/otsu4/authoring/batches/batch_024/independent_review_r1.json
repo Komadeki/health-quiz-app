@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W9",
+  "batch_id": "B24",
+  "reviewed_at": "2026-08-28",
+  "reviewer": {
+    "id": "otsu4-wave9-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "otsu4-b24-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "all 297 canonical/source-verified Otsu4 questions",
+    "the five Wave 9 B24 AI_PRE_ACCEPT candidates",
+    "registered O4-LAW-3 source metadata and current e-Gov 危険物の規制に関する規則 第17条・第18条",
+    "Otsu4 scope, exact legal wording, unique correct answer, Japanese clarity, semantic distinctness, and no-filler policy"
+  ],
+  "decisions": [
+    {
+      "candidate_id": "O4-B24-LAW-C001",
+      "decision": "ACCEPT",
+      "rationale": "規則第17条第1項第1号・第2号は、施設標識を幅0.3m以上・長さ0.6m以上の板、白地に黒文字と定める。Aだけが寸法と色の両方に適合する。既存の車両用『危』標識は同条第2項の別規定であり、施設標識と車両標識を区別する独立した法令判断として価値がある。"
+    },
+    {
+      "candidate_id": "O4-B24-LAW-C002",
+      "decision": "ACCEPT",
+      "rationale": "規則第18条第1項第2号は、掲示板に危険物の類、品名、貯蔵又は取扱最大数量、指定数量の倍数を表示すると定める。Aだけが必須の危険物情報を満たす。既存297問に施設掲示板の表示事項を問うものはなく、標識と掲示板の役割を分けて学べる。"
+    },
+    {
+      "candidate_id": "O4-B24-LAW-C003",
+      "decision": "REJECT",
+      "reason_code": "SEMANTIC_DUPLICATE_CANONICAL",
+      "rationale": "規則第18条第1項第4号ハの根拠とAの正答は正しいが、既存OTSU4-Q-000217が規則第44条第1項第3号に基づき『第四類危険物→火気厳禁』を既に同じ認知処理で問う。掲示場所が施設か運搬容器かというだけでは、学習者が答えを導く知識が同一であり、追加価値は不足する。"
+    },
+    {
+      "candidate_id": "O4-B24-LAW-C004",
+      "decision": "ACCEPT",
+      "rationale": "規則第18条第1項第5号は、『火気厳禁』掲示板を赤地に白文字と定める。Aだけが適合する。既存問題は第四類に必要な文言又は車両標識を問うにとどまり、施設の注意掲示板に固有の配色という別の法令要件は未収録である。"
+    },
+    {
+      "candidate_id": "O4-B24-LAW-C005",
+      "decision": "ACCEPT",
+      "rationale": "規則第18条第1項第6号は、給油取扱所に黄赤色地に黒文字で『給油中エンジン停止』と表示する掲示板を追加で設けることを定める。Aだけが施設区分、文言、配色をすべて満たす。既存OTSU4-Q-000145はセルフスタンドの利用者向け注意事項として文言だけを問うため、給油取扱所一般に適用される法定掲示板の設置・配色要件を問う本候補とは判断対象が異なる。"
+    }
+  ],
+  "summary": {
+    "reviewed": 5,
+    "accept": 4,
+    "reject": 1,
+    "rework": 0,
+    "hold": 0
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "batch_checked": true,
+    "full_wave_checked": true,
+    "result": "PASS_AFTER_1_REJECTION",
+    "note": "All 297 canonical questions and the complete B24 peer set were reviewed. C003 is rejected because the Class 4 to 火気厳禁 mapping duplicates OTSU4-Q-000217. C001, C002, C004, and C005 each add a separate facility-sign or notice-board specification."
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}

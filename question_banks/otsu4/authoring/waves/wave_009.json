@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W9",
+  "status": "INDEPENDENT_AI_REVIEWED",
+  "planned_at": "2026-08-28",
+  "production_target": 600,
+  "canonical_verified_baseline": 297,
+  "two_range_wave_mode": true,
+  "candidate_ceiling": 48,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Wave 9 begins with five distinct facility-facing signage and notice-board decisions. Vehicle markings and broad fire-use rules are explicitly excluded as existing canonical coverage.",
+  "batches": [
+    {
+      "batch_id": "B24",
+      "candidate_ceiling": 24,
+      "knowledge_target_id": "O4-LAW-KT-FACILITIES-INSPECTION",
+      "target_total_plan": 60,
+      "source_path": "registered e-Gov危険物の規制に関する規則 第17条・第18条"
+    }
+  ],
+  "actual_candidate_counts": {
+    "B24": 5,
+    "total": 5
+  },
+  "authors": {
+    "B24": {
+      "id": "otsu4-b24-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
+  "authoring_rule": "Enumerate source-defined propositions and collision-check against all 297 canonical/source-verified questions. Stop without backfill when distinctions are exhausted.",
+  "multi_source_rule": "Each candidate binds to one registered source and reproducible locator.",
+  "filler_prohibited": true,
+  "planned_state_epoch": 96,
+  "authored_state_epoch": 97,
+  "review_summary": {
+    "reviewed": 5,
+    "accept": 4,
+    "reject": 1,
+    "rework": 0,
+    "hold": 0,
+    "reviewer_id": "otsu4-wave9-independent-reviewer-r1",
+    "identity_separation": "PASS"
+  },
+  "non_accepted_candidate_ids": {
+    "reject": [
+      "O4-B24-LAW-C003"
+    ],
+    "rework": []
+  },
+  "reviewed_state_epoch": 98,
+  "review_artifacts": {
+    "B24": "question_banks/otsu4/authoring/batches/batch_024/independent_review_r1.json"
+  },
+  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_9_ACCEPTED_4"
+}
