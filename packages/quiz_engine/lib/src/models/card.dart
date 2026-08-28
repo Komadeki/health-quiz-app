@@ -170,9 +170,13 @@ class QuizCard {
       return value.isEmpty ? null : int.tryParse(value);
     }
 
-    final list = [s('choice1'), s('choice2'), s('choice3'), s('choice4')]
-        .where((e) => e.isNotEmpty)
-        .toList();
+    final list = [
+      s('choice1'),
+      s('choice2'),
+      s('choice3'),
+      s('choice4'),
+      s('choice5'),
+    ].where((e) => e.isNotEmpty).toList();
 
     var ans = int.tryParse(s('answer_index')) ?? 1;
     ans = (ans - 1).clamp(0, list.length - 1);

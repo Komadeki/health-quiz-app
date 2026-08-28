@@ -71,6 +71,24 @@ void main() {
     expect(deck.cardsFromUnits(['unit_sample']), deck.cards);
   });
 
+  test('decodes a fifth CSV choice and preserves answer E', () {
+    final card = QuizCard.fromRowWithHeader(
+      const {
+        'question': 0,
+        'choice1': 1,
+        'choice2': 2,
+        'choice3': 3,
+        'choice4': 4,
+        'choice5': 5,
+        'answer_index': 6,
+      },
+      const ['Question', 'A', 'B', 'C', 'D', 'E', '5'],
+    );
+
+    expect(card.choices, ['A', 'B', 'C', 'D', 'E']);
+    expect(card.answerIndex, 4);
+  });
+
   test('qualification fixture runtime decodes with explicit identity', () {
     final runtime = jsonDecode(
       File(
