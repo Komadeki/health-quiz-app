@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B26-PH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c20be59d50f635c9c60ca9c3f4ad79313a67e0d1dc86288285b8153190f30526",
+  "actors": {
+    "author": {
+      "id": "eisei1-b26-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b26-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b26-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-BLOOD",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Blood Basics Red blood cells"
+    },
+    "answer_defining_proposition": "赤血球は酸素を運搬する。",
+    "tested_misconception": "赤血球の働きを腎臓又は骨の働きと混同する。",
+    "reasoning_path": "血液成分を確認する -> 酸素運搬を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q39は肺での酸素移動を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "赤血球の酸素運搬を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

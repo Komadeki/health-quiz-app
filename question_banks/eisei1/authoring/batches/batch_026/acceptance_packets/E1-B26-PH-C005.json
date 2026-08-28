@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B26-PH-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d4d534e0bf5c43b7f90e7c9ad8793becda7c78a7cc973543949a8d2b9de5fe7e",
+  "actors": {
+    "author": {
+      "id": "eisei1-b26-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b26-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b26-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NIDDK-KIDNEYS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Your Kidneys and How They Work Acid balance"
+    },
+    "answer_defining_proposition": "腎臓は体液の酸塩基バランスの維持に関わる。",
+    "tested_misconception": "腎臓の恒常性維持機能を外観又は体格の働きと混同する。",
+    "reasoning_path": "腎臓の働きを確認する -> 酸塩基バランスを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q44は水分と塩類のバランスを問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "腎臓の酸塩基調節を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

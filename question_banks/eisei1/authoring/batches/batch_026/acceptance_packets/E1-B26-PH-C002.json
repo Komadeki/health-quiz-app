@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B26-PH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "111e8b02b311dc1a5ffe84b48841f6dc64b203703ef9c480d5c1ed284f4d8d38",
+  "actors": {
+    "author": {
+      "id": "eisei1-b26-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b26-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b26-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-BLOOD",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Blood Basics Platelets"
+    },
+    "answer_defining_proposition": "血小板は出血を止めるための凝固に関わる。",
+    "tested_misconception": "血小板の働きを赤血球又は腎臓の働きと混同する。",
+    "reasoning_path": "血液成分を確認する -> 凝固を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題に血小板の働きを問うものはない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "血小板の凝固機能を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

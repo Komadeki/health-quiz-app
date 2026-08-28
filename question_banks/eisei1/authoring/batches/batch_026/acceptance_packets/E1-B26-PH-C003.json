@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B26-PH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f5ba3d031dbff2ca82b59093bdcc9d7c3b1a41e17a75b50e88a1bfbf771ab0d4",
+  "actors": {
+    "author": {
+      "id": "eisei1-b26-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b26-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b26-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-BLOOD",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Blood Basics Plasma"
+    },
+    "answer_defining_proposition": "血漿は血液の液体成分である。",
+    "tested_misconception": "血漿を肺又は心臓の構造と混同する。",
+    "reasoning_path": "血液の構成要素を確認する -> 液体成分を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題に血漿を問うものはない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "血漿の液体成分を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
