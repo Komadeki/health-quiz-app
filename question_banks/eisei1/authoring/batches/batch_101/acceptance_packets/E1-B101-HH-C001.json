@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B101-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "7e7e5691dd325d0f88350d7d3add238d36496a06b088ee6f427bff54e5cb2ab1",
+  "actors": {
+    "author": {
+      "id": "eisei1-b101-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b101-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RPE-2023",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "source_locator": "防毒マスクの選択 使用等 着用前点検"
+    },
+    "answer_defining_proposition": "防毒マスク着用前に吸気弁 面体 排気弁 しめひも等の破損や亀裂等を点検する。",
+    "tested_misconception": "着用前点検を事務的情報確認と混同する。",
+    "reasoning_path": "防毒マスクの使用前手順を確認する -> 各部の破損亀裂確認を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B100-C004は臭気感知後の対応を問うため別時点である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "着用前の各部点検を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

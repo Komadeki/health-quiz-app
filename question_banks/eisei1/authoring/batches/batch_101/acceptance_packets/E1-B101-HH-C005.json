@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B101-HH-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ba1a59fb5812a39acbce72fda36035434d891618ea3c290d02344bf4dce34592",
+  "actors": {
+    "author": {
+      "id": "eisei1-b101-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b101-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RPE-2023",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "source_locator": "防毒マスクの選択 使用等 保護具着用管理責任者"
+    },
+    "answer_defining_proposition": "防毒マスクの保護具着用管理責任者は各作業場ごとに衛生管理者や作業主任者等から指名する。",
+    "tested_misconception": "保護具管理責任者の選任主体と配置単位を混同する。",
+    "reasoning_path": "防毒マスクの管理体制を確認する -> 各作業場ごとの指名を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B100-C002は着用者教育を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "保護具着用管理責任者を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

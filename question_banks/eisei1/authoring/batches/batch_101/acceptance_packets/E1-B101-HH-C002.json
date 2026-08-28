@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B101-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "85584da21d3af2279406e06ca8028f0fa4de5c1cc5cdc750807721988bba70b4",
+  "actors": {
+    "author": {
+      "id": "eisei1-b101-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b101-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RPE-2023",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "source_locator": "防毒マスクの選択 使用等 陰圧法"
+    },
+    "answer_defining_proposition": "陰圧法では吸気口をふさぎ息を吸って面体が顔面に吸い付くか確認する。",
+    "tested_misconception": "陰圧法と陽圧法又は単なる装着を混同する。",
+    "reasoning_path": "密着性確認方法を確認する -> 吸気口閉鎖と吸気を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B100-C003は面体の選定を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "陰圧法を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

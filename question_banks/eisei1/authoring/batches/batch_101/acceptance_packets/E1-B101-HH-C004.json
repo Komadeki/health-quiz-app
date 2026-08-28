@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B101-HH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "dca2b297a07302831fb1ae11c6ad9c2331590cb9a57132be3201b13e1eb44a50",
+  "actors": {
+    "author": {
+      "id": "eisei1-b101-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b101-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RPE-2023",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "source_locator": "防毒マスクの選択 使用等 使用限度"
+    },
+    "answer_defining_proposition": "防じん機能を有する防毒マスクでは吸気抵抗上昇のみを使用限度の判断基準にしない。",
+    "tested_misconception": "使用限度を吸気抵抗だけで判断できると混同する。",
+    "reasoning_path": "使用限度判断の注意点を確認する -> 吸気抵抗だけではないを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B100-C005は残存除毒能力を確認できる再使用条件を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "使用限度判断を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

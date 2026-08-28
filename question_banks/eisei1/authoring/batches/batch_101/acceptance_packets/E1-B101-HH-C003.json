@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B101-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "91aa0574e1ccf84187c6839ec988c367fefbbc839f2289a00b27ac358b4ece3b",
+  "actors": {
+    "author": {
+      "id": "eisei1-b101-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b101-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RPE-2023",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "source_locator": "防毒マスクの選択 使用等 陽圧法"
+    },
+    "answer_defining_proposition": "陽圧法では排気口をふさぎ息を吐いて面体内に呼気が滞留するか確認する。",
+    "tested_misconception": "陽圧法と陰圧法を混同する。",
+    "reasoning_path": "密着性確認方法を確認する -> 排気口閉鎖と呼気を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B101-C002は陰圧法を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "陽圧法を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
