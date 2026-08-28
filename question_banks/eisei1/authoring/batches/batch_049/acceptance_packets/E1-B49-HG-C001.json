@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B49-HG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d65d9dec82451fa98ab1370aaf1173df9b6f4fdf480da5f14611998b634b344c",
+  "actors": {
+    "author": {
+      "id": "eisei1-b49-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b49-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b49-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-MENTAL-HEALTH",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "職場におけるメンタルヘルス対策 こころの耳"
+    },
+    "answer_defining_proposition": "こころの耳は事業者向けにメンタルヘルス対策に関する最新情報や取組事例を提供する。",
+    "tested_misconception": "公式資源の対象を労働衛生と無関係な情報と混同する。",
+    "reasoning_path": "対象者を確認する -> 事業者向けの最新情報と取組事例を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q130はラインによるケアの実施主体を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "事業者向けの公式メンタルヘルス情報を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

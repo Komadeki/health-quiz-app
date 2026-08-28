@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B49-HG-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9ad17ed9105646e1a2a9372896b314cf39c2dad76b19ead13d3d9266c08ca20c",
+  "actors": {
+    "author": {
+      "id": "eisei1-b49-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b49-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b49-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-MENTAL-HEALTH",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "職場におけるメンタルヘルス対策 こころの耳"
+    },
+    "answer_defining_proposition": "こころの耳は働く方向けにセルフケアに役立つツールを提供する。",
+    "tested_misconception": "公式資源を人事又は行政手続の代行と混同する。",
+    "reasoning_path": "対象者を確認する -> セルフケアに役立つツールを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q54はセルフケアの実施主体を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "働く人向けセルフケアツールを問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
