@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B24-LAW-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "78629ef36ebc80823dd76356176e4ab29d49522c6130dafbe53938be45a6b3f8",
+  "actors": {
+    "author": {
+      "id": "otsu4-b24-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave9-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave9-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第18条第2号"
+    },
+    "answer_defining_proposition": "掲示板には危険物の類・品名・最大数量・指定数量の倍数を表示する。",
+    "tested_misconception": "標識と掲示板の役割や表示事項を混同する。",
+    "reasoning_path": "facility notice -> identify mandatory hazard inventory information",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W9 B24; no canonical question asks the facility notice-board content."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "規則第18条第1項第2号は、掲示板に危険物の類、品名、貯蔵又は取扱最大数量、指定数量の倍数を表示すると定める。Aだけが必須の危険物情報を満たす。既存297問に施設掲示板の表示事項を問うものはなく、標識と掲示板の役割を分けて学べる。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

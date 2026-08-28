@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W9",
+  "adjudication_round": 1,
+  "adjudicated_at": "2026-08-28",
+  "director": {
+    "id": "otsu4-wave9-director-r1",
+    "role": "AI_DIRECTOR"
+  },
+  "authors": {
+    "B24": {
+      "id": "otsu4-b24-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
+  "reviewers": {
+    "B24": {
+      "id": "otsu4-wave9-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    }
+  },
+  "identity_separation": "PASS",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 4,
+    "reject": 1,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "O4-B24-LAW-C001",
+    "O4-B24-LAW-C002",
+    "O4-B24-LAW-C004",
+    "O4-B24-LAW-C005"
+  ],
+  "nonaccepted": [
+    {
+      "candidate_id": "O4-B24-LAW-C003",
+      "batch_id": "B24",
+      "decision": "REJECT",
+      "reason_code": "SEMANTIC_DUPLICATE_CANONICAL",
+      "rationale": "規則第18条第1項第4号ハの根拠とAの正答は正しいが、既存OTSU4-Q-000217が規則第44条第1項第3号に基づき『第四類危険物→火気厳禁』を既に同じ認知処理で問う。掲示場所が施設か運搬容器かというだけでは、学習者が答えを導く知識が同一であり、追加価値は不足する。",
+      "resume_condition": ""
+    }
+  ],
+  "director_rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction.",
+  "invariants_before_transaction": {
+    "candidate_states": "ALL_AI_PRE_ACCEPT",
+    "acceptance_packets": 0,
+    "permanent_ids_allocated": 0,
+    "canonical_count": 297,
+    "registry_count": 297,
+    "source_verification_count": 297,
+    "released_count": 0,
+    "runtime_unchanged_required": true,
+    "human_review_fabricated": false
+  },
+  "final_gate": "READY_TO_ALLOCATE_AND_INTEGRATE_W9_ACCEPTED_4"
+}

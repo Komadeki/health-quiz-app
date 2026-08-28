@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B24-LAW-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "56f9bc075c7c4ea7ffc8c602c085d3a141870214b42bb663b45b4f842376f8c4",
+  "actors": {
+    "author": {
+      "id": "otsu4-b24-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave9-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave9-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-3",
+      "source_version": "2026-08-25",
+      "source_locator": "危険物の規制に関する規則 第17条第1項"
+    },
+    "answer_defining_proposition": "製造所等の標識は幅0.3m以上・長さ0.6m以上で白地に黒文字である。",
+    "tested_misconception": "車両用の黒地に黄色の「危」標識と施設標識を混同する。",
+    "reasoning_path": "facility context -> apply facility sign specification -> distinguish from vehicle marking",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W9 B24; distinct from the existing vehicle-only Article 47 marking question."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "規則第17条第1項第1号・第2号は、施設標識を幅0.3m以上・長さ0.6m以上の板、白地に黒文字と定める。Aだけが寸法と色の両方に適合する。既存の車両用『危』標識は同条第2項の別規定であり、施設標識と車両標識を区別する独立した法令判断として価値がある。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
