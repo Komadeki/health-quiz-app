@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B82-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "47e973116b7e84faab59cd5eb4c34c1dd8a82e32ef12460dec099b673dc7eb2b",
+  "actors": {
+    "author": {
+      "id": "eisei1-b82-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b82-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b82-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "source_locator": "第4章 眼に対する重篤な損傷性又は眼刺激性"
+    },
+    "answer_defining_proposition": "眼刺激性は眼に可逆的な変化を生じさせる性質である。",
+    "tested_misconception": "眼刺激性を眼の重篤な損傷と混同する。",
+    "reasoning_path": "有害性分類を確認する -> 可逆的な眼の変化を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q97は皮膚又は眼の重篤な損傷を生じ得る腐食性を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "眼刺激性の可逆的変化を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

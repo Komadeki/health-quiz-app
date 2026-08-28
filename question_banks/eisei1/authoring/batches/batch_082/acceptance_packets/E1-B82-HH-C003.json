@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B82-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "81cb1069494b4894b9d9898720da56810595cb0644f22a4810abfe80849f1525",
+  "actors": {
+    "author": {
+      "id": "eisei1-b82-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b82-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b82-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "source_locator": "第4章 眼に対する重篤な損傷性又は眼刺激性"
+    },
+    "answer_defining_proposition": "眼に対する重篤な損傷性は眼に不可逆的な損傷を生じさせる性質である。",
+    "tested_misconception": "眼の重篤な損傷性を可逆的変化である眼刺激性と混同する。",
+    "reasoning_path": "有害性分類を確認する -> 不可逆的な眼の損傷を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q97は皮膚又は眼の重篤な損傷を生じ得る腐食性を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "眼の重篤な損傷性の不可逆的損傷を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
