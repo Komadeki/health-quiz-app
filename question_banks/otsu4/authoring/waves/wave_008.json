@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W8",
+  "status": "AI_PRE_ACCEPT_AUTHORED",
+  "planned_at": "2026-08-28",
+  "production_target": 600,
+  "canonical_verified_baseline": 294,
+  "two_range_wave_mode": true,
+  "candidate_ceiling": 48,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "Calculation-boundary, concentration and combustion remain sparse, but their source-ready propositions are either already covered or previously rejected as wording variants, shallow recall or excessive microkinetic detail. Wave 8 instead selects two source-ready material distinctions with high marginal value: a concrete incompatibility reaction under chemical change (4 verified against 30) and unrepresented cresol properties (22 verified against 50). No third range is permitted.",
+  "remaining_target_gaps_before_wave": {
+    "O4-PHY-KT-CHEMICAL-CHANGE": 26,
+    "O4-FIR-KT-PROPERTIES": 28
+  },
+  "batches": [
+    {
+      "batch_id": "B22",
+      "candidate_ceiling": 24,
+      "knowledge_target_id": "O4-PHY-KT-CHEMICAL-CHANGE",
+      "target_total_plan": 30,
+      "source_path": "registered MHLW cresol model SDS Section 10, restricted to the explicit strong-oxidizer incompatibility"
+    },
+    {
+      "batch_id": "B23",
+      "candidate_ceiling": 24,
+      "knowledge_target_id": "O4-FIR-KT-PROPERTIES",
+      "target_total_plan": 50,
+      "source_path": "registered MHLW cresol model SDS Section 9, restricted to the explicit flash point and relative-density properties"
+    }
+  ],
+  "actual_candidate_counts": {
+    "B22": 1,
+    "B23": 2,
+    "total": 3
+  },
+  "authors": {
+    "B22": {"id": "otsu4-b22-author-r1", "role": "AI_AUTHOR"},
+    "B23": {"id": "otsu4-b23-author-r1", "role": "AI_AUTHOR"}
+  },
+  "authoring_rule": "Enumerate source-defined propositions before authoring, collision-check against all 294 canonical/source-verified questions and the full Wave 8 peer set, and stop without backfill when material distinctions are exhausted.",
+  "multi_source_rule": "Each candidate binds to one registered source_id, source_version and reproducible pinpoint locator. Cross-source answer-defining comparisons are prohibited without an approved source-bundle contract.",
+  "filler_prohibited": true,
+  "planned_state_epoch": 90,
+  "authored_state_epoch": 91,
+  "next_gate": "INDEPENDENT_AI_REVIEW_OTSU4_WAVE_8"
+}
