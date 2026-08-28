@@ -290,6 +290,15 @@
       "usage_basis": "facts_only_independently_authored"
     },
     {
+      "source_id": "E1-NIDDK-DIGESTIVE",
+      "title": "Your Digestive System and How It Works",
+      "issuer": "National Institute of Diabetes and Digestive and Kidney Diseases",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "url": "https://www.niddk.nih.gov/health-information/digestive-diseases/digestive-system-how-it-works",
+      "retrieved_at": "2026-08-28",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
       "source_id": "E1-EXAM-STRUCTURE",
       "title": "第一種衛生管理者試験の紹介",
       "issuer": "公益財団法人 安全衛生技術試験協会",
