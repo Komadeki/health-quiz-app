@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B85-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "2aebcd5de3abb90d6a0ba639958530f42d23cb29c2cefc3c8d0843eca58be96f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b85-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b85-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b85-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-IONIZING",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "電離放射線障害防止規則第56条第1項"
+    },
+    "answer_defining_proposition": "放射線業務に常時従事し管理区域に立ち入る労働者を当該業務に配置替えする際に電離放射線健康診断を行う。",
+    "tested_misconception": "電離放射線健康診断を定期実施時だけ行えばよいと混同する。",
+    "reasoning_path": "第56条第1項の初回実施時期を確認する -> 放射線業務への配置替え時を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q6はその後の定期実施間隔を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "放射線業務配置替え時健診を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

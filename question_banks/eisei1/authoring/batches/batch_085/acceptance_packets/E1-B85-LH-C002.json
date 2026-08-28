@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B85-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "77370cb415476ae66cac901816ccee1fc62b1aa2e71e94d4fca7ca4148eba8e3",
+  "actors": {
+    "author": {
+      "id": "eisei1-b85-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b85-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b85-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-OXYGEN",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "酸素欠乏症等防止規則第11条第2項"
+    },
+    "answer_defining_proposition": "第二種酸素欠乏危険作業に係る作業場では酸素欠乏・硫化水素危険作業主任者技能講習を修了した者を選任する。",
+    "tested_misconception": "第一種の選任資格と第二種で必要な硫化水素を含む技能講習を混同する。",
+    "reasoning_path": "第11条第2項の第二種選任資格を確認する -> 酸素欠乏・硫化水素危険作業主任者を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q21は第一種で選任できる二種類の技能講習を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "第二種酸欠作業の作業主任者資格を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
