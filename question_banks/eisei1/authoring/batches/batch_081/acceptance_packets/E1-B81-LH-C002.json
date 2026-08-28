@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B81-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "78455fa8fbbc3e223a742065ed1bc25c1df365fb14a8b82b93a710c517d19adc",
+  "actors": {
+    "author": {
+      "id": "eisei1-b81-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b81-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b81-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASBESTOS",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "石綿障害予防規則第28条第3項"
+    },
+    "answer_defining_proposition": "労働者は休憩室に入る前に作業衣等に付着した物を除去する。",
+    "tested_misconception": "作業衣等の付着物を除去せず休憩室に入ってよいと混同する。",
+    "reasoning_path": "第28条第3項の労働者義務を確認する -> 付着物を除去するを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q234は休憩室の設置場所を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "休憩室前の作業衣付着物除去を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
