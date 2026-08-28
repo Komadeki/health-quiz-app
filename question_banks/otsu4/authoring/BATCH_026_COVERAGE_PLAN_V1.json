@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-B26-CALCULATION-BOUNDARY-2026-08-28",
+  "selected_target": "O4-PHY-KT-CALCULATION-BOUNDARY",
+  "verified_target_count_before_batch": 3,
+  "candidate_ceiling": 10,
+  "candidate_ceiling_is_quota": false,
+  "selection_basis": "This is the thinnest required target. Author only evidence-distinct calculation or decision boundaries, never unit-only recall.",
+  "source_contract": {
+    "primary_source_id": "O4-PHY-1",
+    "source_version": "2023-06-07",
+    "pinpoint_scope": "MEXT 理科編 printed pp.92-93: 物質量と粒子数・質量・気体体積、モル濃度、化学反応式の係数比と量的関係"
+  },
+  "anti_duplication_rule": "Do not restate Q241 molar-concentration definition, Q242 coefficient-ratio-is-amount-ratio, or Q243 equation-can-determine-change. Each candidate must require a distinct proportional or quantity-conversion decision.",
+  "playbook_requirements": {
+    "choice_count": 5,
+    "required_evidence_fields": ["answer_defining_proposition", "tested_misconception", "reasoning_path", "source_locator"],
+    "independent_review_required": true
+  },
+  "next_gate": "AUTHOR_B26_AI_PRE_ACCEPT"
+}

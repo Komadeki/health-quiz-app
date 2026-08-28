@@ -12,6 +12,10 @@ python3 tooling/question_bank/validate.py \
   --bank question_banks/otsu4 \
   --check-generated
 
+python3 tooling/question_bank/playbook_audit.py \
+  --bank question_banks/otsu4 \
+  --profile question_banks/otsu4/authoring/validated_batch_playbook_profile_v1.json
+
 python3 - <<'PY'
 from pathlib import Path
 import sys
@@ -28,5 +32,11 @@ if failures:
     raise SystemExit("Otsu4 expansion validation failed:\n" + "\n".join(failures))
 print("Otsu4 expansion validation passed for all batches.")
 PY
+
+for batch in question_banks/otsu4/authoring/batches/batch_*; do
+  python3 tooling/question_bank/validate_playbook_batch.py \
+    --batch "$batch" \
+    --profile question_banks/otsu4/authoring/validated_batch_playbook_profile_v1.json
+done
 
 git diff --check

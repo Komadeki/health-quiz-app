@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "profile_id": "OTSU4-VALIDATED-BATCH-PLAYBOOK-V1",
+  "applies_from_batch": "batch_026",
+  "purpose": "乙種第4類の問題数ではなく、根拠・coverage・試験配分・重複・選択肢品質を確認可能にするauthoring-only運用契約。",
+  "required_inputs": {
+    "canonical_questions": "authoring/questions.csv",
+    "id_registry": "authoring/question_id_registry.csv",
+    "source_catalogue": "authoring/sources.json",
+    "source_verifications": "authoring/source_verifications.json",
+    "coverage_map": "authoring/coverage.json",
+    "exam_profile": "docs/OTSU4_PRODUCT_SPEC_V0.md"
+  },
+  "exam_distribution": {
+    "source_locator": "docs/OTSU4_PRODUCT_SPEC_V0.md: Blueprint",
+    "total_questions": 35,
+    "by_unit": {
+      "otsu4_law": 15,
+      "otsu4_physics": 10,
+      "otsu4_fire": 10
+    }
+  },
+  "mock_exam_precondition": {
+    "source_locator": "docs/OTSU4_PRODUCT_SPEC_V0.md: Production bank and coverage decision",
+    "requirement": "Each subject must have at least 20 calculation or decision-boundary questions before the mock-exam gate passes.",
+    "status": "hold_until_format_classification_is_persisted"
+  },
+  "candidate_contract": {
+    "maximum_candidates_per_batch": 10,
+    "required_fields": [
+      "knowledge_target_id",
+      "answer_defining_proposition",
+      "tested_misconception",
+      "reasoning_path",
+      "source_id",
+      "source_version",
+      "source_locator",
+      "choice1",
+      "choice2",
+      "choice3",
+      "choice4",
+      "choice5",
+      "explanation"
+    ],
+    "minimum_choice_count": 5,
+    "quality_gate": "QUESTION_BANK_CONTRACT_V0.md and SOURCE_VERIFICATION_PROTOCOL_V0.md"
+  },
+  "coverage_binding_policy": {
+    "historical_evidence": "Canonical rows through batch_025 are audited by exact permanent_question_id back to their persisted candidate record.",
+    "new_batch_requirement": "Each accepted candidate must receive one primary knowledge-target binding in the same integration transaction."
+  },
+  "release_boundary": {
+    "authoring_gates_do_not_change": [
+      "authoring/bank.json:bank_revision",
+      "generated/otsu4_bank.json",
+      "generated/bank_manifest.json",
+      "released_questions.json"
+    ],
+    "release_gate": "A separate human release approval is required before activating questions or changing bank_revision."
+  }
+}
