@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B25-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0cb9c7298bdb94422378300219ec0409bdd8e045a145af54f91af95546836028",
+  "actors": {
+    "author": {
+      "id": "eisei1-b25-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b25-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b25-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASBESTOS",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "石綿障害予防規則 第40条"
+    },
+    "answer_defining_proposition": "石綿等を取り扱う業務に常時従事する労働者には6か月以内ごとに1回定期健康診断を行う。",
+    "tested_misconception": "石綿業務の健診間隔を一般健診又は実施不要と混同する。",
+    "reasoning_path": "規則の対象業務と間隔を確認する -> 6か月以内ごとに1回を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q10は健康診断個人票の保存を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "石綿業務の健診間隔を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
