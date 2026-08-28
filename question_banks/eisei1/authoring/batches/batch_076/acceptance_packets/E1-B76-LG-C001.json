@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B76-LG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "071f807f761109631581eb23e3f09b87847fd0aae822ad2fddb611df32329a1a",
+  "actors": {
+    "author": {
+      "id": "eisei1-b76-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b76-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b76-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第34条第1項"
+    },
+    "answer_defining_proposition": "労働時間が6時間を超え8時間以下の場合には少なくとも45分の休憩時間を労働時間の途中に与える。",
+    "tested_misconception": "6時間超の場合の45分と8時間超の場合の1時間を混同する。",
+    "reasoning_path": "第34条第1項の時間区分を確認する -> 45分を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q191は8時間超の場合の1時間を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "6時間超8時間以下の45分休憩を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
