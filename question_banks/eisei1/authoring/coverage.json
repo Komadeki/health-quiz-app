@@ -991,6 +991,16 @@
       "knowledge_target_id": "E1-LH-002",
       "question_id": "EISEI1-Q-000124",
       "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-001",
+      "question_id": "EISEI1-Q-000125",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-PH-002",
+      "question_id": "EISEI1-Q-000126",
+      "variation_tags": []
     }
   ],
   "schema_version": 1,

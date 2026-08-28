@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B37-PH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a626618a9e33239c040bf98ec84c7d6194dbfd1c4d80492eba899250aa7f5ff4",
+  "actors": {
+    "author": {
+      "id": "eisei1-b37-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b37-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b37-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MEDLINE-CNS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Central nervous system Summary"
+    },
+    "answer_defining_proposition": "中枢神経系は脳と脊髄で構成される。",
+    "tested_misconception": "中枢神経系を消化器又は循環器の器官と混同する。",
+    "reasoning_path": "構成器官を確認する -> 脳と脊髄を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題に中枢神経系の構成を問うものはない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "中枢神経系の構成を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
