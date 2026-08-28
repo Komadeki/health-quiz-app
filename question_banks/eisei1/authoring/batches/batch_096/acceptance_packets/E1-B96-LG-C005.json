@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B96-LG-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e0ee0b33b86e7e2f65420ee98c4f6c9ec2eb2813cf5c21ee4d366f9c8df8ca25",
+  "actors": {
+    "author": {
+      "id": "eisei1-b96-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b96-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法第13条第1項"
+    },
+    "answer_defining_proposition": "産業医には労働者の健康管理その他厚生労働省令で定める事項を行わせる。",
+    "tested_misconception": "産業医の法定健康管理職務を経営・事務職務と混同する。",
+    "reasoning_path": "産業医の法定役割を確認する -> 労働者の健康管理等を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q107は衛生推進者の業務を問うため法定主体が異なる."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "産業医の法定健康管理職務を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B96-LG-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "08a7580e304b4d7d68eb7dbeb07e8cc6562377f63e94e3d9d5548b608427a1dd",
+  "actors": {
+    "author": {
+      "id": "eisei1-b96-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b96-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則第13条第1項第4号"
+    },
+    "answer_defining_proposition": "常時3000人を超える労働者を使用する事業場では2人以上の産業医を選任する。",
+    "tested_misconception": "大規模事業場の専属要件と複数選任要件を混同する。",
+    "reasoning_path": "事業場規模を確認する -> 3000人超では2人以上を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q19は衛生管理者の選任を問うため産業医人数を問う本問と別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "3,000人超事業場の複数選任を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

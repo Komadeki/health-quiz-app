@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B96-LG-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d23c5e8df4456dd6fe2b0e6c123a27442186aedcc5e3c9a078db26f18c3b2167",
+  "actors": {
+    "author": {
+      "id": "eisei1-b96-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b96-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則第13条第2項"
+    },
+    "answer_defining_proposition": "産業医を選任した事業者は遅滞なく所轄労働基準監督署長に報告する。",
+    "tested_misconception": "選任報告の相手方・時期を他の行政手続又は不要と混同する。",
+    "reasoning_path": "産業医選任後の手続を確認する -> 遅滞なく所轄労働基準監督署長へ報告を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q73は衛生管理者の選任報告期限を問うため産業医の報告時期・相手方を問う本問と別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "産業医選任後の報告時期・相手方を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

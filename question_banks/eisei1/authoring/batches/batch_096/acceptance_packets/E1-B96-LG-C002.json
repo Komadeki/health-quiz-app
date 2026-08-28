@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B96-LG-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "3bf8362867c20d7733c8a28033cbc104de6e77eb011390bf7f0391b013a51261",
+  "actors": {
+    "author": {
+      "id": "eisei1-b96-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b96-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則第13条第1項第3号"
+    },
+    "answer_defining_proposition": "常時1000人以上の労働者を使用する事業場では専属の産業医を選任する。",
+    "tested_misconception": "産業医の選任義務と専属要件を混同する。",
+    "reasoning_path": "事業場規模を確認する -> 1000人以上では専属産業医を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q47は産業医の選任対象を問うため専属要件を問う本問と別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "1,000人以上事業場の専属要件を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

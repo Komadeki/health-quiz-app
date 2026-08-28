@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B96-LG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "db18e07a2e38f35ab9237024b4d33c45b6d869018c6f614703a28a6e6fd8741f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b96-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b96-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則第13条第1項第1号"
+    },
+    "answer_defining_proposition": "産業医は選任すべき事由が発生した日から14日以内に選任する。",
+    "tested_misconception": "産業医選任の期限を衛生管理者選任報告その他の期限と混同する。",
+    "reasoning_path": "産業医選任の発生時点を確認する -> 14日以内を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q47は産業医を医師から選任する原則を問うため期限を問う本問と別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "産業医の選任期限を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
