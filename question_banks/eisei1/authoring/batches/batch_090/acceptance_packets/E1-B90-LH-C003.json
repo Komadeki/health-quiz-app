@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B90-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "dd68033fc797b7a68b574dff9fe7f70a2d8d51192ade796c6fde5d3587da5a56",
+  "actors": {
+    "author": {
+      "id": "eisei1-b90-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b90-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b90-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-DUST",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "粉じん障害防止規則第17条第3項"
+    },
+    "answer_defining_proposition": "局所排気装置等の定期自主検査の記録は3年間保存する。",
+    "tested_misconception": "粉じん装置の検査記録保存期間を他の健康診断又は放射線記録と混同する。",
+    "reasoning_path": "第17条第3項の保存期間を確認する -> 3年を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q20は定期自主検査の頻度を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "粉じん局所排気装置等の検査記録3年保存を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

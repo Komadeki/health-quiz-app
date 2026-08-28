@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B90-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f173b90c3def56440501e8e4a44a6d07237228469d914f0e8c66fc6aebf54e78",
+  "actors": {
+    "author": {
+      "id": "eisei1-b90-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b90-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b90-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-IONIZING",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "電離放射線障害防止規則第56条第1項"
+    },
+    "answer_defining_proposition": "放射線業務に常時従事し管理区域に立ち入る労働者を雇い入れる際に電離放射線健康診断を行う。",
+    "tested_misconception": "電離放射線健康診断を配置替え又は定期実施時だけ行えばよいと混同する。",
+    "reasoning_path": "第56条第1項の初回実施時期を確認する -> 雇入れ時を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q273は放射線業務への配置替え時を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "放射線業務の雇入れ時健診を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

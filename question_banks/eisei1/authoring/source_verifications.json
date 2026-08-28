@@ -1995,6 +1995,27 @@
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000286",
+      "source_id": "E1-LAW-IONIZING",
+      "source_version": "current-as-of-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000287",
+      "source_id": "E1-LAW-IONIZING",
+      "source_version": "current-as-of-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000288",
+      "source_id": "E1-LAW-DUST",
+      "source_version": "current-as-of-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
     }
   ]
 }
