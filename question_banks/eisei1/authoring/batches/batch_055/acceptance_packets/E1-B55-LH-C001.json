@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B55-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1175e64acdefe06a44d5a2983a11a0928fff8e80f456b7def59e4dffa903c2fe",
+  "actors": {
+    "author": {
+      "id": "eisei1-b55-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b55-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b55-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ORGANIC",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "有機溶剤中毒予防規則第24条第1号"
+    },
+    "answer_defining_proposition": "事業者は有機溶剤業務に労働者を従事させるとき疾病の種類及び症状を見やすい場所に掲示しなければならない。",
+    "tested_misconception": "有機溶剤業務の掲示事項を経営情報と混同する。",
+    "reasoning_path": "第24条第1号の掲示事項を確認する -> 疾病の種類及び症状を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q137は有機溶剤作業主任者の作業指揮を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "有機溶剤による疾病の種類及び症状の掲示を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

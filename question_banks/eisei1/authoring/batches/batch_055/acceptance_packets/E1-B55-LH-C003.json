@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B55-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "da8b0a6d2483575b3173ed78f8ae437eb7ccb19ae7855f658e1cc67dee8d269c",
+  "actors": {
+    "author": {
+      "id": "eisei1-b55-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b55-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b55-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ORGANIC",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "有機溶剤中毒予防規則第25条第2項第1号"
+    },
+    "answer_defining_proposition": "第一種有機溶剤等の色分けによる表示は赤による。",
+    "tested_misconception": "有機溶剤等の区分と色を取り違える。",
+    "reasoning_path": "第25条第2項の区分別の色を確認する -> 第一種は赤を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q127は容器等への表示事項を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "第一種有機溶剤等の色分け表示を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
