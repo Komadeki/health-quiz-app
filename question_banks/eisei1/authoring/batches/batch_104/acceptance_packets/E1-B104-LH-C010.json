@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B104-LH-C010",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "71cd38889b64f663349001bb524b184c579a1d3eea2330578bf6add88148ea91",
+  "actors": {
+    "author": {
+      "id": "eisei1-b104-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b104-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第51条の2第3号"
+    },
+    "answer_defining_proposition": "鉛等の取扱い上の注意事項を掲示する。",
+    "tested_misconception": "鉛業務の掲示事項を経営情報と混同する。",
+    "reasoning_path": "鉛業務掲示を確認する -> 取扱い上の注意事項を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B104-C009は疾病種類及び症状を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "取扱注意事項の掲示を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

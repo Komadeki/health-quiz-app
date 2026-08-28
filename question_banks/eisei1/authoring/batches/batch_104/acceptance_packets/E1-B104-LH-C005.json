@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B104-LH-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "65bb25d3dd66ce6f71d993772221f11c7808bc0cff10c74a4952fb9d8dfbf8a9",
+  "actors": {
+    "author": {
+      "id": "eisei1-b104-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b104-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第49条第1項及び第2項"
+    },
+    "answer_defining_proposition": "鉛業務従事者は作業終了後及び必要に応じ手洗い用溶液等を使用する。",
+    "tested_misconception": "手洗い用品の使用時期を定期健診等と混同する。",
+    "reasoning_path": "鉛業務後の衛生措置を確認する -> 作業終了後及び必要時を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B104-C004は備える用品を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "手洗い使用時期を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

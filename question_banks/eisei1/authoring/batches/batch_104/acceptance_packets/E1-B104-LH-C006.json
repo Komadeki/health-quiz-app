@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B104-LH-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b3c555dfe75271a7f4d5b76b3776b1df805e3caefa9cdc0e114252d17db30e53",
+  "actors": {
+    "author": {
+      "id": "eisei1-b104-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b104-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第49条第3項"
+    },
+    "answer_defining_proposition": "請負人に対し手洗い用溶液等使用の必要性を周知し適切な使用に必要な配慮をする。",
+    "tested_misconception": "請負作業での衛生用品周知を不要と混同する。",
+    "reasoning_path": "請負人を含む手洗い措置を確認する -> 周知と適切使用の配慮を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B104-C005は労働者本人の使用時期を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "請負人の手洗い措置を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

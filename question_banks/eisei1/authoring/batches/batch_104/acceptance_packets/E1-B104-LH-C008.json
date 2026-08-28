@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B104-LH-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e3abc3e29f19f31ed9a545ca5345a18b0c1440cb2a9287464714ba609d3ab614",
+  "actors": {
+    "author": {
+      "id": "eisei1-b104-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b104-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第50条第2項"
+    },
+    "answer_defining_proposition": "請負人に作業衣等の汚染除去の必要性を周知する。",
+    "tested_misconception": "請負人への作業衣汚染除去周知を不要と混同する。",
+    "reasoning_path": "請負人の作業衣管理を確認する -> 汚染除去必要性の周知を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B104-C007は事業者の洗濯設備等を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "請負人への作業衣周知を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

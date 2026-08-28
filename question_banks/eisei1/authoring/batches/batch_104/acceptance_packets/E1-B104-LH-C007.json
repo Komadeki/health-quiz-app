@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B104-LH-C007",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "23fa2ea845f6716080ecacdb72f8e54868435c9a5a5e74790b1eb9a05c923ec4",
+  "actors": {
+    "author": {
+      "id": "eisei1-b104-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b104-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第50条第1項"
+    },
+    "answer_defining_proposition": "作業衣等の鉛等による汚染除去のため洗濯設備を設ける等の措置を講じる。",
+    "tested_misconception": "汚染作業衣を放置又は私服と混用できると混同する。",
+    "reasoning_path": "作業衣汚染除去を確認する -> 洗濯設備等を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B98-C002は作業衣の区別保管を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "作業衣の汚染除去を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
