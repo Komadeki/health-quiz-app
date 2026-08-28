@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B15-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "68cc2cd6cca593337c02cfae6e66cb34c1c697dd3d386f9c79eb027b6bc3a7e6",
+  "actors": {
+    "author": {
+      "id": "eisei1-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b15-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b15-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RADIATION-LASER",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "業務上疾病資料 電離放射線"
+    },
+    "answer_defining_proposition": "電離放射線にさらされる業務では白内障等の放射線眼疾患が示される。",
+    "tested_misconception": "放射線障害を他の有害因子の健康影響と混同する。",
+    "reasoning_path": "有害因子を確認する -> 放射線眼疾患を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題に放射線の健康影響を問うものはない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "厚生労働省資料に沿い、電離放射線による白内障等の眼疾患を問う。既存設問との重複はない。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "reviewer": {
+    "id": "eisei1-b15-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "eisei1-b15-author-r1",
+  "identity_separation": "PASS",
+  "scope_checked": "canonical Q1-Q32 and all candidates through B15",
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "persisted_candidates_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS"
+  },
+  "decisions": [
+    {
+      "candidate_id": "E1-B15-HH-C001",
+      "decision": "ACCEPT",
+      "rationale": "厚生労働省の振動障害資料に沿い、末梢循環障害を問う。既存設問との重複はない。"
+    },
+    {
+      "candidate_id": "E1-B15-HH-C002",
+      "decision": "ACCEPT",
+      "rationale": "厚生労働省資料に沿い、電離放射線による白内障等の眼疾患を問う。既存設問との重複はない。"
+    }
+  ],
+  "summary": {
+    "reviewed": 2,
+    "accept": 2,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  }
+}
