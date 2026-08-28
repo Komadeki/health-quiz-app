@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B23-FIR-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1ebeba6cc6d0e72cbf4e881e0bd34c2b8d1f6592aa3e22c9970752fdadb88f98",
+  "actors": {
+    "author": {
+      "id": "otsu4-b23-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave8-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave8-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-CRESOL",
+      "source_version": "2015-03-31",
+      "source_locator": "Section 9「物理的及び化学的性質」引火点"
+    },
+    "answer_defining_proposition": "クレゾールの引火点は82℃（密閉式）である。",
+    "tested_misconception": "クレゾールも低引火点の第4類と同じ温度帯で引火する。",
+    "reasoning_path": "identify material -> retrieve source-defined flash point",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W8 B23; cresol adds an unrepresented material and a high-flash-point contrast beyond the existing gasoline/alcohol/aromatic values."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "厚生労働省クレゾールモデルSDS第9項は引火点を82℃（Closed cup）と示すため、Cだけが正答である。数値・試験法・選択肢の日本語に曖昧さはなく、乙4の危険物の性質で重要な引火点を、既存の低引火点物質とは異なるクレゾールで比較学習できる。既存294問にクレゾールの引火点又は同じ答えを導く命題はない。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

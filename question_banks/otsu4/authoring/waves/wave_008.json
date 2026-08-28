@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W8",
-  "status": "INDEPENDENT_AI_REVIEWED",
+  "status": "DIRECTOR_ACCEPTED_AND_PROMOTED",
   "planned_at": "2026-08-28",
   "production_target": 600,
   "canonical_verified_baseline": 294,
@@ -35,8 +35,14 @@
     "total": 3
   },
   "authors": {
-    "B22": {"id": "otsu4-b22-author-r1", "role": "AI_AUTHOR"},
-    "B23": {"id": "otsu4-b23-author-r1", "role": "AI_AUTHOR"}
+    "B22": {
+      "id": "otsu4-b22-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B23": {
+      "id": "otsu4-b23-author-r1",
+      "role": "AI_AUTHOR"
+    }
   },
   "authoring_rule": "Enumerate source-defined propositions before authoring, collision-check against all 294 canonical/source-verified questions and the full Wave 8 peer set, and stop without backfill when material distinctions are exhausted.",
   "multi_source_rule": "Each candidate binds to one registered source_id, source_version and reproducible pinpoint locator. Cross-source answer-defining comparisons are prohibited without an approved source-bundle contract.",
@@ -61,6 +67,16 @@
     "B22": "question_banks/otsu4/authoring/batches/batch_022/independent_review_r1.json",
     "B23": "question_banks/otsu4/authoring/batches/batch_023/independent_review_r1.json"
   },
-  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_8_ACCEPTED_3",
-  "next_atomic_objective": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_8_ACCEPTED_3"
+  "next_gate": "ALLOCATE_AND_INTEGRATE_W8_ACCEPTED_3",
+  "next_atomic_objective": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_8_ACCEPTED_3",
+  "director_adjudication": {
+    "artifact": "wave_008_director_adjudication_r1.json",
+    "decision": "ADOPT_REVIEWER_DECISIONS",
+    "accept": 3,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_state": "READY_FOR_ID",
+  "accept_promote_state_epoch": 93
 }
