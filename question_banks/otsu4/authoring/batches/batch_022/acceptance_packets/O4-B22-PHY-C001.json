@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B22-PHY-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "99ba3333bd724e629bf16adc6e702d4d69a647f685fee110f9d0b1e003cfbec2",
+  "actors": {
+    "author": {
+      "id": "otsu4-b22-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave8-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave8-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-CRESOL",
+      "source_version": "2015-03-31",
+      "source_locator": "Section 10「安定性及び反応性」危険有害反応可能性・混触危険物質"
+    },
+    "answer_defining_proposition": "クレゾールは強酸化剤と激しく反応するため混触を避ける。",
+    "tested_misconception": "酸化還元は抽象的な概念であり具体的な混触管理には結び付かない。",
+    "reasoning_path": "material incompatibility -> identify explicit reactive counterpart -> prevent mixing",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W8 B22; source-defined material incompatibility is distinct from the canonical redox-definition and supporter propositions."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "厚生労働省クレゾールモデルSDS第10項は、危険有害反応可能性として「強酸化剤と激しく反応する」、混触危険物質として「強酸化剤」と明記するため、Aだけが正答である。設問・選択肢・解説はいずれも自然な日本語で、乙4の性質・化学における混触危険物質の安全な取扱いを問う。既存の酸化数・燃焼の一般知識とは、クレゾールの具体的な混触管理という判断対象が異なり、意味的重複はない。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

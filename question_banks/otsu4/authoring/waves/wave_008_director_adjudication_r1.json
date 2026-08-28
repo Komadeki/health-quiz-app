@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W8",
+  "adjudication_round": 1,
+  "adjudicated_at": "2026-08-28",
+  "director": {
+    "id": "otsu4-wave8-director-r1",
+    "role": "AI_DIRECTOR"
+  },
+  "authors": {
+    "B22": {
+      "id": "otsu4-b22-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B23": {
+      "id": "otsu4-b23-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
+  "reviewers": {
+    "B22": {
+      "id": "otsu4-wave8-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "B23": {
+      "id": "otsu4-wave8-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    }
+  },
+  "identity_separation": "PASS",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 3,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "O4-B22-PHY-C001",
+    "O4-B23-FIR-C001",
+    "O4-B23-FIR-C002"
+  ],
+  "nonaccepted": [],
+  "director_rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction.",
+  "invariants_before_transaction": {
+    "candidate_states": "ALL_AI_PRE_ACCEPT",
+    "acceptance_packets": 0,
+    "permanent_ids_allocated": 0,
+    "canonical_count": 294,
+    "registry_count": 294,
+    "source_verification_count": 294,
+    "released_count": 0,
+    "runtime_unchanged_required": true,
+    "human_review_fabricated": false
+  },
+  "final_gate": "READY_TO_ALLOCATE_AND_INTEGRATE_W8_ACCEPTED_3"
+}

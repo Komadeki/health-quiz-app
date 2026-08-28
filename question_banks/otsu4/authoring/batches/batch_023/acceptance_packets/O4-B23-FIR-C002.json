@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B23-FIR-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4bb1cc26eb81bbda32831df0ef5db5079017e63de1a1db05eb8805dd304ed89b",
+  "actors": {
+    "author": {
+      "id": "otsu4-b23-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave8-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave8-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-CRESOL",
+      "source_version": "2015-03-31",
+      "source_locator": "Section 9「物理的及び化学的性質」比重（相対密度）"
+    },
+    "answer_defining_proposition": "クレゾールの比重は約1.03で水よりわずかに大きい。",
+    "tested_misconception": "第4類危険物の液体はすべて水より軽い。",
+    "reasoning_path": "compare source relative density with water -> identify exception boundary",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W8 B23; source-defined water-density exception is distinct from the existing gasoline and toluene lower-than-water propositions."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "同SDS第9項は25℃での比重（相対密度）を1.030〜1.038と示すため、約1.03で水よりわずかに大きいAだけが正答である。設問・選択肢・解説は明確で、第四類危険物が一律に水より軽いという誤概念を是正する乙4範囲内の学習価値がある。ガソリン・トルエン等の水より軽い既存問題とは結論と識別対象が反対であり、意味的重複はない。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
