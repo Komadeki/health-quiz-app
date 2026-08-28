@@ -299,6 +299,15 @@
       "usage_basis": "facts_only_independently_authored"
     },
     {
+      "source_id": "E1-MEDLINE-CNS",
+      "title": "Central nervous system",
+      "issuer": "U.S. National Library of Medicine MedlinePlus",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "url": "https://medlineplus.gov/ency/article/002311.htm",
+      "retrieved_at": "2026-08-28",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
       "source_id": "E1-EXAM-STRUCTURE",
       "title": "第一種衛生管理者試験の紹介",
       "issuer": "公益財団法人 安全衛生技術試験協会",
