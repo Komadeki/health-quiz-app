@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B91-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "82fe5ad42bebd4a98eb60ea45e075773709e603f3e86223689060be634588ef7",
+  "actors": {
+    "author": {
+      "id": "eisei1-b91-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b91-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b91-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "source_locator": "第4章 特定標的臓器毒性 反復ばく露"
+    },
+    "answer_defining_proposition": "特定標的臓器毒性（反復ばく露）は反復ばく露により特定の臓器に有害影響を及ぼす性質である。",
+    "tested_misconception": "反復ばく露と単回ばく露の特定標的臓器毒性を混同する。",
+    "reasoning_path": "有害性分類を確認する -> 反復ばく露による特定臓器への有害影響を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q120は特定標的臓器毒性の一般概念を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "特定標的臓器毒性の反復ばく露を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
