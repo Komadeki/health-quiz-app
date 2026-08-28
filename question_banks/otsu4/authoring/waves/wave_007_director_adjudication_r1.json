@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W7",
+  "adjudication_round": 1,
+  "adjudicated_at": "2026-08-28",
+  "director": {
+    "id": "otsu4-wave7-director-r2",
+    "role": "AI_DIRECTOR"
+  },
+  "authors": {
+    "B20": {
+      "id": "otsu4-b20-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B21": {
+      "id": "otsu4-b21-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
+  "reviewers": {
+    "B20": {
+      "id": "otsu4-wave7-independent-reviewer-r2",
+      "role": "AI_REVIEWER"
+    },
+    "B21": {
+      "id": "otsu4-wave7-independent-reviewer-r2",
+      "role": "AI_REVIEWER"
+    }
+  },
+  "identity_separation": "PASS",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {
+    "accept": 8,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_ids": [
+    "O4-B20-LAW-C001",
+    "O4-B20-LAW-C002",
+    "O4-B20-LAW-C003",
+    "O4-B21-FIR-C001",
+    "O4-B21-FIR-C002",
+    "O4-B21-FIR-C003",
+    "O4-B21-FIR-C004",
+    "O4-B21-FIR-C005"
+  ],
+  "nonaccepted": [],
+  "director_rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction.",
+  "invariants_before_transaction": {
+    "candidate_states": "ALL_AI_PRE_ACCEPT",
+    "acceptance_packets": 0,
+    "permanent_ids_allocated": 0,
+    "canonical_count": 286,
+    "registry_count": 286,
+    "source_verification_count": 286,
+    "released_count": 0,
+    "runtime_unchanged_required": true,
+    "human_review_fabricated": false
+  },
+  "final_gate": "READY_TO_ALLOCATE_AND_INTEGRATE_W7_ACCEPTED_8"
+}

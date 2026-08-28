@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B21-FIR-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "2d10b5b7df91aa6bccd3be06e2b1bdf1361b383adf4eacb57ec8cd6a16eb0a56",
+  "actors": {
+    "author": {
+      "id": "otsu4-b21-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave7-independent-reviewer-r2",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave7-director-r2",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "source_locator": "Section 6「漏出時の措置」封じ込め及び浄化の方法及び機材"
+    },
+    "answer_defining_proposition": "アセトンの漏れは危険でない場合に限り止める。",
+    "tested_misconception": "漏えい停止は安全条件に関係なく最優先で行う。",
+    "reasoning_path": "apply explicit safety condition -> stop leak only if safe",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W7 B21; conditional intervention boundary."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "同SDS第6項の「危険でなければ漏れを止める」という明示的な安全条件に正確に対応し、Aだけが正答である。無条件の介入を避ける条件付き意思決定を問うため、隔離・換気・回収とは異なる安全上の境界を学べる。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
