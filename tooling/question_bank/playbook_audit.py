@@ -92,10 +92,15 @@ def build_audit(bank_root: Path, profile_path: Path) -> dict[str, Any]:
             "missing_required_target_ids": missing_targets,
         },
         "exam_gate": {
-            "status": "pass",
+            "status": "hold",
             "official_blueprint": distribution,
             "mock_size": profile["exam_distribution"]["total_questions"],
             "available_canonical_by_unit": dict(sorted(Counter(q["unit_id"] for q in inputs.questions).items())),
+            "blueprint_assemblable": all(
+                sum(1 for question in inputs.questions if question["unit_id"] == unit_id) >= required
+                for unit_id, required in distribution.items()
+            ),
+            "reason": profile["mock_exam_precondition"]["status"],
         },
         "density_gate": {
             "status": "review_required",

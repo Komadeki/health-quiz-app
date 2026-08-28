@@ -20,6 +20,11 @@
       "otsu4_fire": 10
     }
   },
+  "mock_exam_precondition": {
+    "source_locator": "docs/OTSU4_PRODUCT_SPEC_V0.md: Production bank and coverage decision",
+    "requirement": "Each subject must have at least 20 calculation or decision-boundary questions before the mock-exam gate passes.",
+    "status": "hold_until_format_classification_is_persisted"
+  },
   "candidate_contract": {
     "maximum_candidates_per_batch": 10,
     "required_fields": [
