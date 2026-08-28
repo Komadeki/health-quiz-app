@@ -2002,6 +2002,62 @@
       "source_version": "2026-08-25",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "OTSU4-Q-000287",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "OTSU4-Q-000288",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "OTSU4-Q-000289",
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "OTSU4-Q-000290",
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "OTSU4-Q-000291",
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "OTSU4-Q-000292",
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "OTSU4-Q-000293",
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "OTSU4-Q-000294",
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
     }
   ]
 }
