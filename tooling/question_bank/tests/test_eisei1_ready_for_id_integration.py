@@ -144,6 +144,7 @@ B98_EXPECTED = {f"E1-B98-LH-C00{index}": f"EISEI1-Q-{315 + index:06d}" for index
 B99_EXPECTED = {f"E1-B99-LG-C00{index}": f"EISEI1-Q-{320 + index:06d}" for index in range(1, 6)}
 B100_EXPECTED = {f"E1-B100-HH-C00{index}": f"EISEI1-Q-{325 + index:06d}" for index in range(1, 6)}
 B101_EXPECTED = {f"E1-B101-HH-C00{index}": f"EISEI1-Q-{330 + index:06d}" for index in range(1, 6)}
+B102_EXPECTED = {f"E1-B102-PH-C00{index}": f"EISEI1-Q-{335 + index:06d}" for index in range(1, 6)}
 ALL_EXPECTED = {
     **EARLY_EXPECTED,
     **B6_EXPECTED,
@@ -242,6 +243,7 @@ ALL_EXPECTED = {
     **B99_EXPECTED,
     **B100_EXPECTED,
     **B101_EXPECTED,
+    **B102_EXPECTED,
 }
 EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000001": "E1-MHLW-CHEM-RA",
@@ -579,6 +581,11 @@ EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000333": "E1-MHLW-RPE-2023",
     "EISEI1-Q-000334": "E1-MHLW-RPE-2023",
     "EISEI1-Q-000335": "E1-MHLW-RPE-2023",
+    "EISEI1-Q-000336": "E1-NHLBI-LUNGS",
+    "EISEI1-Q-000337": "E1-NHLBI-LUNGS",
+    "EISEI1-Q-000338": "E1-NHLBI-LUNGS",
+    "EISEI1-Q-000339": "E1-NHLBI-LUNGS",
+    "EISEI1-Q-000340": "E1-NHLBI-LUNGS",
 }
 
 
@@ -704,6 +711,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             ("batch_099", B99_EXPECTED),
             ("batch_100", B100_EXPECTED),
             ("batch_101", B101_EXPECTED),
+            ("batch_102", B102_EXPECTED),
         ):
             batch = self.authoring / "batches" / batch_name
             candidates = read_rows(batch / "candidates.csv")
@@ -854,6 +862,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             "batch_099",
             "batch_100",
             "batch_101",
+            "batch_102",
         ):
             candidates = read_rows(self.authoring / "batches" / batch_name / "candidates.csv")
             expected.update({

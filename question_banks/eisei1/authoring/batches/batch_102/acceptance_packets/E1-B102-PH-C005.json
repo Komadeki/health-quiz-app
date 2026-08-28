@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B102-PH-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "644853900910969437dfe20c154c60bd0c9c2287751cf60a5fa158470c782b14",
+  "actors": {
+    "author": {
+      "id": "eisei1-b102-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b102-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-LUNGS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "How the Lungs Work Respiratory system"
+    },
+    "answer_defining_proposition": "肋骨 胸骨 胸椎は胸郭を構成し肺を保護する。",
+    "tested_misconception": "胸郭を手足又は泌尿器の構造と混同する。",
+    "reasoning_path": "肺の保護構造を確認する -> 胸郭の骨構成を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q45は呼吸器系の構成を問うため胸郭の保護構造を問う本問と別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "胸郭の保護構造を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
