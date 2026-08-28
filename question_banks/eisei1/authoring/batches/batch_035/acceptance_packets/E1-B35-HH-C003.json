@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B35-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "839018fcbe801618ebd8dc57711b8f74667354fa2bde8e0eacaddbd9e2b595d3",
+  "actors": {
+    "author": {
+      "id": "eisei1-b35-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b35-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b35-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "source_locator": "第4章 生殖細胞変異原性"
+    },
+    "answer_defining_proposition": "生殖細胞変異原性は生殖細胞に遺伝的変異を生じさせる性質である。",
+    "tested_misconception": "生殖細胞変異原性を外観又は体格の変化と混同する。",
+    "reasoning_path": "有害性分類を確認する -> 遺伝的変異を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q36は発がん性を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "生殖細胞変異原性を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
