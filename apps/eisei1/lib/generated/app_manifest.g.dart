@@ -20,8 +20,8 @@ abstract final class GeneratedAppManifest {
   static const String androidApplicationId = "com.komadeki.eisei1";
   static const String androidDisplayName = "第一種衛生管理者";
 
-  static const String supportUrl = "https://komadeki.com/apps/";
-  static const String privacyUrl = "https://komadeki.com/privacy/";
+  static const String supportUrl = "https://komadeki.com/eisei1/support/";
+  static const String privacyUrl = "https://komadeki.com/eisei1/privacy/";
   static const String? marketingUrl = null;
 
   static const String questionBankFormat = "qualification_runtime_v2";
@@ -83,7 +83,7 @@ abstract final class GeneratedAppManifest {
           seedColorHex: seedColor,
         ),
         learningProduct: const LearningProductProfileV1(
-          appVersion: "1.0.0+1",
+          appVersion: "1.0.0+3",
           homeHeadline: "一次資料で確認する400問",
           sourceLabel: "法令・厚生労働省・安全衛生技術試験協会等の一次資料に基づく学習",
           enabledModes: {LearningModeV1.unitPractice, LearningModeV1.randomPractice, LearningModeV1.unansweredPractice, LearningModeV1.incorrectPractice, LearningModeV1.retry, LearningModeV1.mockExam},
