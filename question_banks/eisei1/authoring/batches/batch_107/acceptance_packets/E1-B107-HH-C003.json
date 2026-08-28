@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B107-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "542df022aa813de3d108fc65500108128461eadc255a8a2e6616365d797f5b05",
+  "actors": {
+    "author": {
+      "id": "eisei1-b107-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b107-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "職場のあんぜんサイト 生物学的モニタリング 表 メチルイソブチルケトン"
+    },
+    "answer_defining_proposition": "メチルイソブチルケトンでは医師が必要と認める場合に尿中メチルイソブチルケトンの量を検査する。",
+    "tested_misconception": "有機溶剤と尿中代謝物の対応を混同する。",
+    "reasoning_path": "物質名を確認する -> 医師が必要と認める場合を含む表の記載を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "B106の物質とは異なる表の対応関係を問う."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "MIBKの条件付き尿中検査を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
