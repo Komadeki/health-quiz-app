@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B43-PH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "58577fe7cacaf7d3a83289402fabcdc97e1f7e1f6bf0b63a9d0ee309e413c176",
+  "actors": {
+    "author": {
+      "id": "eisei1-b43-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b43-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b43-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NINDS-PERIPHERAL",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Peripheral Neuropathy Classes and types of peripheral neuropathy"
+    },
+    "answer_defining_proposition": "自律神経は呼吸や心拍など意識せず行われる働きを調節する。",
+    "tested_misconception": "自律神経を意識的な運動又は体格情報と混同する。",
+    "reasoning_path": "神経の種類を確認する -> 不随意の身体機能を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q105は消化の調節因子を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "自律神経の不随意機能の調節を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
