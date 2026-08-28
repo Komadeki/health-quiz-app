@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W9",
-  "status": "DIRECTOR_ACCEPTED_AND_PROMOTED",
+  "status": "INTEGRATED",
   "planned_at": "2026-08-28",
   "production_target": 600,
   "canonical_verified_baseline": 297,
@@ -52,7 +52,7 @@
   "review_artifacts": {
     "B24": "question_banks/otsu4/authoring/batches/batch_024/independent_review_r1.json"
   },
-  "next_gate": "ALLOCATE_AND_INTEGRATE_W9_ACCEPTED_4",
+  "next_gate": "VERIFY_W9_CANONICAL_SOURCES_4",
   "director_adjudication": {
     "artifact": "wave_009_director_adjudication_r1.json",
     "decision": "ADOPT_REVIEWER_DECISIONS",
@@ -62,5 +62,11 @@
     "hold": 0
   },
   "accepted_candidate_state": "READY_FOR_ID",
-  "accept_promote_state_epoch": 99
+  "accept_promote_state_epoch": 99,
+  "integration_state_epoch": 100,
+  "integrated_candidate_count": 4,
+  "permanent_id_range": {
+    "first": "OTSU4-Q-000298",
+    "last": "OTSU4-Q-000301"
+  }
 }
