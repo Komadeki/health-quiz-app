@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B45-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c32c9b94a23eac239217c539828e7c32ef8882d6fce40b23f1d2d1ae6e35dc2e",
+  "actors": {
+    "author": {
+      "id": "eisei1-b45-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b45-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b45-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-SPEC-CHEM",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "特定化学物質障害予防規則 第27条"
+    },
+    "answer_defining_proposition": "特定化学物質及び四アルキル鉛等作業主任者は局所排気装置等を一月を超えない期間ごとに点検する。",
+    "tested_misconception": "作業主任者の点検を法定の定期自主検査又は故障後点検と混同する。",
+    "reasoning_path": "職務規定の点検頻度を確認する -> 一月を超えない期間ごとを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q20は対象設備の定期自主検査頻度を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "局所排気装置等の月次点検職務を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
