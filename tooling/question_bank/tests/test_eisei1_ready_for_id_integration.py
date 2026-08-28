@@ -121,6 +121,7 @@ B75_EXPECTED = {f"E1-B75-PH-C00{index}": f"EISEI1-Q-{241 + index:06d}" for index
 B76_EXPECTED = {f"E1-B76-LG-C00{index}": f"EISEI1-Q-{244 + index:06d}" for index in range(1, 4)}
 B77_EXPECTED = {f"E1-B77-HH-C00{index}": f"EISEI1-Q-{247 + index:06d}" for index in range(1, 4)}
 B78_EXPECTED = {f"E1-B78-LH-C00{index}": f"EISEI1-Q-{250 + index:06d}" for index in range(1, 3)}
+B79_EXPECTED = {f"E1-B79-HG-C00{index}": f"EISEI1-Q-{252 + index:06d}" for index in range(1, 4)}
 ALL_EXPECTED = {
     **EARLY_EXPECTED,
     **B6_EXPECTED,
@@ -196,6 +197,7 @@ ALL_EXPECTED = {
     **B76_EXPECTED,
     **B77_EXPECTED,
     **B78_EXPECTED,
+    **B79_EXPECTED,
 }
 EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000001": "E1-MHLW-CHEM-RA",
@@ -450,6 +452,9 @@ EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000250": "E1-MHLW-VIBRATION",
     "EISEI1-Q-000251": "E1-LAW-LEAD",
     "EISEI1-Q-000252": "E1-LAW-LEAD",
+    "EISEI1-Q-000253": "E1-MHLW-INFO-EQUIPMENT",
+    "EISEI1-Q-000254": "E1-MHLW-INFO-EQUIPMENT",
+    "EISEI1-Q-000255": "E1-MHLW-INFO-EQUIPMENT",
 }
 
 
@@ -552,6 +557,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             ("batch_076", B76_EXPECTED),
             ("batch_077", B77_EXPECTED),
             ("batch_078", B78_EXPECTED),
+            ("batch_079", B79_EXPECTED),
         ):
             batch = self.authoring / "batches" / batch_name
             candidates = read_rows(batch / "candidates.csv")
@@ -679,6 +685,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             "batch_076",
             "batch_077",
             "batch_078",
+            "batch_079",
         ):
             candidates = read_rows(self.authoring / "batches" / batch_name / "candidates.csv")
             expected.update({
