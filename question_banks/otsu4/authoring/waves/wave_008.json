@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W8",
-  "status": "AI_PRE_ACCEPT_AUTHORED",
+  "status": "INDEPENDENT_AI_REVIEWED",
   "planned_at": "2026-08-28",
   "production_target": 600,
   "canonical_verified_baseline": 294,
@@ -43,5 +43,24 @@
   "filler_prohibited": true,
   "planned_state_epoch": 90,
   "authored_state_epoch": 91,
-  "next_gate": "INDEPENDENT_AI_REVIEW_OTSU4_WAVE_8"
+  "review_summary": {
+    "reviewed": 3,
+    "accept": 3,
+    "reject": 0,
+    "rework": 0,
+    "hold": 0,
+    "reviewer_id": "otsu4-wave8-independent-reviewer-r1",
+    "identity_separation": "PASS"
+  },
+  "non_accepted_candidate_ids": {
+    "reject": [],
+    "rework": []
+  },
+  "reviewed_state_epoch": 92,
+  "review_artifacts": {
+    "B22": "question_banks/otsu4/authoring/batches/batch_022/independent_review_r1.json",
+    "B23": "question_banks/otsu4/authoring/batches/batch_023/independent_review_r1.json"
+  },
+  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_8_ACCEPTED_3",
+  "next_atomic_objective": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_8_ACCEPTED_3"
 }
