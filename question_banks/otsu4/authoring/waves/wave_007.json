@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W7",
-  "status": "DIRECTOR_ACCEPTED_AND_PROMOTED",
+  "status": "AI_PRE_ACCEPT_AUTHORED",
   "planned_at": "2026-08-28",
   "production_target": 600,
   "canonical_verified_baseline": 286,
@@ -44,34 +44,11 @@
       "role": "AI_AUTHOR"
     }
   },
-  "review_summary": {
-    "reviewed": 8,
-    "accept": 8,
-    "reject": 0,
-    "rework": 0,
-    "hold": 0,
-    "reviewer_id": "otsu4-wave7-independent-reviewer-r1",
-    "identity_separation": "PASS"
-  },
-  "non_accepted_candidate_ids": {
-    "reject": [],
-    "rework": []
-  },
   "authoring_rule": "Enumerate source-defined propositions before authoring, collision-check against all 286 canonical/source-verified questions and the full Wave 7 peer set, and stop without backfill when material distinctions are exhausted.",
   "multi_source_rule": "Each candidate binds to one registered source_id, source_version and reproducible pinpoint locator. Cross-source answer-defining comparisons are prohibited without an approved source-bundle contract.",
   "filler_prohibited": true,
   "planned_state_epoch": 80,
-  "authored_state_epoch": 82,
-  "reviewed_state_epoch": 83,
-  "next_gate": "ALLOCATE_AND_INTEGRATE_W7_ACCEPTED_8",
-  "director_adjudication": {
-    "artifact": "wave_007_director_adjudication_r1.json",
-    "decision": "ADOPT_REVIEWER_DECISIONS",
-    "accept": 8,
-    "reject": 0,
-    "rework": 0,
-    "hold": 0
-  },
-  "accepted_candidate_state": "READY_FOR_ID",
-  "accept_promote_state_epoch": 84
+  "authored_state_epoch": 85,
+  "rework_reason": "B20 source_version was corrected from an unregistered retrieval date to the registered O4-LAW-1 source version 2026-08-25 before canonical integration. Content was not changed; all Wave 7 candidates return to AI_PRE_ACCEPT for a fresh independent review and Director decision with fingerprints bound to the corrected source metadata.",
+  "next_gate": "INDEPENDENT_AI_REVIEW_OTSU4_WAVE_7"
 }
