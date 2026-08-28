@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B25-FIR-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "496db5014a4fecf4b821500a26e164f3ca73c6597d199268e59ac7d356a6857d",
+  "actors": {
+    "author": {
+      "id": "otsu4-b25-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave10-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave10-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-TOLUENE",
+      "source_version": "2013-02-22",
+      "source_locator": "Section 6「漏出時の措置」多量の場合は人を安全な場所に退避させる・必要に応じた換気を確保する"
+    },
+    "answer_defining_proposition": "トルエンの多量漏えい時は退避と必要な換気確保を行う。",
+    "tested_misconception": "多量漏えいでも人を近づけ換気を止める方が安全である。",
+    "reasoning_path": "large leak -> protect people -> control vapor accumulation",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W10 B25; distinct from existing general-works ventilation-cause questions because it tests immediate incident response for people and vapor control."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "同SDS第6項は、多量の場合に人を安全な場所へ退避させ、必要に応じた換気を確保すると明記するため、Aだけが正答である。既存のアセトン漏えい場所へ入る前の換気問題とは、入室前ではなく多量漏えい時の人員退避と蒸気滞留の同時判断を問う点で独立している。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
