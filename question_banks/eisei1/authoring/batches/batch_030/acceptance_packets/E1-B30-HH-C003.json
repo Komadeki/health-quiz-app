@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B30-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "bdf3f4e33ef721463dc0b05d9e20e164f6cf556d68bcef893dea6d895e90a5e9",
+  "actors": {
+    "author": {
+      "id": "eisei1-b30-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b30-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b30-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "source_locator": "第4章 皮膚腐食性及び刺激性"
+    },
+    "answer_defining_proposition": "腐食性の化学物質は皮膚又は眼に重篤な損傷を生じ得る。",
+    "tested_misconception": "腐食性の健康影響を体格又は血液型の変化と混同する。",
+    "reasoning_path": "有害性分類を確認する -> 皮膚又は眼の損傷を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q36は発がん性を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "腐食性の皮膚眼影響を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
