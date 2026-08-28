@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B103-HG-C009",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a2ccc8e768dab98a0fda5acc47e9cea69211037aed24ddd5f3e35badcbed92b0",
+  "actors": {
+    "author": {
+      "id": "eisei1-b103-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b103-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-INFO-EQUIPMENT",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "情報機器作業ガイドライン 4 作業台"
+    },
+    "answer_defining_proposition": "作業台は機器と書類を適切に配置できる十分な広さを有する。",
+    "tested_misconception": "作業台の作業空間を不要と混同する。",
+    "reasoning_path": "作業台の条件を確認する -> 機器書類を配置できる広さを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q254は作業台の基本を問うため作業空間を問う本問と別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "作業台の広さを問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

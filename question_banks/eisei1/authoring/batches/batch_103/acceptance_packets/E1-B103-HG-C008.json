@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B103-HG-C008",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0fb455cd581efe396f5bd3aadbe8fcd0c0f074b16574b877b42a2118397ff086",
+  "actors": {
+    "author": {
+      "id": "eisei1-b103-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b103-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-INFO-EQUIPMENT",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "情報機器作業ガイドライン 4 椅子"
+    },
+    "answer_defining_proposition": "椅子は背もたれの傾きを調整できる。",
+    "tested_misconception": "背もたれの傾き調整を不要と混同する。",
+    "reasoning_path": "椅子の支持調整を確認する -> 背もたれ傾き調整を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q255は椅子全体の条件を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "背もたれ傾き調整を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
