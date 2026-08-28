@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "reviewer": {"id": "eisei1-b19-independent-reviewer-r1", "role": "AI_REVIEWER"},
+  "author_identity_checked": "eisei1-b19-author-r1",
+  "identity_separation": "PASS",
+  "scope_checked": "canonical Q1-Q46 and all candidates through B19",
+  "collision_review": {"released_bank_checked": true, "canonical_drafts_checked": true, "persisted_candidates_checked": true, "full_batch_checked": true, "result": "PASS"},
+  "decisions": [
+    {"candidate_id": "E1-B19-LG-C001", "decision": "ACCEPT", "rationale": "産業医の選任規模を衛生管理者の設問から分離して問う。"},
+    {"candidate_id": "E1-B19-LG-C002", "decision": "ACCEPT", "rationale": "衛生委員会の議長規定を設置義務から分離して問う。"},
+    {"candidate_id": "E1-B19-LG-C003", "decision": "ACCEPT", "rationale": "衛生管理者の巡視頻度を独立して問う。"},
+    {"candidate_id": "E1-B19-LG-C004", "decision": "ACCEPT", "rationale": "衛生委員会の開催頻度を独立して問う。"}
+  ],
+  "summary": {"reviewed": 4, "accept": 4, "reject": 0, "rework": 0, "hold": 0}
+}
