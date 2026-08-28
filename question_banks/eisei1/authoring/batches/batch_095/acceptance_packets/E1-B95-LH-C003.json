@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B95-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4f14c99f9dec62752398f6414dde305c03a22ea603eee3f4b0c0e0376d4f9df1",
+  "actors": {
+    "author": {
+      "id": "eisei1-b95-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b95-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第34条第2号"
+    },
+    "answer_defining_proposition": "鉛作業主任者は著しい鉛等の汚染を発見したとき速やかに汚染を除去させる。",
+    "tested_misconception": "汚染発見時の即時除去を定期健診又は後日の清掃で足りると混同する。",
+    "reasoning_path": "汚染発見時の法定職務を確認する -> 速やかな除去を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q259-Q261は石綿作業の休憩室・清掃措置であり別の条件を問う."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "著しい鉛汚染を発見した場合の即時除去という条件付き職務を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

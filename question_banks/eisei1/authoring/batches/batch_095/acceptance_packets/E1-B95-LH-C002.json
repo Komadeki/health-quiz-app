@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B95-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "884a403e2e3b1447d4134216c1e673b8b8906863e35b140e1997318c5521ca81",
+  "actors": {
+    "author": {
+      "id": "eisei1-b95-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b95-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第34条第4号"
+    },
+    "answer_defining_proposition": "鉛作業主任者は労働衛生保護具等の使用状況を監視する。",
+    "tested_misconception": "保護具の購入又は保管と使用状況の監視を混同する。",
+    "reasoning_path": "鉛作業主任者の法定職務を確認する -> 保護具の使用状況監視を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q139は有機溶剤作業主任者の職務であり対象規則が異なる."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "鉛作業主任者の保護具使用状況監視という明文職務を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

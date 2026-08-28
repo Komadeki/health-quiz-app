@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B95-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "dab114ef8655967c63170da1cbaf004064abc64f5f93e51fecc901fe8ed3797a",
+  "actors": {
+    "author": {
+      "id": "eisei1-b95-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b95-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第34条第3号"
+    },
+    "answer_defining_proposition": "鉛作業主任者は局所排気装置等を毎週一回以上点検する。",
+    "tested_misconception": "鉛作業主任者の週一回点検を他制度の月単位又は自主検査周期と混同する。",
+    "reasoning_path": "鉛作業主任者の法定職務を確認する -> 換気・除じん系統の点検頻度を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q92は選任資格、Q252は健康診断時期を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "鉛作業主任者の週一回点検を、特定化学物質作業主任者の月以内点検と区別して問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
