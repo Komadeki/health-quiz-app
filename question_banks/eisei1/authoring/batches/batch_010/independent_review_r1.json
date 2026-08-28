@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "reviewer": {"id": "eisei1-b10-independent-reviewer-r1", "role": "AI_REVIEWER"},
+  "author_identity_checked": "eisei1-b10-author-r1",
+  "identity_separation": "PASS",
+  "evidence": [
+    "question_banks/eisei1/authoring/EISEI1_300Q_COVERAGE_EXPANSION_CONTRACT_V1.md",
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "question_banks/eisei1/authoring/questions.csv",
+    "question_banks/eisei1/authoring/batches"
+  ],
+  "scope_checked": "source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000016 and all persisted Eisei1 candidates through B10",
+  "collision_review": {"released_bank_checked": true, "canonical_drafts_checked": true, "persisted_candidates_checked": true, "full_batch_checked": true, "result": "PASS"},
+  "decisions": [
+    {"candidate_id": "E1-B10-LH-C001", "decision": "ACCEPT", "rationale": "The revised stem uses the exact Article 7(1)(5)(i) condition of more than one thousand workers. B is the sole option matching the at-least-one exclusive hygiene-manager requirement and is distinct from all existing Eisei1 questions."},
+    {"candidate_id": "E1-B10-LH-C002", "decision": "ACCEPT", "rationale": "Article 17(2) directly fixes the annual periodic self-inspection cycle for the scoped dust-control equipment. The distractors are nearby occupational-health intervals and no existing item tests this frequency."},
+    {"candidate_id": "E1-B10-LH-C003", "decision": "ACCEPT", "rationale": "The revised stem is limited to first-category oxygen-deficiency work and preserves the two alternative qualifying courses in Article 11(1). It does not duplicate the existing measurement or ventilation questions."},
+    {"candidate_id": "E1-B10-LH-C004", "decision": "ACCEPT", "rationale": "The revised candidate correctly removes an unsupported request requirement. Article 64-3(1) directly prohibits the listed harmful work for pregnant women and women within one year postpartum."},
+    {"candidate_id": "E1-B10-HH-C001", "decision": "ACCEPT", "rationale": "The MHLW explanation expressly lists inhalation, oral and dermal intake. The alternatives are not intake routes, and the item adds a distinct exposure-route reasoning path."},
+    {"candidate_id": "E1-B10-HH-C002", "decision": "ACCEPT", "rationale": "The current MHLW guideline directly sets a six-month periodic equivalent-noise-level measurement for Table 1 workplaces and separately requires measurement on change. The stem preserves both conditions."}
+  ],
+  "summary": {"reviewed": 6, "accept": 6, "reject": 0, "rework": 0, "hold": 0}
+}
