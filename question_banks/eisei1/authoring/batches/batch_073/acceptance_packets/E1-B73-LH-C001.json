@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B73-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e280de2723c0ed8bebfbe51b62fbb26098da89dd32aea59b5a4097c1ee2dc51e",
+  "actors": {
+    "author": {
+      "id": "eisei1-b73-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b73-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b73-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASBESTOS",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "石綿障害予防規則第32条"
+    },
+    "answer_defining_proposition": "石綿等は密閉できる容器又は確実な包装を用いて保管する。",
+    "tested_misconception": "石綿等の保管で飛散防止の容器又は包装を不要と混同する。",
+    "reasoning_path": "第32条の保管方法を確認する -> 密閉容器又は確実な包装を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q233からQ235は教育又は作業場管理を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "石綿等の密閉容器又は確実な包装による保管を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

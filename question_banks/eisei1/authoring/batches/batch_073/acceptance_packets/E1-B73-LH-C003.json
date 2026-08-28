@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B73-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4a6bca5b40f9dfb13753c8da0953dd7eb21d7bed853fcfa0b488bc0d2dc17fe0",
+  "actors": {
+    "author": {
+      "id": "eisei1-b73-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b73-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b73-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASBESTOS",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "石綿障害予防規則第31条"
+    },
+    "answer_defining_proposition": "石綿を取り扱う作業に常時従事する労働者のために事業者は洗濯のための設備を設ける。",
+    "tested_misconception": "石綿作業者の汚染管理に必要な洗濯設備を不要と混同する。",
+    "reasoning_path": "第31条の必要設備を確認する -> 洗濯のための設備を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q233からQ235は教育又は作業場管理を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "石綿作業者のための洗濯設備を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
