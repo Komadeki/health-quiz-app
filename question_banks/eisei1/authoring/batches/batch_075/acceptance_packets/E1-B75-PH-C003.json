@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B75-PH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "8d94bac7fb191ecf573b42f25a51e828cf1fcab4b9bd5e334dadf4cee16775b1",
+  "actors": {
+    "author": {
+      "id": "eisei1-b75-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b75-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b75-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-NHLBI-HEART",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "Heart Anatomy and Function Blood flow"
+    },
+    "answer_defining_proposition": "心臓の右側から血液は肺へ送られる。",
+    "tested_misconception": "右心からの血液を全身へ送ると混同する。",
+    "reasoning_path": "右心の血流経路を確認する -> 肺を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q100は左心から全身へ送られる血液を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "右心から肺へ送られる血流を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
