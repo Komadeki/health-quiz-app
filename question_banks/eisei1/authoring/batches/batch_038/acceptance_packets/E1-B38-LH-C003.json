@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B38-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "346197faa2317cfe282d2186ae096cc5317bbf1ba42f383184eeb10e6b198e39",
+  "actors": {
+    "author": {
+      "id": "eisei1-b38-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b38-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b38-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法 第57条の3"
+    },
+    "answer_defining_proposition": "事業者は化学物質等の製造又は取扱い等の前に危険性又は有害性等を調査するよう努める。",
+    "tested_misconception": "化学物質リスクアセスメントを外観又は人事情報の調査と混同する。",
+    "reasoning_path": "条文の実施時点と対象を確認する -> 製造又は取扱い等の前を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q17は有害物の取込み経路を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "リスクアセスメントの努力義務を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
