@@ -136,6 +136,30 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.assertEqual([], json.loads((self.authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"])
         self.assertEqual([], json.loads((self.bank / "generated" / "eisei1_bank.json").read_text(encoding="utf-8"))["decks"])
 
+    def test_q1_q16_are_bound_to_their_accepted_knowledge_targets(self) -> None:
+        coverage = json.loads((self.authoring / "coverage.json").read_text(encoding="utf-8"))
+        actual = {
+            row["question_id"]: row["knowledge_target_id"]
+            for row in coverage["question_bindings"]
+        }
+        expected = {}
+        for batch_name in (
+            "batch_002",
+            "batch_003",
+            "batch_004",
+            "batch_006",
+            "batch_007",
+            "batch_008",
+            "batch_009",
+        ):
+            candidates = read_rows(self.authoring / "batches" / batch_name / "candidates.csv")
+            expected.update({
+                row["permanent_question_id"]: row["knowledge_target_id"]
+                for row in candidates.values()
+                if row["permanent_question_id"]
+            })
+        self.assertEqual(expected, actual)
+
     def test_all_touched_expansion_batches_validate(self) -> None:
         for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006", "batch_007", "batch_008", "batch_009"):
             self.assertEqual([], validate_expansion_batch(self.authoring / "batches" / batch_name))

@@ -371,7 +371,88 @@
       "variation_requirements": []
     }
   ],
-  "question_bindings": [],
+  "question_bindings": [
+    {
+      "knowledge_target_id": "E1-HH-002",
+      "question_id": "EISEI1-Q-000001",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HH-013",
+      "question_id": "EISEI1-Q-000002",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LH-004",
+      "question_id": "EISEI1-Q-000003",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LH-007",
+      "question_id": "EISEI1-Q-000004",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LH-007",
+      "question_id": "EISEI1-Q-000005",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LH-008",
+      "question_id": "EISEI1-Q-000006",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LH-011",
+      "question_id": "EISEI1-Q-000007",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HH-013",
+      "question_id": "EISEI1-Q-000008",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LH-003",
+      "question_id": "EISEI1-Q-000009",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LH-009",
+      "question_id": "EISEI1-Q-000010",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HH-006",
+      "question_id": "EISEI1-Q-000011",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HH-007",
+      "question_id": "EISEI1-Q-000012",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LH-010",
+      "question_id": "EISEI1-Q-000013",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LH-012",
+      "question_id": "EISEI1-Q-000014",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LH-005",
+      "question_id": "EISEI1-Q-000015",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LH-006",
+      "question_id": "EISEI1-Q-000016",
+      "variation_tags": []
+    }
+  ],
   "schema_version": 1,
   "target_bank_size": {
     "approved_question_count": 0,
