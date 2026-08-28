@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B12-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "bbd08d1659a70e95a85eaad8ea0b09d06abe9c645d1ab728e53d6ddd37c86473",
+  "actors": {
+    "author": {
+      "id": "eisei1-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b12-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b12-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "「生物学的モニタリング」本文第1段落"
+    },
+    "answer_defining_proposition": "生物学的モニタリングは生体試料中の有害物又は代謝物等を測定する。",
+    "tested_misconception": "取込み経路の説明と生体試料測定の定義を混同する。",
+    "reasoning_path": "定義を確認する -> 生体試料と測定対象を照合する -> Aを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q17は取込み経路であり本問はモニタリングの測定対象を問うため異なる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The MHLW definition directly identifies biological specimens and analytes. This is distinct from Q17's intake-route proposition."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
