@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B100-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b3fb83b80f63d01f60515677d9f3b1255870cc446380ac76e2d9aab8f8ae5e99",
+  "actors": {
+    "author": {
+      "id": "eisei1-b100-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b100-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RPE-2023",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "source_locator": "防毒マスクの選択 使用等 型式検定合格標章"
+    },
+    "answer_defining_proposition": "防毒マスクは型式検定合格品であることを確認して選択する。",
+    "tested_misconception": "保護具の適合性確認を価格又は外観だけで行うと混同する。",
+    "reasoning_path": "防毒マスクの選択根拠を確認する -> 型式検定合格品を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q2とQ8は酸素濃度又は濃度不明時の保護具選択を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "型式検定合格品の確認を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

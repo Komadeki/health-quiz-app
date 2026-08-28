@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B100-HH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "914bff0999c5e24a0c3a42bf05ba1c1ac036388c11a6e193f635e11ad4a4f33c",
+  "actors": {
+    "author": {
+      "id": "eisei1-b100-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b100-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RPE-2023",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "source_locator": "防毒マスクの選択 使用等 臭気感知時"
+    },
+    "answer_defining_proposition": "使用中に有害物質の臭気等を感知した場合は直ちに着用状態を確認し必要に応じて吸収缶を交換する。",
+    "tested_misconception": "吸収缶の異常兆候を作業継続又は後日点検で足りると混同する。",
+    "reasoning_path": "使用中の異常兆候を確認する -> 着用状態確認と必要時交換を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q139は有機溶剤作業主任者の保護具監視を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "臭気感知時の対応を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

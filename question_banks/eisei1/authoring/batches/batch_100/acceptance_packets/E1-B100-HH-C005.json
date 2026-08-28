@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B100-HH-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f207edc0886e7c0c38d3941c504e78544e6eabe97b3ef40933e3d1886e3ed4b3",
+  "actors": {
+    "author": {
+      "id": "eisei1-b100-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b100-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RPE-2023",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "source_locator": "防毒マスクの選択 使用等 吸収缶再使用"
+    },
+    "answer_defining_proposition": "使用済み吸収缶は十分な除毒能力が残存していることを確認できるものだけ再使用させる。",
+    "tested_misconception": "使用済み吸収缶を外観又は希望だけで再使用できると混同する。",
+    "reasoning_path": "吸収缶の再使用条件を確認する -> 残存除毒能力の確認を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q8は濃度不明時の保護具選択を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "吸収缶再使用条件を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

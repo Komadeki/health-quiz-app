@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B100-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "1725d8de173d61c1bea79c6cdd240f16b932bb07a649bd4ecf81ea16b12fad4b",
+  "actors": {
+    "author": {
+      "id": "eisei1-b100-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b100-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-RPE-2023",
+      "source_version": "基発0525第3号-2023-05-25-current-as-retrieved-2026-08-27",
+      "source_locator": "防毒マスクの選択 使用等 教育訓練"
+    },
+    "answer_defining_proposition": "防毒マスクの適正な装着方法 使用方法及び密着性確認方法を教育する。",
+    "tested_misconception": "呼吸用保護具の教育を購入時だけ又は不要と混同する。",
+    "reasoning_path": "防毒マスクの適正使用を確認する -> 装着 使用 密着性確認の教育を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q197は情報機器作業の教育を問うため対象が異なる."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "装着 使用 密着性確認の教育を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

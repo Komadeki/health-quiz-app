@@ -1996,6 +1996,31 @@
       "knowledge_target_id": "E1-LG-003",
       "question_id": "EISEI1-Q-000325",
       "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HH-013",
+      "question_id": "EISEI1-Q-000326",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HH-013",
+      "question_id": "EISEI1-Q-000327",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HH-013",
+      "question_id": "EISEI1-Q-000328",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HH-013",
+      "question_id": "EISEI1-Q-000329",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HH-013",
+      "question_id": "EISEI1-Q-000330",
+      "variation_tags": []
     }
   ],
   "schema_version": 1,
