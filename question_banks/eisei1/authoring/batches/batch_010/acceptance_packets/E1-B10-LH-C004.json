@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B10-LH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0326ea10c56d04d61eface5aaae5b5c9fa39d4741bdf0dc72e8cdee9f8170548",
+  "actors": {
+    "author": {
+      "id": "eisei1-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b10-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b10-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第64条の3第1項"
+    },
+    "answer_defining_proposition": "妊産婦を同項の危険有害業務に就かせてはならない。",
+    "tested_misconception": "請求が要る別の妊産婦保護規定と第64条の3を混同する。",
+    "reasoning_path": "対象者と条文上の禁止を確認する -> 第64条の3第1項を読む -> Bを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題に同条の妊産婦保護を問うものはない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The revised candidate correctly removes an unsupported request requirement. Article 64-3(1) directly prohibits the listed harmful work for pregnant women and women within one year postpartum."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

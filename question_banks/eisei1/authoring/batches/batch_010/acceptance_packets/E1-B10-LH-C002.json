@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B10-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "3c636119b9d876aca9c856c9e69985e71a6ef35d34b8b4618823b3c46163bfff",
+  "actors": {
+    "author": {
+      "id": "eisei1-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b10-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b10-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-DUST",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "粉じん障害防止規則第17条第2項"
+    },
+    "answer_defining_proposition": "粉じん作業に係る対象の局所排気装置等は1年以内ごとに1回定期自主検査する。",
+    "tested_misconception": "局所排気装置等の検査頻度を健康診断又は作業環境測定の周期と混同する。",
+    "reasoning_path": "対象装置を確認する -> 第17条第2項の頻度を読む -> 1年以内ごとを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q11及びQ16は発散源対策と特別教育科目を扱い定期自主検査の頻度は扱わない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Article 17(2) directly fixes the annual periodic self-inspection cycle for the scoped dust-control equipment. The distractors are nearby occupational-health intervals and no existing item tests this frequency."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

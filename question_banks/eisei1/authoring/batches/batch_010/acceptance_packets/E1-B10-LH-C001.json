@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B10-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "cdf467e1e69cc7c642e472d6309ec3fefd66a0f2a493f20ae993eb67686111aa",
+  "actors": {
+    "author": {
+      "id": "eisei1-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b10-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b10-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則第7条第1項第5号イ"
+    },
+    "answer_defining_proposition": "常時千人を超える労働者を使用する事業場では少なくとも1人の衛生管理者を専任とする。",
+    "tested_misconception": "専任要件を全員専任又は産業医選任と混同する。",
+    "reasoning_path": "事業場の労働者数を確認する -> 規則第7条第1項第5号イを読む -> 最低1人を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存16問及び全候補を確認したが衛生管理者の専任要件を問う命題はない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The revised stem uses the exact Article 7(1)(5)(i) condition of more than one thousand workers. B is the sole option matching the at-least-one exclusive hygiene-manager requirement and is distinct from all existing Eisei1 questions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

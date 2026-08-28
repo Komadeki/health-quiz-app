@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B10-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "92efe918a161be7befa90e27dfec0a7848e9120a45cb715cbaaf7a8401814980",
+  "actors": {
+    "author": {
+      "id": "eisei1-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b10-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b10-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-NOISE-2023",
+      "source_version": "基発0420第2号-2023-04-20-current-as-retrieved-2026-08-28",
+      "source_locator": "基発0420第2号 別添「騒音障害防止のためのガイドライン」6(1)ア"
+    },
+    "answer_defining_proposition": "別表第1の作業場では等価騒音レベルを6月以内ごとに1回定期に測定する。",
+    "tested_misconception": "騒音測定の定期頻度と設備変更時の追加測定又は他の衛生管理周期を混同する。",
+    "reasoning_path": "対象作業場を確認する -> ガイドライン6(1)アの周期を読む -> 6月以内ごとを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題に騒音測定又は騒音性難聴の目標を扱うものはない。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "The current MHLW guideline directly sets a six-month periodic equivalent-noise-level measurement for Table 1 workplaces and separately requires measurement on change. The stem preserves both conditions."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
