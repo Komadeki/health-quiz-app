@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W7",
-  "status": "PLANNED",
+  "status": "AI_PRE_ACCEPT_AUTHORED",
   "planned_at": "2026-08-28",
   "production_target": 600,
   "canonical_verified_baseline": 286,
@@ -29,9 +29,12 @@
       "source_path": "registered FDMA incident guidance and one-material MHLW model SDS Sections 5 to 7, excluding B17's grounding, repair preparation and gasoline-area-isolation propositions"
     }
   ],
+  "actual_candidate_counts": {"B20": 0, "B21": 5, "total": 5},
+  "authors": {"B21": {"id": "otsu4-b21-author-r1", "role": "AI_AUTHOR"}},
   "authoring_rule": "Enumerate source-defined propositions before authoring, collision-check against all 286 canonical/source-verified questions and the full Wave 7 peer set, and stop without backfill when material distinctions are exhausted.",
   "multi_source_rule": "Each candidate binds to one registered source_id, source_version and reproducible pinpoint locator. Cross-source answer-defining comparisons are prohibited without an approved source-bundle contract.",
   "filler_prohibited": true,
   "planned_state_epoch": 80,
-  "next_gate": "AUTHOR_OTSU4_WAVE_7_AI_PRE_ACCEPT"
+  "authored_state_epoch": 81,
+  "next_gate": "INDEPENDENT_AI_REVIEW_OTSU4_WAVE_7_B21"
 }
