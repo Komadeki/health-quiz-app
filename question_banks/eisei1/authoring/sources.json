@@ -245,6 +245,15 @@
       "usage_basis": "facts_only_independently_authored"
     },
     {
+      "source_id": "E1-MHLW-RADIATION-LASER",
+      "title": "業務上疾病に関する厚生労働省資料",
+      "issuer": "厚生労働省",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "url": "https://www.mhlw.go.jp/new-info/kobetu/roudou/gyousei/rousai/dl/100519-1.pdf",
+      "retrieved_at": "2026-08-28",
+      "usage_basis": "facts_only_independently_authored"
+    },
+    {
       "source_id": "E1-EXAM-STRUCTURE",
       "title": "第一種衛生管理者試験の紹介",
       "issuer": "公益財団法人 安全衛生技術試験協会",
