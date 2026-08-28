@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W10",
-  "status": "INTEGRATED",
+  "status": "SOURCE_VERIFIED",
   "planned_at": "2026-08-28",
   "production_target": 600,
   "canonical_verified_baseline": 301,
@@ -52,7 +52,7 @@
   "review_artifacts": {
     "B25": "question_banks/otsu4/authoring/batches/batch_025/independent_review_r1.json"
   },
-  "next_gate": "VERIFY_W10_CANONICAL_SOURCES_4",
+  "next_gate": "PLAN_WAVE_11_600Q_COVERAGE",
   "director_adjudication": {
     "artifact": "wave_010_director_adjudication_r1.json",
     "decision": "ADOPT_REVIEWER_DECISIONS",
@@ -68,5 +68,8 @@
   "permanent_id_range": {
     "first": "OTSU4-Q-000302",
     "last": "OTSU4-Q-000305"
-  }
+  },
+  "source_verification_state_epoch": 106,
+  "verified_candidate_count": 4,
+  "canonical_verified_count_after_wave": 305
 }
