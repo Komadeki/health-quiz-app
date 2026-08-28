@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "wave_id": "W6",
-  "status": "INDEPENDENT_REVIEWED",
+  "status": "SOURCE_VERIFIED",
   "planned_at": "2026-08-27",
   "production_target": 600,
   "canonical_verified_baseline": 246,
@@ -13,9 +13,30 @@
     "O4-LAW-KT-FACILITIES-INSPECTION": 30,
     "O4-LAW-KT-STORAGE-HANDLING": 38
   },
-  "actual_candidate_counts": {"B18": 24, "B19": 24, "total": 48},
-  "authors": {"B18": {"id": "otsu4-b18-author-r1", "role": "AI_AUTHOR"}, "B19": {"id": "otsu4-b19-author-r1", "role": "AI_AUTHOR"}},
-  "review_summary": {"reviewed": 48, "accept": 40, "reject": 8, "rework": 0, "hold": 0, "reviewer_id": "otsu4-wave6-independent-reviewer-r1", "identity_separation": "PASS"},
+  "actual_candidate_counts": {
+    "B18": 24,
+    "B19": 24,
+    "total": 48
+  },
+  "authors": {
+    "B18": {
+      "id": "otsu4-b18-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "B19": {
+      "id": "otsu4-b19-author-r1",
+      "role": "AI_AUTHOR"
+    }
+  },
+  "review_summary": {
+    "reviewed": 48,
+    "accept": 40,
+    "reject": 8,
+    "rework": 0,
+    "hold": 0,
+    "reviewer_id": "otsu4-wave6-independent-reviewer-r1",
+    "identity_separation": "PASS"
+  },
   "non_accepted_candidate_ids": {
     "reject": [
       "O4-B18-LAW-C005",
@@ -55,5 +76,24 @@
   "planned_state_epoch": 74,
   "authored_state_epoch": 75,
   "reviewed_state_epoch": 76,
-  "next_gate": "DIRECTOR_ACCEPT_AND_PROMOTE_OTSU4_WAVE_6_40"
+  "next_gate": "PLAN_WAVE_7_600Q_COVERAGE",
+  "director_adjudication": {
+    "artifact": "wave_006_director_adjudication_r1.json",
+    "decision": "ADOPT_REVIEWER_DECISIONS",
+    "accept": 40,
+    "reject": 8,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_state": "READY_FOR_ID",
+  "accept_promote_state_epoch": 77,
+  "integration_state_epoch": 78,
+  "integrated_candidate_count": 40,
+  "permanent_id_range": {
+    "first": "OTSU4-Q-000247",
+    "last": "OTSU4-Q-000286"
+  },
+  "source_verification_state_epoch": 79,
+  "verified_candidate_count": 40,
+  "canonical_verified_count_after_wave": 286
 }
