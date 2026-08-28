@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B20-LAW-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "485c10152450457a3116da250e034ae26fdf24abd9cfaa6a5b208e144668194c",
+  "actors": {
+    "author": {
+      "id": "otsu4-b20-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave7-independent-reviewer-r2",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave7-director-r2",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-LAW-1",
+      "source_version": "2026-08-25",
+      "source_locator": "消防法 第9条の4第1項"
+    },
+    "answer_defining_proposition": "指定数量は危険物についてその危険性を勘案して政令で定める数量である。",
+    "tested_misconception": "指定数量はすべての危険物で同一の固定値である。",
+    "reasoning_path": "statutory term -> identify deciding authority and risk basis",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W7 B20; definition of the legal threshold is distinct from B1/B7 table-value and multiple calculations."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "消防法第9条の4第1項の指定数量の定義に正確に対応し、Aだけが危険性を勘案して政令で定める数量を示す。B7の第四類表値・倍数計算とは異なる法定語の基礎であり、選択肢も日本語として明確で、試験範囲内の有用な誤概念訂正となる。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

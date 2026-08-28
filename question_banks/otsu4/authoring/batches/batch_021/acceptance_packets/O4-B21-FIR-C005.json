@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B21-FIR-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "0809cd259c40d427a16c05777f4eb93dd1c99151cc90c5924741c578ba3c0f50",
+  "actors": {
+    "author": {
+      "id": "otsu4-b21-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave7-independent-reviewer-r2",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave7-director-r2",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "source_locator": "Section 6「漏出時の措置」封じ込め及び浄化の方法及び機材"
+    },
+    "answer_defining_proposition": "アセトン漏えい時は蒸気抑制泡で蒸発濃度を低下させることができる。",
+    "tested_misconception": "泡は漏えい時の蒸気濃度と関係がない。",
+    "reasoning_path": "match vapor-control purpose -> vapor-suppression foam",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W7 B21; leak-vapor control distinct from fire extinguishing-agent recall."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "同SDS第6項は蒸気抑制泡を蒸発濃度低下のために用いるとしており、Aが唯一の正答である。既存の泡消火剤の火災時の液面被覆・消火機構とは目的と漏えい時の文脈が異なるため、意味的重複ではなく蒸気管理の判断として価値がある。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

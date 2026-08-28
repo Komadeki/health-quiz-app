@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B21-FIR-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "adcf045a196615e161d4bd10b5a1f21152d3170e18d9d755405d6af8ab8c6463",
+  "actors": {
+    "author": {
+      "id": "otsu4-b21-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "otsu4-wave7-independent-reviewer-r2",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "otsu4-wave7-director-r2",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "O4-MHLW-SDS-ACETONE",
+      "source_version": "2015-03-31",
+      "source_locator": "Section 6「漏出時の措置」封じ込め及び浄化の方法及び機材"
+    },
+    "answer_defining_proposition": "少量のアセトン漏えい物を集めるときは清潔な帯電防止工具を用いる。",
+    "tested_misconception": "漏えい後の回収工具は静電気を考慮しなくてよい。",
+    "reasoning_path": "identify small-spill collection step -> use antistatic tool",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "W7 B21; response-tool choice distinct from B17's preventive grounding check."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "同SDS第6項は少量の吸収物を集める際に清潔な帯電防止工具を用いると定め、Aだけが合う。B17の事前接地確認とは、漏えい後の少量回収という工程と選定対象が異なるため、静電気対策を具体的な対応へ結び付ける独立した問題である。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Adopt the independent reviewer decisions without quota backfill. The accepted candidates satisfy the current source-binding, semantic-collision and educational-value gates. Reviewer REJECT/REWORK/HOLD decisions remain blocking under Wave Mode and cannot receive acceptance packets or READY_FOR_ID status in this transaction."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
