@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "app_key": "eisei1",
+  "batch_id": "B11",
+  "directory_slug": "batch_011",
+  "baseline_sha": "abd1c44",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id": "eisei1-b11-author-r1", "role": "AI_AUTHOR"},
+  "expansion_trigger": "Close three uncovered general-law targets with directly bound current statutory propositions before the broader general-hygiene and physiology waves.",
+  "evidence": ["question_banks/eisei1/authoring/EISEI1_300Q_COVERAGE_EXPANSION_CONTRACT_V1.md", "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md", "question_banks/eisei1/authoring/coverage.json", "question_banks/eisei1/authoring/sources.json"],
+  "target_size_decisions": [{"decision_id": "E1-B11-COVERAGE-001", "previous_approved_target": 22, "current_released_count": 0, "proposed_target_min": 0, "proposed_target_max": 3, "approved_new_target": 3, "rationale": "Three direct statutory propositions cover every remaining general-law target. Count remains a ceiling.", "decision_date": "2026-08-28", "evidence": "current e-Gov statutes and global collision review"}],
+  "coverage_limit_decisions": [],
+  "planned_scope": {"candidate_count": 3, "candidate_count_is_quota": false, "lane_counts": {"law_general": 3}, "knowledge_target_ids": ["E1-LG-001", "E1-LG-002", "E1-LG-003"], "known_rejected_ids": []},
+  "invariants": {"PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0, "HUMAN_REVIEW_CREATED": false, "CANONICAL_CHANGED": false, "RELEASED_CHANGED": false, "RUNTIME_CHANGED": false},
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}
