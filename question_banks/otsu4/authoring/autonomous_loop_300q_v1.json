@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "stage_id": "OTSU4-QUALITY-GATE-300Q-V1",
+  "first_quality_gate_question_count": 300,
+  "batch_size": {"minimum": 3, "maximum": 10},
+  "selection_order": ["coverage_deficit", "missing_question_family", "difficulty_gap", "answer_position_skew", "near_duplicate_risk"],
+  "source_verification_required_before_integration": true,
+  "filler_prohibited": true,
+  "knowledge_target_verified_draft_minimums": {
+    "O4-LAW-KT-QUANTITY": 30,
+    "O4-LAW-KT-LICENSING-DUTIES": 25,
+    "O4-LAW-KT-STORAGE-HANDLING": 30,
+    "O4-LAW-KT-FACILITIES-INSPECTION": 25,
+    "O4-LAW-KT-TRANSPORT": 20,
+    "O4-PHY-KT-MATTER-HEAT": 15,
+    "O4-PHY-KT-COMBUSTION": 20,
+    "O4-PHY-KT-CONCENTRATION": 15,
+    "O4-PHY-KT-CHEMICAL-CHANGE": 15,
+    "O4-PHY-KT-CALCULATION-BOUNDARY": 15,
+    "O4-FIR-KT-PROPERTIES": 25,
+    "O4-FIR-KT-FLASH-IGNITION": 15,
+    "O4-FIR-KT-HAZARDS-PREVENTION": 20,
+    "O4-FIR-KT-EXTINGUISHING": 15,
+    "O4-FIR-KT-INCIDENT-DECISION": 15
+  }
+}
