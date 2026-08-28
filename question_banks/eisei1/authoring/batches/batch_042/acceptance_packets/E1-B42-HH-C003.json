@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B42-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b284a8d03ea547843f9657cb25a4ee3b4c2719b7e198bb331e4d6bba8b9e49f8",
+  "actors": {
+    "author": {
+      "id": "eisei1-b42-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b42-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b42-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-SKIN-CHEMICALS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "皮膚等障害化学物質 保護具"
+    },
+    "answer_defining_proposition": "皮膚等障害化学物質を扱う労働者は皮膚障害等防止用保護具を着用する。",
+    "tested_misconception": "皮膚等障害化学物質での保護具の必要性を換気だけの問題と混同する。",
+    "reasoning_path": "健康障害防止措置を確認する -> 皮膚障害等防止用保護具を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q1はリスク低減措置の優先順位を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "皮膚障害等防止用保護具の着用を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

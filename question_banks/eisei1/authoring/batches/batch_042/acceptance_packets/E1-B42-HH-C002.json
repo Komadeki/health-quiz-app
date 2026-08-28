@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B42-HH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "be838c78d2f5663d4156818de657d66a6641ca90e2a6715813b77838043c9f9e",
+  "actors": {
+    "author": {
+      "id": "eisei1-b42-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b42-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b42-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-SKIN-CHEMICALS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "皮膚等障害化学物質 分類"
+    },
+    "answer_defining_proposition": "皮膚等障害化学物質は皮膚刺激性有害物質と皮膚吸収性有害物質に大きく分類される。",
+    "tested_misconception": "皮膚等障害化学物質の分類を一般的な疾病又は物理的因子と混同する。",
+    "reasoning_path": "資料の分類を確認する -> 二つの有害物質区分を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q116は皮膚感作性の健康影響を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "皮膚等障害化学物質の大分類を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

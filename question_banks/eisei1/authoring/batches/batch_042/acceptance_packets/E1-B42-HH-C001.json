@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B42-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "61b984edad726f62fdfac8a82611122135e22b5401ef4dd5684d3702eac02510",
+  "actors": {
+    "author": {
+      "id": "eisei1-b42-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b42-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b42-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-SKIN-CHEMICALS",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "皮膚等障害化学物質 皮膚刺激性"
+    },
+    "answer_defining_proposition": "皮膚刺激性は皮膚に可逆的な損傷を生じさせる性質である。",
+    "tested_misconception": "皮膚刺激性を腐食性又は体格変化と混同する。",
+    "reasoning_path": "定義を確認する -> 可逆的な皮膚損傷を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q97は腐食性による重篤な損傷を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "皮膚刺激性の可逆的損傷を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
