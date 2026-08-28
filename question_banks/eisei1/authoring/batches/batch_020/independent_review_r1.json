@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "reviewer": {"id": "eisei1-b20-independent-reviewer-r1", "role": "AI_REVIEWER"},
+  "author_identity_checked": "eisei1-b20-author-r1",
+  "identity_separation": "PASS",
+  "scope_checked": "canonical Q1-Q50 and all candidates through B20",
+  "collision_review": {"released_bank_checked": true, "canonical_drafts_checked": true, "persisted_candidates_checked": true, "full_batch_checked": true, "result": "PASS"},
+  "decisions": [
+    {"candidate_id": "E1-B20-HG-C001", "decision": "ACCEPT", "rationale": "健康診断の記録保存期間を実施頻度から分離して問う。"},
+    {"candidate_id": "E1-B20-HG-C002", "decision": "ACCEPT", "rationale": "健康診断後の医師等の意見聴取義務を独立して問う。"},
+    {"candidate_id": "E1-B20-HG-C003", "decision": "ACCEPT", "rationale": "ストレスチェックの頻度を独立して問う。"},
+    {"candidate_id": "E1-B20-HG-C004", "decision": "ACCEPT", "rationale": "セルフケアの実施主体を4つのケアの列挙問題から分離して問う。"}
+  ],
+  "summary": {"reviewed": 4, "accept": 4, "reject": 0, "rework": 0, "hold": 0}
+}

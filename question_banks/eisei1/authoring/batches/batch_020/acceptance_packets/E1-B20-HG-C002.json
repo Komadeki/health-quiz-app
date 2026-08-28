@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B20-HG-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "71472509b21f3de517a7fe5a491ee1cb84c5e62ad151e8fb9ffd66980ac72b39",
+  "actors": {
+    "author": {
+      "id": "eisei1-b20-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b20-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b20-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法 第66条の4"
+    },
+    "answer_defining_proposition": "事業者は健康診断の結果について医師又は歯科医師の意見を聴かなければならない。",
+    "tested_misconception": "健康診断を受けることと事業者の事後措置義務を混同する。",
+    "reasoning_path": "条文の義務主体を確認する -> 事業者を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q24は実施頻度を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "健康診断後の医師等の意見聴取義務を独立して問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
