@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W10",
+  "batch_id": "B25",
+  "reviewed_at": "2026-08-28",
+  "reviewer": {
+    "id": "otsu4-wave10-independent-reviewer-r1",
+    "role": "AI_REVIEWER"
+  },
+  "author_identity_checked": "otsu4-b25-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "all 301 canonical/source-verified Otsu4 questions",
+    "the five Wave 10 B25 AI_PRE_ACCEPT candidates",
+    "registered O4-MHLW-SDS-TOLUENE source metadata and the MHLW model SDS for toluene, revised 2013-02-22, Section 6",
+    "Otsu4 scope, unique correct answer, Japanese clarity, semantic distinctness, and no-filler policy"
+  ],
+  "decisions": [
+    {
+      "candidate_id": "O4-B25-FIR-C001",
+      "decision": "ACCEPT",
+      "rationale": "厚生労働省トルエンモデルSDS第6項は、漏出時に付近の着火源を速やかに除くとともに消火剤を準備すると明記するため、Aだけが正答である。既存のエタノール火災時の消火措置やガソリン漏えい時の区域隔離とは、漏えい初動における着火源除去と消火準備という別の判断を問う。"
+    },
+    {
+      "candidate_id": "O4-B25-FIR-C002",
+      "decision": "ACCEPT",
+      "rationale": "同SDS第6項は、多量の場合に人を安全な場所へ退避させ、必要に応じた換気を確保すると明記するため、Aだけが正答である。既存のアセトン漏えい場所へ入る前の換気問題とは、入室前ではなく多量漏えい時の人員退避と蒸気滞留の同時判断を問う点で独立している。"
+    },
+    {
+      "candidate_id": "O4-B25-FIR-C003",
+      "decision": "ACCEPT",
+      "rationale": "同SDS第6項は、多量の場合に盛り土で囲って流出を防止し、安全な場所に導いてからドラムなどに回収すると明記するため、Aだけが正答である。既存のアセトン問題は排水溝等への流入防止を問うものであり、本候補は多量漏えいの封じ込め、導流、回収という肯定的な一連の対応を問うため、意味的重複ではない。"
+    },
+    {
+      "candidate_id": "O4-B25-FIR-C004",
+      "decision": "REJECT",
+      "reason_code": "SEMANTIC_DUPLICATE_CANONICAL",
+      "rationale": "同SDS第6項の根拠とAの正答は正しいが、既存OTSU4-Q-000292がアセトン漏えい物の回収で『清潔な帯電防止工具』を選ばせており、いずれも漏えい後の回収作業で火花を生じさせない用具を選ぶ同一の認知処理である。物質名と表現を替えるだけでは追加学習価値が不足する。"
+    },
+    {
+      "candidate_id": "O4-B25-FIR-C005",
+      "decision": "ACCEPT",
+      "rationale": "同SDS第6項は、回収物の収納容器を内容物の処分まで密封しておくと明記するため、Aだけが正答である。既存の危険物収納一般や漏えい中の排水経路・回収用具の問題とは異なり、回収後に蒸気放出を防ぐ容器管理という独立した漏えい対応判断を問う。"
+    }
+  ],
+  "summary": {
+    "reviewed": 5,
+    "accept": 4,
+    "reject": 1,
+    "rework": 0,
+    "hold": 0
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "batch_checked": true,
+    "full_wave_checked": true,
+    "result": "PASS_AFTER_1_REJECTION",
+    "note": "All 301 canonical questions and the complete B25 peer set were reviewed. C004 is rejected because its non-sparking-tool selection duplicates OTSU4-Q-000292's antistatic-tool decision during leak cleanup. C001, C002, C003, and C005 each add a separate leak-stage decision: ignition-source control, evacuation with ventilation, containment and recovery, and post-recovery sealing."
+  },
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}
