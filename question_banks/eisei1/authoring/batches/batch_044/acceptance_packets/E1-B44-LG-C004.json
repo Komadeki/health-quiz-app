@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B44-LG-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e71d650ab3e6b82d75ae41e68339ef21b305afe6a9167a4991532d74a250a060",
+  "actors": {
+    "author": {
+      "id": "eisei1-b44-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b44-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b44-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則 第51条の4"
+    },
+    "answer_defining_proposition": "事業者は定期健康診断を受けた労働者に遅滞なく結果を通知する。",
+    "tested_misconception": "健康診断結果の通知を不要又は後日の任意措置と誤解する。",
+    "reasoning_path": "通知時期を確認する -> 遅滞なく通知を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q24は定期健康診断の実施頻度を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "結果の遅滞ない通知を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
