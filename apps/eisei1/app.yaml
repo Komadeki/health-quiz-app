@@ -1,0 +1,88 @@
+schema_version: 1
+
+app_key: eisei1
+display_name: 第一種衛生管理者
+dev_display_name: 第一種衛生管理者 DEV
+qa_display_name: 第一種衛生管理者 QA
+
+publisher: KOMADEKI
+brand_name: KOMADEKI
+legalese: © 2026 KOMADEKI
+
+platforms:
+  ios:
+    bundle_id: com.komadeki.eisei1
+    display_name: 第一種衛生管理者
+  android:
+    application_id: com.komadeki.eisei1
+    display_name: 第一種衛生管理者
+
+urls:
+  support: https://komadeki.com/apps/
+  privacy: https://komadeki.com/privacy/
+  marketing: null
+
+question_identity:
+  policy: explicit_v1
+
+question_bank:
+  format: qualification_runtime_v2
+  runtime_path: question_banks/eisei1/generated/eisei1_bank.json
+  manifest_path: question_banks/eisei1/generated/bank_manifest.json
+  asset_output: apps/eisei1/assets/question_bank/eisei1_bank.json
+
+monetization:
+  architecture: singleFullUnlock
+  products:
+    full_unlock_product_id: eisei1_full_unlock
+
+exam:
+  profile_version: eisei1-exam-v1
+  question_count: 44
+  time_limit_minutes: 180
+  overall_pass_percent: 60
+  allocations:
+    - unit_id: eisei1_law_hazardous
+      question_count: 10
+    - unit_id: eisei1_hygiene_hazardous
+      question_count: 10
+    - unit_id: eisei1_law_general
+      question_count: 7
+    - unit_id: eisei1_hygiene_general
+      question_count: 7
+    - unit_id: eisei1_physiology
+      question_count: 10
+  section_pass_rules:
+    - unit_id: eisei1_law_hazardous
+      minimum_percent: 40
+    - unit_id: eisei1_hygiene_hazardous
+      minimum_percent: 40
+    - unit_id: eisei1_law_general
+      minimum_percent: 40
+    - unit_id: eisei1_hygiene_general
+      minimum_percent: 40
+    - unit_id: eisei1_physiology
+      minimum_percent: 40
+  shuffle_questions: true
+
+branding:
+  theme_key: eisei_green
+  seed_color: "#176B5B"
+
+factory:
+  app_version: 1.0.0+1
+  home_headline: 一次資料で確認する400問
+  source_label: 法令・厚生労働省・安全衛生技術試験協会等の一次資料に基づく学習
+  enabled_modes:
+    - unit_practice
+    - random_practice
+    - unanswered_practice
+    - incorrect_practice
+    - retry
+    - mock_exam
+  practice_question_count: 20
+  recent_window_size: 20
+  progress_enabled: true
+  history_enabled: true
+  weakness_enabled: true
+  recommendation_enabled: true

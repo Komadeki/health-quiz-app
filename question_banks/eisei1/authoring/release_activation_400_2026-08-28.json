@@ -1,0 +1,46 @@
+{
+  "activation_id": "EISEI1-PRODUCTION-BANK-400-ACTIVATION-2026-08-28",
+  "bank_revision": "eisei1-v1-release-2026-08-28",
+  "baseline_bindings": {
+    "question_banks/eisei1/authoring/EISEI1_INDEPENDENT_AI_REVIEW_400_V1.md": "sha256:05bf3da8acf05a3cdc9a5d021adf8c8f60d88967c4dfc045239a507c8c1f7f4f",
+    "question_banks/eisei1/authoring/bank.json": "sha256:7d2eb9fb95d88b56afd1fae35d917603be4e54552f2f0370bc2cf720748d6829",
+    "question_banks/eisei1/authoring/coverage.json": "sha256:1056c8176cce1e36b356bc59aa0ad8e71ba35095b8ab93f5d984f01f8944a052",
+    "question_banks/eisei1/authoring/question_id_registry.csv": "sha256:7a7b022af8aa8f7f87135698ac3fb45fcea9446fdf797c164d9a836fe7ae0f8f",
+    "question_banks/eisei1/authoring/questions.csv": "sha256:58dd730e5b0e007420bd8d2fbfe2a5b17cbb6742d958f1d57608bac01316621d",
+    "question_banks/eisei1/authoring/released_questions.json": "sha256:f82aa234354e8afade7b0f1aca27882d62bc8f2938b575e78d29ed34e2956947",
+    "question_banks/eisei1/authoring/source_verifications.json": "sha256:bc177dbc8998c326227b3039362162f5ef0989d089ad3186c75030580bb49777",
+    "question_banks/eisei1/authoring/sources.json": "sha256:fa5eba0a71b7e9654f401d0d62f299eb6c4c041bc1511e561e8b218a670b203c"
+  },
+  "content_as_of": "2026-08-28",
+  "coverage": "37/37",
+  "external_release_performed": false,
+  "free_question_count": 30,
+  "free_unit_counts": {
+    "eisei1_hygiene_general": 4,
+    "eisei1_hygiene_hazardous": 7,
+    "eisei1_law_general": 5,
+    "eisei1_law_hazardous": 7,
+    "eisei1_physiology": 7
+  },
+  "generated_bindings": {
+    "question_banks/eisei1/generated/bank_manifest.json": "sha256:a4646a35aebfd1343a4a2e5fa3f561757cb1438821239b3d97faf70cc26722ca",
+    "question_banks/eisei1/generated/eisei1_bank.json": "sha256:f402030d3c4bf247081a8b4bee1a58d7f4f7bb6218304bc3e78fb37a55c48e79"
+  },
+  "independent_review": "question_banks/eisei1/authoring/EISEI1_INDEPENDENT_AI_REVIEW_400_V1.md",
+  "premium_question_count": 370,
+  "question_count": 400,
+  "schema_version": 1,
+  "source_verification_count": 400,
+  "validator": {
+    "error_count": 0,
+    "warning_count": 55,
+    "warning_policy": "Similarity warnings are retained for the release record; the independent review found no exact duplicate stems or answer-defining propositions."
+  },
+  "unit_counts": {
+    "eisei1_hygiene_general": 64,
+    "eisei1_hygiene_hazardous": 91,
+    "eisei1_law_general": 64,
+    "eisei1_law_hazardous": 91,
+    "eisei1_physiology": 90
+  }
+}

@@ -1,0 +1,25 @@
+name: eisei1
+description: Production study app for the First-Class Health Supervisor examination.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  qualification_app:
+    path: ../../packages/qualification_app
+  quiz_engine:
+    path: ../../packages/quiz_engine
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/question_bank/eisei1_bank.json

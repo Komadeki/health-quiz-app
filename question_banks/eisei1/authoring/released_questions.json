@@ -1,4 +1,6805 @@
 {
-  "released_questions": [],
+  "released_questions": [
+    {
+      "choices": [
+        "有効な保護具の使用 → 作業手順の改善・立入禁止 → 密閉化・局所排気 → 低有害性物質への代替",
+        "密閉化・局所排気 → 低有害性物質への代替 → 作業手順の改善・立入禁止 → 有効な保護具の使用",
+        "低有害性物質への代替 → 密閉化・局所排気 → 作業手順の改善・立入禁止 → 有効な保護具の使用",
+        "低有害性物質への代替 → 作業手順の改善・立入禁止 → 有効な保護具の使用 → 密閉化・局所排気",
+        "作業手順の改善・立入禁止 → 密閉化・局所排気 → 低有害性物質への代替 → 有効な保護具の使用"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "法令に個別のリスク低減措置が定められていない化学物質について、厚生労働省が示すリスク低減措置の検討順位として、優先順位が高いものから並べた組合せはどれか。",
+      "question_id": "EISEI1-Q-000001",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEM-RA"
+    },
+    {
+      "choices": [
+        "粒子捕集効率が最上位の防じんマスクを選べばよい。",
+        "防毒マスクを選び、吸収缶の交換間隔を短くすればよい。",
+        "電動ファン付きであれば、ろ過式呼吸用保護具を選んでよい。",
+        "指定防護係数1000以上の全面形面体を有する給気式呼吸用保護具の中から、有効なものを選ぶ。",
+        "フィットテストに合格したろ過式呼吸用保護具であれば使用してよい。"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "酸素欠乏のおそれがある場所で使用する呼吸用保護具の選択として、厚生労働省の呼吸用保護具に関する指針に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000002",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "1年以内ごとに1回測定し、記録を3年間保存する。",
+        "6月以内ごとに1回測定し、記録を1年間保存する。",
+        "3月以内ごとに1回測定し、記録を3年間保存する。",
+        "6月以内ごとに1回測定し、記録を5年間保存する。",
+        "6月以内ごとに1回測定し、記録を3年間保存する。"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "有機溶剤中毒予防規則第28条第1項の業務を行う屋内作業場について、同条第2項の定期測定と第3項の記録保存の組合せとして正しいものはどれか。",
+      "question_id": "EISEI1-Q-000003",
+      "question_version": 1,
+      "source_id": "E1-LAW-ORGANIC"
+    },
+    {
+      "choices": [
+        "酸素と二酸化炭素",
+        "酸素と硫化水素",
+        "硫化水素のみ",
+        "酸素と一酸化炭素",
+        "酸素のみ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "第二種酸素欠乏危険作業に係る作業場で、その日の作業を開始する前に、酸素欠乏症等防止規則第3条第1項により測定しなければならない濃度の組合せはどれか。",
+      "question_id": "EISEI1-Q-000004",
+      "question_version": 1,
+      "source_id": "E1-LAW-OXYGEN"
+    },
+    {
+      "choices": [
+        "酸素濃度を16％以上にするまで換気する。",
+        "酸素濃度を18％以上にするまで換気する。",
+        "酸素濃度を20％以上にするまで換気する。",
+        "二酸化炭素濃度を0.5％未満にするまで換気する。",
+        "硫化水素濃度を10ppm未満にするまで換気する。"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "酸素欠乏危険作業に係る作業場を換気するときの措置として、酸素欠乏症等防止規則上正しいものはどれか。",
+      "question_id": "EISEI1-Q-000005",
+      "question_version": 1,
+      "source_id": "E1-LAW-OXYGEN"
+    },
+    {
+      "choices": [
+        "1月以内ごと",
+        "3月以内ごと",
+        "6月以内ごと",
+        "1年以内ごと",
+        "2年以内ごと"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "放射線業務に常時従事し管理区域に立ち入る労働者に対する電離放射線健康診断の定期実施間隔として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000006",
+      "question_version": 1,
+      "source_id": "E1-LAW-IONIZING"
+    },
+    {
+      "choices": [
+        "健診日から1月以内",
+        "健診日から3月以内",
+        "健診日から6月以内",
+        "健診日から1年以内",
+        "期限の定めはない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "特定化学物質健康診断の結果に基づく医師の意見聴取を行う期限として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000007",
+      "question_version": 1,
+      "source_id": "E1-LAW-SPEC-CHEM"
+    },
+    {
+      "choices": [
+        "防じんマスクなら使用できる。",
+        "防毒マスクなら使用できる。",
+        "電動ファン付きのろ過式保護具なら使用できる。",
+        "ろ過式呼吸用保護具を使用させてはならない。",
+        "フィットテストに合格したろ過式保護具なら使用できる。"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "有害物質の濃度が不明な場所での呼吸用保護具の使用について、厚生労働省の指針に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000008",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "3年間",
+        "10年間",
+        "5年間",
+        "30年間",
+        "40年間"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "特別管理物質を製造し又は取り扱う業務に常時従事し又は従事した労働者に係るものを除く特定化学物質健康診断個人票の保存期間として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000009",
+      "question_version": 1,
+      "source_id": "E1-LAW-SPEC-CHEM"
+    },
+    {
+      "choices": [
+        "健康診断を行った日から5年間",
+        "退職した日から5年間",
+        "当該業務に従事しないこととなった日から30年間",
+        "当該業務に従事しないこととなった日から40年間",
+        "健康診断を行った日から40年間"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "石綿健康診断個人票について、労働者が当該事業場で常時石綿等を取り扱う業務に従事しないこととなった場合の保存期間として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000010",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "粉じん発生の少ない工程への変更と材料の変更",
+        "密閉化、局所排気装置又はプッシュプル型換気装置の設置、湿潤化",
+        "屋内作業場全体への全体換気装置の設置だけ",
+        "作業環境測定の実施とその結果に基づく事後措置だけ",
+        "特別教育と防じんマスクの使用だけ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "粉じん障害防止のため、特定粉じん発散源そのものに対して行う設備・湿潤化等の措置の組合せとして、厚生労働省系資料に示されているものはどれか。",
+      "question_id": "EISEI1-Q-000011",
+      "question_version": 1,
+      "source_id": "E1-MHLW-DUST-PREVENTION"
+    },
+    {
+      "choices": [
+        "ヘモグロビンとの結合による血液の酸素運搬能低下",
+        "細胞内呼吸の阻害",
+        "肺水腫又は肺線維症を通じた呼吸困難",
+        "末梢神経への慢性作用による緩徐な感覚障害",
+        "中枢性の呼吸麻痺"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "厚生労働省の「第4章 化学物質または混合物の危険性・有害性」が化学物質の作用による窒息の例として、高濃度の硫化水素について明示している急性作用はどれか。",
+      "question_id": "EISEI1-Q-000012",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "第一管理区分",
+        "第二管理区分",
+        "第三管理区分",
+        "B測定を追加するまで管理区分を決定できない",
+        "管理濃度を超えた測定点だけを第三管理区分とする"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "単位作業場所でA測定のみを行い、第一評価値が管理濃度以上、第二評価値が管理濃度を超えた。この測定結果を作業環境評価基準に従って評価した管理区分はどれか。",
+      "question_id": "EISEI1-Q-000013",
+      "question_version": 1,
+      "source_id": "E1-MHLW-WORKENV-EVALUATION"
+    },
+    {
+      "choices": [
+        "譲渡又は提供の日の30日前までに行う。",
+        "相手方が当該物を最初に使用する時までに行う。",
+        "相手方から通知を求められた時に限って行う。",
+        "通知対象物を譲渡し又は提供する時までに行う。",
+        "譲渡又は提供した日から7日以内に行う。"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働安全衛生法第57条の2第1項の通知対象物を譲渡し又は提供する場合、同項の通知を行う時期として労働安全衛生規則第34条の2の5第1項に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000014",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "すべての対象鉛業務について一律に3月以内ごとに1回である。",
+        "原則は6月以内ごとに1回だが、同項が列挙する一部の鉛業務等では1年以内ごとに1回である。",
+        "原則は1年以内ごとに1回だが、同項が列挙する一部の鉛業務等では6月以内ごとに1回である。",
+        "作業環境が第一管理区分であれば初回から一律に2年以内ごとに1回でよい。",
+        "雇入れ時と配置替え時だけ実施し、その後の定期健康診断は不要である。"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛中毒予防規則第53条第1項による鉛健康診断の定期実施間隔について、同項の原則と括弧書きの例外を正しく表すものはどれか。",
+      "question_id": "EISEI1-Q-000015",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "粉じんの発散防止及び作業場の換気の方法・作業場の管理・呼吸用保護具の使用の方法・粉じんに係る疾病及び健康管理・関係法令",
+        "粉じんの発散防止及び作業場の換気の方法・作業場の管理・作業環境測定士の資格制度・救急蘇生・関係法令",
+        "局所排気装置の設計計算・有機溶剤の代謝・呼吸用保護具の使用の方法・危険予知訓練・関係法令",
+        "作業場の管理・騒音性難聴の健康管理・電離放射線の測定・呼吸用保護具の使用の方法・関係法令",
+        "粉じんの発散防止及び作業場の換気の方法・作業場の管理・防火管理・フォークリフト運転・関係法令"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "粉じん障害防止規則第22条第1項により、常時特定粉じん作業に係る業務に就かせる労働者に行う特別教育の科目の組合せとして正しいものはどれか。",
+      "question_id": "EISEI1-Q-000016",
+      "question_version": 1,
+      "source_id": "E1-LAW-DUST"
+    },
+    {
+      "choices": [
+        "吸入・経口・経皮",
+        "吸入・聴覚・視覚",
+        "経口・紫外線・騒音",
+        "経皮・振動・照度",
+        "吸入・換気回数・気温"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "有機溶剤や金属化合物などの有害物が体内に取り込まれる経路として、厚生労働省の生物学的モニタリングの解説に適合する組合せはどれか。",
+      "question_id": "EISEI1-Q-000017",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "1月以内ごとに1回",
+        "3月以内ごとに1回",
+        "6月以内ごとに1回",
+        "1年以内ごとに1回",
+        "作業方法を変更した場合だけ行う"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "騒音障害防止のためのガイドラインにおいて別表第1に掲げる作業場で行う等価騒音レベルの定期測定の頻度として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000018",
+      "question_version": 1,
+      "source_id": "E1-MHLW-NOISE-2023"
+    },
+    {
+      "choices": [
+        "衛生管理者は全員を専任にしなければならない。",
+        "少なくとも1人の衛生管理者を専任としなければならない。",
+        "衛生管理者の選任は不要である。",
+        "産業医だけを専任にすればよい。",
+        "衛生委員会の議長だけを専任にすればよい。"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "常時千人を超える労働者を使用する事業場における衛生管理者の選任について労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000019",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "1月以内ごとに1回",
+        "3月以内ごとに1回",
+        "6月以内ごとに1回",
+        "1年以内ごとに1回",
+        "2年以内ごとに1回"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "粉じん障害防止規則第17条第2項が定める、対象となる局所排気装置等の定期自主検査の頻度として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000020",
+      "question_version": 1,
+      "source_id": "E1-LAW-DUST"
+    },
+    {
+      "choices": [
+        "酸素欠乏危険作業主任者技能講習又は酸素欠乏・硫化水素危険作業主任者技能講習を修了した者のうちから選任する。",
+        "衛生管理者免許を持つ者なら技能講習を修了していなくても選任できる。",
+        "作業経験が3年以上あれば資格を問わない。",
+        "産業医だけが選任できる。",
+        "作業環境測定士だけが選任できる。"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "第一種酸素欠乏危険作業について酸素欠乏症等防止規則が定める酸素欠乏危険作業主任者の選任として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000021",
+      "question_version": 1,
+      "source_id": "E1-LAW-OXYGEN"
+    },
+    {
+      "choices": [
+        "妊産婦が請求しなければ危険有害業務に就かせてよい。",
+        "使用者は妊娠中の女性及び産後1年を経過しない女性を、重量物を取り扱う業務等の妊産婦に有害な業務に就かせてはならない。",
+        "産後1年を経過すれば本人の請求があっても同項による制限を受ける。",
+        "対象は18歳未満の男性だけである。",
+        "有害業務の就業制限は労働安全衛生法だけに定められ労働基準法には定めがない。"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第64条の3第1項が定める危険有害業務の就業制限について正しいものはどれか。",
+      "question_id": "EISEI1-Q-000022",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "常時10人以上の労働者を使用するすべての事業場",
+        "常時30人以上の労働者を使用するすべての事業場",
+        "常時50人以上の労働者を使用する事業場",
+        "常時100人以上の労働者を使用する事業場",
+        "常時300人以上の労働者を使用する事業場"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "労働安全衛生法第12条第1項による衛生管理者の選任が必要となる事業場として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000023",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "1月以内ごとに1回",
+        "3月以内ごとに1回",
+        "6月以内ごとに1回",
+        "1年以内ごとに1回",
+        "2年以内ごとに1回"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "労働安全衛生規則第44条第1項による定期健康診断の実施頻度として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000024",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "常時10人以上の労働者を使用する事業場",
+        "常時30人以上の労働者を使用する事業場",
+        "常時50人以上の労働者を使用する事業場",
+        "常時100人以上の労働者を使用する事業場",
+        "常時300人以上の労働者を使用する事業場"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "労働安全衛生法第18条第1項により衛生委員会を設けなければならない事業場として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000025",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "尿中の馬尿酸の量",
+        "尿中のデルタアミノレブリン酸の量",
+        "血清コリンエステラーゼ活性値",
+        "尿中の蛋白量だけ",
+        "胸部エックス線直接撮影"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "厚生労働省の生物学的モニタリング資料においてトルエンばく露に関する検査項目として示されるものはどれか。",
+      "question_id": "EISEI1-Q-000026",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "血中鉛と尿中デルタアミノレブリン酸",
+        "尿中馬尿酸と血清コリンエステラーゼ",
+        "胸部エックス線と肺機能検査",
+        "尿中蛋白だけと聴力検査",
+        "皮膚温と握力"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務に係る生物学的モニタリングとして厚生労働省資料に示される組合せはどれか。",
+      "question_id": "EISEI1-Q-000027",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "作業者の尿や血液等の生体試料中の有害物又は代謝物等を測定する。",
+        "作業場の換気回数だけを測定する。",
+        "局所排気装置のフード風速だけを測定する。",
+        "作業環境の照度だけを測定する。",
+        "保護具の購入数だけを記録する。"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "生物学的モニタリングの説明として厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000028",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "セルフケア・ラインによるケア・事業場内産業保健スタッフ等によるケア・事業場外資源によるケア",
+        "セルフケア・作業環境測定・健康診断・安全パトロール",
+        "ラインによるケア・化学物質表示・局所排気・保護具",
+        "産業医によるケア・賃金管理・人事評価・販売促進",
+        "事業場外資源によるケア・設備自主検査・消防訓練・品質管理"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "厚生労働省のメンタルヘルス指針に示される4つのケアの組合せとして正しいものはどれか。",
+      "question_id": "EISEI1-Q-000029",
+      "question_version": 1,
+      "source_id": "E1-MHLW-MENTAL-HEALTH"
+    },
+    {
+      "choices": [
+        "事業者は労働者を雇い入れたとき安全又は衛生のための教育を行わなければならない。",
+        "教育は労働者が請求した場合だけ必要である。",
+        "教育は管理監督者だけに行えばよい。",
+        "教育は退職時だけ行う。",
+        "教育は販売促進に関する内容だけでよい。"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "労働安全衛生法第59条第1項が定める雇入れ時の教育について正しいものはどれか。",
+      "question_id": "EISEI1-Q-000030",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "生体機能のリズムと生活時間のタイミングのずれ",
+        "骨格の急激な消失",
+        "血液型の変化",
+        "身長の恒常的な増加",
+        "視力の即時回復"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "厚生労働省資料が交替勤務で生じやすいと示すものはどれか。",
+      "question_id": "EISEI1-Q-000031",
+      "question_version": 1,
+      "source_id": "E1-MHLW-EHEALTH-SLEEP"
+    },
+    {
+      "choices": [
+        "日中に蓄積した疲労の回復",
+        "身長を急激に増やすこと",
+        "血液型を変えること",
+        "骨格を消失させること",
+        "視力を即時回復させること"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "睡眠の重要な目的として厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000032",
+      "question_version": 1,
+      "source_id": "E1-MHLW-EHEALTH-SLEEP"
+    },
+    {
+      "choices": [
+        "手指や前腕の末梢循環障害",
+        "急性の視力回復",
+        "血液型の変化",
+        "身長の増加",
+        "歯の自然脱落"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "厚生労働省資料が振動障害の特徴的症状として示すものはどれか。",
+      "question_id": "EISEI1-Q-000033",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "白内障等の放射線眼疾患",
+        "尿中馬尿酸の増加だけ",
+        "じん肺だけ",
+        "振動によるレイノー現象だけ",
+        "有機溶剤による皮膚炎だけ"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "電離放射線にさらされる業務による疾病として厚生労働省資料に示されるものはどれか。",
+      "question_id": "EISEI1-Q-000034",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RADIATION-LASER"
+    },
+    {
+      "choices": [
+        "作業方法や作業時間を適切に管理する",
+        "事業場の名称だけを管理する",
+        "従業員の血液型だけを管理する",
+        "建物の色だけを管理する",
+        "作業と関係なく作業方法を放置する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "労働衛生における作業管理として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000035",
+      "question_version": 1,
+      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE"
+    },
+    {
+      "choices": [
+        "発がん性は含まれない",
+        "発がん性が含まれる",
+        "有害性は臭気だけで決まる",
+        "有害性は色だけで決まる",
+        "有害性は容器の形だけで決まる"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の有害性として厚生労働省資料に示されるものはどれか。",
+      "question_id": "EISEI1-Q-000036",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "骨折だけ",
+        "血液型の変化",
+        "眼の障害",
+        "身長の増加",
+        "歯の自然脱落"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "レーザー光線にさらされる業務による疾病として厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000037",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RADIATION-LASER"
+    },
+    {
+      "choices": [
+        "BMI",
+        "血液型",
+        "視力表",
+        "WBGT",
+        "身長"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "暑熱環境における熱中症予防で厚生労働省資料が活用を示す指標はどれか。",
+      "question_id": "EISEI1-Q-000038",
+      "question_version": 1,
+      "source_id": "E1-MHLW-HEAT"
+    },
+    {
+      "choices": [
+        "酸素は血液から空気へ移動する",
+        "酸素は空気から血液へ移動する",
+        "二酸化炭素は血液中にのみとどまる",
+        "肺は骨格を作る器官である",
+        "肺で血液型が決まる"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "肺におけるガス交換として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000039",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "空気から血液へ移動する",
+        "骨格に固定される",
+        "血液型を決める",
+        "血液から肺へ移動する",
+        "身長を増加させる"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "肺での二酸化炭素の移動として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000040",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "腎臓が血液型により決める",
+        "肺だけが無条件に決める",
+        "脳が酸素の必要量等を感知して調節する",
+        "骨が体温だけで決める",
+        "皮膚が身長により決める"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "呼吸数の調節について公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000041",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "血液を全身へ送り出す",
+        "尿を作る",
+        "酸素を空気中へ放出する",
+        "骨格を形成する",
+        "血液型を変える"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "心臓の基本的な機能として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000042",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "血液型を作る",
+        "血液をろ過して老廃物を除く",
+        "空気中の酸素を直接取り込む",
+        "骨を作る",
+        "視力を調節する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "腎臓の基本的な働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000043",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "髪の色だけ",
+        "血液型だけ",
+        "身長だけ",
+        "水分と塩類やミネラルのバランス",
+        "骨格の数だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腎臓が血液中で健全な均衡を保つ対象の組合せはどれか。",
+      "question_id": "EISEI1-Q-000044",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "脳だけ",
+        "腎臓だけ",
+        "血管だけ",
+        "骨だけ",
+        "横隔膜などの胸壁の筋肉"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "呼吸器系に含まれるものとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000045",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "生命に不可欠ではない",
+        "血液型を変更する働きである",
+        "生命に不可欠である",
+        "骨格だけに関係する",
+        "身長だけに関係する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "肺でのガス交換について公的医療機関の資料が示すことはどれか。",
+      "question_id": "EISEI1-Q-000046",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "常時10人以上で必要である",
+        "常時30人以上で必要である",
+        "常時50人以上で必要である",
+        "常時100人以上で必要である",
+        "常時500人以上で必要である"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "労働安全衛生法による産業医の選任について正しいものはどれか。",
+      "question_id": "EISEI1-Q-000047",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "委員全員の互選だけで定める",
+        "事業者又は事業の実施を統括管理する者等が務める",
+        "労働者代表だけが必ず務める",
+        "産業医だけが必ず務める",
+        "外部の第三者だけが必ず務める"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "衛生委員会の議長について労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000048",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "毎月1回以上",
+        "毎年1回以上",
+        "少なくとも毎週1回",
+        "5年に1回",
+        "巡視は不要"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生管理者の作業場等の巡視頻度として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000049",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "毎日1回",
+        "隔週1回",
+        "2か月に1回",
+        "毎月1回以上",
+        "半年に1回"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生委員会の開催頻度として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000050",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "1年",
+        "2年",
+        "3年",
+        "4年",
+        "5年"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "true",
+      "question": "定期健康診断の結果に関する記録の保存期間として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000051",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "意見聴取は不要である",
+        "労働者本人だけが行う",
+        "事業者は意見を聴かなければならない",
+        "結果を廃棄しなければならない",
+        "名称だけを記録する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "健康診断の結果に基づく医師等の意見聴取について労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000052",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "5年に1回",
+        "3年に1回",
+        "1年以内ごとに1回",
+        "毎日",
+        "実施不要"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "ストレスチェックの実施頻度として労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000053",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "事業場外資源だけが行う",
+        "労働者自身がストレスに気づき対処する",
+        "管理監督者だけが行う",
+        "産業医だけが行う",
+        "事業者だけが行う"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "職場のメンタルヘルス対策におけるセルフケアとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000054",
+      "question_version": 1,
+      "source_id": "E1-MHLW-MENTAL-HEALTH"
+    },
+    {
+      "choices": [
+        "保護帽だけ",
+        "安全靴だけ",
+        "保護手袋だけ",
+        "防じんマスクだけ",
+        "耳栓又はイヤーマフ"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "騒音障害防止のための保護具として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000055",
+      "question_version": 1,
+      "source_id": "E1-MHLW-NOISE-2023"
+    },
+    {
+      "choices": [
+        "骨折",
+        "血液型の変化",
+        "視力の即時回復",
+        "騒音性難聴",
+        "身長の増加"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "騒音への長期間のばく露で予防対象となる健康影響として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000056",
+      "question_version": 1,
+      "source_id": "E1-MHLW-NOISE-2023"
+    },
+    {
+      "choices": [
+        "初日から長時間の暑熱作業を強いる",
+        "徐々に暑熱環境へ慣らす",
+        "水分を一切取らない",
+        "WBGTを確認しない",
+        "体調不良でも休憩しない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "暑熱作業への順化として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000057",
+      "question_version": 1,
+      "source_id": "E1-MHLW-HEAT"
+    },
+    {
+      "choices": [
+        "急性の視力回復",
+        "血液型の変化",
+        "末梢神経障害",
+        "身長の増加",
+        "歯の自然脱落"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "振動障害の末梢神経系の障害として該当するものはどれか。",
+      "question_id": "EISEI1-Q-000058",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "長期間のばく露でしか起こらない",
+        "外観だけで判定できる",
+        "健康影響とは関係がない",
+        "発生後に対策は不要である",
+        "短時間のばく露でも健康影響を生じ得る"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の急性毒性として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000059",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "1つの部屋だけで構成される",
+        "2つの部屋だけで構成される",
+        "3つの部屋だけで構成される",
+        "5つの部屋だけで構成される",
+        "4つの部屋から構成される"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "心臓の構造として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000060",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "血液型を作る",
+        "尿を作る",
+        "酸素を空気へ移す",
+        "血液の逆流を防ぐ",
+        "骨を作る"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "心臓の弁の主な働きとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000061",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "骨格系だけ",
+        "消化器系だけ",
+        "心臓の電気伝導系",
+        "腎臓のろ過だけ",
+        "皮膚の色"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "心拍を調節する心臓の仕組みとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000062",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "血液型を変える",
+        "ろ過した老廃物等から尿を作る",
+        "空気中の酸素を直接取り込む",
+        "耳で音を聞く",
+        "骨を作る"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腎臓の働きとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000063",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "血液型だけ",
+        "髪の色だけ",
+        "骨格の数だけ",
+        "視力だけ",
+        "血圧"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腎臓が調節に関わるものとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000064",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "希望者だけに任意で行う",
+        "毎月行う",
+        "5年ごとに行う",
+        "退職後だけに行う",
+        "事業者が実施しなければならない"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "雇入れの際の健康診断について労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000065",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "血液型の判定だけ",
+        "骨格の数の測定だけ",
+        "髪の色の確認だけ",
+        "血圧の測定",
+        "利き手の判定"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "定期健康診断の循環器系の測定項目はどれか。",
+      "question_id": "EISEI1-Q-000066",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "500Hzと800Hz",
+        "750Hzと1500Hz",
+        "1000Hzと4000Hz",
+        "2000Hzと6000Hz",
+        "3000Hzと9000Hz"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "定期健康診断の聴力検査で用いる音の周波数として労働安全衛生規則に適合する組合せはどれか。",
+      "question_id": "EISEI1-Q-000067",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "血液型だけの調査",
+        "既往歴及び業務歴の調査",
+        "建物の色の確認",
+        "利き手だけの確認",
+        "通勤経路だけの確認"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "定期健康診断で行うものとして労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000068",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "労働者自身のストレスの状況についての気付きを促す",
+        "血液型を変更する",
+        "事業場の名称を決める",
+        "骨格を作る",
+        "建物の色を決める"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "ストレスチェック制度の目的として労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000069",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "1年",
+        "2年",
+        "5年",
+        "10年",
+        "3年"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生委員会の議事の記録保存期間として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000070",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "事業場の来客だけ",
+        "地域住民だけ",
+        "建物管理会社だけ",
+        "産業医",
+        "取引先だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生委員会の委員として労働安全衛生法に示される者はどれか。",
+      "question_id": "EISEI1-Q-000071",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "その場で必要な措置を講ずる",
+        "次年度まで放置する",
+        "記録を廃棄する",
+        "巡視を中止する",
+        "労働者にだけ任せる"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生管理者が作業場の巡視で健康障害のおそれを見いだした場合の措置として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000072",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "当日中",
+        "3日以内",
+        "7日以内",
+        "14日以内",
+        "1年以内"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生管理者を選任したときの選任報告の期限として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000073",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "1年ごとに1回",
+        "2年ごとに1回",
+        "3年ごとに1回",
+        "5年ごとに1回",
+        "6か月以内ごとに1回"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "有機溶剤業務に常時従事する労働者への定期健康診断の実施間隔として有機溶剤中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000074",
+      "question_version": 1,
+      "source_id": "E1-LAW-ORGANIC"
+    },
+    {
+      "choices": [
+        "毎月1回",
+        "1年ごとに1回",
+        "2年ごとに1回",
+        "6か月以内ごとに1回",
+        "5年ごとに1回"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "特定化学物質を取り扱う業務に常時従事する労働者への定期健康診断の実施間隔として特定化学物質障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000075",
+      "question_version": 1,
+      "source_id": "E1-LAW-SPEC-CHEM"
+    },
+    {
+      "choices": [
+        "毎月1回",
+        "6か月以内ごとに1回",
+        "2年ごとに1回",
+        "5年ごとに1回",
+        "実施不要"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿等を取り扱う業務に常時従事する労働者への定期健康診断の実施間隔として石綿障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000076",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "尿を作る",
+        "骨を作る",
+        "視力を調節する",
+        "血液型を変える",
+        "酸素を運搬する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "赤血球の主な働きとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000077",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-BLOOD"
+    },
+    {
+      "choices": [
+        "酸素を運搬する",
+        "尿を作る",
+        "血圧を単独で調節する",
+        "出血を止めるための凝固に関わる",
+        "骨を作る"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "血小板の主な働きとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000078",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-BLOOD"
+    },
+    {
+      "choices": [
+        "骨格の一部である",
+        "肺胞の別名である",
+        "血液の液体成分である",
+        "腎臓の部位だけを指す",
+        "心臓弁の別名である"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "血漿について適切なものはどれか。",
+      "question_id": "EISEI1-Q-000079",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-BLOOD"
+    },
+    {
+      "choices": [
+        "骨格を作る",
+        "感染から体を守る",
+        "血液型を変更する",
+        "尿を作る",
+        "視力を調節する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "白血球の主な働きとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000080",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-BLOOD"
+    },
+    {
+      "choices": [
+        "細胞の働きで生じた酸を除く",
+        "血液型だけを変える",
+        "髪の色だけを変える",
+        "骨格の数だけを増やす",
+        "視力だけを高める"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腎臓が細胞の働きで生じた酸に対して行う働きはどれか。",
+      "question_id": "EISEI1-Q-000081",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "労働者へ周知する",
+        "廃棄する",
+        "秘密にする",
+        "事業者だけが知ればよい",
+        "取引先だけに送る"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生委員会の議事の概要について事業者が行うべきこととして労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000082",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "事業者だけが自由に指名する",
+        "労働者の過半数を代表する者の推薦に基づき指名する",
+        "外部取引先が指名する",
+        "行政機関だけが指名する",
+        "無作為に選ぶ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生委員会の労働者側委員の指名について労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000083",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "建物の色",
+        "取引先の売上",
+        "労働者の健康障害を防止するための基本となるべき対策",
+        "事業場名の変更だけ",
+        "労働者の血液型だけ"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生委員会の調査審議事項として労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000084",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "資格は不要である",
+        "事業場の来客だけ",
+        "取引先だけ",
+        "衛生管理者免許を受けた者",
+        "地域住民だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生管理者として選任できる者について労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000085",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "結果を廃棄する",
+        "結果を秘密にする",
+        "取引先だけに通知する",
+        "通知は不要である",
+        "結果を通知する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "健康診断の結果について事業者が労働者に行うべきこととして労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000086",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "同意なく公開する",
+        "取引先だけに提供する",
+        "結果を必ず廃棄する",
+        "受検者本人の同意を得る",
+        "同意は不要である"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "ストレスチェック結果を事業者へ提供する際の取扱いとして労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000087",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "結果を廃棄する",
+        "何もしない",
+        "必要な措置を講ずる",
+        "建物の色を変えるだけ",
+        "血液型を変更する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "健康診断結果に基づく医師等の意見を勘案して事業者が講ずべきこととして労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000088",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "面接指導は絶対にできない",
+        "事業者は医師による面接指導を行わなければならない",
+        "結果を廃棄しなければならない",
+        "労働者の申出は無関係である",
+        "建物の色を確認する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "ストレスチェックで高ストレス者と判定された労働者が申し出た場合の面接指導について労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000089",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "鉛作業主任者技能講習を修了した者",
+        "石綿作業主任者技能講習を修了した者",
+        "酸素欠乏危険作業主任者技能講習を修了した者",
+        "特定化学物質及び四アルキル鉛等作業主任者技能講習を修了した者",
+        "有機溶剤作業主任者技能講習を修了した者"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "有機溶剤作業主任者として選任できる者はどれか。",
+      "question_id": "EISEI1-Q-000090",
+      "question_version": 1,
+      "source_id": "E1-LAW-ORGANIC"
+    },
+    {
+      "choices": [
+        "有機溶剤作業主任者技能講習を修了した者",
+        "鉛作業主任者技能講習を修了した者",
+        "石綿作業主任者技能講習を修了した者",
+        "特定化学物質及び四アルキル鉛等作業主任者技能講習を修了した者",
+        "酸素欠乏危険作業主任者技能講習を修了した者"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "特定化学物質及び四アルキル鉛等作業主任者として選任できる者はどれか。",
+      "question_id": "EISEI1-Q-000091",
+      "question_version": 1,
+      "source_id": "E1-LAW-SPEC-CHEM"
+    },
+    {
+      "choices": [
+        "有機溶剤作業主任者技能講習を修了した者",
+        "石綿作業主任者技能講習を修了した者",
+        "鉛作業主任者技能講習を修了した者",
+        "特定化学物質及び四アルキル鉛等作業主任者技能講習を修了した者",
+        "酸素欠乏危険作業主任者技能講習を修了した者"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛作業主任者として選任できる者はどれか。",
+      "question_id": "EISEI1-Q-000092",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "有機溶剤作業主任者技能講習を修了した者",
+        "石綿作業主任者技能講習を修了した者",
+        "鉛作業主任者技能講習を修了した者",
+        "特定化学物質及び四アルキル鉛等作業主任者技能講習を修了した者",
+        "酸素欠乏危険作業主任者技能講習を修了した者"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿作業主任者として選任できる者はどれか。",
+      "question_id": "EISEI1-Q-000093",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "酸素欠乏危険作業主任者技能講習を修了した者",
+        "有機溶剤作業主任者技能講習を修了した者",
+        "石綿作業主任者技能講習を修了した者",
+        "鉛作業主任者技能講習を修了した者",
+        "特定化学物質及び四アルキル鉛等作業主任者技能講習を修了した者"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "酸素欠乏危険作業主任者として選任できる者はどれか。",
+      "question_id": "EISEI1-Q-000094",
+      "question_version": 1,
+      "source_id": "E1-LAW-OXYGEN"
+    },
+    {
+      "choices": [
+        "血液型の変化",
+        "急性の視力回復",
+        "身長の増加",
+        "歯の自然脱落",
+        "骨及び関節の障害"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "振動障害の運動器系の障害として該当するものはどれか。",
+      "question_id": "EISEI1-Q-000095",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "作業を継続させる",
+        "水分摂取を禁止する",
+        "WBGTを無視する",
+        "涼しい場所へ移して身体を冷やす",
+        "一人で放置する"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "暑熱作業中に労働者の体調不良が疑われる場合の初期対応として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000096",
+      "question_version": 1,
+      "source_id": "E1-MHLW-HEAT"
+    },
+    {
+      "choices": [
+        "身長の増加",
+        "血液型の変化",
+        "皮膚又は眼の重篤な損傷",
+        "骨格の自然消失",
+        "視力の即時回復"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腐食性の化学物質による健康影響として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000097",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "骨格だけを作る",
+        "血液型だけを決める",
+        "視力だけを調節する",
+        "髪の色だけを決める",
+        "ホルモンを作る"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腎臓の働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000098",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "1日当たり約0.5米国慣用カップ",
+        "1か月当たり約5米国慣用カップ",
+        "1時間当たり約50米国慣用カップ",
+        "1分間当たり約0.5米国慣用カップ",
+        "健康な腎臓は血液をろ過しない"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "NIDDK資料が示す健康な腎臓の血液ろ過量について、米国慣用カップを単位とした表現として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000099",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "酸素を多く含む血液",
+        "骨だけに向かう血液",
+        "尿だけを含む血液",
+        "血液型だけを決める血液",
+        "視力だけを調節する血液"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "心臓の左側から全身へ送り出される血液として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000100",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "血液型を変える",
+        "骨格を作るだけ",
+        "栄養素を体が吸収して利用できる大きさに分解する",
+        "視力だけを調節する",
+        "髪の色を決める"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "消化の重要な役割として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000101",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "酸素を直接取り込む",
+        "水分を吸収して内容物を便へ変える",
+        "血液を全身へ送る",
+        "尿を作る",
+        "血液型を変える"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "大腸の主な働きとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000102",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "骨を作る",
+        "血液型を決める",
+        "酸素を空気へ移す",
+        "消化された栄養素を血流へ吸収する",
+        "視力を調節する"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "小腸の主な働きとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000103",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "肺",
+        "心臓",
+        "肝臓",
+        "腎臓",
+        "脾臓"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "消化器系の固形器官として公的医療機関の資料に示されるものはどれか。",
+      "question_id": "EISEI1-Q-000104",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "血液型だけ",
+        "骨格だけ",
+        "髪の色だけ",
+        "視力だけ",
+        "神経とホルモン"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "消化過程の調節に関わるものとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000105",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "常時1人以上",
+        "常時5人以上",
+        "常時10人以上50人未満",
+        "常時50人以上だけ",
+        "常時100人以上だけ"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生推進者を選任しなければならない事業場の規模として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000106",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "事業場の名称だけを決める",
+        "健康障害防止のための施設又は作業方法の改善を図る",
+        "取引先の売上だけを管理する",
+        "建物の色だけを決める",
+        "血液型だけを記録する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "衛生推進者の担当業務として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000107",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "教育は不要である",
+        "退職後だけに行う",
+        "事業者は必要な安全衛生教育を行わなければならない",
+        "5年後にだけ行う",
+        "取引先だけに行う"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働者の作業内容を変更したときの安全衛生教育について労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000108",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "特別の教育を行わなければならない",
+        "教育は不要である",
+        "退職後だけに行う",
+        "外部の来客だけに行う",
+        "建物の色を決めるだけ"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "危険又は有害な業務に労働者を就かせるときの教育として労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000109",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "記録は不要である",
+        "教育を行った事項を記録し保存する",
+        "結果を直ちに廃棄する",
+        "取引先だけに送る",
+        "建物の色だけを記録する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "安全衛生教育を行ったときの記録について労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000110",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "血液型の判定だけ",
+        "髪の色の確認だけ",
+        "利き手の確認だけ",
+        "通勤経路の確認だけ",
+        "胸部エックス線検査"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "定期健康診断の画像検査項目はどれか。",
+      "question_id": "EISEI1-Q-000111",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "尿中血液型だけ",
+        "尿中視力だけ",
+        "尿中身長だけ",
+        "尿中糖及び蛋白の有無",
+        "尿中髪の色だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "定期健康診断の尿検査の項目として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000112",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "赤血球数だけ",
+        "血液型だけ",
+        "GOT GPT及びγ-GTP",
+        "視力だけ",
+        "身長だけ"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "定期健康診断の肝機能検査の項目として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000113",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "血液型だけ",
+        "LDLコレステロール HDLコレステロール及び血清トリグリセライド",
+        "身長だけ",
+        "視力だけ",
+        "髪の色だけ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "定期健康診断の血中脂質検査の項目として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000114",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "空腹時血糖又はHbA1c",
+        "血液型だけ",
+        "身長だけ",
+        "視力だけ",
+        "髪の色だけ"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "定期健康診断の血糖検査の項目として労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000115",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "骨格が消失する性質",
+        "血液型を変える性質",
+        "視力を即時回復する性質",
+        "身長を増加させる性質",
+        "皮膚にアレルギー反応を生じさせる性質"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の皮膚感作性として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000116",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "血液型を変える性質",
+        "骨格を作る性質",
+        "視力を即時回復する性質",
+        "吸入により気道にアレルギー反応を生じさせる性質",
+        "身長を増加させる性質"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の呼吸器感作性として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000117",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "視力を即時回復する性質",
+        "身長を増加させる性質",
+        "生殖細胞に遺伝的変異を生じさせる性質",
+        "血液型を変える性質",
+        "骨格を作る性質"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の生殖細胞変異原性として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000118",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "血液型を変える性質",
+        "生殖機能又は発生に悪影響を及ぼす性質",
+        "視力を即時回復する性質",
+        "骨格を作る性質",
+        "身長を増加させる性質"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の生殖毒性として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000119",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "特定の臓器に有害影響を及ぼす性質",
+        "血液型を変える性質",
+        "視力を即時回復する性質",
+        "髪の色を変える性質",
+        "身長を増加させる性質"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "特定標的臓器毒性として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000120",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "1年",
+        "2年",
+        "3年",
+        "10年",
+        "5年"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "有機溶剤健康診断個人票の保存期間として有機溶剤中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000121",
+      "question_version": 1,
+      "source_id": "E1-LAW-ORGANIC"
+    },
+    {
+      "choices": [
+        "1年",
+        "2年",
+        "3年",
+        "5年",
+        "40年"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛健康診断個人票の保存期間として鉛中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000122",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "5年",
+        "10年",
+        "30年",
+        "40年",
+        "永久"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "電離放射線健康診断個人票の保存期間として電離放射線障害防止規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000123",
+      "question_version": 1,
+      "source_id": "E1-LAW-IONIZING"
+    },
+    {
+      "choices": [
+        "5年",
+        "30年",
+        "1年",
+        "2年",
+        "3年"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "特別管理物質を取り扱う業務に係る特定化学物質健康診断個人票の保存期間として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000124",
+      "question_version": 1,
+      "source_id": "E1-LAW-SPEC-CHEM"
+    },
+    {
+      "choices": [
+        "心臓と肺",
+        "肝臓と膵臓",
+        "脳と脊髄",
+        "腎臓と膀胱",
+        "胃と小腸"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "中枢神経系の構成として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000125",
+      "question_version": 1,
+      "source_id": "E1-MEDLINE-CNS"
+    },
+    {
+      "choices": [
+        "血液型だけを変える",
+        "全身の働きの主要な処理中枢となる",
+        "骨格だけを作る",
+        "尿だけを作る",
+        "髪の色だけを決める"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "中枢神経系の主な役割として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000126",
+      "question_version": 1,
+      "source_id": "E1-MEDLINE-CNS"
+    },
+    {
+      "choices": [
+        "建物の色だけ",
+        "取引先の売上だけ",
+        "労働者の血液型だけ",
+        "事業場名だけ",
+        "名称及びその危険性又は有害性"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働安全衛生法の表示対象物について事業者が容器等に表示すべき事項として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000127",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "容器の色だけ",
+        "当該物の名称及びその危険性又は有害性",
+        "事業場の来客数だけ",
+        "労働者の血液型だけ",
+        "建物の色だけ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "通知対象物を譲渡又は提供する際のSDS通知事項として労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000128",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "調査は常に不要である",
+        "建物の色だけを調査する",
+        "製造又は取扱い等の前に危険性又は有害性等を調査するよう努める",
+        "労働者の血液型だけを調査する",
+        "取引先だけを調査する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質等による危険性又は有害性等の調査として労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000129",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "労働者自身だけ",
+        "管理監督者",
+        "事業場外資源だけ",
+        "取引先だけ",
+        "建物管理者だけ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "職場のメンタルヘルス対策におけるラインによるケアの実施主体として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000130",
+      "question_version": 1,
+      "source_id": "E1-MHLW-MENTAL-HEALTH"
+    },
+    {
+      "choices": [
+        "労働者自身だけが行う",
+        "管理監督者だけが行う",
+        "事業場内の産業医等が専門的支援を行う",
+        "取引先だけが行う",
+        "建物の色を決める"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "職場のメンタルヘルス対策における事業場内産業保健スタッフ等によるケアとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000131",
+      "question_version": 1,
+      "source_id": "E1-MHLW-MENTAL-HEALTH"
+    },
+    {
+      "choices": [
+        "労働者自身だけが行う",
+        "管理監督者だけが行う",
+        "産業医だけが行う",
+        "事業場外の専門的機関を活用する",
+        "建物の色を決める"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "職場のメンタルヘルス対策における事業場外資源によるケアとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000132",
+      "question_version": 1,
+      "source_id": "E1-MHLW-MENTAL-HEALTH"
+    },
+    {
+      "choices": [
+        "口",
+        "肺",
+        "心臓",
+        "腎臓",
+        "膀胱"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "消化が始まる部位として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000133",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "血液を全身へ送る",
+        "食物を消化液と混ぜる",
+        "酸素を血液へ取り込む",
+        "尿を作る",
+        "音を感じる"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "胃の主な働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000134",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "血液型を決める",
+        "骨を作るだけ",
+        "空気を温める",
+        "消化を助ける消化液を作る",
+        "尿をためる"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "膵臓の消化に関する働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000135",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "赤血球を作る",
+        "酸素を交換する",
+        "尿をろ過する",
+        "血液を送る",
+        "肝臓で作られた胆汁を蓄える"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "胆のうの消化に関する働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000136",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "事業場の売上を決定する",
+        "労働者の私生活を管理する",
+        "建物の外観を設計する",
+        "採用面接だけを行う",
+        "作業方法を決定し労働者を指揮する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "有機溶剤作業主任者の職務として有機溶剤中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000137",
+      "question_version": 1,
+      "source_id": "E1-LAW-ORGANIC"
+    },
+    {
+      "choices": [
+        "一月を超えない期間ごとに点検する",
+        "十年ごとに点検する",
+        "点検を一切行わない",
+        "故障後だけ点検する",
+        "採用時だけ点検する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "有機溶剤作業主任者が行う局所排気装置等の点検について有機溶剤中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000138",
+      "question_version": 1,
+      "source_id": "E1-LAW-ORGANIC"
+    },
+    {
+      "choices": [
+        "保護具の購入を禁止する",
+        "保護具の使用状況を監視する",
+        "保護具を廃棄するだけにする",
+        "保護具を私用に転用する",
+        "保護具の使用を任意にする"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "有機溶剤作業主任者が保護具について行う職務として有機溶剤中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000139",
+      "question_version": 1,
+      "source_id": "E1-LAW-ORGANIC"
+    },
+    {
+      "choices": [
+        "皮膚・眼に障害を与えるおそれ、又は皮膚から吸収・侵入して健康障害を生ずるおそれが明らかな化学物質等",
+        "皮膚に触れても健康影響のおそれが明らかにない化学物質だけ",
+        "経口摂取だけが問題となり、皮膚や眼への影響がない化学物質だけ",
+        "物理的な騒音だけを発生させる機械設備",
+        "法令上すべての化学物質を無条件に一括した呼称"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "厚生労働省資料における「皮膚等障害化学物質等」の説明として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000140",
+      "question_version": 1,
+      "source_id": "E1-MHLW-SKIN-CHEMICALS"
+    },
+    {
+      "choices": [
+        "皮膚刺激性有害物質と皮膚吸収性有害物質",
+        "呼吸器疾患と循環器疾患",
+        "骨格疾患と眼疾患",
+        "血液型と身長",
+        "騒音と振動"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "皮膚等障害化学物質の大きな分類として厚生労働省資料に適合する組合せはどれか。",
+      "question_id": "EISEI1-Q-000141",
+      "question_version": 1,
+      "source_id": "E1-MHLW-SKIN-CHEMICALS"
+    },
+    {
+      "choices": [
+        "皮膚障害等防止用保護具を着用する",
+        "保護具の着用を禁止する",
+        "皮膚に直接触れて確認する",
+        "換気だけで必ず十分とする",
+        "体調不良でも作業を続ける"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "皮膚等障害化学物質を扱う労働者の健康障害防止として厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000142",
+      "question_version": 1,
+      "source_id": "E1-MHLW-SKIN-CHEMICALS"
+    },
+    {
+      "choices": [
+        "中枢神経系と全身の間で信号を伝える",
+        "血液型を決める",
+        "骨だけを作る",
+        "尿だけをためる",
+        "毛髪の色を決める"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "末梢神経系の役割として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000143",
+      "question_version": 1,
+      "source_id": "E1-NINDS-PERIPHERAL"
+    },
+    {
+      "choices": [
+        "痛みを脳へ伝えるだけ",
+        "筋肉に収縮する信号を送る",
+        "血液をろ過する",
+        "酸素を交換する",
+        "胆汁を蓄える"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "運動神経の主な役割として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000144",
+      "question_version": 1,
+      "source_id": "E1-NINDS-PERIPHERAL"
+    },
+    {
+      "choices": [
+        "血液型",
+        "皮膚に触れた感覚や温度",
+        "骨密度だけ",
+        "肝臓で作る胆汁",
+        "心臓の拍出量だけ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "感覚神経が伝える情報として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000145",
+      "question_version": 1,
+      "source_id": "E1-NINDS-PERIPHERAL"
+    },
+    {
+      "choices": [
+        "頭髪の色だけを決める",
+        "身長だけを決める",
+        "意識的な筆記だけを行う",
+        "呼吸や心拍など意識せず行われる働きを調節する",
+        "血液型だけを決める"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "自律神経が関わる働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000146",
+      "question_version": 1,
+      "source_id": "E1-NINDS-PERIPHERAL"
+    },
+    {
+      "choices": [
+        "結果を記録しておかなければならない",
+        "結果は直ちに廃棄する",
+        "記録は労働者が希望したときだけ作る",
+        "記録は口頭だけでよい",
+        "結果を記録してはならない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "健康診断の結果の記録について労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000147",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "意見を聴かずに放置する",
+        "健康保持に必要な措置について医師又は歯科医師の意見を聴く",
+        "結果を破棄する",
+        "労働者を必ず解雇する",
+        "診断結果を労働者に知らせない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "健康診断で異常の所見があると診断された労働者について事業者が行うこととして労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000148",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "就業場所の変更又は労働時間の短縮等の適切な措置を講ずる",
+        "必ず結果を廃棄する",
+        "一切の措置を講じない",
+        "本人の同意なく診断を改ざんする",
+        "健康診断を今後禁止する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "健康診断結果について医師又は歯科医師の意見を勘案し必要があると認めるときの措置として労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000149",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "結果を通知してはならない",
+        "10年後に通知する",
+        "遅滞なく通知する",
+        "労働者本人以外にだけ通知する",
+        "口頭でのうわさだけで通知する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "定期健康診断を受けた労働者への結果通知について労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000150",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "事業場の広告を作る",
+        "作業方法を決定し労働者を指揮する",
+        "労働者の私生活を管理する",
+        "取引先の人事を決める",
+        "建物の外観を設計する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "特定化学物質及び四アルキル鉛等作業主任者の職務として特定化学物質障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000151",
+      "question_version": 1,
+      "source_id": "E1-LAW-SPEC-CHEM"
+    },
+    {
+      "choices": [
+        "一月を超えない期間ごとに点検する",
+        "十年ごとに点検する",
+        "点検を行わない",
+        "故障後だけ点検する",
+        "採用時だけ点検する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "特定化学物質及び四アルキル鉛等作業主任者が行う局所排気装置等の点検について特定化学物質障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000152",
+      "question_version": 1,
+      "source_id": "E1-LAW-SPEC-CHEM"
+    },
+    {
+      "choices": [
+        "保護具の使用を任意にする",
+        "保護具の使用状況を監視する",
+        "保護具を必ず廃棄する",
+        "保護具の購入を禁止する",
+        "保護具を私用に転用する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "特定化学物質及び四アルキル鉛等作業主任者が保護具について行う職務として特定化学物質障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000153",
+      "question_version": 1,
+      "source_id": "E1-LAW-SPEC-CHEM"
+    },
+    {
+      "choices": [
+        "粉じんを吸入すること",
+        "水分を飲むこと",
+        "日光を浴びること",
+        "筆記をすること",
+        "会話をすること"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "じん肺の発症原因として厚生労働省系資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000154",
+      "question_version": 1,
+      "source_id": "E1-MHLW-DUST-PREVENTION"
+    },
+    {
+      "choices": [
+        "目に見える大きな石だけ",
+        "水滴だけ",
+        "血液だけ",
+        "粒径5マイクロメータ以下の微細な粉じん",
+        "食物だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "肺胞まで到達して沈着し得る粉じんとして厚生労働省系資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000155",
+      "question_version": 1,
+      "source_id": "E1-MHLW-DUST-PREVENTION"
+    },
+    {
+      "choices": [
+        "必ず数分で自然に治る",
+        "視力だけを回復させる病気である",
+        "血液型を変える病気である",
+        "骨を強くする病気である",
+        "一度り患すると直らない病気である"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "じん肺について厚生労働省系資料に適合する説明はどれか。",
+      "question_id": "EISEI1-Q-000156",
+      "question_version": 1,
+      "source_id": "E1-MHLW-DUST-PREVENTION"
+    },
+    {
+      "choices": [
+        "粉じんを意図的に吸入する",
+        "防じんマスク等の呼吸用保護具を適正に使用する",
+        "保護具を使用しない",
+        "清掃を禁止する",
+        "局所排気装置を停止する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "粉じんばく露防止対策として厚生労働省系資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000157",
+      "question_version": 1,
+      "source_id": "E1-MHLW-DUST-PREVENTION"
+    },
+    {
+      "choices": [
+        "聴力だけが必ず改善する",
+        "骨格だけが必ず強くなる",
+        "血液型が変わる",
+        "眠気や意欲低下及び記憶力減退など精神機能の低下",
+        "身長だけが伸びる"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "慢性的な睡眠不足の影響として厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000158",
+      "question_version": 1,
+      "source_id": "E1-MHLW-EHEALTH-SLEEP"
+    },
+    {
+      "choices": [
+        "レプチン分泌が増えグレリン分泌が減る",
+        "レプチン分泌が減りグレリン分泌が亢進する",
+        "両方の分泌が必ず停止する",
+        "血液型が変わる",
+        "骨密度だけが増す"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "睡眠不足が数日続いた場合の食欲関連ホルモンについて厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000159",
+      "question_version": 1,
+      "source_id": "E1-MHLW-EHEALTH-SLEEP"
+    },
+    {
+      "choices": [
+        "インスリンの作用が現れやすくなり血糖が必ず下がる",
+        "代謝に影響しない",
+        "インスリンの作用が現れにくくなり血糖が高くなることがある",
+        "尿だけが必ず増える",
+        "視力だけが回復する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "睡眠不足が続く場合の代謝への影響として厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000160",
+      "question_version": 1,
+      "source_id": "E1-MHLW-EHEALTH-SLEEP"
+    },
+    {
+      "choices": [
+        "夜間に低下するはずの血圧が高止まりすることがある",
+        "血圧は必ずゼロになる",
+        "血液型が変わる",
+        "骨格が消失する",
+        "髪の色が変わる"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "睡眠不足時の循環器系の変化として厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000161",
+      "question_version": 1,
+      "source_id": "E1-MHLW-EHEALTH-SLEEP"
+    },
+    {
+      "choices": [
+        "事業者は医師又は保健師による保健指導を行うよう努めなければならない",
+        "保健指導を必ず禁止する",
+        "健康診断結果を廃棄する",
+        "労働者本人に知らせない",
+        "労働者を必ず解雇する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "健康診断の結果特に健康の保持に努める必要があると認める労働者に対する保健指導について労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000162",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "健康保持に努める必要はない",
+        "労働者は結果及び保健指導を利用して健康の保持に努めるものとする",
+        "結果を必ず隠す",
+        "保健指導を必ず拒否する",
+        "健康診断を受けてはならない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "健康診断の結果及び保健指導を受けた労働者の健康保持について労働安全衛生法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000163",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "10年後に口頭で報告する",
+        "報告を一切行わない",
+        "遅滞なく電子情報処理組織を使用して所轄労働基準監督署長に報告する",
+        "労働者本人だけに口頭で報告する",
+        "取引先だけに報告する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "常時50人以上の労働者を使用する事業者が定期健康診断を行ったときの報告について労働安全衛生規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000164",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "メンタルヘルス対策に関する最新情報や取組事例",
+        "労働者の血液型一覧だけ",
+        "建物の色の設計図だけ",
+        "株価予測だけ",
+        "採用面接の代行だけ"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "厚生労働省のこころの耳が事業者向けに提供するものとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000165",
+      "question_version": 1,
+      "source_id": "E1-MHLW-MENTAL-HEALTH"
+    },
+    {
+      "choices": [
+        "建築確認の申請書",
+        "セルフケアに役立つツール",
+        "給与計算の代行",
+        "税務申告書",
+        "運転免許証の更新"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "厚生労働省のこころの耳が働く方向けに提供するものとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000166",
+      "question_version": 1,
+      "source_id": "E1-MHLW-MENTAL-HEALTH"
+    },
+    {
+      "choices": [
+        "株式取引所だけ",
+        "自動車販売店だけ",
+        "建築確認窓口だけ",
+        "電話 メール及びSNS",
+        "税務署だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "厚生労働省のこころの耳がメンタルヘルス不調等の相談に用意している窓口として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000167",
+      "question_version": 1,
+      "source_id": "E1-MHLW-MENTAL-HEALTH"
+    },
+    {
+      "choices": [
+        "設計及び製造段階から低騒音化に努める",
+        "騒音を必ず増大させる",
+        "耳栓を廃棄する",
+        "測定を禁止する",
+        "作業者に知らせない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "騒音障害防止のため機械設備等について重要な対策として厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000168",
+      "question_version": 1,
+      "source_id": "E1-MHLW-NOISE-2023"
+    },
+    {
+      "choices": [
+        "対策は一切不要である",
+        "騒音障害防止対策と同様の対策を講ずることが望ましい",
+        "騒音を増やすことが望ましい",
+        "保護具を禁止する",
+        "健康管理を禁止する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "別表に掲げられていない作業場であっても騒音レベルが高いと思われる業務を行う場合の対策として厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000169",
+      "question_version": 1,
+      "source_id": "E1-MHLW-NOISE-2023"
+    },
+    {
+      "choices": [
+        "騒音レベルを必ず上げること",
+        "騒音源を作業者の耳元に近づけること",
+        "保護具を廃棄すること",
+        "作業環境を放置すること",
+        "騒音レベルの低減化等"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "騒音作業の対象作業場を有する事業者がガイドラインに基づき努めることとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000170",
+      "question_version": 1,
+      "source_id": "E1-MHLW-NOISE-2023"
+    },
+    {
+      "choices": [
+        "当該物を取り扱う労働者に見やすい場所への掲示又は備え付け等により周知する",
+        "労働者への周知は一切不要である",
+        "SDSを直ちに廃棄する",
+        "取引先だけに周知する",
+        "作業場外に隠す"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "譲渡又は提供された化学物質を取り扱う事業者によるSDSの労働者への周知について適切なものはどれか。",
+      "question_id": "EISEI1-Q-000171",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "労働者の血液型だけ",
+        "建物の外観だけ",
+        "リスクアセスメントの結果に基づいた健康障害防止措置の策定と実施",
+        "売上高だけ",
+        "取引先の人事だけ"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質管理計画で定める事項として厚生労働省系資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000172",
+      "question_version": 1,
+      "source_id": "E1-MHLW-DUST-PREVENTION"
+    },
+    {
+      "choices": [
+        "労働者には秘密にする",
+        "計画を必ず廃棄する",
+        "計画は作成後に使用しない",
+        "作業者に見せない",
+        "策定した計画を労働者へ周知する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質管理計画について厚生労働省系資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000173",
+      "question_version": 1,
+      "source_id": "E1-MHLW-DUST-PREVENTION"
+    },
+    {
+      "choices": [
+        "熱中症予防でいつ誰がどの状況でどのような対策を講ずべきか",
+        "建物の設計図だけ",
+        "労働者の血液型だけ",
+        "株価だけ",
+        "取引先の人事だけ"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "厚生労働省の熱中症ガイドで確認できるものとして適切なものはどれか。",
+      "question_id": "EISEI1-Q-000174",
+      "question_version": 1,
+      "source_id": "E1-MHLW-HEAT"
+    },
+    {
+      "choices": [
+        "退職後の人事評価だけ",
+        "雇入れ時又は作業内容を変更したときの安全衛生教育",
+        "株価の予測",
+        "建築確認の申請",
+        "税務申告"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "厚生労働省の熱中症ガイドの活用場面として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000175",
+      "question_version": 1,
+      "source_id": "E1-MHLW-HEAT"
+    },
+    {
+      "choices": [
+        "血液型でセルフチェック",
+        "髪の色でセルフチェック",
+        "身長でセルフチェック",
+        "尿の色でセルフチェック",
+        "利き手でセルフチェック"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "厚生労働省の熱中症ガイドが提供するセルフチェック資料として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000176",
+      "question_version": 1,
+      "source_id": "E1-MHLW-HEAT"
+    },
+    {
+      "choices": [
+        "事業場の株価変動",
+        "取引先の売上変動",
+        "労働者の趣味",
+        "事業場の広告内容",
+        "ガス・蒸気・粉じん等による健康障害"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働安全衛生法第20条に基づき事業者が講ずべき健康障害防止措置の対象として示されるものはどれか。",
+      "question_id": "EISEI1-Q-000177",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "取引先の人事評価",
+        "株主への配当",
+        "通路・床面・階段等の保全並びに換気・採光・照明等に必要な措置",
+        "広告宣伝費の決定",
+        "労働者の趣味の把握"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働安全衛生法第23条に基づき事業者が作業場について講ずべき措置として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000178",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "翌月まで様子を見る",
+        "労働者に判断を任せる",
+        "作業を継続する",
+        "直ちに作業を中止し労働者を退避させる等必要な措置を講ずる",
+        "記録だけを作成する"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働災害発生の急迫した危険があるときに事業者が講ずべき措置として労働安全衛生法第25条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000179",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "100ルクス以上",
+        "200ルクス以上",
+        "300ルクス以上",
+        "500ルクス以下",
+        "照度の定めはない"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業のディスプレイを用いる場合の書類上及びキーボード上の照度として厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000180",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "明暗の対照を著しくする",
+        "まぶしさを生じさせないようにする",
+        "太陽光を画面へ直接入射させる",
+        "画面の反射を増やす",
+        "照明を全てなくす"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業を行う室内の照明及び採光について厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000181",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "価格だけで選ぶ",
+        "作業者への健康影響を考慮せず選ぶ",
+        "画面サイズを問わず選ぶ",
+        "作業者への健康影響を考慮し作業に最も適した機器を選択する",
+        "広告の多さだけで選ぶ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "事業場が情報機器を導入する際の選択として厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000182",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "事業場の株価",
+        "取引先の売上",
+        "広告の計画",
+        "労働者の趣味",
+        "有機溶剤により生ずるおそれのある疾病の種類及びその症状"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "有機溶剤作業場の掲示事項のうち、疾病情報に当たるものはどれか。",
+      "question_id": "EISEI1-Q-000183",
+      "question_version": 1,
+      "source_id": "E1-LAW-ORGANIC"
+    },
+    {
+      "choices": [
+        "作業員の私用電話番号",
+        "有機溶剤による中毒が発生したときの応急処置",
+        "会社の将来の株価",
+        "取引先の住所一覧",
+        "広告の掲載日"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "有機溶剤作業場の掲示事項のうち、中毒発生時の対応に当たるものはどれか。",
+      "question_id": "EISEI1-Q-000184",
+      "question_version": 1,
+      "source_id": "E1-LAW-ORGANIC"
+    },
+    {
+      "choices": [
+        "第一種有機溶剤等は赤",
+        "第一種有機溶剤等は青",
+        "第二種有機溶剤等は赤",
+        "第三種有機溶剤等は黄",
+        "色分けは不要"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "有機溶剤業務に係る有機溶剤等の区分を色分けで表示する場合の組合せとして有機溶剤中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000185",
+      "question_version": 1,
+      "source_id": "E1-LAW-ORGANIC"
+    },
+    {
+      "choices": [
+        "肺胞と気管支",
+        "心房と心室",
+        "胃と小腸",
+        "糸球体と尿細管",
+        "赤血球と血小板"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腎臓のネフロンの構成として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000186",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "血球だけが尿細管へ通過する",
+        "小さな分子 老廃物及び液体の多くが尿細管へ通過する",
+        "たんぱく質が必ず尿細管へ通過する",
+        "血液が尿管へ直接流れる",
+        "ろ過は行われない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "糸球体でのろ過について公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000187",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "血液を心臓へ運ぶ",
+        "空気を肺へ運ぶ",
+        "尿を腎臓から膀胱へ運ぶ",
+        "胆汁を肝臓から胃へ運ぶ",
+        "栄養を小腸から大腸へ運ぶ"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "尿管の役割として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000188",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "1週間について20時間",
+        "1週間について30時間",
+        "1週間について40時間",
+        "1週間について50時間",
+        "1週間について60時間"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第32条第1項による法定労働時間として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000189",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "6時間",
+        "7時間",
+        "8時間",
+        "9時間",
+        "10時間"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第32条第2項による1日の法定労働時間として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000190",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "少なくとも30分",
+        "少なくとも45分",
+        "少なくとも50分",
+        "少なくとも1時間",
+        "休憩は不要"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働時間が8時間を超える場合に労働基準法第34条第1項が求める休憩時間として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000191",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "チェンソー",
+        "体温計",
+        "事務用電卓",
+        "定規",
+        "ホッチキス"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "厚生労働省の振動障害認定基準における振動業務の対象となる振動工具として示されるものはどれか。",
+      "question_id": "EISEI1-Q-000192",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "おおむね1週間",
+        "おおむね1か月",
+        "おおむね6か月",
+        "おおむね1年又はこれを超える期間",
+        "おおむね10年だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "厚生労働省の振動障害認定基準でいう振動業務の「相当期間」として適切なものはどれか。",
+      "question_id": "EISEI1-Q-000193",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "振動工具の使用時間が短い",
+        "休憩時間又は休止時間が十分に多い",
+        "未整備の振動工具を使用している",
+        "振動工具を使用していない",
+        "作業に全く従事していない"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "振動業務の従事歴が相当期間未満でも障害が起こり得る工具の整備状態はどれか。",
+      "question_id": "EISEI1-Q-000194",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "輝度又はコントラストを調整できないもの",
+        "画面サイズを作業にかかわらず最小にするもの",
+        "輝度又はコントラストを作業者が容易に調整できるものが望ましい",
+        "反射処理をしてはならない",
+        "画面を使わないものだけを選ぶ"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "デスクトップ型情報機器のディスプレイとして厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000195",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "さらに強い照明を画面に当てる",
+        "必要に応じ窓にブラインド又はカーテン等を設ける",
+        "画面を太陽光へ向ける",
+        "反射を増やす",
+        "対策を行わない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "ディスプレイ画面に太陽光等が直接又は間接的に入射する場合の対応として厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000196",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "情報機器の種類 特徴及び注意点",
+        "株価の予測",
+        "取引先への営業方法だけ",
+        "税務申告の手続だけ",
+        "広告費の配分だけ"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業の労働衛生教育で、機器の理解に関する内容はどれか。",
+      "question_id": "EISEI1-Q-000197",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "骨髄",
+        "胃",
+        "肺胞",
+        "胆のう",
+        "甲状腺"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "血液が主に形成される場所として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000198",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-BLOOD-DONOR"
+    },
+    {
+      "choices": [
+        "約1〜2L",
+        "約3〜4L",
+        "約5〜6L",
+        "約10〜12L",
+        "約20〜25L"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "健康な成人の体内を循環する血液量として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000199",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-BLOOD-DONOR"
+    },
+    {
+      "choices": [
+        "約7日",
+        "約30日",
+        "約60日",
+        "約120日",
+        "約365日"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "赤血球の通常の寿命として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000200",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-BLOOD-DONOR"
+    },
+    {
+      "choices": [
+        "毎週少なくとも1回",
+        "毎月少なくとも1回",
+        "毎年少なくとも1回",
+        "2週間に少なくとも1回",
+        "休日は不要"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第35条第1項による休日として正しいものはどれか。",
+      "question_id": "EISEI1-Q-000201",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "使用者だけが利用方法を決める",
+        "労働者に自由に利用させなければならない",
+        "休憩中も必ず業務を命じる",
+        "休憩時間は与えなくてよい",
+        "取引先に利用させる"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第34条第3項による休憩時間の取扱いとして正しいものはどれか。",
+      "question_id": "EISEI1-Q-000202",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "原則として一斉に与えなければならない",
+        "必ず個別に与えなければならない",
+        "使用者には義務がない",
+        "毎月まとめて与える",
+        "休日に振り替える"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第34条第2項による休憩時間の取扱いとして正しいものはどれか。",
+      "question_id": "EISEI1-Q-000203",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "位置を固定して調整できないもの",
+        "前後の傾きを調整できないもの",
+        "左右の向きを調整できないもの",
+        "画面の位置 前後の傾き及び左右の向き等を調整できるものが望ましい",
+        "画面を使わないものだけを選ぶ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業のディスプレイとして厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000204",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "ディスプレイから分離できないもの",
+        "作業者が位置を調整できないもの",
+        "キーが読みにくいもの",
+        "使用者の手に合わないもの",
+        "ディスプレイから分離してその位置を作業者が調整できることが望ましい"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "デスクトップ型情報機器のキーボードとして厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000205",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "相談機会を設けない",
+        "プライバシーを考慮しない",
+        "メンタルヘルス 健康上の不安 慢性疲労等について健康相談の機会を設けるよう努める",
+        "相談は身体症状だけに限る",
+        "パートタイマーは相談対象外とする"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業を行う作業者への健康相談について厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000206",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "1か月",
+        "6か月",
+        "1年",
+        "3年",
+        "40年"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿の事前調査又は分析調査の結果に基づく記録の保存期間として石綿障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000207",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "20平方メートル以上",
+        "50平方メートル以上",
+        "80平方メートル以上",
+        "100平方メートル以上",
+        "500平方メートル以上"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "建築物の解体工事について石綿の事前調査結果等をあらかじめ所轄労働基準監督署長に報告すべき床面積の基準として石綿障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000208",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "10万円以上",
+        "50万円以上",
+        "80万円以上",
+        "100万円以上",
+        "1000万円以上"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "建築物の改修工事について石綿の事前調査結果等をあらかじめ所轄労働基準監督署長に報告すべき請負代金の基準として石綿障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000209",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "配置前の健康状態を把握するため必要な調査又は検査を実施する",
+        "健康状態を把握してはならない",
+        "配置後だけを対象とする",
+        "健康診断は永久に不要である",
+        "情報機器を使わない者だけを対象とする"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "新たに情報機器作業を行うこととなった作業者について厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000210",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "3か月以内ごとに1回",
+        "6か月以内ごとに1回",
+        "1年以内ごとに1回",
+        "2年以内ごとに1回",
+        "5年以内ごとに1回"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業を行う作業者の配置後の定期健康診断の頻度として厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000211",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "眼疲労を主とする視器に関する症状",
+        "株価変動に関する症状",
+        "建物の老朽化に関する症状",
+        "取引先への印象に関する症状",
+        "税務申告に関する症状"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業者の健康診断で調査する自覚症状として厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000212",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "酸素及び栄養素を臓器へ運ぶ",
+        "酸素をすべて肺に戻す",
+        "栄養素を消滅させる",
+        "血液を体外だけで循環させる",
+        "二酸化炭素を作らない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "循環系における血液の役割として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000213",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "二酸化炭素を全て骨へ貯蔵する",
+        "二酸化炭素を肺へ運び呼気として排出できるようにする",
+        "二酸化炭素を栄養素に変える",
+        "二酸化炭素を必ず心臓に留める",
+        "二酸化炭素を血液から作る"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "循環系における血液の二酸化炭素に関する役割として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000214",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "1か月",
+        "6か月",
+        "1年",
+        "2年",
+        "3年"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿障害予防規則に基づく定期自主検査の記録の保存期間として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000215",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "毎月の最終営業日だけ",
+        "装置を初めて使用するとき又は分解して改造若しくは修理を行ったとき",
+        "労働者が退職したときだけ",
+        "建物を売却したときだけ",
+        "健康診断の翌日だけ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿障害予防規則に基づく装置の点検を行う時期として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000216",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "次年度まで使用を続ける",
+        "異常を記録せず廃棄する",
+        "労働者の任意判断に委ねる",
+        "直ちに補修その他の措置を講ずる",
+        "健康診断の結果を待つ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿障害予防規則に基づく自主検査又は点検で異常を認めたときの措置として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000217",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "ヘモグロビンと結合して血液の酸素運搬能を低下させる",
+        "細胞内呼吸だけを阻害する",
+        "肺水腫だけを生じさせる",
+        "血液型を変える",
+        "骨を形成する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の急性作用として厚生労働省資料に示される一酸化炭素の作用はどれか。",
+      "question_id": "EISEI1-Q-000218",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "ヘモグロビン結合だけ",
+        "細胞内呼吸を阻害する",
+        "肺胞を骨に変える",
+        "血液型を変える",
+        "骨を形成する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の急性作用として厚生労働省資料に示されるシアン化水素の作用はどれか。",
+      "question_id": "EISEI1-Q-000219",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "ヘモグロビンと結合するだけ",
+        "細胞内呼吸だけを阻害する",
+        "肺水腫又は肺線維症を通じて呼吸困難を生じさせる",
+        "血液型を変える",
+        "骨を形成する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の急性作用として厚生労働省資料に示されるホスゲンの作用はどれか。",
+      "question_id": "EISEI1-Q-000220",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "4週間に1日以上の休日",
+        "4週間に2日以上の休日",
+        "4週間に3日以上の休日",
+        "4週間に3日を超え4日未満の休日",
+        "4週間を通じ4日以上の休日"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第35条第2項による休日の取扱いとして適合するものはどれか。",
+      "question_id": "EISEI1-Q-000221",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "労働者へ口頭で伝えるだけ",
+        "事業者が社内メモを作成するだけ",
+        "過半数労働組合又は過半数代表者との書面協定をし行政官庁へ届け出る",
+        "健康診断の結果を保管する",
+        "労働者の趣味を記録する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第36条に基づき法定労働時間を超えて労働させるために必要な手続として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000222",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "通常の賃金の5パーセント以上",
+        "通常の賃金の10パーセント以上",
+        "通常の賃金の20パーセント以上",
+        "通常の賃金の25パーセント以上",
+        "通常の賃金の100パーセント以上"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第37条第1項により時間外労働について支払う割増賃金の率として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000223",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "雇入れ後1か月継続勤務し全労働日の半数以上出勤",
+        "雇入れ後3か月継続勤務し全労働日の6割以上出勤",
+        "雇入れ後6か月継続勤務し全労働日の7割以上出勤",
+        "雇入れ後1年継続勤務し全労働日の8割以上出勤",
+        "雇入れ後6か月継続勤務し全労働日の8割以上出勤"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第39条第1項による年次有給休暇の初回付与要件として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000224",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "5労働日",
+        "7労働日",
+        "10労働日",
+        "12労働日",
+        "20労働日"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第39条第1項の要件を満たした労働者に初めて与える年次有給休暇の日数として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000225",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "基準日から1年以内に5日について労働者ごとに時季を定めて与える",
+        "年次有給休暇を全て無給にする",
+        "年次有給休暇を一切与えない",
+        "5年以内に1日だけ与える",
+        "休日を年次有給休暇に置き換える"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "年次有給休暇の日数が10労働日以上である労働者について労働基準法第39条第7項が定める使用者の義務として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000226",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "1月以内ごとに1回",
+        "3月以内ごとに1回",
+        "6月以内ごとに1回",
+        "1年以内ごとに1回",
+        "2年以内ごとに1回"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "騒音作業に常時従事する労働者に対する騒音障害防止ガイドライン上の定期健康診断の頻度として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000227",
+      "question_version": 1,
+      "source_id": "E1-MHLW-NOISE-2023"
+    },
+    {
+      "choices": [
+        "第I管理区分が継続している場所又は等価騒音レベルが継続的に85dB未満の場所で業務に従事する場合",
+        "全ての騒音作業の場合",
+        "耳栓を1回使用した場合",
+        "労働者が希望しない場合だけ",
+        "作業者が1人の場合だけ"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "騒音作業に常時従事する労働者の定期健康診断を省略できる場合としてガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000228",
+      "question_version": 1,
+      "source_id": "E1-MHLW-NOISE-2023"
+    },
+    {
+      "choices": [
+        "退職後だけ",
+        "雇入れの際又は当該業務への配置替えの際",
+        "健康診断を一度受けた後だけ",
+        "作業場を閉鎖した後だけ",
+        "休日だけ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "騒音作業に常時従事する労働者に対しガイドラインが雇入時等健康診断を求める時期として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000229",
+      "question_version": 1,
+      "source_id": "E1-MHLW-NOISE-2023"
+    },
+    {
+      "choices": [
+        "疲労感をもたらす",
+        "必ず疲労を完全に消す",
+        "血液型を変える",
+        "骨格を増やす",
+        "聴力を必ず回復する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "睡眠不足による主観的な疲労への影響はどれか。",
+      "question_id": "EISEI1-Q-000230",
+      "question_version": 1,
+      "source_id": "E1-MHLW-EHEALTH-SLEEP"
+    },
+    {
+      "choices": [
+        "情緒を安定させるだけ",
+        "情緒を不安定にする",
+        "血液型を変える",
+        "骨格を増やす",
+        "視力を必ず回復する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "睡眠不足による情緒への影響はどれか。",
+      "question_id": "EISEI1-Q-000231",
+      "question_version": 1,
+      "source_id": "E1-MHLW-EHEALTH-SLEEP"
+    },
+    {
+      "choices": [
+        "適切な判断力を高める",
+        "事故のリスクを必ずなくす",
+        "適切な判断力を鈍らせ事故のリスクを高める",
+        "骨格を増やす",
+        "血液型を変える"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "睡眠不足による判断力と事故リスクへの影響はどれか。",
+      "question_id": "EISEI1-Q-000232",
+      "question_version": 1,
+      "source_id": "E1-MHLW-EHEALTH-SLEEP"
+    },
+    {
+      "choices": [
+        "労働契約の更新方法",
+        "年次有給休暇の時季指定",
+        "石綿含有建築物の売買手続",
+        "賃金台帳の保存方法",
+        "保護具の使用方法"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿障害予防規則に基づく特別教育の科目に含まれるものはどれか。",
+      "question_id": "EISEI1-Q-000233",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "作業場内に設ける",
+        "作業場以外の場所に設ける",
+        "作業場の床面にのみ設ける",
+        "屋外にのみ設ける",
+        "事務所内に設けてはならない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿を取り扱う作業に常時従事する労働者のために設ける休憩室について適合するものはどれか。",
+      "question_id": "EISEI1-Q-000234",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "月に1回だけ行う",
+        "年に1回だけ行う",
+        "ほこりを飛散させる方法で行う",
+        "ほこりを飛散させない方法で毎日1回以上行う",
+        "清掃を行わない"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿を取り扱う作業場等の床の清掃について適合するものはどれか。",
+      "question_id": "EISEI1-Q-000235",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "密閉できない紙袋だけを用いる",
+        "密閉できる容器又は確実な包装を用いる",
+        "容器又は包装を用いない",
+        "ほこりを飛散させる網袋を用いる",
+        "口を開けた容器を用いる"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿等を保管するときの容器又は包装として石綿障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000236",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "石綿等が入っている旨及び取扱い上の注意事項を見やすい箇所に表示する",
+        "表示を一切しない",
+        "容器の内側だけに隠して表示する",
+        "労働者の氏名だけを表示する",
+        "容器の色だけで示す"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿等を入れた容器又は包装への表示として石綿障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000237",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "付着した石綿等を除去した後でなければ持ち出さない",
+        "付着物を確認せず直ちに持ち出す",
+        "水洗いを禁止し粉じんを付着させたまま持ち出す",
+        "作業終了から30日経てば未処理で持ち出す",
+        "労働者の判断だけで処理を省略する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿作業で使用した器具、工具、足場等を作業場外へ持ち出す場合の原則として石綿障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000238",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "遅滞なく石綿健康診断結果報告書を所轄労働基準監督署長へ提出する",
+        "10年後に都道府県知事へ口頭報告する",
+        "結果報告書は作成せず労働者の記憶だけに残す",
+        "健康診断機関の広告媒体だけに掲載する",
+        "結果にかかわらず報告は一切不要である"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "定期の石綿健康診断を行った後の結果報告として石綿障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000239",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "作業者数にかかわらず1個だけ備える",
+        "使用後は汚れたまま保管する",
+        "同時に就業する労働者数と同数以上を備え、常時有効かつ清潔に保持する",
+        "故障していても交換せず使用させる",
+        "呼吸用保護具を作業場に備える必要はない"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿作業場に備える呼吸用保護具の数と管理として石綿障害予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000240",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "洗眼設備と娯楽設備だけ",
+        "会議設備と販売設備だけ",
+        "更衣設備と競技設備だけ",
+        "洗眼・洗身又はうがいの設備、更衣設備及び洗濯設備",
+        "広告設備と来客設備だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿障害予防規則第31条が、石綿を取り扱う作業に常時従事する労働者のために求める設備を全て含む組合せはどれか。",
+      "question_id": "EISEI1-Q-000241",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "血液を腎臓でろ過する",
+        "酸素を空気中へ放出する",
+        "食物を消化液と混ぜる",
+        "尿を膀胱へ運ぶ",
+        "心臓へ戻る血液を受け取る"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "心臓の心房の主な働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000242",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "血液型を決める",
+        "尿を作る",
+        "酸素を空気へ移す",
+        "心臓から血液を送り出す",
+        "胆汁を蓄える"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "心臓の心室の主な働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000243",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "胃",
+        "腎臓",
+        "脳",
+        "全身の組織",
+        "肺"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "心臓の右側から送り出される血液の行き先として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000244",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "少なくとも15分",
+        "少なくとも30分",
+        "少なくとも45分",
+        "少なくとも1時間",
+        "休憩は不要"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働時間が6時間を超え8時間以下の場合に労働基準法第34条第1項が求める休憩時間として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000245",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "労働時間の開始前だけ",
+        "労働時間の途中",
+        "退職後だけ",
+        "毎月末だけ",
+        "翌年度だけ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第34条第1項による休憩時間を与える時期として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000246",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "賃金",
+        "趣味だけ",
+        "血液型だけ",
+        "髪の色だけ",
+        "利き手だけ"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働契約の締結時に使用者が労働者に明示しなければならない労働条件として労働基準法第15条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000247",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "寒冷時等に手指血管の攣縮発作で手指が発作的に蒼白となる",
+        "暑熱時だけに全身の皮膚が永久に黒変する",
+        "手指の骨が一度に全て伸長する",
+        "視力が発作的に回復する",
+        "血液型が短時間で変化する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "振動障害のレイノー現象の説明として厚生労働省の認定基準に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000248",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "多くは10分ないし20分程度",
+        "必ず1秒以内",
+        "必ず24時間以上",
+        "必ず1か月以上",
+        "回復することはない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "レイノー現象の発作が元の状態へ回復するまでの時間として、厚生労働省の認定基準が示す一般的な目安はどれか。",
+      "question_id": "EISEI1-Q-000249",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "1Hz・2Hz・4Hz",
+        "10Hz・20Hz・30Hz",
+        "500Hz・1,000Hz・2,000Hz",
+        "62.5Hz・125Hz・250Hz",
+        "5,000Hz・10,000Hz・20,000Hz"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "振動障害の指先振動覚検査で原則として用いる周波数の組合せはどれか。",
+      "question_id": "EISEI1-Q-000250",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "鉛業務に常時従事させる労働者を雇い入れるとき",
+        "退職した後だけ",
+        "鉛業務と無関係の趣味を始めるとき",
+        "毎年の誕生日だけ",
+        "事業場を売却したとき"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務に常時従事させる労働者について、鉛健康診断を行う時期のうち、雇入れに関するものはどれか。",
+      "question_id": "EISEI1-Q-000251",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "労働者を鉛業務に配置替えするとき",
+        "退職した後だけ",
+        "鉛業務と無関係の趣味を始めるとき",
+        "毎年の誕生日だけ",
+        "事業場を売却したとき"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛健康診断を行う時期のうち、鉛業務への配置替えに関するものはどれか。",
+      "question_id": "EISEI1-Q-000252",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "作業者の手に適した形状及び大きさのものが望ましい",
+        "手に合わない形状だけを用いる",
+        "位置を固定して動かせないものだけを用いる",
+        "操作を困難にするものが望ましい",
+        "画面専用の機器だけを用いる"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業に用いるマウスについて厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000253",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "高さを調整できないものだけを用いる",
+        "高さを作業者にかかわらず固定する",
+        "作業者の身体に適合するよう高さを調整できるものが望ましい",
+        "机面を著しく狭くするものが望ましい",
+        "操作機器を置けないものが望ましい"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業の作業台について厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000254",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "座面の高さを調整できないものだけを用いる",
+        "背もたれを設けてはならない",
+        "作業者の身体に適合するよう座面の高さ及び背もたれを調整できるものが望ましい",
+        "座面を極端に小さくするものが望ましい",
+        "使用者が座れないものが望ましい"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業に用いる椅子について厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000255",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "食物を口から胃へ運ぶ",
+        "血液を全身へ送る",
+        "尿を腎臓から膀胱へ運ぶ",
+        "酸素を血液へ取り込む",
+        "胆汁を作る"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "食道の主な働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000256",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "尿をつくる",
+        "血液を送り出す",
+        "酸素を取り込む",
+        "胆汁をつくる",
+        "食物を胃へ運ぶ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "肝臓の消化に関する働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000257",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "酸素を血液へ取り込む",
+        "血液を全身へ送る",
+        "尿をつくる",
+        "食物を消化液と混ぜる",
+        "便を蓄える"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "直腸の主な働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000258",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "水を流し又は湿潤な状態に保つための設備",
+        "乾いたほこりを飛散させる送風機だけ",
+        "掲示板だけ",
+        "事務机だけ",
+        "娯楽設備だけ"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿を取り扱う作業に常時従事する労働者の休憩室の入口に設けるものとして適合するものはどれか。",
+      "question_id": "EISEI1-Q-000259",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "作業衣等に付着した物を除去する",
+        "作業衣等への付着物を増やす",
+        "作業衣等を必ず持ち帰る",
+        "作業衣等を湿らせずに強く振る",
+        "作業衣等の付着物を放置する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿を取り扱う作業に常時従事する労働者が休憩室に入る前に行うこととして適合するものはどれか。",
+      "question_id": "EISEI1-Q-000260",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "水洗等による清掃が容易な構造とする",
+        "水洗等による清掃を困難にする構造とする",
+        "床を設けない",
+        "紙だけで覆う",
+        "清掃できない構造とする"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "石綿を取り扱う作業場及び休憩室の床について適合するものはどれか。",
+      "question_id": "EISEI1-Q-000261",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASBESTOS"
+    },
+    {
+      "choices": [
+        "血液型を変える性質",
+        "骨格を作る性質",
+        "皮膚に可逆的な損傷を生じさせる性質",
+        "視力を必ず回復する性質",
+        "身長を増加させる性質"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の皮膚刺激性として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000262",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "眼に可逆的な変化を生じさせる性質",
+        "骨格を作る性質",
+        "血液型を変える性質",
+        "尿を作る性質",
+        "身長を増加させる性質"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の眼刺激性として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000263",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "血液型を変える性質",
+        "骨格を作る性質",
+        "身長を増加させる性質",
+        "眼に不可逆的な損傷を生じさせる性質",
+        "尿を作る性質"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の眼に対する重篤な損傷性として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000264",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "操作ミス等でデータが消去された場合に容易に復元できる",
+        "操作ミスが起きたら全データを復元不能にする",
+        "作業者への操作案内を一切表示しない",
+        "作業内容にかかわらず応答時間を意図的に長くする",
+        "誤操作を防ぐため保存機能を全て無効にする"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業用ソフトウェアの要件として厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000265",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "故障してから1年後だけ",
+        "退職後だけ",
+        "月末の深夜だけ",
+        "作業開始前又は一日の適当な時間帯",
+        "点検は一切行わない"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器等の日常点検を行う時期として厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000266",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "取引先への営業方法だけ",
+        "税務申告の手続だけ",
+        "広告費の配分だけ",
+        "株価の予測",
+        "健康管理の方法及び心身の健康の保持増進のための措置"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業の労働衛生教育で、健康管理に関する内容はどれか。",
+      "question_id": "EISEI1-Q-000267",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "空気を肺へ運ぶ",
+        "血液を全身へ送る",
+        "尿を腎臓から膀胱へ運ぶ",
+        "胆汁を蓄える",
+        "血液型を決める"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "気管の主な役割として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000268",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "尿を作る器官である",
+        "心臓の弁である",
+        "気管から分かれて肺へ空気を運ぶ通路である",
+        "胆汁をつくる器官である",
+        "血液型を決める器官である"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "気管支について公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000269",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "血液を全身へ送る部屋である",
+        "尿をためる袋である",
+        "胆汁を蓄える袋である",
+        "血液型を決める部位である",
+        "酸素と二酸化炭素の交換が行われる小さな気嚢である"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "肺胞について公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000270",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "一酸化炭素だけ",
+        "二酸化炭素だけ",
+        "硫化水素だけ",
+        "酸素",
+        "窒素だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "第一種酸素欠乏危険作業に係る作業場で、その日の作業を開始する前に測定しなければならない濃度として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000271",
+      "question_version": 1,
+      "source_id": "E1-LAW-OXYGEN"
+    },
+    {
+      "choices": [
+        "有機溶剤作業主任者技能講習修了者",
+        "酸素欠乏・硫化水素危険作業主任者技能講習修了者",
+        "石綿作業主任者技能講習修了者",
+        "鉛作業主任者技能講習修了者",
+        "衛生管理者免許だけを持つ者"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "第二種酸素欠乏危険作業に係る作業場で選任する酸素欠乏・硫化水素危険作業主任者として適合する者はどれか。",
+      "question_id": "EISEI1-Q-000272",
+      "question_version": 1,
+      "source_id": "E1-LAW-OXYGEN"
+    },
+    {
+      "choices": [
+        "退職後だけ",
+        "毎年の誕生日だけ",
+        "管理区域と無関係の業務への配置替え時だけ",
+        "放射線業務への配置替えの際",
+        "事業場を売却したとき"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "放射線業務に常時従事し管理区域に立ち入る労働者について、電離放射線健康診断を行う時期のうち、配置替えに関するものはどれか。",
+      "question_id": "EISEI1-Q-000273",
+      "question_version": 1,
+      "source_id": "E1-LAW-IONIZING"
+    },
+    {
+      "choices": [
+        "水分を一切摂取しない",
+        "のどの渇きを我慢する",
+        "体調に関係なく作業を続ける",
+        "水分及び塩分を適切に補給する",
+        "休憩を禁止する"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "暑熱作業での水分・塩分補給として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000274",
+      "question_version": 1,
+      "source_id": "E1-MHLW-HEAT"
+    },
+    {
+      "choices": [
+        "休憩を一切取らない",
+        "暑熱環境を離れて休憩を取る",
+        "体調不良でも作業を継続する",
+        "水分を禁止する",
+        "WBGTを無視する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "暑熱作業の休憩場所・取り方として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000275",
+      "question_version": 1,
+      "source_id": "E1-MHLW-HEAT"
+    },
+    {
+      "choices": [
+        "作業を継続させる",
+        "一人で放置する",
+        "水分を無理に飲ませる",
+        "翌日まで様子を見る",
+        "救急隊を要請する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "熱中症が疑われる労働者に意識障害等があり自力で水分摂取ができない場合の対応として厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000276",
+      "question_version": 1,
+      "source_id": "E1-MHLW-HEAT"
+    },
+    {
+      "choices": [
+        "国籍 信条又は社会的身分を理由として賃金等の労働条件について差別的取扱いをしてはならない",
+        "事業主は国籍だけを理由に自由に賃金を変えてよい",
+        "信条だけを理由に解雇できる",
+        "社会的身分だけを理由に労働時間を自由に増やせる",
+        "差別的取扱いは労働条件と無関係である"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第3条の均等待遇について適合するものはどれか。",
+      "question_id": "EISEI1-Q-000277",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "解雇予告は不要である",
+        "少なくとも30日前に予告する",
+        "少なくとも3日前に予告する",
+        "少なくとも7日前に予告する",
+        "少なくとも1日前に予告する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第20条第1項により使用者が労働者を解雇しようとする場合の原則として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000278",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "労働契約の不履行について違約金を定め又は損害賠償額を予定する契約",
+        "賃金を明示すること",
+        "休憩を与えること",
+        "年次有給休暇を与えること",
+        "労働時間を記録すること"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働基準法第16条により使用者がしてはならないものとして適合するものはどれか。",
+      "question_id": "EISEI1-Q-000279",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "1時間を超えないようにする",
+        "2時間を超えないようにする",
+        "3時間を超えないようにする",
+        "4時間を超えないようにする",
+        "制限はない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業における一連続作業時間について厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000280",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "1分から2分",
+        "5分未満",
+        "10分から15分",
+        "30分だけ",
+        "休止時間は不要"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業における一連続作業時間の間に設ける次の作業までの休止時間として厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000281",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "小休止は設けない",
+        "10分から15分だけ設ける",
+        "1時間だけ設ける",
+        "一連続作業時間中に1分から2分程度の小休止を設ける",
+        "翌日まで休止しない"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業における一連続作業時間内に設ける小休止として厚生労働省ガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000282",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "腎臓でつくられた尿を排尿まで蓄える",
+        "肺胞で酸素を血液へ取り込む",
+        "骨髄で赤血球だけをつくる",
+        "胃液を分泌してタンパク質を消化する",
+        "胆汁をつくって小腸へ送る"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "膀胱の働きとしてNIDDK資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000283",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "酸素をつくって肺胞へ送る",
+        "血液型を決定する",
+        "骨格の数を増やす",
+        "尿をつくって膀胱へ送る",
+        "残った栄養素の分解を助け、ビタミンKをつくる"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "大腸内の細菌の働きとしてNIDDK資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000284",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "髪の色だけを変える",
+        "血液型だけを決める",
+        "聴力だけを回復させる",
+        "骨を強く健康に保つのを助ける",
+        "胃の内容物だけをかくはんする"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腎臓がつくるホルモンの働きとしてNIDDK資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000285",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "雇い入れる際",
+        "退職後だけ",
+        "毎年の誕生日だけ",
+        "事業場を売却したとき",
+        "休日だけ"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "放射線業務に常時従事し管理区域に立ち入る労働者について、電離放射線健康診断を行う時期のうち、雇入れに関するものはどれか。",
+      "question_id": "EISEI1-Q-000286",
+      "question_version": 1,
+      "source_id": "E1-LAW-IONIZING"
+    },
+    {
+      "choices": [
+        "管理区域に立ち入らず放射線業務にも常時従事しない者",
+        "放射線業務に常時従事し管理区域に立ち入る者",
+        "事務作業だけを行う者",
+        "休職中の者だけ",
+        "退職した者だけ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "電離放射線健康診断の対象として電離放射線障害防止規則第56条第1項に適合する労働者はどれか。",
+      "question_id": "EISEI1-Q-000287",
+      "question_version": 1,
+      "source_id": "E1-LAW-IONIZING"
+    },
+    {
+      "choices": [
+        "1年",
+        "2年",
+        "3年",
+        "5年",
+        "30年"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "粉じん障害防止規則に基づく局所排気装置等の定期自主検査の記録保存期間として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000288",
+      "question_version": 1,
+      "source_id": "E1-LAW-DUST"
+    },
+    {
+      "choices": [
+        "単回ばく露により特定の臓器に有害影響を及ぼす性質",
+        "血液型を変える性質",
+        "骨格を作る性質",
+        "身長を増加させる性質",
+        "視力を必ず回復する性質"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の特定標的臓器毒性（単回ばく露）として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000289",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "血液型を変える性質",
+        "反復ばく露により特定の臓器に有害影響を及ぼす性質",
+        "骨格を作る性質",
+        "身長を増加させる性質",
+        "視力を必ず回復する性質"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の特定標的臓器毒性（反復ばく露）として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000290",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "血液型を変える性質",
+        "骨格を作る性質",
+        "身長を増加させる性質",
+        "飲み込んだ液体又は固体が気道に侵入して有害影響を及ぼす性質",
+        "視力を必ず回復する性質"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "化学物質の誤えん有害性として適切な説明はどれか。",
+      "question_id": "EISEI1-Q-000291",
+      "question_version": 1,
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS"
+    },
+    {
+      "choices": [
+        "室温20℃から23℃の室内で30分以上安静にする",
+        "氷水に手を入れた直後に測定する",
+        "全力運動を続けながら測定する",
+        "室温を記録せず屋外で直ちに測定する",
+        "安静時間を全く設けない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "振動障害検査で皮膚温、痛覚等を測定する前の安静条件として認定基準に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000292",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "握力検査",
+        "指先振動覚検査",
+        "爪圧迫検査",
+        "タッピング検査",
+        "痛覚検査"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "振動障害の末梢循環機能検査に該当するものはどれか。",
+      "question_id": "EISEI1-Q-000293",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "1回も測定せず推定値だけを記録する",
+        "1時間連続して測定し最小値を採る",
+        "左右を区別せず1回だけ測定する",
+        "5秒間隔で2回測定し、大きい方の値を採る",
+        "測定値に関係なく常に同じ値を記録する"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "振動障害の最大握力検査の測定方法として認定基準に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000294",
+      "question_version": 1,
+      "source_id": "E1-MHLW-VIBRATION"
+    },
+    {
+      "choices": [
+        "有害物質の体内ばく露を評価する",
+        "建物の外観を評価する",
+        "株価を予測する",
+        "税務申告を行う",
+        "血液型を変更する"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "生物学的モニタリングの目的として厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000295",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "建物の設計図だけ",
+        "血液又は尿",
+        "株価表だけ",
+        "広告原稿だけ",
+        "取引先名簿だけ"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "生物学的モニタリングで用いる試料として厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000296",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中の馬尿酸の量",
+        "血液中の鉛の量",
+        "眼底検査",
+        "尿中のメチル馬尿酸の量",
+        "尿中のN-メチルホルムアミドの量"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "二硫化炭素に関する生物学的モニタリングの検査内容として厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000297",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "全身から戻る酸素の少ない血液",
+        "肺から戻る酸素を多く含む血液",
+        "尿だけを含む血液",
+        "胆汁だけを含む血液",
+        "血液型だけを決める血液"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "心臓の左側が受け取る血液として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000298",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "肺から戻る酸素を多く含む血液",
+        "尿だけを含む血液",
+        "胆汁だけを含む血液",
+        "全身から戻る酸素の少ない血液",
+        "血液型だけを決める血液"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "心臓の右側が受け取る血液として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000299",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "尿管",
+        "胆のう",
+        "横隔膜",
+        "気管",
+        "中隔"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "心臓の左右を隔てる構造として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000300",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "毎日一回以上行う",
+        "毎月一回以上行う",
+        "三月ごとに一回以上行う",
+        "六月ごとに一回以上行う",
+        "毎週一回以上行う"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛作業主任者に行わせる局所排気装置等の点検として鉛中毒予防規則第34条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000301",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "保護具の購入契約だけを締結する",
+        "保護具の種類を毎年一回だけ決める",
+        "保護具を廃棄する時期だけを決める",
+        "保護具を事務室に保管する",
+        "労働衛生保護具等の使用状況を監視する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛作業主任者に行わせる労働衛生保護具に関する職務として鉛中毒予防規則第34条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000302",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "次回の定期健康診断まで待機させる",
+        "月末にまとめて汚染を確認する",
+        "作業衣だけを交換させる",
+        "作業場所の掲示だけを行う",
+        "速やかに汚染を除去させる"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務に従事する労働者の身体が鉛等により著しく汚染されたことを発見したとき、鉛作業主任者に行わせる措置として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000303",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "深夜業であることだけを確認する",
+        "定期健康診断の実施日だけを確認する",
+        "保護具販売者の承認だけを確認する",
+        "作業終了後に作業方法を決定する",
+        "準用される有機溶剤中毒予防規則第26条各号の措置が講じられていることを確認する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "タンク内で特別有機溶剤業務を行わせる場合に、特定化学物質作業主任者が確認すべき事項として特定化学物質障害予防規則第28条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000304",
+      "question_version": 1,
+      "source_id": "E1-LAW-SPEC-CHEM"
+    },
+    {
+      "choices": [
+        "6か月",
+        "1年間",
+        "5年間",
+        "30年間",
+        "3年間"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "特定化学物質障害予防規則第29条及び第30条の定期自主検査を行った場合、その記録の保存期間として同規則第32条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000305",
+      "question_version": 1,
+      "source_id": "E1-LAW-SPEC-CHEM"
+    },
+    {
+      "choices": [
+        "3日以内",
+        "7日以内",
+        "10日以内",
+        "14日以内",
+        "30日以内"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "産業医を選任すべき事由が発生した事業場における選任期限として労働安全衛生規則第13条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000306",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "産業医を選任する必要がない",
+        "非常勤の産業医だけを選任する",
+        "産業医を事業場外に置かなければならない",
+        "その事業場に専属の産業医を選任する",
+        "産業医を労働者の投票で選任する"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "常時1000人以上の労働者を使用する事業場における産業医の選任として労働安全衛生規則第13条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000307",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "選任不要",
+        "1人で足りる",
+        "常勤の衛生管理者だけで足りる",
+        "2人以上を選任する",
+        "労働者数と同数を選任する"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "常時3000人を超える労働者を使用する事業場における産業医の人数として労働安全衛生規則第13条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000308",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "年に1回、労働者へ口頭で報告する",
+        "3か月以内に健康保険組合へ書面で報告する",
+        "選任から1年後に都道府県知事へ報告する",
+        "遅滞なく、電子情報処理組織を使用して所轄労働基準監督署長へ報告する",
+        "産業医の選任について報告は不要である"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "産業医を選任したときの事業者の報告方法として、原則として労働安全衛生規則第13条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000309",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASR"
+    },
+    {
+      "choices": [
+        "製品の販売価格の決定だけ",
+        "営業目標の設定だけ",
+        "給与計算だけ",
+        "労働者の健康管理その他厚生労働省令で定める事項",
+        "株主総会の議事進行だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働安全衛生法第13条が産業医に行わせる事項として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000310",
+      "question_version": 1,
+      "source_id": "E1-LAW-ASL"
+    },
+    {
+      "choices": [
+        "肺と気管支",
+        "胃と小腸",
+        "肝臓と腎臓",
+        "甲状腺と下垂体",
+        "骨と骨格筋"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "血液が細胞から運び出す老廃物の主な行き先としてNHLBI資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000311",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-BLOOD-DONOR"
+    },
+    {
+      "choices": [
+        "インスリン",
+        "胆汁",
+        "ヘモグロビン",
+        "尿素",
+        "唾液"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "赤血球に含まれ酸素の運搬に関わるものとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000312",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-BLOOD"
+    },
+    {
+      "choices": [
+        "静脈",
+        "毛細血管",
+        "動脈",
+        "リンパ管",
+        "尿管"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "心臓から血液を運び出す血管として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000313",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "動脈",
+        "毛細血管",
+        "静脈",
+        "リンパ管",
+        "尿管"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "血液を心臓へ戻す血管として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000314",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "大動脈",
+        "大静脈",
+        "毛細血管",
+        "リンパ管",
+        "尿管"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "動脈と静脈をつなぎ血液と組織の間の物質交換に関わる血管として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000315",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-HEART"
+    },
+    {
+      "choices": [
+        "作業場内に設ける",
+        "鉛等を取り扱う作業場から隔離して設ける",
+        "屋外にだけ設ける",
+        "休憩室を設けない",
+        "作業衣保管設備だけで代える"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務に常時従事する労働者のために設ける休憩室として鉛中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000316",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "私服と区別しない一つの棚",
+        "汚染された作業衣等とその他の衣服を区別して保管できる設備",
+        "屋外の床面",
+        "休憩室の机の上",
+        "保管設備を設けない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務に常時従事する労働者の作業衣等を保管する設備として鉛中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000317",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "飲料水だけを備える",
+        "洗眼洗身又は洗身のための設備を設ける",
+        "洗身設備は不要である",
+        "年一回だけ使える設備にする",
+        "作業場外の公衆浴場だけを指定する"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務に常時従事する労働者のために設ける洗身設備として鉛中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000318",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "月に一回だけ清掃する",
+        "毎日一回以上清掃する",
+        "年末だけ清掃する",
+        "汚染が見えてからだけ清掃する",
+        "清掃を行わない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛等を取り扱う作業場の床等の清掃として鉛中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000319",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "作業方法を確認すること",
+        "喫煙又は飲食をすること",
+        "保護具を使用すること",
+        "作業衣を区別して保管すること",
+        "洗身設備を利用すること"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛等を取り扱う作業場で鉛業務に従事する労働者に禁止される行為として鉛中毒予防規則に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000320",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "就業規則に書けば常にできる",
+        "労働者が口頭で同意すれば常にできる",
+        "賃金が最低賃金以上ならできる",
+        "毎月一回だけならできる",
+        "してはならない"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "使用者が前借金その他労働することを条件とする前貸の債権と賃金を相殺することについて労働基準法第17条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000321",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "必ず締結しなければならない",
+        "労働者の年齢で自動的に決まる",
+        "賃金額が高い場合だけ義務となる",
+        "使用者が自由に強制できる",
+        "強制貯蓄の契約をしてはならない"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "使用者が労働契約に付随して労働者の貯蓄金を管理する契約について労働基準法第18条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000322",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "会社の取引先に直接支払う",
+        "使用者が保管する",
+        "株主に分配する",
+        "家族だけに支払う",
+        "労働者に直接支払う"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "賃金の支払方法として労働基準法第24条に適合する原則はどれか。",
+      "question_id": "EISEI1-Q-000323",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "使用者が任意に一部を留保する",
+        "会社の都合で全額を翌年へ繰り延べる",
+        "賃金の一部だけを支払えばよい",
+        "現物だけで支払う",
+        "賃金の全額を支払う"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "賃金の支払について労働基準法第24条に適合する原則はどれか。",
+      "question_id": "EISEI1-Q-000324",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "翌年に交付する",
+        "交付を拒否できる",
+        "退職理由を使用者が自由に追加して交付する",
+        "口頭説明だけで足りる",
+        "遅滞なく交付する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働者が退職の場合に使用期間や業務の種類等について証明書を請求したときの使用者の対応として労働基準法第22条に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000325",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "使用者の好みだけ",
+        "包装の色だけ",
+        "価格だけ",
+        "型式検定合格品であること",
+        "広告の量だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "防毒マスクを選択する際に確認するものとして厚生労働省指針に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000326",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "購入時だけ説明する",
+        "使用後だけ説明する",
+        "教育は不要である",
+        "適正な装着方法 使用方法及び密着性確認方法を十分に教育する",
+        "作業者自身に任せる"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "防毒マスクを着用する労働者に行う教育や訓練として厚生労働省指針に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000327",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "顔面より大きすぎる形状",
+        "密着性を確認しないこと",
+        "着用者ごとの寸法を無視すること",
+        "着用者の顔面に合った形状及び寸法の接顔部",
+        "装飾性だけ"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "防毒マスクの面体を選択する際に重視するものとして厚生労働省指針に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000328",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "そのまま作業を続ける",
+        "翌月に点検する",
+        "香料で臭いを隠す",
+        "速やかに作業を中止して避難し、状況を保護具着用管理責任者等に報告する",
+        "面体を逆向きにする"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "防毒マスクの使用中に有害物質の臭気等を感知した場合の対応として厚生労働省指針に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000329",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "使用時間を確認しない",
+        "外観がきれいならよい",
+        "価格が高ければよい",
+        "十分な除毒能力が残存していることを確認できる",
+        "使用者が望めばよい"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "一度使用した防毒マスクの吸収缶を再使用させる条件として厚生労働省指針に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000330",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "作業場の売上",
+        "同僚の勤務年数",
+        "会社の株価",
+        "翌月の作業予定",
+        "吸気弁や排気弁等に破損又は亀裂がないこと"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "防毒マスクを着用する前に着用者が点検する事項として厚生労働省指針に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000331",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "面体を強く押し付け続ける",
+        "吸収缶を外して走る",
+        "排気口を開けたままにする",
+        "顔面との隙間を意図的に作る",
+        "吸気口をふさぎ息を吸って面体が顔面に吸い付くか確認する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "防毒マスクの陰圧法による密着性確認として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000332",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "吸気口を開けて息を吸う",
+        "面体を外して確認する",
+        "しめひもを外す",
+        "吸収缶を水に浸す",
+        "排気口をふさぎ息を吐いて面体内に呼気が滞留するか確認する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "防毒マスクの陽圧法による密着性確認として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000333",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "吸気抵抗だけを判断基準にする",
+        "価格だけで判断する",
+        "作業者の好みだけで判断する",
+        "使用月数だけで判断する",
+        "吸気抵抗の上昇のみを使用限度の判断基準にしない"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "防じん機能を有する防毒マスクの使用限度を判断する際の説明として厚生労働省指針に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000334",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "販売業者だけに管理を任せる",
+        "労働者の投票だけで管理者を決める",
+        "保護具の選択・使用・保守管理を管理する者は置かない",
+        "教育を受けていない者を必ず選任する",
+        "保護具に関して必要な教育を受けた保護具着用管理責任者を選任し、適正な選択・使用・保守管理を管理させる"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "リスクアセスメントの結果に基づく措置として労働者に呼吸用保護具を使用させる場合の管理体制として、厚生労働省指針に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000335",
+      "question_version": 1,
+      "source_id": "E1-MHLW-RPE-2023"
+    },
+    {
+      "choices": [
+        "食道を通って胃へ至る",
+        "気管を通って肺へ至る",
+        "尿管を通って膀胱へ至る",
+        "胆管を通って胆のうへ至る",
+        "大動脈を通って心臓へ至る"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鼻又は口から入った空気が肺へ向かう経路として公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000336",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "尿管",
+        "細気管支",
+        "胆管",
+        "静脈",
+        "食道"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "肺内で気管支から分岐する、より細い管としてNHLBI資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000337",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "ゆるんで上がり胸の空間を小さくする",
+        "収縮して下がり胸の空間を大きくする",
+        "血液を心臓へ戻す",
+        "尿を膀胱へ送る",
+        "胆汁を作る"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "息を吸うときの横隔膜の働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000338",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "収縮して下がる",
+        "ゆるんで上がり胸の空間を小さくする",
+        "血液を酸素化する",
+        "尿をろ過する",
+        "血小板を作る"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "息を吐くときの横隔膜の働きとして公的医療機関の資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000339",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "骨盤と大腿骨",
+        "肋骨と胸骨と胸椎",
+        "頭蓋骨と下顎骨",
+        "手根骨と中手骨",
+        "脊髄と尿管"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "肺を囲み保護する胸郭の構造として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000340",
+      "question_version": 1,
+      "source_id": "E1-NHLBI-LUNGS"
+    },
+    {
+      "choices": [
+        "作業内容にかかわらず5インチ以下に固定する",
+        "常に入手可能な最大サイズを使用する",
+        "画面サイズは作業負担と無関係である",
+        "全作業者に同じ画面サイズだけを使用させる",
+        "目的とする情報機器作業を負担なく遂行できる大きさとする"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "デスクトップ型情報機器のディスプレイの画面サイズとしてガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000341",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "作業環境にかかわらず鏡面仕上げだけを用いる",
+        "反射を強める処理を必ず行う",
+        "作業内容を考慮せず同じ処理に固定する",
+        "反射処理は価格だけで選ぶ",
+        "必要に応じ、作業環境及び作業内容に適した反射処理を行う"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "デスクトップ型情報機器のディスプレイの反射処理としてガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000342",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "キーの文字表示を省略する",
+        "キーを操作できないほど小さくする",
+        "作業内容にかかわらずキー数を最大にする",
+        "文字を背景と区別できない表示にする",
+        "文字を明瞭で読みやすくし、キーの大きさと数を操作に適切なものとする"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "デスクトップ型情報機器のキーボードのキーとしてガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000343",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "操作したことを知覚できない構造とする",
+        "押下力を常に最大にする",
+        "押下深さをなくし反応も表示しない",
+        "作業者による操作の知覚を不要とする",
+        "押下深さと押下力を適切にし、操作したことを作業者が知覚できるようにする"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "キーボードのキー及びマウスのボタンの操作感としてガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000344",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "角度を必ず90度にする",
+        "角度を調整できないものにする",
+        "常に垂直にする",
+        "角度を作業者以外が固定する",
+        "作業者が適切な角度に調整できる"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "キーボードの角度についてガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000345",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "頭上に固定する",
+        "机の外に置く",
+        "足元だけで操作する",
+        "背中側に置く",
+        "キーボードの近くに置き容易に操作できる"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "マウス等のポインティングデバイスの配置としてガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000346",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "内蔵ディスプレイ以外は使用してはならない",
+        "外付けディスプレイは作業内容にかかわらず禁止する",
+        "画面を閉じたまま視覚作業を行う",
+        "常に最小サイズの画面だけを使用する",
+        "作業内容に応じ、外付けディスプレイ等も使用することが望ましい"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "ノート型情報機器で長時間作業を行う場合のディスプレイとしてガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000347",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "内蔵キーボードを覆って操作不能にする",
+        "外付けキーボードの使用を一律に禁止する",
+        "入力操作をすべて画面閲覧だけに置き換える",
+        "作業者の体格にかかわらず機器を固定する",
+        "外付けキーボードを使用することが望ましい"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "小型のノート型情報機器で長時間作業を行う場合の入力機器としてガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000348",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "機器を置く空間を不要にする",
+        "作業台を極端に狭くする",
+        "作業面を常に傾ける",
+        "書類を置けないようにする",
+        "機器と書類を適切に配置できる十分な広さを有する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業用の作業台についてガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000349",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "書類を床に置く",
+        "書類を背中側に置く",
+        "書類を頭上に置く",
+        "書類を常に手で持つ",
+        "書類を見やすい位置に保持できるもの"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "画面を見ながら書類を参照する情報機器作業で用いる書類台としてガイドラインに適合するものはどれか。",
+      "question_id": "EISEI1-Q-000350",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "床に直接置く",
+        "開放した容器に入れる",
+        "こぼれ又は粉じん発散のおそれのない容器等に収納する",
+        "休憩室に保管する",
+        "食堂に保管する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "粉状の鉛等を屋内に貯蔵するときの措置として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000351",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "翌月に掃除する",
+        "ほうきで乾いたまま掃く",
+        "速やかに真空掃除機又は水洗で掃除する",
+        "放置して自然に乾かす",
+        "送風機で飛散させる"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "屋内に貯蔵した粉状の鉛等がこぼれたときの措置として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000352",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "口を開けたまま室内に置く",
+        "作業台に並べる",
+        "口を閉じ水で十分湿らせる等の発散防止措置を講じる",
+        "休憩室で再利用する",
+        "食器として使う"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "粉状の鉛等を入れてあった空容器で粉じん発散のおそれがあるものの処理として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000353",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "香水だけ",
+        "飲料水だけ",
+        "手洗い用溶液 爪ブラシ 石けん及びうがい液",
+        "事務用品だけ",
+        "作業日報だけ"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務の手洗い用溶液等として作業場ごとに備えるものとして適合するものはどれか。",
+      "question_id": "EISEI1-Q-000354",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "年末だけ",
+        "健康診断の日だけ",
+        "作業終了後及び必要に応じ",
+        "昼休みだけ",
+        "退職日だけ"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務に従事した労働者が手洗い用溶液等を使用する時期として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000355",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "周知は不要である",
+        "請負人には使用させない",
+        "使用の必要性を周知し適切に使用が行われるよう配慮する",
+        "請負人だけに任せる",
+        "用品を撤去する"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務の一部を請負人に請け負わせる場合の手洗い用溶液等について適合するものはどれか。",
+      "question_id": "EISEI1-Q-000356",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "汚れたまま保管する",
+        "私服と混ぜて着用する",
+        "洗濯のための設備を設ける等の措置を講じる",
+        "年末だけ確認する",
+        "汚染を隠す"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務に従事する労働者の作業衣等の汚染除去として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000357",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "汚染除去の周知は不要である",
+        "私服との混用を勧める",
+        "汚染除去の必要性を請負人に周知する",
+        "作業衣を廃止する",
+        "請負人を休憩室だけで作業させる"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務の一部を請負人に請け負わせる場合の作業衣等について適合するものはどれか。",
+      "question_id": "EISEI1-Q-000358",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "会社の売上目標",
+        "株価の推移",
+        "鉛により生ずるおそれのある疾病の種類及び症状",
+        "休憩室の予約表",
+        "広告計画"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務に労働者を従事させるとき見やすい箇所に掲示すべき事項として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000359",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "経営会議の日程",
+        "製品の価格表",
+        "鉛等の取扱い上の注意事項",
+        "株主名簿",
+        "社内旅行の日程"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛業務の掲示内容のうち鉛等の取扱いに関して示すべきものとして適合するものはどれか。",
+      "question_id": "EISEI1-Q-000360",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "当該鉛装置とそれ以外の稼働装置との接続箇所を確実に遮断する",
+        "接続箇所を開放して換気を促す",
+        "接続箇所の遮断は作業終了後に行う",
+        "接続箇所の措置は不要である",
+        "接続箇所を緩やかに接続したままにする"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "粉状の鉛等が内部に付着又はたい積している鉛装置の内部で業務を行う作業開始前の措置として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000361",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "当該鉛装置の内部を十分に換気する",
+        "作業終了後だけ換気する",
+        "換気をせずに作業者の判断に任せる",
+        "内部を密閉して外気を入れない",
+        "換気は月1回の定期実施で足りる"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛装置の内部における所定の鉛業務を行うときに作業開始前に行うべき措置として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000362",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "湿らせるなどにより粉じんの発散を防止する",
+        "圧縮空気だけで吹き飛ばす",
+        "乾いた状態で掃き集める",
+        "粉じんを発散させたまま作業を始める",
+        "作業後まで何も処置をしない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛装置の内部に付着又はたい積している粉状の鉛等又は焼結鉱等に関する措置として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000363",
+      "question_version": 1,
+      "source_id": "E1-LAW-LEAD"
+    },
+    {
+      "choices": [
+        "尿中馬尿酸の量",
+        "眼底検査",
+        "尿中潜血検査",
+        "赤血球数等の赤血球系の血液検査",
+        "血清インジウムの量"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "ベンゼン等に常時従事する労働者の生物学的モニタリングとして整理される検査項目として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000364",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中のデルタアミノレブリン酸の量",
+        "血液中のカドミウムの量",
+        "尿中のN―メチルホルムアミドの量",
+        "尿中のメチル馬尿酸の量",
+        "胸部のエックス線直接撮影"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "キシレンに関する生物学的モニタリングの検査内容として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000365",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中の二・五―ヘキサンジオンの量",
+        "尿中のメチル馬尿酸の量",
+        "尿中の馬尿酸の量",
+        "尿中のN―メチルホルムアミドの量",
+        "血清インジウムの量"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "N・N―ジメチルホルムアミドに関する生物学的モニタリングの検査内容として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000366",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中の馬尿酸の量",
+        "血液中の鉛の量",
+        "尿中のベータ2―ミクログロブリンの量",
+        "握力の測定",
+        "尿中のメチル馬尿酸の量"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "マンガン又はその化合物に関する生物学的モニタリングの検査内容として、厚生労働省資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000367",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中の馬尿酸の量",
+        "尿中のN―メチルホルムアミドの量",
+        "尿中のメチル馬尿酸の量",
+        "尿中の二・五―ヘキサンジオンの量",
+        "血液中のカドミウムの量"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "ノルマルヘキサンに関する生物学的モニタリングの検査内容として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000368",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中の馬尿酸の量",
+        "血清インジウムの量",
+        "尿中のマンデル酸の量",
+        "血液中の鉛の量",
+        "尿中のトリクロル酢酸の量"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "鉛に関する生物学的モニタリングの有害物濃度に関する検査内容として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000369",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中のメチル馬尿酸の量",
+        "血清インジウムの量",
+        "眼底検査",
+        "尿中のデルタアミノレブリン酸の量",
+        "肝又は脾の腫大の有無及び、血清ビリルビン、GOT、GPT、ALP等の肝機能検査"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "塩化ビニルに関する生物学的モニタリングの検査内容として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000370",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中の馬尿酸の量",
+        "血液中の鉛の量",
+        "尿中のN―メチルホルムアミドの量",
+        "尿中の二・五―ヘキサンジオンの量",
+        "血清インジウムの量"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "インジウム化合物に関する生物学的モニタリングの有害物濃度に関する検査内容として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000371",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中の馬尿酸の量",
+        "血清インジウムの量",
+        "血液中の鉛の量",
+        "尿中の二・五―ヘキサンジオンの量",
+        "血液中のカドミウムの量"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "カドミウム又はその化合物に関する生物学的モニタリングの有害物濃度に関する検査内容として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000372",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中のメチル馬尿酸の量",
+        "尿中の馬尿酸の量",
+        "血清インジウムの量",
+        "血液中のカドミウムの量",
+        "鼻粘膜の異常や鼻中隔穿孔等の鼻腔所見の有無"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "クロム酸等に関する生物学的モニタリングの検査内容として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000373",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中の馬尿酸の量",
+        "血液中の鉛の量",
+        "尿中のメチル馬尿酸の量",
+        "尿中のマンデル酸の量",
+        "血清インジウムの量"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "エチルベンゼンに関する生物学的モニタリングの検査内容として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000374",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中のトリクロル酢酸の量",
+        "尿中の馬尿酸の量",
+        "血液中のカドミウムの量",
+        "尿中マンデル酸及びフェニルグリオキシル酸の総量",
+        "血清インジウムの量"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "スチレンに関する生物学的モニタリングの有害物濃度に関する検査内容として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000375",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "尿中の二・五―ヘキサンジオンの量",
+        "尿中のメチル馬尿酸の量",
+        "尿中の馬尿酸の量",
+        "医師が必要と認める場合の尿中メチルイソブチルケトンの量",
+        "血液中の鉛の量"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "メチルイソブチルケトンに関する生物学的モニタリングの検査内容として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000376",
+      "question_version": 1,
+      "source_id": "E1-MHLW-BIOLOGICAL-MONITORING"
+    },
+    {
+      "choices": [
+        "人事管理・作業管理・販売管理",
+        "営業管理・品質管理・健康管理",
+        "設備管理・販売管理・健康管理",
+        "作業環境管理・財務管理・健康管理",
+        "作業環境管理・作業管理・健康管理"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "職場における労働衛生対策の三管理として適合する組合せはどれか。",
+      "question_id": "EISEI1-Q-000377",
+      "question_version": 1,
+      "source_id": "E1-MHLW-THREE-MANAGEMENT"
+    },
+    {
+      "choices": [
+        "健康相談を行う",
+        "保健指導を行う",
+        "作業手順を定める",
+        "作業時間を管理する",
+        "作業環境を測定し必要な改善を行う"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働衛生の作業環境管理に該当する取組として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000378",
+      "question_version": 1,
+      "source_id": "E1-MHLW-THREE-MANAGEMENT"
+    },
+    {
+      "choices": [
+        "おおむね10cm以上",
+        "おおむね20cm以上",
+        "おおむね30cm以上",
+        "距離を設けず眼を画面へ接触させる",
+        "おおむね40cm以上"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "情報機器作業におけるディスプレイと眼の視距離としてガイドラインが示す目安はどれか。",
+      "question_id": "EISEI1-Q-000379",
+      "question_version": 1,
+      "source_id": "E1-MHLW-INFO-EQUIPMENT"
+    },
+    {
+      "choices": [
+        "作業場の照度を測定する",
+        "局所排気装置を設置する",
+        "作業手順を改善する",
+        "作業時間を短縮する",
+        "健康診断及びその結果に基づく措置を行う"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働衛生の健康管理に該当する取組として適合するものはどれか。",
+      "question_id": "EISEI1-Q-000380",
+      "question_version": 1,
+      "source_id": "E1-MHLW-THREE-MANAGEMENT"
+    },
+    {
+      "choices": [
+        "3日以内",
+        "7日以内",
+        "14日以内",
+        "30日以内",
+        "次の賃金支払日"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働者が退職し、権利者から請求があった場合に、使用者が返還すべき金品について労働基準法に適合する期限はどれか。",
+      "question_id": "EISEI1-Q-000381",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "請求を拒む",
+        "既往の労働に対する賃金を支払う",
+        "翌月まで支払わない",
+        "年1回だけ支払う",
+        "退職時だけ支払う"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "労働者が出産や疾病等の非常の場合の費用に充てるため請求したときの賃金支払について適合するものはどれか。",
+      "question_id": "EISEI1-Q-000382",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "平均賃金の30%以上",
+        "平均賃金の60%以上",
+        "平均賃金の80%以上",
+        "平均賃金の100%以上",
+        "支払不要"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "使用者の責に帰すべき事由による休業の場合に支払う休業手当の法定最低割合はどれか。",
+      "question_id": "EISEI1-Q-000383",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "10%以上",
+        "25%以上",
+        "35%以上",
+        "50%以上",
+        "75%以上"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "午後10時から午前5時までの深夜業に対する法定の最低割増率はどれか。",
+      "question_id": "EISEI1-Q-000384",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "1年",
+        "2年",
+        "3年",
+        "5年",
+        "時効はない"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "年次有給休暇の請求権の時効について労働基準法に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000385",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "療養開始後7日間だけ",
+        "療養開始後14日間だけ",
+        "療養開始後30日間だけ",
+        "療養期間だけ",
+        "療養期間及びその後30日間"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "業務上負傷し療養のために休業する期間及びその後の解雇制限について適合するものはどれか。",
+      "question_id": "EISEI1-Q-000386",
+      "question_version": 1,
+      "source_id": "E1-LAW-LSL"
+    },
+    {
+      "choices": [
+        "心の健康づくり計画を策定し実施する",
+        "私的な相談を禁止する",
+        "不調者を一律に配置転換する",
+        "健康相談を廃止する",
+        "教育を行わない"
+      ],
+      "correct_choice": "A",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "職場のメンタルヘルス対策で事業者が行うこととして適合するものはどれか。",
+      "question_id": "EISEI1-Q-000387",
+      "question_version": 1,
+      "source_id": "E1-MHLW-MENTAL-HEALTH-GUIDELINE"
+    },
+    {
+      "choices": [
+        "誰でも閲覧できるようにする",
+        "本人の同意なく広く公表する",
+        "評価資料として公開する",
+        "保存しない",
+        "個人情報の保護に配慮する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "メンタルヘルスに関する労働者の健康情報の取扱いとして適合するものはどれか。",
+      "question_id": "EISEI1-Q-000388",
+      "question_version": 1,
+      "source_id": "E1-MHLW-MENTAL-HEALTH-GUIDELINE"
+    },
+    {
+      "choices": [
+        "胸骨の直後で心臓の左右",
+        "肋骨のすぐ下で脊柱の左右",
+        "骨盤腔の中央で膀胱の直下",
+        "横隔膜より上で肺の左右",
+        "胃の内腔で小腸の左右"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腎臓の位置としてNIDDK資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000389",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "腎臓・肝臓・胆のう",
+        "肺・気管・気管支",
+        "腎臓・尿管・膀胱",
+        "胃・小腸・大腸",
+        "心臓・動脈・静脈"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "NIDDK資料が尿路の一部として列挙する組合せはどれか。",
+      "question_id": "EISEI1-Q-000390",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "約10個",
+        "約100万個",
+        "約1,000個",
+        "約1億個",
+        "1個"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "NIDDK資料が示す腎臓1個当たりのネフロンのおおよその数はどれか。",
+      "question_id": "EISEI1-Q-000391",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "胃の入口を閉じて胃液の分泌を止める",
+        "気管を覆って食物が気道へ入るのを防ぐ",
+        "胆管を開いて胆汁を胃へ送る",
+        "小腸の蠕動を停止させる",
+        "鼻腔を閉じて肺胞のガス交換を止める"
+      ],
+      "correct_choice": "B",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "嚥下時の喉頭蓋の働きとしてNIDDK資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000392",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "ろ過された水はすべて尿として排出される",
+        "血球のほぼすべてが尿細管から再吸収される",
+        "尿細管と血管の間では物質移動が起こらない",
+        "必要な栄養素はすべて尿へ排出される",
+        "水のほぼすべてと必要なミネラル・栄養素が血液へ戻る"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "尿細管に沿う血管で行われる再吸収としてNIDDK資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000393",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "インスリン",
+        "アドレナリン",
+        "エリスロポエチン",
+        "メラトニン",
+        "甲状腺ホルモン"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腎臓でつくられ、骨髄を刺激して赤血球をつくらせる物質としてNCI資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000394",
+      "question_version": 1,
+      "source_id": "E1-NCI-ERYTHROPOIETIN"
+    },
+    {
+      "choices": [
+        "皮膚",
+        "肝臓",
+        "腎臓",
+        "小腸",
+        "骨髄"
+      ],
+      "correct_choice": "C",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "ビタミンDを活性化する2段階の水酸化のうち、第2段階が主に行われる器官としてNIH資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000395",
+      "question_version": 1,
+      "source_id": "E1-NIH-ODS-VITAMIN-D"
+    },
+    {
+      "choices": [
+        "1個",
+        "5個",
+        "3個",
+        "4個",
+        "2個"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "通常の腎臓の数としてNIDDK資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000396",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "未ろ過の血液は腎静脈から入り、腎動脈から出る",
+        "未ろ過の血液は尿管から入り、尿道から出る",
+        "ろ過後の血液は膀胱へ流れる",
+        "未ろ過の血液は腎動脈から入り、ろ過後の血液は腎静脈から出る",
+        "血液は糸球体を通らず腎臓を迂回する"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腎臓を通る血液の流れとしてNIDDK資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000397",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "肺胞で酸素を取り込む",
+        "胆汁をつくる",
+        "心臓から血液を拍出する",
+        "血液から過剰な酸を除くのを助ける",
+        "胃で食物をかくはんする"
+      ],
+      "correct_choice": "D",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "腎臓の尿細管の働きとしてNIDDK資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000398",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-KIDNEYS"
+    },
+    {
+      "choices": [
+        "血液から尿をつくる",
+        "肺胞でガス交換を行う",
+        "胆汁だけを貯蔵する",
+        "骨髄で赤血球をつくる",
+        "食物や液体を前へ進め、各器官の内容物を混ぜる"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "消化管の蠕動の働きとしてNIDDK資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000399",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    },
+    {
+      "choices": [
+        "尿素と尿酸だけを吸収する",
+        "酸素と二酸化炭素だけを吸収する",
+        "食物繊維だけを吸収する",
+        "血球と血小板を腸管から吸収する",
+        "脂肪酸とビタミンを吸収する"
+      ],
+      "correct_choice": "E",
+      "difficulty": "2",
+      "importance": "3",
+      "is_free": "false",
+      "question": "消化後の栄養素の吸収におけるリンパ系の働きとしてNIDDK資料に適合するものはどれか。",
+      "question_id": "EISEI1-Q-000400",
+      "question_version": 1,
+      "source_id": "E1-NIDDK-DIGESTIVE"
+    }
+  ],
   "schema_version": 1
 }

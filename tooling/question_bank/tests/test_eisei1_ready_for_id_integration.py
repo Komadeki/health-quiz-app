@@ -647,7 +647,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.bank = REPOSITORY_ROOT / "question_banks" / "eisei1"
         self.authoring = self.bank / "authoring"
 
-    def test_integrated_inventory_is_contiguous_through_q232(self) -> None:
+    def test_released_inventory_is_contiguous_through_q400(self) -> None:
         questions = read_rows(self.authoring / "questions.csv")
         registry = read_rows(self.authoring / "question_id_registry.csv")
         self.assertEqual(set(ALL_EXPECTED.values()), set(questions))
@@ -771,16 +771,16 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             for candidate_id, question_id in mapping.items():
                 candidate = candidates[candidate_id]
                 question = questions[question_id]
-                self.assertEqual("INTEGRATED", candidate["state"])
+                self.assertEqual("RELEASED", candidate["state"])
                 self.assertEqual(question_id, candidate["permanent_question_id"])
                 self.assertEqual("used", registry[question_id]["status"])
-                self.assertEqual("draft", question["status"])
+                self.assertEqual("active", question["status"])
                 self.assertEqual("1", question["question_version"])
                 self.assertEqual("eisei1_exam", question["deck_id"])
                 self.assertEqual(candidate["unit_id"], question["unit_id"])
                 self.assertEqual("2", question["difficulty"])
                 self.assertEqual("3", question["importance"])
-                self.assertEqual("false", question["is_free"])
+                self.assertIn(question["is_free"], {"true", "false"})
                 for field in (
                     "question",
                     "choice1",
@@ -795,7 +795,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
                     self.assertEqual(candidate[field], question[field])
                 self.assertEqual(candidate["proposed_correct"], question["correct_choice"])
 
-    def test_q1_q232_are_source_verified_and_pre_release(self) -> None:
+    def test_q1_q400_are_source_verified_and_released(self) -> None:
         verifications = json.loads(
             (self.authoring / "source_verifications.json").read_text(encoding="utf-8")
         )["verifications"]
@@ -805,8 +805,20 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             self.assertEqual("author_source_verified", row["verification_state"])
             expected_date = "2026-08-27" if int(row["question_id"].rsplit("-", 1)[1]) <= 10 else "2026-08-28"
             self.assertEqual(expected_date, row["verified_at"])
-        self.assertEqual([], json.loads((self.authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"])
-        self.assertEqual([], json.loads((self.bank / "generated" / "eisei1_bank.json").read_text(encoding="utf-8"))["decks"])
+        released = json.loads(
+            (self.authoring / "released_questions.json").read_text(encoding="utf-8")
+        )["released_questions"]
+        self.assertEqual(400, len(released))
+        runtime = json.loads(
+            (self.bank / "generated" / "eisei1_bank.json").read_text(encoding="utf-8")
+        )
+        cards = [
+            card
+            for deck in runtime["decks"]
+            for unit in deck["units"]
+            for card in unit["cards"]
+        ]
+        self.assertEqual(400, len(cards))
 
     def test_q1_q16_are_bound_to_their_accepted_knowledge_targets(self) -> None:
         coverage = json.loads((self.authoring / "coverage.json").read_text(encoding="utf-8"))
@@ -934,7 +946,12 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_all_touched_expansion_batches_validate(self) -> None:
-        for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006", "batch_007", "batch_008", "batch_009", "batch_010", "batch_011", "batch_012", "batch_013", "batch_014", "batch_015", "batch_016", "batch_017", "batch_018", "batch_019", "batch_020", "batch_021", "batch_022", "batch_023", "batch_024", "batch_025", "batch_026", "batch_027", "batch_028", "batch_029", "batch_030", "batch_031", "batch_032", "batch_033", "batch_034", "batch_035", "batch_036", "batch_037", "batch_038", "batch_039", "batch_040", "batch_041", "batch_042", "batch_043", "batch_044", "batch_045", "batch_046", "batch_047", "batch_048", "batch_049", "batch_050", "batch_051", "batch_052", "batch_053", "batch_054", "batch_055", "batch_056", "batch_057", "batch_058", "batch_059", "batch_060", "batch_061", "batch_062", "batch_063", "batch_064", "batch_065", "batch_066", "batch_067", "batch_068", "batch_069", "batch_070"):
+        for batch_name in (
+            "batch_002",
+            "batch_003",
+            "batch_004",
+            *tuple(f"batch_{index:03d}" for index in range(6, 111)),
+        ):
             self.assertEqual([], validate_expansion_batch(self.authoring / "batches" / batch_name))
 
 
