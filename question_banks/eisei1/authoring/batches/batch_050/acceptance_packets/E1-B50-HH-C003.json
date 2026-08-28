@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B50-HH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e54cf12be5c30e3e7d3e39d366941c626ef214d721e0251816e62dcce7ec7dd6",
+  "actors": {
+    "author": {
+      "id": "eisei1-b50-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b50-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b50-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-NOISE-2023",
+      "source_version": "基発0420第2号-2023-04-20-current-as-retrieved-2026-08-28",
+      "source_locator": "騒音障害防止のためのガイドライン 事業者の責務"
+    },
+    "answer_defining_proposition": "事業者は適切な措置を講じ騒音レベルの低減化等に努める。",
+    "tested_misconception": "騒音対策を騒音増大又は放置と混同する。",
+    "reasoning_path": "事業者の責務を確認する -> 騒音レベルの低減化を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q56は騒音性難聴の予防を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "事業者の騒音レベル低減努力を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
