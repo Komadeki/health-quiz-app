@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B36-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "df57d98d10010a5e66cb2c21aa817f75166198ec419a693dae6d9fc494db0b7a",
+  "actors": {
+    "author": {
+      "id": "eisei1-b36-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b36-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b36-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-IONIZING",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "電離放射線障害防止規則 第60条"
+    },
+    "answer_defining_proposition": "電離放射線健康診断個人票は30年間保存する。",
+    "tested_misconception": "電離放射線の保存期間を一般的な5年又は石綿の40年と混同する。",
+    "reasoning_path": "規則の対象個人票を確認する -> 30年を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q6は電離放射線健診の実施間隔を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "電離放射線票の保存を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

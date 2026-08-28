@@ -78,6 +78,7 @@ B32_EXPECTED = {f"E1-B32-PH-C00{index}": f"EISEI1-Q-{100 + index:06d}" for index
 B33_EXPECTED = {f"E1-B33-LG-C00{index}": f"EISEI1-Q-{105 + index:06d}" for index in range(1, 6)}
 B34_EXPECTED = {f"E1-B34-HG-C00{index}": f"EISEI1-Q-{110 + index:06d}" for index in range(1, 6)}
 B35_EXPECTED = {f"E1-B35-HH-C00{index}": f"EISEI1-Q-{115 + index:06d}" for index in range(1, 6)}
+B36_EXPECTED = {f"E1-B36-LH-C00{index}": f"EISEI1-Q-{120 + index:06d}" for index in range(1, 5)}
 ALL_EXPECTED = {
     **EARLY_EXPECTED,
     **B6_EXPECTED,
@@ -110,6 +111,7 @@ ALL_EXPECTED = {
     **B33_EXPECTED,
     **B34_EXPECTED,
     **B35_EXPECTED,
+    **B36_EXPECTED,
 }
 EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000001": "E1-MHLW-CHEM-RA",
@@ -232,6 +234,10 @@ EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000118": "E1-MHLW-CHEMICAL-HAZARDS",
     "EISEI1-Q-000119": "E1-MHLW-CHEMICAL-HAZARDS",
     "EISEI1-Q-000120": "E1-MHLW-CHEMICAL-HAZARDS",
+    "EISEI1-Q-000121": "E1-LAW-ORGANIC",
+    "EISEI1-Q-000122": "E1-LAW-LEAD",
+    "EISEI1-Q-000123": "E1-LAW-IONIZING",
+    "EISEI1-Q-000124": "E1-LAW-SPEC-CHEM",
 }
 
 
@@ -248,7 +254,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.bank = REPOSITORY_ROOT / "question_banks" / "eisei1"
         self.authoring = self.bank / "authoring"
 
-    def test_integrated_inventory_is_contiguous_through_q120(self) -> None:
+    def test_integrated_inventory_is_contiguous_through_q124(self) -> None:
         questions = read_rows(self.authoring / "questions.csv")
         registry = read_rows(self.authoring / "question_id_registry.csv")
         self.assertEqual(set(ALL_EXPECTED.values()), set(questions))
@@ -291,6 +297,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             ("batch_033", B33_EXPECTED),
             ("batch_034", B34_EXPECTED),
             ("batch_035", B35_EXPECTED),
+            ("batch_036", B36_EXPECTED),
         ):
             batch = self.authoring / "batches" / batch_name
             candidates = read_rows(batch / "candidates.csv")
@@ -321,7 +328,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
                     self.assertEqual(candidate[field], question[field])
                 self.assertEqual(candidate["proposed_correct"], question["correct_choice"])
 
-    def test_q1_q120_are_source_verified_and_pre_release(self) -> None:
+    def test_q1_q124_are_source_verified_and_pre_release(self) -> None:
         verifications = json.loads(
             (self.authoring / "source_verifications.json").read_text(encoding="utf-8")
         )["verifications"]
@@ -375,6 +382,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             "batch_033",
             "batch_034",
             "batch_035",
+            "batch_036",
         ):
             candidates = read_rows(self.authoring / "batches" / batch_name / "candidates.csv")
             expected.update({
@@ -385,7 +393,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_all_touched_expansion_batches_validate(self) -> None:
-        for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006", "batch_007", "batch_008", "batch_009", "batch_010", "batch_011", "batch_012", "batch_013", "batch_014", "batch_015", "batch_016", "batch_017", "batch_018", "batch_019", "batch_020", "batch_021", "batch_022", "batch_023", "batch_024", "batch_025", "batch_026", "batch_027", "batch_028", "batch_029", "batch_030", "batch_031", "batch_032", "batch_033", "batch_034", "batch_035"):
+        for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006", "batch_007", "batch_008", "batch_009", "batch_010", "batch_011", "batch_012", "batch_013", "batch_014", "batch_015", "batch_016", "batch_017", "batch_018", "batch_019", "batch_020", "batch_021", "batch_022", "batch_023", "batch_024", "batch_025", "batch_026", "batch_027", "batch_028", "batch_029", "batch_030", "batch_031", "batch_032", "batch_033", "batch_034", "batch_035", "batch_036"):
             self.assertEqual([], validate_expansion_batch(self.authoring / "batches" / batch_name))
 
 
