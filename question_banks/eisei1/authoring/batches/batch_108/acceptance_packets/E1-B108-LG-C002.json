@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B108-LG-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f8f87db8fa5456b47ff93cfcda350881ebc7f618cca291df9bf1a4964c59975f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b108-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b108-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第25条"
+    },
+    "answer_defining_proposition": "非常の場合には既往の労働に対する賃金を支払う。",
+    "tested_misconception": "非常時も通常の賃金支払日まで待てると混同する。",
+    "reasoning_path": "非常の場合の規定を確認する -> 既往賃金を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の通常の賃金支払原則とは別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "第25条の非常時払。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

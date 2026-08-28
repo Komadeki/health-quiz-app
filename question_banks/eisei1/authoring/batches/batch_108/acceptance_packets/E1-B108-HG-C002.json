@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B108-HG-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "77042deedb5be24a04e7aabcd1ed64b0e229386bfaadd95a28778506da24f80f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b108-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b108-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "厚生労働省 職場における労働衛生対策 作業環境管理"
+    },
+    "answer_defining_proposition": "作業環境管理では作業環境測定と改善を行う。",
+    "tested_misconception": "三管理の担当範囲を混同する。",
+    "reasoning_path": "取組の対象を確認する -> 環境測定と改善を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の照度問題とは別の三管理分類問題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "作業環境管理。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

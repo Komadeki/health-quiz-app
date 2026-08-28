@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B108-LG-C006",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "b1c079e0f17916b27df9ec0700df12d50f51571c000fd4da0ca5b5798e1b2bb9",
+  "actors": {
+    "author": {
+      "id": "eisei1-b108-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b108-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第19条第1項"
+    },
+    "answer_defining_proposition": "業務上負傷又は疾病の療養休業期間及びその後30日間は解雇を制限する。",
+    "tested_misconception": "療養期間後の30日を見落とす。",
+    "reasoning_path": "解雇制限期間を確認する -> 療養期間とその後30日を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の解雇予告問題とは別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "第19条の解雇制限。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

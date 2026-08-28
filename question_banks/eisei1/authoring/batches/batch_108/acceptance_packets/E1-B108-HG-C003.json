@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B108-HG-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "9baa6ffd89c2482f26a946cfa4162a67bf79c9b2bac024e1da431bda03985451",
+  "actors": {
+    "author": {
+      "id": "eisei1-b108-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b108-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "厚生労働省 職場における労働衛生対策 作業管理"
+    },
+    "answer_defining_proposition": "作業管理では作業時間や作業方法を適切に管理する。",
+    "tested_misconception": "作業管理と健康管理を混同する。",
+    "reasoning_path": "取組の対象を確認する -> 作業時間・方法の管理を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の作業管理問題とは作業時間・方法の具体化が異なる."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "作業管理。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

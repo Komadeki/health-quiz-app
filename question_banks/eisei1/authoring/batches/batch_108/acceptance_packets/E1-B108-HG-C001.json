@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B108-HG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a0880a21defa9cc2538e9ac38050fd97ffc62f7f25e5b7fbd10fa38128e193ba",
+  "actors": {
+    "author": {
+      "id": "eisei1-b108-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b108-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "厚生労働省 職場における労働衛生対策 三管理"
+    },
+    "answer_defining_proposition": "労働衛生対策の三管理は作業環境管理・作業管理・健康管理である。",
+    "tested_misconception": "三管理に事業運営管理を混入させる。",
+    "reasoning_path": "三管理を確認する -> 三つの衛生管理を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の作業管理単独問題とは別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "三管理の組合せ。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

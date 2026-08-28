@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B108-LG-C005",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "426dead6f04e221c8f65b8a4a73325c9c9921f2d42659195bd215c762757466c",
+  "actors": {
+    "author": {
+      "id": "eisei1-b108-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b108-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第115条"
+    },
+    "answer_defining_proposition": "年次有給休暇の請求権は2年で時効消滅する。",
+    "tested_misconception": "年次有給休暇の付与日数と時効を混同する。",
+    "reasoning_path": "請求権の時効規定を確認する -> 2年を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の初回付与要件とは別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "第115条の時効。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

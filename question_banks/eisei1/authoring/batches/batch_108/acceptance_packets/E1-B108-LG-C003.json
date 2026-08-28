@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B108-LG-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "2317e9fa78b6deebd6022aceea9fccad7ae4a96870f428b9de1f4ddbbda19be2",
+  "actors": {
+    "author": {
+      "id": "eisei1-b108-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b108-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-density-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第26条"
+    },
+    "answer_defining_proposition": "使用者の責に帰すべき休業では平均賃金の60%以上の手当を支払う。",
+    "tested_misconception": "休業手当の最低率を混同する。",
+    "reasoning_path": "休業事由を確認する -> 60%以上を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存の賃金支払方法問題とは別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "第26条の休業手当。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Independent review is adopted after source, choice, and global-collision checks."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -2632,6 +2632,76 @@
       "source_version": "current-as-retrieved-2026-08-28",
       "verification_state": "author_source_verified",
       "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000381",
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000382",
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000383",
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000384",
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000385",
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000386",
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000377",
+      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000378",
+      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000379",
+      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
+    },
+    {
+      "question_id": "EISEI1-Q-000380",
+      "source_id": "E1-MHLW-OCCUPATIONAL-HYGIENE",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-08-28"
     }
   ]
 }
