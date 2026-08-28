@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B57-LG-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "a82bc4070fbe255285081fd0d067a4c8dfbde6af6dbc1759d534bd878280dfa9",
+  "actors": {
+    "author": {
+      "id": "eisei1-b57-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b57-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b57-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第34条第1項"
+    },
+    "answer_defining_proposition": "使用者は労働時間が8時間を超える場合には少なくとも1時間の休憩時間を労働時間の途中に与えなければならない。",
+    "tested_misconception": "8時間超の場合の休憩時間を6時間超の場合又は任意の時間と混同する。",
+    "reasoning_path": "第34条第1項の8時間超の基準を確認する -> 少なくとも1時間を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q50は衛生委員会の開催頻度を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "労働基準法第34条第1項の8時間超時の1時間休憩を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

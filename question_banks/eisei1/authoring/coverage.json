@@ -1311,6 +1311,21 @@
       "knowledge_target_id": "E1-PH-003",
       "question_id": "EISEI1-Q-000188",
       "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LG-003",
+      "question_id": "EISEI1-Q-000189",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LG-003",
+      "question_id": "EISEI1-Q-000190",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-LG-003",
+      "question_id": "EISEI1-Q-000191",
+      "variation_tags": []
     }
   ],
   "schema_version": 1,
