@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B78-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "01f818a76155e09f832c98513047d313ab8b90513700ed13923210ae006df51f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b78-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b78-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b78-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LEAD",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "鉛中毒予防規則第53条第1項"
+    },
+    "answer_defining_proposition": "事業者は鉛業務に常時従事させる労働者を雇い入れるときに鉛健康診断を行う。",
+    "tested_misconception": "鉛健康診断を定期実施時だけ行えばよいと混同する。",
+    "reasoning_path": "第53条第1項の初回実施時期を確認する -> 雇入れ時を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q15は定期実施間隔を問うため別命題である."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "鉛業務への雇入れ時健診を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
