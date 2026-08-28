@@ -511,6 +511,16 @@
       "knowledge_target_id": "E1-HH-014",
       "question_id": "EISEI1-Q-000028",
       "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HG-002",
+      "question_id": "EISEI1-Q-000029",
+      "variation_tags": []
+    },
+    {
+      "knowledge_target_id": "E1-HG-003",
+      "question_id": "EISEI1-Q-000030",
+      "variation_tags": []
     }
   ],
   "schema_version": 1,
