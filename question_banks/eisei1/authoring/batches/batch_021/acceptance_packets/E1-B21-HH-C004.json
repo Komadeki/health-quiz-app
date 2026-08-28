@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B21-HH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "cd031d9fe6a4da29e805acfbea07795385b5a6c48456110a67bb467b56d31b73",
+  "actors": {
+    "author": {
+      "id": "eisei1-b21-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b21-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b21-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-VIBRATION",
+      "source_version": "current-as-retrieved-2026-08-28",
+      "source_locator": "振動障害の認定基準について 本文"
+    },
+    "answer_defining_proposition": "振動障害では末梢神経障害が認められる。",
+    "tested_misconception": "振動障害の神経症状を体格又は視力の変化と混同する。",
+    "reasoning_path": "資料の症状を確認する -> 末梢神経障害を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "Q33は末梢循環障害を問うため別命題である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "振動障害の神経症状を問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "The independent review is adopted after a fresh source, all-choice, and global collision check. This transition is AI-governed content acceptance only and creates no release artifact."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
