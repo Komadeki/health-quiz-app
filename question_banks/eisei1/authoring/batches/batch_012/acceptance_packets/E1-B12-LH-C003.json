@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B12-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "565aacfdb6f26d06b1d42a3c6507e0640ddaa90f2299f7b87439b433c816de0e",
+  "actors": {
+    "author": {
+      "id": "eisei1-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b12-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b12-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ORGANIC",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "有機溶剤中毒予防規則第28条第2項"
+    },
+    "answer_defining_proposition": "対象屋内作業場の有機溶剤濃度は6月以内ごとに1回測定する。",
+    "tested_misconception": "有機溶剤の健診間隔や車両系建設機械の月次・年次検査と測定頻度を混同する。",
+    "reasoning_path": "第28条第1項の対象業務を確認する -> 第2項の測定頻度を読む -> 6月以内を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q22・Q23は車両系建設機械の検査頻度であり、有機溶剤濃度の測定頻度とは対象・根拠条文が異なる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "有機則第28条第2項の濃度測定頻度6月以内ごとを問う。Cが正しく、他肢は同領域の頻度混同を狙う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B12-LH-C004",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "4ade036785a66483246916d462ad4e698ad9ff5ef8123cd89aa0fc37d8a094c1",
+  "actors": {
+    "author": {
+      "id": "eisei1-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b12-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b12-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ORGANIC",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "有機溶剤中毒予防規則第28条の3第1項"
+    },
+    "answer_defining_proposition": "第三管理区分の場所では直ちに点検と改善措置を講じ第一又は第二管理区分にする。",
+    "tested_misconception": "管理区分の数字が小さいほど悪いと逆に覚え、第三管理区分を放置する。",
+    "reasoning_path": "第三管理区分の意味を確認する -> 第28条の3第1項の直ちに行う措置を読む -> 改善措置の選択肢を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q13は評価基準へのsource binding、Q21は機械検査記録であり、第三管理区分後の有機則上の改善措置は未収載。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "有機則第28条の3第1項の第三管理区分後の直ちの点検・改善措置を問う。Bが条文の措置と到達区分を正確に示す。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

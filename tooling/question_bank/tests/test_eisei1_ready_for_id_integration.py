@@ -47,7 +47,8 @@ B11_EXPECTED = {
     "E1-B11-LH-C003": "EISEI1-Q-000022",
     "E1-B11-LH-C004": "EISEI1-Q-000023",
 }
-ALL_EXPECTED = {**EARLY_EXPECTED, **B6_EXPECTED, **B7_EXPECTED, **B8_EXPECTED, **B9_EXPECTED, **B10_EXPECTED, **B11_EXPECTED}
+B12_EXPECTED = {f"E1-B12-LH-C00{n}": f"EISEI1-Q-0000{23+n}" for n in range(1, 5)}
+ALL_EXPECTED = {**EARLY_EXPECTED, **B6_EXPECTED, **B7_EXPECTED, **B8_EXPECTED, **B9_EXPECTED, **B10_EXPECTED, **B11_EXPECTED, **B12_EXPECTED}
 EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000001": "E1-MHLW-CHEM-RA",
     "EISEI1-Q-000002": "E1-MHLW-RPE-2023",
@@ -97,13 +98,14 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             ("batch_009", B9_EXPECTED),
             ("batch_010", B10_EXPECTED),
             ("batch_011", B11_EXPECTED),
+            ("batch_012", B12_EXPECTED),
         ):
             batch = self.authoring / "batches" / batch_name
             candidates = read_rows(batch / "candidates.csv")
             for candidate_id, question_id in mapping.items():
                 candidate = candidates[candidate_id]
                 question = questions[question_id]
-                expected_state = "VERIFIED" if batch_name in {"batch_009", "batch_010", "batch_011"} else "INTEGRATED"
+                expected_state = "VERIFIED" if batch_name in {"batch_009", "batch_010", "batch_011", "batch_012"} else "INTEGRATED"
                 self.assertEqual(expected_state, candidate["state"])
                 self.assertEqual(question_id, candidate["permanent_question_id"])
                 self.assertEqual("used", registry[question_id]["status"])
@@ -144,12 +146,16 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             "EISEI1-Q-000021": "E1-LAW-ASL",
             "EISEI1-Q-000022": "E1-LAW-ASR",
             "EISEI1-Q-000023": "E1-LAW-ASR",
+            "EISEI1-Q-000024": "E1-LAW-SPEC-CHEM",
+            "EISEI1-Q-000025": "E1-LAW-SPEC-CHEM",
+            "EISEI1-Q-000026": "E1-LAW-ORGANIC",
+            "EISEI1-Q-000027": "E1-LAW-ORGANIC",
         }
         self.assertEqual(set(expected_sources), {row["question_id"] for row in verifications})
         for row in verifications:
             self.assertEqual(expected_sources[row["question_id"]], row["source_id"])
             self.assertEqual("author_source_verified", row["verification_state"])
-            expected_date = "2026-09-02" if row["question_id"] in (*B8_EXPECTED.values(), *B9_EXPECTED.values(), *B10_EXPECTED.values(), *B11_EXPECTED.values()) else "2026-08-27"
+            expected_date = "2026-09-02" if row["question_id"] in (*B8_EXPECTED.values(), *B9_EXPECTED.values(), *B10_EXPECTED.values(), *B11_EXPECTED.values(), *B12_EXPECTED.values()) else "2026-08-27"
             self.assertEqual(expected_date, row["verified_at"])
         self.assertEqual("2026-09-02", next(row for row in verifications if row["question_id"] == "EISEI1-Q-000011")["verified_at"])
         self.assertEqual("2026-09-02", next(row for row in verifications if row["question_id"] == "EISEI1-Q-000012")["verified_at"])
@@ -181,8 +187,16 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.assertEqual({candidate_id: "VERIFIED" for candidate_id in B11_EXPECTED}, {candidate_id: row["state"] for candidate_id, row in candidates.items()})
         self.assertEqual(B11_EXPECTED, {candidate_id: row["permanent_question_id"] for candidate_id, row in candidates.items()})
 
+    def test_b12_is_integrated_and_source_verified(self) -> None:
+        batch = self.authoring / "batches" / "batch_012"
+        candidates = read_rows(batch / "candidates.csv")
+        self.assertEqual(set(B12_EXPECTED), set(candidates))
+        self.assertEqual(set(B12_EXPECTED), {path.stem for path in (batch / "acceptance_packets").glob("*.json")})
+        self.assertEqual({candidate_id: "VERIFIED" for candidate_id in B12_EXPECTED}, {candidate_id: row["state"] for candidate_id, row in candidates.items()})
+        self.assertEqual(B12_EXPECTED, {candidate_id: row["permanent_question_id"] for candidate_id, row in candidates.items()})
+
     def test_all_touched_expansion_batches_validate(self) -> None:
-        for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006", "batch_007", "batch_008", "batch_009", "batch_010", "batch_011"):
+        for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006", "batch_007", "batch_008", "batch_009", "batch_010", "batch_011", "batch_012"):
             self.assertEqual([], validate_expansion_batch(self.authoring / "batches" / batch_name))
 
 

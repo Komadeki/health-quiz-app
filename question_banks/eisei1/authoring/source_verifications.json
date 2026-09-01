@@ -161,6 +161,34 @@
       "source_version": "current-as-of-2026-08-26",
       "verification_state": "author_source_verified",
       "verified_at": "2026-09-02"
+    },
+    {
+      "question_id": "EISEI1-Q-000024",
+      "source_id": "E1-LAW-SPEC-CHEM",
+      "source_version": "current-as-of-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-09-02"
+    },
+    {
+      "question_id": "EISEI1-Q-000025",
+      "source_id": "E1-LAW-SPEC-CHEM",
+      "source_version": "current-as-of-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-09-02"
+    },
+    {
+      "question_id": "EISEI1-Q-000026",
+      "source_id": "E1-LAW-ORGANIC",
+      "source_version": "current-as-of-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-09-02"
+    },
+    {
+      "question_id": "EISEI1-Q-000027",
+      "source_id": "E1-LAW-ORGANIC",
+      "source_version": "current-as-of-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-09-02"
     }
   ]
 }

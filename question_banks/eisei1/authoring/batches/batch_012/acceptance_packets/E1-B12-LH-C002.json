@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B12-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "f1bd26be6878e15366b4c05c174fd585cad0d8b4ad6c7d5340558cb6a6ab3a4e",
+  "actors": {
+    "author": {
+      "id": "eisei1-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b12-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b12-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-SPEC-CHEM",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "特定化学物質障害予防規則第36条の2第2項"
+    },
+    "answer_defining_proposition": "特化則に基づく作業環境評価記録は3年間保存する。",
+    "tested_misconception": "健康診断個人票の保存期間や特別管理物質の長期保存と混同する。",
+    "reasoning_path": "評価記録であることを確認する -> 第36条の2第2項の保存期間を読む -> 3年間を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q9は特定化学物質健康診断個人票の5年又は30年であり、作業環境評価記録の3年とは対象記録が異なる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "特化則第36条の2第2項の評価記録3年保存を問う。健診個人票の保存期間と異なる対象記録を明示し、Bが一意に正しい。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

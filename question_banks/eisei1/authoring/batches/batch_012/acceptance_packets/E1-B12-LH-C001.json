@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B12-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "091697cae655ddac8b9ff1bac634e375cc094ca43a239e78c71623b412325e4f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b12-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b12-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b12-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-SPEC-CHEM",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "特定化学物質障害予防規則第36条の2第1項"
+    },
+    "answer_defining_proposition": "特定化学物質に係る対象屋内作業場の測定結果は第一から第三の三管理区分で評価する。",
+    "tested_misconception": "管理区分を二段階又は第四管理区分まであると誤認する。",
+    "reasoning_path": "第36条の2の対象と評価方法を確認する -> 三つの管理区分を照合する -> Cを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q13は作業環境評価基準のsource bindingだが評価区分数そのものを問わず、本問とは命題が異なる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "特化則第36条の2第1項の第一から第三管理区分という三段階評価を正確に問う。Cのみが条文と一致し、他肢は近接する評価誤認である。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
