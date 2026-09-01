@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B13-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "61982c2f1f706012568b4b2f02b23e8af68bc38a2f3c5a7f7eeab195fcffde52",
+  "actors": {
+    "author": {
+      "id": "eisei1-b13-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b13-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b13-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-DUST",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "粉じん障害防止規則第26条第1項"
+    },
+    "answer_defining_proposition": "対象屋内作業場の粉じん濃度は6月以内ごとに1回測定する。",
+    "tested_misconception": "測定頻度を年次検査等と混同する。",
+    "reasoning_path": "対象屋内作業場を確認 -> 条文の頻度を照合 -> Cを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q13は評価区分、Q16は特別教育、B12は有機溶剤測定であり本命題は未収載."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Distinct dust-regulation proposition with five choices and one explained answer."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

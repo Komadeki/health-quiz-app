@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B13-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "08edc02a662cf7dd2e931dc3ee234cc6220a1d7f640bac8d892a8db1276835d2",
+  "actors": {
+    "author": {
+      "id": "eisei1-b13-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b13-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b13-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-OXYGEN",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "酸素欠乏症等防止規則第3条・第4条"
+    },
+    "answer_defining_proposition": "酸素欠乏危険作業では作業開始前の測定と必要な換気等が必要である。",
+    "tested_misconception": "主任者や表示だけで酸素欠乏を管理できると誤認する。",
+    "reasoning_path": "危険作業を確認 -> 作業前測定と措置を照合 -> Bを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題に作業前の酸素濃度測定と措置の組合せを問う問題はない."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Distinct oxygen-deficiency safety proposition with five choices and one explained answer."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
