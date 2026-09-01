@@ -17,11 +17,11 @@
     "DONE"
   ],
   "observed_main": "f9d4c8f92e3bcdd2fed251f3c4dc01c297a4a5ef",
-  "next_atomic_objective": "ALLOCATE_AND_INTEGRATE_EISEI1_B9_ACCEPTED_3",
+  "next_atomic_objective": "VERIFY_EISEI1_B9_CANONICAL_SOURCES_3",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 3
+  "state_epoch": 4
 }

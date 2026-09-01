@@ -31,7 +31,12 @@ B8_EXPECTED = {
     "E1-B8-HH-C002": "EISEI1-Q-000012",
     "E1-B8-LH-C001": "EISEI1-Q-000013",
 }
-ALL_EXPECTED = {**EARLY_EXPECTED, **B6_EXPECTED, **B7_EXPECTED, **B8_EXPECTED}
+B9_EXPECTED = {
+    "E1-B9-LH-C001": "EISEI1-Q-000014",
+    "E1-B9-LH-C002": "EISEI1-Q-000015",
+    "E1-B9-LH-C003": "EISEI1-Q-000016",
+}
+ALL_EXPECTED = {**EARLY_EXPECTED, **B6_EXPECTED, **B7_EXPECTED, **B8_EXPECTED, **B9_EXPECTED}
 EXPECTED_VERIFICATION_SOURCES = {
     "EISEI1-Q-000001": "E1-MHLW-CHEM-RA",
     "EISEI1-Q-000002": "E1-MHLW-RPE-2023",
@@ -62,7 +67,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.bank = REPOSITORY_ROOT / "question_banks" / "eisei1"
         self.authoring = self.bank / "authoring"
 
-    def test_integrated_inventory_is_contiguous_through_q13(self) -> None:
+    def test_integrated_inventory_is_contiguous_through_q16(self) -> None:
         questions = read_rows(self.authoring / "questions.csv")
         registry = read_rows(self.authoring / "question_id_registry.csv")
         self.assertEqual(set(ALL_EXPECTED.values()), set(questions))
@@ -78,6 +83,7 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             ("batch_006", B6_EXPECTED),
             ("batch_007", B7_EXPECTED),
             ("batch_008", B8_EXPECTED),
+            ("batch_009", B9_EXPECTED),
         ):
             batch = self.authoring / "batches" / batch_name
             candidates = read_rows(batch / "candidates.csv")
@@ -124,14 +130,13 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.assertEqual([], json.loads((self.authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"])
         self.assertEqual([], json.loads((self.bank / "generated" / "eisei1_bank.json").read_text(encoding="utf-8"))["decks"])
 
-    def test_b9_remains_ready_for_next_ids(self) -> None:
+    def test_b9_is_integrated_pending_source_verification(self) -> None:
         batch = self.authoring / "batches" / "batch_009"
         candidates = read_rows(batch / "candidates.csv")
-        expected_ids = {"E1-B9-LH-C001", "E1-B9-LH-C002", "E1-B9-LH-C003"}
-        self.assertEqual(expected_ids, set(candidates))
-        self.assertEqual(expected_ids, {path.stem for path in (batch / "acceptance_packets").glob("*.json")})
-        self.assertTrue(all(row["state"] == "READY_FOR_ID" for row in candidates.values()))
-        self.assertTrue(all(not row["permanent_question_id"] for row in candidates.values()))
+        self.assertEqual(set(B9_EXPECTED), set(candidates))
+        self.assertEqual(set(B9_EXPECTED), {path.stem for path in (batch / "acceptance_packets").glob("*.json")})
+        self.assertEqual({candidate_id: "INTEGRATED" for candidate_id in B9_EXPECTED}, {candidate_id: row["state"] for candidate_id, row in candidates.items()})
+        self.assertEqual(B9_EXPECTED, {candidate_id: row["permanent_question_id"] for candidate_id, row in candidates.items()})
 
     def test_all_touched_expansion_batches_validate(self) -> None:
         for batch_name in ("batch_002", "batch_003", "batch_004", "batch_006", "batch_007", "batch_008", "batch_009"):

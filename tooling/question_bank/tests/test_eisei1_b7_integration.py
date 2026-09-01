@@ -42,7 +42,7 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
         registry = rows(AUTHORING / "question_id_registry.csv", "question_id")
 
         self.assertEqual(
-            {f"EISEI1-Q-{index:06d}" for index in range(1, 14)},
+            {f"EISEI1-Q-{index:06d}" for index in range(1, 17)},
             set(questions),
         )
         self.assertEqual(set(questions), set(registry))
@@ -101,7 +101,7 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
             ],
         )
 
-    def test_b8_is_integrated_and_b9_remains_ready(self) -> None:
+    def test_b8_and_b9_are_integrated(self) -> None:
         questions = rows(AUTHORING / "questions.csv", "question_id")
         registry = rows(AUTHORING / "question_id_registry.csv", "question_id")
         b8_batch = AUTHORING / "batches" / "batch_008"
@@ -127,8 +127,15 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
         b9_batch = AUTHORING / "batches" / "batch_009"
         b9 = rows(b9_batch / "candidates.csv", "candidate_id")
         self.assertEqual(B9_IDS, set(b9))
-        self.assertTrue(all(row["state"] == "READY_FOR_ID" for row in b9.values()))
-        self.assertTrue(all(not row["permanent_question_id"] for row in b9.values()))
+        self.assertEqual(
+            {
+                "E1-B9-LH-C001": "EISEI1-Q-000014",
+                "E1-B9-LH-C002": "EISEI1-Q-000015",
+                "E1-B9-LH-C003": "EISEI1-Q-000016",
+            },
+            {candidate_id: row["permanent_question_id"] for candidate_id, row in b9.items()},
+        )
+        self.assertTrue(all(row["state"] == "INTEGRATED" for row in b9.values()))
         self.assertEqual(B9_IDS, {path.stem for path in (b9_batch / "acceptance_packets").glob("*.json")})
 
 
