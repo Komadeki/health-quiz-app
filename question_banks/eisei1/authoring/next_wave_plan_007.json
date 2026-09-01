@@ -1,0 +1,12 @@
+{
+  "schema_version":"1.0",
+  "plan_id":"E1-NEXT-WAVE-007",
+  "decision_date":"2026-09-02",
+  "baseline_canonical_count":31,
+  "ranges":[
+    {"unit_id":"eisei1_law_general","knowledge_target_id":"E1-LG-001","rationale":"衛生管理者の選任対象人数は巡視義務とは異なる未カバーの基本命題である。","source_ids":["E1-LAW-ASL"]},
+    {"unit_id":"eisei1_hygiene_general","knowledge_target_id":"E1-HG-002","rationale":"健康保持増進・メンタルヘルス領域を追加し、一般衛生のcoverageを広げる。","source_ids":["E1-MHLW-OH"]}
+  ],
+  "candidate_count_is_ceiling_not_quota":true,
+  "next_gate":"AUTHOR_AND_INDEPENDENT_REVIEW"
+}
