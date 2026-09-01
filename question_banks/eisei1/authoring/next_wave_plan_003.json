@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "product": "eisei1",
+  "plan_id": "E1-NEXT-WAVE-003",
+  "status": "READY_FOR_AUTHORING",
+  "created_at": "2026-09-02",
+  "max_parallel_ranges": 2,
+  "candidate_count_is_quota": false,
+  "selection_basis": [
+    "uncovered required importance-3 targets",
+    "current e-Gov primary source with exact article locators",
+    "high exam relevance for hazardous-work regulation",
+    "distinct proposition space from canonical Q1-Q23"
+  ],
+  "ranges": [
+    {
+      "lane": "law_hazardous",
+      "knowledge_target_id": "E1-LH-003",
+      "title": "特定化学物質障害予防規則",
+      "source_ids": ["E1-LAW-SPEC-CHEM"],
+      "authoring_contract": "Use current e-Gov articles for a specific duty or interval and state the substance/work condition needed to make the answer unique.",
+      "candidate_ceiling": 3
+    },
+    {
+      "lane": "law_hazardous",
+      "knowledge_target_id": "E1-LH-004",
+      "title": "有機溶剤中毒予防規則",
+      "source_ids": ["E1-LAW-ORGANIC"],
+      "authoring_contract": "Use current e-Gov articles or tables for a specific organic-solvent duty, health-exam interval or exception; distinguish legal conditions from general health effects.",
+      "candidate_ceiling": 3
+    }
+  ],
+  "global_collision_scope": ["all canonical Eisei1 questions through Q23", "all persisted candidates in batches 002-011", "all candidates in the new wave"],
+  "quality_constraints": ["exactly five choices", "one unambiguous answer", "four plausible same-domain distractors", "A-E explanation coverage", "precise current source locator", "no wording-only, order-only or context-only duplicate"],
+  "answer_position_note": "The verified distribution is currently A=3, B=5, D=2. Correct proposition order is authoritative; inspect the batch distribution without changing propositions for balance."
+}
