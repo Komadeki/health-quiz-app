@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B15-HG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "45b44d09eaea91e49ec5cebfb5a6693373222c5038e9120ad6e401779b94ce31",
+  "actors": {
+    "author": {
+      "id": "eisei1-b15-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b15-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b15-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-OH",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "厚生労働省「職場における労働衛生対策」熱中症予防対策"
+    },
+    "answer_defining_proposition": "同ページは職場における熱中症予防対策を扱う。",
+    "tested_misconception": "ページの対象を化学物質や騒音の個別制度だけと誤認する。",
+    "reasoning_path": "ページの見出しを確認 -> 熱中症予防対策の掲載を照合 -> Bを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題は有害業務の法令・測定中心で、厚労省の職場熱中症予防情報の対象範囲は未収載."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Directly grounded in the current MHLW workplace heatstroke-prevention section; five choices and one answer."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
