@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B19-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d3c2efeff7551de099db69e3137ec45c68119619b265d7e7be3fe0fd1e805279",
+  "actors": {
+    "author": {
+      "id": "eisei1-b19-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b19-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b19-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法第14条"
+    },
+    "answer_defining_proposition": "政令で定める危険又は有害な作業では作業主任者を選任する。",
+    "tested_misconception": "作業主任者と衛生管理者・安全委員会の根拠条文を混同する。",
+    "reasoning_path": "作業主任者の制度を確認 -> 条文番号と対象を照合 -> Cを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題は衛生管理者の巡視・選任人数や特定作業の規則であり、安衛法第14条の一般的根拠条文は未収載."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Distinct current-law qualification duty with five choices and explained distractors."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
