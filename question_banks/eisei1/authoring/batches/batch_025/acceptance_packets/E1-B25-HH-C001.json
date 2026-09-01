@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B25-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c5175227a77692dd4ad75da0f63056d377fcdf450225def19a17757050169661",
+  "actors": {
+    "author": {
+      "id": "eisei1-b25-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b25-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b25-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-OH",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "厚生労働省「高気圧作業安全衛生規則」関連情報"
+    },
+    "answer_defining_proposition": "急激な減圧により体内に溶け込んだ不活性ガスが気泡化することが減圧症の原因となる。",
+    "tested_misconception": "減圧症を熱中症・騒音・紫外線・粉じんによる障害と混同する。",
+    "reasoning_path": "高気圧作業からの減圧という状況を確認する -> 原因となる体内ガスの変化を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q1-Q41を確認。高気圧作業・減圧症の機序は未収載で、熱中症や騒音性難聴とは異なる."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "公式資料に対応する未収載命題。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "品質ゲートを再確認し採用。"
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
