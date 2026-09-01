@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B20-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "ff83e82859edc02e4a443341f7faeb29ef1fbbe6627d92362a5dec922644b813",
+  "actors": {
+    "author": {
+      "id": "eisei1-b20-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b20-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b20-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-LSL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働基準法第64条の3"
+    },
+    "answer_defining_proposition": "妊娠中の女性及び産後1年を経過しない女性を有害ガスを発散する場所における業務などに就かせてはならない。",
+    "tested_misconception": "妊産婦の範囲、本人同意による解除、妊産婦以外の女性への準用を混同する。",
+    "reasoning_path": "妊産婦の定義を確認する -> 第64条の3第1項の禁止対象業務を照合する -> 有害ガス発散場所の業務を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q1-Q35およびB20計画を確認。既存の有機溶剤・石綿・作業主任者問題とは異なり、労基法上の妊産婦保護の対象者と有害業務制限を問う。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "労働基準法第64条の3に直接対応し、妊産婦の対象範囲と有害業務制限を一意に問う。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "公的資料と既存問題群を再確認し、未収載の独立命題として採用する。"
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
