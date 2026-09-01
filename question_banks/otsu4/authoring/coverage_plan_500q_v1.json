@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "OTSU4-500Q-15-TARGET-V1",
+  "production_target": 500,
+  "subject_targets": {"law": 217, "physics_chemistry": 133, "properties_fire": 150},
+  "target_counts": {
+    "O4-LAW-KT-QUANTITY": 50, "O4-LAW-KT-LICENSING-DUTIES": 42, "O4-LAW-KT-STORAGE-HANDLING": 50, "O4-LAW-KT-FACILITIES-INSPECTION": 42, "O4-LAW-KT-TRANSPORT": 33,
+    "O4-PHY-KT-MATTER-HEAT": 25, "O4-PHY-KT-COMBUSTION": 33, "O4-PHY-KT-CONCENTRATION": 25, "O4-PHY-KT-CHEMICAL-CHANGE": 25, "O4-PHY-KT-CALCULATION-BOUNDARY": 25,
+    "O4-FIR-KT-PROPERTIES": 42, "O4-FIR-KT-FLASH-IGNITION": 25, "O4-FIR-KT-HAZARDS-PREVENTION": 33, "O4-FIR-KT-EXTINGUISHING": 25, "O4-FIR-KT-INCIDENT-DECISION": 25
+  },
+  "decision_boundary_floor_by_subject": {"law": 60, "physics_chemistry": 50, "properties_fire": 50},
+  "count_is_quota": false,
+  "filler_prohibited": true,
+  "broad_authoring_requires_pinpoint_source_catalog": true,
+  "supersedes_plan_id": "OTSU4-600Q-15-TARGET-V1"
+}

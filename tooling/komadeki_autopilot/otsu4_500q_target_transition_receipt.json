@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "transition": "ADOPT_OTSU4_500Q_PRODUCTION_TARGET",
+  "executed_at": "2026-09-02",
+  "baseline_main": "1aa2591cc10093f40a2dc494507452b16efa9d80",
+  "baseline_canonical_question_count": 305,
+  "adopted_production_target": 500,
+  "remaining_target_delta": 195,
+  "safety_constraints": ["source_bound", "semantic_collision_prevention", "permanent_id_integrity", "existing_validation_required", "durable_github_evidence_required"],
+  "next_atomic_objective": "PLAN_OTSU4_WAVE_11_500Q_COVERAGE",
+  "result": "PASS"
+}
