@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B26-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "60e7a51eb89ae4e34100e67697f8699792ec44547e7328ba8fb542054fac91ad",
+  "actors": {
+    "author": {
+      "id": "eisei1-b26-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b26-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b26-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-WORKENV",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "職場のあんぜんサイト「生物学的モニタリング」"
+    },
+    "answer_defining_proposition": "生物学的モニタリングは生体試料中の有害物・代謝物等または影響の大きさを測定する。",
+    "tested_misconception": "生物学的モニタリングを作業環境測定や騒音測定と混同する。",
+    "reasoning_path": "測定対象が作業場ではなく生体であることを確認する -> 尿・血液等の生体試料を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q1-Q42を確認。生物学的モニタリングの定義は未収載で、既存の作業環境評価・保護具問題とは異なる."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "公式資料に直接対応する未収載命題。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "5択・重複・出典を確認し採用。"
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
