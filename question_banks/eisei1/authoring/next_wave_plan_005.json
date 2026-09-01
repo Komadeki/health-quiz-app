@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "E1-NEXT-WAVE-005",
+  "decision_date": "2026-09-02",
+  "baseline_canonical_count": 29,
+  "ranges": [
+    {"unit_id":"eisei1_law_general","knowledge_target_id":"E1-LG-001","rationale":"一般業務の衛生管理体制は未カバーで、試験の基礎制度として優先度が高い。","source_ids":["E1-LAW-ASL"]},
+    {"unit_id":"eisei1_physiology","knowledge_target_id":"E1-PH-001","rationale":"人体の組織・機能は未カバーで、法令偏重を是正する重要な基礎領域。","source_ids":["E1-MHLW-HEALTH"]}
+  ],
+  "candidate_count_is_ceiling_not_quota": true,
+  "quality_constraints":["exactly five choices","one unambiguous answer","source-backed proposition","no semantic duplicate"],
+  "next_gate":"AUTHOR_AND_INDEPENDENT_REVIEW"
+}
