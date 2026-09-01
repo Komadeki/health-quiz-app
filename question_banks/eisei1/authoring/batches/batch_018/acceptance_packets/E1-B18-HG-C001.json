@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B18-HG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "85e5402b24d7d93356b904b4b81cc9ba490c557922c0f86365b95d592d9af286",
+  "actors": {
+    "author": {
+      "id": "eisei1-b18-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b18-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b18-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-OH",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "厚生労働省「職場における労働衛生対策」熱中症予防対策"
+    },
+    "answer_defining_proposition": "熱中症疑いでは涼しい場所への移動・身体冷却・必要な医療対応を行う。",
+    "tested_misconception": "熱中症疑いでも作業継続や本人任せでよいと誤認する。",
+    "reasoning_path": "症状発見 -> 暑熱環境から移動 -> 冷却と医療対応を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q31は情報ページの対象範囲であり具体的な初期救急対応は未収載."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Directly grounded in MHLW workplace heatstroke-prevention guidance; five choices and one answer."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
