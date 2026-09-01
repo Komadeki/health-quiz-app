@@ -23,6 +23,11 @@ B8_MAPPING = {
     "E1-B8-LH-C001": "EISEI1-Q-000013",
 }
 B9_IDS = {"E1-B9-LH-C001", "E1-B9-LH-C002", "E1-B9-LH-C003"}
+B8_SOURCES = {
+    "EISEI1-Q-000011": "E1-MHLW-DUST-PREVENTION",
+    "EISEI1-Q-000012": "E1-MHLW-CHEMICAL-HAZARDS",
+    "EISEI1-Q-000013": "E1-MHLW-WORKENV-EVALUATION",
+}
 
 
 def rows(path: Path, key: str) -> dict[str, dict[str, str]]:
@@ -109,6 +114,15 @@ class Eisei1B7IntegrationTests(unittest.TestCase):
             self.assertEqual(question_id, candidate["permanent_question_id"])
             self.assertIn(question_id, questions)
             self.assertIn(question_id, registry)
+
+        verifications = {
+            row["question_id"]: row
+            for row in json.loads((AUTHORING / "source_verifications.json").read_text(encoding="utf-8"))["verifications"]
+        }
+        for question_id, source_id in B8_SOURCES.items():
+            self.assertEqual(source_id, verifications[question_id]["source_id"])
+            self.assertEqual("author_source_verified", verifications[question_id]["verification_state"])
+            self.assertEqual("2026-09-02", verifications[question_id]["verified_at"])
 
         b9_batch = AUTHORING / "batches" / "batch_009"
         b9 = rows(b9_batch / "candidates.csv", "candidate_id")
