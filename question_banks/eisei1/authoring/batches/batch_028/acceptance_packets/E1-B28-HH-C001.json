@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B28-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "7914cc2b6b0b830502568e449bcc23c1519bd1677321d69b03e4c97a3ae7cedb",
+  "actors": {
+    "author": {
+      "id": "eisei1-b28-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b28-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b28-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "source_locator": "厚生労働省「化学物質または混合物の危険性・有害性」化学物質の状態とばく露"
+    },
+    "answer_defining_proposition": "気体・蒸気・粉じん等の状態に応じて吸入等のばく露経路が生じる。",
+    "tested_misconception": "化学物質の状態とばく露経路を切り離して考える。",
+    "reasoning_path": "物質の状態を確認する -> 吸入ばく露の可能性を照合する -> 気体・蒸気の吸入を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q1-Q44を確認。化学物質の状態と吸入経路の基本命題は未収載。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "公式資料に対応する未収載命題。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "品質ゲートを確認し採用。"
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
