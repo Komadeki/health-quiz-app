@@ -1,0 +1,13 @@
+{
+  "schema_version":"1.0",
+  "plan_id":"E1-NEXT-WAVE-006",
+  "decision_date":"2026-09-02",
+  "baseline_canonical_count":30,
+  "ranges":[
+    {"unit_id":"eisei1_physiology","knowledge_target_id":"E1-PH-001","rationale":"人体の組織・機能の未カバーを解消し、法令問題への偏りを是正する。","source_ids":["E1-MHLW-OH"]},
+    {"unit_id":"eisei1_hygiene_general","knowledge_target_id":"E1-HG-001","rationale":"作業環境・作業管理の基本を追加し、一般衛生分野の基礎coverageを確保する。","source_ids":["E1-MHLW-OH"]}
+  ],
+  "candidate_count_is_ceiling_not_quota":true,
+  "quality_constraints":["exactly five choices","one unambiguous answer","public-source locator","educational distractors","no semantic duplicate"],
+  "next_gate":"AUTHOR_AND_INDEPENDENT_REVIEW"
+}
