@@ -374,8 +374,8 @@
   "question_bindings": [],
   "schema_version": 1,
   "target_bank_size": {
-    "approved_question_count": 0,
-    "bootstrap": true,
-    "rationale": "Bootstrap only: final production bank size is deliberately deferred until the first two coverage ranges provide acceptance, collision, source-verification and variation evidence."
+    "approved_question_count": 500,
+    "bootstrap": false,
+    "rationale": "Owner-approved commercial target: 500 accepted and source-verified canonical Eisei1 questions. Batch ceilings remain non-quotas; correctness, authoritative source grounding, five-choice integrity, deterministic validation, source verification and catastrophic-duplicate prevention remain mandatory. See docs/EISEI1_COMMERCIAL_BANK_TARGET_500_V1.md."
   }
 }
