@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B11-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "cf42f4110f550a298dd1d736de66836a812f3322d2a061b68cfb99d9cb344be1",
+  "actors": {
+    "author": {
+      "id": "eisei1-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b11-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b11-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則第167条第1項"
+    },
+    "answer_defining_proposition": "車両系建設機械の定期自主検査は一年以内ごとに1回である。",
+    "tested_misconception": "車両系建設機械の年次検査と月次検査の頻度を逆に覚える。",
+    "reasoning_path": "第167条の対象機械と検査頻度を確認する -> 第168条の月次検査と区別する -> 一年以内を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存候補に車両系建設機械の定期自主検査はなく、B11-C004とは年次と月次を区別する別頻度命題として構成する。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "安衛則第167条第1項の車両系建設機械に対する一年以内ごとの検査を問う。Dが正しく、月次の第168条と混同させる誤答を含む。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Director rechecked the exact current e-Gov locator and the global collision evidence. The proposition is distinct, the distractors are same-domain, and all five options are explained. No permanent ID, canonical, source-verification, release, or runtime artifact is changed by this acceptance."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

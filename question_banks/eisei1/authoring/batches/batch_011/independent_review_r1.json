@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B11",
+  "review_round": 1,
+  "reviewed_at": "2026-09-02",
+  "reviewer": {"id": "eisei1-b11-independent-reviewer-r1", "role": "AI_REVIEWER"},
+  "author_identity_checked": "eisei1-b11-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "current e-Gov 労働安全衛生法第42条及び第45条",
+    "current e-Gov 労働安全衛生規則第167条から第169条",
+    "source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000019",
+    "all persisted Eisei1 candidates through B10"
+  ],
+  "summary": {"reviewed": 4, "accept": 4, "reject": 0, "rework": 0, "hold": 0},
+  "decisions": [
+    {"candidate_id": "E1-B11-LH-C001", "decision": "ACCEPT", "rationale": "安衛法第42条の規格又は安全装置を具備しない政令指定機械等について、譲渡・貸与・設置を禁止する命題を正確に問う。5つの組合せは同領域の近接誤答であり、Bだけが条文の3行為に一致する。"},
+    {"candidate_id": "E1-B11-LH-C002", "decision": "ACCEPT", "rationale": "安衛法第45条第1項の義務主体、定期自主検査、結果の記録を一体で問う。Aが条文を満たし、他肢は対象、頻度、記録範囲又は義務主体を誤る。"},
+    {"candidate_id": "E1-B11-LH-C003", "decision": "ACCEPT", "rationale": "安衛則第167条第1項の車両系建設機械に対する一年以内ごとの検査を問う。Dが正しく、月次の第168条と混同させる誤答を含む。"},
+    {"candidate_id": "E1-B11-LH-C004", "decision": "ACCEPT", "rationale": "安衛則第168条第1項の車両系建設機械に対する一月以内ごとの検査を問う。Bが正しく、年次の第167条と混同させる誤答を含む。"}
+  ],
+  "quality_gate": {
+    "exact_five_choices": "PASS",
+    "one_unambiguously_best_answer": "PASS",
+    "plausible_same_domain_distractors": "PASS",
+    "all_five_choice_explanations": "PASS",
+    "answer_position_distribution": "PASS: B, A, D, B",
+    "lane_fidelity": "PASS: hazardous-law lane, E1-LH-002",
+    "source_locator_binding": "PASS",
+    "published_question_copying": "PASS: independently authored"
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "persisted_candidates_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS",
+    "note": "No existing candidate tests the Article 42 action set or Article 45/Rules 167-168 inspection intervals. C003 and C004 are a permitted close variant pair because the answer-defining statutory frequency differs and each explanation teaches the distinction."
+  },
+  "source_review_scope": "Current e-Gov primary text was rechecked for each exact locator. Final canonical source verification remains downstream after permanent-ID allocation.",
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE_ACCEPTED_4"
+}

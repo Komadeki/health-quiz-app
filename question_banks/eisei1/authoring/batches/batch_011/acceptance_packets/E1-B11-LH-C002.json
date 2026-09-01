@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B11-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "784fcfcc2c92ae5073a9960c96fe7a82b3d9c388e03372845700db4b79fa444f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b11-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b11-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法第45条第1項"
+    },
+    "answer_defining_proposition": "政令で定める機械等について定期自主検査を行い結果を記録する義務は事業者にある。",
+    "tested_misconception": "定期自主検査を特定自主検査だけの制度と捉えたり異常時だけ記録すればよいと誤認する。",
+    "reasoning_path": "第45条第1項の義務主体と対象を確認する -> 検査と記録の両方を確認する -> Aを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存候補は有害物質の測定記録や健診記録を扱うが、機械等の定期自主検査と記録を一体で問う本命題は未収載。B11-C001の譲渡制限とも異なる義務である。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "安衛法第45条第1項の義務主体、定期自主検査、結果の記録を一体で問う。Aが条文を満たし、他肢は対象、頻度、記録範囲又は義務主体を誤る。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Director rechecked the exact current e-Gov locator and the global collision evidence. The proposition is distinct, the distractors are same-domain, and all five options are explained. No permanent ID, canonical, source-verification, release, or runtime artifact is changed by this acceptance."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

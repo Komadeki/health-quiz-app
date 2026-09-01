@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B11-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "d44024ca130a6a01e113e615763469827efa9ef9e71dc2dbbeaf02f30eb874f4",
+  "actors": {
+    "author": {
+      "id": "eisei1-b11-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b11-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b11-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法第42条"
+    },
+    "answer_defining_proposition": "所定の規格又は安全装置を具備しない政令指定機械等は譲渡し、貸与し、又は設置してはならない。",
+    "tested_misconception": "規格具備義務を使用時の点検義務や製造時の一般義務と混同する。",
+    "reasoning_path": "第42条の対象を確認する -> 規格又は安全装置の具備条件を確認する -> 禁止される3行為を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存候補は個別有害物質の設備要件を扱うが、法42条の機械等に関する譲渡・貸与・設置の組合せは未収載。B11内の定期自主検査候補とは法的行為が異なる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "安衛法第42条の規格又は安全装置を具備しない政令指定機械等について、譲渡・貸与・設置を禁止する命題を正確に問う。5つの組合せは同領域の近接誤答であり、Bだけが条文の3行為に一致する。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Director rechecked the exact current e-Gov locator and the global collision evidence. The proposition is distinct, the distractors are same-domain, and all five options are explained. No permanent ID, canonical, source-verification, release, or runtime artifact is changed by this acceptance."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
