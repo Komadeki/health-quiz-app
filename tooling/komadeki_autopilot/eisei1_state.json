@@ -17,7 +17,7 @@
     "DONE"
   ],
   "observed_main": "b4aabf630100b43dc17951d067f88de00f3bbfd8",
-  "next_atomic_objective": "PLAN_EISEI1_NEXT_COVERAGE_WAVE_011",
+  "next_atomic_objective": "AUTHOR_EISEI1_B20_CANDIDATES",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
