@@ -1,0 +1,9 @@
+{
+  "schema_version":"1.0","app_key":"eisei1","batch_id":"B12","directory_slug":"batch_012","baseline_sha":"3a4da93b","batch_status":"AI_PRE_ACCEPT_AUTHORED",
+  "author":{"id":"eisei1-b12-author-r1","role":"AI_AUTHOR"},
+  "expansion_trigger":"Execute E1-NEXT-WAVE-003 with source-bound measurement and evaluation propositions.",
+  "evidence":["question_banks/eisei1/authoring/next_wave_plan_003.json","question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md","question_banks/eisei1/authoring/coverage.json"],
+  "target_size_decisions":[{"decision_id":"E1-B12-QUALITY-001","previous_approved_target":0,"current_released_count":0,"proposed_target_min":0,"proposed_target_max":4,"approved_new_target":4,"rationale":"Four candidates are a ceiling for four distinct measurement or evaluation propositions. This is not a quota.","decision_date":"2026-09-02","evidence":"Current e-Gov 特化則第36条の2及び有機則第28条から第28条の3"}],
+  "coverage_limit_decisions":[],"planned_scope":{"candidate_count":4,"candidate_count_is_quota":false,"lane_counts":{"law_hazardous":4,"hygiene_hazardous":0},"knowledge_target_ids":["E1-LH-003","E1-LH-004"],"known_rejected_ids":[]},
+  "invariants":{"PERMANENT_IDS_ALLOCATED_AT_AUTHORING":0,"HUMAN_REVIEW_CREATED":false,"CANONICAL_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false},"next_gate":"INDEPENDENT_AI_REVIEW"
+}

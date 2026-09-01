@@ -1,0 +1,17 @@
+{
+  "schema_version":"1.0","batch_id":"B12","review_round":1,"reviewed_at":"2026-09-02",
+  "reviewer":{"id":"eisei1-b12-independent-reviewer-r1","role":"AI_REVIEWER"},"author_identity_checked":"eisei1-b12-author-r1","identity_separation":"PASS",
+  "review_basis":["EISEI1_QUESTION_QUALITY_GATE_V1.md","current e-Gov 特化則第36条の2","current e-Gov 有機則第28条から第28条の3","source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000023"],
+  "summary":{"reviewed":4,"accept":4,"reject":0,"rework":0,"hold":0},
+  "decisions":[
+    {"candidate_id":"E1-B12-LH-C001","decision":"ACCEPT","rationale":"特化則第36条の2第1項の第一から第三管理区分という三段階評価を正確に問う。Cのみが条文と一致し、他肢は近接する評価誤認である。"},
+    {"candidate_id":"E1-B12-LH-C002","decision":"ACCEPT","rationale":"特化則第36条の2第2項の評価記録3年保存を問う。健診個人票の保存期間と異なる対象記録を明示し、Bが一意に正しい。"},
+    {"candidate_id":"E1-B12-LH-C003","decision":"ACCEPT","rationale":"有機則第28条第2項の濃度測定頻度6月以内ごとを問う。Cが正しく、他肢は同領域の頻度混同を狙う。"},
+    {"candidate_id":"E1-B12-LH-C004","decision":"ACCEPT","rationale":"有機則第28条の3第1項の第三管理区分後の直ちの点検・改善措置を問う。Bが条文の措置と到達区分を正確に示す。"}
+  ],
+  "quality_gate":{"exact_five_choices":"PASS","one_unambiguously_best_answer":"PASS","plausible_same_domain_distractors":"PASS","all_five_choice_explanations":"PASS","answer_position_distribution":"PASS: C, B, C, B","lane_fidelity":"PASS: hazardous-law lanes E1-LH-003 and E1-LH-004","source_locator_binding":"PASS","published_question_copying":"PASS: independently authored"},
+  "collision_review":{"released_bank_checked":true,"canonical_drafts_checked":true,"persisted_candidates_checked":true,"full_batch_checked":true,"result":"PASS","note":"No existing item tests these specific evaluation-class, evaluation-retention, organic-solvent measurement-frequency, or third-control-zone response propositions."},
+  "source_review_scope":"Current e-Gov primary text was rechecked for every exact locator. Final source verification remains downstream after ID integration.",
+  "invariants":{"HUMAN_REVIEW_ROWS_CREATED":0,"CANDIDATE_STATES_CHANGED":false,"ACCEPTANCE_PACKETS_CREATED":0,"PERMANENT_IDS_ALLOCATED":0,"CANONICAL_CHANGED":false,"SOURCE_VERIFICATIONS_CHANGED":false,"RELEASED_CHANGED":false,"RUNTIME_CHANGED":false,"DIRECTOR_ADJUDICATION_PERFORMED":false},
+  "final_gate":"READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE_ACCEPTED_4"
+}
