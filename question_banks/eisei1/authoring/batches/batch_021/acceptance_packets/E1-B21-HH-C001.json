@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B21-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "52795cbed5272abf491f0bd450bb3cd9dc48b46a99299eec8cda8ae8e373f10d",
+  "actors": {
+    "author": {
+      "id": "eisei1-b21-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b21-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b21-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-OH",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "厚生労働省「騒音障害防止対策」及び「聞こえにくさ」"
+    },
+    "answer_defining_proposition": "騒音性難聴は4000Hz付近の比較的高い音から進行する。",
+    "tested_misconception": "高音域から始まる特徴を会話域や低音域の障害と混同する。",
+    "reasoning_path": "騒音性難聴の進行特徴を確認する -> 初期の周波数帯を照合する -> 4000Hz付近を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q1-Q36を確認。既存問題は騒音領域を扱わず、他の有害因子の健康影響とも異なる."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "公式資料に直接対応し、未収載の独立命題である。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "出典・重複・5択品質を再確認し採用する。"
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

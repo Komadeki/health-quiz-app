@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B21-LG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "81f009a3ad50b5a96bac46c8ca3f18a6d61d91858574e7fbff7be5d4f25c374d",
+  "actors": {
+    "author": {
+      "id": "eisei1-b21-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b21-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b21-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-PNEUMO",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "じん肺法第8条第1項第2号"
+    },
+    "answer_defining_proposition": "常時粉じん作業従事者で管理二又は管理三の者は1年以内ごとに定期じん肺健康診断を受ける。",
+    "tested_misconception": "管理一の3年と管理二・三の1年を取り違える。",
+    "reasoning_path": "対象者の条件を確認する -> 管理区分二又は三を照合する -> 1年以内ごとを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q1-Q36の特殊健診問題を確認。じん肺法の管理区分別頻度は未収載で、他法令の6月・1年頻度とは対象条文が異なる."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "公式資料に直接対応し、未収載の独立命題である。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "出典・重複・5択品質を再確認し採用する。"
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
