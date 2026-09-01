@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B22-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "70a5e046a6f6b0571f24e06430bd815383b582f0681325e21230ce2439a8344f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b22-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b22-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b22-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-OH",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "職場のあんぜんサイト「振動障害」"
+    },
+    "answer_defining_proposition": "局所振動は手や腕を通して伝播される振動による障害である。",
+    "tested_misconception": "局所振動と全身振動、騒音性難聴、ばく露時間管理を混同する。",
+    "reasoning_path": "局所振動の伝播部位を確認する -> 全身振動と区別する -> 手や腕を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q1-Q38を確認。振動障害の伝播経路は未収載で、騒音性難聴や化学物質の問題とは異なる."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "公式資料に直接対応する未収載命題。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "重複と5択品質を確認し採用。"
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

@@ -1,0 +1,1 @@
+{"schema_version":"1.0","plan_id":"E1-NEXT-WAVE-013","decision_date":"2026-09-02","baseline_canonical_count":38,"ranges":[{"unit_id":"eisei1_hygiene_hazardous","knowledge_target_id":"E1-HH-009","rationale":"振動障害は重要度3の未カバーtargetで、厚生労働省資料により局所振動と対策を直接検証できる。","source_ids":["E1-MHLW-OH"]}],"candidate_count_is_ceiling_not_quota":true,"next_gate":"AUTHOR_AND_INDEPENDENT_REVIEW"}
