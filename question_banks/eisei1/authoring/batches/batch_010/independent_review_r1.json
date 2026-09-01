@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "B10",
+  "review_round": 1,
+  "reviewed_at": "2026-09-02",
+  "reviewer": {"id": "eisei1-b10-independent-reviewer-r1", "role": "AI_REVIEWER"},
+  "author_identity_checked": "eisei1-b10-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": [
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "current e-Gov 労働安全衛生規則第7条第1項第4号から第6号",
+    "source-verified canonical EISEI1-Q-000001 through EISEI1-Q-000016",
+    "all persisted Eisei1 candidates through B9"
+  ],
+  "summary": {"reviewed": 3, "accept": 3, "reject": 0, "rework": 0, "hold": 0},
+  "decisions": [
+    {
+      "candidate_id": "E1-B10-LH-C001",
+      "decision": "ACCEPT",
+      "rationale": "安衛則第7条第1項第4号の人数表により、常時使用する労働者300人の事業場は200人を超え500人以下に該当し、衛生管理者は2人以上必要である。選択肢は隣接する人数区分を使った同領域の誤答で、Bのみが300人の条件に一致する。"
+    },
+    {
+      "candidate_id": "E1-B10-LH-C002",
+      "decision": "ACCEPT",
+      "rationale": "安衛則第7条第1項第5号ロは、常時500人を超える事業場で坑内労働等に常時30人以上を従事させる場合、衛生管理者のうち少なくとも1人を専任とすることを求める。600人・坑内労働30人は条件を満たし、Aが一意に正しい。人数1000人超のみ、30人超のみという誤認も同一領域の妥当な distractor である。"
+    },
+    {
+      "candidate_id": "E1-B10-LH-C003",
+      "decision": "ACCEPT",
+      "rationale": "安衛則第7条第1項第6号は、同じ規模・有害業務条件の事業場について、衛生管理者のうち1人を衛生工学衛生管理者免許を受けた者から選任することを定める。Bは資格要件を正確に表し、A・C・D・Eは近接する資格制度との混同を試す妥当な誤答である。"
+    }
+  ],
+  "quality_gate": {
+    "exact_five_choices": "PASS",
+    "one_unambiguously_best_answer": "PASS",
+    "plausible_same_domain_distractors": "PASS",
+    "all_five_choice_explanations": "PASS",
+    "answer_position_distribution": "PASS: B, A, B",
+    "lane_fidelity": "PASS: hazardous-law lane, E1-LH-001",
+    "source_locator_binding": "PASS",
+    "published_question_copying": "PASS: independently authored"
+  },
+  "collision_review": {
+    "released_bank_checked": true,
+    "canonical_drafts_checked": true,
+    "persisted_candidates_checked": true,
+    "full_batch_checked": true,
+    "result": "PASS",
+    "note": "The three candidates test staffing count, dedicated appointment, and health-engineering license selection. No existing canonical question or persisted candidate tests these E1-LH-001 propositions."
+  },
+  "source_review_scope": "Current e-Gov primary text was rechecked for Article 7 paragraph 1 items 4, 5 and 6. Final canonical source verification remains downstream after permanent-ID allocation.",
+  "invariants": {
+    "HUMAN_REVIEW_ROWS_CREATED": 0,
+    "CANDIDATE_STATES_CHANGED": false,
+    "ACCEPTANCE_PACKETS_CREATED": 0,
+    "PERMANENT_IDS_ALLOCATED": 0,
+    "CANONICAL_CHANGED": false,
+    "SOURCE_VERIFICATIONS_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false,
+    "DIRECTOR_ADJUDICATION_PERFORMED": false
+  },
+  "final_gate": "READY_FOR_DIRECTOR_ACCEPT_AND_PROMOTE_ACCEPTED_3"
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "app_key": "eisei1",
+  "batch_id": "B10",
+  "directory_slug": "batch_010",
+  "baseline_sha": "483c7add",
+  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "author": {"id": "eisei1-b10-author-r1", "role": "AI_AUTHOR"},
+  "expansion_trigger": "Execute the next-wave plan for the uncovered E1-LH-001 hazardous-work health-management structure target.",
+  "evidence": [
+    "question_banks/eisei1/authoring/next_wave_plan.json",
+    "question_banks/eisei1/authoring/EISEI1_QUESTION_QUALITY_GATE_V1.md",
+    "question_banks/eisei1/authoring/coverage.json",
+    "question_banks/eisei1/authoring/sources.json"
+  ],
+  "target_size_decisions": [{
+    "decision_id": "E1-B10-QUALITY-001",
+    "previous_approved_target": 0,
+    "current_released_count": 0,
+    "proposed_target_min": 0,
+    "proposed_target_max": 3,
+    "approved_new_target": 3,
+    "rationale": "Three candidates are retained as a ceiling because they test separate requirements in 安衛則第7条第1項: staffing count, dedicated appointment, and health-engineering qualification. This is not a quota.",
+    "decision_date": "2026-09-02",
+    "evidence": "Current e-Gov 労働安全衛生規則第7条第1項第4号から第6号及び global collision review"
+  }],
+  "coverage_limit_decisions": [],
+  "planned_scope": {
+    "candidate_count": 3,
+    "candidate_count_is_quota": false,
+    "lane_counts": {"law_hazardous": 3, "hygiene_hazardous": 0},
+    "knowledge_target_ids": ["E1-LH-001"],
+    "known_rejected_ids": []
+  },
+  "invariants": {
+    "PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0,
+    "HUMAN_REVIEW_CREATED": false,
+    "CANONICAL_CHANGED": false,
+    "RELEASED_CHANGED": false,
+    "RUNTIME_CHANGED": false
+  },
+  "next_gate": "INDEPENDENT_AI_REVIEW"
+}

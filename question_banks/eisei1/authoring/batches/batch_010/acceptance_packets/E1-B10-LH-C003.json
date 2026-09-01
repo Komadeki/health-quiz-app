@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B10-LH-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "c51bd537d63a2ca26516a5fdbb5a560bdcaceb214b2efdb3bd77ff5a36c00ba2",
+  "actors": {
+    "author": {
+      "id": "eisei1-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b10-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b10-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則第7条第1項第6号"
+    },
+    "answer_defining_proposition": "常時500人を超え坑内労働等に常時30人以上を従事させる事業場では、衛生管理者のうち1人を衛生工学衛生管理者免許を受けた者から選任する。",
+    "tested_misconception": "第5号の専任要件と第6号の衛生工学衛生管理者免許要件を別制度として区別できない。",
+    "reasoning_path": "第7条第1項第6号の対象条件を確認する -> 第5号の専任とは別に資格要件を確認する -> 衛生工学衛生管理者免許を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存候補・canonical rows・B10内を確認し、同じ条件で資格要件を問う候補はない。Cの誤答は作業環境測定士との資格混同を狙うが、正答を一意にするため選択肢表記は「第一種作業環境測定士」に限定する。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "安衛則第7条第1項第6号は、同じ規模・有害業務条件の事業場について、衛生管理者のうち1人を衛生工学衛生管理者免許を受けた者から選任することを定める。Bは資格要件を正確に表し、A・C・D・Eは近接する資格制度との混同を試す妥当な誤答である。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Director rechecked the exact e-Gov Article 7 paragraph 1 item bound to this candidate. The proposition is distinct, the five choices are explained, and no semantic collision is present. This AI-governed acceptance creates no permanent ID, canonical, source-verification, release, or runtime mutation."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

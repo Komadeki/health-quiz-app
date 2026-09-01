@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B10-LH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e649ce983398cefab9020a27949b36a9e6ff921a3e850a355b408f641ae5bb3a",
+  "actors": {
+    "author": {
+      "id": "eisei1-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b10-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b10-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則第7条第1項第4号"
+    },
+    "answer_defining_proposition": "衛生管理者の必要数は常時使用する労働者数に応じ、200人を超え500人以下では2人以上である。",
+    "tested_misconception": "衛生管理者数の区分を50人刻み又は500人刻みで誤って覚える。",
+    "reasoning_path": "300人を表の区分に当てはめる -> 200人超500人以下を選ぶ -> 対応する2人を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存候補は特定化学物質・有機溶剤等の設備や健診要件を扱い、衛生管理者の人数表を問う本命題とは異なる。B10内でも専任要件・免許要件とは判定対象が異なる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "安衛則第7条第1項第4号の人数表により、常時使用する労働者300人の事業場は200人を超え500人以下に該当し、衛生管理者は2人以上必要である。選択肢は隣接する人数区分を使った同領域の誤答で、Bのみが300人の条件に一致する。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Director rechecked the exact e-Gov Article 7 paragraph 1 item bound to this candidate. The proposition is distinct, the five choices are explained, and no semantic collision is present. This AI-governed acceptance creates no permanent ID, canonical, source-verification, release, or runtime mutation."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

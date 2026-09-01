@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B10-LH-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "86ed7effa618245f3cf9a1fcd4b507510e1acd8aa27e2f4b49238b339a4c5247",
+  "actors": {
+    "author": {
+      "id": "eisei1-b10-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b10-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b10-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則第7条第1項第5号ロ"
+    },
+    "answer_defining_proposition": "常時500人を超える事業場で坑内労働に常時30人以上を従事させる場合は衛生管理者のうち少なくとも1人を専任とする。",
+    "tested_misconception": "専任要件は1000人超の場合だけ、または30人超が必要だと誤認する。",
+    "reasoning_path": "600人・坑内労働30人という条件を第7条第1項第5号ロに照合する -> 500人超と30人以上を満たすことを確認する -> 専任の衛生管理者を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題は衛生管理者の専任・衛生工学要件を扱っていない。B10-C001の人数表とは異なり、人数区分ではなく hazardous-work 条件付き専任要件を判定する。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "安衛則第7条第1項第5号ロは、常時500人を超える事業場で坑内労働等に常時30人以上を従事させる場合、衛生管理者のうち少なくとも1人を専任とすることを求める。600人・坑内労働30人は条件を満たし、Aが一意に正しい。人数1000人超のみ、30人超のみという誤認も同一領域の妥当な distractor である。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Director rechecked the exact e-Gov Article 7 paragraph 1 item bound to this candidate. The proposition is distinct, the five choices are explained, and no semantic collision is present. This AI-governed acceptance creates no permanent ID, canonical, source-verification, release, or runtime mutation."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
