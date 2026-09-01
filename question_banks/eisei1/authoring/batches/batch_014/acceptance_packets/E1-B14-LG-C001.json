@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "candidate_id": "E1-B14-LG-C001",
   "candidate_state": "AI_PRE_ACCEPT",
-  "candidate_fingerprint": "237c204e9ddffe9519ca741b2ab8f11262f47c230397aa039f2977c63fc567ab",
+  "candidate_fingerprint": "7ebc1384b7e337ad272ddce7c86ab6ec61c4212087ebc386cdb6cb6d2e6a3b72",
   "actors": {
     "author": {
       "id": "eisei1-b14-author-r1",
@@ -20,7 +20,7 @@
   "evidence": {
     "source": {
       "source_id": "E1-LAW-ASL",
-      "source_version": "current-as-of-2026-08-27",
+      "source_version": "current-as-of-2026-08-26",
       "source_locator": "労働安全衛生規則第11条"
     },
     "answer_defining_proposition": "衛生管理者は少なくとも毎週1回作業場等を巡視する。",
