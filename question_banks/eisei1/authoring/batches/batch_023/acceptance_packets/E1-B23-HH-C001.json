@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B23-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "92c0c1a1447ad18edb2875f30a74902c6bce0cc919e5b273688b899fa76cef7f",
+  "actors": {
+    "author": {
+      "id": "eisei1-b23-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b23-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b23-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-OH",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "厚生労働省「特定線量下業務特別教育テキスト」電離放射線の健康影響"
+    },
+    "answer_defining_proposition": "確率的影響にはがん及び遺伝的影響がある。",
+    "tested_misconception": "確定的影響の例である紅斑・脱毛・白内障・皮膚障害を確率的影響と混同する。",
+    "reasoning_path": "影響の分類を確認する -> 代表例を照合する -> がんを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q1-Q39を確認。電離放射線の影響分類は未収載で、騒音・振動・粉じんの問題とは異なる。"
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "公式教材に直接対応する未収載命題。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "5択・重複・出典を再確認し採用。"
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
