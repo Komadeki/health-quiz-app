@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "product": "eisei1",
+  "plan_id": "E1-NEXT-WAVE-001",
+  "status": "READY_FOR_AUTHORING",
+  "created_at": "2026-09-02",
+  "max_parallel_ranges": 2,
+  "candidate_count_is_quota": false,
+  "selection_basis": [
+    "uncovered required knowledge target",
+    "exam relevance and hazardous-work applicability",
+    "current authoritative source path",
+    "materially distinct propositions from canonical and persisted candidates"
+  ],
+  "ranges": [
+    {
+      "lane": "law_hazardous",
+      "knowledge_target_id": "E1-LH-001",
+      "title": "有害業務を伴う衛生管理体制",
+      "source_ids": [
+        "E1-LAW-ASR",
+        "E1-LAW-ASEO"
+      ],
+      "authoring_contract": "Select exact current e-Gov article/paragraph before candidate creation; test a hazardous-work condition that changes the appointment conclusion.",
+      "candidate_ceiling": 3
+    },
+    {
+      "lane": "hygiene_hazardous",
+      "knowledge_target_id": "E1-HH-003",
+      "title": "有機溶剤の健康影響",
+      "source_ids": [
+        "E1-MHLW-OH",
+        "E1-LAW-ORGANIC"
+      ],
+      "authoring_contract": "Select a current MHLW locator for the health proposition; use the Organic Solvent Ordinance only when the tested conclusion is a legal duty.",
+      "candidate_ceiling": 3
+    }
+  ],
+  "global_collision_scope": [
+    "all canonical Eisei1 questions",
+    "all persisted candidates in batches 002-009",
+    "all candidates in the new wave"
+  ],
+  "quality_constraints": [
+    "exactly five choices",
+    "one unambiguous answer",
+    "four plausible same-domain distractors",
+    "A-E explanation coverage",
+    "precise source locator before acceptance",
+    "no wording-only or choice-order duplicate"
+  ],
+  "answer_position_note": "Do not alter the correct proposition for balance; inspect the batch distribution after authoring and reorder choices only when meaning is preserved."
+}
