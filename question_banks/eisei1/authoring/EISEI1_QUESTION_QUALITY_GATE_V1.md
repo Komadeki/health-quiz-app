@@ -20,7 +20,9 @@ Each candidate SHALL satisfy all of the following:
   domain;
 - a current authoritative source that determines the answer;
 - a concrete tested misconception or confusion;
-- a reasoning path that is meaningfully distinct from persisted candidates;
+- a reasoning path that is meaningfully distinct from persisted candidates,
+  except for the bounded close-variant allowance in
+  `EISEI1_COMMERCIAL_BANK_TARGET_500_V1.md`;
 - an explanation that teaches why all five choices are correct or incorrect.
 
 ## 2. Distractor standard
@@ -143,8 +145,9 @@ Every candidate SHALL be checked against:
 - candidates under review in the same wave.
 
 A paraphrase, answer-order permutation, or stem-context relabeling of an
-existing proposition is a collision unless it adds a materially different
-reasoning path or tested condition.
+existing proposition is a collision. The only close variants allowed by
+`EISEI1_COMMERCIAL_BANK_TARGET_500_V1.md` must change the answer-defining
+proposition, tested condition, misconception, or reasoning path.
 
 ## 9. Difficulty and variation
 
@@ -160,7 +163,9 @@ questions, the factory SHOULD deliberately mix:
 - cause/effect and control-method reasoning.
 
 Variation SHALL be evidence-driven. Artificial complexity that is unlike the
-exam is not a quality improvement.
+exam is not a quality improvement. The 500-question commercial target permits
+additional easier and close-variant items when they meet the collision rule
+above; it does not permit wording-only filler.
 
 ## 10. Batch discipline
 

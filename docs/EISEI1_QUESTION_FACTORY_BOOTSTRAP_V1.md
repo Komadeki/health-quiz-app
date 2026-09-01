@@ -10,7 +10,12 @@ Repository: `Komadeki/health-quiz-app`
 
 Bootstrap the first-class health manager question bank by reusing the existing Drone and Otsu4 production Question Factory, with the smallest reusable change and without creating a qualification-specific parallel pipeline.
 
-This contract governs the authoring infrastructure and source/coverage workflow. It does not set the final commercial bank size and does not authorize production question IDs before the existing acceptance gates.
+This contract governs the authoring infrastructure and source/coverage workflow. It does not authorize production question IDs before the existing acceptance gates.
+
+The final commercial bank target is governed by
+`EISEI1_COMMERCIAL_BANK_TARGET_500_V1.md`. Its owner direction supersedes this
+document's former no-fixed-size rule while leaving this document's Factory,
+source, coverage, identity and release rules in force.
 
 ## 2. Upstream contracts that remain authoritative
 
@@ -103,18 +108,10 @@ The remaining three sections are prepared in the coverage map but are not author
 
 ## 8. Bank-size rule
 
-No final production bank-size target is fixed at bootstrap.
-
-The first expansion target SHALL be evidence-based after measuring:
-
-- accepted candidates per coverage target;
-- collision/redundancy rate;
-- source-verification burden;
-- rework/reject rate;
-- uncovered required targets;
-- sufficient variation within high-importance targets.
-
-This prevents quota-driven low-value questions and avoids repeating authoring work only to retire redundant items later.
+Superseded for commercial target setting by
+`EISEI1_COMMERCIAL_BANK_TARGET_500_V1.md`. The evidence measurements listed in
+the former rule remain required operational signals for batch sizing and
+quality control; they do not reopen the owner-approved 500-question target.
 
 ## 9. Permanent identity
 

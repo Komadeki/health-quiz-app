@@ -11,13 +11,16 @@ Upstream quality gate:
 - `docs/EISEI1_QUESTION_FACTORY_BOOTSTRAP_V1.md`
 - shared Production Question Bank Expansion Protocol
 
-Only two units are open:
+Only two units are open for this historical replacement pilot:
 
 - Lane A: `eisei1_law_hazardous`
 - Lane B: `eisei1_hygiene_hazardous`
 
 The remaining three exam units stay coverage-mapped but closed for candidate
-authoring in this wave.
+authoring in this wave. `EISEI1_COMMERCIAL_BANK_TARGET_500_V1.md` supersedes
+that closure for subsequent waves: all five coverage-mapped units are eligible
+for source-first planning, while each atomic wave may open no more than two
+bounded coverage ranges.
 
 ## 1. Purpose of the replacement pilot
 
@@ -28,8 +31,8 @@ were generic rather than hazardous-work-specific, Lane B items overused trivial
 statutory-category recognition, and explanations did not teach all five
 choices.
 
-This wave therefore tests question quality and review throughput before any
-production-bank-size decision.
+This wave therefore tests question quality and review throughput before the
+subsequent 500-question commercial-bank execution waves.
 
 ## 2. Initial curated coverage
 
