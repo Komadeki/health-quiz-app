@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "E1-NEXT-WAVE-004",
+  "decision_date": "2026-09-02",
+  "baseline_canonical_count": 27,
+  "ranges": [
+    {
+      "unit_id": "eisei1_law_hazardous",
+      "knowledge_target_id": "E1-LH-006",
+      "rationale": "粉じん則の作業環境測定・評価は重要な未充足領域で、現行e-Gov条文により再現可能。既存Q16の特別教育とは異なる命題を優先する。",
+      "source_ids": ["E1-LAW-DUST"]
+    },
+    {
+      "unit_id": "eisei1_law_hazardous",
+      "knowledge_target_id": "E1-LH-007",
+      "rationale": "酸素欠乏危険作業の測定・主任者・設備点検は未収載で、災害防止上の重要度が高い。現行e-Gov条文で検証可能。",
+      "source_ids": ["E1-LAW-OXYGEN"]
+    }
+  ],
+  "candidate_count_is_ceiling_not_quota": true,
+  "quality_constraints": ["exactly five choices", "one unambiguous answer", "same-domain distractors", "A-E explanation coverage", "current e-Gov locator", "no semantic duplicate"],
+  "next_gate": "AUTHOR_AND_INDEPENDENT_REVIEW"
+}
