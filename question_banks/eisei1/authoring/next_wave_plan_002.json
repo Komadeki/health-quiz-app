@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "product": "eisei1",
+  "plan_id": "E1-NEXT-WAVE-002",
+  "status": "READY_FOR_AUTHORING",
+  "created_at": "2026-09-02",
+  "max_parallel_ranges": 2,
+  "candidate_count_is_quota": false,
+  "selection_basis": [
+    "uncovered required knowledge target",
+    "importance 3 and broad exam relevance",
+    "current authoritative source path",
+    "distinct proposition space from canonical questions and B10"
+  ],
+  "ranges": [
+    {
+      "lane": "law_hazardous",
+      "knowledge_target_id": "E1-LH-002",
+      "title": "規格・譲渡制限・定期自主検査",
+      "source_ids": ["E1-LAW-ASL", "E1-LAW-ASR", "E1-LAW-ASEO"],
+      "authoring_contract": "Use exact current e-Gov article, table or appendix locators. Separate equipment scope, transfer restrictions and inspection frequency; reject any candidate whose answer depends on an unstated equipment condition.",
+      "candidate_ceiling": 4
+    },
+    {
+      "lane": "hygiene_hazardous",
+      "knowledge_target_id": "E1-HH-001",
+      "title": "化学物質の性状・ばく露経路",
+      "source_ids": ["E1-MHLW-CHEMICAL-HAZARDS", "E1-MHLW-OH"],
+      "authoring_contract": "Use a precise current MHLW locator for state-of-matter, exposure-route or absorption claims. Do not convert a general hazard statement into a legal duty without a primary-law binding.",
+      "candidate_ceiling": 4
+    }
+  ],
+  "global_collision_scope": [
+    "all canonical Eisei1 questions through Q19",
+    "all persisted candidates in batches 002-010",
+    "all candidates in the new wave"
+  ],
+  "quality_constraints": [
+    "exactly five choices",
+    "one unambiguous answer",
+    "four plausible same-domain distractors",
+    "A-E explanation coverage",
+    "precise current source locator",
+    "no wording-only, order-only or context-only duplicate"
+  ],
+  "answer_position_note": "B10 had verified positions A and B only; future correct positions should arise from proposition order, with batch distribution inspected after authoring and no proposition changed for balance."
+}
