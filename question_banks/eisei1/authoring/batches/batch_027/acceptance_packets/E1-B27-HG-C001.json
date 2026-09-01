@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B27-HG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "2be9fc25e2789cc7b3b409a01ac61fb66a7bcaf3b78fcd08b349804c35125980",
+  "actors": {
+    "author": {
+      "id": "eisei1-b27-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b27-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b27-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-OH",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "厚生労働省「労働者の心の健康の保持増進のための指針」"
+    },
+    "answer_defining_proposition": "メンタルヘルスケアはセルフケア等の4つのケアを継続的かつ計画的に行う。",
+    "tested_misconception": "4つのケアの名称を職場の一般的な管理活動と混同する。",
+    "reasoning_path": "4つのケアの構成を確認する -> 選択肢を照合する -> セルフケアを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q1-Q43を確認。メンタルヘルスの4つのケアは未収載で、熱中症・救急対応とは異なる."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "公式指針に直接対応する未収載命題。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "品質ゲートを確認し採用。"
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
