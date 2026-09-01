@@ -133,6 +133,34 @@
       "source_version": "current-as-of-2026-08-26",
       "verification_state": "author_source_verified",
       "verified_at": "2026-09-02"
+    },
+    {
+      "question_id": "EISEI1-Q-000020",
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-09-02"
+    },
+    {
+      "question_id": "EISEI1-Q-000021",
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-09-02"
+    },
+    {
+      "question_id": "EISEI1-Q-000022",
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-09-02"
+    },
+    {
+      "question_id": "EISEI1-Q-000023",
+      "source_id": "E1-LAW-ASR",
+      "source_version": "current-as-of-2026-08-26",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-09-02"
     }
   ]
 }
