@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "transition": "PLAN_OTSU4_WAVE_11_500Q_COVERAGE",
+  "baseline_main": "d50ac8f6145e05365734e8bb37cd6ce0880e93d8",
+  "baseline_canonical_question_count": 305,
+  "planned_wave": "W11",
+  "selected_ranges": ["O4-PHY-KT-CALCULATION-BOUNDARY"],
+  "candidate_ceiling": 10,
+  "candidate_ceiling_is_quota": false,
+  "preserved_existing_plan": "OTSU4-B26-CALCULATION-BOUNDARY-2026-08-28",
+  "next_atomic_objective": "AUTHOR_OTSU4_WAVE_11_AI_PRE_ACCEPT",
+  "result": "PASS"
+}
