@@ -1,0 +1,12 @@
+{
+  "schema_version":"1.0",
+  "plan_id":"E1-NEXT-WAVE-009",
+  "decision_date":"2026-09-02",
+  "baseline_canonical_count":33,
+  "ranges":[
+    {"unit_id":"eisei1_physiology","knowledge_target_id":"E1-PH-002","rationale":"労働負荷・環境条件による生理的変化は未カバーで、試験範囲の重要基礎である。","source_ids":["E1-MHLW-OH"]},
+    {"unit_id":"eisei1_hygiene_general","knowledge_target_id":"E1-HG-003","rationale":"労働衛生教育・統計・救急の基礎を追加し、一般衛生のcoverageを拡張する。","source_ids":["E1-MHLW-OH"]}
+  ],
+  "candidate_count_is_ceiling_not_quota":true,
+  "next_gate":"AUTHOR_AND_INDEPENDENT_REVIEW"
+}
