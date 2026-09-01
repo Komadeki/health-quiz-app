@@ -90,7 +90,8 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
             for candidate_id, question_id in mapping.items():
                 candidate = candidates[candidate_id]
                 question = questions[question_id]
-                self.assertEqual("INTEGRATED", candidate["state"])
+                expected_state = "VERIFIED" if batch_name == "batch_009" else "INTEGRATED"
+                self.assertEqual(expected_state, candidate["state"])
                 self.assertEqual(question_id, candidate["permanent_question_id"])
                 self.assertEqual("used", registry[question_id]["status"])
                 self.assertEqual("draft", question["status"])
@@ -114,15 +115,21 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
                     self.assertEqual(candidate[field], question[field])
                 self.assertEqual(candidate["proposed_correct"], question["correct_choice"])
 
-    def test_q1_q13_verified_and_pre_release(self) -> None:
+    def test_q1_q16_verified_and_pre_release(self) -> None:
         verifications = json.loads(
             (self.authoring / "source_verifications.json").read_text(encoding="utf-8")
         )["verifications"]
-        self.assertEqual(set(EXPECTED_VERIFICATION_SOURCES), {row["question_id"] for row in verifications})
+        expected_sources = {
+            **EXPECTED_VERIFICATION_SOURCES,
+            "EISEI1-Q-000014": "E1-LAW-ASR",
+            "EISEI1-Q-000015": "E1-LAW-LEAD",
+            "EISEI1-Q-000016": "E1-LAW-DUST",
+        }
+        self.assertEqual(set(expected_sources), {row["question_id"] for row in verifications})
         for row in verifications:
-            self.assertEqual(EXPECTED_VERIFICATION_SOURCES[row["question_id"]], row["source_id"])
+            self.assertEqual(expected_sources[row["question_id"]], row["source_id"])
             self.assertEqual("author_source_verified", row["verification_state"])
-            expected_date = "2026-09-02" if row["question_id"] in B8_EXPECTED.values() else "2026-08-27"
+            expected_date = "2026-09-02" if row["question_id"] in (*B8_EXPECTED.values(), *B9_EXPECTED.values()) else "2026-08-27"
             self.assertEqual(expected_date, row["verified_at"])
         self.assertEqual("2026-09-02", next(row for row in verifications if row["question_id"] == "EISEI1-Q-000011")["verified_at"])
         self.assertEqual("2026-09-02", next(row for row in verifications if row["question_id"] == "EISEI1-Q-000012")["verified_at"])
@@ -130,12 +137,12 @@ class Eisei1ReadyForIdIntegrationTests(unittest.TestCase):
         self.assertEqual([], json.loads((self.authoring / "released_questions.json").read_text(encoding="utf-8"))["released_questions"])
         self.assertEqual([], json.loads((self.bank / "generated" / "eisei1_bank.json").read_text(encoding="utf-8"))["decks"])
 
-    def test_b9_is_integrated_pending_source_verification(self) -> None:
+    def test_b9_is_integrated_and_source_verified(self) -> None:
         batch = self.authoring / "batches" / "batch_009"
         candidates = read_rows(batch / "candidates.csv")
         self.assertEqual(set(B9_EXPECTED), set(candidates))
         self.assertEqual(set(B9_EXPECTED), {path.stem for path in (batch / "acceptance_packets").glob("*.json")})
-        self.assertEqual({candidate_id: "INTEGRATED" for candidate_id in B9_EXPECTED}, {candidate_id: row["state"] for candidate_id, row in candidates.items()})
+        self.assertEqual({candidate_id: "VERIFIED" for candidate_id in B9_EXPECTED}, {candidate_id: row["state"] for candidate_id, row in candidates.items()})
         self.assertEqual(B9_EXPECTED, {candidate_id: row["permanent_question_id"] for candidate_id, row in candidates.items()})
 
     def test_all_touched_expansion_batches_validate(self) -> None:
