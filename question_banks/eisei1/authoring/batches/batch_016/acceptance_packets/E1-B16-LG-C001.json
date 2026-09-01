@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B16-LG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "59a4e8329fd26f8d3b605e0e90d88b84de9081b8f33690640ea4ebf69857fbd4",
+  "actors": {
+    "author": {
+      "id": "eisei1-b16-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b16-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b16-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生法施行令第4条"
+    },
+    "answer_defining_proposition": "衛生管理者の選任対象は常時50人以上の労働者を使用する事業場である。",
+    "tested_misconception": "衛生管理者と衛生推進者の規模要件を混同する。",
+    "reasoning_path": "令第4条の対象規模を確認 -> 50人以上を照合 -> Cを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q30は衛生管理者の巡視頻度であり、選任対象人数は別命題."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Distinct current-law threshold; exactly five choices and explained distractors."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
