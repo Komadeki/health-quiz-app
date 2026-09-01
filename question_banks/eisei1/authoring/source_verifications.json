@@ -322,6 +322,13 @@
       "source_version": "current-as-retrieved-2026-08-27",
       "verification_state": "author_source_verified",
       "verified_at": "2026-09-02"
+    },
+    {
+      "question_id": "EISEI1-Q-000047",
+      "source_id": "E1-MHLW-CHEMICAL-HAZARDS",
+      "source_version": "current-as-retrieved-2026-08-27",
+      "verification_state": "author_source_verified",
+      "verified_at": "2026-09-02"
     }
   ]
 }
