@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B17-LG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "e8fa7fbc120db4081c405ba88464771237f4a714b2c05b65e728b1221ca91c38",
+  "actors": {
+    "author": {
+      "id": "eisei1-b17-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b17-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b17-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "労働安全衛生規則第44条"
+    },
+    "answer_defining_proposition": "一般健康診断は1年以内ごとに1回実施する。",
+    "tested_misconception": "一般健康診断の1年と特殊健康診断の異なる頻度を混同する。",
+    "reasoning_path": "第44条の定期健康診断を確認 -> 実施間隔を照合 -> Dを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題は有害業務の特殊健康診断頻度が中心で、安衛則第44条の一般健康診断の間隔は未収載."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Distinct current-law interval proposition with five choices and explained distractors."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
