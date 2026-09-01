@@ -1,0 +1,12 @@
+{
+  "schema_version":"1.0",
+  "plan_id":"E1-NEXT-WAVE-008",
+  "decision_date":"2026-09-02",
+  "baseline_canonical_count":32,
+  "ranges":[
+    {"unit_id":"eisei1_hygiene_general","knowledge_target_id":"E1-HG-002","rationale":"健康保持増進・メンタルヘルスは未カバーで、一般衛生分野の重要領域である。","source_ids":["E1-MHLW-OH"]},
+    {"unit_id":"eisei1_law_general","knowledge_target_id":"E1-LG-002","rationale":"一般健康診断等の法定枠組みを追加し、法令・衛生のバランスを改善する。","source_ids":["E1-LAW-ASL"]}
+  ],
+  "candidate_count_is_ceiling_not_quota":true,
+  "next_gate":"AUTHOR_AND_INDEPENDENT_REVIEW"
+}
