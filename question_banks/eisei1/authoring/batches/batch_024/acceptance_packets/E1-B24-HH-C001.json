@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B24-HH-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "eeb9e25e00ea0f61d5a9dc75d862dc94fad6767c37caae1513b6835924e7b0cd",
+  "actors": {
+    "author": {
+      "id": "eisei1-b24-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b24-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b24-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-MHLW-OH",
+      "source_version": "current-as-of-2026-08-26",
+      "source_locator": "厚生労働省「レーザー光線障害対策」"
+    },
+    "answer_defining_proposition": "レーザー光線作業では波長に適合した保護眼鏡を使用する。",
+    "tested_misconception": "レーザーの反射光の危険性と保護眼鏡の波長適合性を軽視する。",
+    "reasoning_path": "レーザー作業の標的器官を確認する -> 反射光を含む眼障害リスクを確認する -> 波長適合保護眼鏡を選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存Q1-Q40を確認。有害光線・レーザーの眼保護は未収載で、電離放射線の影響分類問題とは異なる."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "公式資料に直接対応する未収載命題。"
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "5択・重複・出典を再確認し採用。"
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
