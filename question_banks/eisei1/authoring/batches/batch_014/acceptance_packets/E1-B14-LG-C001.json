@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "E1-B14-LG-C001",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "237c204e9ddffe9519ca741b2ab8f11262f47c230397aa039f2977c63fc567ab",
+  "actors": {
+    "author": {
+      "id": "eisei1-b14-author-r1",
+      "role": "AI_AUTHOR"
+    },
+    "reviewer": {
+      "id": "eisei1-b14-independent-reviewer-r1",
+      "role": "AI_REVIEWER"
+    },
+    "director": {
+      "id": "eisei1-b14-director-r1",
+      "role": "AI_DIRECTOR"
+    }
+  },
+  "evidence": {
+    "source": {
+      "source_id": "E1-LAW-ASL",
+      "source_version": "current-as-of-2026-08-27",
+      "source_locator": "労働安全衛生規則第11条"
+    },
+    "answer_defining_proposition": "衛生管理者は少なくとも毎週1回作業場等を巡視する。",
+    "tested_misconception": "衛生管理者の巡視頻度を毎日又は毎月と誤認する。",
+    "reasoning_path": "第11条の衛生管理者の職務を確認 -> 頻度を照合 -> Bを選ぶ",
+    "collision": {
+      "released_bank_checked": true,
+      "canonical_drafts_checked": true,
+      "batch_checked": true,
+      "note": "既存問題は有害業務の法令・測定を扱い、一般業務の衛生管理者巡視頻度は未収載."
+    }
+  },
+  "independent_review": {
+    "decision": "ACCEPT",
+    "rationale": "Current legal proposition, exactly five choices, one answer, and explained distractors."
+  },
+  "director_adjudication": {
+    "decision": "ACCEPT",
+    "rationale": "Current e-Gov locator and global collision evidence rechecked; distinct proposition and explained options."
+  },
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
