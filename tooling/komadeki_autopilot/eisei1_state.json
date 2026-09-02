@@ -17,11 +17,11 @@
     "DONE"
   ],
   "observed_main": "d5ae3fc65d7f52866ba8b6b3f3a1fc3cbba9e88b",
-  "next_atomic_objective": "PLAN_EISEI1_NEXT_COVERAGE_WAVE_032",
+  "next_atomic_objective": "AUTHOR_EISEI1_B41_CANDIDATES",
   "autonomous_acceptance": "AI_GOVERNED",
   "review_identity_policy": "NEVER_FABRICATE_HUMAN",
   "local_only_state_authoritative": false,
   "repository_completion_rule": "DURABLE_GITHUB_EVIDENCE_REQUIRED",
   "human_blocker": null,
-  "state_epoch": 127
+  "state_epoch": 128
 }
