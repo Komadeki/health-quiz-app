@@ -4,7 +4,7 @@
   "batch_id": "B26",
   "directory_slug": "batch_026",
   "baseline_sha": "8fa8e0021f95322a8199077a4d5c69ce7be48d36",
-  "batch_status": "AI_PRE_ACCEPT_AUTHORED",
+  "batch_status": "DIRECTOR_ACCEPTED_AND_PROMOTED",
   "author": {"id": "otsu4-b26-author-r1", "role": "AI_AUTHOR"},
   "expansion_trigger": "Author the source-distinct Wave 11 calculation-boundary candidates permitted by the B26 playbook; stop at the evidence ceiling.",
   "evidence": ["docs/OTSU4_500Q_PRODUCTION_TARGET_DECISION_V1.md", "question_banks/otsu4/authoring/BATCH_026_COVERAGE_PLAN_V1.json", "question_banks/otsu4/authoring/validated_batch_playbook_profile_v1.json", "question_banks/otsu4/QUESTION_BANK_CONTRACT_V0.md"],
@@ -12,5 +12,14 @@
   "coverage_limit_decisions": [{"decision_id": "O4-B26-EVIDENCE-CEILING", "status": "RECORDED", "scope": "O4-PHY-KT-CALCULATION-BOUNDARY using the single registered MEXT p.92–93 locator", "evidence": "The locator supports a narrow set of distinct propositions; B16 already covers the molar-concentration definition, equation coefficient ratio, and equation-derived change amount. B26 stops at three remaining source-distinct propositions rather than backfilling to its ceiling of ten."}],
   "planned_scope": {"candidate_count": 3, "candidate_count_is_quota": false, "subject_counts": {"law": 0, "physics_chemistry": 3, "properties_fire": 0}, "knowledge_target_id": "O4-PHY-KT-CALCULATION-BOUNDARY"},
   "invariants": {"PERMANENT_IDS_ALLOCATED_AT_AUTHORING": 0, "HUMAN_REVIEW_CREATED": false, "CANONICAL_CHANGED": false, "RELEASED_CHANGED": false, "RUNTIME_CHANGED": false},
-  "next_gate": "INDEPENDENT_AI_REVIEW"
+  "director_adjudication": {
+    "artifact": "director_adjudication_r1.json",
+    "decision": "ADOPT_REVIEWER_DECISIONS",
+    "accept": 2,
+    "reject": 1,
+    "rework": 0,
+    "hold": 0
+  },
+  "accepted_candidate_state": "READY_FOR_ID",
+  "next_gate": "ALLOCATE_AND_INTEGRATE_OTSU4_B26_ACCEPTED_2"
 }

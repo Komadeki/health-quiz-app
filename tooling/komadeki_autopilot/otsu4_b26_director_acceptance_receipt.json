@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "transition": "DIRECTOR_ADJUDICATE_OTSU4_B26",
+  "baseline_main": "f52fbdbe249785aa39970753249b9a187d0a277c",
+  "state_epoch_before": 109,
+  "state_epoch_after": 110,
+  "review_summary": {"reviewed": 3, "accept": 2, "reject": 1, "rework": 0, "hold": 0},
+  "accepted_candidate_ids": ["O4-B26-PHY-C002", "O4-B26-PHY-C003"],
+  "rejected_candidate_ids": ["O4-B26-PHY-C001"],
+  "invariants": {"permanent_ids_allocated": 0, "canonical_changed": false, "released_changed": false, "runtime_changed": false, "human_review_fabricated": false},
+  "next_atomic_objective": "ALLOCATE_AND_INTEGRATE_OTSU4_B26_ACCEPTED_2"
+}

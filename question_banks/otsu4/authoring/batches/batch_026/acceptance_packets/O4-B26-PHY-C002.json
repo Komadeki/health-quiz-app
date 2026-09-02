@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B26-PHY-C002",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "064079ca9689b8b33398a3f3148b9906768a302ac92bfeccc0287bf35dec879f",
+  "actors": {"author": {"id": "otsu4-b26-author-r1", "role": "AI_AUTHOR"}, "reviewer": {"id": "otsu4-wave11-independent-reviewer-r1", "role": "AI_REVIEWER"}, "director": {"id": "otsu4-wave11-director-r1", "role": "AI_DIRECTOR"}},
+  "evidence": {"source": {"source_id": "O4-PHY-1", "source_version": "2023-06-07", "source_locator": "MEXT 理科編 第2章 第4節 化学基礎 printed p.92「㋐ 物質量について」"}, "answer_defining_proposition": "同体積の既知・未知気体の質量比較により未知気体の分子量を求めることができる。", "tested_misconception": "同体積比較は危険物の類別を直接決める。", "reasoning_path": "same volume -> compare mass -> determine unknown molecular mass", "collision": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "note": "W11 B26; source-explicit experimental application not represented by the canonical molarity or equation items."}},
+  "independent_review": {"decision": "ACCEPT", "rationale": "MEXT資料は、分子量既知と未知の気体の同体積での質量比較により未知気体の分子量を求める実験を明示する。Aだけがこの実験目的に合い、既存のモル濃度、係数比、反応変化量の問題とは、同体積の気体質量比較を用いる別の推論を問うため意味的に独立している。"},
+  "director_adjudication": {"decision": "ACCEPT", "rationale": "独立レビューの判断を採用し、数量目標による穴埋めは行わない。受入れた候補は現行のsource-bound、意味的重複防止および教育的価値のゲートを満たす。"},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}

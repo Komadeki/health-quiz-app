@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "O4-B26-PHY-C003",
+  "candidate_state": "AI_PRE_ACCEPT",
+  "candidate_fingerprint": "7a25f95fdb90386c4f54a48635f13c007d3d6effd30657d6f0abce5e3082660c",
+  "actors": {"author": {"id": "otsu4-b26-author-r1", "role": "AI_AUTHOR"}, "reviewer": {"id": "otsu4-wave11-independent-reviewer-r1", "role": "AI_REVIEWER"}, "director": {"id": "otsu4-wave11-director-r1", "role": "AI_DIRECTOR"}},
+  "evidence": {"source": {"source_id": "O4-PHY-1", "source_version": "2023-06-07", "source_locator": "MEXT 理科編 第2章 第4節 化学基礎 printed p.92「㋑ 化学反応式について」"}, "answer_defining_proposition": "化学反応での質量や体積の関係は物質量と関連付けて扱う。", "tested_misconception": "反応量の質量・体積関係は物質量と無関係である。", "reasoning_path": "reaction mass or volume relation -> link to amount of substance", "collision": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "note": "W11 B26; distinct from Q242's coefficient-ratio meaning and Q243's change-amount result."}},
+  "independent_review": {"decision": "ACCEPT", "rationale": "MEXT資料は、反応に関与する物質の質量や体積の間の関係を物質量と関連付けて扱うとしている。Aだけがこの量的関係の橋渡しを示す。既存Q242は係数比の意味、Q243は変化量を求める可否を問うものであり、本候補は質量・体積関係を物質量へ接続する前提判断として独立している。"},
+  "director_adjudication": {"decision": "ACCEPT", "rationale": "独立レビューの判断を採用し、数量目標による穴埋めは行わない。受入れた候補は現行のsource-bound、意味的重複防止および教育的価値のゲートを満たす。"},
+  "requested_state": "AI_GOVERNED_ACCEPT"
+}
