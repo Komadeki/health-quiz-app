@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W11",
+  "batch_id": "B26",
+  "adjudication_round": 1,
+  "adjudicated_at": "2026-09-02",
+  "director": {"id": "otsu4-wave11-director-r1", "role": "AI_DIRECTOR"},
+  "author": {"id": "otsu4-b26-author-r1", "role": "AI_AUTHOR"},
+  "reviewer": {"id": "otsu4-wave11-independent-reviewer-r1", "role": "AI_REVIEWER"},
+  "identity_separation": "PASS",
+  "decision": "ADOPT_REVIEWER_DECISIONS",
+  "summary": {"accept": 2, "reject": 1, "rework": 0, "hold": 0},
+  "accepted_candidate_ids": ["O4-B26-PHY-C002", "O4-B26-PHY-C003"],
+  "nonaccepted": [{"candidate_id": "O4-B26-PHY-C001", "decision": "REJECT", "reason_code": "SEMANTIC_DUPLICATE_PRIOR_CANDIDATE", "rationale": "既存B16 C003と同じ物質量・質量関係の認知処理にとどまるため、独立した計算・判断境界にならない。"}],
+  "director_rationale": "独立レビューの判断を採用し、数量目標による穴埋めは行わない。受入れた候補は現行のsource-bound、意味的重複防止および教育的価値のゲートを満たす。REJECT候補には承認パケットもREADY_FOR_ID状態も付与しない。",
+  "invariants_before_transaction": {"candidate_states": "ALL_AI_PRE_ACCEPT", "acceptance_packets": 0, "permanent_ids_allocated": 0, "canonical_changed": false, "released_changed": false, "runtime_changed": false, "human_review_fabricated": false},
+  "final_gate": "READY_TO_ALLOCATE_AND_INTEGRATE_OTSU4_B26_ACCEPTED_2"
+}
