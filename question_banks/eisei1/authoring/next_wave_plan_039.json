@@ -1,0 +1,1 @@
+{"schema_version":"1.0","plan_id":"E1-NEXT-WAVE-039","decision_date":"2026-09-02","baseline_canonical_count":64,"ranges":[{"unit_id":"eisei1_law_general","knowledge_target_id":"E1-LG-001","rationale":"一般業務の衛生管理体制は重要度3で現行2問。選任要件とは異なる衛生管理者の作業場巡視という実務論点を一次法令で補完する。","source_ids":["E1-LAW-ASL"]}],"candidate_count_is_ceiling_not_quota":true,"next_gate":"AUTHOR_AND_INDEPENDENT_REVIEW"}
