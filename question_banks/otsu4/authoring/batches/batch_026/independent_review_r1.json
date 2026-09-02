@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "wave_id": "W11",
+  "batch_id": "B26",
+  "reviewed_at": "2026-09-02",
+  "reviewer": {"id": "otsu4-wave11-independent-reviewer-r1", "role": "AI_REVIEWER"},
+  "author_identity_checked": "otsu4-b26-author-r1",
+  "identity_separation": "PASS",
+  "review_basis": ["all 305 canonical/source-verified Otsu4 questions", "all previous Otsu4 candidate batches including B16", "the three B26 AI_PRE_ACCEPT candidates", "MEXT 理科編 2023-06-07 printed pp.92–93", "Otsu4 scope, five-choice uniqueness, source binding, semantic distinctness, and no-filler policy"],
+  "decisions": [
+    {"candidate_id": "O4-B26-PHY-C001", "decision": "REJECT", "reason_code": "SEMANTIC_DUPLICATE_PRIOR_CANDIDATE", "rationale": "根拠は正しいが、既存B16 C003が物質量と質量の関係を既に問うており、B26 C001もモル質量を介した同じ認知処理にとどまる。原子量・分子量・式量という語を足すだけでは、独立した計算・判断境界にならない。"},
+    {"candidate_id": "O4-B26-PHY-C002", "decision": "ACCEPT", "rationale": "MEXT資料は、分子量既知と未知の気体の同体積での質量比較により未知気体の分子量を求める実験を明示する。Aだけがこの実験目的に合い、既存のモル濃度、係数比、反応変化量の問題とは、同体積の気体質量比較を用いる別の推論を問うため意味的に独立している。"},
+    {"candidate_id": "O4-B26-PHY-C003", "decision": "ACCEPT", "rationale": "MEXT資料は、反応に関与する物質の質量や体積の間の関係を物質量と関連付けて扱うとしている。Aだけがこの量的関係の橋渡しを示す。既存Q242は係数比の意味、Q243は変化量を求める可否を問うものであり、本候補は質量・体積関係を物質量へ接続する前提判断として独立している。"}
+  ],
+  "summary": {"reviewed": 3, "accept": 2, "reject": 1, "rework": 0, "hold": 0},
+  "collision_review": {"released_bank_checked": true, "canonical_drafts_checked": true, "batch_checked": true, "full_wave_checked": true, "result": "PASS_AFTER_1_REJECTION", "note": "C001 is rejected for duplication of B16 C003. C002 and C003 are source-distinct applications of the p.92–93 material and do not recreate the canonical molarity definition, coefficient-ratio meaning, or equation-derived-change result."},
+  "invariants": {"HUMAN_REVIEW_ROWS_CREATED": 0, "CANDIDATE_STATES_CHANGED": false, "ACCEPTANCE_PACKETS_CREATED": 0, "PERMANENT_IDS_ALLOCATED": 0, "CANONICAL_CHANGED": false, "SOURCE_VERIFICATIONS_CHANGED": false, "RELEASED_CHANGED": false, "RUNTIME_CHANGED": false, "DIRECTOR_ADJUDICATION_PERFORMED": false},
+  "final_gate": "READY_FOR_DIRECTOR_ADJUDICATION"
+}
