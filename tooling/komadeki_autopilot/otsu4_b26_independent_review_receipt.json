@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "transition": "INDEPENDENT_REVIEW_OTSU4_B26",
+  "baseline_main": "4f3b7af1a9322b93e5a50c03c01b175106e4999b",
+  "reviewer_id": "otsu4-wave11-independent-reviewer-r1",
+  "identity_separation": "PASS",
+  "reviewed": 3,
+  "accepted": 2,
+  "rejected": 1,
+  "next_atomic_objective": "DIRECTOR_ADJUDICATE_OTSU4_B26",
+  "result": "PASS"
+}
