@@ -19,6 +19,7 @@ import 'services/reminder_service.dart';
 import 'services/nav_service.dart'; // ← これがないと NavService 未定義
 
 import 'screens/multi_select_screen.dart';
+import 'features/exam/exam_setup_screen.dart';
 import 'screens/unit_select_screen.dart';
 import 'screens/scores_screen.dart';
 import 'screens/settings_screen.dart';
@@ -520,6 +521,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
 
                       const SizedBox(height: 24),
+
+                      // 定期テスト対策：学校の範囲を自分で指定
+                      _DeckLikeButton(
+                        leadingIcon: Icons.fact_check_outlined,
+                        title: '定期テスト対策',
+                        subtitle: '単元を選んで4択・穴埋め・○×を自動出題',
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (_) => ExamSetupScreen(decks: decks),
+                          ),
+                        ),
+                        style: DeckButtonStyle.tonal,
+                      ),
+                      const SizedBox(height: 16),
 
                       // ミックス練習（＝単元カードと同じ見た目）
                       _DeckLikeButton(
