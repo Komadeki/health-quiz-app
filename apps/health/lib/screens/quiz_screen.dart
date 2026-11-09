@@ -664,9 +664,7 @@ class _QuizScreenState extends State<QuizScreen> {
       // Retrying a failed score save must not count the last answer twice.
       if (_lastProcessedIndex != index) {
         if (selected == null) return;
-        if (selected == card.answerIndex) correctCount++;
         final isCorrect = selected == card.answerIndex;
-        _bumpTags(card.tags, isCorrect);
 
       // 1) 問題単位の Attempt 保存
       try {
@@ -732,6 +730,9 @@ class _QuizScreenState extends State<QuizScreen> {
         }
         return;
       }
+      // Only count an answer once its resume checkpoint is durable.
+      if (isCorrect) correctCount++;
+      _bumpTags(card.tags, isCorrect);
       _lastProcessedIndex = index;
       }
 
