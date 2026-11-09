@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../../models/card.dart';
 import '../../utils/stable_id.dart';
 
@@ -89,6 +91,24 @@ class ExamQuestion {
       choices: List.unmodifiable(choices),
       acceptedAnswers: List.unmodifiable(accepted),
       isPremium: json['isPremium'] == true,
+    );
+  }
+
+  /// Shuffle the displayed choices without changing the question identity.
+  ExamQuestion shuffledChoices({Random? random}) {
+    if (type != ExamQuestionType.choice) return this;
+    final order = List<int>.generate(choices.length, (i) => i)
+      ..shuffle(random ?? Random());
+    return ExamQuestion(
+      id: id,
+      unitId: unitId,
+      question: question,
+      type: type,
+      answer: order.indexOf(int.parse(answer)).toString(),
+      explanation: explanation,
+      choices: List.unmodifiable(order.map((i) => choices[i])),
+      acceptedAnswers: acceptedAnswers,
+      isPremium: isPremium,
     );
   }
 
