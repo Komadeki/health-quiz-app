@@ -129,6 +129,13 @@ void main() {
     expect(exam.isPremium, isTrue);
     expect(exam.isCorrect('0'), isTrue);
     expect(exam.isCorrect('1'), isFalse);
+    for (var seed = 0; seed < 10; seed++) {
+      final shuffled = exam.shuffledChoices(random: Random(seed));
+      expect(shuffled.id, exam.id);
+      expect(shuffled.answerLabel, '正解');
+      expect(shuffled.choices.toSet(), exam.choices.toSet());
+      expect(shuffled.isCorrect(shuffled.answer), isTrue);
+    }
   });
 }
 
