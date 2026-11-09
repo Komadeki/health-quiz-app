@@ -100,8 +100,7 @@ class _ExamRunnerScreenState extends State<ExamRunnerScreen> {
     final selected = _responses[q.id];
     return Scaffold(
       appBar: AppBar(
-        title: Text('テスト ' + (_index + 1).toString() +
-            '/' + widget.questions.length.toString()),
+        title: Text('テスト ${_index + 1}/${widget.questions.length}'),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4),
           child: LinearProgressIndicator(
@@ -315,8 +314,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                   ),
                 ),
                 icon: const Icon(Icons.refresh),
-                label: Text('間違えた' + incorrect.length.toString() +
-                    '問をもう一度'),
+                label: Text('間違えた${incorrect.length}問をもう一度'),
               ),
             const SizedBox(height: 12),
             OutlinedButton(
@@ -361,15 +359,14 @@ class _ResultQuestionCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              (question.isCorrect(response) ? '正解' : '不正解') +
-                  '  問題 ' + index.toString(),
+              '${question.isCorrect(response) ? '正解' : '不正解'}  問題 $index',
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 8),
             Text(question.question),
             const SizedBox(height: 8),
             Text('あなたの回答: $_responseLabel'),
-            Text('正解: ' + question.answerLabel),
+            Text('正解: ${question.answerLabel}'),
             Text(question.explanation),
           ],
         ),
