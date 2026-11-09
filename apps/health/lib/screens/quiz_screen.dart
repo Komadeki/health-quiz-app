@@ -659,12 +659,15 @@ class _QuizScreenState extends State<QuizScreen> {
 
   Future<void> _next() async {
     // ★ 再入防止ロック
-    if (_nextLock) return;
+    if (_nextLock || _savedOnce) return;
     _nextLock = true;
     try {
-      if (selected == card.answerIndex) correctCount++;
-      final isCorrect = selected == card.answerIndex;
-      _bumpTags(card.tags, isCorrect);
+      // Retrying a failed score save must not count the last answer twice.
+      if (_lastProcessedIndex != index) {
+        if (selected == null) return;
+        if (selected == card.answerIndex) correctCount++;
+        final isCorrect = selected == card.answerIndex;
+        _bumpTags(card.tags, isCorrect);
 
       // 1) 問題単位の Attempt 保存
       try {
@@ -696,8 +699,14 @@ class _QuizScreenState extends State<QuizScreen> {
           '[ATTEMPT] saved sid=$_sessionId '
           'stableId=${attempt.stableId} q=${attempt.questionNumber}',
         );
-      } catch (_) {}
-      // 2) オートセーブ（⚠️ 必ず _stableOrder を使う）
+      } catch (error) {
+        AppLog.w('[ATTEMPT] save failure: $error');
+      }
+      _answersForSave[_stableOrder[index]] = {
+        'selectedIndex': selected,
+        'isCorrect': isCorrect,
+      };
+      // Persist before advancing to the next question.
       try {
         await _saveSession(
           QuizSession(
@@ -708,19 +717,27 @@ class _QuizScreenState extends State<QuizScreen> {
             limit: _limitForSave,
             itemIds: _stableOrder, // ← 常に出題順の安定ID列
             currentIndex: index + 1, // 次に解く位置
-            answers: const {},
+            type: _typeForSave,
+            answers: Map<String, dynamic>.from(_answersForSave),
             updatedAt: DateTime.now(),
             isFinished: false,
             choiceOrders: _choiceOrders, // 選択肢順を常に保存
           ),
         );
-      } catch (_) {}
+      } catch (error) {
+        AppLog.w('[SESSION] save failure: $error');
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('途中経過を保存できませんでした。もう一度お試しください。')),
+          );
+        }
+        return;
+      }
+      _lastProcessedIndex = index;
+      }
 
       // 3) 最終問題ならスコア保存→クリア→結果へ
       if (index >= sequence.length - 1) {
-        if (_savedOnce) return;
-        _savedOnce = true;
-
         final deckIdSave = _deckIdForSave; // 表示用
         final total = sequence.length;
         final correct = correctCount;
@@ -772,7 +789,7 @@ class _QuizScreenState extends State<QuizScreen> {
         final bool crossDeck = deckSet.length > 1;
 
         // 4) タイトル決定（type を最優先）
-        final t = (widget.type ?? '').trim();
+        final t = _typeForSave.trim();
         final bool isReviewTest = (t == 'review_test');
         final bool isRetryWrong = (t == 'wrong_only' || t == 'retry_wrong');
         late final String titleForScore;
@@ -803,9 +820,9 @@ class _QuizScreenState extends State<QuizScreen> {
         try {
           debugPrint('[SCORE] save sid=$_sessionId total=${sequence.length} correct=$correctCount');
 
-          await AttemptStore().addScore(
+          await ScoreSaver.save(
             ScoreRecord(
-              id: const Uuid().v4(),
+              id: _sessionId!,
               deckId: deckIdSave,
               deckTitle: titleForScore, // ← ここを反映
               score: correct,
@@ -818,7 +835,16 @@ class _QuizScreenState extends State<QuizScreen> {
               unitBreakdown: Map<String, int>.from(_unitCount),
             ),
           );
-        } catch (_) {}
+          _savedOnce = true;
+        } catch (error) {
+          AppLog.w('[SCORE] save failure: $error');
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('成績を保存できませんでした。「次へ」で再試行できます。')),
+            );
+          }
+          return;
+        }
 
         // セッション終了保存→クリア
         try {
@@ -831,7 +857,8 @@ class _QuizScreenState extends State<QuizScreen> {
               limit: _limitForSave,
               itemIds: _stableOrder,
               currentIndex: sequence.length,
-              answers: const {},
+              type: _typeForSave,
+              answers: Map<String, dynamic>.from(_answersForSave),
               updatedAt: DateTime.now(),
               isFinished: true,
               choiceOrders: _choiceOrders,
@@ -854,6 +881,7 @@ class _QuizScreenState extends State<QuizScreen> {
               deckTitle: titleForScore, // ← ここを反映
               durationSec: durationSec,
               unitTitleMap: unitTitleMap,
+              saveHistory: false,
             ),
           ),
         );
