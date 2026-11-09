@@ -237,7 +237,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     // ───────── A) overrideCards 優先（ミックスはここで完結） ─────────
     if (widget.overrideCards != null && widget.overrideCards!.isNotEmpty) {
-      _limitForSave = widget.limit;
+      _limitForSave = widget.limit ?? widget.overrideCards!.length;
 
       // 1) このセットに含まれるユニットIDを収集
       final base = List<QuizCard>.from(widget.overrideCards!);
@@ -261,17 +261,13 @@ class _QuizScreenState extends State<QuizScreen> {
           if (unit2deck[uid]?.isNotEmpty == true) unit2deck[uid]!,
       };
 
-      // 3) 単元 or ミックス の保存メタを決定
-      if (unitIdsSet.length == 1 && deckSet.length <= 1) {
-        // 単元として保存
-        _deckIdForSave = deckSet.isNotEmpty ? deckSet.first : widget.deck.id;
-        _selectedUnitIdsForSave = null; // 単元扱いなので保存しない
-      } else {
-        // ミックスとして保存
-        _deckIdForSave = 'mixed';
-        // selectedUnitIds が未指定なら、実カードからの集合を保存
-        _selectedUnitIdsForSave = widget.selectedUnitIds ?? unitIdsSet.toList();
-      }
+      // Real deck for a single-unit practice; fake decks remain mixed.
+      final special = widget.type == 'review_test' ||
+          widget.type == 'retry_wrong' || widget.type == 'wrong_only';
+      _deckIdForSave = !special && unitIdsSet.length == 1 && deckSet.length == 1
+          ? deckSet.first
+          : 'mixed';
+      _selectedUnitIdsForSave = unitIdsSet.toList(growable: false);
 
       // 安定ID逆引き（元のテキスト順で）
       _id2card = {for (final c in base) stableIdForOriginal(c): c};
@@ -300,16 +296,17 @@ class _QuizScreenState extends State<QuizScreen> {
         _unitCount[uid] = (_unitCount[uid] ?? 0) + 1;
       }
 
-      // 初回セーブ（mixed として）
+      // Persist actual storage scope so review and retry can resume.
       await _saveSession(
         QuizSession(
           sessionId: _sessionId!,
-          deckId: 'mixed',
-          unitId: null,
+          deckId: _deckIdForSave,
+          unitId: _deckIdForSave == 'mixed' ? null : unitIdsSet.first,
           selectedUnitIds: _selectedUnitIdsForSave,
           limit: _limitForSave,
           itemIds: _stableOrder,
           currentIndex: 0,
+          type: _typeForSave,
           answers: const {},
           updatedAt: DateTime.now(),
           isFinished: false,
@@ -337,21 +334,24 @@ class _QuizScreenState extends State<QuizScreen> {
       _selectedUnitIdsForSave = s.selectedUnitIds;
       _limitForSave = s.limit;
 
-      // 必須フィールドチェック
-      if (s.selectedUnitIds == null || s.selectedUnitIds!.isEmpty || s.limit == null) {
-        AppLog.d('[RESUME] mixed: missing fields selectedUnitIds/limit');
-        await _failAndClear('再開に必要な情報が不足しています（mixed）。');
+      // Older review/retry sessions may omit scope and limit.
+      if (s.itemIds.isEmpty) {
+        await _failAndPreserve('再開する問題がありません。途中経過は保持されています。');
         return;
       }
 
       // 1) 母集団を QuizScreen 側で再構築（購入フィルタなし）
       final allDecks = await (await DeckLoader.instance()).loadAll();
-      final unitSet = s.selectedUnitIds!.toSet();
+      final unitSet = s.selectedUnitIds?.toSet() ?? <String>{};
       final List<QuizCard> base = [];
       for (final d in allDecks) {
+        final owned = await Gate.canAccessDeck(d.id);
         for (final c in d.cards) {
           final uid = _unitIdOf(c);
-          if (unitSet.contains(uid)) base.add(c);
+          if ((unitSet.isEmpty || unitSet.contains(uid)) &&
+              (!c.isPremium || owned)) {
+            base.add(c);
+          }
         }
       }
 
@@ -364,7 +364,7 @@ class _QuizScreenState extends State<QuizScreen> {
         AppLog.d(
           '[RESUME][MISSING] deck=mixed missing=${missing.length} sample=${missing.take(5).toList()}',
         );
-        await _failAndClear('前回の出題を復元できませんでした（問題セットが更新された可能性）');
+        await _failAndPreserve('問題更新・購入権限の変更により再開できません。途中経過は保持されています。');
         return;
       }
 
@@ -584,7 +584,7 @@ class _QuizScreenState extends State<QuizScreen> {
           '[RESUME][MISSING] deck=${s.deckId} missing=${missing.length} '
           'sample=${missing.take(5).toList()}',
         );
-        await _failAndClear('前回の出題を復元できませんでした（問題セットが更新された可能性）');
+        await _failAndPreserve('問題更新・購入権限の変更により再開できません。途中経過は保持されています。');
         return;
       }
 
