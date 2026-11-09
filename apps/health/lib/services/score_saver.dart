@@ -15,6 +15,23 @@ class ScoreSaver {
     try {
       // ScoreStore の API は add(ScoreRecord)（提示ファイルに準拠）
       await score_store.ScoreStore.instance.add(normalized);
+      // The underlying legacy store may swallow persistence errors. A
+      // successful write must be visible before we clear the active quiz.
+      final visible = await score_store.ScoreStore.instance.loadAll();
+      final persisted = visible.where(
+        (entry) => entry.id == normalized.id &&
+            entry.sessionId == normalized.sessionId &&
+            entry.score == normalized.score &&
+            entry.total == normalized.total &&
+            entry.unitBreakdown?.length == normalized.unitBreakdown?.length &&
+            (normalized.tags == null ||
+                normalized.tags!.entries.every((tag) =>
+                    entry.tags?[tag.key]?.correct == tag.value.correct &&
+                    entry.tags?[tag.key]?.wrong == tag.value.wrong)),
+      ).isNotEmpty;
+      if (!persisted) {
+        throw StateError('Score save could not be verified');
+      }
       AppLog.d(
         '[SCORE_SAVER] saved: id=${normalized.id}, deckId=${normalized.deckId}, title=${normalized.deckTitle}',
       );
@@ -40,6 +57,8 @@ class ScoreSaver {
         selectedUnitIds: r.selectedUnitIds,
         sessionId: r.sessionId,
         unitBreakdown: r.unitBreakdown,
+        bankRevision: r.bankRevision,
+        examProfileVersion: r.examProfileVersion,
       );
     }
     return r;
@@ -76,5 +95,7 @@ class ScoreSaver {
   /// 途中セッションの削除
   static Future<void> clearActive(String type) async {
     final prefs = await SharedPreferences.getInstance();
+    final removed = await prefs.remove(_activeKey(type));
+    if (!removed) throw StateError('Failed to clear active session: $type');
   }
 }
