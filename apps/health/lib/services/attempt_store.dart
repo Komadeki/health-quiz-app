@@ -515,7 +515,11 @@ class AttemptStore {
     final all = await loadScores();
 
     // ★ 同じ sessionId があれば置き換え（なければ追加）
-    final idx = all.indexWhere((e) => e.sessionId == record.sessionId);
+    // Old records may lack sessionId. Never overwrite an unrelated history
+    // record just because both session IDs are null.
+    final idx = (record.sessionId?.isNotEmpty ?? false)
+        ? all.indexWhere((e) => e.sessionId == record.sessionId)
+        : all.indexWhere((e) => e.id == record.id);
     if (idx >= 0) {
       all[idx] = record;
     } else {
