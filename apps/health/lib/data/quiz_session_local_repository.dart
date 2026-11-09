@@ -33,7 +33,8 @@ class QuizSessionLocalRepository {
   // ──────────────────────────────
   Future<void> save(QuizSession s) async {
     final encoded = s.encode();
-    await prefs.setString(_key, encoded);
+    final ok = await prefs.setString(_key, encoded);
+    if (!ok) throw StateError('Failed to save active quiz');
     // print('[SESSION] saved deck=${s.deckId} index=${s.currentIndex} len=${s.itemIds.length}');
   }
 
@@ -57,7 +58,8 @@ class QuizSessionLocalRepository {
   // クリア
   // ──────────────────────────────
   Future<void> clear() async {
-    await prefs.remove(_key);
+    final ok = await prefs.remove(_key);
+    if (!ok) throw StateError('Failed to clear active quiz');
     // print('[SESSION] cleared');
   }
 }
