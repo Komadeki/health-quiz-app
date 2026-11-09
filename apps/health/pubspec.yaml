@@ -41,6 +41,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/decks/
+    - assets/exam/
     - assets/images/
   fonts:
     - family: NotoSansJP
