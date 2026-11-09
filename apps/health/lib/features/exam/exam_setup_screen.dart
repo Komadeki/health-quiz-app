@@ -118,7 +118,7 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
         accessibleQuestions: _accessibleQuestions(currentAccess),
         selectedUnitIds: _selectedUnits,
         questionCount: _requested,
-      );
+      ).map((q) => q.shuffledChoices()).toList(growable: false);
       if (!mounted) return;
       if (questions.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
