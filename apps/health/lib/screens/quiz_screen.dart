@@ -10,6 +10,9 @@ import 'package:provider/provider.dart';
 import '../services/app_settings.dart';
 import '../services/deck_loader.dart';
 import '../services/attempt_store.dart';
+import '../services/score_saver.dart';
+import '../services/gate.dart';
+import '../services/quiz_resume_progress.dart';
 import '../models/attempt_entry.dart';
 import '../utils/logger.dart';
 import '../utils/stable_id.dart';
@@ -58,6 +61,9 @@ class _QuizScreenState extends State<QuizScreen> {
 
   final Stopwatch _sw = Stopwatch()..start();
   bool _savedOnce = false;
+  int _lastProcessedIndex = -1;
+  final Map<String, dynamic> _answersForSave = {};
+  String _typeForSave = 'normal';
   DateTime? _qStart;
 
   // 解析用
@@ -132,6 +138,34 @@ class _QuizScreenState extends State<QuizScreen> {
     Navigator.pop(context);
   }
 
+  Future<void> _failAndPreserve(String message) async {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    Navigator.of(context).pop();
+  }
+
+  Future<bool> _restoreAnsweredProgress(QuizSession saved) async {
+    try {
+      final progress = restoreQuizProgress(
+        session: saved,
+        sequence: sequence,
+        stableOrder: _stableOrder,
+        attempts: await AttemptStore().bySession(saved.sessionId),
+      );
+      correctCount = progress.correctCount;
+      _tagCorrect..clear()..addAll(progress.tagCorrect);
+      _tagWrong..clear()..addAll(progress.tagWrong);
+      _answersForSave..clear()..addAll(progress.answers);
+      return true;
+    } catch (error) {
+      AppLog.w('[RESUME] incomplete history: $error');
+      await _failAndPreserve(
+        '前回の正答記録を確認できません。誤った点数を出さないため、途中経過を保持しています。',
+      );
+      return false;
+    }
+  }
+
   /// ★ 追加：与えられた unitId 群が「複数デッキ」に跨っているかを判定
   Future<bool> _isCrossDeckByUnitIds(List<String>? unitIds) async {
     if (unitIds == null || unitIds.isEmpty) return false;
@@ -197,6 +231,9 @@ class _QuizScreenState extends State<QuizScreen> {
     _id2card = {};
     _selectedUnitIdsForSave = null;
     _limitForSave = null;
+    _typeForSave = widget.resumeSession?.type ?? widget.type ?? 'normal';
+    _answersForSave.clear();
+    _lastProcessedIndex = -1;
 
     // ───────── A) overrideCards 優先（ミックスはここで完結） ─────────
     if (widget.overrideCards != null && widget.overrideCards!.isNotEmpty) {
