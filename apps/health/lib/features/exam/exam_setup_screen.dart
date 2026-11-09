@@ -201,10 +201,7 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
                         child: ExpansionTile(
                           title: Text(deck.title),
                           subtitle: Text(
-                            deck.units.where(
-                              (unit) => _selectedUnits.contains(unit.id),
-                            ).length.toString() +
-                            ' / ' + deck.units.length.toString() + '単元を選択',
+                            '${deck.units.where((unit) => _selectedUnits.contains(unit.id)).length} / ${deck.units.length}単元を選択',
                           ),
                           children: [
                             for (final unit in deck.units)
