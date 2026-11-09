@@ -166,31 +166,6 @@ class _QuizScreenState extends State<QuizScreen> {
     }
   }
 
-  /// ★ 追加：与えられた unitId 群が「複数デッキ」に跨っているかを判定
-  Future<bool> _isCrossDeckByUnitIds(List<String>? unitIds) async {
-    if (unitIds == null || unitIds.isEmpty) return false;
-    if (unitIds.length == 1) return false;
-
-    final loader = await DeckLoader.instance();
-    final decks = await loader.loadAll();
-
-    final unit2deck = <String, String>{};
-    for (final d in decks) {
-      for (final u in (d.units ?? const [])) {
-        final uid = u.id.trim();
-        if (uid.isEmpty) continue;
-        unit2deck[uid] = d.id;
-      }
-    }
-
-    final deckSet = <String>{};
-    for (final uid in unitIds) {
-      final did = unit2deck[uid];
-      if (did != null && did.isNotEmpty) deckSet.add(did);
-    }
-    return deckSet.length > 1;
-  }
-
   // ===== ライフサイクル =====
   @override
   void initState() {
@@ -251,7 +226,7 @@ class _QuizScreenState extends State<QuizScreen> {
       final decks = await loader.loadAll();
       final unit2deck = <String, String>{};
       for (final d in decks) {
-        for (final u in (d.units ?? const [])) {
+        for (final u in (d.units)) {
           final uid = u.id.trim();
           if (uid.isNotEmpty) unit2deck[uid] = d.id;
         }
@@ -429,8 +404,7 @@ class _QuizScreenState extends State<QuizScreen> {
       // b) limit 適用（ここで母集団に上限をかける）
       final limit = widget.limit;
       if (limit != null && limit > 0 && base.length > limit) {
-        final s = context.read<AppSettings>();
-        if (s.randomize) {
+        if (settings.randomize) {
           base.shuffle(); // 切り詰め前に軽くシャッフル（ON時のみ）
         }
         base.removeRange(limit, base.length);
@@ -574,7 +548,7 @@ class _QuizScreenState extends State<QuizScreen> {
           (u) => u.id == s.unitId,
           orElse: () => widget.deck.units.first,
         );
-        baseDefault = targetUnit.cards.toList() ?? widget.deck.cards.toList();
+        baseDefault = targetUnit.cards.toList();
         AppLog.d(
           '[RESUME] single-unit mode detected: ${s.unitId} '
           'cards=${baseDefault.length}',
@@ -775,7 +749,7 @@ class _QuizScreenState extends State<QuizScreen> {
         final Map<String, String> unitTitleMap = {};
         for (final d in decks) {
           deckTitleMap[d.id.trim()] = d.title.trim().isNotEmpty ? d.title.trim() : d.id.trim();
-          for (final u in (d.units ?? const [])) {
+          for (final u in (d.units)) {
             final uid = u.id.trim();
             final ut = u.title.trim();
             if (uid.isNotEmpty) unitTitleMap[uid] = ut.isNotEmpty ? ut : uid;
@@ -799,7 +773,7 @@ class _QuizScreenState extends State<QuizScreen> {
         // 2) ユニット→デッキ対応表を作成
         final unit2deck = <String, String>{};
         for (final d in decks) {
-          for (final u in (d.units ?? const [])) {
+          for (final u in (d.units)) {
             final uid = u.id.trim();
             if (uid.isNotEmpty) unit2deck[uid] = d.id;
           }
