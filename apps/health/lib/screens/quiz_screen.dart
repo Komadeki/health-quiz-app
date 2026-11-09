@@ -383,6 +383,15 @@ class _QuizScreenState extends State<QuizScreen> {
       // 5) 進行位置・集計
       if (sequence.isEmpty || !await _restoreAnsweredProgress(s)) return;
       index = s.currentIndex.clamp(0, sequence.length - 1);
+      if (s.currentIndex == sequence.length) {
+        // Last answer was saved but score confirmation was interrupted.
+        _lastProcessedIndex = index;
+        revealed = true;
+        final last = _answersForSave[_stableOrder[index]];
+        selected = last is Map && last['selectedIndex'] is int
+            ? last['selectedIndex'] as int
+            : null;
+      }
       _qStart = DateTime.now();
 
       _unitCount.clear();
@@ -408,9 +417,12 @@ class _QuizScreenState extends State<QuizScreen> {
       final unitSet = widget.selectedUnitIds!.toSet();
       final base = <QuizCard>[];
       for (final d in allDecks) {
+        final owned = await Gate.canAccessDeck(d.id);
         for (final c in d.cards) {
           final uid = _unitIdOf(c);
-          if (unitSet.contains(uid)) base.add(c);
+          if (unitSet.contains(uid) && (!c.isPremium || owned)) {
+            base.add(c);
+          }
         }
       }
 
@@ -572,7 +584,11 @@ class _QuizScreenState extends State<QuizScreen> {
       }
 
       // ★ ここで逆引きを作ってから missing 判定
-      _id2card = {for (final c in baseDefault) stableIdForOriginal(c): c};
+      final owned = await Gate.canAccessDeck(widget.deck.id);
+      _id2card = {
+        for (final c in baseDefault)
+          if (!c.isPremium || owned) stableIdForOriginal(c): c,
+      };
 
       // a) 欠損チェック
       final missing = s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
@@ -604,6 +620,15 @@ class _QuizScreenState extends State<QuizScreen> {
       // d) 進行位置・集計
       if (sequence.isEmpty || !await _restoreAnsweredProgress(s)) return;
       index = s.currentIndex.clamp(0, sequence.length - 1);
+      if (s.currentIndex == sequence.length) {
+        // Last answer was saved but score confirmation was interrupted.
+        _lastProcessedIndex = index;
+        revealed = true;
+        final last = _answersForSave[_stableOrder[index]];
+        selected = last is Map && last['selectedIndex'] is int
+            ? last['selectedIndex'] as int
+            : null;
+      }
       _qStart = DateTime.now();
 
       _unitCount.clear();
