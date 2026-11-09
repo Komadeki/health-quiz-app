@@ -76,8 +76,9 @@ class ScoreSaver {
       _activeKey(session.type),
       session.encode(),
     );
-    if (!ok)
+    if (!ok) {
       throw Exception('Failed to persist active session (${session.type})');
+    }
     AppLog.d(
       '[SCORE_SAVER] active saved: type=${session.type}, deckId=${session.deckId}',
     );
@@ -96,6 +97,8 @@ class ScoreSaver {
   static Future<void> clearActive(String type) async {
     final prefs = await SharedPreferences.getInstance();
     final removed = await prefs.remove(_activeKey(type));
-    if (!removed) throw StateError('Failed to clear active session: $type');
+    if (!removed) {
+      throw StateError('Failed to clear active session: $type');
+    }
   }
 }
