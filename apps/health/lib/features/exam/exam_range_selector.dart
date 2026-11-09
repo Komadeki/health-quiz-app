@@ -81,11 +81,17 @@ class ExamRangeSelector {
     required Iterable<ExamQuestion> accessibleQuestions,
     required Set<String> selectedUnitIds,
   }) {
-    return select(
-      accessibleQuestions: accessibleQuestions,
-      selectedUnitIds: selectedUnitIds,
-      questionCount: 1 << 20,
-      random: Random(0),
-    ).length;
+    // Pure O(n) count; never run the full selection algorithm during rebuild.
+    final ids = <String>{};
+    final prompts = <String>{};
+    var count = 0;
+    for (final q in accessibleQuestions) {
+      if (!selectedUnitIds.contains(q.unitId) ||
+          !ids.add(q.id) || !prompts.add(q.question.trim())) {
+        continue;
+      }
+      count++;
+    }
+    return count;
   }
 }
