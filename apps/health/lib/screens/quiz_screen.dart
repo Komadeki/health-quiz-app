@@ -373,23 +373,16 @@ class _QuizScreenState extends State<QuizScreen> {
       for (final id in _stableOrder) {
         final orig = _id2card[id]!;
         final ord = s.choiceOrders?[id];
-        final restored = (ord == null)
-            ? _shuffledWithOrder(orig, outOrder: <int>[])
-            : orig.withChoiceOrder(ord);
-        sequence.add(restored);
-        // _choiceOrders には現況を保持（以後のオートセーブで一貫）
-        if (ord != null) {
-          _choiceOrders[id] = List<int>.from(ord);
-        } else {
-          final tmp = <int>[];
-          _shuffledWithOrder(orig, outOrder: tmp);
-          _choiceOrders[id] = List<int>.from(tmp);
-        }
+        final tmp = <int>[];
+        sequence.add(ord == null
+            ? _shuffledWithOrder(orig, outOrder: tmp)
+            : orig.withChoiceOrder(ord));
+        _choiceOrders[id] = List<int>.from(ord ?? tmp);
       }
 
       // 5) 進行位置・集計
+      if (sequence.isEmpty || !await _restoreAnsweredProgress(s)) return;
       index = s.currentIndex.clamp(0, sequence.length - 1);
-      correctCount = 0;
       _qStart = DateTime.now();
 
       _unitCount.clear();
@@ -470,6 +463,7 @@ class _QuizScreenState extends State<QuizScreen> {
           limit: _limitForSave,
           itemIds: _stableOrder,
           currentIndex: 0,
+          type: _typeForSave,
           answers: const {},
           updatedAt: DateTime.now(),
           isFinished: false,
@@ -545,6 +539,7 @@ class _QuizScreenState extends State<QuizScreen> {
           limit: null,
           itemIds: _stableOrder,
           currentIndex: 0,
+          type: _typeForSave,
           answers: const {},
           updatedAt: DateTime.now(),
           isFinished: false,
@@ -557,6 +552,8 @@ class _QuizScreenState extends State<QuizScreen> {
       // ─ 再開セッション（通常デッキ）
       _sessionId = s.sessionId;
       _deckIdForSave = widget.deck.id;
+      _selectedUnitIdsForSave = s.selectedUnitIds;
+      _limitForSave = s.limit;
 
       // ★ unitId が指定されている場合、そのユニットだけに絞る
       late final List<QuizCard> baseDefault;
@@ -597,22 +594,16 @@ class _QuizScreenState extends State<QuizScreen> {
       for (final id in _stableOrder) {
         final orig = _id2card[id]!;
         final ord = s.choiceOrders?[id];
-        final restored = (ord == null)
-            ? _shuffledWithOrder(orig, outOrder: <int>[])
-            : orig.withChoiceOrder(ord);
-        sequence.add(restored);
-        if (ord != null) {
-          _choiceOrders[id] = List<int>.from(ord);
-        } else {
-          final tmp = <int>[];
-          _shuffledWithOrder(orig, outOrder: tmp);
-          _choiceOrders[id] = List<int>.from(tmp);
-        }
+        final tmp = <int>[];
+        sequence.add(ord == null
+            ? _shuffledWithOrder(orig, outOrder: tmp)
+            : orig.withChoiceOrder(ord));
+        _choiceOrders[id] = List<int>.from(ord ?? tmp);
       }
 
       // d) 進行位置・集計
+      if (sequence.isEmpty || !await _restoreAnsweredProgress(s)) return;
       index = s.currentIndex.clamp(0, sequence.length - 1);
-      correctCount = 0;
       _qStart = DateTime.now();
 
       _unitCount.clear();
