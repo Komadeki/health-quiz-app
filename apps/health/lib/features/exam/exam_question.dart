@@ -24,6 +24,7 @@ class ExamQuestion {
   final String unitId;
   final String question;
   final ExamQuestionType type;
+
   /// For choice this is a zero-based choice index; for trueFalse, '○' or '×'.
   final String answer;
   final String explanation;
@@ -52,6 +53,9 @@ class ExamQuestion {
   }
 
   factory ExamQuestion.fromJson(Map<String, dynamic> json) {
+    if (json['isPremium'] is! bool) {
+      throw const FormatException('Missing exam access policy');
+    }
     final rawType = json['type']?.toString();
     final type = switch (rawType) {
       'choice' => ExamQuestionType.choice,
@@ -65,20 +69,26 @@ class ExamQuestion {
     final answer = json['answer']?.toString().trim() ?? '';
     final explanation = json['explanation']?.toString().trim() ?? '';
     final choices = (json['choices'] as List<dynamic>? ?? const [])
-        .map((e) => e.toString()).toList(growable: false);
+        .map((e) => e.toString())
+        .toList(growable: false);
     final accepted = (json['acceptedAnswers'] as List<dynamic>? ?? const [])
-        .map((e) => e.toString()).toList(growable: false);
-    if (id.isEmpty || unitId.isEmpty || question.isEmpty ||
-        answer.isEmpty || explanation.isEmpty) {
+        .map((e) => e.toString())
+        .toList(growable: false);
+    if (id.isEmpty ||
+        unitId.isEmpty ||
+        question.isEmpty ||
+        answer.isEmpty ||
+        explanation.isEmpty) {
       throw FormatException('Incomplete exam question: $id');
     }
     if (type == ExamQuestionType.choice &&
-        (choices.length < 2 || (int.tryParse(answer) ?? -1) < 0 ||
-        int.parse(answer) >= choices.length)) {
+        (choices.length < 2 ||
+            choices.toSet().length != choices.length ||
+            (int.tryParse(answer) ?? -1) < 0 ||
+            int.parse(answer) >= choices.length)) {
       throw FormatException('Invalid choice question: $id');
     }
-    if (type == ExamQuestionType.trueFalse &&
-        answer != '○' && answer != '×') {
+    if (type == ExamQuestionType.trueFalse && answer != '○' && answer != '×') {
       throw FormatException('Invalid true/false question: $id');
     }
     return ExamQuestion(
@@ -93,6 +103,28 @@ class ExamQuestion {
       isPremium: json['isPremium'] == true,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'unitId': unitId,
+        'question': question,
+        'type': switch (type) {
+          ExamQuestionType.choice => 'choice',
+          ExamQuestionType.fill => 'fill',
+          ExamQuestionType.trueFalse => 'true_false',
+        },
+        'answer': answer,
+        'explanation': explanation,
+        'choices': choices,
+        'acceptedAnswers': acceptedAnswers,
+        'isPremium': isPremium,
+      };
+
+  String get typeLabel => switch (type) {
+        ExamQuestionType.choice => '4択',
+        ExamQuestionType.fill => '穴埋め',
+        ExamQuestionType.trueFalse => '○×',
+      };
 
   /// Shuffle the displayed choices without changing the question identity.
   ExamQuestion shuffledChoices({Random? random}) {

@@ -8,10 +8,18 @@
       "question": "筋肉や臓器など、体の組織をつくる材料となる主な栄養素は（　）である。",
       "answer": "たんぱく質",
       "acceptedAnswers": [
-        "タンパク質"
+        "タンパク質",
+        "蛋白質",
+        "たん白質",
+        "たんはﾟく質",
+        "ﾀﾝﾊﾟｸ質"
       ],
       "explanation": "たんぱく質は筋肉や臓器などの材料となる。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/dictionary/food/ye-044.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h1-t01",
@@ -21,7 +29,11 @@
       "answer": "○",
       "acceptedAnswers": [],
       "explanation": "食塩の過剰摂取は高血圧のリスク要因になる。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/food/e-02-002.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h1-f02",
@@ -29,9 +41,15 @@
       "type": "fill",
       "question": "夜間に分泌が増え、睡眠と覚醒のリズムに関わるホルモンを（　）という。",
       "answer": "メラトニン",
-      "acceptedAnswers": [],
+      "acceptedAnswers": [
+        "ﾒﾗﾄﾆﾝ"
+      ],
       "explanation": "メラトニンの分泌は光の影響を受ける。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/dictionary/heart/yk-062.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h1-t02",
@@ -41,7 +59,11 @@
       "answer": "○",
       "acceptedAnswers": [],
       "explanation": "朝の光は体内時計を調整する重要な手掛かりになる。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/heart/k-01-004"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h1-f03",
@@ -49,9 +71,15 @@
       "type": "fill",
       "question": "たばこに含まれ、依存の形成に深く関わる物質は（　）である。",
       "answer": "ニコチン",
-      "acceptedAnswers": [],
+      "acceptedAnswers": [
+        "ﾆｺﾁﾝ"
+      ],
       "explanation": "ニコチンには依存を形成する作用がある。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/tobacco/t-02-008"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h1-t03",
@@ -61,7 +89,11 @@
       "answer": "×",
       "acceptedAnswers": [],
       "explanation": "加熱式たばこも有害物質へのばく露があり、無害ではない。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/tobacco/t-02-008"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h1-f04",
@@ -69,9 +101,16 @@
       "type": "fill",
       "question": "摂取されたアルコールの大部分を分解する臓器は（　）である。",
       "answer": "肝臓",
-      "acceptedAnswers": [],
+      "acceptedAnswers": [
+        "かんぞう",
+        "かんそﾞう"
+      ],
       "explanation": "アルコールの代謝は主に肝臓で行われる。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/alcohol/a-02-002.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h1-t04",
@@ -81,7 +120,11 @@
       "answer": "○",
       "acceptedAnswers": [],
       "explanation": "アルコールは中枢神経系の働きを抑制する。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/dictionary/alcohol/ya-035.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h1-f05",
@@ -91,7 +134,11 @@
       "answer": "依存",
       "acceptedAnswers": [],
       "explanation": "依存は本人の意志の強さだけで説明できるものではない。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000149274.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h1-t05",
@@ -101,7 +148,11 @@
       "answer": "×",
       "acceptedAnswers": [],
       "explanation": "違法薬物の不適切な使用は、一度でも薬物乱用に当たる。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/seisakunitsuite/bunya/kenkou_iryou/iyakuhin/yakubuturanyou/campaign2026/faq/"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-f01",
@@ -109,9 +160,15 @@
       "type": "fill",
       "question": "乳幼児期・青年期・成人期・高齢期などの人生の各段階を（　）という。",
       "answer": "ライフステージ",
-      "acceptedAnswers": [],
+      "acceptedAnswers": [
+        "ﾗｲﾌｽﾃｰｼﾞ"
+      ],
       "explanation": "健康課題はライフステージによって変化する。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/web/t_doc?dataId=00012990&dataType=0"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-t01",
@@ -121,7 +178,11 @@
       "answer": "○",
       "acceptedAnswers": [],
       "explanation": "成長や加齢、生活環境の変化に応じた対策が必要になる。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/web/t_doc?dataId=00012990&dataType=0"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-f02",
@@ -130,10 +191,16 @@
       "question": "思春期に見られる声変わりや乳房の発達などを（　）という。",
       "answer": "第二次性徴",
       "acceptedAnswers": [
-        "二次性徴"
+        "二次性徴",
+        "第2次性徴",
+        "2次性徴"
       ],
       "explanation": "第二次性徴の現れる時期や程度には個人差がある。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.pref.tottori.lg.jp/302611.htm"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-t02",
@@ -143,7 +210,11 @@
       "answer": "×",
       "acceptedAnswers": [],
       "explanation": "思春期の成熟には個人差がある。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.pref.tottori.lg.jp/302611.htm"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-f03",
@@ -153,7 +224,11 @@
       "answer": "性的同意",
       "acceptedAnswers": [],
       "explanation": "性的同意は関係性にかかわらず大切で、途中で撤回できる。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.gender.go.jp/policy/no_violence/seibouryoku/index.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-t03",
@@ -163,7 +238,11 @@
       "answer": "×",
       "acceptedAnswers": [],
       "explanation": "交際関係にかかわらず、その都度互いの意思を尊重する必要がある。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/content/001526319.pdf"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-f04",
@@ -171,9 +250,16 @@
       "type": "fill",
       "question": "母体と胎児の間で、酸素や栄養素などの物質交換に関わる器官を（　）という。",
       "answer": "胎盤",
-      "acceptedAnswers": [],
+      "acceptedAnswers": [
+        "たいばん",
+        "たいはﾞん"
+      ],
       "explanation": "胎盤は母体と胎児の間の物質交換に重要な役割を果たす。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.jaog.or.jp/lecture/25-%E8%83%8E%E7%9B%A4%E3%83%BB%E8%87%8D%E5%B8%AF%E3%81%AE%E8%B6%85%E9%9F%B3%E6%B3%A2%E5%83%8F/"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-t04",
@@ -183,7 +269,11 @@
       "answer": "○",
       "acceptedAnswers": [],
       "explanation": "妊娠中のアルコール摂取は胎児に影響する可能性がある。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.bosei-navi.mhlw.go.jp/colum/colum14.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-f05",
@@ -193,7 +283,11 @@
       "answer": "家族計画",
       "acceptedAnswers": [],
       "explanation": "家族計画は本人たちの意思や健康を踏まえて考える。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mext.go.jp/content/20250328-mxt_kyoiku01-100002620_01.pdf"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-t05",
@@ -203,17 +297,27 @@
       "answer": "○",
       "acceptedAnswers": [],
       "explanation": "コンドームは適切な使用によって妊娠と性感染症のリスクを低減する。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/kenkou/kekkaku-kansenshou/seikansenshou/"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-f06",
       "unitId": "unit_marriage_and_health",
       "type": "fill",
-      "question": "相手の考えや価値観を理解しようとすることを（　）という。",
-      "answer": "相互理解",
-      "acceptedAnswers": [],
+      "question": "互いの考えや価値観を理解し合うことを「相互（　）」という。",
+      "answer": "理解",
+      "acceptedAnswers": [
+        "りかい"
+      ],
       "explanation": "対話を通じた相互理解は良好な人間関係を支える。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mext.go.jp/content/20250328-mxt_kyoiku01-100002620_01.pdf"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-t06",
@@ -223,7 +327,11 @@
       "answer": "×",
       "acceptedAnswers": [],
       "explanation": "互いの意思や状況を尊重し、必要に応じて支援を活用することが重要。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mext.go.jp/content/20250328-mxt_kyoiku01-100002620_01.pdf"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-f07",
@@ -232,10 +340,16 @@
       "question": "骨の強度が低下して、骨折しやすくなる病気を（　）という。",
       "answer": "骨粗しょう症",
       "acceptedAnswers": [
-        "骨粗鬆症"
+        "骨粗鬆症",
+        "骨そしょう症",
+        "こつそしょうしょう"
       ],
       "explanation": "骨粗しょう症は骨折のリスクを高める。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/food/e-02-007.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-t07",
@@ -245,7 +359,11 @@
       "answer": "○",
       "acceptedAnswers": [],
       "explanation": "加齢だけでなく生活習慣なども健康に関係する。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/kenkou/seikatsu/seikatusyuukan.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-f08",
@@ -254,10 +372,16 @@
       "question": "仕事と生活の調和を図る考え方を（　）という。",
       "answer": "ワーク・ライフ・バランス",
       "acceptedAnswers": [
-        "ワークライフバランス"
+        "ワークライフバランス",
+        "ﾜｰｸ･ﾗｲﾌ･ﾊﾞﾗﾝｽ",
+        "ﾜｰｸﾗｲﾌﾊﾞﾗﾝｽ"
       ],
       "explanation": "仕事と私生活の両方を大切にする考え方である。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://wwwa.cao.go.jp/wlb/towa/index.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-t08",
@@ -267,7 +391,11 @@
       "answer": "×",
       "acceptedAnswers": [],
       "explanation": "長時間労働や対人ストレスなどは健康に影響することがある。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.check-roudou.mhlw.go.jp/study/roudousya_roudousaigai.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-f09",
@@ -279,7 +407,11 @@
         "労災"
       ],
       "explanation": "労働災害の予防には設備・作業手順・健康管理などの対策が必要。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.check-roudou.mhlw.go.jp/study/roudousya_roudousaigai.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-t09",
@@ -289,19 +421,29 @@
       "answer": "×",
       "acceptedAnswers": [],
       "explanation": "危険源の除去や設備・作業手順の改善が重要。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://anzeninfo.mhlw.go.jp/yougo/yougo01_1.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-f10",
       "unitId": "unit_healthy_work_life",
       "type": "fill",
-      "question": "心の健康やその保持増進に関わる考え方を（　）という。",
+      "question": "心の健康を、英語由来のカタカナ語で（　）という。",
       "answer": "メンタルヘルス",
       "acceptedAnswers": [
-        "心の健康"
+        "メンタル・ヘルス",
+        "ﾒﾝﾀﾙﾍﾙｽ",
+        "ﾒﾝﾀﾙ･ﾍﾙｽ"
       ],
-      "explanation": "メンタルヘルス対策には職場環境の改善や相談体制の整備が含まれる。",
-      "isPremium": false
+      "explanation": "メンタルヘルスは心の健康を表す。職場環境の改善や相談しやすい体制づくりも大切である。",
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/dictionary/heart/yk-086.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     },
     {
       "id": "h2-t10",
@@ -311,7 +453,11 @@
       "answer": "○",
       "acceptedAnswers": [],
       "explanation": "継続する不調は放置せず、適切な支援につながることが重要。",
-      "isPremium": false
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/stf/newpage_71447.html"
+      ],
+      "sourceCheckedAt": "2026-11-14"
     }
   ]
 }

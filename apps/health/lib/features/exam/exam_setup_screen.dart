@@ -7,6 +7,9 @@ import '../../services/gate.dart';
 import 'exam_question.dart';
 import 'exam_range_selector.dart';
 import 'exam_runner_screen.dart';
+import 'exam_session.dart';
+import 'exam_session_store.dart';
+import 'exam_access.dart';
 
 /// Learners choose their school's real exam scope, regardless of grade.
 class ExamSetupScreen extends StatefulWidget {
@@ -22,6 +25,8 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
   final _selector = const ExamRangeSelector();
   final _access = <String, bool>{};
   List<ExamQuestion> _authored = [];
+  bool _invalidActive = false;
+  ExamSession? _active;
   int _requested = 10;
   bool _loading = true;
   bool _starting = false;
@@ -35,22 +40,37 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
 
   Future<void> _loadQuestionsAndAccess() async {
     try {
-      final raw = await rootBundle.loadString('assets/exam/exam_questions_v1.json');
+      final raw =
+          await rootBundle.loadString('assets/exam/exam_questions_v1.json');
       final parsed = jsonDecode(raw) as Map<String, dynamic>;
       final entries = parsed['questions'] as List<dynamic>;
-      final authored = entries.map((raw) =>
-        ExamQuestion.fromJson(Map<String, dynamic>.from(raw as Map)),
-      ).toList(growable: false);
+      final authored = entries
+          .map(
+            (raw) =>
+                ExamQuestion.fromJson(Map<String, dynamic>.from(raw as Map)),
+          )
+          .toList(growable: false);
       final access = <String, bool>{};
       for (final deck in widget.decks) {
         access[deck.id.toLowerCase()] = await Gate.canAccessDeck(deck.id);
       }
+      ExamSession? active;
+      var invalidActive = false;
+      try {
+        active = await ExamSessionStore().loadActive();
+      } catch (_) {
+        invalidActive = true;
+      }
       if (!mounted) return;
       setState(() {
+        _active = active;
+        _invalidActive = invalidActive;
         _authored = authored;
-        _access..clear()..addAll(access);
+        _access
+          ..clear()
+          ..addAll(access);
         _loading = false;
-        _error = null;
+        _error = invalidActive ? '途中経過を読み込めませんでした。' : null;
       });
     } catch (error) {
       if (!mounted) return;
@@ -62,9 +82,9 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
   }
 
   Map<String, String> get _unitTitles => {
-    for (final deck in widget.decks)
-      for (final unit in deck.units) unit.id: unit.title,
-  };
+        for (final deck in widget.decks)
+          for (final unit in deck.units) unit.id: unit.title,
+      };
 
   List<ExamQuestion> _accessibleQuestions(Map<String, bool> owned) {
     final questions = <ExamQuestion>[];
@@ -105,7 +125,7 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
   }
 
   Future<void> _start() async {
-    if (_starting || _selectedUnits.isEmpty) return;
+    if (_starting || _selectedUnits.isEmpty || _active != null) return;
     setState(() => _starting = true);
     try {
       // Check actual purchase rights again when composing an exam.
@@ -114,11 +134,14 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
         currentAccess[deck.id.toLowerCase()] =
             await Gate.canAccessDeck(deck.id);
       }
-      final questions = _selector.select(
-        accessibleQuestions: _accessibleQuestions(currentAccess),
-        selectedUnitIds: _selectedUnits,
-        questionCount: _requested,
-      ).map((q) => q.shuffledChoices()).toList(growable: false);
+      final questions = _selector
+          .select(
+            accessibleQuestions: _accessibleQuestions(currentAccess),
+            selectedUnitIds: _selectedUnits,
+            questionCount: _requested,
+          )
+          .map((q) => q.shuffledChoices())
+          .toList(growable: false);
       if (!mounted) return;
       if (questions.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -137,8 +160,95 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
     } catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('テストの準備に失敗しました: $error')),
+        const SnackBar(content: Text('テストの準備に失敗しました。もう一度お試しください。')),
       );
+    } finally {
+      if (mounted) {
+        setState(() => _starting = false);
+        _loadQuestionsAndAccess();
+      }
+    }
+  }
+
+  Future<void> _resume() async {
+    if (_starting || _active == null) return;
+    setState(() => _starting = true);
+    try {
+      final session = _active!;
+      await ensureExamAccess(session.questions);
+      if (!mounted) return;
+      await Navigator.of(context).push(MaterialPageRoute<void>(
+          builder: (_) => ExamRunnerScreen(
+              questions: session.questions,
+              unitTitles: session.unitTitles,
+              session: session)));
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('再開できませんでした。購入状態や保存データを確認してください。')));
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _starting = false);
+        _loadQuestionsAndAccess();
+      }
+    }
+  }
+
+  Future<void> _discard() async {
+    final session = _active;
+    if (session == null || _starting || session.submitted) return;
+    final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+                title: const Text('別のテストを始めますか？'),
+                content: const Text('現在のテストを途中から再開することはできなくなります。'),
+                actions: [
+                  TextButton(
+                      onPressed: () => Navigator.pop(ctx, false),
+                      child: const Text('キャンセル')),
+                  FilledButton(
+                      onPressed: () => Navigator.pop(ctx, true),
+                      child: const Text('新しく始める'))
+                ]));
+    if (confirmed != true || !mounted) return;
+    try {
+      await ExamSessionStore().clearActive(session.id);
+      if (mounted) setState(() => _active = null);
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('途中データを更新できませんでした。もう一度お試しください。')));
+      }
+    }
+  }
+
+  Future<void> _recover() async {
+    if (_starting) return;
+    final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+                title: const Text('途中経過を退避しますか？'),
+                content: const Text(
+                    '読み込めない途中経過を端末内に退避し、新しいテストを始められるようにします。既存の成績と購入状態は保持されます。'),
+                actions: [
+                  TextButton(
+                      onPressed: () => Navigator.pop(ctx, false),
+                      child: const Text('キャンセル')),
+                  FilledButton(
+                      onPressed: () => Navigator.pop(ctx, true),
+                      child: const Text('退避して続ける'))
+                ]));
+    if (confirmed != true || !mounted) return;
+    setState(() => _starting = true);
+    try {
+      await ExamSessionStore().archiveUnreadableActive();
+      await _loadQuestionsAndAccess();
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('途中経過を退避できませんでした。保存データは保持しています。')));
+      }
     } finally {
       if (mounted) setState(() => _starting = false);
     }
@@ -148,8 +258,12 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
   Widget build(BuildContext context) {
     final available = _available;
     final effective = available < _requested ? available : _requested;
-    final canStart = !_loading && !_starting &&
-        _selectedUnits.isNotEmpty && available > 0;
+    final canStart = _error == null &&
+        !_loading &&
+        !_starting &&
+        _active == null &&
+        _selectedUnits.isNotEmpty &&
+        available > 0;
     return Scaffold(
       appBar: AppBar(title: const Text('定期テスト対策')),
       body: _loading
@@ -159,20 +273,51 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('問題を読み込めませんでした: $_error'),
+                      const Text('問題または途中経過を読み込めませんでした。保存データは保持しています。'),
                       TextButton(
                         onPressed: () {
-                          setState(() { _loading = true; _error = null; });
+                          setState(() {
+                            _loading = true;
+                            _error = null;
+                          });
                           _loadQuestionsAndAccess();
                         },
                         child: const Text('再試行'),
                       ),
+                      if (_invalidActive)
+                        TextButton(
+                            onPressed: _starting ? null : _recover,
+                            child: const Text('途中経過を退避して新しく始める')),
                     ],
                   ),
                 )
               : ListView(
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
                   children: [
+                    if (_active != null)
+                      Card(
+                          child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Text(_active!.submitted
+                                        ? '保存待ちの結果があります'
+                                        : '途中のテストがあります'),
+                                    Text(
+                                        '${_active!.responses.values.where((s) => s.trim().isNotEmpty).length} / ${_active!.questions.length}問に回答済み'),
+                                    FilledButton(
+                                        onPressed: _starting ? null : _resume,
+                                        child: Text(_active!.submitted
+                                            ? '結果の保存を再開'
+                                            : '途中から再開')),
+                                    if (!_active!.submitted)
+                                      TextButton(
+                                          onPressed:
+                                              _starting ? null : _discard,
+                                          child: const Text('別のテストを始める')),
+                                  ]))),
                     Text('試験範囲を選択',
                         style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 6),
@@ -221,8 +366,7 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
                         ),
                       ),
                     const SizedBox(height: 16),
-                    Text('問題数',
-                        style: Theme.of(context).textTheme.titleMedium),
+                    Text('問題数', style: Theme.of(context).textTheme.titleMedium),
                     Wrap(
                       spacing: 10,
                       children: [
