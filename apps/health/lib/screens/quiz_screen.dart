@@ -1,4 +1,6 @@
 // lib/screens/quiz_screen.dart
+// Retain Flutter 3.47 compatibility while Flutter 3.50 deprecates this import.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import '../models/deck.dart';
 import '../models/card.dart';
