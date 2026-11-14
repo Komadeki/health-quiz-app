@@ -171,7 +171,7 @@ class AttemptStore {
           //   - すでに stableId があれば何もしない
           //   - なければ 質問テキストから Q::キーを埋める
           if ((a.stableId == null || a.stableId!.isEmpty) &&
-              (a.question.trim().isNotEmpty ?? false)) {
+              (a.question.trim().isNotEmpty)) {
             a = a.copyWith(stableId: _questionKey(a.question));
           }
 
@@ -197,7 +197,7 @@ class AttemptStore {
           a = a.copyWith(attemptId: const Uuid().v4());
         }
         if ((a.stableId == null || a.stableId!.isEmpty) &&
-            (a.question.trim().isNotEmpty ?? false)) {
+            (a.question.trim().isNotEmpty)) {
           a = a.copyWith(stableId: _questionKey(a.question));
         }
         return a;
@@ -208,10 +208,11 @@ class AttemptStore {
         jsonEncode(normalized.map((e) => e.toMap()).toList()),
       );
       if (!ok) {
-        AppLog.w('[AttemptStore] persist failed');
+        throw StateError('Failed to persist answers');
       }
     } catch (e) {
       AppLog.w('[AttemptStore] saveAll failed: $e');
+      rethrow;
     }
   }
 
@@ -226,11 +227,17 @@ class AttemptStore {
 
     // ★ stableId の自動補完
     if ((withId.stableId == null || withId.stableId!.isEmpty) &&
-        (withId.question.trim().isNotEmpty ?? false)) {
+        (withId.question.trim().isNotEmpty)) {
       withId = withId.copyWith(stableId: _questionKey(withId.question));
     }
 
-    all.add(withId);
+    // A save retry uses the same attempt ID and replaces its checkpoint.
+    final existing = all.indexWhere((a) => a.attemptId == withId.attemptId);
+    if (existing < 0) {
+      all.add(withId);
+    } else {
+      all[existing] = withId;
+    }
 
     final cap = retention ?? defaultRetention;
     if (all.length > cap) {
@@ -251,11 +258,8 @@ class AttemptStore {
   /// 指定セッションの履歴（新→古）（既存）
   Future<List<AttemptEntry>> bySession(String sessionId) async {
     final all = await _loadAll();
-    final out = all
-        .where((e) => e.sessionId == sessionId)
-        .toList()
-        .reversed
-        .toList();
+    final out =
+        all.where((e) => e.sessionId == sessionId).toList().reversed.toList();
     debugPrint('[ATTEMPT/STORE] bySession sid=$sessionId -> ${out.length}');
     return out;
   }
@@ -267,7 +271,7 @@ class AttemptStore {
     final out = <String>[];
     for (final e in all) {
       if (!e.isCorrect) {
-        final q = (e.question ?? '').trim();
+        final q = e.question.trim();
         if (q.isNotEmpty) out.add(q);
       }
     }
@@ -288,7 +292,7 @@ class AttemptStore {
       }
       if (!e.isCorrect) {
         kept++;
-        final q = (e.question ?? '').trim();
+        final q = e.question.trim();
         if (q.isNotEmpty) out.add(q);
       }
     }
@@ -312,28 +316,31 @@ class AttemptStore {
         final v = (e as dynamic).answeredAt;
         if (v is DateTime) return v;
         if (v is String) return DateTime.tryParse(v);
-        if (v is int)
+        if (v is int) {
           return DateTime.fromMillisecondsSinceEpoch(
             v > 2000000000 ? v : v * 1000,
           );
+        }
       } catch (_) {}
       try {
         final v = (e as dynamic).timestamp;
         if (v is DateTime) return v;
         if (v is String) return DateTime.tryParse(v);
-        if (v is int)
+        if (v is int) {
           return DateTime.fromMillisecondsSinceEpoch(
             v > 2000000000 ? v : v * 1000,
           );
+        }
       } catch (_) {}
       try {
         final v = (e as dynamic).createdAt;
         if (v is DateTime) return v;
         if (v is String) return DateTime.tryParse(v);
-        if (v is int)
+        if (v is int) {
           return DateTime.fromMillisecondsSinceEpoch(
             v > 2000000000 ? v : v * 1000,
           );
+        }
       } catch (_) {}
       return null;
     }
@@ -342,8 +349,9 @@ class AttemptStore {
     final map = <String, DateTime>{};
 
     for (final e in all) {
-      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId))
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) {
         continue;
+      }
       if (!e.isCorrect) {
         final key = _keyFromAttempt(e);
         if (key.isEmpty) continue;
@@ -409,7 +417,7 @@ class AttemptStore {
     } catch (_) {}
 
     // フォールバック: 質問文を正規化
-    final q = (e.question ?? '').trim();
+    final q = e.question.trim();
     if (q.isEmpty) return '';
     return _questionKey(q);
   }
@@ -448,7 +456,7 @@ class AttemptStore {
           }
           // ★ インポート時も stableId を補完
           if ((a.stableId == null || a.stableId!.isEmpty) &&
-              (a.question.trim().isNotEmpty ?? false)) {
+              (a.question.trim().isNotEmpty)) {
             a = a.copyWith(stableId: _questionKey(a.question));
           }
 
@@ -515,7 +523,11 @@ class AttemptStore {
     final all = await loadScores();
 
     // ★ 同じ sessionId があれば置き換え（なければ追加）
-    final idx = all.indexWhere((e) => e.sessionId == record.sessionId);
+    // Old records may lack sessionId. Never overwrite an unrelated history
+    // record just because both session IDs are null.
+    final idx = (record.sessionId?.isNotEmpty ?? false)
+        ? all.indexWhere((e) => e.sessionId == record.sessionId)
+        : all.indexWhere((e) => e.id == record.id);
     if (idx >= 0) {
       all[idx] = record;
     } else {
@@ -597,7 +609,7 @@ class AttemptStore {
     final all = await _loadAll();
     final wrong = all.where((e) => e.sessionId == sessionId && !e.isCorrect);
     return wrong
-        .map((e) => (e.question ?? '').trim())
+        .map((e) => e.question.trim())
         .where((q) => q.isNotEmpty)
         .toList();
   }
@@ -618,8 +630,9 @@ class AttemptStore {
     for (final e in all) {
       // typeで絞り込み（指定がなければ全体）
       if (type != null && e.sessionType != type) continue;
-      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId))
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) {
         continue;
+      }
 
       if (!e.isCorrect) {
         final key = _keyFromAttempt(e);
@@ -699,8 +712,7 @@ class AttemptStore {
           final st = scoreTime(s);
           final ty = scoreType(s);
           // 取れない情報は「通す」（除外しない）→ sessions=0 を回避
-          final okType =
-              (types == null || types.isEmpty) ||
+          final okType = (types == null || types.isEmpty) ||
               (ty == null) ||
               types.contains(ty);
           final okFrom = (from == null) || (st == null) || st.isAfter(from);
@@ -760,8 +772,9 @@ class AttemptStore {
     for (final e in attempts) {
       // 見直しと同じ “sessionIds 限定” に揃える（集合が作れた場合のみ適用）
       if (scopedSessionIds.isNotEmpty &&
-          !scopedSessionIds.contains(e.sessionId))
+          !scopedSessionIds.contains(e.sessionId)) {
         continue;
+      }
 
       // Attempt 側 sessionType は null を許容（null で除外しない）
       if (types != null && types.isNotEmpty) {
@@ -789,23 +802,23 @@ class AttemptStore {
   /// 【メタ情報】誤答回数＋最新誤答時刻＋最新正誤を返す
   /// → 見直しモードで「並び替え／フィルタ」に利用予定
   Future<
-    Map<
-      String,
-      ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})
-    >
-  >
-  buildReviewMeta({List<String>? onlySessionIds, String? type}) async {
-    final all = await _loadAll();
-    final map =
-        <
+      Map<
           String,
-          ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})
-        >{};
+          ({
+            int wrongCount,
+            DateTime? latestWrongAt,
+            bool? latestWasCorrect
+          })>> buildReviewMeta(
+      {List<String>? onlySessionIds, String? type}) async {
+    final all = await _loadAll();
+    final map = <String,
+        ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})>{};
 
     for (final e in all) {
       if (type != null && e.sessionType != type) continue;
-      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId))
+      if (onlySessionIds != null && !onlySessionIds.contains(e.sessionId)) {
         continue;
+      }
 
       final sid = _keyFromAttempt(e);
       if (sid.isEmpty) continue;
