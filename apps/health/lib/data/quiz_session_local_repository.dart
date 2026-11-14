@@ -22,8 +22,9 @@ class QuizSessionLocalRepository {
   Future<void> migrateIfNeeded() async {
     final ver = prefs.getString(_stableVerKey);
     if (ver != _currentStableVer) {
+      await _preserveActive();
       await clear();
-      await prefs.setString(_stableVerKey, _currentStableVer);
+      await _write(() => prefs.setString(_stableVerKey, _currentStableVer));
       // print('[SESSION] migrate: cleared old sessions (ver=$ver→$_currentStableVer)');
     }
   }
@@ -33,12 +34,12 @@ class QuizSessionLocalRepository {
   // ──────────────────────────────
   Future<void> save(QuizSession s) async {
     final encoded = s.encode();
-    await prefs.setString(_key, encoded);
+    await _write(() => prefs.setString(_key, encoded));
     // print('[SESSION] saved deck=${s.deckId} index=${s.currentIndex} len=${s.itemIds.length}');
   }
 
   // ──────────────────────────────
-  // 読込（破損時は自動削除して null を返す）
+  // 読込（破損時は元データを退避してからリセット）
   // ──────────────────────────────
   Future<QuizSession?> loadActive() async {
     final raw = prefs.getString(_key);
@@ -46,6 +47,7 @@ class QuizSessionLocalRepository {
 
     final s = QuizSession.decode(raw);
     if (s == null) {
+      await _preserveActive();
       await clear();
       // print('[SESSION] decode failed → cleared');
       return null;
@@ -57,7 +59,24 @@ class QuizSessionLocalRepository {
   // クリア
   // ──────────────────────────────
   Future<void> clear() async {
-    await prefs.remove(_key);
+    await _write(() => prefs.remove(_key));
     // print('[SESSION] cleared');
+  }
+
+  Future<void> _preserveActive() async {
+    final raw = prefs.getString(_key);
+    if (raw == null) return;
+    final key =
+        'health_quiz_recovery_v1__${DateTime.now().microsecondsSinceEpoch}';
+    await _write(() => prefs.setString(key, raw));
+  }
+
+  Future<void> _write(Future<bool> Function() write) async {
+    try {
+      if (!await write()) throw StateError('Failed to persist active quiz');
+    } catch (_) {
+      await prefs.reload();
+      rethrow;
+    }
   }
 }

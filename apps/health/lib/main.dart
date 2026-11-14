@@ -1,6 +1,8 @@
 // lib/main.dart
 import 'dart:async'; // ← 非同期ユーティリティ用（unawaited, microtask 等）
 
+// Retain Flutter 3.47 compatibility while Flutter 3.50 deprecates this import.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'; // kDebugMode
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -19,6 +21,7 @@ import 'services/reminder_service.dart';
 import 'services/nav_service.dart'; // ← これがないと NavService 未定義
 
 import 'screens/multi_select_screen.dart';
+import 'features/exam/exam_setup_screen.dart';
 import 'screens/unit_select_screen.dart';
 import 'screens/scores_screen.dart';
 import 'screens/settings_screen.dart';
@@ -45,20 +48,30 @@ void main() async {
   final settings = AppSettings();
   await settings.load();
 
-  // ✅ SharedPreferences & セッション移行（非同期）
+  // Finish migration before the home screen can probe the same active session.
   final prefs = await SharedPreferences.getInstance();
-  unawaited(Future.microtask(() async {
+  try {
     await QuizSessionLocalRepository(prefs).migrateIfNeeded();
-  }));
+  } catch (error) {
+    debugPrint('Session migration deferred: $error');
+  }
 
   // ✅ DeckLoaderをバックグラウンド初期化
-  Future.delayed(const Duration(milliseconds: 500), () {
-    DeckLoader.instance();
+  Future.delayed(const Duration(milliseconds: 500), () async {
+    try {
+      await DeckLoader.instance();
+    } catch (error) {
+      debugPrint('Deck preload deferred: $error');
+    }
   });
 
   // ★ 起動後にサイレント自動是正：所有済みなのに未選択なら自動割当→確定
   unawaited(Future.microtask(() async {
-    await PurchaseStore.autoAssignFivePackIfOwnedAndEmpty();
+    try {
+      await PurchaseStore.autoAssignFivePackIfOwnedAndEmpty();
+    } catch (error) {
+      debugPrint('Purchase selection repair deferred: $error');
+    }
   }));
 
   // ★ スクショ用：全単元解放
@@ -92,8 +105,10 @@ class MyApp extends StatelessWidget {
       locale: const Locale('ja', 'JP'),
       supportedLocales: const [Locale('ja', 'JP'), Locale('en')],
       localizationsDelegates: const [
+        // ignore: deprecated_member_use
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        // ignore: deprecated_member_use
         GlobalCupertinoLocalizations.delegate,
       ],
 
@@ -294,13 +309,17 @@ class _HomeScreenState extends State<HomeScreen> {
   // 起動／復帰時に「続きから」可能かチェック
   Future<void> _checkResume() async {
     if (_isResuming) return; // 遷移中は覗かない
-    final prefs = await SharedPreferences.getInstance();
-    final repo = QuizSessionLocalRepository(prefs);
-    await repo.migrateIfNeeded(); // ← これを追加
-    final active = await repo.loadActive();
-    AppLog.d('[RESUME] probe: ${active == null ? "none" : "exists"}');
-    if (!mounted) return;
-    setState(() => _canResume = active != null);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final repo = QuizSessionLocalRepository(prefs);
+      await repo.migrateIfNeeded();
+      final active = await repo.loadActive();
+      AppLog.d('[RESUME] probe: ${active == null ? "none" : "exists"}');
+      if (!mounted) return;
+      setState(() => _canResume = active != null);
+    } catch (error) {
+      AppLog.w('Resume check deferred; original data retained: $error');
+    }
   }
 
   // 「続きから」押下時
@@ -366,6 +385,7 @@ class _HomeScreenState extends State<HomeScreen> {
         AppLog.d('[RESUME] navigate deck=${deck.id} len=${active.itemIds.length}');
       }
 
+      if (!mounted) return;
       await Navigator.push(
         context,
         MaterialPageRoute(
@@ -520,6 +540,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
 
                       const SizedBox(height: 24),
+
+                      // 定期テスト対策：学校の範囲を自分で指定
+                      _DeckLikeButton(
+                        leadingIcon: Icons.fact_check_outlined,
+                        title: '定期テスト対策',
+                        subtitle: '単元を選んで4択・穴埋め・○×・短答記述を出題',
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (_) => ExamSetupScreen(decks: decks),
+                          ),
+                        ),
+                        style: DeckButtonStyle.tonal,
+                      ),
+                      const SizedBox(height: 16),
 
                       // ミックス練習（＝単元カードと同じ見た目）
                       _DeckLikeButton(
@@ -730,14 +764,14 @@ class _DeckLikeButton extends StatelessWidget {
     final BoxDecoration normalDecoration = BoxDecoration(
       color: theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: theme.colorScheme.outline.withOpacity(0.12)),
+      border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.12)),
       boxShadow: const [BoxShadow(blurRadius: 12, offset: Offset(0, 2), color: Color(0x1A000000))],
     );
 
     final BoxDecoration tonalDecoration = BoxDecoration(
-      color: theme.colorScheme.primaryContainer.withOpacity(0.5),
+      color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: theme.colorScheme.primary.withOpacity(0.07), width: 1.0),
+      border: Border.all(color: theme.colorScheme.primary.withValues(alpha: 0.07), width: 1.0),
       boxShadow: const [BoxShadow(blurRadius: 10, offset: Offset(0, 2), color: Color(0x12000000))],
     );
 
@@ -746,9 +780,9 @@ class _DeckLikeButton extends StatelessWidget {
     if (disabled) {
       decoration = (isTonal ? tonalDecoration : normalDecoration).copyWith(
         color: isTonal
-            ? theme.colorScheme.primaryContainer.withOpacity(0.22)
-            : theme.colorScheme.surfaceVariant, // 少しグレー
-        border: Border.all(color: theme.colorScheme.outlineVariant.withOpacity(0.6)),
+            ? theme.colorScheme.primaryContainer.withValues(alpha: 0.22)
+            : theme.colorScheme.surfaceContainerHighest, // 少しグレー
+        border: Border.all(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.6)),
         boxShadow: const [], // 影を弱める/なし
       );
     } else {
@@ -762,14 +796,14 @@ class _DeckLikeButton extends StatelessWidget {
     final titleStyle = theme.textTheme.titleMedium?.copyWith(
       fontWeight: FontWeight.w600,
       color: disabled
-          ? theme.colorScheme.onSurface.withOpacity(0.38) // Materialの無効色
+          ? theme.colorScheme.onSurface.withValues(alpha: 0.38) // Materialの無効色
           : (isTonal ? theme.colorScheme.onPrimaryContainer : null),
     );
 
     final subtitleStyle = theme.textTheme.bodySmall?.copyWith(
       color: disabled
-          ? theme.colorScheme.onSurface.withOpacity(0.38)
-          : (isTonal ? theme.colorScheme.onPrimaryContainer.withOpacity(0.8) : null),
+          ? theme.colorScheme.onSurface.withValues(alpha: 0.38)
+          : (isTonal ? theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.8) : null),
     );
 
     return InkWell(

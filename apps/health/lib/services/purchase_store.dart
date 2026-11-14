@@ -26,7 +26,8 @@ class PurchaseStore {
 // ========== Pro ==========
   static Future<bool> isPro() async {
     // ★ スクショ撮影用：ビルド時フラグで Pro 扱いにする
-    const screenshotMode = bool.fromEnvironment('SCREENSHOT_MODE', defaultValue: false);
+    const screenshotMode =
+        bool.fromEnvironment('SCREENSHOT_MODE', defaultValue: false);
     if (screenshotMode) return true; // ← スクショ用フラグ時のみ Pro 扱い
 
     final sp = await SharedPreferences.getInstance();
@@ -36,7 +37,7 @@ class PurchaseStore {
   static Future<bool> getPro() => isPro();
   static Future<void> setPro(bool v) async {
     final sp = await SharedPreferences.getInstance();
-    await sp.setBool(_kPro, v);
+    await _write(sp, () => sp.setBool(_kPro, v));
   }
 
   // ========== Decks（単体デッキの所有）==========
@@ -44,9 +45,6 @@ class PurchaseStore {
     final sp = await SharedPreferences.getInstance();
     final list = sp.getStringList(_kDecks) ?? <String>[];
     final norm = _normalizeDeckIds(list);
-    if (!_listEquals(list, norm)) {
-      await sp.setStringList(_kDecks, norm);
-    }
     return norm;
   }
 
@@ -59,7 +57,7 @@ class PurchaseStore {
     final sp = await SharedPreferences.getInstance();
     final cur = sp.getStringList(_kDecks) ?? <String>[];
     final merged = _normalizeDeckIds([...cur, ...deckIds]);
-    await sp.setStringList(_kDecks, merged);
+    await _write(sp, () => sp.setStringList(_kDecks, merged));
   }
 
   static Future<bool> isDeckOwned(String deckId) async {
@@ -75,7 +73,7 @@ class PurchaseStore {
 
   static Future<void> setFivePackOwned(bool v) async {
     final sp = await SharedPreferences.getInstance();
-    await sp.setBool(_kFivePackOwned, v);
+    await _write(sp, () => sp.setBool(_kFivePackOwned, v));
   }
 
   /// 現在選択されている deckId セット（初回は旧unit保存から自動移行）
@@ -89,7 +87,8 @@ class PurchaseStore {
     }
 
     // 無ければレガシー（unit版）から移行
-    final legacyUnits = sp.getStringList(_kFivePackUnitsLegacy) ?? const <String>[];
+    final legacyUnits =
+        sp.getStringList(_kFivePackUnitsLegacy) ?? const <String>[];
     if (legacyUnits.isEmpty) return <String>{};
 
     // DeckLoader が未初期化の可能性があるので念のためロード
@@ -105,8 +104,13 @@ class PurchaseStore {
     }
 
     final normalized = _normalizeDeckIds(migrated);
-    await sp.setStringList(_kFivePackDecks, normalized);
-    await sp.remove(_kFivePackUnitsLegacy);
+    // Keep the original selection available if a migration write fails.
+    // Resolving a durable legacy entitlement must also work offline.
+    try {
+      await _write(sp, () => sp.setStringList(_kFivePackDecks, normalized));
+    } catch (_) {
+      // The legacy key remains the source of this already-owned selection.
+    }
     return normalized.toSet();
   }
 
@@ -120,13 +124,14 @@ class PurchaseStore {
         .take(fivePackLimit)
         .toList()
       ..sort();
-    await sp.setStringList(_kFivePackDecks, trimmed);
+    await _write(sp, () => sp.setStringList(_kFivePackDecks, trimmed));
   }
 
   static Future<void> clearFivePackDecks() async {
     final sp = await SharedPreferences.getInstance();
-    await sp.remove(_kFivePackDecks);
-    await sp.remove(_kFivePackStaged);
+    await _write(sp, () => sp.remove(_kFivePackDecks));
+    await _write(sp, () => sp.remove(_kFivePackStaged));
+    await _write(sp, () => sp.remove(_kFivePackUnitsLegacy));
   }
 
   // ========== 自動是正（ここが肝） ==========
@@ -150,9 +155,12 @@ class PurchaseStore {
       if (id.isNotEmpty) allDeckIds.add(id);
     }
 
-    final alreadyOwned = (await ownedDeckIds()).toSet().map((e) => e.toLowerCase()).toSet();
-    final candidates =
-        allDeckIds.where((id) => !alreadyOwned.contains(id)).take(fivePackLimit).toSet();
+    final alreadyOwned =
+        (await ownedDeckIds()).toSet().map((e) => e.toLowerCase()).toSet();
+    final candidates = allDeckIds
+        .where((id) => !alreadyOwned.contains(id))
+        .take(fivePackLimit)
+        .toSet();
     if (candidates.isEmpty) return; // 何も割り当てられない状況（全所有など）+
     await setFivePackDecks(candidates);
   }
@@ -185,7 +193,8 @@ class PurchaseStore {
   /// - SCREENSHOT_MODE=true のときのみ動作
   /// - SharedPreferences の ownedDeckIds に全 deckId を登録
   static Future<void> screenshotUnlockAllIfNeeded() async {
-    const screenshotMode = bool.fromEnvironment('SCREENSHOT_MODE', defaultValue: false);
+    const screenshotMode =
+        bool.fromEnvironment('SCREENSHOT_MODE', defaultValue: false);
     if (!screenshotMode) return;
 
     // Deck 一覧を取得
@@ -212,11 +221,16 @@ class PurchaseStore {
   // ========== デバッグ用：全消去 ==========
   static Future<void> clearAll() async {
     final sp = await SharedPreferences.getInstance();
-    await sp.remove(_kPro);
-    await sp.remove(_kDecks);
-    await sp.remove(_kFivePackOwned);
-    await sp.remove(_kFivePackDecks);
-    await sp.remove(_kFivePackUnitsLegacy);
+    for (final key in [
+      _kPro,
+      _kDecks,
+      _kFivePackOwned,
+      _kFivePackDecks,
+      _kFivePackUnitsLegacy,
+      _kFivePackStaged
+    ]) {
+      await _write(sp, () => sp.remove(key));
+    }
   }
 
   // ========== 内部ユーティリティ ==========
@@ -231,12 +245,15 @@ class PurchaseStore {
     return list; // 重複排除 & 小文字化 & ソート
   }
 
-  static bool _listEquals(List<String> a, List<String> b) {
-    if (identical(a, b)) return true;
-    if (a.length != b.length) return false;
-    for (var i = 0; i < a.length; i++) {
-      if (a[i] != b[i]) return false;
+  static Future<void> _write(
+      SharedPreferences prefs, Future<bool> Function() write) async {
+    try {
+      if (!await write()) throw StateError('Failed to persist purchase rights');
+    } catch (_) {
+      // SharedPreferences updates its memory cache before the platform write.
+      // Do not expose rights that failed to reach durable storage.
+      await prefs.reload();
+      rethrow;
     }
-    return true;
   }
 }

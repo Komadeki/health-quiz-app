@@ -85,10 +85,11 @@ class InAppPurchaseGateway implements engine.PurchaseGateway {
 
   @override
   Future<void> complete(engine.PurchaseResult result) async {
-    final purchase = _pendingCompletions.remove(result.eventId);
+    final purchase = _pendingCompletions[result.eventId];
     if (purchase != null && purchase.pendingCompletePurchase) {
       await _iap.completePurchase(purchase);
     }
+    _pendingCompletions.remove(result.eventId);
   }
 
   Future<void> dispose() async {

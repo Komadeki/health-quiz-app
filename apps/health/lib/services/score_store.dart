@@ -6,7 +6,7 @@ import 'attempt_store.dart';
 
 /// 成績（ScoreRecord）のストア（互換 + アダプタ）
 /// - 読み込み: AttemptStore(scores_v2) + 旧キー(scores.v2 / scores.v1)をマージして返す
-/// - 書き込み/削除: AttemptStore に委譲（旧キーは読み取り専用）
+/// - 書き込み: AttemptStore に委譲。削除は旧キーにも反映。
 /// - エクスポート: マージ結果を配列JSON（従来形式）で返す（互換維持）
 /// - インポート: 配列JSONを個別に AttemptStore へ追加（失敗時のみ AttemptStore のimportへ）
 class ScoreStore {
@@ -15,6 +15,7 @@ class ScoreStore {
 
   ScoreStore._();
   static final ScoreStore instance = ScoreStore._();
+  Future<void>? _legacyWrites;
 
   /// 新しい順の一覧（AttemptStore + 旧キーをマージ）
   Future<List<ScoreRecord>> loadAll() => listAll();
@@ -55,8 +56,8 @@ class ScoreStore {
           final r = (item is Map<String, dynamic>)
               ? _fromV1(item)
               : (item is Map)
-              ? _fromV1(Map<String, dynamic>.from(item))
-              : null;
+                  ? _fromV1(Map<String, dynamic>.from(item))
+                  : null;
           if (r != null) {
             merged.putIfAbsent(r.id, () => r);
           }
@@ -78,12 +79,12 @@ class ScoreStore {
   }
 
   /// 全削除（AttemptStore も旧キーもクリア）
-  Future<void> clearAll() async {
-    await AttemptStore().clearScores();
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_kKeyV2);
-    await prefs.remove(_kKeyV1);
-  }
+  Future<void> clearAll() => _serializeLegacyWrite(() async {
+        await AttemptStore().clearScores();
+        final prefs = await SharedPreferences.getInstance();
+        await _checkedWrite(prefs, () => prefs.remove(_kKeyV2));
+        await _checkedWrite(prefs, () => prefs.remove(_kKeyV1));
+      });
 
   /// エクスポート（従来通り: 配列JSON）
   Future<String> exportJson() async {
@@ -138,8 +139,7 @@ class ScoreStore {
       if (tsRaw is int) {
         tsMs = tsRaw;
       } else if (tsRaw is String) {
-        tsMs =
-            DateTime.tryParse(tsRaw)?.millisecondsSinceEpoch ??
+        tsMs = DateTime.tryParse(tsRaw)?.millisecondsSinceEpoch ??
             DateTime.now().millisecondsSinceEpoch;
       } else if (tsRaw is DateTime) {
         tsMs = tsRaw.millisecondsSinceEpoch;
@@ -169,20 +169,46 @@ class ScoreStore {
   }
 
   /// 1件削除（id指定）
-  Future<void> delete(String id) async {
-    final all = await loadAll();
-    final before = all.length;
-    all.removeWhere((e) => e.id == id);
-    if (all.length != before) {
-      // AttemptStore に反映（AttemptStore でも削除）
-      await AttemptStore().clearScores();
-      for (final r in all) {
-        await AttemptStore().addScore(r);
-      }
+  Future<void> delete(String id) => _serializeLegacyWrite(() async {
+        await AttemptStore().removeScore(id);
+        final prefs = await SharedPreferences.getInstance();
+        // Retain each original representation and every unrelated item. A failed
+        // write can leave the requested record visible for retry, never erase peers.
+        for (final key in [_kKeyV2, _kKeyV1]) {
+          final raw = prefs.getString(key);
+          if (raw == null || raw.isEmpty) continue;
+          final items = jsonDecode(raw) as List<dynamic>;
+          final remaining = items.where((item) {
+            if (item is! Map) return true;
+            final map = Map<String, dynamic>.from(item);
+            if (key == _kKeyV1) return _fromV1(map)?.id != id;
+            return map['id']?.toString() != id;
+          }).toList();
+          if (remaining.length != items.length) {
+            await _checkedWrite(
+                prefs, () => prefs.setString(key, jsonEncode(remaining)));
+          }
+        }
+      });
 
-      // SharedPreferences 旧キーも再保存（互換性のため）
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_kKeyV2, ScoreRecord.encodeList(all));
+  Future<void> _serializeLegacyWrite(Future<void> Function() write) {
+    final operation =
+        (_legacyWrites ?? Future<void>.value()).then((_) => write());
+    final barrier = operation.then<void>((_) {}, onError: (Object _) {});
+    _legacyWrites = barrier;
+    barrier.whenComplete(() {
+      if (identical(_legacyWrites, barrier)) _legacyWrites = null;
+    });
+    return operation;
+  }
+
+  Future<void> _checkedWrite(
+      SharedPreferences prefs, Future<bool> Function() write) async {
+    try {
+      if (!await write()) throw StateError('Failed to update legacy scores');
+    } catch (_) {
+      await prefs.reload();
+      rethrow;
     }
   }
 }
