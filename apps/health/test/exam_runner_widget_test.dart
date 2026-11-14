@@ -17,6 +17,32 @@ import 'exam_session_store_test.dart' show FailingPreferences;
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  testWidgets('backgrounding during the result transition keeps exam completed',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    const questions = [
+      ExamQuestion(
+          id: 'q',
+          unitId: 'u',
+          question: '完了確認',
+          type: ExamQuestionType.trueFalse,
+          answer: '○',
+          explanation: '解説')
+    ];
+    await tester.pumpWidget(const MaterialApp(
+        home: ExamRunnerScreen(questions: questions, unitTitles: {'u': '単元'})));
+    await tester.tap(find.text('○'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('採点する'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 20));
+    expect(find.byType(ExamResultScreen), findsOneWidget);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    await tester.pumpAndSettle();
+    expect(await ExamSessionStore().loadActive(), isNull);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+  });
+
   testWidgets(
       'cannot leave an unsaved submitted exam until checkpoint succeeds',
       (tester) async {

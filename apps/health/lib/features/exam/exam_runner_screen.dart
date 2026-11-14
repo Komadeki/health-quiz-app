@@ -160,6 +160,9 @@ class _ExamRunnerScreenState extends State<ExamRunnerScreen>
       }
       await ensureExamAccess(_session.questions);
       await _store.finish(_session);
+      // The outgoing route lives until its transition finishes. Backgrounding
+      // during that transition must not recreate an already-cleared active exam.
+      WidgetsBinding.instance.removeObserver(this);
       if (!mounted) return;
       Navigator.of(context).pushReplacement(MaterialPageRoute<void>(
           builder: (_) => ExamResultScreen(session: _session)));
