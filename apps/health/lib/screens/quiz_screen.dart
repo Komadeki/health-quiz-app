@@ -2,13 +2,16 @@
 // Retain Flutter 3.47 compatibility while Flutter 3.50 deprecates this import.
 // ignore: deprecated_member_use
 import 'package:flutter/material.dart';
+
 import '../models/deck.dart';
 import '../models/card.dart';
 import '../models/quiz_card_ext.dart'; // ← withChoiceOrder 拡張
 import '../models/score_record.dart';
 import 'result_screen.dart';
+
 import 'package:uuid/uuid.dart';
 import 'package:provider/provider.dart';
+
 import '../services/app_settings.dart';
 import '../services/deck_loader.dart';
 import '../services/attempt_store.dart';
@@ -21,6 +24,7 @@ import '../utils/stable_id.dart';
 
 // ★ セッション保存/再開
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/quiz_session.dart';
 import '../data/quiz_session_local_repository.dart';
 
@@ -169,9 +173,7 @@ class _QuizScreenState extends State<QuizScreen> {
       return true;
     } catch (error) {
       AppLog.w('[RESUME] incomplete history: $error');
-      await _failAndPreserve(
-        '前回の正答記録を確認できません。誤った点数を出さないため、途中経過を保持しています。',
-      );
+      await _failAndPreserve('前回の正答記録を確認できません。誤った点数を出さないため、途中経過を保持しています。');
       return false;
     }
   }
@@ -250,7 +252,8 @@ class _QuizScreenState extends State<QuizScreen> {
       };
 
       // Real deck for a single-unit practice; fake decks remain mixed.
-      final special = widget.type == 'review_test' ||
+      final special =
+          widget.type == 'review_test' ||
           widget.type == 'retry_wrong' ||
           widget.type == 'wrong_only';
       _deckIdForSave = !special && unitIdsSet.length == 1 && deckSet.length == 1
@@ -349,8 +352,9 @@ class _QuizScreenState extends State<QuizScreen> {
       _id2card = {for (final c in base) stableIdForOriginal(c): c};
 
       // 3) 欠損チェック
-      final missing =
-          s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
+      final missing = s.itemIds
+          .where((id) => !_id2card.containsKey(id))
+          .toList();
       if (missing.isNotEmpty) {
         AppLog.d(
           '[RESUME][MISSING] deck=mixed missing=${missing.length} sample=${missing.take(5).toList()}',
@@ -372,9 +376,11 @@ class _QuizScreenState extends State<QuizScreen> {
           return;
         }
         final tmp = <int>[];
-        sequence.add(ord == null
-            ? _shuffledWithOrder(orig, outOrder: tmp)
-            : orig.withChoiceOrder(ord));
+        sequence.add(
+          ord == null
+              ? _shuffledWithOrder(orig, outOrder: tmp)
+              : orig.withChoiceOrder(ord),
+        );
         _choiceOrders[id] = List<int>.from(ord ?? tmp);
       }
 
@@ -541,12 +547,12 @@ class _QuizScreenState extends State<QuizScreen> {
           deckId: _deckIdForSave, // 通常 deck.id
           unitId:
               widget.overrideCards != null && widget.overrideCards!.isNotEmpty
-                  ? _unitIdOf(widget.overrideCards!.first)
-                  : null,
+              ? _unitIdOf(widget.overrideCards!.first)
+              : null,
           selectedUnitIds:
               widget.overrideCards != null && widget.overrideCards!.isNotEmpty
-                  ? [_unitIdOf(widget.overrideCards!.first)]
-                  : null,
+              ? [_unitIdOf(widget.overrideCards!.first)]
+              : null,
           limit: null,
           itemIds: _stableOrder,
           currentIndex: 0,
@@ -590,8 +596,9 @@ class _QuizScreenState extends State<QuizScreen> {
       };
 
       // a) 欠損チェック
-      final missing =
-          s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
+      final missing = s.itemIds
+          .where((id) => !_id2card.containsKey(id))
+          .toList();
       if (missing.isNotEmpty) {
         AppLog.d(
           '[RESUME][MISSING] deck=${s.deckId} missing=${missing.length} '
@@ -618,9 +625,11 @@ class _QuizScreenState extends State<QuizScreen> {
           return;
         }
         final tmp = <int>[];
-        sequence.add(ord == null
-            ? _shuffledWithOrder(orig, outOrder: tmp)
-            : orig.withChoiceOrder(ord));
+        sequence.add(
+          ord == null
+              ? _shuffledWithOrder(orig, outOrder: tmp)
+              : orig.withChoiceOrder(ord),
+        );
         _choiceOrders[id] = List<int>.from(ord ?? tmp);
       }
 
@@ -788,8 +797,9 @@ class _QuizScreenState extends State<QuizScreen> {
         final Map<String, String> deckTitleMap = {};
         final Map<String, String> unitTitleMap = {};
         for (final d in decks) {
-          deckTitleMap[d.id.trim()] =
-              d.title.trim().isNotEmpty ? d.title.trim() : d.id.trim();
+          deckTitleMap[d.id.trim()] = d.title.trim().isNotEmpty
+              ? d.title.trim()
+              : d.id.trim();
           for (final u in (d.units)) {
             final uid = u.id.trim();
             final ut = u.title.trim();
@@ -800,16 +810,18 @@ class _QuizScreenState extends State<QuizScreen> {
         // ★★★ ここから：タイトル自動整理（デッキ跨ぎベース版）★★★
         String deckTitleById(String id) =>
             (deckTitleMap[id]?.trim().isNotEmpty ?? false)
-                ? deckTitleMap[id]!.trim()
-                : id;
+            ? deckTitleMap[id]!.trim()
+            : id;
 
         // 1) 今回出題したユニットIDを sequence から収集
         List<String> unitIdsForThisRun = [];
         if (_unitCount.isNotEmpty) {
           unitIdsForThisRun = _unitCount.keys.toList();
         } else if (sequence.isNotEmpty) {
-          unitIdsForThisRun =
-              sequence.map((c) => _unitIdOf(c)).toSet().toList();
+          unitIdsForThisRun = sequence
+              .map((c) => _unitIdOf(c))
+              .toSet()
+              .toList();
         } else if ((_selectedUnitIdsForSave?.isNotEmpty ?? false)) {
           unitIdsForThisRun = List<String>.from(_selectedUnitIdsForSave!);
         }
@@ -849,7 +861,8 @@ class _QuizScreenState extends State<QuizScreen> {
           titleForScore = crossDeck
               ? 'ミックス練習'
               : deckTitleById(
-                  deckSet.isNotEmpty ? deckSet.first : widget.deck.id);
+                  deckSet.isNotEmpty ? deckSet.first : widget.deck.id,
+                );
         }
         // ★★★ ここまで：タイトル自動整理 ★★★
 
@@ -857,14 +870,17 @@ class _QuizScreenState extends State<QuizScreen> {
         final Map<String, TagStat> tagStats = {};
         final allKeys = <String>{..._tagCorrect.keys, ..._tagWrong.keys};
         for (final k in allKeys) {
-          tagStats[k] =
-              TagStat(correct: _tagCorrect[k] ?? 0, wrong: _tagWrong[k] ?? 0);
+          tagStats[k] = TagStat(
+            correct: _tagCorrect[k] ?? 0,
+            wrong: _tagWrong[k] ?? 0,
+          );
         }
 
         // スコア保存
         try {
           debugPrint(
-              '[SCORE] save sid=$_sessionId total=${sequence.length} correct=$correctCount');
+            '[SCORE] save sid=$_sessionId total=${sequence.length} correct=$correctCount',
+          );
 
           await ScoreSaver.save(
             ScoreRecord(
@@ -965,13 +981,20 @@ class _QuizScreenState extends State<QuizScreen> {
       );
     }
 
-    final isCorrect = revealed && selected == card.answerIndex;
+    final savedAnswer = _answersForSave[_stableOrder[index]];
+    final isCorrect =
+        revealed &&
+        (_lastProcessedIndex == index && savedAnswer is Map
+            ? savedAnswer['isCorrect'] == true
+            : selected == card.answerIndex);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('問題 ${index + 1}/${sequence.length}'),
         bottom: PreferredSize(
-            preferredSize: Size.fromHeight(6), child: _ProgressBar()),
+          preferredSize: Size.fromHeight(6),
+          child: _ProgressBar(),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -991,13 +1014,17 @@ class _QuizScreenState extends State<QuizScreen> {
                       Text(
                         card.question,
                         style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       const SizedBox(height: 16),
 
                       // 選択肢
                       ...List.generate(
-                          card.choices.length, (i) => _buildChoice(i)),
+                        card.choices.length,
+                        (i) => _buildChoice(i),
+                      ),
 
                       const SizedBox(height: 12),
 
@@ -1014,14 +1041,19 @@ class _QuizScreenState extends State<QuizScreen> {
                           ).animate(animation);
                           return FadeTransition(
                             opacity: animation,
-                            child:
-                                SlideTransition(position: slide, child: child),
+                            child: SlideTransition(
+                              position: slide,
+                              child: child,
+                            ),
                           );
                         },
-                        child: (revealed &&
+                        child:
+                            (revealed &&
                                 (card.explanation ?? '').trim().isNotEmpty)
                             ? _ExplanationCard(
-                                index: index, text: card.explanation!)
+                                index: index,
+                                text: card.explanation!,
+                              )
                             : const SizedBox.shrink(key: ValueKey('exp-empty')),
                       ),
 
@@ -1088,8 +1120,9 @@ class _QuizScreenState extends State<QuizScreen> {
     } else if (isSelected) {
       bg = Theme.of(context).colorScheme.primary.withValues(alpha: 0.9);
     }
-    final fg =
-        (revealed && (isAnswer || isSelected)) ? Colors.white : Colors.black87;
+    final fg = (revealed && (isAnswer || isSelected))
+        ? Colors.white
+        : Colors.black87;
 
     IconData? trail;
     if (revealed) {
@@ -1163,7 +1196,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 ),
                 if (trail != null) ...[
                   const SizedBox(width: 10),
-                  Icon(trail, color: fg, size: 22)
+                  Icon(trail, color: fg, size: 22),
                 ],
               ],
             ),
@@ -1204,9 +1237,7 @@ class _ExplanationCard extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            color: Theme.of(context)
-                .colorScheme
-                .surfaceContainerHighest
+            color: Theme.of(context).colorScheme.surfaceContainerHighest
                 .withValues(alpha: 0.4),
             child: Row(
               children: [
@@ -1214,11 +1245,7 @@ class _ExplanationCard extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   '解説',
-                  style: Theme.of(
-                    context,
-                  )
-                      .textTheme
-                      .titleMedium
+                  style: Theme.of(context).textTheme.titleMedium
                       ?.copyWith(fontWeight: FontWeight.w600),
                 ),
               ],
@@ -1228,9 +1255,7 @@ class _ExplanationCard extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
             child: Text(
               text.trim(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
+              style: Theme.of(context).textTheme.bodyMedium
                   ?.copyWith(fontSize: 18, height: 1.5),
             ),
           ),
@@ -1248,7 +1273,8 @@ class _ProgressBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.findAncestorStateOfType<_QuizScreenState>();
-    final value = (state == null ||
+    final value =
+        (state == null ||
             !state._initReady ||
             state._abortAndPop ||
             state.sequence.isEmpty)
