@@ -20,6 +20,7 @@ class AttemptStore {
   AttemptStore._();
   static final AttemptStore _i = AttemptStore._();
   factory AttemptStore() => _i;
+  static Future<void>? _scoreWrites;
 
   // ===== stableIdベースの新API（見直しモード／復習テスト用） =====
 
@@ -496,7 +497,7 @@ class AttemptStore {
   // ScoreRecord（★新機能） — 1回の結果サマリ（unitBreakdown 含む）
   // ===========================================================================
 
-  Future<List<ScoreRecord>> loadScores() async {
+  Future<List<ScoreRecord>> loadScores({bool requireValid = false}) async {
     final prefs = await SharedPreferences.getInstance();
     final raw = prefs.getString(kScores);
     if (raw == null || raw.isEmpty) return [];
@@ -504,6 +505,7 @@ class AttemptStore {
       return ScoreRecord.decodeList(raw);
     } catch (e) {
       AppLog.w('[AttemptStore] loadScores decode failed: $e');
+      if (requireValid) throw StateError('Stored scores need recovery');
       return [];
     }
   }
@@ -515,33 +517,53 @@ class AttemptStore {
       if (!ok) throw StateError('Failed to persist scores');
     } catch (e) {
       AppLog.w('[AttemptStore] saveScores failed: $e');
+      await prefs.reload();
       rethrow;
     }
   }
 
   /// 成績サマリを追加/更新（sessionId で upsert）
-  Future<void> addScore(ScoreRecord record, {int? retention}) async {
-    final all = await loadScores();
+  Future<void> addScore(ScoreRecord record, {int? retention}) =>
+      _serializeScoreWrite(() async {
+        final all = await loadScores(requireValid: true);
 
-    // ★ 同じ sessionId があれば置き換え（なければ追加）
-    // Old records may lack sessionId. Never overwrite an unrelated history
-    // record just because both session IDs are null.
-    final idx = (record.sessionId?.isNotEmpty ?? false)
-        ? all.indexWhere((e) => e.sessionId == record.sessionId)
-        : all.indexWhere((e) => e.id == record.id);
-    if (idx >= 0) {
-      all[idx] = record;
-    } else {
-      all.add(record);
-    }
+        // ★ 同じ sessionId があれば置き換え（なければ追加）
+        // Old records may lack sessionId. Never overwrite an unrelated history
+        // record just because both session IDs are null.
+        final idx = (record.sessionId?.isNotEmpty ?? false)
+            ? all.indexWhere((e) => e.sessionId == record.sessionId)
+            : all.indexWhere((e) => e.id == record.id);
+        if (idx >= 0) {
+          all[idx] = record;
+        } else {
+          all.add(record);
+        }
 
-    // 任意の保持上限
-    final cap = retention ?? 0;
-    if (cap > 0 && all.length > cap) {
-      all.removeRange(0, all.length - cap);
-    }
+        // 任意の保持上限
+        final cap = retention ?? 0;
+        if (cap > 0 && all.length > cap) {
+          all.removeRange(0, all.length - cap);
+        }
 
-    await _saveScores(all);
+        await _saveScores(all);
+      });
+
+  /// A deletion replaces the collection once; it never clears other results.
+  Future<void> removeScore(String id) => _serializeScoreWrite(() async {
+        final all = await loadScores(requireValid: true);
+        all.removeWhere((record) => record.id == id);
+        await _saveScores(all);
+      });
+
+  Future<T> _serializeScoreWrite<T>(Future<T> Function() write) {
+    final operation =
+        (_scoreWrites ?? Future<void>.value()).then((_) => write());
+    final barrier = operation.then<void>((_) {}, onError: (Object _) {});
+    _scoreWrites = barrier;
+    barrier.whenComplete(() {
+      if (identical(_scoreWrites, barrier)) _scoreWrites = null;
+    });
+    return operation;
   }
 
   /// 新しいものから最大 limit 件
@@ -557,10 +579,7 @@ class AttemptStore {
   }
 
   /// ScoreRecord 全削除
-  Future<void> clearScores() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(kScores);
-  }
+  Future<void> clearScores() => _serializeScoreWrite(() => _saveScores([]));
 
   /// ScoreRecord のバックアップ
   Future<String> exportScoresJson() async {
@@ -590,15 +609,14 @@ class AttemptStore {
         }
       }
 
-      final existing = await loadScores();
-
-      // 重複判定: id をキーに簡易去重（id が空の可能性は基本なし）
-      final ids = existing.map((e) => e.id).toSet();
-      final toAdd = items.where((e) => !ids.contains(e.id)).toList();
-
-      existing.addAll(toAdd);
-      await _saveScores(existing);
-      return toAdd.length;
+      return await _serializeScoreWrite(() async {
+        final existing = await loadScores(requireValid: true);
+        final ids = existing.map((e) => e.id).toSet();
+        final toAdd = items.where((e) => ids.add(e.id)).toList();
+        existing.addAll(toAdd);
+        await _saveScores(existing);
+        return toAdd.length;
+      });
     } catch (e) {
       AppLog.w('[AttemptStore] importScores failed: $e');
       return 0;

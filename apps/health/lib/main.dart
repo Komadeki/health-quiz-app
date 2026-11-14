@@ -48,20 +48,30 @@ void main() async {
   final settings = AppSettings();
   await settings.load();
 
-  // ✅ SharedPreferences & セッション移行（非同期）
+  // Finish migration before the home screen can probe the same active session.
   final prefs = await SharedPreferences.getInstance();
-  unawaited(Future.microtask(() async {
+  try {
     await QuizSessionLocalRepository(prefs).migrateIfNeeded();
-  }));
+  } catch (error) {
+    debugPrint('Session migration deferred: $error');
+  }
 
   // ✅ DeckLoaderをバックグラウンド初期化
-  Future.delayed(const Duration(milliseconds: 500), () {
-    DeckLoader.instance();
+  Future.delayed(const Duration(milliseconds: 500), () async {
+    try {
+      await DeckLoader.instance();
+    } catch (error) {
+      debugPrint('Deck preload deferred: $error');
+    }
   });
 
   // ★ 起動後にサイレント自動是正：所有済みなのに未選択なら自動割当→確定
   unawaited(Future.microtask(() async {
-    await PurchaseStore.autoAssignFivePackIfOwnedAndEmpty();
+    try {
+      await PurchaseStore.autoAssignFivePackIfOwnedAndEmpty();
+    } catch (error) {
+      debugPrint('Purchase selection repair deferred: $error');
+    }
   }));
 
   // ★ スクショ用：全単元解放
@@ -299,13 +309,17 @@ class _HomeScreenState extends State<HomeScreen> {
   // 起動／復帰時に「続きから」可能かチェック
   Future<void> _checkResume() async {
     if (_isResuming) return; // 遷移中は覗かない
-    final prefs = await SharedPreferences.getInstance();
-    final repo = QuizSessionLocalRepository(prefs);
-    await repo.migrateIfNeeded(); // ← これを追加
-    final active = await repo.loadActive();
-    AppLog.d('[RESUME] probe: ${active == null ? "none" : "exists"}');
-    if (!mounted) return;
-    setState(() => _canResume = active != null);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final repo = QuizSessionLocalRepository(prefs);
+      await repo.migrateIfNeeded();
+      final active = await repo.loadActive();
+      AppLog.d('[RESUME] probe: ${active == null ? "none" : "exists"}');
+      if (!mounted) return;
+      setState(() => _canResume = active != null);
+    } catch (error) {
+      AppLog.w('Resume check deferred; original data retained: $error');
+    }
   }
 
   // 「続きから」押下時

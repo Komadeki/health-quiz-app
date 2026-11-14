@@ -57,7 +57,7 @@ class _ExamRunnerScreenState extends State<ExamRunnerScreen>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state != AppLifecycleState.resumed && !_session.submitted) _persist();
+    if (state != AppLifecycleState.resumed) _persist();
   }
 
   @override
@@ -113,7 +113,7 @@ class _ExamRunnerScreenState extends State<ExamRunnerScreen>
   Future<void> _leave() async {
     if (_busy) return;
     setState(() => _busy = true);
-    final saved = _session.submitted ? true : await _persist();
+    final saved = await _persist();
     if (!mounted) return;
     setState(() {
       _busy = false;

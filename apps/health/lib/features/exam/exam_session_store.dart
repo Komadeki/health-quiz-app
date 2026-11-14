@@ -13,12 +13,8 @@ class ExamSessionStore {
     final operation = (_pending ?? Future<void>.value()).then((_) async {
       final prefs = await SharedPreferences.getInstance();
       final raw = jsonEncode(session.toJson());
-      if (!await prefs.setString(sessionKey(session.id), raw)) {
-        throw StateError('Failed to save exam responses');
-      }
-      if (!await prefs.setString(activeKey, session.id)) {
-        throw StateError('Failed to save active exam');
-      }
+      await _write(prefs, () => prefs.setString(sessionKey(session.id), raw));
+      await _write(prefs, () => prefs.setString(activeKey, session.id));
     });
     final barrier = operation.then<void>((_) {}, onError: (Object _) {});
     _pending = barrier;
@@ -56,9 +52,7 @@ class ExamSessionStore {
     if (pending != null) await pending;
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString(activeKey) != expectedId) return;
-    if (!await prefs.remove(activeKey)) {
-      throw StateError('Failed to clear active exam');
-    }
+    await _write(prefs, () => prefs.remove(activeKey));
   }
 
   /// Preserve unreadable progress before allowing a new test.
@@ -74,12 +68,8 @@ class ExamSessionStore {
     });
     final key =
         'health_term_exam_recovery_v1__${DateTime.now().microsecondsSinceEpoch}';
-    if (!await prefs.setString(key, backup)) {
-      throw StateError('Failed to preserve unreadable progress');
-    }
-    if (!await prefs.remove(activeKey)) {
-      throw StateError('Failed to reset active exam');
-    }
+    await _write(prefs, () => prefs.setString(key, backup));
+    await _write(prefs, () => prefs.remove(activeKey));
   }
 
   Future<void> deleteResult(String id) async {
@@ -90,8 +80,16 @@ class ExamSessionStore {
         prefs.getString(activeKey) == id) {
       return;
     }
-    if (!await prefs.remove(sessionKey(id))) {
-      throw StateError('Failed to remove exam result');
+    await _write(prefs, () => prefs.remove(sessionKey(id)));
+  }
+
+  Future<void> _write(
+      SharedPreferences prefs, Future<bool> Function() write) async {
+    try {
+      if (!await write()) throw StateError('Failed to save exam data');
+    } catch (_) {
+      await prefs.reload();
+      rethrow;
     }
   }
 

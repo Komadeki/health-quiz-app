@@ -11,9 +11,59 @@ import 'package:health_quiz_app/features/exam/exam_session.dart';
 import 'package:health_quiz_app/features/exam/exam_setup_screen.dart';
 import 'package:health_quiz_app/services/deck_loader.dart';
 import 'package:health_quiz_app/services/score_store.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
+import 'exam_session_store_test.dart' show FailingPreferences;
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets(
+      'cannot leave an unsaved submitted exam until checkpoint succeeds',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final disk = FailingPreferences();
+    SharedPreferencesStorePlatform.instance = disk;
+    const questions = [
+      ExamQuestion(
+          id: 'q',
+          unitId: 'u',
+          question: '保存を確認',
+          type: ExamQuestionType.trueFalse,
+          answer: '○',
+          explanation: '解説')
+    ];
+    await tester.pumpWidget(MaterialApp(
+        home: Builder(
+            builder: (context) => Scaffold(
+                body: TextButton(
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                            builder: (_) => const ExamRunnerScreen(
+                                questions: questions,
+                                unitTitles: {'u': '単元'}))),
+                    child: const Text('Home'))))));
+    await tester.tap(find.text('Home'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('○'));
+    await tester.pumpAndSettle();
+    disk.failSnapshots = true;
+    await tester.tap(find.text('採点する'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    expect(find.byType(ExamRunnerScreen), findsOneWidget);
+    expect(find.text('途中経過を保存できませんでした。'), findsOneWidget);
+    disk.failSnapshots = false;
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    expect(find.text('Home'), findsOneWidget);
+    await (await SharedPreferences.getInstance()).reload();
+    final saved = (await ExamSessionStore().loadActive())!;
+    expect(saved.submitted, isTrue);
+    expect(saved.responses, {'q': '○'});
+    await ExamSessionStore().finish(saved);
+    expect(await ScoreStore.instance.loadAll(), hasLength(1));
+  });
 
   testWidgets('holds correctness until end and grades both formats',
       (tester) async {
