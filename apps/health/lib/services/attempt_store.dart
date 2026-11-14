@@ -512,9 +512,10 @@ class AttemptStore {
     final prefs = await SharedPreferences.getInstance();
     try {
       final ok = await prefs.setString(kScores, ScoreRecord.encodeList(items));
-      if (!ok) AppLog.w('[AttemptStore] persist scores failed');
+      if (!ok) throw StateError('Failed to persist scores');
     } catch (e) {
       AppLog.w('[AttemptStore] saveScores failed: $e');
+      rethrow;
     }
   }
 
