@@ -502,12 +502,15 @@
       "answer": "受動喫煙",
       "acceptedAnswers": [
         "じゅどうきつえん",
-        "間接喫煙"
+        "間接喫煙",
+        "不随意喫煙",
+        "二次喫煙"
       ],
       "explanation": "他人のたばこの煙を吸い込む受動喫煙でも、有害物質へのばく露が起こる。",
       "isPremium": false,
       "sourceUrls": [
-        "https://kennet.mhlw.go.jp/information/information/tobacco/t-05-004.html"
+        "https://kennet.mhlw.go.jp/information/information/tobacco/t-05-004.html",
+        "https://www.mhlw.go.jp/topics/tobacco/dl/fctc8_guideline.pdf"
       ],
       "sourceCheckedAt": "2026-11-15"
     },
