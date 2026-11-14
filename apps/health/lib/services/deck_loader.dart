@@ -1,7 +1,7 @@
 // lib/services/deck_loader.dart
 import 'dart:convert';
 import 'package:flutter/foundation.dart'; // compute 用（JSON decode のみ）
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart' show AssetManifest, rootBundle;
 
 import '../models/deck.dart';
 import '../models/card.dart';
@@ -35,6 +35,9 @@ class DeckLoader {
       _instance = loader;
       _pending = null;
       return loader;
+    }, onError: (Object error, StackTrace stack) {
+      _pending = null;
+      Error.throwWithStackTrace(error, stack);
     });
     _pending = fut;
     return fut;
@@ -233,10 +236,10 @@ class DeckLoader {
 
   /// AssetManifest から deck_*.json を列挙し、各 JSON を decode → Deck 化
   Future<List<Deck>> _loadDecksFromAssets() async {
-    final manifestJson = await rootBundle.loadString('AssetManifest.json');
-    final Map<String, dynamic> manifest = jsonDecode(manifestJson);
+    final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
 
-    final deckFiles = manifest.keys
+    final deckFiles = manifest
+        .listAssets()
         .where((p) => p.startsWith('assets/decks/') && p.endsWith('.json'))
         .where((p) => RegExp(r'assets/decks/deck_.*\.json$').hasMatch(p))
         .toList()
@@ -264,7 +267,9 @@ class DeckLoader {
         for (final u in units) {
           if (u is Map<String, dynamic>) {
             final uid = (u['id'] ?? u['unitId'] ?? u['unit_id'])?.toString();
-            final ut = (u['title'] ?? u['unit_title'] ?? u['name'] ?? u['unitTitle'])?.toString();
+            final ut =
+                (u['title'] ?? u['unit_title'] ?? u['name'] ?? u['unitTitle'])
+                    ?.toString();
             if (uid != null && uid.isNotEmpty && ut != null && ut.isNotEmpty) {
               unitTitleMap[uid] = ut.trim();
             }
@@ -294,5 +299,6 @@ class DeckLoader {
   }
 
   /// isolate 側で JSON decode
-  static Map<String, dynamic> _parseJsonToMap(String s) => jsonDecode(s) as Map<String, dynamic>;
+  static Map<String, dynamic> _parseJsonToMap(String s) =>
+      jsonDecode(s) as Map<String, dynamic>;
 }
