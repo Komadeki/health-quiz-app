@@ -137,4 +137,23 @@ void main() {
     );
     expect(result.correctCount, 2);
   });
+  test('legacy correctness remains valid through a second resume', () {
+    final first = restoreQuizProgress(
+      session: session(),
+      sequence: cards,
+      stableOrder: const ['a', 'b', 'c'],
+      attempts: [
+        attempt(number: 1, stableId: 'a', correct: true),
+        attempt(number: 2, stableId: 'b', correct: false)
+      ],
+    );
+    expect((first.answers['a'] as Map).containsKey('selectedIndex'), isFalse);
+    final second = restoreQuizProgress(
+      session: session(answers: first.answers),
+      sequence: cards,
+      stableOrder: const ['a', 'b', 'c'],
+      attempts: const [],
+    );
+    expect(second.correctCount, 1);
+  });
 }

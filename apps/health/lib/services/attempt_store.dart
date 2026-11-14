@@ -208,10 +208,11 @@ class AttemptStore {
         jsonEncode(normalized.map((e) => e.toMap()).toList()),
       );
       if (!ok) {
-        AppLog.w('[AttemptStore] persist failed');
+        throw StateError('Failed to persist answers');
       }
     } catch (e) {
       AppLog.w('[AttemptStore] saveAll failed: $e');
+      rethrow;
     }
   }
 
@@ -230,7 +231,13 @@ class AttemptStore {
       withId = withId.copyWith(stableId: _questionKey(withId.question));
     }
 
-    all.add(withId);
+    // A save retry uses the same attempt ID and replaces its checkpoint.
+    final existing = all.indexWhere((a) => a.attemptId == withId.attemptId);
+    if (existing < 0) {
+      all.add(withId);
+    } else {
+      all[existing] = withId;
+    }
 
     final cap = retention ?? defaultRetention;
     if (all.length > cap) {
@@ -251,11 +258,8 @@ class AttemptStore {
   /// 指定セッションの履歴（新→古）（既存）
   Future<List<AttemptEntry>> bySession(String sessionId) async {
     final all = await _loadAll();
-    final out = all
-        .where((e) => e.sessionId == sessionId)
-        .toList()
-        .reversed
-        .toList();
+    final out =
+        all.where((e) => e.sessionId == sessionId).toList().reversed.toList();
     debugPrint('[ATTEMPT/STORE] bySession sid=$sessionId -> ${out.length}');
     return out;
   }
@@ -708,8 +712,7 @@ class AttemptStore {
           final st = scoreTime(s);
           final ty = scoreType(s);
           // 取れない情報は「通す」（除外しない）→ sessions=0 を回避
-          final okType =
-              (types == null || types.isEmpty) ||
+          final okType = (types == null || types.isEmpty) ||
               (ty == null) ||
               types.contains(ty);
           final okFrom = (from == null) || (st == null) || st.isAfter(from);
@@ -799,18 +802,17 @@ class AttemptStore {
   /// 【メタ情報】誤答回数＋最新誤答時刻＋最新正誤を返す
   /// → 見直しモードで「並び替え／フィルタ」に利用予定
   Future<
-    Map<
-      String,
-      ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})
-    >
-  >
-  buildReviewMeta({List<String>? onlySessionIds, String? type}) async {
-    final all = await _loadAll();
-    final map =
-        <
+      Map<
           String,
-          ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})
-        >{};
+          ({
+            int wrongCount,
+            DateTime? latestWrongAt,
+            bool? latestWasCorrect
+          })>> buildReviewMeta(
+      {List<String>? onlySessionIds, String? type}) async {
+    final all = await _loadAll();
+    final map = <String,
+        ({int wrongCount, DateTime? latestWrongAt, bool? latestWasCorrect})>{};
 
     for (final e in all) {
       if (type != null && e.sessionType != type) continue;

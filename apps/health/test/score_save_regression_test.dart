@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:health_quiz_app/models/attempt_entry.dart';
 import 'package:health_quiz_app/models/score_record.dart';
 import 'package:health_quiz_app/models/quiz_session.dart';
 import 'package:health_quiz_app/services/attempt_store.dart';
@@ -53,17 +54,46 @@ void main() {
 
   test('active session clear removes only the matching type', () async {
     const first = QuizSession(
-      sessionId: 'a', deckId: 'mixed', itemIds: ['one'],
-      currentIndex: 0, isFinished: false, type: 'review_test',
+      sessionId: 'a',
+      deckId: 'mixed',
+      itemIds: ['one'],
+      currentIndex: 0,
+      isFinished: false,
+      type: 'review_test',
     );
     const second = QuizSession(
-      sessionId: 'b', deckId: 'mixed', itemIds: ['two'],
-      currentIndex: 0, isFinished: false, type: 'mix',
+      sessionId: 'b',
+      deckId: 'mixed',
+      itemIds: ['two'],
+      currentIndex: 0,
+      isFinished: false,
+      type: 'mix',
     );
     await ScoreSaver.saveActive(first);
     await ScoreSaver.saveActive(second);
     await ScoreSaver.clearActive('review_test');
     expect(await ScoreSaver.loadActive('review_test'), isNull);
     expect((await ScoreSaver.loadActive('mix'))?.sessionId, 'b');
+  });
+  test('retrying an answer checkpoint does not duplicate wrong history',
+      () async {
+    final entry = AttemptEntry(
+      attemptId: 'same-answer',
+      sessionId: 's',
+      questionNumber: 1,
+      unitId: 'u',
+      cardId: 'c',
+      question: 'Q',
+      selectedIndex: 1,
+      correctIndex: 2,
+      isCorrect: false,
+      durationMs: 1,
+      timestamp: DateTime(2026),
+      stableId: 'c',
+    );
+    await AttemptStore().add(entry);
+    await AttemptStore().add(entry);
+    expect(await AttemptStore().bySession('s'), hasLength(1));
+    expect(await AttemptStore().getWrongFrequencyByStableId(), {'c': 1});
   });
 }

@@ -67,13 +67,13 @@ QuizResumeProgress restoreQuizProgress({
           continue;
         }
         final sameId = attempt.stableId == stableId;
-        final legacyQuestionKey =
-            attempt.stableId?.startsWith('Q::') == true &&
+        final legacyQuestionKey = attempt.stableId?.startsWith('Q::') == true &&
             attempt.question == card.question;
         if (!sameId && !legacyQuestionKey) continue;
         wasCorrect = attempt.isCorrect;
         // Current published app writes one-based indexes.
-        if (attempt.correctIndex == card.answerIndex + 1 &&
+        if (session.choiceOrders?[stableId] != null &&
+            attempt.correctIndex == card.answerIndex + 1 &&
             attempt.selectedIndex > 0 &&
             attempt.selectedIndex <= card.choices.length) {
           selectedIndex = attempt.selectedIndex - 1;

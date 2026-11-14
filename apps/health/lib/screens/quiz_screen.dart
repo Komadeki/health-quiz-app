@@ -134,13 +134,15 @@ class _QuizScreenState extends State<QuizScreen> {
       await QuizSessionLocalRepository(prefs).clear();
     } catch (_) {}
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
     Navigator.pop(context);
   }
 
   Future<void> _failAndPreserve(String message) async {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
     Navigator.of(context).pop();
   }
 
@@ -153,9 +155,15 @@ class _QuizScreenState extends State<QuizScreen> {
         attempts: await AttemptStore().bySession(saved.sessionId),
       );
       correctCount = progress.correctCount;
-      _tagCorrect..clear()..addAll(progress.tagCorrect);
-      _tagWrong..clear()..addAll(progress.tagWrong);
-      _answersForSave..clear()..addAll(progress.answers);
+      _tagCorrect
+        ..clear()
+        ..addAll(progress.tagCorrect);
+      _tagWrong
+        ..clear()
+        ..addAll(progress.tagWrong);
+      _answersForSave
+        ..clear()
+        ..addAll(progress.answers);
       return true;
     } catch (error) {
       AppLog.w('[RESUME] incomplete history: $error');
@@ -170,7 +178,10 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
-    _init(); // 非同期初期化に分離
+    _init().catchError((Object error) async {
+      AppLog.w('[QUIZ] initialization failed: $error');
+      await _failAndPreserve('問題を準備できませんでした。途中経過は保持されています。');
+    });
   }
 
   @override
@@ -238,7 +249,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
       // Real deck for a single-unit practice; fake decks remain mixed.
       final special = widget.type == 'review_test' ||
-          widget.type == 'retry_wrong' || widget.type == 'wrong_only';
+          widget.type == 'retry_wrong' ||
+          widget.type == 'wrong_only';
       _deckIdForSave = !special && unitIdsSet.length == 1 && deckSet.length == 1
           ? deckSet.first
           : 'mixed';
@@ -300,7 +312,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
     // ───────── 0) ルート判定 ─────────
     final isMixedResume = (s != null && s.deckId == 'mixed');
-    final isMixedNew = (s == null && (widget.selectedUnitIds?.isNotEmpty ?? false));
+    final isMixedNew =
+        (s == null && (widget.selectedUnitIds?.isNotEmpty ?? false));
 
     // ───────── 1) ミックス“再開”（deckId=='mixed'）─────────
     if (isMixedResume) {
@@ -334,7 +347,8 @@ class _QuizScreenState extends State<QuizScreen> {
       _id2card = {for (final c in base) stableIdForOriginal(c): c};
 
       // 3) 欠損チェック
-      final missing = s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
+      final missing =
+          s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
       if (missing.isNotEmpty) {
         AppLog.d(
           '[RESUME][MISSING] deck=mixed missing=${missing.length} sample=${missing.take(5).toList()}',
@@ -348,6 +362,13 @@ class _QuizScreenState extends State<QuizScreen> {
       for (final id in _stableOrder) {
         final orig = _id2card[id]!;
         final ord = s.choiceOrders?[id];
+        if (ord != null &&
+            (ord.length != orig.choices.length ||
+                ord.toSet().length != ord.length ||
+                ord.any((i) => i < 0 || i >= orig.choices.length))) {
+          await _failAndPreserve('選択肢の順序を確認できません。途中経過は保持されています。');
+          return;
+        }
         final tmp = <int>[];
         sequence.add(ord == null
             ? _shuffledWithOrder(orig, outOrder: tmp)
@@ -516,12 +537,14 @@ class _QuizScreenState extends State<QuizScreen> {
         QuizSession(
           sessionId: _sessionId!,
           deckId: _deckIdForSave, // 通常 deck.id
-          unitId: widget.overrideCards != null && widget.overrideCards!.isNotEmpty
-              ? _unitIdOf(widget.overrideCards!.first)
-              : null,
-          selectedUnitIds: widget.overrideCards != null && widget.overrideCards!.isNotEmpty
-              ? [_unitIdOf(widget.overrideCards!.first)]
-              : null,
+          unitId:
+              widget.overrideCards != null && widget.overrideCards!.isNotEmpty
+                  ? _unitIdOf(widget.overrideCards!.first)
+                  : null,
+          selectedUnitIds:
+              widget.overrideCards != null && widget.overrideCards!.isNotEmpty
+                  ? [_unitIdOf(widget.overrideCards!.first)]
+                  : null,
           limit: null,
           itemIds: _stableOrder,
           currentIndex: 0,
@@ -565,7 +588,8 @@ class _QuizScreenState extends State<QuizScreen> {
       };
 
       // a) 欠損チェック
-      final missing = s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
+      final missing =
+          s.itemIds.where((id) => !_id2card.containsKey(id)).toList();
       if (missing.isNotEmpty) {
         AppLog.d(
           '[RESUME][MISSING] deck=${s.deckId} missing=${missing.length} '
@@ -584,6 +608,13 @@ class _QuizScreenState extends State<QuizScreen> {
       for (final id in _stableOrder) {
         final orig = _id2card[id]!;
         final ord = s.choiceOrders?[id];
+        if (ord != null &&
+            (ord.length != orig.choices.length ||
+                ord.toSet().length != ord.length ||
+                ord.any((i) => i < 0 || i >= orig.choices.length))) {
+          await _failAndPreserve('選択肢の順序を確認できません。途中経過は保持されています。');
+          return;
+        }
         final tmp = <int>[];
         sequence.add(ord == null
             ? _shuffledWithOrder(orig, outOrder: tmp)
@@ -666,74 +697,80 @@ class _QuizScreenState extends State<QuizScreen> {
         if (selected == null) return;
         final isCorrect = selected == card.answerIndex;
 
-      // 1) 問題単位の Attempt 保存
-      try {
-        final ended = DateTime.now();
-        final started = _qStart ?? ended;
-        final durationMs = ended.difference(started).inMilliseconds;
+        // 1) 問題単位の Attempt 保存
+        try {
+          final ended = DateTime.now();
+          final started = _qStart ?? ended;
+          final durationMs = ended.difference(started).inMilliseconds;
 
-        // ★ デバッグ：保存する stableId を確認
-        AppLog.d('[ATTEMPT/SAVE] stableId=${_stableOrder[index]}');
+          // ★ デバッグ：保存する stableId を確認
+          AppLog.d('[ATTEMPT/SAVE] stableId=${_stableOrder[index]}');
 
-        final attempt = AttemptEntry(
-          attemptId: const Uuid().v4(),
-          sessionId: _sessionId!,
-          questionNumber: index + 1, // 1-based
-          unitId: _unitIdOf(card),
-          cardId: _cardIdOf(card, _stableOrder[index]),
-
-          question: card.question,
-          selectedIndex: (selected ?? 0) + 1, // 1-based
-          correctIndex: (card.answerIndex) + 1, // 1-based
-          isCorrect: isCorrect,
-          durationMs: durationMs,
-          timestamp: ended,
-          // ★ ここが超重要：出題順の安定IDを保存する
-          stableId: _stableOrder[index],
-        );
-        await AttemptStore().add(attempt);
-        debugPrint(
-          '[ATTEMPT] saved sid=$_sessionId '
-          'stableId=${attempt.stableId} q=${attempt.questionNumber}',
-        );
-      } catch (error) {
-        AppLog.w('[ATTEMPT] save failure: $error');
-      }
-      _answersForSave[_stableOrder[index]] = {
-        'selectedIndex': selected,
-        'isCorrect': isCorrect,
-      };
-      // Persist before advancing to the next question.
-      try {
-        await _saveSession(
-          QuizSession(
+          final attempt = AttemptEntry(
+            attemptId: '$_sessionId:${index + 1}',
             sessionId: _sessionId!,
-            deckId: _deckIdForSave, // mixed のときは 'mixed'
-            unitId: null,
-            selectedUnitIds: _selectedUnitIdsForSave,
-            limit: _limitForSave,
-            itemIds: _stableOrder, // ← 常に出題順の安定ID列
-            currentIndex: index + 1, // 次に解く位置
-            type: _typeForSave,
-            answers: Map<String, dynamic>.from(_answersForSave),
-            updatedAt: DateTime.now(),
-            isFinished: false,
-            choiceOrders: _choiceOrders, // 選択肢順を常に保存
-          ),
-        );
-      } catch (error) {
-        AppLog.w('[SESSION] save failure: $error');
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('途中経過を保存できませんでした。もう一度お試しください。')),
+            questionNumber: index + 1, // 1-based
+            unitId: _unitIdOf(card),
+            cardId: _cardIdOf(card, _stableOrder[index]),
+
+            question: card.question,
+            selectedIndex: (selected ?? 0) + 1, // 1-based
+            correctIndex: (card.answerIndex) + 1, // 1-based
+            isCorrect: isCorrect,
+            durationMs: durationMs,
+            timestamp: ended,
+            // ★ ここが超重要：出題順の安定IDを保存する
+            stableId: _stableOrder[index],
           );
+          await AttemptStore().add(attempt);
+          debugPrint(
+            '[ATTEMPT] saved sid=$_sessionId '
+            'stableId=${attempt.stableId} q=${attempt.questionNumber}',
+          );
+        } catch (error) {
+          AppLog.w('[ATTEMPT] save failure: $error');
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('回答を保存できませんでした。もう一度お試しください。')),
+            );
+          }
+          return;
         }
-        return;
-      }
-      // Only count an answer once its resume checkpoint is durable.
-      if (isCorrect) correctCount++;
-      _bumpTags(card.tags, isCorrect);
-      _lastProcessedIndex = index;
+        _answersForSave[_stableOrder[index]] = {
+          'selectedIndex': selected,
+          'isCorrect': isCorrect,
+        };
+        // Persist before advancing to the next question.
+        try {
+          await _saveSession(
+            QuizSession(
+              sessionId: _sessionId!,
+              deckId: _deckIdForSave, // mixed のときは 'mixed'
+              unitId: null,
+              selectedUnitIds: _selectedUnitIdsForSave,
+              limit: _limitForSave,
+              itemIds: _stableOrder, // ← 常に出題順の安定ID列
+              currentIndex: index + 1, // 次に解く位置
+              type: _typeForSave,
+              answers: Map<String, dynamic>.from(_answersForSave),
+              updatedAt: DateTime.now(),
+              isFinished: false,
+              choiceOrders: _choiceOrders, // 選択肢順を常に保存
+            ),
+          );
+        } catch (error) {
+          AppLog.w('[SESSION] save failure: $error');
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('途中経過を保存できませんでした。もう一度お試しください。')),
+            );
+          }
+          return;
+        }
+        // Only count an answer once its resume checkpoint is durable.
+        if (isCorrect) correctCount++;
+        _bumpTags(card.tags, isCorrect);
+        _lastProcessedIndex = index;
       }
 
       // 3) 最終問題ならスコア保存→クリア→結果へ
@@ -749,7 +786,8 @@ class _QuizScreenState extends State<QuizScreen> {
         final Map<String, String> deckTitleMap = {};
         final Map<String, String> unitTitleMap = {};
         for (final d in decks) {
-          deckTitleMap[d.id.trim()] = d.title.trim().isNotEmpty ? d.title.trim() : d.id.trim();
+          deckTitleMap[d.id.trim()] =
+              d.title.trim().isNotEmpty ? d.title.trim() : d.id.trim();
           for (final u in (d.units)) {
             final uid = u.id.trim();
             final ut = u.title.trim();
@@ -759,14 +797,17 @@ class _QuizScreenState extends State<QuizScreen> {
 
         // ★★★ ここから：タイトル自動整理（デッキ跨ぎベース版）★★★
         String deckTitleById(String id) =>
-            (deckTitleMap[id]?.trim().isNotEmpty ?? false) ? deckTitleMap[id]!.trim() : id;
+            (deckTitleMap[id]?.trim().isNotEmpty ?? false)
+                ? deckTitleMap[id]!.trim()
+                : id;
 
         // 1) 今回出題したユニットIDを sequence から収集
         List<String> unitIdsForThisRun = [];
         if (_unitCount.isNotEmpty) {
           unitIdsForThisRun = _unitCount.keys.toList();
         } else if (sequence.isNotEmpty) {
-          unitIdsForThisRun = sequence.map((c) => _unitIdOf(c)).toSet().toList();
+          unitIdsForThisRun =
+              sequence.map((c) => _unitIdOf(c)).toSet().toList();
         } else if ((_selectedUnitIdsForSave?.isNotEmpty ?? false)) {
           unitIdsForThisRun = List<String>.from(_selectedUnitIdsForSave!);
         }
@@ -805,7 +846,8 @@ class _QuizScreenState extends State<QuizScreen> {
           // 通常：単元 or ミックス
           titleForScore = crossDeck
               ? 'ミックス練習'
-              : deckTitleById(deckSet.isNotEmpty ? deckSet.first : widget.deck.id);
+              : deckTitleById(
+                  deckSet.isNotEmpty ? deckSet.first : widget.deck.id);
         }
         // ★★★ ここまで：タイトル自動整理 ★★★
 
@@ -813,12 +855,14 @@ class _QuizScreenState extends State<QuizScreen> {
         final Map<String, TagStat> tagStats = {};
         final allKeys = <String>{..._tagCorrect.keys, ..._tagWrong.keys};
         for (final k in allKeys) {
-          tagStats[k] = TagStat(correct: _tagCorrect[k] ?? 0, wrong: _tagWrong[k] ?? 0);
+          tagStats[k] =
+              TagStat(correct: _tagCorrect[k] ?? 0, wrong: _tagWrong[k] ?? 0);
         }
 
         // スコア保存
         try {
-          debugPrint('[SCORE] save sid=$_sessionId total=${sequence.length} correct=$correctCount');
+          debugPrint(
+              '[SCORE] save sid=$_sessionId total=${sequence.length} correct=$correctCount');
 
           await ScoreSaver.save(
             ScoreRecord(
@@ -924,7 +968,8 @@ class _QuizScreenState extends State<QuizScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('問題 ${index + 1}/${sequence.length}'),
-        bottom: PreferredSize(preferredSize: Size.fromHeight(6), child: _ProgressBar()),
+        bottom: PreferredSize(
+            preferredSize: Size.fromHeight(6), child: _ProgressBar()),
       ),
       body: SafeArea(
         child: Column(
@@ -943,12 +988,14 @@ class _QuizScreenState extends State<QuizScreen> {
                     children: [
                       Text(
                         card.question,
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 16),
 
                       // 選択肢
-                      ...List.generate(card.choices.length, (i) => _buildChoice(i)),
+                      ...List.generate(
+                          card.choices.length, (i) => _buildChoice(i)),
 
                       const SizedBox(height: 12),
 
@@ -965,11 +1012,14 @@ class _QuizScreenState extends State<QuizScreen> {
                           ).animate(animation);
                           return FadeTransition(
                             opacity: animation,
-                            child: SlideTransition(position: slide, child: child),
+                            child:
+                                SlideTransition(position: slide, child: child),
                           );
                         },
-                        child: (revealed && (card.explanation ?? '').trim().isNotEmpty)
-                            ? _ExplanationCard(index: index, text: card.explanation!)
+                        child: (revealed &&
+                                (card.explanation ?? '').trim().isNotEmpty)
+                            ? _ExplanationCard(
+                                index: index, text: card.explanation!)
                             : const SizedBox.shrink(key: ValueKey('exp-empty')),
                       ),
 
@@ -995,7 +1045,9 @@ class _QuizScreenState extends State<QuizScreen> {
                               await _primaryAction();
                             },
                       child: Text(
-                        revealed ? (index == sequence.length - 1 ? '結果へ' : '次へ') : '答えを見る',
+                        revealed
+                            ? (index == sequence.length - 1 ? '結果へ' : '次へ')
+                            : '答えを見る',
                       ),
                     ),
                   ),
@@ -1034,7 +1086,8 @@ class _QuizScreenState extends State<QuizScreen> {
     } else if (isSelected) {
       bg = Theme.of(context).colorScheme.primary.withValues(alpha: 0.9);
     }
-    final fg = (revealed && (isAnswer || isSelected)) ? Colors.white : Colors.black87;
+    final fg =
+        (revealed && (isAnswer || isSelected)) ? Colors.white : Colors.black87;
 
     IconData? trail;
     if (revealed) {
@@ -1044,7 +1097,9 @@ class _QuizScreenState extends State<QuizScreen> {
         trail = Icons.close_rounded;
       }
     } else {
-      trail = isSelected ? Icons.radio_button_checked : Icons.radio_button_unchecked;
+      trail = isSelected
+          ? Icons.radio_button_checked
+          : Icons.radio_button_unchecked;
     }
 
     return AnimatedContainer(
@@ -1081,7 +1136,9 @@ class _QuizScreenState extends State<QuizScreen> {
                   height: 28,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: (revealed && isAnswer) ? Colors.white24 : Colors.black12,
+                    color: (revealed && isAnswer)
+                        ? Colors.white24
+                        : Colors.black12,
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
@@ -1102,7 +1159,10 @@ class _QuizScreenState extends State<QuizScreen> {
                     ),
                   ),
                 ),
-                if (trail != null) ...[const SizedBox(width: 10), Icon(trail, color: fg, size: 22)],
+                if (trail != null) ...[
+                  const SizedBox(width: 10),
+                  Icon(trail, color: fg, size: 22)
+                ],
               ],
             ),
           ),
@@ -1142,7 +1202,10 @@ class _ExplanationCard extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+            color: Theme.of(context)
+                .colorScheme
+                .surfaceContainerHighest
+                .withValues(alpha: 0.4),
             child: Row(
               children: [
                 const Icon(Icons.info_outline, size: 20),
@@ -1151,7 +1214,10 @@ class _ExplanationCard extends StatelessWidget {
                   '解説',
                   style: Theme.of(
                     context,
-                  ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+                  )
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.w600),
                 ),
               ],
             ),
@@ -1160,7 +1226,10 @@ class _ExplanationCard extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
             child: Text(
               text.trim(),
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 18, height: 1.5),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontSize: 18, height: 1.5),
             ),
           ),
         ],
@@ -1177,8 +1246,10 @@ class _ProgressBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.findAncestorStateOfType<_QuizScreenState>();
-    final value =
-        (state == null || !state._initReady || state._abortAndPop || state.sequence.isEmpty)
+    final value = (state == null ||
+            !state._initReady ||
+            state._abortAndPop ||
+            state.sequence.isEmpty)
         ? 0.0
         : (state.index + 1) / state.sequence.length;
     return LinearProgressIndicator(value: value, minHeight: 6);

@@ -18,17 +18,11 @@ class ScoreSaver {
       // The underlying legacy store may swallow persistence errors. A
       // successful write must be visible before we clear the active quiz.
       final visible = await score_store.ScoreStore.instance.loadAll();
-      final persisted = visible.where(
-        (entry) => entry.id == normalized.id &&
-            entry.sessionId == normalized.sessionId &&
-            entry.score == normalized.score &&
-            entry.total == normalized.total &&
-            entry.unitBreakdown?.length == normalized.unitBreakdown?.length &&
-            (normalized.tags == null ||
-                normalized.tags!.entries.every((tag) =>
-                    entry.tags?[tag.key]?.correct == tag.value.correct &&
-                    entry.tags?[tag.key]?.wrong == tag.value.wrong)),
-      ).isNotEmpty;
+      final persisted = visible.any(
+        (entry) =>
+            ScoreRecord.encodeList([entry]) ==
+            ScoreRecord.encodeList([normalized]),
+      );
       if (!persisted) {
         throw StateError('Score save could not be verified');
       }
