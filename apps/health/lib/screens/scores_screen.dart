@@ -1,6 +1,10 @@
 // lib/screens/scores_screen.dart
 import 'dart:convert';
+// Retain Flutter 3.47 compatibility while Flutter 3.50 deprecates this import.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
+import '../features/exam/exam_result_screen.dart';
+import '../features/exam/exam_session_store.dart';
 import 'package:flutter/services.dart';
 
 import '../models/score_record.dart';
@@ -60,7 +64,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
         if (deckId.isNotEmpty) {
           deckTitleMap[deckId] = deckTitle.isNotEmpty ? deckTitle : deckId;
         }
-        for (final u in (d.units ?? const [])) {
+        for (final u in d.units) {
           final unitId = u.id.trim();
           final unitTitle = u.title.trim();
           if (unitId.isNotEmpty) {
@@ -182,7 +186,13 @@ class _ScoresScreenState extends State<ScoresScreen> {
       ),
     );
     if (ok == true) {
+      final records = await ScoreStore.instance.loadAll();
       await ScoreStore.instance.clearAll();
+      for (final r in records) {
+        if (r.deckId == 'exam' && r.sessionId != null) {
+          await ExamSessionStore().deleteResult(r.sessionId!);
+        }
+      }
       await _load();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('成績を削除しました')));
@@ -380,7 +390,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
                                       ),
                                       labelPadding: const EdgeInsets.symmetric(horizontal: 6),
                                       side: BorderSide(
-                                        color: theme.colorScheme.outline.withOpacity(0.25),
+                                        color: theme.colorScheme.outline.withValues(alpha: 0.25),
                                       ),
                                     ),
                                     textTheme: theme.textTheme.copyWith(
@@ -410,6 +420,13 @@ class _ScoresScreenState extends State<ScoresScreen> {
   // ====== レコード操作 ======
 
   Future<void> _onTapRecord(BuildContext context, ScoreRecord record) async {
+    if (record.deckId == 'exam' && record.sessionId != null) {
+      await Navigator.of(context).push(MaterialPageRoute<void>(
+        builder: (_) => ExamHistoryScreen(sessionId: record.sessionId!),
+      ));
+      if (mounted) await _load();
+      return;
+    }
     if (record.sessionId != null && record.sessionId!.isNotEmpty) {
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -449,10 +466,14 @@ class _ScoresScreenState extends State<ScoresScreen> {
               if (canOpenHistory)
                 ListTile(
                   leading: const Icon(Icons.refresh),
-                  title: const Text('誤答だけもう一度'),
+                  title: Text(r.deckId == 'exam' ? 'テスト結果・再挑戦' : '誤答だけもう一度'),
                   onTap: () async {
                     Navigator.pop(context);
-                    await _replayWrongFromScore(context, r.sessionId!);
+                    if (r.deckId == 'exam') {
+                      await _onTapRecord(context, r);
+                    } else {
+                      await _replayWrongFromScore(context, r.sessionId!);
+                    }
                   },
                 ),
               ListTile(
@@ -520,11 +541,14 @@ class _ScoresScreenState extends State<ScoresScreen> {
         ],
       ),
     );
-    if (ok != true) return;
+    if (ok != true || !context.mounted) return;
 
     final messenger = ScaffoldMessenger.of(context);
     try {
       await ScoreStore.instance.delete(r.id);
+      if (r.deckId == 'exam' && r.sessionId != null) {
+        await ExamSessionStore().deleteResult(r.sessionId!);
+      }
       await _load();
       if (!context.mounted) return;
       messenger.showSnackBar(const SnackBar(content: Text('成績を削除しました')));
@@ -611,6 +635,7 @@ class _ScoresScreenState extends State<ScoresScreen> {
     if (!context.mounted) return;
     // QuizScreen は overrideCards 指定時 deck.cards を使わないため、どのデッキでもOK
     final decks = await (await DeckLoader.instance()).loadAll();
+    if (!context.mounted) return;
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => QuizScreen(
