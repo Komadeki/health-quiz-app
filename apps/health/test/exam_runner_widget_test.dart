@@ -247,21 +247,36 @@ void main() {
     testWidgets('$count questions finish without duplicate scores',
         (tester) async {
       SharedPreferences.setMockInitialValues({});
-      final questions = List.generate(
-          count,
-          (i) => ExamQuestion(
-              id: 'tf-$i',
-              unitId: 'u',
-              question: '設問$i',
-              type: ExamQuestionType.trueFalse,
-              answer: '○',
-              explanation: '解説$i'));
+      final questions = List.generate(count, (i) {
+        final type =
+            ExamQuestionType.values[i % ExamQuestionType.values.length];
+        return ExamQuestion(
+            id: 'q-$i',
+            unitId: 'u',
+            question: '設問$i',
+            type: type,
+            answer: switch (type) {
+              ExamQuestionType.choice => '0',
+              ExamQuestionType.trueFalse => '○',
+              _ => '肝臓',
+            },
+            choices:
+                type == ExamQuestionType.choice ? ['A', 'B', 'C', 'D'] : [],
+            explanation: '解説$i');
+      });
       await tester.pumpWidget(MaterialApp(
           home: ExamRunnerScreen(
               questions: questions, unitTitles: const {'u': '保健'})));
       await tester.pumpAndSettle();
       for (var i = 0; i < count; i++) {
-        await tester.tap(find.text('○'));
+        final question = questions[i];
+        if (question.type == ExamQuestionType.choice) {
+          await tester.tap(find.text('A'));
+        } else if (question.type == ExamQuestionType.trueFalse) {
+          await tester.tap(find.text('○'));
+        } else {
+          await tester.enterText(find.byType(TextField), '肝臓');
+        }
         await tester.tap(find.text(i == count - 1 ? '採点する' : '次の問題へ'));
         await tester.pumpAndSettle();
       }

@@ -45,6 +45,9 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
       final raw =
           await rootBundle.loadString('assets/exam/exam_questions_v1.json');
       final parsed = jsonDecode(raw) as Map<String, dynamic>;
+      if (parsed['schemaVersion'] != 1 && parsed['schemaVersion'] != 2) {
+        throw const FormatException('Unsupported exam question bank');
+      }
       final entries = parsed['questions'] as List<dynamic>;
       final authored = entries
           .map(
@@ -296,6 +299,8 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
               : ListView(
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
                   children: [
+                    const Text('4択・穴埋め・正誤判断（○×）・短答記述から出題します。'),
+                    const SizedBox(height: 12),
                     if (_active != null)
                       Card(
                           child: Padding(

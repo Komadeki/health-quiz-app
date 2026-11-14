@@ -70,7 +70,9 @@ class ExamSession {
           submittedAt: submittedAt ?? this.submittedAt);
 
   factory ExamSession.fromJson(Map<String, dynamic> json) {
-    if (json['schemaVersion'] != 1) {
+    // Version 2 adds short answers; the original three-format snapshots remain
+    // readable under the same storage keys.
+    if (json['schemaVersion'] != 1 && json['schemaVersion'] != 2) {
       throw const FormatException('Unsupported exam session');
     }
     return ExamSession(
@@ -91,7 +93,7 @@ class ExamSession {
   }
 
   Map<String, dynamic> toJson() => {
-        'schemaVersion': 1,
+        'schemaVersion': 2,
         'id': id,
         'questions': questions.map((q) => q.toJson()).toList(),
         'unitTitles': unitTitles,
@@ -131,6 +133,6 @@ class ExamSession {
         selectedUnitIds: units.keys.toList(),
         unitBreakdown: units,
         tags: stats,
-        examProfileVersion: 'health-term-exam-v1');
+        examProfileVersion: 'health-term-exam-v2');
   }
 }

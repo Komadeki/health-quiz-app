@@ -3,7 +3,7 @@ import 'dart:math';
 import '../../models/card.dart';
 import '../../utils/stable_id.dart';
 
-enum ExamQuestionType { choice, fill, trueFalse }
+enum ExamQuestionType { choice, fill, trueFalse, shortAnswer }
 
 /// A test question with an explicit correct answer. Legacy quiz cards remain
 /// untouched; converting them into this view never changes their stable IDs.
@@ -61,6 +61,7 @@ class ExamQuestion {
       'choice' => ExamQuestionType.choice,
       'fill' => ExamQuestionType.fill,
       'true_false' => ExamQuestionType.trueFalse,
+      'short_answer' => ExamQuestionType.shortAnswer,
       _ => throw FormatException('Unknown exam question type: $rawType'),
     };
     final id = json['id']?.toString().trim() ?? '';
@@ -91,6 +92,10 @@ class ExamQuestion {
     if (type == ExamQuestionType.trueFalse && answer != '○' && answer != '×') {
       throw FormatException('Invalid true/false question: $id');
     }
+    if (type == ExamQuestionType.shortAnswer && choices.isNotEmpty) {
+      throw FormatException(
+          'Short-answer questions cannot provide choices: $id');
+    }
     return ExamQuestion(
       id: id,
       unitId: unitId,
@@ -112,6 +117,7 @@ class ExamQuestion {
           ExamQuestionType.choice => 'choice',
           ExamQuestionType.fill => 'fill',
           ExamQuestionType.trueFalse => 'true_false',
+          ExamQuestionType.shortAnswer => 'short_answer',
         },
         'answer': answer,
         'explanation': explanation,
@@ -124,6 +130,7 @@ class ExamQuestion {
         ExamQuestionType.choice => '4択',
         ExamQuestionType.fill => '穴埋め',
         ExamQuestionType.trueFalse => '○×',
+        ExamQuestionType.shortAnswer => '短答記述',
       };
 
   /// Shuffle the displayed choices without changing the question identity.

@@ -211,7 +211,8 @@ class _ExamRunnerScreenState extends State<ExamRunnerScreen>
                   child: ListView(
                     padding: const EdgeInsets.all(20),
                     children: [
-                      Text(widget.unitTitles[q.unitId] ?? q.unitId,
+                      Text(
+                          '${widget.unitTitles[q.unitId] ?? q.unitId} · ${q.typeLabel}',
                           style: Theme.of(context).textTheme.labelLarge),
                       const SizedBox(height: 14),
                       Text(q.question,
@@ -253,14 +254,17 @@ class _ExamRunnerScreenState extends State<ExamRunnerScreen>
                               ),
                           ],
                         ),
-                      if (q.type == ExamQuestionType.fill)
+                      if (q.type == ExamQuestionType.fill ||
+                          q.type == ExamQuestionType.shortAnswer)
                         TextField(
                           controller: _text,
                           enabled: !_busy,
                           onChanged: _answer,
-                          decoration: const InputDecoration(
-                            labelText: '空欄に入る言葉',
-                            border: OutlineInputBorder(),
+                          decoration: InputDecoration(
+                            labelText: q.type == ExamQuestionType.shortAnswer
+                                ? '用語・短い語句で回答'
+                                : '空欄に入る言葉',
+                            border: const OutlineInputBorder(),
                           ),
                         ),
                       const SizedBox(height: 12),

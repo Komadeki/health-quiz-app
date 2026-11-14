@@ -545,7 +545,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       _DeckLikeButton(
                         leadingIcon: Icons.fact_check_outlined,
                         title: '定期テスト対策',
-                        subtitle: '単元を選んで4択・穴埋め・○×を自動出題',
+                        subtitle: '単元を選んで4択・穴埋め・○×・短答記述を出題',
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute<void>(
                             builder: (_) => ExamSetupScreen(decks: decks),

@@ -35,7 +35,7 @@ class ResultQuestionCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${question.isCorrect(response) ? '正解' : '不正解'}  問題 $index',
+              '${question.isCorrect(response) ? '正解' : '不正解'}  問題 $index · ${question.typeLabel}',
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 8),

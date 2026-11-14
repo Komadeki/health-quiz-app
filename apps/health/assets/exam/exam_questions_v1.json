@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "questions": [
     {
       "id": "h1-f01",
@@ -458,6 +458,176 @@
         "https://www.mhlw.go.jp/stf/newpage_71447.html"
       ],
       "sourceCheckedAt": "2026-11-14"
+    },
+    {
+      "id": "h1-s01",
+      "unitId": "unit_nutrition_and_health",
+      "type": "short_answer",
+      "question": "炭水化物は、食物繊維と何に分けられますか。栄養成分の名称を答えなさい。",
+      "answer": "糖質",
+      "acceptedAnswers": [
+        "とうしつ"
+      ],
+      "explanation": "炭水化物には糖質と食物繊維が含まれる。糖質は体のエネルギー源となる。",
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/food/e-02-004.html"
+      ],
+      "sourceCheckedAt": "2026-11-15"
+    },
+    {
+      "id": "h1-s02",
+      "unitId": "unit_rest_and_sleep_health",
+      "type": "short_answer",
+      "question": "急速な眼球運動が見られる睡眠の名称を、「〜睡眠」の形で答えなさい。",
+      "answer": "レム睡眠",
+      "acceptedAnswers": [
+        "REM睡眠",
+        "れむ睡眠",
+        "れむすいみん",
+        "ﾚﾑ睡眠"
+      ],
+      "explanation": "レム睡眠の「レム」は急速眼球運動を表す英語の頭文字に由来する。",
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/dictionary/heart/yk-069.html"
+      ],
+      "sourceCheckedAt": "2026-11-15"
+    },
+    {
+      "id": "h1-s03",
+      "unitId": "unit_smoking_and_health",
+      "type": "short_answer",
+      "question": "他人のたばこの煙にさらされ、自分の意思とは関係なく吸い込んでしまうことを何といいますか。",
+      "answer": "受動喫煙",
+      "acceptedAnswers": [
+        "じゅどうきつえん",
+        "間接喫煙"
+      ],
+      "explanation": "他人のたばこの煙を吸い込む受動喫煙でも、有害物質へのばく露が起こる。",
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/tobacco/t-05-004.html"
+      ],
+      "sourceCheckedAt": "2026-11-15"
+    },
+    {
+      "id": "h1-s04",
+      "unitId": "unit_alcohol_and_health",
+      "type": "short_answer",
+      "question": "大量の飲酒で血中アルコール濃度が上がり、意識障害や呼吸抑制などを起こして生命が危険になる状態の名称を答えなさい。",
+      "answer": "急性アルコール中毒",
+      "acceptedAnswers": [
+        "急性あるこーる中毒",
+        "きゅうせいあるこーるちゅうどく",
+        "急性ｱﾙｺｰﾙ中毒"
+      ],
+      "explanation": "急性アルコール中毒では、意識や呼吸に重大な障害が生じることがある。",
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/dictionary/alcohol/ya-014.html"
+      ],
+      "sourceCheckedAt": "2026-11-15"
+    },
+    {
+      "id": "h1-s05",
+      "unitId": "unit_drug_abuse_and_health",
+      "type": "short_answer",
+      "question": "薬物を繰り返し使うことで、同じ量では以前と同じ効果を得にくくなる現象を何といいますか。",
+      "answer": "耐性",
+      "acceptedAnswers": [
+        "たいせい",
+        "薬物耐性"
+      ],
+      "explanation": "耐性が形成されると、同じ効果を求めて使用量が増えることがある。依存とは区別される概念である。",
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/bunya/iyakuhin/dl/dame_kenkou30.pdf"
+      ],
+      "sourceCheckedAt": "2026-11-15"
+    },
+    {
+      "id": "h2-s01",
+      "unitId": "unit_sexual_attitudes_and_behavior",
+      "type": "short_answer",
+      "question": "エイズの原因となるヒト免疫不全ウイルスの略称を、アルファベット3文字で答えなさい。",
+      "answer": "HIV",
+      "acceptedAnswers": [],
+      "explanation": "HIVはウイルスの名称、エイズ（AIDS）はHIV感染により特定の病気を発症した状態の名称である。",
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/hivkensa/knowledge/whatis/"
+      ],
+      "sourceCheckedAt": "2026-11-15"
+    },
+    {
+      "id": "h2-s02",
+      "unitId": "unit_middle_and_older_adulthood_health",
+      "type": "short_answer",
+      "question": "健康上の問題によって日常生活が制限されることなく生活できる期間を表す言葉は何ですか。",
+      "answer": "健康寿命",
+      "acceptedAnswers": [
+        "けんこうじゅみょう"
+      ],
+      "explanation": "健康寿命は、健康上の問題による日常生活の制限がない期間を表す。平均寿命と区別する。",
+      "isPremium": false,
+      "sourceUrls": [
+        "https://kennet.mhlw.go.jp/information/information/hale/h-01-001.html"
+      ],
+      "sourceCheckedAt": "2026-11-15"
+    },
+    {
+      "id": "h2-s03",
+      "unitId": "unit_work_and_health",
+      "type": "short_answer",
+      "question": "職場で働く人の安全と健康の確保を目的とする、労働基準法の特別法の名称を答えなさい。",
+      "answer": "労働安全衛生法",
+      "acceptedAnswers": [
+        "安衛法",
+        "ろうどうあんぜんえいせいほう"
+      ],
+      "explanation": "労働安全衛生法は、職場における労働者の安全と健康を確保するための法律である。",
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudouseisaku/chushoukigyou/joken_kankyou_rule.html"
+      ],
+      "sourceCheckedAt": "2026-11-15"
+    },
+    {
+      "id": "h2-s04",
+      "unitId": "unit_occupational_accidents_and_health",
+      "type": "short_answer",
+      "question": "仕事や通勤が原因のけが・病気などについて、労働者へ必要な保険給付を行う国の保険制度の名称を答えなさい。",
+      "answer": "労災保険",
+      "acceptedAnswers": [
+        "労働者災害補償保険",
+        "労災保険制度",
+        "労働者災害補償保険制度",
+        "ろうさいほけん"
+      ],
+      "explanation": "労災保険は、業務や通勤に関連する災害に対して、被災した労働者などへ保険給付を行う制度である。",
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudouseisaku/chushoukigyou/joken_kankyou_rule.html"
+      ],
+      "sourceCheckedAt": "2026-11-15"
+    },
+    {
+      "id": "h2-s05",
+      "unitId": "unit_healthy_work_life",
+      "type": "short_answer",
+      "question": "心の健康について、外部から刺激を受けたときに生じる緊張状態を表すカタカナの言葉を答えなさい。",
+      "answer": "ストレス",
+      "acceptedAnswers": [
+        "すとれす",
+        "ｽﾄﾚｽ"
+      ],
+      "explanation": "ストレスの原因となる刺激はストレッサーと呼ばれ、刺激を受けたときの緊張状態と区別される。",
+      "isPremium": false,
+      "sourceUrls": [
+        "https://www.hokeniryo1.metro.tokyo.lg.jp/kensui/kokoro/tamotsu.html"
+      ],
+      "sourceCheckedAt": "2026-11-15"
     }
   ]
 }
