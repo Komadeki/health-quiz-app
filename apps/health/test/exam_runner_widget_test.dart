@@ -1,3 +1,5 @@
+// Retain Flutter 3.47 compatibility while Flutter 3.50 deprecates this import.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_quiz_app/features/exam/exam_question.dart';

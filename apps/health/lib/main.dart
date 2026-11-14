@@ -1,6 +1,8 @@
 // lib/main.dart
 import 'dart:async'; // ← 非同期ユーティリティ用（unawaited, microtask 等）
 
+// Retain Flutter 3.47 compatibility while Flutter 3.50 deprecates this import.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'; // kDebugMode
 import 'package:flutter_localizations/flutter_localizations.dart';

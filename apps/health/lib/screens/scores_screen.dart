@@ -1,5 +1,7 @@
 // lib/screens/scores_screen.dart
 import 'dart:convert';
+// Retain Flutter 3.47 compatibility while Flutter 3.50 deprecates this import.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import '../features/exam/exam_result_screen.dart';
 import '../features/exam/exam_session_store.dart';
