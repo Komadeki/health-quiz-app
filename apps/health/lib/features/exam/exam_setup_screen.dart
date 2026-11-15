@@ -14,6 +14,7 @@ import 'exam_runner_screen.dart';
 import 'exam_session.dart';
 import 'exam_session_store.dart';
 import 'exam_access.dart';
+import 'exam_study_settings.dart';
 
 /// Learners choose their school's real exam scope, regardless of grade.
 class ExamSetupScreen extends StatefulWidget {
@@ -29,6 +30,10 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
   final _selector = const ExamRangeSelector();
   final _access = <String, bool>{};
   List<ExamQuestion> _authored = [];
+  bool _settingsLoaded = false;
+  bool _savingSettings = false;
+  ExamStudySettings? _savedSettings;
+  String? _settingsWarning;
   bool _packOwned = false;
   bool _usePack = false;
   bool _invalidActive = false;
@@ -80,14 +85,41 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
       } catch (_) {
         invalidActive = true;
       }
+      ExamStudySettings? saved;
+      String? settingsWarning;
+      final restoreSettings = !_settingsLoaded;
+      if (restoreSettings) {
+        try {
+          saved = await ExamStudySettings.load();
+        } catch (_) {
+          settingsWarning = '保存した試験範囲を読み込めませんでした。選び直して利用できます。';
+        }
+      }
       if (!mounted) return;
       setState(() {
         _active = active;
         _invalidActive = invalidActive;
         _authored = authored;
-        if (!_packOwned && packOwned) _usePack = true;
+        if (!_packOwned && packOwned) {
+          _usePack = true;
+          if (_savedSettings?.usePack == true) _settingsWarning = null;
+        }
         if (!packOwned) _usePack = false;
         _packOwned = packOwned;
+        if (restoreSettings) {
+          _settingsLoaded = true;
+          _savedSettings = saved;
+          _settingsWarning = settingsWarning;
+          if (saved != null) {
+            _selectedUnits
+                .addAll(saved.unitIds.intersection(_unitTitles.keys.toSet()));
+            _requested = saved.questionCount;
+            _usePack = saved.usePack && packOwned;
+            if (saved.usePack && !packOwned) {
+              _settingsWarning = '保存した単元・問題数を復元しました。追加パックを使うには購入状態を復元してください。';
+            }
+          }
+        }
         _access
           ..clear()
           ..addAll(access);
@@ -148,6 +180,50 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
       accessibleQuestions: _accessibleQuestions(_access),
       selectedUnitIds: _selectedUnits,
     );
+  }
+
+  Future<void> _saveStudySettings() async {
+    if (_savingSettings || _selectedUnits.isEmpty || _active != null) return;
+    final settings = ExamStudySettings(
+        unitIds: _selectedUnits, questionCount: _requested, usePack: _usePack);
+    setState(() => _savingSettings = true);
+    try {
+      await settings.save();
+      if (!mounted) return;
+      setState(() {
+        _savedSettings = settings;
+        _settingsWarning = null;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('試験範囲を保存しました。次回もこの設定で開きます。')));
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('試験範囲を保存できませんでした。現在の選択のまま学習は始められます。')));
+    } finally {
+      if (mounted) setState(() => _savingSettings = false);
+    }
+  }
+
+  Future<void> _clearStudySettings() async {
+    if (_savingSettings || _active != null) return;
+    setState(() => _savingSettings = true);
+    try {
+      await ExamStudySettings.clear();
+      if (!mounted) return;
+      setState(() {
+        _savedSettings = null;
+        _settingsWarning = null;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('保存を解除しました。現在の選択や成績はそのままです。')));
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('保存設定を解除できませんでした。もう一度お試しください。')));
+    } finally {
+      if (mounted) setState(() => _savingSettings = false);
+    }
   }
 
   Future<void> _start() async {
@@ -289,6 +365,18 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
   Widget build(BuildContext context) {
     final available = _available;
     final effective = available < _requested ? available : _requested;
+    final savedMatches =
+        _savedSettings?.matches(_selectedUnits, _requested, _usePack) ?? false;
+    final types = _loading
+        ? <ExamQuestionType>{}
+        : _selector
+            .availableCountsByType(
+                accessibleQuestions: _accessibleQuestions(_access),
+                selectedUnitIds: _selectedUnits)
+            .keys
+            .toSet();
+    final low = types.isEmpty ? 0 : effective ~/ types.length;
+    final high = types.isEmpty ? 0 : (effective / types.length).ceil();
     final canStart = _error == null &&
         !_loading &&
         !_starting &&
@@ -380,6 +468,10 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
                                               _starting ? null : _discard,
                                           child: const Text('別のテストを始める')),
                                   ]))),
+                    if (_settingsWarning != null)
+                      Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Text(_settingsWarning!)),
                     Text('試験範囲を選択',
                         style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 6),
@@ -442,6 +534,49 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
                       ],
                     ),
                     const SizedBox(height: 12),
+                    Card(
+                        child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      savedMatches ? '試験範囲を保存済み' : '次回も同じ範囲で学習',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall),
+                                  const Text('選択した単元・問題数・出題元をこの端末に保存します。'),
+                                  if (savedMatches)
+                                    Text(
+                                        '${_selectedUnits.length}単元 / $_requested問を希望 / ${_usePack ? '追加パック' : '従来問題'}'),
+                                  OutlinedButton.icon(
+                                      onPressed: _selectedUnits.isEmpty ||
+                                              _savingSettings ||
+                                              _starting ||
+                                              _active != null ||
+                                              savedMatches
+                                          ? null
+                                          : _saveStudySettings,
+                                      icon: const Icon(
+                                          Icons.bookmark_add_outlined),
+                                      label: Text(_savingSettings
+                                          ? '保存中…'
+                                          : 'この試験範囲を保存')),
+                                  if (_savedSettings != null)
+                                    TextButton(
+                                        onPressed: _savingSettings ||
+                                                _starting ||
+                                                _active != null
+                                            ? null
+                                            : _clearStudySettings,
+                                        child: const Text('保存設定だけを解除')),
+                                ]))),
+                    if (effective > 0 && types.isNotEmpty)
+                      Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Text(
+                              '今回の出題：${types.length}形式を各${low == high ? '$low' : '$low～$high'}問'
+                              '（計$effective問）。正解と解説は終了後に確認できます。')),
                     Text(_selectedUnits.isEmpty
                         ? 'まず単元を選んでください'
                         : '出題可能: $available問 / 今回のテスト: $effective問'),

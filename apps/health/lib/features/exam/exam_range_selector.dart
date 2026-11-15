@@ -91,6 +91,19 @@ class ExamRangeSelector {
     required Iterable<ExamQuestion> accessibleQuestions,
     required Set<String> selectedUnitIds,
   }) {
+    final counts = availableCountsByType(
+        accessibleQuestions: accessibleQuestions,
+        selectedUnitIds: selectedUnitIds);
+    if (counts.isEmpty) return 0;
+    final limit = counts.values.reduce(min) + 1;
+    return counts.values.fold(0, (sum, count) => sum + min(count, limit));
+  }
+
+  /// Counts unique eligible items, using the same deduplication as selection.
+  Map<ExamQuestionType, int> availableCountsByType({
+    required Iterable<ExamQuestion> accessibleQuestions,
+    required Set<String> selectedUnitIds,
+  }) {
     // Pure O(n) count; never run the full selection algorithm during rebuild.
     final ids = <String>{};
     final prompts = <String>{};
@@ -103,8 +116,6 @@ class ExamRangeSelector {
       }
       counts.update(q.type, (n) => n + 1, ifAbsent: () => 1);
     }
-    if (counts.isEmpty) return 0;
-    final limit = counts.values.reduce(min) + 1;
-    return counts.values.fold(0, (sum, count) => sum + min(count, limit));
+    return Map.unmodifiable(counts);
   }
 }
