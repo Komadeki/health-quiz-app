@@ -6,6 +6,8 @@ import 'package:flutter/services.dart' show rootBundle;
 
 import '../../models/deck.dart';
 import '../../services/gate.dart';
+import '../../services/purchase_store.dart';
+import '../../screens/purchase_screen.dart';
 import 'exam_question.dart';
 import 'exam_range_selector.dart';
 import 'exam_runner_screen.dart';
@@ -27,6 +29,8 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
   final _selector = const ExamRangeSelector();
   final _access = <String, bool>{};
   List<ExamQuestion> _authored = [];
+  bool _packOwned = false;
+  bool _usePack = false;
   bool _invalidActive = false;
   ExamSession? _active;
   int _requested = 10;
@@ -48,7 +52,17 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
       if (parsed['schemaVersion'] != 1 && parsed['schemaVersion'] != 2) {
         throw const FormatException('Unsupported exam question bank');
       }
-      final entries = parsed['questions'] as List<dynamic>;
+      final packRaw = jsonDecode(
+              await rootBundle.loadString('assets/exam/exam_pack_v1.json'))
+          as Map<String, dynamic>;
+      if (packRaw['schemaVersion'] != 2) {
+        throw const FormatException('Unsupported exam pack');
+      }
+      final packOwned = await PurchaseStore.isExamPackOwned();
+      final entries = [
+        ...(parsed['questions'] as List<dynamic>),
+        ...(packRaw['questions'] as List<dynamic>)
+      ];
       final authored = entries
           .map(
             (raw) =>
@@ -71,6 +85,9 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
         _active = active;
         _invalidActive = invalidActive;
         _authored = authored;
+        if (!_packOwned && packOwned) _usePack = true;
+        if (!packOwned) _usePack = false;
+        _packOwned = packOwned;
         _access
           ..clear()
           ..addAll(access);
@@ -91,14 +108,17 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
           for (final unit in deck.units) unit.id: unit.title,
       };
 
-  List<ExamQuestion> _accessibleQuestions(Map<String, bool> owned) {
+  List<ExamQuestion> _accessibleQuestions(Map<String, bool> owned,
+      {bool? packOwned}) {
     final questions = <ExamQuestion>[];
+    final usePack = _usePack && (packOwned ?? _packOwned);
     final unitToDeck = <String, String>{};
     for (final deck in widget.decks) {
       final unlocked = owned[deck.id.toLowerCase()] == true;
       for (final unit in deck.units) {
         unitToDeck[unit.id] = deck.id.toLowerCase();
         if (!_selectedUnits.contains(unit.id)) continue;
+        if (usePack) continue;
         for (final card in unit.cards) {
           if (!card.isPremium || unlocked) {
             try {
@@ -114,6 +134,7 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
       if (!_selectedUnits.contains(question.unitId)) continue;
       final deckId = unitToDeck[question.unitId];
       if (deckId == null) continue;
+      if (question.requiresExamPack != usePack) continue;
       if (!question.isPremium || owned[deckId] == true) {
         questions.add(question);
       }
@@ -139,9 +160,14 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
         currentAccess[deck.id.toLowerCase()] =
             await Gate.canAccessDeck(deck.id);
       }
+      final currentPackOwned = await PurchaseStore.isExamPackOwned();
+      if (_usePack && !currentPackOwned) {
+        throw StateError('追加パックの購入を復元してください。');
+      }
       final questions = _selector
           .select(
-            accessibleQuestions: _accessibleQuestions(currentAccess),
+            accessibleQuestions: _accessibleQuestions(currentAccess,
+                packOwned: currentPackOwned),
             selectedUnitIds: _selectedUnits,
             questionCount: _requested,
           )
@@ -299,7 +325,36 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
               : ListView(
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
                   children: [
-                    const Text('4択・穴埋め・正誤判断（○×）・短答記述から出題します。'),
+                    const Text('穴埋め・正誤判断・短答記述・4択（意味理解・活用）を、使える形式の間で均等に出題します。'),
+                    Card(
+                        child: ListTile(
+                      title: Text(_packOwned ? 'テスト対策パック：購入済み' : '全46単元の追加問題'),
+                      subtitle: Text(_packOwned
+                          ? '各単元の4形式を利用できます。'
+                          : '無料40問はそのまま。追加パックは買い切り。価格は購入画面で確認できます。通常の単元購入・Proとは別です。'),
+                      trailing:
+                          _packOwned ? null : const Icon(Icons.chevron_right),
+                      onTap: _packOwned
+                          ? null
+                          : () async {
+                              await Navigator.of(context).push(
+                                  MaterialPageRoute<bool>(
+                                      builder: (_) => const PurchaseScreen()));
+                              if (mounted) await _loadQuestionsAndAccess();
+                            },
+                    )),
+                    if (_packOwned)
+                      SwitchListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: const Text('追加パックから出題'),
+                        subtitle: Text(_usePack
+                            ? '全46単元・736問。各形式4問ずつの追加問題から出題します。'
+                            : '従来の4択と無料40問から出題します。'),
+                        value: _usePack,
+                        onChanged: _active != null
+                            ? null
+                            : (value) => setState(() => _usePack = value),
+                      ),
                     const SizedBox(height: 12),
                     if (_active != null)
                       Card(
@@ -329,7 +384,7 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
                         style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 6),
                     const Text('学校の試験範囲に合わせて単元を選択してください。'
-                        '選択した範囲だけから問題を自動で選びます。'),
+                        '選択した範囲だけから問題を自動で選びます。形式ごとの問題不足時は、偏りを抑えて出題数を減らします。'),
                     Row(
                       children: [
                         TextButton(

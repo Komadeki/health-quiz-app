@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'exam_pack.dart';
 
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:quiz_engine/quiz_engine.dart' as engine;
@@ -47,7 +48,8 @@ class InAppPurchaseGateway implements engine.PurchaseGateway {
       return engine.ProductQueryResult(storeAvailable: false);
     }
 
-    final response = await _iap.queryProductDetails(productIds);
+    final response =
+        await _iap.queryProductDetails({...productIds, examPackProductId});
     products
       ..clear()
       ..addEntries(

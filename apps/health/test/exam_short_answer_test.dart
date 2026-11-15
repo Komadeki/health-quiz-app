@@ -143,6 +143,7 @@ void main() {
     await tester.tap(find.text('採点する'));
     await tester.pumpAndSettle();
     expect(find.textContaining('正解: 3 / 4問'), findsOneWidget);
+    expect(find.text('得点: 75点 / 100点'), findsOneWidget);
     final result = (await ScoreStore.instance.loadAll()).single;
     expect(result.tags!['形式:短答記述']!.wrong, 1);
     expect(result.tags!['形式:穴埋め']!.correct, 1);

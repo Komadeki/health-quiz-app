@@ -1,9 +1,15 @@
 import '../../services/deck_loader.dart';
 import '../../services/gate.dart';
 import 'exam_question.dart';
+import '../../services/purchase_store.dart';
 
 Future<void> ensureExamAccess(Iterable<ExamQuestion> questions) async {
-  final premium = questions.where((q) => q.isPremium).toList();
+  final all = questions.toList(growable: false);
+  if (all.any((q) => q.requiresExamPack) &&
+      !await PurchaseStore.isExamPackOwned()) {
+    throw StateError('テスト対策パックの購入を復元してから再開してください。');
+  }
+  final premium = all.where((q) => q.isPremium).toList();
   if (premium.isEmpty) return;
   await DeckLoader.instance();
   final checked = <String, bool>{};

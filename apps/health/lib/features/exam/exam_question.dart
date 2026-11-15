@@ -18,6 +18,7 @@ class ExamQuestion {
     this.choices = const <String>[],
     this.acceptedAnswers = const <String>[],
     this.isPremium = false,
+    this.requiresExamPack = false,
   });
 
   final String id;
@@ -31,6 +32,7 @@ class ExamQuestion {
   final List<String> choices;
   final List<String> acceptedAnswers;
   final bool isPremium;
+  final bool requiresExamPack;
 
   factory ExamQuestion.fromLegacy(QuizCard card) {
     final unitId = card.unitId;
@@ -106,6 +108,7 @@ class ExamQuestion {
       choices: List.unmodifiable(choices),
       acceptedAnswers: List.unmodifiable(accepted),
       isPremium: json['isPremium'] == true,
+      requiresExamPack: json['requiresExamPack'] == true,
     );
   }
 
@@ -124,6 +127,7 @@ class ExamQuestion {
         'choices': choices,
         'acceptedAnswers': acceptedAnswers,
         'isPremium': isPremium,
+        'requiresExamPack': requiresExamPack,
       };
 
   String get typeLabel => switch (type) {
@@ -148,6 +152,7 @@ class ExamQuestion {
       choices: List.unmodifiable(order.map((i) => choices[i])),
       acceptedAnswers: acceptedAnswers,
       isPremium: isPremium,
+      requiresExamPack: requiresExamPack,
     );
   }
 

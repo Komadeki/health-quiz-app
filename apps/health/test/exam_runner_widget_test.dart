@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 // Retain Flutter 3.47 compatibility while Flutter 3.50 deprecates this import.
 // ignore: deprecated_member_use
 import 'package:flutter/material.dart';
@@ -233,6 +234,8 @@ void main() {
     expect(find.textContaining('正解: 0 / 1問'), findsOneWidget);
     final retry = find.text('間違い・未回答の1問をもう一度');
     await tester.scrollUntilVisible(retry, 300);
+    await tester.ensureVisible(retry);
+    await tester.pumpAndSettle();
     await tester.tap(retry);
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextField), '肝臓');
@@ -330,11 +333,31 @@ void main() {
     });
     final loader = await tester.runAsync(DeckLoader.instance);
     final decks = await loader!.loadAll();
-    await tester.pumpWidget(MaterialApp(home: ExamSetupScreen(decks: decks)));
+    await tester.runAsync(() async {
+      await rootBundle.loadString('assets/exam/exam_pack_v1.json');
+    });
+    await tester.runAsync(() async {
+      await tester.pumpWidget(MaterialApp(home: ExamSetupScreen(decks: decks)));
+      // Large JSON decoding uses a real isolate; fake clock settling cannot
+      // await it. Yield real event-loop turns until the loader completes.
+      for (var i = 0;
+          i < 200 &&
+              find.byType(CircularProgressIndicator).evaluate().isNotEmpty;
+          i++) {
+        await Future<void>.delayed(const Duration(milliseconds: 10));
+        await tester.pump();
+      }
+    });
     await tester.pumpAndSettle();
     await tester.tap(find.text('途中経過を退避して新しく始める'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('退避して続ける'));
+    await tester.runAsync(() async {
+      for (var i = 0; i < 200 && find.text('試験範囲を選択').evaluate().isEmpty; i++) {
+        await Future<void>.delayed(const Duration(milliseconds: 10));
+        await tester.pump();
+      }
+    });
     await tester.pumpAndSettle();
     expect(find.text('試験範囲を選択'), findsOneWidget);
     expect(find.text('途中経過を退避して新しく始める'), findsNothing);
@@ -344,4 +367,55 @@ void main() {
         '{bad');
     expect(tester.takeException(), isNull);
   });
+  for (final packMode in [true, false]) {
+    testWidgets('owned pack uses explicit source switch: $packMode',
+        (tester) async {
+      SharedPreferences.setMockInitialValues({'examPack.owned.v1': true});
+      final loader = await tester.runAsync(DeckLoader.instance);
+      final decks = await loader!.loadAll();
+      await tester.runAsync(() async {
+        await tester
+            .pumpWidget(MaterialApp(home: ExamSetupScreen(decks: decks)));
+        for (var i = 0;
+            i < 200 &&
+                find.byType(CircularProgressIndicator).evaluate().isNotEmpty;
+            i++) {
+          await Future<void>.delayed(const Duration(milliseconds: 10));
+          await tester.pump();
+        }
+      });
+      await tester.pumpAndSettle();
+      final source = find.widgetWithText(SwitchListTile, '追加パックから出題');
+      expect(source, findsOneWidget);
+      if (!packMode) {
+        await tester.tap(source);
+        await tester.pumpAndSettle();
+      }
+      final deckTitle = find.text('現代社会と健康（上）');
+      await tester.scrollUntilVisible(deckTitle, 200);
+      await tester.ensureVisible(deckTitle);
+      await tester.tap(deckTitle);
+      await tester.pumpAndSettle();
+      final unit = find.text('健康の考え方と成り立ち');
+      await tester.ensureVisible(unit);
+      await tester.tap(unit);
+      await tester.pumpAndSettle();
+      final start = find.textContaining('問を自動作成');
+      await tester.scrollUntilVisible(start, 300);
+      await tester.ensureVisible(start);
+      await tester.pumpAndSettle();
+      await tester.tap(start);
+      await tester.pumpAndSettle();
+      final runner =
+          tester.widget<ExamRunnerScreen>(find.byType(ExamRunnerScreen));
+      expect(runner.questions, isNotEmpty);
+      expect(runner.questions.every((q) => q.requiresExamPack == packMode),
+          isTrue);
+      if (packMode) {
+        expect(runner.questions, hasLength(10));
+        expect(runner.questions.map((q) => q.type).toSet(),
+            ExamQuestionType.values.toSet());
+      }
+    });
+  }
 }

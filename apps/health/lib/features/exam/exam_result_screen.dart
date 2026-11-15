@@ -66,6 +66,8 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
           child: ListView(padding: const EdgeInsets.all(20), children: [
         Text('正解: $score / $total問  (${(score * 100 / total).round()}%)',
             style: Theme.of(context).textTheme.headlineSmall),
+        Text('得点: ${(score * 100 / total).round()}点 / 100点',
+            style: Theme.of(context).textTheme.titleLarge),
         const Text('成績を保存しました'),
         const SizedBox(height: 20),
         Text('単元別', style: Theme.of(context).textTheme.titleLarge),
