@@ -152,6 +152,42 @@ void main() {
     await PurchaseStore.setExamPackOwned(false);
     await expectLater(ensureExamAccess(pack), throwsStateError);
   });
+  test('pack purchase and restore preserve every existing purchase cache',
+      () async {
+    SharedPreferences.setMockInitialValues({
+      'ownedDeckIds': ['deck_m01', 'deck_m08'],
+      'fivePack.owned': true,
+      'fivePack.selectedDecks': [
+        'deck_m02',
+        'deck_m03',
+        'deck_m04',
+        'deck_m05',
+        'deck_m06'
+      ],
+      'proUpgrade': true,
+    });
+    final prefs = await SharedPreferences.getInstance();
+    final before = {for (final key in prefs.getKeys()) key: prefs.get(key)};
+    final gateway = _Gateway();
+    for (final status in PurchaseResultStatus.values) {
+      await handleExamPackPurchase(
+          PurchaseResult(
+              eventId: 'preserve-$status',
+              productId: examPackProductId,
+              status: status,
+              pendingCompletePurchase: true),
+          gateway);
+      for (final entry in before.entries) {
+        expect(prefs.get(entry.key), entry.value,
+            reason: '$status: ${entry.key}');
+      }
+    }
+    expect(await PurchaseStore.isPro(), isTrue);
+    expect(await PurchaseStore.ownedDeckIds(),
+        containsAll(['deck_m01', 'deck_m08']));
+    expect(await PurchaseStore.getFivePackDecks(),
+        {'deck_m02', 'deck_m03', 'deck_m04', 'deck_m05', 'deck_m06'});
+  });
   for (final status in PurchaseResultStatus.values) {
     test('pack $status grants rights only for purchase and restore', () async {
       final gateway = _Gateway();
