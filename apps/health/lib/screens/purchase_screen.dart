@@ -553,8 +553,8 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 leading: const Icon(Icons.quiz_outlined),
                 title: const Text('テスト対策パック（買い切り）'),
                 subtitle: Text(_examPackOwned
-                    ? '購入済み・全46単元552問を利用できます'
-                    : '${_safePrice(examPackProductId)}\n全46単元552問、各単元に4択・穴埋め・正誤・短答を各3問。通常の単元解放・Proとは別の商品です。無料40問は引き続き利用できます。'),
+                    ? '購入済み・全46単元736問を利用できます'
+                    : '${_safePrice(examPackProductId)}\n全46単元736問、各単元に4択・穴埋め・正誤・短答を各4問。通常の単元解放・Proとは別の商品です。無料40問は引き続き利用できます。'),
                 trailing: _examPackOwned
                     ? _purchasedChip()
                     : _buyButton(examPackProductId),

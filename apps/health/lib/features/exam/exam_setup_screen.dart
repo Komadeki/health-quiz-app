@@ -348,7 +348,7 @@ class _ExamSetupScreenState extends State<ExamSetupScreen> {
                         contentPadding: EdgeInsets.zero,
                         title: const Text('追加パックから出題'),
                         subtitle: Text(_usePack
-                            ? '全46単元・552問。各形式3問ずつの追加問題から出題します。'
+                            ? '全46単元・736問。各形式4問ずつの追加問題から出題します。'
                             : '従来の4択と無料40問から出題します。'),
                         value: _usePack,
                         onChanged: _active != null
