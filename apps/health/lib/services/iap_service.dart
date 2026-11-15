@@ -7,6 +7,7 @@ import 'package:quiz_engine/quiz_engine.dart' as engine;
 import '../quiz_app_definition.dart';
 import 'in_app_purchase_gateway.dart';
 import 'purchase_store.dart';
+import 'exam_pack.dart';
 import 'shared_preferences_entitlement_cache.dart';
 
 /// ストアに登録した productId と**完全一致**させること
@@ -54,6 +55,7 @@ class IapService with ChangeNotifier {
   final Set<String> _ownedDeckIds = <String>{};
 
   /// Pro フラグ
+  bool _examPackOwned = false;
   bool _isPro = false;
   bool get isPro => _isPro;
 
@@ -152,6 +154,10 @@ class IapService with ChangeNotifier {
     if (!isReady) {
       throw StateError('Store not ready (isReady=false)');
     }
+    if (productId == examPackProductId) {
+      await _gateway.purchase(productId);
+      return;
+    }
     await _coordinator.purchase(productId);
   }
 
@@ -164,6 +170,7 @@ class IapService with ChangeNotifier {
   Future<void> _reloadOwnershipFromStore() async {
     // ★ ここで未選択なら自動割り当てを実施（サイレント修復）
     await PurchaseStore.autoAssignFivePackIfOwnedAndEmpty();
+    _examPackOwned = await PurchaseStore.isExamPackOwned();
     final snapshot = await _coordinator.loadCachedEntitlements();
     _applySnapshot(snapshot);
     notifyListeners();
@@ -175,6 +182,11 @@ class IapService with ChangeNotifier {
       'purchase updated: id=${result.productId}, status=${result.status}',
     );
     try {
+      if (await handleExamPackPurchase(result, _gateway)) {
+        _examPackOwned = await PurchaseStore.isExamPackOwned();
+        notifyListeners();
+        return;
+      }
       final snapshot = await _coordinator.handlePurchaseResult(result);
       final granted = result.status == engine.PurchaseResultStatus.purchased ||
           result.status == engine.PurchaseResultStatus.restored;
@@ -206,6 +218,7 @@ class IapService with ChangeNotifier {
 
   // ---- 所有判定API（UI用）：この productId は購入済みか？ ----
   bool isOwnedProduct(String productId) {
+    if (productId == examPackProductId) return _examPackOwned;
     if (productId == ProductCatalog.pro) return _isPro;
 
     if (productId == ProductCatalog.bundleAll) {

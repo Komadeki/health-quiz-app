@@ -40,6 +40,17 @@ class PurchaseStore {
     await _write(sp, () => sp.setBool(_kPro, v));
   }
 
+  // Independent exam pack. Existing products never imply this entitlement.
+  static Future<bool> isExamPackOwned() async {
+    final sp = await SharedPreferences.getInstance();
+    return sp.getBool('examPack.owned.v1') ?? false;
+  }
+
+  static Future<void> setExamPackOwned(bool owned) async {
+    final sp = await SharedPreferences.getInstance();
+    await _write(sp, () => sp.setBool('examPack.owned.v1', owned));
+  }
+
   // ========== Decks（単体デッキの所有）==========
   static Future<List<String>> ownedDeckIds() async {
     final sp = await SharedPreferences.getInstance();

@@ -100,6 +100,34 @@ void main() {
         2);
   });
 
+  test('shortage reduces length instead of padding one format', () {
+    final bank = [
+      for (var i = 0; i < 30; i++)
+        sample('choice-$i', 'u', ExamQuestionType.choice),
+      for (final type in [
+        ExamQuestionType.fill,
+        ExamQuestionType.trueFalse,
+        ExamQuestionType.shortAnswer
+      ])
+        for (var i = 0; i < 3; i++) sample('$type-$i', 'u', type),
+    ];
+    final selected = selector.select(
+        accessibleQuestions: bank, selectedUnitIds: {'u'}, questionCount: 30);
+    final counts = ExamQuestionType.values
+        .map((t) => selected.where((q) => q.type == t).length)
+        .toList();
+    expect(selected, hasLength(13));
+    expect(counts.reduce(max) - counts.reduce(min), lessThanOrEqualTo(1));
+    expect(
+        selector
+            .availableCount(accessibleQuestions: bank, selectedUnitIds: {'u'}),
+        selected.length);
+    expect(
+        selector.select(
+            accessibleQuestions: [], selectedUnitIds: {'u'}, questionCount: 10),
+        isEmpty);
+  });
+
   test('fill accepts only documented aliases and typographic normalization',
       () {
     const q = ExamQuestion(

@@ -23,11 +23,14 @@ class ExamRangeSelector {
     final candidates = <ExamQuestion>[];
     for (final q in accessibleQuestions) {
       if (!selectedUnitIds.contains(q.unitId) ||
-          !ids.add(q.id) || !prompts.add(q.question.trim())) {
+          !ids.add(q.id) ||
+          !prompts.add(q.question.trim())) {
         continue;
       }
       candidates.add(q);
     }
+
+    if (candidates.isEmpty) return const [];
 
     final units = selectedUnitIds.toList(growable: false)..shuffle(rng);
     final byType = <ExamQuestionType, Map<String, List<ExamQuestion>>>{};
@@ -51,22 +54,29 @@ class ExamRangeSelector {
     final unitCounts = {
       for (final unit in units) unit: 0,
     };
+    final representedTypes = candidates.map((q) => q.type).toSet();
     final result = <ExamQuestion>[];
 
     while (result.length < questionCount) {
+      final minimum =
+          representedTypes.map((type) => typeCounts[type]!).reduce(min);
       final types = ExamQuestionType.values
-          .where((type) => byType[type]!.values.any((pool) => pool.isNotEmpty))
+          .where((type) =>
+              typeCounts[type]! <= minimum &&
+              byType[type]!.values.any((pool) => pool.isNotEmpty))
           .toList(growable: false);
       if (types.isEmpty) break;
 
       // Prefer underrepresented formats, then underrepresented units.
-      // Choice is the first tie-breaker, so a test remains usable when the
-      // authored fill/true-false bank is still small.
+      // A depleted format still constrains the others: never pad a shortage
+      // with only choice questions. The displayed counts differ by at most one.
       types.sort((a, b) => typeCounts[a]!.compareTo(typeCounts[b]!));
       final chosenType = types.first;
-      final matchingUnits = units.where(
-        (id) => byType[chosenType]![id]!.isNotEmpty,
-      ).toList(growable: false);
+      final matchingUnits = units
+          .where(
+            (id) => byType[chosenType]![id]!.isNotEmpty,
+          )
+          .toList(growable: false);
       matchingUnits.sort((a, b) => unitCounts[a]!.compareTo(unitCounts[b]!));
       final unit = matchingUnits.first;
       result.add(byType[chosenType]![unit]!.removeLast());
@@ -84,14 +94,17 @@ class ExamRangeSelector {
     // Pure O(n) count; never run the full selection algorithm during rebuild.
     final ids = <String>{};
     final prompts = <String>{};
-    var count = 0;
+    final counts = <ExamQuestionType, int>{};
     for (final q in accessibleQuestions) {
       if (!selectedUnitIds.contains(q.unitId) ||
-          !ids.add(q.id) || !prompts.add(q.question.trim())) {
+          !ids.add(q.id) ||
+          !prompts.add(q.question.trim())) {
         continue;
       }
-      count++;
+      counts.update(q.type, (n) => n + 1, ifAbsent: () => 1);
     }
-    return count;
+    if (counts.isEmpty) return 0;
+    final limit = counts.values.reduce(min) + 1;
+    return counts.values.fold(0, (sum, count) => sum + min(count, limit));
   }
 }
