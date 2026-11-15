@@ -98,3 +98,9 @@
 - https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/shokuhin/haccp/
 - https://www.meti.go.jp/policy/recycle/main/admin_info/law/04/index.html
 - https://www.jrc.or.jp/vcms_lf/kyukyu20120801-4.pdf
+
+## 提出準備の確定記録
+
+1.2.0（105）の販売用IPAはFake IAPフラグを付けずに作成し、ZIP・署名・135件のリリースソース一致と552問アセットを照合。Apple Transporterで2026年11月15日12:35（日本時間）にデリバリ済み・Apple側処理中を確認。1.1.0（104）の審査待ち・自動公開設定は保持。
+
+新バージョン作成には現行版がReady for Distributionである必要があるため、1.2.0の本審査提出は104の配信可能状態を待つ。[Appleの新バージョン作成手順](https://developer.apple.com/help/app-store-connect/update-your-app/create-a-new-version)。
