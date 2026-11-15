@@ -6,6 +6,7 @@ import 'exam_question.dart';
 import 'exam_result_question_card.dart';
 import 'exam_runner_screen.dart';
 import 'exam_session.dart';
+import 'exam_score_summary.dart';
 import 'exam_session_store.dart';
 
 class ExamResultScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class ExamResultScreen extends StatefulWidget {
 
 class _ExamResultScreenState extends State<ExamResultScreen> {
   bool _retrying = false;
+  bool _onlyMistakes = false;
   ExamSession get session => widget.session;
   Future<void> _retry(
       BuildContext context, List<ExamQuestion> questions) async {
@@ -52,6 +54,9 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
         questions.where((q) => !q.isCorrect(session.responses[q.id])).toList();
     final total = questions.length;
     final score = session.score;
+    final unanswered = questions
+        .where((q) => session.responses[q.id]?.trim().isNotEmpty != true)
+        .length;
     final units = {for (final q in questions) q.unitId};
     String summary(Iterable<ExamQuestion> items) {
       final list = items.toList();
@@ -64,42 +69,69 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
       appBar: AppBar(title: const Text('テスト結果')),
       body: SafeArea(
           child: ListView(padding: const EdgeInsets.all(20), children: [
-        Text('正解: $score / $total問  (${(score * 100 / total).round()}%)',
-            style: Theme.of(context).textTheme.headlineSmall),
-        Text('得点: ${(score * 100 / total).round()}点 / 100点',
-            style: Theme.of(context).textTheme.titleLarge),
-        const Text('成績を保存しました'),
-        const SizedBox(height: 20),
-        Text('単元別', style: Theme.of(context).textTheme.titleLarge),
-        for (final unit in units)
-          ListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text(session.unitTitles[unit] ?? unit),
-              subtitle:
-                  Text(summary(questions.where((q) => q.unitId == unit)))),
-        Text('形式別', style: Theme.of(context).textTheme.titleLarge),
-        for (final type in ExamQuestionType.values)
-          if (questions.any((q) => q.type == type))
-            ListTile(
-                contentPadding: EdgeInsets.zero,
-                title:
-                    Text(questions.firstWhere((q) => q.type == type).typeLabel),
-                subtitle:
-                    Text(summary(questions.where((q) => q.type == type)))),
-        const SizedBox(height: 20),
-        Text('問題ごとの結果', style: Theme.of(context).textTheme.titleLarge),
-        for (var i = 0; i < total; i++)
-          ResultQuestionCard(
-              index: i + 1,
-              question: questions[i],
-              response: session.responses[questions[i].id]),
+        ExamScoreSummary(correct: score, total: total, unanswered: unanswered),
         const SizedBox(height: 16),
         if (incorrect.isNotEmpty)
           FilledButton.icon(
               onPressed: _retrying ? null : () => _retry(context, incorrect),
               icon: const Icon(Icons.refresh),
               label: Text('間違い・未回答の${incorrect.length}問をもう一度')),
-        const SizedBox(height: 12),
+        const SizedBox(height: 20),
+        Text('形式別', style: Theme.of(context).textTheme.titleLarge),
+        for (final type in ExamQuestionType.values)
+          if (questions.any((q) => q.type == type))
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        '${questions.firstWhere((q) => q.type == type).typeLabel}  '
+                        '${summary(questions.where((q) => q.type == type))}'),
+                    const SizedBox(height: 6),
+                    LinearProgressIndicator(
+                        value: questions
+                                .where((q) =>
+                                    q.type == type &&
+                                    q.isCorrect(session.responses[q.id]))
+                                .length /
+                            questions.where((q) => q.type == type).length,
+                        semanticsLabel:
+                            '${questions.firstWhere((q) => q.type == type).typeLabel}の正答率'),
+                  ]),
+            ),
+        ExpansionTile(
+          tilePadding: EdgeInsets.zero,
+          title: const Text('単元別'),
+          children: [
+            for (final unit in units)
+              ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(session.unitTitles[unit] ?? unit),
+                  subtitle:
+                      Text(summary(questions.where((q) => q.unitId == unit))))
+          ],
+        ),
+        const SizedBox(height: 20),
+        Text('問題ごとの結果', style: Theme.of(context).textTheme.titleLarge),
+        SwitchListTile.adaptive(
+          contentPadding: EdgeInsets.zero,
+          title: const Text('間違い・未回答だけ表示'),
+          value: _onlyMistakes,
+          onChanged: (value) => setState(() => _onlyMistakes = value),
+        ),
+        if (_onlyMistakes && incorrect.isEmpty)
+          const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: Text('全問正解です。見直す問題はありません。')),
+        for (var i = 0; i < total; i++)
+          if (!_onlyMistakes ||
+              !questions[i].isCorrect(session.responses[questions[i].id]))
+            ResultQuestionCard(
+                index: i + 1,
+                question: questions[i],
+                response: session.responses[questions[i].id]),
+        const SizedBox(height: 16),
         OutlinedButton(
             onPressed: () => Navigator.of(context).pop(),
             child: const Text('戻る')),
