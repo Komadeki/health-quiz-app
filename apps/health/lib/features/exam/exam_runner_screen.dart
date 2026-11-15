@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'exam_question.dart';
+import 'exam_text_styles.dart';
 import 'exam_session.dart';
 import 'exam_session_store.dart';
 import 'exam_access.dart';
@@ -215,8 +216,7 @@ class _ExamRunnerScreenState extends State<ExamRunnerScreen>
                           '${widget.unitTitles[q.unitId] ?? q.unitId} · ${q.typeLabel}',
                           style: Theme.of(context).textTheme.labelLarge),
                       const SizedBox(height: 14),
-                      Text(q.question,
-                          style: Theme.of(context).textTheme.titleLarge),
+                      Text(q.question, style: examQuestionStyle),
                       const SizedBox(height: 24),
                       if (q.type == ExamQuestionType.choice)
                         for (var i = 0; i < q.choices.length; i++)
@@ -225,7 +225,19 @@ class _ExamRunnerScreenState extends State<ExamRunnerScreen>
                               leading: Icon(selected == i.toString()
                                   ? Icons.radio_button_checked
                                   : Icons.radio_button_unchecked),
-                              title: Text(q.choices[i]),
+                              selected: selected == i.toString(),
+                              selectedColor: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer,
+                              selectedTileColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 10),
+                              title:
+                                  Text(q.choices[i], style: examReadingStyle),
                               onTap: _busy ? null : () => _answer(i.toString()),
                             ),
                           ),
@@ -258,6 +270,10 @@ class _ExamRunnerScreenState extends State<ExamRunnerScreen>
                           q.type == ExamQuestionType.shortAnswer)
                         TextField(
                           controller: _text,
+                          style: examReadingStyle,
+                          minLines: 1,
+                          maxLines: 3,
+                          textInputAction: TextInputAction.done,
                           enabled: !_busy,
                           onChanged: _answer,
                           decoration: InputDecoration(
@@ -274,22 +290,22 @@ class _ExamRunnerScreenState extends State<ExamRunnerScreen>
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16),
-                  child: Row(
+                  child: OverflowBar(
+                    spacing: 12,
+                    overflowSpacing: 8,
+                    alignment: MainAxisAlignment.spaceBetween,
                     children: [
                       if (_index > 0) ...[
                         OutlinedButton(
                           onPressed: _busy ? null : _back,
                           child: const Text('前の問題'),
                         ),
-                        const SizedBox(width: 12),
                       ],
-                      Expanded(
-                        child: FilledButton(
-                          onPressed: _busy ? null : _next,
-                          child: Text(_index + 1 == widget.questions.length
-                              ? (_session.submitted ? '結果の保存を再試行' : '採点する')
-                              : '次の問題へ'),
-                        ),
+                      FilledButton(
+                        onPressed: _busy ? null : _next,
+                        child: Text(_index + 1 == widget.questions.length
+                            ? (_session.submitted ? '結果の保存を再試行' : '採点する')
+                            : '次の問題へ'),
                       ),
                     ],
                   ),

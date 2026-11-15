@@ -2,6 +2,7 @@
 // ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'exam_question.dart';
+import 'exam_text_styles.dart';
 
 class ResultQuestionCard extends StatelessWidget {
   const ResultQuestionCard(
@@ -69,7 +70,7 @@ class ResultQuestionCard extends StatelessWidget {
                       style: theme.textTheme.labelLarge),
                 ]),
             const SizedBox(height: 12),
-            Text(question.question, style: theme.textTheme.titleMedium),
+            Text(question.question, style: examQuestionStyle),
             const SizedBox(height: 16),
             LayoutBuilder(builder: (context, constraints) {
               final answers = [
@@ -102,7 +103,7 @@ class ResultQuestionCard extends StatelessWidget {
             const SizedBox(height: 16),
             Text('解説', style: theme.textTheme.labelLarge),
             const SizedBox(height: 4),
-            Text(question.explanation),
+            Text(question.explanation, style: examReadingStyle),
           ])),
     );
   }
@@ -124,7 +125,7 @@ class _Answer extends StatelessWidget {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(label, style: Theme.of(context).textTheme.labelMedium),
               const SizedBox(height: 4),
-              Text(text, style: Theme.of(context).textTheme.titleMedium),
+              Text(text, style: examReadingStyle),
             ])),
       );
 }

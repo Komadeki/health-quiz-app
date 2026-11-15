@@ -30,6 +30,7 @@ import 'screens/review_menu_screen.dart'; // ← 先頭の import 群に追加
 import 'screens/purchase_screen.dart';
 
 import 'utils/logger.dart';
+import 'utils/app_text_scaler.dart';
 
 // 続きから用
 import 'package:shared_preferences/shared_preferences.dart';
@@ -116,9 +117,9 @@ class MyApp extends StatelessWidget {
       themeMode: s.themeMode,
       builder: (context, child) {
         final mq = MediaQuery.of(context);
-        // AppSettings の textScaleFactor を適用
+        // Preserve system accessibility scaling and the in-app preference.
         return MediaQuery(
-          data: mq.copyWith(textScaler: TextScaler.linear(s.textScaleFactor)),
+          data: mq.copyWith(textScaler: AppTextScaler(mq.textScaler, s.textScaleFactor)),
           child: child!,
         );
       },

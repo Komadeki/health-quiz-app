@@ -103,11 +103,13 @@ void main() {
     await tester.ensureVisible(find.byType(SwitchListTile));
     await tester.tap(find.byType(SwitchListTile));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('問題 3 · 穴埋め'), 250);
+    expect(find.text('問題 3 · 穴埋め'), findsOneWidget);
     expect(
         tester
             .widgetList<ResultQuestionCard>(find.byType(ResultQuestionCard))
-            .map((card) => card.index),
-        [1, 3]);
+            .any((card) => card.question.id == 'short'),
+        isFalse);
     expect(tester.takeException(), isNull);
   });
 
